@@ -21,16 +21,25 @@
             src: url("assets/MultiCraftFont.ttf") format("truetype");
         }
 
-        .logo-font {
+        * {
             font-family: "MultiCraft", sans-serif;
-            letter-spacing: 1px;
+            box-sizing: border-box;
         }
 
+        html,
         body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
             background:
                 radial-gradient(circle at top, rgba(255,120,0,0.15), transparent 30%),
                 radial-gradient(circle at bottom, rgba(255,215,0,0.12), transparent 30%),
                 #07090f;
+            color: white;
+        }
+
+        body {
+            min-height: 100vh;
         }
 
         .glass {
@@ -51,7 +60,6 @@
         .active-tab {
             background: linear-gradient(to right, #ff7b00, #ffcc00);
             color: black;
-            font-weight: bold;
             box-shadow:
                 0 0 15px rgba(255,140,0,0.4),
                 0 0 30px rgba(255,200,0,0.2);
@@ -67,7 +75,7 @@
         }
 
         input::placeholder {
-            color: rgba(255,255,255,0.4);
+            color: rgba(255,255,255,0.45);
         }
 
         select {
@@ -76,7 +84,6 @@
 
         .tier-ht1 {
             color: #ffd700;
-            font-weight: bold;
             text-shadow:
                 0 0 10px rgba(255,215,0,0.8),
                 0 0 20px rgba(255,140,0,0.5);
@@ -84,35 +91,60 @@
 
         .tier-lt1 {
             color: #ff9d00;
-            font-weight: bold;
         }
 
         .tier-ht2 {
             color: #ff5e00;
-            font-weight: bold;
         }
 
         .tier-default {
             color: #d4d4d4;
         }
 
+        .mobile-title {
+            line-height: 1.3;
+        }
+
+        @media (max-width: 768px) {
+
+            .mobile-title {
+                font-size: 28px !important;
+            }
+
+            input,
+            select,
+            button {
+                font-size: 12px !important;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th,
+            td {
+                padding: 12px !important;
+            }
+
+        }
+
     </style>
 
 </head>
 
-<body class="text-white min-h-screen">
+<body>
 
     <header class="glass sticky top-0 z-50 border-b border-orange-500/20">
 
         <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-4">
 
-            <div class="flex items-center justify-between">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
 
-                <h1 class="logo-font text-2xl md:text-4xl font-black bg-gradient-to-r from-orange-400 to-yellow-300 bg-clip-text text-transparent">
+                <h1 class="mobile-title text-3xl md:text-5xl bg-gradient-to-r from-orange-400 to-yellow-300 bg-clip-text text-transparent">
                     MultiCraft CIS Tiers
                 </h1>
 
-                <span class="text-xs md:text-sm text-zinc-400">
+                <span class="text-xs text-zinc-400">
                     СНГ PvP Ranking Platform
                 </span>
 
@@ -124,12 +156,12 @@
                     id="searchInput"
                     type="text"
                     placeholder="Поиск игроков..."
-                    class="logo-font glass px-4 py-3 rounded-xl outline-none w-full"
+                    class="glass px-4 py-3 rounded-xl outline-none w-full"
                 >
 
                 <select
                     id="countryFilter"
-                    class="logo-font glass px-4 py-3 rounded-xl outline-none w-full"
+                    class="glass px-4 py-3 rounded-xl outline-none w-full"
                 >
 
                     <option value="">Все страны</option>
@@ -150,7 +182,7 @@
 
                 <select
                     id="kitFilter"
-                    class="logo-font glass px-4 py-3 rounded-xl outline-none w-full"
+                    class="glass px-4 py-3 rounded-xl outline-none w-full"
                 >
 
                     <option value="">Все киты</option>
@@ -167,7 +199,7 @@
 
                 <select
                     id="deviceFilter"
-                    class="logo-font glass px-4 py-3 rounded-xl outline-none w-full"
+                    class="glass px-4 py-3 rounded-xl outline-none w-full"
                 >
 
                     <option value="">Все устройства</option>
@@ -185,28 +217,28 @@
             <div class="flex flex-wrap gap-3">
 
                 <button
-                    class="tab-btn logo-font active-tab px-5 py-3 rounded-xl transition-all duration-300"
+                    class="tab-btn active-tab px-5 py-3 rounded-xl transition-all duration-300"
                     data-tab="leaderboard"
                 >
                     Таблица лидеров
                 </button>
 
                 <button
-                    class="tab-btn logo-font glass px-5 py-3 rounded-xl transition-all duration-300"
+                    class="tab-btn glass px-5 py-3 rounded-xl transition-all duration-300"
                     data-tab="honors"
                 >
                     Доска почета
                 </button>
 
                 <button
-                    class="tab-btn logo-font glass px-5 py-3 rounded-xl transition-all duration-300"
+                    class="tab-btn glass px-5 py-3 rounded-xl transition-all duration-300"
                     data-tab="testers"
                 >
                     Тир-тестеры
                 </button>
 
                 <button
-                    class="tab-btn logo-font glass px-5 py-3 rounded-xl transition-all duration-300"
+                    class="tab-btn glass px-5 py-3 rounded-xl transition-all duration-300"
                     data-tab="guide"
                 >
                     Гайд
@@ -261,26 +293,25 @@
 
                 <div class="glass rounded-2xl p-6">
 
-                    <h2 class="logo-font text-2xl text-orange-300 mb-3">
+                    <h2 class="text-2xl text-orange-300 mb-4">
                         LegendaryPvP
                     </h2>
 
-                    <p class="text-zinc-300 leading-7">
+                    <p class="text-zinc-300 leading-8">
                         Один из основателей СНГ PvP сцены MultiCraft.
-                        Организовал турниры и продвигал tier-систему.
+                        Организовывал турниры и развивал tier-систему.
                     </p>
 
                 </div>
 
                 <div class="glass rounded-2xl p-6">
 
-                    <h2 class="logo-font text-2xl text-orange-300 mb-3">
+                    <h2 class="text-2xl text-orange-300 mb-4">
                         SwordMaster
                     </h2>
 
-                    <p class="text-zinc-300 leading-7">
-                        Легенда Sword PvP.
-                        Помог развитию PvP-комьюнити СНГ региона.
+                    <p class="text-zinc-300 leading-8">
+                        Легенда Sword PvP и тренер множества игроков СНГ.
                     </p>
 
                 </div>
@@ -295,48 +326,48 @@
 
                 <div class="glass rounded-2xl p-6">
 
-                    <h2 class="logo-font text-2xl text-orange-300 mb-3">
+                    <h2 class="text-2xl text-orange-300 mb-4">
                         BlazeTester
                     </h2>
 
-                    <p class="text-zinc-400 mb-2">
+                    <p class="text-zinc-400 mb-3">
                         Discord: blaze#1337
                     </p>
 
                     <p class="text-zinc-300">
-                        Проверяет: Vanilla, Sword, UHC
+                        Vanilla, Sword, UHC
                     </p>
 
                 </div>
 
                 <div class="glass rounded-2xl p-6">
 
-                    <h2 class="logo-font text-2xl text-orange-300 mb-3">
+                    <h2 class="text-2xl text-orange-300 mb-4">
                         MaceKing
                     </h2>
 
-                    <p class="text-zinc-400 mb-2">
+                    <p class="text-zinc-400 mb-3">
                         Discord: maceking#2024
                     </p>
 
                     <p class="text-zinc-300">
-                        Проверяет: Mace, Axe
+                        Mace, Axe
                     </p>
 
                 </div>
 
                 <div class="glass rounded-2xl p-6">
 
-                    <h2 class="logo-font text-2xl text-orange-300 mb-3">
+                    <h2 class="text-2xl text-orange-300 mb-4">
                         PotMaster
                     </h2>
 
-                    <p class="text-zinc-400 mb-2">
+                    <p class="text-zinc-400 mb-3">
                         Discord: potmaster#7777
                     </p>
 
                     <p class="text-zinc-300">
-                        Проверяет: Pot, NethOP
+                        Pot, NethOP
                     </p>
 
                 </div>
@@ -349,18 +380,18 @@
 
             <div class="glass rounded-2xl p-6">
 
-                <h2 class="logo-font text-3xl text-orange-300 mb-6">
+                <h2 class="text-3xl text-orange-300 mb-6">
                     Гайд по системе тиров
                 </h2>
 
-                <div class="space-y-3 text-zinc-300">
+                <div class="space-y-4 text-zinc-300 leading-8">
 
                     <p>HT1 — Элита СНГ PvP</p>
                     <p>LT1 — Очень высокий уровень</p>
                     <p>HT2 — Турнирный уровень</p>
                     <p>LT2 — Сильный игрок</p>
                     <p>HT3 — Выше среднего</p>
-                    <p>LT3 — Средний PvP уровень</p>
+                    <p>LT3 — Средний уровень</p>
                     <p>HT4 — Новичок+</p>
                     <p>LT4 — Базовый уровень</p>
                     <p>HT5 — Начинающий</p>
@@ -378,4 +409,4 @@
 
 </body>
 
-                </html>
+                                </html>
