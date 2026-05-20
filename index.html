@@ -216,65 +216,232 @@
 
             </div>
 
-        </section>
+<!DOCTYPE html>
+<html lang="ru">
 
-        <section id="honorsTab" class="hidden">
+<head>
 
-            <div
-                id="honorsContainer"
-                class="grid md:grid-cols-2 gap-6"
-            ></div>
+    <meta charset="UTF-8" />
 
-        </section>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    />
 
-        <section id="testersTab" class="hidden">
+    <title>MultiCraft CIS Tiers</title>
 
-            <div
-                id="testersContainer"
-                class="grid md:grid-cols-3 gap-6"
-            ></div>
+    <script src="https://cdn.tailwindcss.com"></script>
 
-        </section>
+    <style>
 
-        <section id="guideTab" class="hidden">
+    @font-face {
+        font-family: "MultiCraft";
+        src: url("assets/MultiCraftFont.ttf") format("truetype");
+    }
 
-            <div class="glass rounded-2xl p-6 leading-8">
+    .logo-font {
+        font-family: "MultiCraft", sans-serif;
+        letter-spacing: 1px;
+    }
 
-                <h2 class="logo-font text-3xl font-black mb-6 text-orange-300">
-                    Гайд по системе тиров
-                </h2>
+    body {
+        background:
+            radial-gradient(circle at top, rgba(255,120,0,0.15), transparent 30%),
+            radial-gradient(circle at bottom, rgba(255,215,0,0.12), transparent 30%),
+            #07090f;
+    }
 
-                <p class="text-zinc-300">
-                    HT = High Tier
-                </p>
+    .glass {
+        background: rgba(15, 20, 30, 0.7);
+        backdrop-filter: blur(14px);
+        border: 1px solid rgba(255,255,255,0.08);
+    }
 
-                <p class="text-zinc-300">
-                    LT = Low Tier
-                </p>
+    .tier-glow {
+        box-shadow:
+            0 0 20px rgba(255,140,0,0.35),
+            0 0 40px rgba(255,215,0,0.15);
+    }
 
-                <div class="mt-6 space-y-3">
+    .hover-row {
+        transition: all 0.3s ease;
+    }
 
-                    <div>HT1 — Элита СНГ PvP</div>
-                    <div>LT1 — Очень высокий уровень</div>
-                    <div>HT2 — Турнирный уровень</div>
-                    <div>LT2 — Сильный игрок</div>
-                    <div>HT3 — Выше среднего</div>
-                    <div>LT3 — Средний PvP уровень</div>
-                    <div>HT4 — Новичок+</div>
-                    <div>LT4 — Базовый уровень</div>
-                    <div>HT5 — Начинающий</div>
-                    <div>LT5 — Первый PvP опыт</div>
+    .hover-row:hover {
+        transform: translateY(-2px);
+        background: rgba(255,255,255,0.04);
+    }
 
-                </div>
+    .active-tab {
+        background: linear-gradient(to right, #ff7b00, #ffcc00);
+        color: black;
+        font-weight: bold;
+    }
 
-            </div>
+    .scrollbar::-webkit-scrollbar {
+        height: 8px;
+    }
 
-        </section>
+    .scrollbar::-webkit-scrollbar-thumb {
+        background: #ff8800;
+        border-radius: 999px;
+    }
 
-    </main>
+    select {
+        appearance: none;
+    }
 
-    <script src="app.js"></script>
+    input::placeholder {
+        color: rgba(255,255,255,0.45);
+    }
 
-</body>
+    </style>
 
-    </html>
+</head>
+
+<body class="text-white min-h-screen">
+
+<header class="glass sticky top-0 z-50 border-b border-orange-500/20">
+
+    <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-4">
+
+        <div class="flex items-center justify-between">
+
+            <h1 class="logo-font text-2xl md:text-4xl font-black bg-gradient-to-r from-orange-400 to-yellow-300 bg-clip-text text-transparent">
+                MultiCraft CIS Tiers
+            </h1>
+
+            <span class="logo-font text-xs md:text-sm text-zinc-400">
+                СНГ PvP Ranking Platform
+            </span>
+
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-3">
+
+            <input
+                id="searchInput"
+                type="text"
+                placeholder="Поиск игроков..."
+                class="logo-font glass px-4 py-3 rounded-xl outline-none w-full"
+            />
+
+            <select
+                id="countryFilter"
+                class="logo-font glass px-4 py-3 rounded-xl outline-none w-full"
+            >
+                <option value="">Все страны</option>
+
+                <option value="RU">RU</option>
+                <option value="BY">BY</option>
+                <option value="KZ">KZ</option>
+                <option value="AM">AM</option>
+                <option value="AZ">AZ</option>
+                <option value="KG">KG</option>
+                <option value="MD">MD</option>
+                <option value="TJ">TJ</option>
+                <option value="UZ">UZ</option>
+                <option value="TM">TM</option>
+                <option value="UA">UA</option>
+            </select>
+
+            <select
+                id="kitFilter"
+                class="logo-font glass px-4 py-3 rounded-xl outline-none w-full"
+            >
+                <option value="">Все киты</option>
+
+                <option value="Vanilla">Vanilla</option>
+                <option value="Mace">Mace</option>
+                <option value="Sword">Sword</option>
+                <option value="Axe">Axe</option>
+                <option value="UHC">UHC</option>
+                <option value="Pot">Pot</option>
+                <option value="NethOP">NethOP</option>
+            </select>
+
+            <select
+                id="deviceFilter"
+                class="logo-font glass px-4 py-3 rounded-xl outline-none w-full"
+            >
+                <option value="">Все устройства</option>
+
+                <option value="Phone">Phone</option>
+                <option value="Tablet">Tablet</option>
+                <option value="PC">PC</option>
+                <option value="Otg">Otg</option>
+                <option value="Controller">Controller</option>
+            </select>
+
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+
+            <button
+                class="tab-btn logo-font active-tab px-5 py-3 rounded-xl transition-all duration-300"
+                data-tab="leaderboard"
+            >
+                Таблица лидеров
+            </button>
+
+            <button
+                class="tab-btn logo-font glass px-5 py-3 rounded-xl transition-all duration-300 hover:border-orange-400"
+                data-tab="honors"
+            >
+                Доска почета
+            </button>
+
+            <button
+                class="tab-btn logo-font glass px-5 py-3 rounded-xl transition-all duration-300 hover:border-orange-400"
+                data-tab="testers"
+            >
+                Тир-тестеры
+            </button>
+
+            <button
+                class="tab-btn logo-font glass px-5 py-3 rounded-xl transition-all duration-300 hover:border-orange-400"
+                data-tab="guide"
+            >
+                Гайд
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+<main class="max-w-7xl mx-auto px-4 py-8">
+
+    <section id="leaderboardTab">
+
+        <div class="overflow-x-auto w-full scrollbar">
+
+            <table class="w-full glass rounded-2xl overflow-hidden min-w-[1200px]">
+
+                <thead class="bg-orange-500/10">
+
+                    <tr>
+
+                        <th class="p-4 text-left">Игрок</th>
+                        <th class="p-4 text-left">Страна</th>
+                        <th class="p-4 text-left">Устройство</th>
+                        <th class="p-4 text-left">Tester</th>
+
+                        <th class="p-4 text-left">Vanilla</th>
+                        <th class="p-4 text-left">Mace</th>
+                        <th class="p-4 text-left">Sword</th>
+                        <th class="p-4 text-left">Axe</th>
+                        <th class="p-4 text-left">UHC</th>
+                        <th class="p-4 text-left">Pot</th>
+                        <th class="p-4 text-left">NethOP</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="leaderboardBody"></tbody>
+
+            </table>
+
+                            </div>
