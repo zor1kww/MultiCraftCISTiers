@@ -1,26 +1,109 @@
 const fallbackData = {
     players: [
         {
-            nickname: "FallbackPlayer",
+            nickname: "Shadow",
             country: "RU",
             device: "Phone",
-            tester: "System",
+            tester: "Ares",
+            isCoach: true,
+            coachPrice: "12$/hour",
+            discord: "shadow_pro",
+            kits: {
+                Vanilla: "HT1",
+                Mace: "LT1",
+                Sword: "HT2",
+                Axe: "HT1",
+                UHC: "HT2",
+                Pot: "LT1",
+                NethOP: "HT3"
+            }
+        },
+        {
+            nickname: "Berserk",
+            country: "UA",
+            device: "PC",
+            tester: "Vortex",
             isCoach: false,
             coachPrice: "",
             discord: "",
             kits: {
-                Vanilla: "HT3",
-                Mace: "HT2",
+                Vanilla: "HT2",
+                Mace: "HT3",
+                Sword: "HT1",
+                Axe: "LT1",
+                UHC: "HT2",
+                Pot: "HT1",
+                NethOP: "LT2"
+            }
+        },
+        {
+            nickname: "Nomad",
+            country: "KZ",
+            device: "Tablet",
+            tester: "Reaper",
+            isCoach: false,
+            coachPrice: "",
+            discord: "",
+            kits: {
+                Vanilla: "LT2",
+                Mace: "HT4",
                 Sword: "LT1",
-                Axe: "HT4",
-                UHC: "LT2",
-                Pot: "HT5",
-                NethOP: "HT3"
+                Axe: "HT3",
+                UHC: "HT2",
+                Pot: "Unranked",
+                NethOP: "LT3"
+            }
+        },
+        {
+            nickname: "Inferno",
+            country: "AM",
+            device: "Otg",
+            tester: "Ares",
+            isCoach: true,
+            coachPrice: "20$/hour",
+            discord: "inferno_yt",
+            kits: {
+                Vanilla: "HT1",
+                Mace: "HT1",
+                Sword: "HT1",
+                Axe: "HT2",
+                UHC: "HT1",
+                Pot: "HT2",
+                NethOP: "HT1"
             }
         }
     ],
-    honors: [],
-    testers: []
+
+    honors: [
+        {
+            nickname: "LegendX",
+            country: "RU",
+            description: "Легендарный игрок СНГ сцены MultiCraft. Организовывал турниры и помогал развитию PvP-комьюнити."
+        },
+        {
+            nickname: "DarkBlade",
+            country: "UA",
+            description: "Известный Sword и UHC дуэлянт ранней эпохи MultiCraft."
+        }
+    ],
+
+    testers: [
+        {
+            nickname: "Ares",
+            discord: "ares_admin",
+            kits: ["Vanilla", "Sword", "Pot"]
+        },
+        {
+            nickname: "Vortex",
+            discord: "vortex_ranker",
+            kits: ["Mace", "UHC", "NethOP"]
+        },
+        {
+            nickname: "Reaper",
+            discord: "reaper_mc",
+            kits: ["Axe", "Vanilla", "Mace"]
+        }
+    ]
 };
 
 let database = fallbackData;
@@ -38,27 +121,36 @@ async function loadData() {
 
     try {
 
-        const response = await fetch("data.json");
+        const response = await fetch("./data.json");
 
         if (!response.ok) {
-            throw new Error("Fetch error");
+            throw new Error("JSON load error");
         }
 
-        database = await response.json();
+        const jsonData = await response.json();
+
+        if (jsonData) {
+            database = jsonData;
+        }
 
     } catch (error) {
 
-        console.warn("JSON не загрузился. Используется fallback data.");
+        console.warn("Не удалось загрузить data.json");
+        console.warn("Используется fallbackData");
 
         database = fallbackData;
     }
 
-    renderLeaderboard(database.players);
-    renderHonors(database.honors);
-    renderTesters(database.testers);
+    renderLeaderboard(database.players || []);
+    renderHonors(database.honors || []);
+    renderTesters(database.testers || []);
 }
 
 function getTierClass(tier) {
+
+    if (!tier) {
+        return "text-zinc-500";
+    }
 
     if (tier === "HT1") {
         return "text-yellow-300 font-black";
@@ -84,6 +176,7 @@ function createKitCell(kitName, tier) {
     return `
         <td class="p-4">
             <div class="flex items-center gap-2">
+
                 <img
                     src="assets/items/${kitName.toLowerCase()}.png"
                     class="w-6 h-6"
@@ -91,8 +184,9 @@ function createKitCell(kitName, tier) {
                 >
 
                 <span class="${getTierClass(tier)}">
-                    ${tier}
+                    ${tier || "Unranked"}
                 </span>
+
             </div>
         </td>
     `;
@@ -101,6 +195,19 @@ function createKitCell(kitName, tier) {
 function renderLeaderboard(players) {
 
     leaderboardBody.innerHTML = "";
+
+    if (!players.length) {
+
+        leaderboardBody.innerHTML = `
+            <tr>
+                <td colspan="11" class="p-10 text-center text-zinc-400">
+                    Игроки пока отсутствуют.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
 
     players.forEach(player => {
 
@@ -116,6 +223,7 @@ function renderLeaderboard(players) {
 
         row.innerHTML = `
             <td class="p-4">
+
                 <div class="flex items-center gap-3">
 
                     <img
@@ -125,41 +233,50 @@ function renderLeaderboard(players) {
                     >
 
                     <div>
+
                         <div class="font-black flex items-center gap-2">
+
                             ${player.nickname}
 
                             ${
                                 player.isCoach
-                                    ? `<span class="bg-orange-500 text-black text-xs px-2 py-1 rounded-lg">
+                                    ? `
+                                    <span class="bg-orange-500 text-black text-xs px-2 py-1 rounded-lg">
                                         COACH
-                                       </span>`
+                                    </span>
+                                    `
                                     : ""
                             }
+
                         </div>
 
                         ${
                             player.isCoach
-                                ? `<div class="text-xs text-orange-300">
+                                ? `
+                                <div class="text-xs text-orange-300">
                                     ${player.coachPrice} • ${player.discord}
-                                   </div>`
+                                </div>
+                                `
                                 : ""
                         }
+
                     </div>
 
                 </div>
+
             </td>
 
             <td class="p-4">${player.country}</td>
             <td class="p-4">${player.device}</td>
             <td class="p-4">${player.tester}</td>
 
-            ${createKitCell("Vanilla", player.kits.Vanilla)}
-            ${createKitCell("Mace", player.kits.Mace)}
-            ${createKitCell("Sword", player.kits.Sword)}
-            ${createKitCell("Axe", player.kits.Axe)}
-            ${createKitCell("UHC", player.kits.UHC)}
-            ${createKitCell("Pot", player.kits.Pot)}
-            ${createKitCell("NethOP", player.kits.NethOP)}
+            ${createKitCell("Vanilla", player.kits?.Vanilla)}
+            ${createKitCell("Mace", player.kits?.Mace)}
+            ${createKitCell("Sword", player.kits?.Sword)}
+            ${createKitCell("Axe", player.kits?.Axe)}
+            ${createKitCell("UHC", player.kits?.UHC)}
+            ${createKitCell("Pot", player.kits?.Pot)}
+            ${createKitCell("NethOP", player.kits?.NethOP)}
         `;
 
         leaderboardBody.appendChild(row);
@@ -169,6 +286,17 @@ function renderLeaderboard(players) {
 function renderHonors(honors) {
 
     honorsContainer.innerHTML = "";
+
+    if (!honors.length) {
+
+        honorsContainer.innerHTML = `
+            <div class="glass rounded-2xl p-8 text-center text-zinc-400">
+                Доска почета пока пуста.
+            </div>
+        `;
+
+        return;
+    }
 
     honors.forEach(player => {
 
@@ -194,6 +322,7 @@ function renderHonors(honors) {
                 >
 
                 <div>
+
                     <h3 class="text-2xl font-black text-yellow-300">
                         ${player.nickname}
                     </h3>
@@ -201,6 +330,7 @@ function renderHonors(honors) {
                     <p class="text-orange-300">
                         ${player.country}
                     </p>
+
                 </div>
 
             </div>
@@ -217,6 +347,17 @@ function renderHonors(honors) {
 function renderTesters(testers) {
 
     testersContainer.innerHTML = "";
+
+    if (!testers.length) {
+
+        testersContainer.innerHTML = `
+            <div class="glass rounded-2xl p-8 text-center text-zinc-400">
+                Официальные тир-тестеры пока не назначены.
+            </div>
+        `;
+
+        return;
+    }
 
     testers.forEach(tester => {
 
@@ -242,11 +383,13 @@ function renderTesters(testers) {
             </p>
 
             <div class="mt-5 flex flex-wrap gap-2">
+
                 ${tester.kits.map(kit => `
                     <span class="bg-orange-500/15 border border-orange-500/30 px-3 py-1 rounded-lg text-sm">
                         ${kit}
                     </span>
                 `).join("")}
+
             </div>
         `;
 
@@ -261,29 +404,29 @@ function applyFilters() {
     const kit = kitFilter.value;
     const device = deviceFilter.value;
 
-    const filtered = database.players.filter(player => {
+    const filteredPlayers = database.players.filter(player => {
 
-        const matchesSearch =
+        const matchSearch =
             player.nickname.toLowerCase().includes(search);
 
-        const matchesCountry =
+        const matchCountry =
             !country || player.country === country;
 
-        const matchesDevice =
+        const matchDevice =
             !device || player.device === device;
 
-        const matchesKit =
+        const matchKit =
             !kit || player.kits[kit] !== "Unranked";
 
         return (
-            matchesSearch &&
-            matchesCountry &&
-            matchesDevice &&
-            matchesKit
+            matchSearch &&
+            matchCountry &&
+            matchDevice &&
+            matchKit
         );
     });
 
-    renderLeaderboard(filtered);
+    renderLeaderboard(filteredPlayers);
 }
 
 searchInput.addEventListener("input", applyFilters);
@@ -291,13 +434,13 @@ countryFilter.addEventListener("change", applyFilters);
 kitFilter.addEventListener("change", applyFilters);
 deviceFilter.addEventListener("change", applyFilters);
 
-const tabs = document.querySelectorAll(".tab-btn");
+const tabButtons = document.querySelectorAll(".tab-btn");
 
-tabs.forEach(button => {
+tabButtons.forEach(button => {
 
     button.addEventListener("click", () => {
 
-        tabs.forEach(btn => {
+        tabButtons.forEach(btn => {
             btn.classList.remove("active-tab");
             btn.classList.add("glass");
         });
