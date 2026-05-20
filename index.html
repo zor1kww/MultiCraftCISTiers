@@ -105,6 +105,12 @@
             line-height: 1.3;
         }
 
+        .glow-card {
+            box-shadow:
+                0 0 25px rgba(255,140,0,0.08),
+                inset 0 0 30px rgba(255,255,255,0.02);
+        }
+
         @media (max-width: 768px) {
 
             .mobile-title {
@@ -134,6 +140,8 @@
 
 <body>
 
+    <!-- HEADER -->
+
     <header class="glass sticky top-0 z-50 border-b border-orange-500/20">
 
         <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-4">
@@ -141,14 +149,20 @@
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
 
                 <h1 class="mobile-title text-3xl md:text-5xl bg-gradient-to-r from-orange-400 to-yellow-300 bg-clip-text text-transparent">
+
                     MultiCraft CIS Tiers
+
                 </h1>
 
                 <span class="text-xs text-zinc-400">
+
                     СНГ PvP Ranking Platform
+
                 </span>
 
             </div>
+
+            <!-- FILTERS -->
 
             <div class="flex flex-col md:flex-row gap-3">
 
@@ -214,6 +228,8 @@
 
             </div>
 
+            <!-- TABS -->
+
             <div class="flex flex-wrap gap-3">
 
                 <button
@@ -241,7 +257,7 @@
                     class="tab-btn glass px-5 py-3 rounded-xl transition-all duration-300"
                     data-tab="guide"
                 >
-                    Гайд
+                    Как пройти тест
                 </button>
 
             </div>
@@ -250,13 +266,17 @@
 
     </header>
 
+    <!-- MAIN -->
+
     <main class="max-w-7xl mx-auto px-4 py-8">
+
+        <!-- LEADERBOARD -->
 
         <section id="leaderboardTab">
 
             <div class="overflow-x-auto w-full scrollbar">
 
-                <table class="w-full glass rounded-2xl overflow-hidden min-w-[1200px]">
+                <table class="w-full glass rounded-2xl overflow-hidden min-w-[1400px]">
 
                     <thead class="bg-orange-500/10">
 
@@ -267,13 +287,131 @@
                             <th class="p-4 text-left">Устройство</th>
                             <th class="p-4 text-left">Tester</th>
 
-                            <th class="p-4 text-left">Vanilla</th>
-                            <th class="p-4 text-left">Mace</th>
-                            <th class="p-4 text-left">Sword</th>
-                            <th class="p-4 text-left">Axe</th>
-                            <th class="p-4 text-left">UHC</th>
-                            <th class="p-4 text-left">Pot</th>
-                            <th class="p-4 text-left">NethOP</th>
+                            <!-- VANILLA -->
+
+                            <th class="p-4 text-left">
+
+                                <div class="flex items-center gap-2">
+
+                                    <img
+                                        src="assets/items/vanilla.png"
+                                        class="w-5 h-5 object-contain"
+                                        onerror="this.src='assets/items/default.png'"
+                                    >
+
+                                    <span>Vanilla</span>
+
+                                </div>
+
+                            </th>
+
+                            <!-- MACE -->
+
+                            <th class="p-4 text-left">
+
+                                <div class="flex items-center gap-2">
+
+                                    <img
+                                        src="assets/items/mace.png"
+                                        class="w-5 h-5 object-contain"
+                                        onerror="this.src='assets/items/default.png'"
+                                    >
+
+                                    <span>Mace</span>
+
+                                </div>
+
+                            </th>
+
+                            <!-- SWORD -->
+
+                            <th class="p-4 text-left">
+
+                                <div class="flex items-center gap-2">
+
+                                    <img
+                                        src="assets/items/sword.png"
+                                        class="w-5 h-5 object-contain"
+                                        onerror="this.src='assets/items/default.png'"
+                                    >
+
+                                    <span>Sword</span>
+
+                                </div>
+
+                            </th>
+
+                            <!-- AXE -->
+
+                            <th class="p-4 text-left">
+
+                                <div class="flex items-center gap-2">
+
+                                    <img
+                                        src="assets/items/axe.png"
+                                        class="w-5 h-5 object-contain"
+                                        onerror="this.src='assets/items/default.png'"
+                                    >
+
+                                    <span>Axe</span>
+
+                                </div>
+
+                            </th>
+
+                            <!-- UHC -->
+
+                            <th class="p-4 text-left">
+
+                                <div class="flex items-center gap-2">
+
+                                    <img
+                                        src="assets/items/uhc.png"
+                                        class="w-5 h-5 object-contain"
+                                        onerror="this.src='assets/items/default.png'"
+                                    >
+
+                                    <span>UHC</span>
+
+                                </div>
+
+                            </th>
+
+                            <!-- POT -->
+
+                            <th class="p-4 text-left">
+
+                                <div class="flex items-center gap-2">
+
+                                    <img
+                                        src="assets/items/pot.png"
+                                        class="w-5 h-5 object-contain"
+                                        onerror="this.src='assets/items/default.png'"
+                                    >
+
+                                    <span>Pot</span>
+
+                                </div>
+
+                            </th>
+
+                            <!-- NETHOP -->
+
+                            <th class="p-4 text-left">
+
+                                <div class="flex items-center gap-2">
+
+                                    <img
+                                        src="assets/items/nethop.png"
+                                        class="w-5 h-5 object-contain"
+                                        onerror="this.src='assets/items/default.png'"
+                                    >
+
+                                    <span>NethOP</span>
+
+                                </div>
+
+                            </th>
 
                         </tr>
 
@@ -287,31 +425,42 @@
 
         </section>
 
+        <!-- HONORS -->
+
         <section id="honorsTab" class="hidden">
 
             <div class="grid md:grid-cols-2 gap-6">
 
-                <div class="glass rounded-2xl p-6">
+                <div class="glass glow-card rounded-3xl p-7">
 
-                    <h2 class="text-2xl text-orange-300 mb-4">
+                    <h2 class="text-3xl text-orange-300 mb-4">
+
                         LegendaryPvP
+
                     </h2>
 
-                    <p class="text-zinc-300 leading-8">
+                    <p class="text-zinc-300 leading-9">
+
                         Один из основателей СНГ PvP сцены MultiCraft.
-                        Организовывал турниры и развивал tier-систему.
+                        Организовал первые тир-системы, турниры и PvP тестирования.
+
                     </p>
 
                 </div>
 
-                <div class="glass rounded-2xl p-6">
+                <div class="glass glow-card rounded-3xl p-7">
 
-                    <h2 class="text-2xl text-orange-300 mb-4">
+                    <h2 class="text-3xl text-orange-300 mb-4">
+
                         SwordMaster
+
                     </h2>
 
-                    <p class="text-zinc-300 leading-8">
-                        Легенда Sword PvP и тренер множества игроков СНГ.
+                    <p class="text-zinc-300 leading-9">
+
+                        Легендарный Sword PvP игрок и тренер.
+                        Помог развитию competitive PvP сообщества СНГ.
+
                     </p>
 
                 </div>
@@ -319,56 +468,80 @@
             </div>
 
         </section>
+
+        <!-- TESTERS -->
 
         <section id="testersTab" class="hidden">
 
             <div class="grid md:grid-cols-3 gap-6">
 
-                <div class="glass rounded-2xl p-6">
+                <div class="glass glow-card rounded-3xl p-7">
 
-                    <h2 class="text-2xl text-orange-300 mb-4">
+                    <h2 class="text-3xl text-orange-300 mb-4">
+
                         BlazeTester
+
                     </h2>
 
-                    <p class="text-zinc-400 mb-3">
+                    <p class="text-zinc-400 mb-4">
+
                         Discord: blaze#1337
+
                     </p>
 
-                    <p class="text-zinc-300">
-                        Vanilla, Sword, UHC
-                    </p>
+                    <div class="space-y-2 text-zinc-300">
+
+                        <p>⚔️ Sword</p>
+                        <p>🏹 Vanilla</p>
+                        <p>❤️ UHC</p>
+
+                    </div>
 
                 </div>
 
-                <div class="glass rounded-2xl p-6">
+                <div class="glass glow-card rounded-3xl p-7">
 
-                    <h2 class="text-2xl text-orange-300 mb-4">
+                    <h2 class="text-3xl text-orange-300 mb-4">
+
                         MaceKing
+
                     </h2>
 
-                    <p class="text-zinc-400 mb-3">
+                    <p class="text-zinc-400 mb-4">
+
                         Discord: maceking#2024
+
                     </p>
 
-                    <p class="text-zinc-300">
-                        Mace, Axe
-                    </p>
+                    <div class="space-y-2 text-zinc-300">
+
+                        <p>🔨 Mace</p>
+                        <p>🪓 Axe</p>
+
+                    </div>
 
                 </div>
 
-                <div class="glass rounded-2xl p-6">
+                <div class="glass glow-card rounded-3xl p-7">
 
-                    <h2 class="text-2xl text-orange-300 mb-4">
+                    <h2 class="text-3xl text-orange-300 mb-4">
+
                         PotMaster
+
                     </h2>
 
-                    <p class="text-zinc-400 mb-3">
+                    <p class="text-zinc-400 mb-4">
+
                         Discord: potmaster#7777
+
                     </p>
 
-                    <p class="text-zinc-300">
-                        Pot, NethOP
-                    </p>
+                    <div class="space-y-2 text-zinc-300">
+
+                        <p>🧪 Pot</p>
+                        <p>💀 NethOP</p>
+
+                    </div>
 
                 </div>
 
@@ -376,26 +549,182 @@
 
         </section>
 
+        <!-- GUIDE -->
+
         <section id="guideTab" class="hidden">
 
-            <div class="glass rounded-2xl p-6">
+            <div class="space-y-8">
 
-                <h2 class="text-3xl text-orange-300 mb-6">
-                    Гайд по системе тиров
-                </h2>
+                <!-- HERO -->
 
-                <div class="space-y-4 text-zinc-300 leading-8">
+                <div class="glass glow-card rounded-3xl p-8 border border-orange-500/20 relative overflow-hidden">
 
-                    <p>HT1 — Элита СНГ PvP</p>
-                    <p>LT1 — Очень высокий уровень</p>
-                    <p>HT2 — Турнирный уровень</p>
-                    <p>LT2 — Сильный игрок</p>
-                    <p>HT3 — Выше среднего</p>
-                    <p>LT3 — Средний уровень</p>
-                    <p>HT4 — Новичок+</p>
-                    <p>LT4 — Базовый уровень</p>
-                    <p>HT5 — Начинающий</p>
-                    <p>LT5 — Первый PvP опыт</p>
+                    <div class="absolute inset-0 bg-gradient-to-r from-orange-500/5 to-yellow-500/5"></div>
+
+                    <div class="relative z-10">
+
+                        <h2 class="text-4xl md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-yellow-300 mb-6 leading-tight">
+
+                            Как пройти тир-тест?
+
+                        </h2>
+
+                        <p class="text-zinc-300 text-lg leading-9 max-w-4xl">
+
+                            Для прохождения тир-теста необходимо перейти в Telegram Hub выбранного режима.
+                            Каждый кит имеет собственный топик, тестеров и систему записи.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- STEPS -->
+
+                <div class="grid md:grid-cols-3 gap-6">
+
+                    <!-- STEP 1 -->
+
+                    <div class="glass glow-card rounded-3xl p-7">
+
+                        <div class="text-5xl mb-5">
+
+                            🎫
+
+                        </div>
+
+                        <h3 class="text-2xl text-orange-300 mb-4">
+
+                            1. Анкета
+
+                        </h3>
+
+                        <div class="space-y-3 text-zinc-300 leading-8">
+
+                            <p>• Выберите режим</p>
+                            <p>• Перейдите в Telegram topic</p>
+                            <p>• Заполните анкету</p>
+
+                        </div>
+
+                    </div>
+
+                    <!-- STEP 2 -->
+
+                    <div class="glass glow-card rounded-3xl p-7">
+
+                        <div class="text-5xl mb-5">
+
+                            📅
+
+                        </div>
+
+                        <h3 class="text-2xl text-orange-300 mb-4">
+
+                            2. Назначение
+
+                        </h3>
+
+                        <div class="space-y-3 text-zinc-300 leading-8">
+
+                            <p>• Тестер проверит заявку</p>
+                            <p>• Назначит время</p>
+                            <p>• Выдаст IP сервера</p>
+
+                        </div>
+
+                    </div>
+
+                    <!-- STEP 3 -->
+
+                    <div class="glass glow-card rounded-3xl p-7">
+
+                        <div class="text-5xl mb-5">
+
+                            ⚔️
+
+                        </div>
+
+                        <h3 class="text-2xl text-orange-300 mb-4">
+
+                            3. Тест
+
+                        </h3>
+
+                        <div class="space-y-3 text-zinc-300 leading-8">
+
+                            <p>• FT5 / FT10</p>
+                            <p>• Прохождение экзамена</p>
+                            <p>• Получение официального тира</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- FAQ -->
+
+                <div class="glass glow-card rounded-3xl p-8">
+
+                    <h2 class="text-4xl text-orange-300 mb-8">
+
+                        FAQ
+
+                    </h2>
+
+                    <div class="space-y-7 text-zinc-300 leading-9">
+
+                        <div>
+
+                            <h3 class="text-xl text-white mb-2">
+
+                                Что такое тирлист?
+
+                            </h3>
+
+                            <p>
+
+                                Это система оценки PvP навыков игроков в различных режимах MultiCraft.
+
+                            </p>
+
+                        </div>
+
+                        <div>
+
+                            <h3 class="text-xl text-white mb-2">
+
+                                Можно ли пройти ретест?
+
+                            </h3>
+
+                            <p>
+
+                                Да. Повторный тест обычно доступен через 14 дней.
+
+                            </p>
+
+                        </div>
+
+                        <div>
+
+                            <h3 class="text-xl text-white mb-2">
+
+                                Что делать если я не согласен с тиром?
+
+                            </h3>
+
+                            <p>
+
+                                Вы можете создать appeal ticket и запросить повторную проверку.
+
+                            </p>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
@@ -409,4 +738,4 @@
 
 </body>
 
-                                </html>
+                    </html>
