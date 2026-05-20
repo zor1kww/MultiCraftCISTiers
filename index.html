@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>MultiCraft СНГ Тирлист</title>
+  <!-- Google Fonts: Press Start 2P + Roboto Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #121212;
+      font-family: 'Roboto Mono', monospace;
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.8rem;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      background: #1e1e1e;
+      border-radius: 1.2rem;
+      padding: 1.2rem 1rem 1.8rem;
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+      margin: 0.5rem 0;
+    }
+
+    h1 {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1.3rem;
+      text-align: center;
+      color: #55ff55;
+      margin-bottom: 1.2rem;
+      text-shadow: 0 0 8px #55ff5580;
+      word-break: break-word;
+      line-height: 1.5;
+    }
+
+    /* Табы */
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-bottom: 1.8rem;
+    }
+
+    .tab-btn {
+      background: #2a2a2a;
+      border: none;
+      color: #ccc;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.7rem;
+      padding: 0.8rem 1rem;
+      border-radius: 2.5rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+      flex: 1 1 auto;
+      min-width: 110px;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
+    }
+
+    .tab-btn.active {
+      background: #55ff55;
+      color: #121212;
+      font-weight: bold;
+      box-shadow: 0 0 15px #55ff55aa;
+    }
+
+    /* Панели */
+    .panel {
+      display: none;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    /* Поиск и фильтры */
+    .search-box {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 1.2rem;
+      align-items: center;
+    }
+
+    .search-box input, .search-box select {
+      background: #2a2a2a;
+      border: 1px solid #3a3a3a;
+      color: #e0e0e0;
+      padding: 0.7rem 1rem;
+      border-radius: 2rem;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.9rem;
+      flex: 2;
+      min-width: 180px;
+    }
+
+    .search-box select {
+      flex: 1;
+      min-width: 140px;
+      appearance: none;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="%2355ff55"><path d="M7 10l5 5 5-5z"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 0.8rem center;
+      background-size: 1.2rem;
+    }
+
+    /* Таблицы */
+    .table-wrapper {
+      overflow-x: auto;
+      border-radius: 0.8rem;
+      background: #1a1a1a;
+      margin: 1rem 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+      min-width: 600px;
+    }
+
+    th {
+      background: #2d2d2d;
+      color: #55ff55;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.6rem;
+      padding: 0.8rem 0.5rem;
+      text-align: left;
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    th:hover {
+      background: #3a3a3a;
+    }
+
+    td {
+      padding: 0.7rem 0.5rem;
+      border-bottom: 1px solid #333;
+      vertical-align: middle;
+    }
+
+    .player-row {
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .player-row:hover {
+      background: #2a2a2a;
+    }
+    .rank-badge {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.6rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.3rem;
+      background: #333;
+      display: inline-block;
+      font-weight: bold;
+    }
+
+    /* Цвета рангов */
+    .ht1 { color: #ff4500; }
+    .lt1 { color: #ff8c00; }
+    .ht2 { color: #da70d6; }
+    .lt2 { color: #9370db; }
+    .ht3 { color: #4169e1; }
+    .lt3 { color: #00bfff; }
+    .ht4 { color: #32cd32; }
+    .lt4 { color: #9acd32; }
+    .ht5 { color: #ffd700; }
+    .lt5 { color: #808080; }
+
+    /* Карточки тестеров */
+    .testers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .tester-card {
+      background: #2a2a2a;
+      border-radius: 1rem;
+      padding: 1rem;
+      border-left: 5px solid #55ff55;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    }
+
+    .tester-name {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.8rem;
+      color: #55ff55;
+    }
+
+    .tester-contact {
+      margin: 0.4rem 0;
+      font-size: 0.8rem;
+    }
+
+    .specialization {
+      color: #aaa;
+      font-size: 0.7rem;
+      margin-top: 0.4rem;
+    }
+
+    /* Модальное окно */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 1rem;
+    }
+
+    .modal-content {
+      background: #1e1e1e;
+      border: 2px solid #55ff55;
+      border-radius: 1.2rem;
+      padding: 1.5rem;
+      max-width: 500px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 0.8rem; right: 1rem;
+      font-size: 1.8rem;
+      color: #55ff55;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    .kit-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0.5rem 0;
+    }
+
+    .kit-tag {
+      background: #333;
+      padding: 0.2rem 0.8rem;
+      border-radius: 1rem;
+      font-size: 0.7rem;
+    }
+
+    button {
+      background: #55ff55;
+      border: none;
+      color: #121212;
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      font-family: 'Roboto Mono', monospace;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .tab-btn {
+        font-size: 0.6rem;
+        padding: 0.6rem 0.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>⚔️ MULTICRAFT ТИРЛИСТ СНГ</h1>
+    
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="rating">🏆 Рейтинг</button>
+      <button class="tab-btn" data-tab="testers">🛠️ Тиртестеры</button>
+      <button class="tab-btn" data-tab="leaderboard">📋 Доска лучших</button>
+    </div>
+
+    <!-- Панель Рейтинг -->
+    <div id="rating-panel" class="panel active">
+      <div class="search-box">
+        <input type="text" id="playerSearch" placeholder="Поиск по нику...">
+        <select id="regionFilter">
+          <option value="">Все регионы</option>
+          <option value="RU">RU</option><option value="UA">UA</option><option value="BY">BY</option>
+          <option value="KZ">KZ</option><option value="UZ">UZ</option><option value="TJ">TJ</option>
+          <option value="TM">TM</option><option value="KG">KG</option><option value="AZ">AZ</option>
+          <option value="AM">AM</option><option value="MD">MD</option><option value="GE">GE</option>
+        </select>
+      </div>
+      <div class="table-wrapper">
+        <table id="ratingTable">
+          <thead>
+            <tr>
+              <th data-sort="name">Ник</th>
+              <th data-sort="points">Очки</th>
+              <th data-sort="rank">Ранг</th>
+              <th>Регион</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Панель Тиртестеры -->
+    <div id="testers-panel" class="panel">
+      <div class="testers-grid" id="testersContainer"></div>
+    </div>
+
+    <!-- Панель Доска лучших -->
+    <div id="leaderboard-panel" class="panel">
+      <div class="search-box">
+        <select id="kitSelect">
+          <option value="">-- Выберите кит --</option>
+        </select>
+      </div>
+      <div class="table-wrapper">
+        <table id="leaderboardTable">
+          <thead><tr><th>Игрок</th><th>Очки</th><th>Ранг</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модальное окно игрока -->
+  <div id="playerModal" class="modal">
+    <div class="modal-content">
+      <button class="close-modal">&times;</button>
+      <div id="modalDetails"></div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // ---------- ДАННЫЕ ИГРОКОВ (15+ реалистичных СНГ) ----------
+      const PLAYERS_DATA = [
+        { name: "DragonSlayerRU", points: 945, region: "RU", kits: ["Hardcore", "Combo", "Emerald Pot"], tierTesters: ["ZxcTest"], achievements: ["Топ-1 турнира MultiCraft 2025"], bio: "Агрессивный игрок, любит хардкорные сеты." },
+        { name: "KZ_ProSkill", points: 872, region: "KZ", kits: ["Dragonhide KB I", "Combo", "Lite"], tierTesters: ["CreeperCheck"], achievements: ["Победитель ClanWar"], bio: "Мастер комбо и уклонения." },
+        { name: "UAhitman", points: 810, region: "UA", kits: ["Emerald", "SMP", "Gapple"], tierTesters: ["ZxcTest"], achievements: ["Лучший защитник"], bio: "Тактик, предпочитает SMP." },
+        { name: "BelarusKing", points: 760, region: "BY", kits: ["Diamond Pot", "Vanilla", "UHC"], tierTesters: ["CreeperCheck"], achievements: [] },
+        { name: "Tjk_Warrior", points: 690, region: "TJ", kits: ["Pot", "Sword", "Mace"], tierTesters: ["BalanceGuy"], achievements: ["Победитель 2x2"] },
+        { name: "UzbeK_Star", points: 620, region: "UZ", kits: ["Speed", "Mummy", "Bow"], tierTesters: ["ZxcTest"], achievements: ["Самый быстрый"] },
+        { name: "GeorgianAce", points: 550, region: "GE", kits: ["Debuff", "Manhunt", "Bed"], tierTesters: ["CreeperCheck"], bio: "Любит дебаффы." },
+        { name: "MoldovaPro", points: 480, region: "MD", kits: ["Diamond Vanilla", "OG Vanilla", "Axe"], tierTesters: ["BalanceGuy"] },
+        { name: "AzeriWolf", points: 420, region: "AZ", kits: ["HethOP", "SMP", "Sword"], tierTesters: ["ZxcTest"], achievements: ["Ветеран сервера"] },
+        { name: "ArmeniaPower", points: 350, region: "AM", kits: ["Hardcore", "Combo", "Emerald Pot"], tierTesters: ["CreeperCheck"] },
+        { name: "KG_Nomad", points: 280, region: "KG", kits: ["Lite", "Gapple", "Vanilla"], tierTesters: ["BalanceGuy"], bio: "Номад китов." },
+        { name: "Rus_Titan", points: 210, region: "RU", kits: ["Diamond SMP", "Bow", "Bed"], tierTesters: ["ZxcTest"] },
+        { name: "TurkmenStar", points: 150, region: "TM", kits: ["SMP", "Sword", "Mace"], tierTesters: ["CreeperCheck"] },
+        { name: "By_Defender", points: 90, region: "BY", kits: ["OG Vanilla", "Axe", "Speed"], tierTesters: ["BalanceGuy"] },
+        { name: "Ua_Fast", points: 45, region: "UA", kits: ["Mummy", "Manhunt", "Diamond Vanilla"], tierTesters: ["ZxcTest"] }
+      ];
+
+      const TESTERS_DATA = [
+        { name: "ZxcTest", discord: "ZxcTest#4242", telegram: "@zxctest", specialization: ["Hardcore", "Combo", "Emerald"], status: "active" },
+        { name: "CreeperCheck", discord: "Creeper#0001", telegram: "@creepercheck", specialization: ["Vanilla", "UHC", "Debuff"], status: "active" },
+        { name: "BalanceGuy", discord: "Balance#1234", telegram: "@balanceguy", specialization: ["SMP", "Sword", "Mace"], status: "active" },
+        { name: "KitMaster", discord: "KitMaster#9999", telegram: "@kitmaster", specialization: ["Diamond", "Speed", "Bow"], status: "active" },
+        { name: "TesterPro", discord: "TesterPro#5555", telegram: "@testerpro", specialization: ["Dragonhide", "Lite", "Bed"], status: "active" }
+      ];
+
+
+     // ---------- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ----------
+      function getRank(points) {
+        if (points >= 901) return { name: "HT1", class: "ht1" };
+        if (points >= 801) return { name: "LT1", class: "lt1" };
+        if (points >= 701) return { name: "HT2", class: "ht2" };
+        if (points >= 601) return { name: "LT2", class: "lt2" };
+        if (points >= 501) return { name: "HT3", class: "ht3" };
+        if (points >= 401) return { name: "LT3", class: "lt3" };
+        if (points >= 301) return { name: "HT4", class: "ht4" };
+        if (points >= 201) return { name: "LT4", class: "lt4" };
+        if (points >= 101) return { name: "HT5", class: "ht5" };
+        return { name: "LT5", class: "lt5" };
+      }
+
+      // Сбор всех уникальных китов
+      function getAllKits() {
+        const kitSet = new Set();
+        PLAYERS_DATA.forEach(p => p.kits.forEach(k => kitSet.add(k)));
+        return Array.from(kitSet).sort();
+      }
+
+      // ---------- ОТРИСОВКА ТАБЛИЦЫ РЕЙТИНГА ----------
+      let currentSort = { field: 'points', asc: false };
+      let filteredPlayers = [...PLAYERS_DATA];
+
+      function renderRatingTable() {
+        const tbody = document.querySelector('#ratingTable tbody');
+        const searchTerm = document.getElementById('playerSearch').value.toLowerCase();
+        const region = document.getElementById('regionFilter').value;
+
+        filteredPlayers = PLAYERS_DATA.filter(p => {
+          const nameMatch = p.name.toLowerCase().includes(searchTerm);
+          const regionMatch = region ? p.region === region : true;
+          return nameMatch && regionMatch;
+        });
+
+        // Сортировка
+        filteredPlayers.sort((a,b) => {
+          let valA, valB;
+          if (currentSort.field === 'rank') {
+            valA = a.points; valB = b.points;
+          } else if (currentSort.field === 'name') {
+            valA = a.name.toLowerCase(); valB = b.name.toLowerCase();
+            return currentSort.asc ? valA.localeCompare(valB) : valB.localeCompare(valA);
+          } else {
+            valA = a[currentSort.field]; valB = b[currentSort.field];
+          }
+          if (typeof valA === 'number') return currentSort.asc ? valA - valB : valB - valA;
+          return 0;
+        });
+
+        tbody.innerHTML = filteredPlayers.map(p => {
+          const rank = getRank(p.points);
+          return <tr class="player-row" data-name="${p.name}">
+            <td><strong>${p.name}</strong></td>
+            <td>${p.points}</td>
+            <td><span class="rank-badge ${rank.class}">${rank.name}</span></td>
+            <td>${p.region}</td>
+          </tr>;
+        }).join('');
+
+        document.querySelectorAll('.player-row').forEach(row => {
+          row.addEventListener('click', () => {
+            const name = row.dataset.name;
+            const player = PLAYERS_DATA.find(p => p.name === name);
+            if (player) showPlayerModal(player);
+          });
+        });
+      }
+
+      // Обработчики сортировки
+      document.querySelectorAll('#ratingTable th[data-sort]').forEach(th => {
+        th.addEventListener('click', () => {
+          const field = th.dataset.sort;
+          if (currentSort.field === field) {
+            currentSort.asc = !currentSort.asc;
+          } else {
+            currentSort.field = field;
+            currentSort.asc = field === 'name' ? true : false;
+          }
+          renderRatingTable();
+        });
+      });
+
+      document.getElementById('playerSearch').addEventListener('input', renderRatingTable);
+      document.getElementById('regionFilter').addEventListener('change', renderRatingTable);
+
+      // ---------- ТИРТЕСТЕРЫ ----------
+      function renderTesters() {
+        const container = document.getElementById('testersContainer');
+        container.innerHTML = TESTERS_DATA.map(t => `
+        <div class="tester-card">
+            <div class="tester-name">${t.name}</div>
+            <div class="tester-contact">📧 ${t.discord}</div>
+            <div class="tester-contact">✈️ ${t.telegram}</div>
+            <div class="specialization">🔧 ${t.specialization.join(', ')}</div>
+            <div style="color:#55ff55; margin-top:0.3rem;">● ${t.status}</div>
+          </div>
+        ).join('');
+      }
+
+      // ---------- ДОСКА ЛУЧШИХ ----------
+      function populateKitSelect() {
+        const select = document.getElementById('kitSelect');
+        const kits = getAllKits();
+        select.innerHTML = '<option value="">-- Выберите кит --</option>' + 
+          kits.map(k => <option value="${k}">${k}</option>).join('');
+      }
+
+      function renderLeaderboard(kit) {
+        const tbody = document.querySelector('#leaderboardTable tbody');
+        if (!kit) {
+          tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Выберите кит</td></tr>';
+          return;
+        }
+        const topPlayers = PLAYERS_DATA
+          .filter(p => p.kits.includes(kit))
+          .sort((a,b) => b.points - a.points)
+          .slice(0, 10);
+        
+        tbody.innerHTML = topPlayers.map(p => {
+          const r = getRank(p.points);
+          return <tr><td>${p.name}</td><td>${p.points}</td><td><span class="rank-badge ${r.class}">${r.name}</span></td></tr>;
+        }).join('') || '<tr><td colspan="3">Нет игроков</td></tr>';
+      }
+
+      document.getElementById('kitSelect').addEventListener('change', (e) => {
+        renderLeaderboard(e.target.value);
+      });
+
+      // ---------- МОДАЛЬНОЕ ОКНО ----------
+      function showPlayerModal(player) {
+        const rank = getRank(player.points);
+        document.getElementById('modalDetails').innerHTML = 
+          <h2 style="font-family:'Press Start 2P'; color:#55ff55; font-size:1rem;">${player.name}</h2>
+          <p><span class="rank-badge ${rank.class}">${rank.name}</span> (${player.points} очков)</p>
+          <p>🌍 Регион: ${player.region}</p>
+          <p><strong>Киты:</strong></p>
+          <div class="kit-list">${player.kits.map(k => <span class="kit-tag">${k}</span>).join('')}</div>
+          ${player.tierTesters.length ? <p><strong>Тестеры:</strong> ${player.tierTesters.join(', ')}</p> : ''}
+          ${player.achievements.length ? <p><strong>Достижения:</strong> ${player.achievements.join(', ')}</p> : ''}
+          ${player.bio ? <p><em>${player.bio}</em></p> : ''}
+        `;
+        document.getElementById('playerModal').style.display = 'flex';
+      }
+
+      document.querySelector('.close-modal').addEventListener('click', () => {
+        document.getElementById('playerModal').style.display = 'none';
+      });
+      window.addEventListener('click', (e) => {
+        if (e.target === document.getElementById('playerModal')) document.getElementById('playerModal').style.display = 'none';
+      });
+
+      // ---------- ПЕРЕКЛЮЧЕНИЕ ТАБОВ ----------
+      const tabs = document.querySelectorAll('.tab-btn');
+      const panels = {
+        rating: document.getElementById('rating-panel'),
+        testers: document.getElementById('testers-panel'),
+        leaderboard: document.getElementById('leaderboard-panel')
+      };
+
+      tabs.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabs.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const tabId = btn.dataset.tab;
+          Object.keys(panels).forEach(key => panels[key].classList.remove('active'));
+          panels[tabId].classList.add('active');
+          if (tabId === 'leaderboard') renderLeaderboard(document.getElementById('kitSelect').value);
+        });
+      });
+
+      // Инициализация
+      renderRatingTable();
+      renderTesters();
+      populateKitSelect();
+    })();
+  </script>
+</body>
+</html>
