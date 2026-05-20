@@ -2,679 +2,705 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MultiCraft СНГ Тирлист</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --border-color: #30363d;
+            --text-color: #c9d1d9;
+            --accent-color: #58a6ff;
+            --active-accent-color: #1f6feb;
+            --rank-ht1: #ff4500;
+            --rank-lt1: #ff8c00;
+            --rank-ht2: #da70d6;
+            --rank-lt2: #9370db;
+            --rank-ht3: #4169e1;
+            --rank-lt3: #00bfff;
+            --rank-ht4: #32cd32;
+            --rank-lt4: #9acd32;
+            --rank-ht5: #ffd700;
+            --rank-lt5: #808080;
+        }
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
-            background: #0d1117;
-            font-family: 'Roboto Mono', monospace;
-            color: #c9d1d9;
-            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+        a:hover {
+            color: var(--active-accent-color);
+        }
+        .navbar {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            padding: 0;
-        }
-
-        /* Header как на mctiers */
-        .header {
-            width: 100%;
-            background: #161b22;
-            border-bottom: 1px solid #30363d;
-            padding: 1rem;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-family: 'Press Start 2P', cursive;
-            font-size: clamp(0.8rem, 3vw, 1.2rem);
-            color: #58a6ff;
-            margin-bottom: 0.5rem;
-        }
-
-        .header p {
-            font-size: 0.75rem;
-            color: #8b949e;
-        }
-
-        /* Табы */
-        .tabs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.3rem;
-            justify-content: center;
-            padding: 0.8rem;
-            background: #0d1117;
-            border-bottom: 1px solid #30363d;
+            padding: 15px 20px;
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
+            flex-wrap: wrap;
+            gap: 10px;
         }
-
-        .tab-btn {
-            background: #21262d;
-            border: 1px solid #30363d;
-            color: #c9d1d9;
-            font-family: 'Roboto Mono', monospace;
+        .navbar .logo {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .nav-links button {
+            color: var(--text-color);
             font-weight: 500;
-            font-size: clamp(0.65rem, 2vw, 0.8rem);
-            padding: 0.6rem 1rem;
-            border-radius: 0.5rem;
+            padding: 8px 15px;
+            border-radius: 6px;
+            background: none;
+            border: 1px solid var(--border-color);
             cursor: pointer;
-            transition: all 0.2s;
-            white-space: nowrap;
-            -webkit-tap-highlight-color: transparent;
+            font-size: 0.9em;
+            transition: all 0.15s;
+            font-family: inherit;
+        }
+        .nav-links button.active {
+            background-color: var(--active-accent-color);
+            color: #fff;
+            border-color: var(--active-accent-color);
+        }
+        .nav-links button:hover {
+            background-color: var(--border-color);
+        }
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+        .social-links a {
+            color: var(--text-color);
+            font-size: 1.1em;
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            transition: all 0.15s;
+        }
+        .social-links a:hover {
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+        h1 {
+            font-size: 2em;
+            margin: 20px 0 5px;
+        }
+        .subtitle {
+            color: #8b949e;
+            margin-bottom: 25px;
+            font-size: 0.95em;
+        }
+        h2 {
+            font-size: 1.3em;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            margin: 25px 0 15px;
+        }
+        .kits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+        .kit-card {
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.15s;
             user-select: none;
         }
-
-        .tab-btn.active {
-            background: #1f6feb;
-            border-color: #1f6feb;
-            color: #fff;
+        .kit-card:hover {
+            border-color: var(--accent-color);
         }
-
-        .tab-btn:hover {
-            background: #30363d;
+        .kit-card.selected {
+            border-color: var(--active-accent-color);
+            background: rgba(31, 111, 235, 0.1);
         }
-
-        .tab-btn.active:hover {
-            background: #1f6feb;
+        .kit-card img {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 8px;
+            object-fit: contain;
         }
-
-        /* Основной контейнер */
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            padding: 1rem;
+        .kit-card .kit-name {
+            font-weight: 500;
+            font-size: 0.85em;
+            word-break: break-word;
         }
-
-        .panel {
+        .kit-card .kit-points {
+            font-size: 0.75em;
+            color: #8b949e;
+            margin-top: 3px;
+        }
+        .kit-players-table {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            margin-top: 20px;
+            overflow-x: auto;
             display: none;
         }
-
-        .panel.active {
+        .kit-players-table.visible {
             display: block;
         }
-
-        /* Поиск */
-        .search-box {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            align-items: center;
-        }
-
-        .search-box input {
-            background: #0d1117;
-            border: 1px solid #30363d;
-            color: #c9d1d9;
-            padding: 0.6rem 1rem;
-            border-radius: 0.5rem;
-            font-family: 'Roboto Mono', monospace;
-            font-size: 0.85rem;
-            flex: 2;
-            min-width: 180px;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .search-box input:focus {
-            border-color: #1f6feb;
-        }
-
-        .search-box select {
-            background: #0d1117;
-            border: 1px solid #30363d;
-            color: #c9d1d9;
-            padding: 0.6rem 1rem;
-            border-radius: 0.5rem;
-            font-family: 'Roboto Mono', monospace;
-            font-size: 0.85rem;
-            flex: 1;
-            min-width: 130px;
-            outline: none;
-            -webkit-appearance: none;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='%238b949e'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 0.8rem center;
-            padding-right: 2rem;
-        }
-
-        /* Таблица */
-        .table-wrapper {
-            overflow-x: auto;
-            border-radius: 0.5rem;
-            border: 1px solid #30363d;
-            -webkit-overflow-scrolling: touch;
-        }
-
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.8rem;
-            min-width: 600px;
+            min-width: 500px;
         }
-
-        th {
-            background: #161b22;
-            color: #58a6ff;
-            font-weight: 600;
-            padding: 0.7rem 0.8rem;
+        th, td {
+            padding: 10px 12px;
             text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.85em;
+        }
+        th {
+            background-color: var(--card-bg);
+            font-weight: 600;
+            position: sticky;
+            top: 0;
             cursor: pointer;
             user-select: none;
-            white-space: nowrap;
-            border-bottom: 1px solid #30363d;
-            font-size: 0.75rem;
-            -webkit-tap-highlight-color: transparent;
         }
-
         th:hover {
-            background: #21262d;
+            color: var(--accent-color);
         }
-
-        th .sort-arrow {
-            font-size: 0.6rem;
-            margin-left: 0.3rem;
+        tbody tr:hover {
+            background-color: rgba(48, 54, 61, 0.3);
         }
-
-        td {
-            padding: 0.6rem 0.8rem;
-            border-bottom: 1px solid #21262d;
-            vertical-align: middle;
-            font-size: 0.8rem;
-        }
-
-        .player-row {
+        .player-name-link {
+            color: var(--accent-color);
             cursor: pointer;
-            transition: background 0.15s;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .player-row:hover {
-            background: #161b22;
-        }
-
-        .player-row:active {
-            background: #21262d;
-        }
-
-        .player-name {
-            color: #58a6ff;
             font-weight: 500;
-            text-decoration: none;
         }
-
-        .player-name:hover {
+        .player-name-link:hover {
             text-decoration: underline;
         }
-
-        /* Ранг бейджи */
         .rank-badge {
-            font-weight: 600;
-            padding: 0.2rem 0.5rem;
-            border-radius: 0.3rem;
-            font-size: 0.7rem;
             display: inline-block;
-            text-align: center;
-            min-width: 50px;
-            letter-spacing: 0.5px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: bold;
+            border: 1px solid;
         }
-
-        .ht1 {
-            background: #ff450022;
-            color: #ff4500;
-            border: 1px solid #ff450044;
-        }
-
-        .lt1 {
-            background: #ff8c0022;
-            color: #ff8c00;
-            border: 1px solid #ff8c0044;
-        }
-
-        .ht2 {
-            background: #da70d622;
-            color: #da70d6;
-            border: 1px solid #da70d644;
-        }
-
-        .lt2 {
-            background: #9370db22;
-            color: #9370db;
-            border: 1px solid #9370db44;
-        }
-
-        .ht3 {
-            background: #4169e122;
-            color: #4169e1;
-            border: 1px solid #4169e144;
-        }
-
-        .lt3 {
-            background: #00bfff22;
-            color: #00bfff;
-            border: 1px solid #00bfff44;
-        }
-
-        .ht4 {
-            background: #32cd3222;
-            color: #32cd32;
-            border: 1px solid #32cd3244;
-        }
-
-        .lt4 {
-            background: #9acd3222;
-            color: #9acd32;
-            border: 1px solid #9acd3244;
-        }
-
-        .ht5 {
-            background: #ffd70022;
-            color: #ffd700;
-            border: 1px solid #ffd70044;
-        }
-
-        .lt5 {
-            background: #80808022;
-            color: #808080;
-            border: 1px solid #80808044;
-        }
-
-        .region-flag {
-            font-size: 1.1rem;
-            margin-right: 0.3rem;
-        }
-
-        /* Сетка категорий как на mctiers */
-        .category-section {
-            margin-bottom: 2rem;
-        }
-
-        .category-title {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.7rem;
-            color: #58a6ff;
-            margin-bottom: 0.8rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid #30363d;
+        .rank-badge.HT1 { background: rgba(255,69,0,0.2); color: var(--rank-ht1); border-color: rgba(255,69,0,0.4); }
+        .rank-badge.LT1 { background: rgba(255,140,0,0.2); color: var(--rank-lt1); border-color: rgba(255,140,0,0.4); }
+        .rank-badge.HT2 { background: rgba(218,112,214,0.2); color: var(--rank-ht2); border-color: rgba(218,112,214,0.4); }
+        .rank-badge.LT2 { background: rgba(147,112,219,0.2); color: var(--rank-lt2); border-color: rgba(147,112,219,0.4); }
+        .rank-badge.HT3 { background: rgba(65,105,225,0.2); color: var(--rank-ht3); border-color: rgba(65,105,225,0.4); }
+        .rank-badge.LT3 { background: rgba(0,191,255,0.2); color: var(--rank-lt3); border-color: rgba(0,191,255,0.4); }
+        .rank-badge.HT4 { background: rgba(50,205,50,0.2); color: var(--rank-ht4); border-color: rgba(50,205,50,0.4); }
+        .rank-badge.LT4 { background: rgba(154,205,50,0.2); color: var(--rank-lt4); border-color: rgba(154,205,50,0.4); }
+        .rank-badge.HT5 { background: rgba(255,215,0,0.2); color: var(--rank-ht5); border-color: rgba(255,215,0,0.4); }
+        .rank-badge.LT5 { background: rgba(128,128,128,0.2); color: var(--rank-lt5); border-color: rgba(128,128,128,0.4); }
+        .rating-controls {
             display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
         }
-
-        .kit-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 0.6rem;
+        .rating-controls input {
+            flex: 2;
+            min-width: 180px;
+            padding: 10px 15px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-color);
+            font-size: 0.9em;
+            font-family: inherit;
+            outline: none;
         }
-
-        .kit-card {
-            background: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 0.5rem;
-            padding: 0.8rem;
+        .rating-controls input:focus {
+            border-color: var(--accent-color);
+        }
+        .rating-controls select {
+            flex: 1;
+            min-width: 130px;
+            padding: 10px 15px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-color);
+            font-size: 0.9em;
+            font-family: inherit;
+            outline: none;
             cursor: pointer;
-            transition: all 0.2s;
-            text-align: center;
-            -webkit-tap-highlight-color: transparent;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.4rem;
         }
-
-        .kit-card:hover {
-            border-color: #1f6feb;
-            background: #21262d;
+        .tester-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 15px;
         }
-
-        .kit-card.selected {
-            border-color: #1f6feb;
-            background: #1f6feb22;
+        .tester-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 18px;
         }
-
-        .kit-icon {
-            width: 48px;
-            height: 48px;
-            object-fit: contain;
-            image-rendering: pixelated;
-            /* Если картинка не загрузилась - показываем эмодзи */
-            background: #21262d;
-            border-radius: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
+        .tester-card h3 {
+            font-size: 1.1em;
+            margin-bottom: 8px;
         }
-
-        .kit-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .kit-name {
-            font-size: 0.7rem;
-            font-weight: 500;
-            color: #c9d1d9;
-            word-break: break-word;
-            line-height: 1.3;
-        }
-
-        .kit-count {
-            font-size: 0.6rem;
+        .tester-card p {
+            font-size: 0.85em;
             color: #8b949e;
+            margin-bottom: 5px;
         }
-
-        /* Модальное окно */
+        .tester-card .specialization {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 8px;
+        }
+        .tester-card .specialization span {
+            background-color: var(--border-color);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+        }
+        .status-active { color: #3fb950; }
         .modal-overlay {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.75);
+            z-index: 2000;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
+            padding: 20px;
         }
-
         .modal-overlay.active {
             display: flex;
         }
-
         .modal {
-            background: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 0.8rem;
-            padding: 1.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
             max-width: 500px;
             width: 100%;
-            max-height: 85vh;
+            max-height: 80vh;
             overflow-y: auto;
             position: relative;
         }
-
         .modal-close {
             position: absolute;
-            top: 0.8rem;
-            right: 1rem;
+            top: 12px;
+            right: 15px;
             background: none;
             border: none;
             color: #8b949e;
-            font-size: 1.5rem;
+            font-size: 1.5em;
             cursor: pointer;
         }
-
         .modal h2 {
-            color: #58a6ff;
-            margin-bottom: 0.8rem;
-            font-size: 1.1rem;
+            border: none;
+            margin-top: 0;
         }
-
-        .modal p {
-            margin-bottom: 0.5rem;
-            font-size: 0.8rem;
-            line-height: 1.5;
+        .panel {
+            display: none;
         }
-
-        .modal .kit-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.3rem;
-            margin: 0.5rem 0;
-        }
-
-        .modal .kit-tag {
-            background: #21262d;
-            border: 1px solid #30363d;
-            padding: 0.2rem 0.6rem;
-            border-radius: 1rem;
-            font-size: 0.7rem;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        .modal .kit-tag img {
-            width: 20px;
-            height: 20px;
-            object-fit: contain;
-            image-rendering: pixelated;
-        }
-
-        .testers-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 0.8rem;
-            margin-top: 1rem;
-        }
-
-        .tester-card {
-            background: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 0.5rem;
-            padding: 1rem;
-        }
-
-        .tester-card h3 {
-            color: #58a6ff;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .tester-card p {
-            font-size: 0.75rem;
-            color: #8b949e;
-            margin-bottom: 0.3rem;
-        }
-
-        .status-active {
-            color: #3fb950;
-        }
-
-        /* Анимации */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         .panel.active {
-            animation: fadeIn 0.3s ease;
+            display: block;
         }
-
-        /* Скроллбар */
-        ::-webkit-scrollbar {
-            height: 6px;
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #0d1117;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #30363d;
-            border-radius: 3px;
-        }
-
         @media (max-width: 600px) {
-            .kit-grid {
-                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-                gap: 0.4rem;
+            .kits-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
             }
-
-            .kit-icon {
+            .kit-card {
+                padding: 10px 6px;
+            }
+            .kit-card img {
                 width: 36px;
                 height: 36px;
             }
-
-            .kit-name {
-                font-size: 0.65rem;
+            .kit-card .kit-name {
+                font-size: 0.7em;
             }
-
-            th {
-                font-size: 0.65rem;
-                padding: 0.5rem 0.4rem;
+            .navbar {
+                padding: 10px;
             }
-
-            td {
-                font-size: 0.7rem;
-                padding: 0.5rem 0.4rem;
+            .nav-links button {
+                padding: 6px 10px;
+                font-size: 0.75em;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>⚔️ MultiCraft СНГ Тирлист</h1>
-        <p>Build and Mine! • Рейтинг игроков по PvP-китам</p>
-    </div>
-
-    <div class="tabs">
-        <button class="tab-btn active" data-tab="kits">📋 Киты</button>
-        <button class="tab-btn" data-tab="rating">🏆 Рейтинг</button>
-        <button class="tab-btn" data-tab="testers">🛠️ Тиртестеры</button>
-    </div>
+    <header class="navbar">
+        <div class="logo">MultiCraft СНГ Тирлист</div>
+        <nav class="nav-links">
+            <button class="active" data-panel="kits">Киты</button>
+            <button data-panel="rating">Рейтинг</button>
+            <button data-panel="testers">Тиртестеры</button>
+        </nav>
+        <div class="social-links">
+            <a href="#" title="Discord">DC</a>
+            <a href="#" title="Telegram">TG</a>
+            <a href="#" title="YouTube">YT</a>
+            <a href="#" title="GitHub">GH</a>
+        </div>
+    </header>
 
     <div class="container">
-        <!-- Панель Киты (как на mctiers) -->
-        <div id="kits-panel" class="panel active">
-            <div class="category-section">
-                <div class="category-title">⚔️ Категория 1 — Основные киты</div>
-                <div class="kit-grid" id="cat1-grid"></div>
-            </div>
-            <div class="category-section">
-                <div class="category-title">🗡️ Категория 2 — Классические киты</div>
-                <div class="kit-grid" id="cat2-grid"></div>
-            </div>
-            <div class="category-section">
-                <div class="category-title">🏹 Категория 3 — Специальные киты</div>
-                <div class="kit-grid" id="cat3-grid"></div>
-            </div>
-            <div class="category-section" id="custom-category" style="display:none;">
-                <div class="category-title">🔮 Кастомные киты</div>
-                <div class="kit-grid" id="custom-grid"></div>
-            </div>
-
-            <!-- Таблица игроков выбранного кита -->
-            <div id="kit-players-section" style="display:none; margin-top: 1.5rem;">
-                <div class="category-title" id="selected-kit-title"></div>
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Игрок</th>
-                                <th>Очки</th>
-                                <th>Ранг</th>
-                                <th>Регион</th>
-                            </tr>
-                        </thead>
-                        <tbody id="kit-players-tbody"></tbody>
-                    </table>
-                </div>
+        <!-- Панель Киты -->
+        <div id="panel-kits" class="panel active">
+            <h1>MultiCraft СНГ Тирлист</h1>
+            <p class="subtitle">Build and Mine! — Рейтинг игроков по PvP-китам</p>
+            <h2>Категория 1 — Основные киты</h2>
+            <div class="kits-grid" id="cat1-grid"></div>
+            <h2>Категория 2 — Классические киты</h2>
+            <div class="kits-grid" id="cat2-grid"></div>
+            <h2>Категория 3 — Специальные киты</h2>
+            <div class="kits-grid" id="cat3-grid"></div>
+            <h2 id="custom-title" style="display:none;">Кастомные киты</h2>
+            <div class="kits-grid" id="custom-grid"></div>
+            <div class="kit-players-table" id="kit-players-table">
+                <table>
+                    <thead>
+                        <tr><th>#</th><th>Игрок</th><th>Очки</th><th>Ранг</th><th>Регион</th></tr>
+                    </thead>
+                    <tbody id="kit-players-tbody"></tbody>
+                </table>
             </div>
         </div>
 
         <!-- Панель Рейтинг -->
-        <div id="rating-panel" class="panel">
-            <div class="search-box">
-                <input type="text" id="playerSearch" placeholder="🔍 Поиск по нику...">
+        <div id="panel-rating" class="panel">
+            <h1>Рейтинг игроков</h1>
+            <div class="rating-controls">
+                <input type="text" id="searchInput" placeholder="Поиск по нику...">
                 <select id="regionFilter">
-                    <option value="">🌍 Все регионы</option>
-                    <option value="RU">🇷🇺 RU</option>
-                    <option value="UA">🇺🇦 UA</option>
-                    <option value="BY">🇧🇾 BY</option>
-                    <option value="KZ">🇰🇿 KZ</option>
-                    <option value="UZ">🇺🇿 UZ</option>
-                    <option value="TJ">🇹🇯 TJ</option>
-                    <option value="TM">🇹🇲 TM</option>
-                    <option value="KG">🇰🇬 KG</option>
-                    <option value="AZ">🇦🇿 AZ</option>
-                    <option value="AM">🇦🇲 AM</option>
-                    <option value="MD">🇲🇩 MD</option>
-                    <option value="GE">🇬🇪 GE</option>
+                    <option value="">Все регионы</option>
+                    <option value="RU">RU</option><option value="UA">UA</option><option value="BY">BY</option>
+                    <option value="KZ">KZ</option><option value="UZ">UZ</option><option value="TJ">TJ</option>
+                    <option value="TM">TM</option><option value="KG">KG</option><option value="AZ">AZ</option>
+                    <option value="AM">AM</option><option value="MD">MD</option><option value="GE">GE</option>
                 </select>
             </div>
-            <div class="table-wrapper">
-                <table id="ratingTable">
+            <div class="kit-players-table visible">
+                <table>
                     <thead>
-                        <tr>
-                            <th data-sort="points">Очки <span class="sort-arrow">▼</span></th>
-                            <th data-sort="name">Игрок</th>
-                            <th data-sort="rank">Ранг</th>
-                            <th>Регион</th>
-                            <th>Киты</th>
-                        </tr>
+                        <tr><th data-sort="points">Очки</th><th data-sort="name">Игрок</th><th data-sort="rank">Ранг</th><th>Регион</th><th>Киты</th></tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody id="rating-tbody"></tbody>
                 </table>
             </div>
         </div>
 
         <!-- Панель Тиртестеры -->
-        <div id="testers-panel" class="panel">
-            <div class="testers-grid" id="testersContainer"></div>
+        <div id="panel-testers" class="panel">
+            <h1>Тиртестеры</h1>
+            <div class="tester-grid" id="tester-grid"></div>
         </div>
     </div>
 
-    <!-- Модальное окно игрока -->
-    <div class="modal-overlay" id="playerModal">
+    <!-- Модальное окно -->
+    <div class="modal-overlay" id="modalOverlay">
         <div class="modal">
             <button class="modal-close">&times;</button>
-            <div id="modalDetails"></div>
+            <div id="modalContent"></div>
         </div>
     </div>
 
     <script>
         (function() {
-            // ============ ДАННЫЕ ============
-            const PLAYERS_DATA = [
-                { name: "DragonSlayerRU", points: 945, region: "RU", kits: ["Hardcore", "Combo",
-                        "Emerald Pot"
-                    ], tierTesters: ["ZxcTest"], achievements: ["Топ-1 турнира MultiCraft 2025"],
-                    bio: "Агрессивный игрок, любит хардкорные сеты." },
-                { name: "KZ_ProSkill", points: 872, region: "KZ", kits: ["Dragonhide KB I", "Combo",
-                        "Lite"
-                    ], tierTesters: ["CreeperCheck"], achievements: ["Победитель ClanWar"],
-                    bio: "Мастер комбо и уклонения." },
-                { name: "UAhitman", points: 810, region: "UA", kits: ["Emerald", "SMP", "Gapple"],
-                    tierTesters: ["ZxcTest"], achievements: ["Лучший защитник"], bio: "Тактик, предпочитает SMP." },
-                { name: "BelarusKing", points: 760, region: "BY", kits: ["Diamond Pot", "Vanilla", "UHC"],
-                    tierTesters: ["CreeperCheck"], achievements: [] },
-                { name: "Tjk_Warrior", points: 690, region: "TJ", kits: ["Pot", "Sword", "Mace"],
-                    tierTesters: ["BalanceGuy"], achievements: ["Победитель 2x2"] },
-                { name: "UzbeK_Star", points: 620, region: "UZ", kits: ["Speed", "Mummy", "Bow"],
-                    tierTesters: ["ZxcTest"], achievements: ["Самый быстрый"] },
-                { name: "GeorgianAce", points: 550, region: "GE", kits: ["Debuff", "Manhunt", "Bed"],
-                    tierTesters: ["CreeperCheck"], bio: "Любит дебаффы." },
-                { name: "MoldovaPro", points: 480, region: "MD", kits: ["Diamond Vanilla", "OG Vanilla", "Axe"],
-                    tierTesters: ["BalanceGuy"] },
-                { name: "AzeriWolf", points: 420, region: "AZ", kits: ["HethOP", "SMP", "Sword"],
-                    tierTesters: ["ZxcTest"], achievements: ["Ветеран сервера"] },
-                { name: "ArmeniaPower", points: 350, region: "AM", kits: ["Hardcore", "Combo", "Emerald Pot"],
-                    tierTesters: ["CreeperCheck"] },
-                { name: "KG_Nomad", points: 280, region: "KG", kits: ["Lite", "Gapple", "Vanilla"],
-                   
+            // Данные игроков
+            const PLAYERS = [
+                { name: "_Smesharik_", points: 920, region: "RU", kits: ["Hardcore", "Combo", "Sword"], tierTesters: ["ZxcTest"], achievements: ["Победитель турнира 2025"] },
+                { name: "Xumuk_", points: 850, region: "KZ", kits: ["Dragonhide KB I", "Combo", "Axe"], tierTesters: ["CreeperCheck"], achievements: ["Топ-3 ClanWar"] },
+                { name: "Tactical_", points: 780, region: "UA", kits: ["Emerald", "SMP", "Gapple"], tierTesters: ["ZxcTest"], achievements: [] },
+                { name: "JustNoob", points: 720, region: "BY", kits: ["Diamond Pot", "Vanilla", "UHC"], tierTesters: ["CreeperCheck"], achievements: ["Лучший защитник"] },
+                { name: "Kapkan", points: 680, region: "TJ", kits: ["Pot", "Sword", "Mace"], tierTesters: ["BalanceGuy"], achievements: [] },
+                { name: "Fanat1k", points: 610, region: "UZ", kits: ["Speed", "Mummy", "Bow"], tierTesters: ["KitMaster"], achievements: ["Самый быстрый"] },
+                { name: "GeorgianAce", points: 540, region: "GE", kits: ["Debuff", "Manhunt", "Bed"], tierTesters: ["CreeperCheck"], achievements: [] },
+                { name: "MoldovaPro", points: 470, region: "MD", kits: ["Diamond Vanilla", "OG Vanilla", "Axe"], tierTesters: ["BalanceGuy"], achievements: ["Ветеран"] },
+                { name: "AzeriWolf", points: 410, region: "AZ", kits: ["HethOP", "SMP", "Sword"], tierTesters: ["ZxcTest"], achievements: [] },
+                { name: "ArmPower", points: 340, region: "AM", kits: ["Hardcore", "Combo", "Emerald Pot"], tierTesters: ["CreeperCheck"], achievements: [] },
+                { name: "KG_Nomad", points: 270, region: "KG", kits: ["Lite", "Gapple", "Vanilla"], tierTesters: ["BalanceGuy"], achievements: [] },
+                { name: "Rus_Titan", points: 200, region: "RU", kits: ["Diamond SMP", "Bow", "Bed"], tierTesters: ["TesterPro"], achievements: [] },
+                { name: "TurkmenStar", points: 140, region: "TM", kits: ["SMP", "Sword", "Mace"], tierTesters: ["CreeperCheck"], achievements: [] },
+                { name: "By_Defender", points: 80, region: "BY", kits: ["OG Vanilla", "Axe", "Speed"], tierTesters: ["BalanceGuy"], achievements: [] },
+                { name: "Ua_Fast", points: 30, region: "UA", kits: ["Mummy", "Manhunt"], tierTesters: ["ZxcTest"], achievements: [] }
+            ];
+
+            const TESTERS = [
+                { name: "ZxcTest", discord: "zxctest", telegram: "zxctest", specialization: ["Hardcore", "Combo", "Emerald"], status: "active" },
+                { name: "CreeperCheck", discord: "creepercheck", telegram: "creepercheck", specialization: ["Vanilla", "UHC", "Debuff"], status: "active" },
+                { name: "BalanceGuy", discord: "balanceguy", telegram: "balanceguy", specialization: ["SMP", "Sword", "Mace"], status: "active" },
+                { name: "KitMaster", discord: "kitmaster", telegram: "kitmaster", specialization: ["Diamond", "Speed", "Bow"], status: "active" },
+                { name: "TesterPro", discord: "testerpro", telegram: "testerpro", specialization: ["Dragonhide", "Lite", "Bed"], status: "active" }
+            ];
+
+            const CATEGORIES = {
+                cat1: ["Hardcore", "Combo", "Emerald Pot", "Dragonhide KB I", "Emerald", "Lite", "SMP", "Gapple", "Diamond Pot"],
+                cat2: ["Vanilla", "UHC", "Pot", "HethOP", "Sword", "Axe", "Mace"],
+                cat3: ["Diamond Vanilla", "Debuff", "Speed", "Mummy", "Manhunt", "Diamond SMP", "Bow", "Bed", "OG Vanilla"]
+            };
+
+            const KIT_ICONS = {
+                "Hardcore": "icons/hardcore.png",
+                "Combo": "icons/combo.png",
+                "Emerald Pot": "icons/emerald_pot.png",
+                "Dragonhide KB I": "icons/dragonhide.png",
+                "Emerald": "icons/emerald.png",
+                "Lite": "icons/lite.png",
+                "SMP": "icons/smp.png",
+                "Gapple": "icons/gapple.png",
+                "Diamond Pot": "icons/diamond_pot.png",
+                "Vanilla": "icons/vanilla.png",
+                "UHC": "icons/uhc.png",
+                "Pot": "icons/pot.png",
+                "HethOP": "icons/hethop.png",
+                "Sword": "icons/sword.png",
+                "Axe": "icons/axe.png",
+                "Mace": "icons/mace.png",
+                "Diamond Vanilla": "icons/diamond_vanilla.png",
+                "Debuff": "icons/debuff.png",
+                "Speed": "icons/speed.png",
+                "Mummy": "icons/mummy.png",
+                "Manhunt": "icons/manhunt.png",
+                "Diamond SMP": "icons/diamond_smp.png",
+                "Bow": "icons/bow.png",
+                "Bed": "icons/bed.png",
+                "OG Vanilla": "icons/og_vanilla.png"
+            };
+
+            function getRank(p) {
+                                if (p >= 901) return { name: "HT1", cls: "HT1" };
+                if (p >= 801) return { name: "LT1", cls: "LT1" };
+                if (p >= 701) return { name: "HT2", cls: "HT2" };
+                if (p >= 601) return { name: "LT2", cls: "LT2" };
+                if (p >= 501) return { name: "HT3", cls: "HT3" };
+                if (p >= 401) return { name: "LT3", cls: "LT3" };
+                if (p >= 301) return { name: "HT4", cls: "HT4" };
+                if (p >= 201) return { name: "LT4", cls: "LT4" };
+                if (p >= 101) return { name: "HT5", cls: "HT5" };
+                return { name: "LT5", cls: "LT5" };
+            }
+
+            function getAllKits() {
+                const s = new Set();
+                PLAYERS.forEach(p => p.kits.forEach(k => s.add(k)));
+                return [...s].sort();
+            }
+
+            function getCustomKits() {
+                const all = getAllKits();
+                const pre = new Set([...CATEGORIES.cat1, ...CATEGORIES.cat2, ...CATEGORIES.cat3]);
+                return all.filter(k => !pre.has(k));
+            }
+
+            function renderKitIcon(kit) {
+                const path = KIT_ICONS[kit];
+                if (path) {
+                    return `<img src="${path}" alt="${kit}" onerror="this.style.display='none'">`;
+                }
+                return '';
+            }
+
+            function renderKitGrid(gridId, kits) {
+                const grid = document.getElementById(gridId);
+                if (!grid) return;
+                grid.innerHTML = kits.map(kit => {
+                    const players = PLAYERS.filter(p => p.kits.includes(kit));
+                    const top = players.length > 0 ? Math.max(...players.map(p => p.points)) : 0;
+                    return `<div class="kit-card" data-kit="${kit}">
+                        ${renderKitIcon(kit)}
+                        <div class="kit-name">${kit}</div>
+                        <div class="kit-points">Топ: ${top}</div>
+                    </div>`;
+                }).join('');
+
+                grid.querySelectorAll('.kit-card').forEach(card => {
+                    card.addEventListener('click', function() {
+                        document.querySelectorAll('.kit-card').forEach(c => c.classList.remove('selected'));
+                        this.classList.add('selected');
+                        showKitPlayers(this.dataset.kit);
+                    });
+                });
+            }
+
+            function showKitPlayers(kit) {
+                const table = document.getElementById('kit-players-table');
+                const tbody = document.getElementById('kit-players-tbody');
+                const players = PLAYERS.filter(p => p.kits.includes(kit)).sort((a, b) => b.points - a.points);
+                table.classList.add('visible');
+                tbody.innerHTML = players.map((p, i) => {
+                    const r = getRank(p.points);
+                    return `<tr>
+                        <td>${i + 1}</td>
+                        <td><span class="player-name-link" data-player="${p.name}">${p.name}</span></td>
+                        <td>${p.points}</td>
+                        <td><span class="rank-badge ${r.cls}">${r.name}</span></td>
+                        <td>${p.region}</td>
+                    </tr>`;
+                }).join('') || '<tr><td colspan="5">Нет игроков</td></tr>';
+
+                tbody.querySelectorAll('.player-name-link').forEach(link => {
+                    link.addEventListener('click', function() {
+                        const player = PLAYERS.find(p => p.name === this.dataset.player);
+                        if (player) showModal(player);
+                    });
+                });
+
+                if (window.innerWidth < 768) {
+                    table.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+
+            function renderAllKits() {
+                renderKitGrid('cat1-grid', CATEGORIES.cat1);
+                renderKitGrid('cat2-grid', CATEGORIES.cat2);
+                renderKitGrid('cat3-grid', CATEGORIES.cat3);
+                const custom = getCustomKits();
+                const title = document.getElementById('custom-title');
+                const grid = document.getElementById('custom-grid');
+                if (custom.length > 0) {
+                    title.style.display = 'block';
+                    grid.style.display = 'grid';
+                    renderKitGrid('custom-grid', custom);
+                } else {
+                    title.style.display = 'none';
+                    grid.style.display = 'none';
+                }
+            }
+
+            let sortField = 'points';
+            let sortAsc = false;
+
+            function renderRating() {
+                const search = document.getElementById('searchInput').value.toLowerCase();
+                const region = document.getElementById('regionFilter').value;
+                let filtered = PLAYERS.filter(p => {
+                    return p.name.toLowerCase().includes(search) && (!region || p.region === region);
+                });
+                filtered.sort((a, b) => {
+                    let va, vb;
+                    if (sortField === 'rank') { va = a.points; vb = b.points; }
+                    else if (sortField === 'name') { va = a.name.toLowerCase(); vb = b.name.toLowerCase(); return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va); }
+                    else { va = a[sortField]; vb = b[sortField]; }
+                    return sortAsc ? va - vb : vb - va;
+                });
+                const tbody = document.getElementById('rating-tbody');
+                tbody.innerHTML = filtered.map(p => {
+                    const r = getRank(p.points);
+                    return `<tr>
+                        <td>${p.points}</td>
+                        <td><span class="player-name-link" data-player="${p.name}">${p.name}</span></td>
+                        <td><span class="rank-badge ${r.cls}">${r.name}</span></td>
+                        <td>${p.region}</td>
+                        <td>${p.kits.slice(0,3).join(', ')}${p.kits.length > 3 ? '...' : ''}</td>
+                    </tr>`;
+                }).join('');
+                tbody.querySelectorAll('.player-name-link').forEach(link => {
+                    link.addEventListener('click', function() {
+                        const player = PLAYERS.find(p => p.name === this.dataset.player);
+                        if (player) showModal(player);
+                    });
+                });
+            }
+
+            function renderTesters() {
+                const grid = document.getElementById('tester-grid');
+                grid.innerHTML = TESTERS.map(t => `
+                    <div class="tester-card">
+                        <h3>${t.name}</h3>
+                        <p>Discord: <a href="https://discord.com/users/${t.discord}">${t.discord}</a></p>
+                        <p>Telegram: <a href="https://t.me/${t.telegram}">@${t.telegram}</a></p>
+                        <div class="specialization">${t.specialization.map(s => `<span>${s}</span>`).join('')}</div>
+                        <p class="status-active">${t.status === 'active' ? 'Активен' : 'Неактивен'}</p>
+                    </div>
+                `).join('');
+            }
+
+            function showModal(player) {
+                const r = getRank(player.points);
+                document.getElementById('modalContent').innerHTML = `
+                    <h2>${player.name}</h2>
+                    <p><span class="rank-badge ${r.cls}">${r.name}</span> — ${player.points} очков</p>
+                    <p>Регион: ${player.region}</p>
+                    <p>Киты: ${player.kits.map(k => k).join(', ')}</p>
+                    ${player.tierTesters.length ? `<p>Тиртестеры: ${player.tierTesters.join(', ')}</p>` : ''}
+                    ${player.achievements.length ? `<p>Достижения: ${player.achievements.join(', ')}</p>` : ''}
+                `;
+                document.getElementById('modalOverlay').classList.add('active');
+            }
+
+            function closeModal() {
+                document.getElementById('modalOverlay').classList.remove('active');
+            }
+
+            document.querySelector('.modal-close').addEventListener('click', closeModal);
+            document.getElementById('modalOverlay').addEventListener('click', function(e) {
+                if (e.target === this) closeModal();
+            });
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeModal();
+            });
+
+            const navButtons = document.querySelectorAll('.nav-links button');
+            navButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    navButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    const panelName = this.dataset.panel;
+                    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+                    document.getElementById('panel-' + panelName).classList.add('active');
+                    if (panelName === 'rating') renderRating();
+                });
+            });
+
+            document.querySelectorAll('#panel-rating th[data-sort]').forEach(th => {
+                th.addEventListener('click', function() {
+                    const field = this.dataset.sort;
+                    if (sortField === field) sortAsc = !sortAsc;
+                    else { sortField = field; sortAsc = false; }
+                    renderRating();
+                });
+            });
+
+            document.getElementById('searchInput').addEventListener('input', renderRating);
+            document.getElementById('regionFilter').addEventListener('change', renderRating);
+
+            renderAllKits();
+            renderRating();
+            renderTesters();
+        })();
+    </script>
+</body>
+</html>
