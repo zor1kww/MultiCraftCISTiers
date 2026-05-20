@@ -1,0 +1,135 @@
+{
+  "players": [
+    {
+      "nickname": "DragonCIS",
+      "country": "RU",
+      "elo": 2150,
+      "device": "PC",
+      "tester": "Admin_Check",
+      "isCoach": true,
+      "coachDetails": { "price": "500 RUB/h", "discord": "dragon_cis#1234" },
+      "tiers": {
+        "Vanilla": "HT1",
+        "Mace": "LT1",
+        "Sword": "HT2",
+        "Axe": "LT2",
+        "UHC": "Unranked",
+        "Pot": "HT3",
+        "NethOP": "LT3"
+      }
+    },
+    {
+      "nickname": "SteppeWarrior",
+      "country": "KZ",
+      "elo": 1980,
+      "device": "Phone",
+      "tester": "Nomad_Tester",
+      "isCoach": false,
+      "tiers": {
+        "Vanilla": "LT2",
+        "Mace": "HT3",
+        "Sword": "LT1",
+        "Axe": "HT4",
+        "UHC": "LT5",
+        "Pot": "Unranked",
+        "NethOP": "HT5"
+      }
+    },
+    {
+      "nickname": "MinskFighter",
+      "country": "BY",
+      "elo": 1850,
+      "device": "Tablet",
+      "tester": "Admin_Check",
+      "isCoach": true,
+      "coachDetails": { "price": "10 BYN/h", "discord": "minsk_f#0000" },
+      "tiers": {
+        "Vanilla": "HT3",
+        "Mace": "LT3",
+        "Sword": "HT4",
+        "Axe": "LT4",
+        "UHC": "HT5",
+        "Pot": "LT5",
+        "NethOP": "Unranked"
+      }
+    },
+    {
+      "nickname": "Uzbek_King",
+      "country": "UZ",
+      "elo": 1700,
+      "device": "Otg",
+      "tester": "Nomad_Tester",
+      "isCoach": false,
+      "tiers": {
+        "Vanilla": "LT4",
+        "Mace": "HT5",
+        "Sword": "Unranked",
+        "Axe": "Unranked",
+        "UHC": "LT1",
+        "Pot": "HT2",
+        "NethOP": "LT2"
+      }
+    },
+    {
+      "nickname": "KyivMaster",
+      "country": "UA",
+      "elo": 2300,
+      "device": "PC",
+      "tester": "Admin_Check",
+      "isCoach": false,
+      "tiers": {
+        "Vanilla": "HT1",
+        "Mace": "HT1",
+        "Sword": "LT1",
+        "Axe": "LT1",
+        "UHC": "HT2",
+        "Pot": "HT2",
+        "NethOP": "HT1"
+      }
+    },
+    {
+      "nickname": "Baku_Blade",
+      "country": "AZ",
+      "elo": 1550,
+      "device": "Controller",
+      "tester": "Nomad_Tester",
+      "isCoach": false,
+      "tiers": {
+        "Vanilla": "Unranked",
+        "Mace": "Unranked",
+        "Sword": "HT5",
+        "Axe": "LT5",
+        "UHC": "HT4",
+        "Pot": "LT4",
+        "NethOP": "HT3"
+      }
+    }
+  ],
+  "honors": [
+    {
+      "nickname": "OldLegend_CIS",
+      "reason": "Основатель первой соревновательной лиги MultiCraft в 2019 году. Внес вклад в баланс механики Mace."
+    },
+    {
+      "nickname": "TechnoGod",
+      "reason": "Первый игрок, достигший HT1 во всех семи дисциплинах одновременно. Непобежденный чемпион 2024 года."
+    }
+  ],
+  "testers": [
+    {
+      "nickname": "Admin_Check",
+      "discord": "admin#1111",
+      "kits": ["Vanilla", "Sword", "Pot", "UHC"]
+    },
+    {
+      "nickname": "Nomad_Tester",
+      "discord": "nomad#2222",
+      "kits": ["Axe", "Mace", "NethOP"]
+    },
+    {
+      "nickname": "ZeroCheck",
+      "discord": "zero#3333",
+      "kits": ["Vanilla", "Axe"]
+    }
+  ]
+}
