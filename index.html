@@ -1,16 +1,9 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
-/>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>MultiCraft CIS Tiers</title>
-
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
@@ -32,187 +25,258 @@ html{
 }
 
 body{
+    overflow-x:hidden;
+    color:white;
     background:
     radial-gradient(circle at top left,
-    rgba(255,170,0,0.12),
-    transparent 30%),
+    rgba(255,170,0,0.12),transparent 30%),
 
     radial-gradient(circle at bottom right,
-    rgba(255,120,0,0.08),
-    transparent 30%),
+    rgba(255,120,0,0.08),transparent 30%),
 
-    #05070d;
-
-    color:white;
-    overflow-x:hidden;
+    #06080f;
 }
 
-/* HEADER */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size:40px 40px;
+    pointer-events:none;
+}
 
 .header{
     position:sticky;
     top:0;
-    z-index:100;
-    backdrop-filter:blur(14px);
-    background:rgba(5,7,13,0.85);
-    border-bottom:1px solid rgba(255,255,255,0.05);
+    z-index:999;
+    backdrop-filter:blur(16px);
+    background:rgba(5,8,15,0.84);
+    border-bottom:1px solid rgba(255,255,255,0.06);
 }
 
 .nav-wrapper{
-    max-width:1300px;
+    max-width:1400px;
     margin:auto;
-    padding:14px 16px;
+    padding:14px 18px;
 }
 
 .logo{
-    font-size:34px;
-    color:#ffb300;
-    line-height:1;
+    font-size:42px;
+    background:linear-gradient(to right,#ffb300,#ffe082);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
 }
 
 .nav{
     display:flex;
-    gap:10px;
     flex-wrap:wrap;
+    gap:12px;
     margin-top:14px;
 }
 
 .nav a{
     text-decoration:none;
     color:white;
-    background:#101522;
-    padding:12px 16px;
-    border-radius:16px;
+    background:rgba(18,24,38,0.9);
+    border:1px solid rgba(255,255,255,0.05);
+    padding:13px 18px;
+    border-radius:18px;
     transition:0.25s;
     font-size:14px;
 }
 
 .nav a:hover{
-    background:#1a2233;
+    transform:translateY(-2px);
+    border-color:rgba(255,179,0,0.35);
+    background:#1b2334;
 }
 
-/* HERO */
-
 .hero{
-    max-width:1300px;
+    max-width:1400px;
     margin:auto;
-    padding:50px 18px 20px;
+    padding:60px 20px 30px;
 }
 
 .hero-box{
-    background:rgba(12,16,26,0.8);
-    border:1px solid rgba(255,255,255,0.05);
-    border-radius:30px;
-    padding:35px;
+    position:relative;
+    overflow:hidden;
+    border-radius:38px;
+    padding:50px;
+    background:linear-gradient(145deg,
+    rgba(14,18,30,0.96),
+    rgba(8,10,18,0.96));
+
+    border:1px solid rgba(255,255,255,0.06);
+
+    box-shadow:
+    0 0 50px rgba(255,170,0,0.08),
+    inset 0 0 50px rgba(255,255,255,0.02);
+}
+
+.hero-box::after{
+    content:"";
+    position:absolute;
+    width:500px;
+    height:500px;
+    background:radial-gradient(circle,
+    rgba(255,179,0,0.18),transparent 70%);
+    right:-120px;
+    top:-120px;
 }
 
 .hero-title{
-    font-size:72px;
-    line-height:0.95;
-    color:#ffb300;
+    position:relative;
+    z-index:2;
+    font-size:92px;
+    line-height:0.9;
+    background:linear-gradient(to right,#ffb300,#fff0b3);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
 }
 
 .hero-sub{
-    color:#9c9c9c;
-    margin-top:20px;
-    line-height:1.8;
-    max-width:700px;
+    position:relative;
+    z-index:2;
+    max-width:760px;
+    margin-top:24px;
+    color:#a6a6a6;
+    line-height:2;
+    font-size:16px;
 }
 
 .hero-buttons{
+    position:relative;
+    z-index:2;
     display:flex;
-    gap:14px;
     flex-wrap:wrap;
-    margin-top:28px;
+    gap:14px;
+    margin-top:34px;
 }
 
 .hero-buttons a{
     text-decoration:none;
-    color:white;
-    background:#121826;
-    padding:16px 22px;
-    border-radius:18px;
+    padding:18px 24px;
+    border-radius:22px;
     transition:0.25s;
 }
 
-.hero-buttons a:hover{
-    background:#1d2638;
+.primary-btn{
+    background:linear-gradient(to right,#ffb300,#ffd54f);
+    color:black;
+    box-shadow:0 0 30px rgba(255,179,0,0.25);
 }
 
-/* SECTION */
+.secondary-btn{
+    background:#141a29;
+    color:white;
+    border:1px solid rgba(255,255,255,0.05);
+}
+
+.primary-btn:hover,
+.secondary-btn:hover{
+    transform:translateY(-3px) scale(1.02);
+}
+
+.stats-grid{
+    max-width:1400px;
+    margin:auto;
+    padding:0 20px 30px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+
+.stat-card{
+    background:rgba(14,18,30,0.95);
+    border-radius:28px;
+    padding:28px;
+    border:1px solid rgba(255,255,255,0.05);
+}
+
+.stat-number{
+    font-size:44px;
+    color:#ffcf66;
+}
+
+.stat-label{
+    color:#979797;
+    margin-top:10px;
+}
 
 .section{
-    max-width:1300px;
+    max-width:1400px;
     margin:auto;
-    padding:35px 18px;
+    padding:40px 20px;
 }
 
 .section-title{
-    font-size:40px;
-    margin-bottom:10px;
-    color:#ffb300;
+    font-size:52px;
+    background:linear-gradient(to right,#ffb300,#ffe082);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
 }
 
 .section-sub{
-    color:#969696;
-    line-height:1.8;
-    margin-bottom:30px;
+    margin-top:12px;
+    color:#979797;
+    line-height:1.9;
+    max-width:720px;
 }
-
-/* FILTERS */
 
 .filters{
     display:grid;
     grid-template-columns:1fr 1fr 1fr;
     gap:14px;
-    margin-bottom:20px;
+    margin-top:30px;
 }
 
 .filters input,
 .filters select{
-    background:#101522;
+    background:#111827;
     border:none;
     color:white;
-    padding:16px;
-    border-radius:18px;
+    padding:18px;
+    border-radius:20px;
     outline:none;
-    width:100%;
+    border:1px solid rgba(255,255,255,0.05);
 }
-
-/* MODES */
 
 .mode-tabs{
     display:flex;
-    gap:12px;
     flex-wrap:wrap;
-    margin-bottom:24px;
+    gap:12px;
+    margin-top:24px;
+    margin-bottom:26px;
 }
 
 .mode-tabs button{
     border:none;
     cursor:pointer;
-    background:#101522;
+    background:#111827;
     color:white;
-    padding:14px 18px;
-    border-radius:16px;
+    padding:15px 20px;
+    border-radius:18px;
     transition:0.25s;
+    border:1px solid rgba(255,255,255,0.05);
 }
 
 .mode-tabs button:hover{
-    background:#1a2233;
+    transform:translateY(-2px);
+    border-color:rgba(255,179,0,0.35);
 }
 
 .active-mode{
-    background:#ffb300 !important;
+    background:linear-gradient(to right,#ffb300,#ffd54f) !important;
     color:black !important;
 }
-
-/* LEADERBOARD */
 
 .players-container{
     display:flex;
     flex-direction:column;
-    gap:14px;
+    gap:16px;
     max-height:900px;
     overflow-y:auto;
     padding-right:6px;
@@ -224,140 +288,200 @@ body{
 
 .players-container::-webkit-scrollbar-thumb{
     background:#ffb300;
-    border-radius:20px;
+    border-radius:30px;
 }
 
 .player-card{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    background:rgba(12,16,26,0.88);
+    gap:20px;
+    background:rgba(14,18,30,0.95);
+    border-radius:30px;
+    padding:22px;
     border:1px solid rgba(255,255,255,0.05);
-    border-radius:26px;
-    padding:18px;
+    transition:0.25s;
+}
+
+.player-card:hover{
+    transform:translateY(-2px);
+    border-color:rgba(255,179,0,0.22);
 }
 
 .player-left{
     display:flex;
     align-items:center;
-    gap:16px;
+    gap:18px;
 }
 
 .rank{
-    font-size:28px;
-    color:#ffb300;
-    min-width:60px;
+    font-size:30px;
+    color:#ffcf66;
+    min-width:70px;
 }
 
 .player-skin{
-    width:60px;
-    height:60px;
-    border-radius:16px;
+    width:72px;
+    height:72px;
+    border-radius:18px;
+    object-fit:cover;
 }
 
 .player-nick{
-    font-size:24px;
+    font-size:28px;
 }
 
 .player-info{
-    color:#949494;
-    margin-top:5px;
+    margin-top:8px;
+    color:#9f9f9f;
+    line-height:1.8;
     font-size:14px;
 }
 
 .player-right{
     display:flex;
     align-items:center;
-    gap:14px;
+    gap:16px;
 }
 
 .player-tier{
-    background:#ffb300;
+    background:linear-gradient(to right,#ffb300,#ffd54f);
     color:black;
-    padding:10px 14px;
-    border-radius:14px;
-    font-size:14px;
+    padding:12px 16px;
+    border-radius:16px;
 }
 
 .player-points{
-    color:#ffd966;
-    font-size:15px;
+    color:#ffe082;
+    font-size:18px;
 }
 
-/* KITS */
-
 .kits-grid{
+    margin-top:28px;
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:16px;
+    gap:18px;
 }
 
 .kit-card{
-    background:#101522;
-    border-radius:24px;
-    padding:22px;
-    text-align:center;
+    background:rgba(14,18,30,0.95);
+    border-radius:28px;
+    padding:26px;
     border:1px solid rgba(255,255,255,0.05);
+    transition:0.25s;
+    text-align:center;
+}
+
+.kit-card:hover{
+    transform:translateY(-4px);
+    border-color:rgba(255,179,0,0.28);
 }
 
 .kit-card img{
-    width:70px;
-    height:70px;
+    width:80px;
+    height:80px;
     object-fit:contain;
     margin:auto;
+    margin-bottom:18px;
+}
+
+.kit-name{
+    font-size:24px;
+}
+
+.kit-desc{
+    color:#969696;
+    margin-top:12px;
+    line-height:1.8;
+    font-size:14px;
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+    margin-top:30px;
+}
+
+.info-card{
+    background:rgba(14,18,30,0.95);
+    border-radius:28px;
+    padding:30px;
+    border:1px solid rgba(255,255,255,0.05);
+}
+
+.info-title{
+    font-size:30px;
+    color:#ffcf66;
     margin-bottom:16px;
 }
 
-.kit-card span{
-    display:block;
-    font-size:20px;
+.info-text{
+    color:#9d9d9d;
+    line-height:2;
 }
 
-/* FAQ */
-
-.faq-box{
-    display:flex;
-    flex-direction:column;
-    gap:16px;
+.footer{
+    margin-top:40px;
+    border-top:1px solid rgba(255,255,255,0.06);
+    padding:40px 20px;
+    text-align:center;
+    color:#8d8d8d;
 }
 
-.faq-item{
-    background:#101522;
-    border-radius:20px;
-    padding:20px;
-}
-
-.faq-question{
-    font-size:22px;
-    margin-bottom:10px;
-    color:#ffb300;
-}
-
-.faq-answer{
-    color:#9f9f9f;
-    line-height:1.8;
-}
-
-/* MOBILE */
-
-@media(max-width:900px){
+@media(max-width:1000px){
 
     .hero-title{
-        font-size:48px;
+        font-size:62px;
     }
 
-    .filters{
-        grid-template-columns:1fr;
+    .stats-grid{
+        grid-template-columns:1fr 1fr;
     }
 
     .kits-grid{
         grid-template-columns:1fr 1fr;
     }
 
+    .info-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:760px){
+
+    .logo{
+        font-size:30px;
+    }
+
+    .hero{
+        padding-top:34px;
+    }
+
+    .hero-box{
+        padding:30px;
+    }
+
+    .hero-title{
+        font-size:44px;
+    }
+
+    .filters{
+        grid-template-columns:1fr;
+    }
+
+    .stats-grid{
+        grid-template-columns:1fr;
+    }
+
+    .kits-grid{
+        grid-template-columns:1fr;
+    }
+
     .player-card{
         flex-direction:column;
         align-items:flex-start;
-        gap:18px;
     }
 
     .player-right{
@@ -365,55 +489,15 @@ body{
         justify-content:space-between;
     }
 
-}
-
-@media(max-width:600px){
-
-    .logo{
-        font-size:26px;
-    }
-
-    .hero{
-        padding-top:30px;
-    }
-
-    .hero-box{
-        padding:24px;
-    }
-
-    .hero-title{
-        font-size:40px;
-    }
-
     .section-title{
-        font-size:30px;
-    }
-
-    .kits-grid{
-        grid-template-columns:1fr;
-    }
-
-    .player-left{
-        width:100%;
-    }
-
-    .player-skin{
-        width:52px;
-        height:52px;
-    }
-
-    .player-nick{
-        font-size:20px;
+        font-size:36px;
     }
 
 }
 
 </style>
-
 </head>
 <body>
-
-<!-- HEADER -->
 
 <header class="header">
 
@@ -424,30 +508,15 @@ MultiCraft CIS Tiers
 </div>
 
 <div class="nav">
-
-<a href="#leaderboard">
-Таблица
-</a>
-
-<a href="#kits">
-Режимы
-</a>
-
-<a href="#testing">
-Тир-Тест
-</a>
-
-<a href="#faq">
-FAQ
-</a>
-
+<a href="#leaderboard">Таблица</a>
+<a href="#kits">Режимы</a>
+<a href="#testing">Тир-Тест</a>
+<a href="#faq">FAQ</a>
 </div>
 
 </div>
 
 </header>
-
-<!-- HERO -->
 
 <section class="hero">
 
@@ -459,360 +528,245 @@ Ranking Platform
 </h1>
 
 <p class="hero-sub">
-Платформа тир-тестинга СНГ PvP сообщества.
-Проходите тесты, получайте тиры,
+Официальная PvP платформа СНГ сообщества.
+Проходите тир-тесты, получайте ранги,
 участвуйте в лидербордах и поднимайтесь
-в общий OVERALL рейтинг.
+в OVERALL рейтинг.
 </p>
 
 <div class="hero-buttons">
-
-<a href="#leaderboard">
-OVERALL TOP
-</a>
-
-<a href="#testing">
-ПРОЙТИ ТИР-ТЕСТ
-</a>
-
+<a href="#leaderboard" class="primary-btn">OVERALL TOP</a>
+<a href="#testing" class="secondary-btn">ПРОЙТИ ТИР-ТЕСТ</a>
 </div>
 
 </div>
 
 </section>
 
-<!-- LEADERBOARD -->
+<section class="stats-grid">
 
-<section
-id="leaderboard"
-class="section"
->
+<div class="stat-card">
+<div class="stat-number">5.8K</div>
+<div class="stat-label">PvP Tests</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-number">1.2K</div>
+<div class="stat-label">Players</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-number">14</div>
+<div class="stat-label">Testers</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-number">7</div>
+<div class="stat-label">PvP Modes</div>
+</div>
+
+</section>
+
+<section id="leaderboard" class="section">
 
 <h2 class="section-title">
 OVERALL LEADERBOARD
 </h2>
 
 <p class="section-sub">
-Общий рейтинг игроков платформы.
+Рейтинг игроков платформы с общей системой очков.
 </p>
 
 <div class="filters">
 
-<input
-type="text"
-id="searchInput"
-placeholder="Поиск игрока..."
->
+<input type="text" id="searchInput" placeholder="Поиск игрока...">
 
 <select id="countryFilter">
-
-<option value="all">
-Все страны
-</option>
-
-<option value="RU">
-RU
-</option>
-
-<option value="UA">
-UA
-</option>
-
-<option value="KZ">
-KZ
-</option>
-
-<option value="BY">
-BY
-</option>
-
+<option value="all">Все страны</option>
+<option value="RU">RU</option>
+<option value="UA">UA</option>
+<option value="KZ">KZ</option>
+<option value="BY">BY</option>
 </select>
 
 <select id="deviceFilter">
-
-<option value="all">
-Все устройства
-</option>
-
-<option value="PC">
-PC
-</option>
-
-<option value="Phone">
-Phone
-</option>
-
-<option value="Tablet">
-Tablet
-</option>
-
-<option value="Console">
-Console
-</option>
-
+<option value="all">Все устройства</option>
+<option value="PC">PC</option>
+<option value="Phone">Phone</option>
+<option value="Tablet">Tablet</option>
+<option value="Console">Console</option>
 </select>
 
 </div>
 
 <div class="mode-tabs">
-
-<button
-class="active-mode"
-onclick="setMode('overall',this)"
->
-OVERALL
-</button>
-
-<button onclick="setMode('sword',this)">
-Sword
-</button>
-
-<button onclick="setMode('mace',this)">
-Mace
-</button>
-
-<button onclick="setMode('axe',this)">
-Axe
-</button>
-
-<button onclick="setMode('uhc',this)">
-UHC
-</button>
-
-<button onclick="setMode('pot',this)">
-Pot
-</button>
-
-<button onclick="setMode('nethop',this)">
-NethOP
-</button>
-
-<button onclick="setMode('vanilla',this)">
-Vanilla
-</button>
-
+<button class="active-mode" onclick="setMode('overall',this)">OVERALL</button>
+<button onclick="setMode('sword',this)">Sword</button>
+<button onclick="setMode('mace',this)">Mace</button>
+<button onclick="setMode('axe',this)">Axe</button>
+<button onclick="setMode('uhc',this)">UHC</button>
+<button onclick="setMode('pot',this)">Pot</button>
+<button onclick="setMode('nethop',this)">NethOP</button>
+<button onclick="setMode('vanilla',this)">Vanilla</button>
 </div>
 
-<div
-id="playersContainer"
-class="players-container"
->
-
-</div>
+<div id="playersContainer" class="players-container"></div>
 
 </section>
 
-<!-- KITS -->
-
-<section
-id="kits"
-class="section"
->
+<section id="kits" class="section">
 
 <h2 class="section-title">
-PVP РЕЖИМЫ
+PVP MODES
 </h2>
 
 <p class="section-sub">
-Режимы платформы для тир-тестинга.
+Основные PvP режимы платформы.
 </p>
 
 <div class="kits-grid">
 
 <div class="kit-card">
 <img src="assets/items/sword.png">
-<span>Sword</span>
+<div class="kit-name">Sword</div>
+<div class="kit-desc">Основной режим платформы.</div>
 </div>
 
 <div class="kit-card">
 <img src="assets/items/mace.png">
-<span>Mace</span>
+<div class="kit-name">Mace</div>
+<div class="kit-desc">Combo и aggressive PvP.</div>
 </div>
 
 <div class="kit-card">
 <img src="assets/items/axe.png">
-<span>Axe</span>
+<div class="kit-name">Axe</div>
+<div class="kit-desc">Heavy combo режим.</div>
 </div>
 
 <div class="kit-card">
 <img src="assets/items/uhc.png">
-<span>UHC</span>
+<div class="kit-name">UHC</div>
+<div class="kit-desc">Rod и Bow PvP.</div>
 </div>
 
 <div class="kit-card">
 <img src="assets/items/pot.png">
-<span>Pot</span>
+<div class="kit-name">Pot</div>
+<div class="kit-desc">Potion based fights.</div>
 </div>
 
 <div class="kit-card">
 <img src="assets/items/nethop.png">
-<span>NethOP</span>
+<div class="kit-name">NethOP</div>
+<div class="kit-desc">Netherite PvP режим.</div>
 </div>
 
 <div class="kit-card">
 <img src="assets/items/vanilla.png">
-<span>Vanilla</span>
+<div class="kit-name">Vanilla</div>
+<div class="kit-desc">Чистый vanilla PvP.</div>
 </div>
 
 </div>
 
 </section>
 
-<!-- TESTING -->
-
-<section
-id="testing"
-class="section"
->
+<section id="testing" class="section">
 
 <h2 class="section-title">
 КАК ПРОЙТИ ТИР-ТЕСТ
 </h2>
 
-<div class="faq-box">
+<div class="info-grid">
 
-<div class="faq-item">
-
-<div class="faq-question">
-1. Заявка
+<div class="info-card">
+<div class="info-title">Подача заявки</div>
+<div class="info-text">
+Игрок оставляет заявку в Telegram Hub платформы и выбирает режим для тестирования.
+</div>
 </div>
 
-<div class="faq-answer">
-Игрок отправляет заявку на тестирование
-в Telegram Hub платформы.
+<div class="info-card">
+<div class="info-title">Назначение теста</div>
+<div class="info-text">
+Тестер назначает сервер, дату и время PvP теста.
+</div>
 </div>
 
+<div class="info-card">
+<div class="info-title">PvP тестирование</div>
+<div class="info-text">
+Игрок проходит серию боёв против тестеров платформы.
+</div>
 </div>
 
-<div class="faq-item">
-
-<div class="faq-question">
-2. Назначение теста
+<div class="info-card">
+<div class="info-title">Получение ранга</div>
+<div class="info-text">
+После проверки игрок получает тир и попадает в лидерборд.
 </div>
-
-<div class="faq-answer">
-Тестер назначает сервер,
-дату и время тестирования.
-</div>
-
-</div>
-
-<div class="faq-item">
-
-<div class="faq-question">
-3. PvP тест
-</div>
-
-<div class="faq-answer">
-Игрок проходит серию PvP боёв
-в выбранном режиме.
-</div>
-
-</div>
-
-<div class="faq-item">
-
-<div class="faq-question">
-4. Получение тира
-</div>
-
-<div class="faq-answer">
-После теста игрок получает тир
-и попадает в таблицу рейтинга.
-</div>
-
 </div>
 
 </div>
 
 </section>
 
-<!-- FAQ -->
-
-<section
-id="faq"
-class="section"
->
+<section id="faq" class="section">
 
 <h2 class="section-title">
 FAQ
 </h2>
 
-<div class="faq-box">
+<div class="info-grid">
 
-<div class="faq-item">
-
-<div class="faq-question">
-Что такое OVERALL?
-</div>
-
-<div class="faq-answer">
-OVERALL — сумма очков всех режимов игрока.
-</div>
-
-</div>
-
-<div class="faq-item">
-
-<div class="faq-question">
-Как считаются очки?
-</div>
-
-<div class="faq-answer">
-
+<div class="info-card">
+<div class="info-title">Как считаются очки?</div>
+<div class="info-text">
 HT1 = 50<br>
 HT2 = 45<br>
 HT3 = 40<br><br>
-
 LT1 = 35<br>
 LT2 = 30<br>
 LT3 = 25<br>
 LT4 = 20<br>
 LT5 = 15
-
+</div>
 </div>
 
+<div class="info-card">
+<div class="info-title">Что такое OVERALL?</div>
+<div class="info-text">
+OVERALL — сумма очков всех PvP режимов игрока.
 </div>
-
-<div class="faq-item">
-
-<div class="faq-question">
-Как попасть в лидерборд?
-</div>
-
-<div class="faq-answer">
-Пройти тир-тест минимум в одном режиме.
-</div>
-
 </div>
 
 </div>
 
 </section>
 
+<footer class="footer">
+MultiCraft CIS Tiers
+</footer>
+
 <script>
 
-const tierPoints = {
-
+const tierPoints={
 HT1:50,
 HT2:45,
 HT3:40,
-
 LT1:35,
 LT2:30,
 LT3:25,
 LT4:20,
 LT5:15
-
 };
 
-const players = [
-
+const players=[
 {
 nick:"ReaperX",
 country:"RU",
 device:"Phone",
-
 sword:"HT1",
 mace:"HT2",
 axe:"LT1",
@@ -821,12 +775,10 @@ pot:"LT2",
 nethop:"HT3",
 vanilla:"LT1"
 },
-
 {
 nick:"DarkBlade",
 country:"UA",
 device:"Tablet",
-
 sword:"LT1",
 mace:"HT2",
 axe:"LT2",
@@ -835,12 +787,10 @@ pot:"LT3",
 nethop:"LT2",
 vanilla:"LT1"
 },
-
 {
 nick:"NeoPvP",
 country:"KZ",
 device:"PC",
-
 sword:"LT1",
 mace:"LT2",
 axe:"LT1",
@@ -849,12 +799,10 @@ pot:"LT1",
 nethop:"HT2",
 vanilla:"LT2"
 },
-
 {
 nick:"Frost",
 country:"BY",
 device:"Console",
-
 sword:"LT2",
 mace:"LT1",
 axe:"LT3",
@@ -863,153 +811,81 @@ pot:"LT2",
 nethop:"LT2",
 vanilla:"LT1"
 }
-
 ];
 
-let currentMode = "overall";
+let currentMode="overall";
 
 function calculateOverall(player){
-
-return (
-
-tierPoints[player.sword] +
-tierPoints[player.mace] +
-tierPoints[player.axe] +
-tierPoints[player.uhc] +
-tierPoints[player.pot] +
-tierPoints[player.nethop] +
+return(
+tierPoints[player.sword]+
+tierPoints[player.mace]+
+tierPoints[player.axe]+
+tierPoints[player.uhc]+
+tierPoints[player.pot]+
+tierPoints[player.nethop]+
 tierPoints[player.vanilla]
-
 );
-
 }
 
 function setMode(mode,button){
+currentMode=mode;
 
-currentMode = mode;
-
-document
-.querySelectorAll(".mode-tabs button")
-.forEach(btn=>{
-btn.classList.remove("active-mode");
+document.querySelectorAll('.mode-tabs button').forEach(btn=>{
+btn.classList.remove('active-mode');
 });
 
-button.classList.add("active-mode");
-
+button.classList.add('active-mode');
 renderPlayers();
-
 }
 
 function renderPlayers(){
 
-const container =
-document.getElementById("playersContainer");
+const container=document.getElementById('playersContainer');
+container.innerHTML='';
 
-container.innerHTML = "";
+let filtered=[...players];
 
-let filtered = [...players];
+const search=document.getElementById('searchInput').value.toLowerCase();
+const country=document.getElementById('countryFilter').value;
+const device=document.getElementById('deviceFilter').value;
 
-const search =
-document
-.getElementById("searchInput")
-.value
-.toLowerCase();
+filtered=filtered.filter(player=>{
 
-const country =
-document
-.getElementById("countryFilter")
-.value;
+const matchSearch=player.nick.toLowerCase().includes(search);
+const matchCountry=country==='all'||player.country===country;
+const matchDevice=device==='all'||player.device===device;
 
-const device =
-document
-.getElementById("deviceFilter")
-.value;
-
-filtered = filtered.filter(player=>{
-
-const matchSearch =
-player.nick
-.toLowerCase()
-.includes(search);
-
-const matchCountry =
-country === "all"
-||
-player.country === country;
-
-const matchDevice =
-device === "all"
-||
-player.device === device;
-
-return (
-matchSearch
-&&
-matchCountry
-&&
-matchDevice
-);
+return matchSearch&&matchCountry&&matchDevice;
 
 });
 
-if(currentMode === "overall"){
-
-filtered.sort((a,b)=>
-calculateOverall(b)
--
-calculateOverall(a)
-);
-
+if(currentMode==='overall'){
+filtered.sort((a,b)=>calculateOverall(b)-calculateOverall(a));
 }else{
-
-filtered.sort((a,b)=>
-
-tierPoints[b[currentMode]]
--
-tierPoints[a[currentMode]]
-
-);
-
+filtered.sort((a,b)=>tierPoints[b[currentMode]]-tierPoints[a[currentMode]]);
 }
 
 filtered.forEach((player,index)=>{
 
-const points =
-currentMode === "overall"
+const points=currentMode==='overall'
 ?
 calculateOverall(player)
 :
 tierPoints[player[currentMode]];
 
-container.innerHTML += `
+container.innerHTML+=`
 
 <div class="player-card">
 
 <div class="player-left">
 
-<div class="rank">
-#${index + 1}
-</div>
+<div class="rank">#${index+1}</div>
 
-<img
-src="assets/skins/default.png"
-class="player-skin"
->
+<img src="assets/skins/default.png" class="player-skin">
 
 <div>
-
-<div class="player-nick">
-${player.nick}
-</div>
-
-<div class="player-info">
-
-${player.country}
-•
-${player.device}
-
-</div>
-
+<div class="player-nick">${player.nick}</div>
+<div class="player-info">${player.country} • ${player.device}</div>
 </div>
 
 </div>
@@ -1017,21 +893,11 @@ ${player.device}
 <div class="player-right">
 
 <div class="player-tier">
-
-${
-currentMode === "overall"
-?
-"OVERALL"
-:
-player[currentMode]
-}
-
+${currentMode==='overall'?'OVERALL':player[currentMode]}
 </div>
 
 <div class="player-points">
-
 ${points} PTS
-
 </div>
 
 </div>
@@ -1044,17 +910,9 @@ ${points} PTS
 
 }
 
-document
-.getElementById("searchInput")
-.addEventListener("input",renderPlayers);
-
-document
-.getElementById("countryFilter")
-.addEventListener("change",renderPlayers);
-
-document
-.getElementById("deviceFilter")
-.addEventListener("change",renderPlayers);
+document.getElementById('searchInput').addEventListener('input',renderPlayers);
+document.getElementById('countryFilter').addEventListener('change',renderPlayers);
+document.getElementById('deviceFilter').addEventListener('change',renderPlayers);
 
 renderPlayers();
 
