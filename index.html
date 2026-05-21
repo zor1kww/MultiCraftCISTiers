@@ -364,15 +364,6 @@ body::before{
     padding-right:6px;
 }
 
-.players-container::-webkit-scrollbar{
-    width:6px;
-}
-
-.players-container::-webkit-scrollbar-thumb{
-    background:#ffb300;
-    border-radius:30px;
-}
-
 .player-card{
     display:flex;
     justify-content:space-between;
@@ -454,59 +445,6 @@ body::before{
     color:#ffe082;
 }
 
-.kits-grid{
-    margin-top:28px;
-
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-
-    gap:18px;
-}
-
-.kit-card{
-    background:#0f1422;
-
-    border-radius:28px;
-
-    padding:26px;
-
-    border:1px solid rgba(255,255,255,0.05);
-
-    transition:0.25s;
-
-    text-align:center;
-}
-
-.kit-card:hover{
-    transform:translateY(-4px);
-
-    border-color:rgba(255,179,0,0.28);
-}
-
-.kit-card img{
-    width:80px;
-    height:80px;
-
-    object-fit:contain;
-
-    margin:auto;
-    margin-bottom:18px;
-}
-
-.kit-name{
-    font-size:24px;
-}
-
-.kit-desc{
-    margin-top:12px;
-
-    color:#9a9a9a;
-
-    line-height:1.8;
-
-    font-size:14px;
-}
-
 .info-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -562,10 +500,6 @@ body::before{
         grid-template-columns:1fr 1fr;
     }
 
-    .kits-grid{
-        grid-template-columns:1fr 1fr;
-    }
-
     .info-grid{
         grid-template-columns:1fr;
     }
@@ -576,10 +510,6 @@ body::before{
 
     .logo{
         font-size:28px;
-    }
-
-    .hero{
-        padding-top:30px;
     }
 
     .hero-box{
@@ -595,10 +525,6 @@ body::before{
     }
 
     .filters{
-        grid-template-columns:1fr;
-    }
-
-    .kits-grid{
         grid-template-columns:1fr;
     }
 
@@ -633,15 +559,11 @@ MultiCraft CIS Tiers
 <div class="nav">
 
 <a href="#leaderboard">
-Leaderboard
-</a>
-
-<a href="#kits">
-Modes
+Таблица
 </a>
 
 <a href="#testing">
-Tier Test
+Тир-Тест
 </a>
 
 <a href="#faq">
@@ -659,8 +581,8 @@ FAQ
 <div class="hero-box">
 
 <h1 class="hero-title">
-CIS PvP<br>
-Ranking Platform
+СНГ PvP<br>
+Платформа
 </h1>
 
 <p class="hero-sub">
@@ -676,7 +598,7 @@ OVERALL TOP
 </a>
 
 <a href="#testing" class="secondary-btn">
-TIER TEST
+ПРОЙТИ ТИР-ТЕСТ
 </a>
 
 <a href="#" class="secondary-btn">
@@ -697,22 +619,22 @@ TELEGRAM
 
 <div class="stat-card">
 <div class="stat-number">5.8K</div>
-<div class="stat-label">PvP Tests</div>
+<div class="stat-label">Тир-Тестов</div>
 </div>
 
 <div class="stat-card">
 <div class="stat-number">1.2K</div>
-<div class="stat-label">Players</div>
+<div class="stat-label">Игроков</div>
 </div>
 
 <div class="stat-card">
 <div class="stat-number">14</div>
-<div class="stat-label">Testers</div>
+<div class="stat-label">Тестеров</div>
 </div>
 
 <div class="stat-card">
-<div class="stat-number">7</div>
-<div class="stat-label">Modes</div>
+<div class="stat-number">11</div>
+<div class="stat-label">Регионов СНГ</div>
 </div>
 
 </section>
@@ -729,21 +651,30 @@ OVERALL LEADERBOARD
 
 <div class="filters">
 
-<input type="text" id="searchInput" placeholder="Search player...">
+<input type="text" id="searchInput" placeholder="Поиск игрока...">
 
 <select id="countryFilter">
 
-<option value="all">All Countries</option>
-<option value="RU">RU</option>
-<option value="UA">UA</option>
-<option value="KZ">KZ</option>
-<option value="BY">BY</option>
+<option value="all">Все регионы СНГ</option>
+
+<option value="RU">Россия</option>
+<option value="UA">Украина</option>
+<option value="BY">Беларусь</option>
+<option value="KZ">Казахстан</option>
+<option value="UZ">Узбекистан</option>
+<option value="KG">Кыргызстан</option>
+<option value="TJ">Таджикистан</option>
+<option value="TM">Туркменистан</option>
+<option value="AM">Армения</option>
+<option value="AZ">Азербайджан</option>
+<option value="MD">Молдова</option>
 
 </select>
 
 <select id="deviceFilter">
 
-<option value="all">All Devices</option>
+<option value="all">Все устройства</option>
+
 <option value="Phone">Phone</option>
 <option value="Tablet">Tablet</option>
 <option value="PC">PC</option>
@@ -794,123 +725,51 @@ Vanilla
 
 </section>
 
-<section id="kits" class="section">
-
-<h2 class="section-title">
-PVP MODES
-</h2>
-
-<p class="section-sub">
-Основные PvP режимы платформы.
-</p>
-
-<div class="kits-grid">
-
-<div class="kit-card">
-<img src="assets/items/sword.png">
-<div class="kit-name">Sword</div>
-<div class="kit-desc">
-Основной PvP режим.
-</div>
-</div>
-
-<div class="kit-card">
-<img src="assets/items/mace.png">
-<div class="kit-name">Mace</div>
-<div class="kit-desc">
-Combo стиль PvP.
-</div>
-</div>
-
-<div class="kit-card">
-<img src="assets/items/axe.png">
-<div class="kit-name">Axe</div>
-<div class="kit-desc">
-Heavy combo fights.
-</div>
-</div>
-
-<div class="kit-card">
-<img src="assets/items/uhc.png">
-<div class="kit-name">UHC</div>
-<div class="kit-desc">
-Rod и Bow PvP.
-</div>
-</div>
-
-<div class="kit-card">
-<img src="assets/items/pot.png">
-<div class="kit-name">Pot</div>
-<div class="kit-desc">
-Potion based fights.
-</div>
-</div>
-
-<div class="kit-card">
-<img src="assets/items/nethop.png">
-<div class="kit-name">NethOP</div>
-<div class="kit-desc">
-Netherite PvP.
-</div>
-</div>
-
-<div class="kit-card">
-<img src="assets/items/vanilla.png">
-<div class="kit-name">Vanilla</div>
-<div class="kit-desc">
-Classic vanilla fights.
-</div>
-</div>
-
-</div>
-
-</section>
-
 <section id="testing" class="section">
 
 <h2 class="section-title">
-HOW TO PASS TIER TEST
+КАК ПРОЙТИ ТИР-ТЕСТ
 </h2>
 
 <div class="info-grid">
 
 <div class="info-card">
 <div class="info-title">
-Application
+Подача заявки
 </div>
 
 <div class="info-text">
-Игрок оставляет заявку в Telegram Hub платформы.
+Игрок отправляет заявку в Telegram Hub платформы.
 </div>
 </div>
 
 <div class="info-card">
 <div class="info-title">
-Tester Response
+Назначение теста
 </div>
 
 <div class="info-text">
-Тестер назначает время и сервер для PvP теста.
+Тестер назначает время и PvP сервер.
 </div>
 </div>
 
 <div class="info-card">
 <div class="info-title">
-PvP Session
+PvP Проверка
 </div>
 
 <div class="info-text">
-Игрок проходит серию PvP боёв.
+Игрок проходит серию PvP боёв против тестеров.
 </div>
 </div>
 
 <div class="info-card">
 <div class="info-title">
-Result
+Получение тира
 </div>
 
 <div class="info-text">
-После проверки игрок получает тир.
+После проверки игрок получает PvP тир.
 </div>
 </div>
 
@@ -929,7 +788,7 @@ FAQ
 <div class="info-card">
 
 <div class="info-title">
-Tier Points
+Система очков
 </div>
 
 <div class="info-text">
@@ -956,11 +815,12 @@ LT5 = 10
 <div class="info-card">
 
 <div class="info-title">
-How OVERALL works?
+Что такое OVERALL?
 </div>
 
 <div class="info-text">
-OVERALL рейтинг складывается из всех очков PvP режимов.
+OVERALL — общий рейтинг игрока,
+который складывается из всех PvP режимов.
 </div>
 
 </div>
@@ -968,11 +828,11 @@ OVERALL рейтинг складывается из всех очков PvP р�
 <div class="info-card">
 
 <div class="info-title">
-Can I retest?
+Можно ли пройти повторный тест?
 </div>
 
 <div class="info-text">
-Да, игрок может пройти повторный тир-тест позже.
+Да. Игрок может запросить повторный тир-тест позже.
 </div>
 
 </div>
@@ -980,11 +840,12 @@ Can I retest?
 <div class="info-card">
 
 <div class="info-title">
-Who are testers?
+Что влияет на тир?
 </div>
 
 <div class="info-text">
-Тестеры — опытные PvP игроки платформы.
+Aim, movement, combo, gamesense,
+consistency и PvP опыт.
 </div>
 
 </div>
@@ -992,11 +853,12 @@ Who are testers?
 <div class="info-card">
 
 <div class="info-title">
-What affects tier?
+Можно ли получить HT1 на телефоне?
 </div>
 
 <div class="info-text">
-Aim, movement, combo, consistency и PvP опыт.
+Да. Устройство не влияет
+на максимальный тир игрока.
 </div>
 
 </div>
@@ -1004,11 +866,12 @@ Aim, movement, combo, consistency и PvP опыт.
 <div class="info-card">
 
 <div class="info-title">
-Can mobile players get HT1?
+Как попасть в таблицу?
 </div>
 
 <div class="info-text">
-Да. Устройство не влияет на максимальный тир.
+Нужно успешно пройти тир-тест
+минимум в одном режиме.
 </div>
 
 </div>
@@ -1047,10 +910,8 @@ const players=[
 {
 nick:"ReaperX",
 country:"RU",
-
 device:"Phone",
 deviceTag:"PH",
-
 sword:"HT1",
 mace:"HT2",
 axe:"LT1",
@@ -1063,10 +924,8 @@ vanilla:"LT1"
 {
 nick:"DarkBlade",
 country:"UA",
-
 device:"Tablet",
 deviceTag:"TB",
-
 sword:"LT1",
 mace:"HT2",
 axe:"LT2",
@@ -1079,10 +938,8 @@ vanilla:"LT1"
 {
 nick:"NeoPvP",
 country:"KZ",
-
 device:"PC",
 deviceTag:"PC",
-
 sword:"LT1",
 mace:"LT2",
 axe:"LT1",
@@ -1095,10 +952,8 @@ vanilla:"LT2"
 {
 nick:"Frost",
 country:"BY",
-
 device:"Controller",
 deviceTag:"CT",
-
 sword:"LT2",
 mace:"LT1",
 axe:"LT3",
@@ -1110,11 +965,9 @@ vanilla:"LT1"
 
 {
 nick:"Vortex",
-country:"RU",
-
+country:"UZ",
 device:"OTG",
 deviceTag:"OTG",
-
 sword:"HT2",
 mace:"HT3",
 axe:"LT2",
@@ -1287,4 +1140,4 @@ renderPlayers();
 </script>
 
 </body>
-    </html>
+                               </html>
