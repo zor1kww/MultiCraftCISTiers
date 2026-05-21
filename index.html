@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
 <title>MultiCraft CIS Tiers</title>
+
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
@@ -26,7 +29,6 @@ html{
 
 body{
     overflow-x:hidden;
-    color:white;
     background:
     radial-gradient(circle at top left,
     rgba(255,170,0,0.12),transparent 30%),
@@ -35,16 +37,21 @@ body{
     rgba(255,120,0,0.08),transparent 30%),
 
     #06080f;
+
+    color:white;
 }
 
 body::before{
     content:"";
     position:fixed;
     inset:0;
+
     background:
     linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+
     background-size:40px 40px;
+
     pointer-events:none;
 }
 
@@ -52,20 +59,25 @@ body::before{
     position:sticky;
     top:0;
     z-index:999;
+
     backdrop-filter:blur(16px);
+
     background:rgba(5,8,15,0.84);
+
     border-bottom:1px solid rgba(255,255,255,0.06);
 }
 
 .nav-wrapper{
-    max-width:1400px;
+    max-width:1450px;
     margin:auto;
     padding:14px 18px;
 }
 
 .logo{
-    font-size:42px;
-    background:linear-gradient(to right,#ffb300,#ffe082);
+    font-size:40px;
+
+    background:linear-gradient(to right,#ffb300,#fff0b3);
+
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
 }
@@ -80,59 +92,79 @@ body::before{
 .nav a{
     text-decoration:none;
     color:white;
-    background:rgba(18,24,38,0.9);
+
+    background:#121827;
+
     border:1px solid rgba(255,255,255,0.05);
+
     padding:13px 18px;
+
     border-radius:18px;
+
     transition:0.25s;
-    font-size:14px;
 }
 
 .nav a:hover{
     transform:translateY(-2px);
-    border-color:rgba(255,179,0,0.35);
-    background:#1b2334;
+
+    border-color:rgba(255,179,0,0.3);
+
+    background:#1b2436;
 }
 
 .hero{
-    max-width:1400px;
+    max-width:1450px;
     margin:auto;
-    padding:60px 20px 30px;
+    padding:45px 20px 30px;
 }
 
 .hero-box{
     position:relative;
     overflow:hidden;
-    border-radius:38px;
-    padding:50px;
-    background:linear-gradient(145deg,
-    rgba(14,18,30,0.96),
-    rgba(8,10,18,0.96));
 
-    border:1px solid rgba(255,255,255,0.06);
+    border-radius:38px;
+
+    padding:55px;
+
+    background:
+    linear-gradient(145deg,
+    rgba(15,20,32,0.98),
+    rgba(8,10,18,0.98));
+
+    border:1px solid rgba(255,255,255,0.05);
 
     box-shadow:
-    0 0 50px rgba(255,170,0,0.08),
+    0 0 60px rgba(255,179,0,0.08),
     inset 0 0 50px rgba(255,255,255,0.02);
 }
 
 .hero-box::after{
     content:"";
+
     position:absolute;
-    width:500px;
-    height:500px;
-    background:radial-gradient(circle,
-    rgba(255,179,0,0.18),transparent 70%);
-    right:-120px;
-    top:-120px;
+
+    width:550px;
+    height:550px;
+
+    background:
+    radial-gradient(circle,
+    rgba(255,179,0,0.16),
+    transparent 70%);
+
+    right:-140px;
+    top:-160px;
 }
 
 .hero-title{
     position:relative;
     z-index:2;
+
     font-size:92px;
     line-height:0.9;
-    background:linear-gradient(to right,#ffb300,#fff0b3);
+
+    background:
+    linear-gradient(to right,#ffb300,#fff0b3);
+
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
 }
@@ -140,145 +172,195 @@ body::before{
 .hero-sub{
     position:relative;
     z-index:2;
+
+    margin-top:25px;
+
     max-width:760px;
-    margin-top:24px;
-    color:#a6a6a6;
+
     line-height:2;
-    font-size:16px;
+
+    color:#a2a2a2;
 }
 
 .hero-buttons{
     position:relative;
     z-index:2;
+
     display:flex;
     flex-wrap:wrap;
+
     gap:14px;
+
     margin-top:34px;
 }
 
 .hero-buttons a{
     text-decoration:none;
+
     padding:18px 24px;
+
     border-radius:22px;
+
     transition:0.25s;
 }
 
 .primary-btn{
-    background:linear-gradient(to right,#ffb300,#ffd54f);
+    background:
+    linear-gradient(to right,#ffb300,#ffd54f);
+
     color:black;
-    box-shadow:0 0 30px rgba(255,179,0,0.25);
+
+    box-shadow:
+    0 0 30px rgba(255,179,0,0.24);
 }
 
 .secondary-btn{
-    background:#141a29;
+    background:#141b2a;
+
     color:white;
+
     border:1px solid rgba(255,255,255,0.05);
 }
 
-.primary-btn:hover,
-.secondary-btn:hover{
-    transform:translateY(-3px) scale(1.02);
+.hero-buttons a:hover{
+    transform:translateY(-3px);
 }
 
 .stats-grid{
-    max-width:1400px;
+    max-width:1450px;
     margin:auto;
-    padding:0 20px 30px;
+
+    padding:0 20px 20px;
+
     display:grid;
     grid-template-columns:repeat(4,1fr);
+
     gap:18px;
 }
 
 .stat-card{
-    background:rgba(14,18,30,0.95);
+    background:#0f1422;
+
     border-radius:28px;
+
     padding:28px;
+
     border:1px solid rgba(255,255,255,0.05);
 }
 
 .stat-number{
     font-size:44px;
-    color:#ffcf66;
+    color:#ffd166;
 }
 
 .stat-label{
-    color:#979797;
     margin-top:10px;
+    color:#9a9a9a;
 }
 
 .section{
-    max-width:1400px;
+    max-width:1450px;
     margin:auto;
-    padding:40px 20px;
+
+    padding:45px 20px;
 }
 
 .section-title{
-    font-size:52px;
-    background:linear-gradient(to right,#ffb300,#ffe082);
+    font-size:54px;
+
+    background:
+    linear-gradient(to right,#ffb300,#fff0b3);
+
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
 }
 
 .section-sub{
     margin-top:12px;
-    color:#979797;
+
+    color:#9a9a9a;
+
     line-height:1.9;
+
     max-width:720px;
 }
 
 .filters{
+    margin-top:28px;
+
     display:grid;
     grid-template-columns:1fr 1fr 1fr;
+
     gap:14px;
-    margin-top:30px;
 }
 
 .filters input,
 .filters select{
-    background:#111827;
+    background:#101827;
+
     border:none;
+
     color:white;
+
     padding:18px;
-    border-radius:20px;
+
+    border-radius:18px;
+
     outline:none;
+
     border:1px solid rgba(255,255,255,0.05);
 }
 
 .mode-tabs{
     display:flex;
     flex-wrap:wrap;
+
     gap:12px;
+
     margin-top:24px;
-    margin-bottom:26px;
+    margin-bottom:28px;
 }
 
 .mode-tabs button{
     border:none;
     cursor:pointer;
-    background:#111827;
+
+    background:#101827;
+
     color:white;
+
     padding:15px 20px;
+
     border-radius:18px;
+
     transition:0.25s;
+
     border:1px solid rgba(255,255,255,0.05);
 }
 
 .mode-tabs button:hover{
     transform:translateY(-2px);
-    border-color:rgba(255,179,0,0.35);
+
+    border-color:rgba(255,179,0,0.3);
 }
 
 .active-mode{
-    background:linear-gradient(to right,#ffb300,#ffd54f) !important;
-    color:black !important;
+    background:
+    linear-gradient(to right,#ffb300,#ffd54f)!important;
+
+    color:black!important;
 }
 
 .players-container{
     display:flex;
     flex-direction:column;
+
     gap:16px;
+
     max-height:900px;
+
     overflow-y:auto;
+
     padding-right:6px;
 }
 
@@ -295,17 +377,24 @@ body::before{
     display:flex;
     justify-content:space-between;
     align-items:center;
+
     gap:20px;
-    background:rgba(14,18,30,0.95);
-    border-radius:30px;
+
+    background:#0f1422;
+
+    border-radius:28px;
+
     padding:22px;
+
     border:1px solid rgba(255,255,255,0.05);
+
     transition:0.25s;
 }
 
 .player-card:hover{
     transform:translateY(-2px);
-    border-color:rgba(255,179,0,0.22);
+
+    border-color:rgba(255,179,0,0.24);
 }
 
 .player-left{
@@ -315,15 +404,17 @@ body::before{
 }
 
 .rank{
-    font-size:30px;
-    color:#ffcf66;
-    min-width:70px;
+    font-size:28px;
+    color:#ffd166;
+    min-width:65px;
 }
 
 .player-skin{
     width:72px;
     height:72px;
+
     border-radius:18px;
+
     object-fit:cover;
 }
 
@@ -333,54 +424,71 @@ body::before{
 
 .player-info{
     margin-top:8px;
-    color:#9f9f9f;
+
+    color:#9c9c9c;
+
     line-height:1.8;
+
     font-size:14px;
 }
 
 .player-right{
     display:flex;
     align-items:center;
+
     gap:16px;
 }
 
 .player-tier{
-    background:linear-gradient(to right,#ffb300,#ffd54f);
+    background:
+    linear-gradient(to right,#ffb300,#ffd54f);
+
     color:black;
+
     padding:12px 16px;
+
     border-radius:16px;
 }
 
 .player-points{
     color:#ffe082;
-    font-size:18px;
 }
 
 .kits-grid{
     margin-top:28px;
+
     display:grid;
     grid-template-columns:repeat(4,1fr);
+
     gap:18px;
 }
 
 .kit-card{
-    background:rgba(14,18,30,0.95);
+    background:#0f1422;
+
     border-radius:28px;
+
     padding:26px;
+
     border:1px solid rgba(255,255,255,0.05);
+
     transition:0.25s;
+
     text-align:center;
 }
 
 .kit-card:hover{
     transform:translateY(-4px);
+
     border-color:rgba(255,179,0,0.28);
 }
 
 .kit-card img{
     width:80px;
     height:80px;
+
     object-fit:contain;
+
     margin:auto;
     margin-bottom:18px;
 }
@@ -390,49 +498,64 @@ body::before{
 }
 
 .kit-desc{
-    color:#969696;
     margin-top:12px;
+
+    color:#9a9a9a;
+
     line-height:1.8;
+
     font-size:14px;
 }
 
 .info-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
+
     gap:18px;
-    margin-top:30px;
+
+    margin-top:28px;
 }
 
 .info-card{
-    background:rgba(14,18,30,0.95);
+    background:#0f1422;
+
     border-radius:28px;
+
     padding:30px;
+
     border:1px solid rgba(255,255,255,0.05);
 }
 
 .info-title{
     font-size:30px;
-    color:#ffcf66;
+
+    color:#ffd166;
+
     margin-bottom:16px;
 }
 
 .info-text{
-    color:#9d9d9d;
+    color:#9c9c9c;
+
     line-height:2;
 }
 
 .footer{
     margin-top:40px;
+
     border-top:1px solid rgba(255,255,255,0.06);
+
     padding:40px 20px;
+
     text-align:center;
+
     color:#8d8d8d;
 }
 
 @media(max-width:1000px){
 
     .hero-title{
-        font-size:62px;
+        font-size:64px;
     }
 
     .stats-grid{
@@ -452,11 +575,11 @@ body::before{
 @media(max-width:760px){
 
     .logo{
-        font-size:30px;
+        font-size:28px;
     }
 
     .hero{
-        padding-top:34px;
+        padding-top:30px;
     }
 
     .hero-box{
@@ -467,11 +590,11 @@ body::before{
         font-size:44px;
     }
 
-    .filters{
+    .stats-grid{
         grid-template-columns:1fr;
     }
 
-    .stats-grid{
+    .filters{
         grid-template-columns:1fr;
     }
 
@@ -490,7 +613,7 @@ body::before{
     }
 
     .section-title{
-        font-size:36px;
+        font-size:38px;
     }
 
 }
@@ -508,10 +631,23 @@ MultiCraft CIS Tiers
 </div>
 
 <div class="nav">
-<a href="#leaderboard">Таблица</a>
-<a href="#kits">Режимы</a>
-<a href="#testing">Тир-Тест</a>
-<a href="#faq">FAQ</a>
+
+<a href="#leaderboard">
+Leaderboard
+</a>
+
+<a href="#kits">
+Modes
+</a>
+
+<a href="#testing">
+Tier Test
+</a>
+
+<a href="#faq">
+FAQ
+</a>
+
 </div>
 
 </div>
@@ -529,14 +665,28 @@ Ranking Platform
 
 <p class="hero-sub">
 Официальная PvP платформа СНГ сообщества.
-Проходите тир-тесты, получайте ранги,
-участвуйте в лидербордах и поднимайтесь
-в OVERALL рейтинг.
+Проходите тир-тесты, участвуйте в рейтингах,
+получайте ранги и поднимайтесь в OVERALL топ.
 </p>
 
 <div class="hero-buttons">
-<a href="#leaderboard" class="primary-btn">OVERALL TOP</a>
-<a href="#testing" class="secondary-btn">ПРОЙТИ ТИР-ТЕСТ</a>
+
+<a href="#leaderboard" class="primary-btn">
+OVERALL TOP
+</a>
+
+<a href="#testing" class="secondary-btn">
+TIER TEST
+</a>
+
+<a href="#" class="secondary-btn">
+DISCORD
+</a>
+
+<a href="#" class="secondary-btn">
+TELEGRAM
+</a>
+
 </div>
 
 </div>
@@ -562,7 +712,7 @@ Ranking Platform
 
 <div class="stat-card">
 <div class="stat-number">7</div>
-<div class="stat-label">PvP Modes</div>
+<div class="stat-label">Modes</div>
 </div>
 
 </section>
@@ -574,40 +724,70 @@ OVERALL LEADERBOARD
 </h2>
 
 <p class="section-sub">
-Рейтинг игроков платформы с общей системой очков.
+Общий рейтинг игроков платформы.
 </p>
 
 <div class="filters">
 
-<input type="text" id="searchInput" placeholder="Поиск игрока...">
+<input type="text" id="searchInput" placeholder="Search player...">
 
 <select id="countryFilter">
-<option value="all">Все страны</option>
+
+<option value="all">All Countries</option>
 <option value="RU">RU</option>
 <option value="UA">UA</option>
 <option value="KZ">KZ</option>
 <option value="BY">BY</option>
+
 </select>
 
 <select id="deviceFilter">
-<option value="all">Все устройства</option>
-<option value="PC">PC</option>
+
+<option value="all">All Devices</option>
 <option value="Phone">Phone</option>
 <option value="Tablet">Tablet</option>
-<option value="Console">Console</option>
+<option value="PC">PC</option>
+<option value="Controller">Controller</option>
+<option value="OTG">OTG</option>
+
 </select>
 
 </div>
 
 <div class="mode-tabs">
-<button class="active-mode" onclick="setMode('overall',this)">OVERALL</button>
-<button onclick="setMode('sword',this)">Sword</button>
-<button onclick="setMode('mace',this)">Mace</button>
-<button onclick="setMode('axe',this)">Axe</button>
-<button onclick="setMode('uhc',this)">UHC</button>
-<button onclick="setMode('pot',this)">Pot</button>
-<button onclick="setMode('nethop',this)">NethOP</button>
-<button onclick="setMode('vanilla',this)">Vanilla</button>
+
+<button class="active-mode" onclick="setMode('overall',this)">
+OVERALL
+</button>
+
+<button onclick="setMode('sword',this)">
+Sword
+</button>
+
+<button onclick="setMode('mace',this)">
+Mace
+</button>
+
+<button onclick="setMode('axe',this)">
+Axe
+</button>
+
+<button onclick="setMode('uhc',this)">
+UHC
+</button>
+
+<button onclick="setMode('pot',this)">
+Pot
+</button>
+
+<button onclick="setMode('nethop',this)">
+NethOP
+</button>
+
+<button onclick="setMode('vanilla',this)">
+Vanilla
+</button>
+
 </div>
 
 <div id="playersContainer" class="players-container"></div>
@@ -629,43 +809,57 @@ PVP MODES
 <div class="kit-card">
 <img src="assets/items/sword.png">
 <div class="kit-name">Sword</div>
-<div class="kit-desc">Основной режим платформы.</div>
+<div class="kit-desc">
+Основной PvP режим.
+</div>
 </div>
 
 <div class="kit-card">
 <img src="assets/items/mace.png">
 <div class="kit-name">Mace</div>
-<div class="kit-desc">Combo и aggressive PvP.</div>
+<div class="kit-desc">
+Combo стиль PvP.
+</div>
 </div>
 
 <div class="kit-card">
 <img src="assets/items/axe.png">
 <div class="kit-name">Axe</div>
-<div class="kit-desc">Heavy combo режим.</div>
+<div class="kit-desc">
+Heavy combo fights.
+</div>
 </div>
 
 <div class="kit-card">
 <img src="assets/items/uhc.png">
 <div class="kit-name">UHC</div>
-<div class="kit-desc">Rod и Bow PvP.</div>
+<div class="kit-desc">
+Rod и Bow PvP.
+</div>
 </div>
 
 <div class="kit-card">
 <img src="assets/items/pot.png">
 <div class="kit-name">Pot</div>
-<div class="kit-desc">Potion based fights.</div>
+<div class="kit-desc">
+Potion based fights.
+</div>
 </div>
 
 <div class="kit-card">
 <img src="assets/items/nethop.png">
 <div class="kit-name">NethOP</div>
-<div class="kit-desc">Netherite PvP режим.</div>
+<div class="kit-desc">
+Netherite PvP.
+</div>
 </div>
 
 <div class="kit-card">
 <img src="assets/items/vanilla.png">
 <div class="kit-name">Vanilla</div>
-<div class="kit-desc">Чистый vanilla PvP.</div>
+<div class="kit-desc">
+Classic vanilla fights.
+</div>
 </div>
 
 </div>
@@ -675,36 +869,48 @@ PVP MODES
 <section id="testing" class="section">
 
 <h2 class="section-title">
-КАК ПРОЙТИ ТИР-ТЕСТ
+HOW TO PASS TIER TEST
 </h2>
 
 <div class="info-grid">
 
 <div class="info-card">
-<div class="info-title">Подача заявки</div>
+<div class="info-title">
+Application
+</div>
+
 <div class="info-text">
-Игрок оставляет заявку в Telegram Hub платформы и выбирает режим для тестирования.
+Игрок оставляет заявку в Telegram Hub платформы.
 </div>
 </div>
 
 <div class="info-card">
-<div class="info-title">Назначение теста</div>
+<div class="info-title">
+Tester Response
+</div>
+
 <div class="info-text">
-Тестер назначает сервер, дату и время PvP теста.
+Тестер назначает время и сервер для PvP теста.
 </div>
 </div>
 
 <div class="info-card">
-<div class="info-title">PvP тестирование</div>
+<div class="info-title">
+PvP Session
+</div>
+
 <div class="info-text">
-Игрок проходит серию боёв против тестеров платформы.
+Игрок проходит серию PvP боёв.
 </div>
 </div>
 
 <div class="info-card">
-<div class="info-title">Получение ранга</div>
+<div class="info-title">
+Result
+</div>
+
 <div class="info-text">
-После проверки игрок получает тир и попадает в лидерборд.
+После проверки игрок получает тир.
 </div>
 </div>
 
@@ -721,24 +927,90 @@ FAQ
 <div class="info-grid">
 
 <div class="info-card">
-<div class="info-title">Как считаются очки?</div>
-<div class="info-text">
-HT1 = 50<br>
-HT2 = 45<br>
-HT3 = 40<br><br>
-LT1 = 35<br>
-LT2 = 30<br>
-LT3 = 25<br>
-LT4 = 20<br>
-LT5 = 15
+
+<div class="info-title">
+Tier Points
 </div>
+
+<div class="info-text">
+
+HT1 = 100<br>
+LT1 = 90<br><br>
+
+HT2 = 80<br>
+LT2 = 70<br><br>
+
+HT3 = 60<br>
+LT3 = 50<br><br>
+
+HT4 = 40<br>
+LT4 = 30<br><br>
+
+HT5 = 20<br>
+LT5 = 10
+
+</div>
+
 </div>
 
 <div class="info-card">
-<div class="info-title">Что такое OVERALL?</div>
-<div class="info-text">
-OVERALL — сумма очков всех PvP режимов игрока.
+
+<div class="info-title">
+How OVERALL works?
 </div>
+
+<div class="info-text">
+OVERALL рейтинг складывается из всех очков PvP режимов.
+</div>
+
+</div>
+
+<div class="info-card">
+
+<div class="info-title">
+Can I retest?
+</div>
+
+<div class="info-text">
+Да, игрок может пройти повторный тир-тест позже.
+</div>
+
+</div>
+
+<div class="info-card">
+
+<div class="info-title">
+Who are testers?
+</div>
+
+<div class="info-text">
+Тестеры — опытные PvP игроки платформы.
+</div>
+
+</div>
+
+<div class="info-card">
+
+<div class="info-title">
+What affects tier?
+</div>
+
+<div class="info-text">
+Aim, movement, combo, consistency и PvP опыт.
+</div>
+
+</div>
+
+<div class="info-card">
+
+<div class="info-title">
+Can mobile players get HT1?
+</div>
+
+<div class="info-text">
+Да. Устройство не влияет на максимальный тир.
+</div>
+
 </div>
 
 </div>
@@ -752,21 +1024,33 @@ MultiCraft CIS Tiers
 <script>
 
 const tierPoints={
-HT1:50,
-HT2:45,
-HT3:40,
-LT1:35,
-LT2:30,
-LT3:25,
-LT4:20,
-LT5:15
+
+HT1:100,
+LT1:90,
+
+HT2:80,
+LT2:70,
+
+HT3:60,
+LT3:50,
+
+HT4:40,
+LT4:30,
+
+HT5:20,
+LT5:10
+
 };
 
 const players=[
+
 {
 nick:"ReaperX",
 country:"RU",
+
 device:"Phone",
+deviceTag:"PH",
+
 sword:"HT1",
 mace:"HT2",
 axe:"LT1",
@@ -775,10 +1059,14 @@ pot:"LT2",
 nethop:"HT3",
 vanilla:"LT1"
 },
+
 {
 nick:"DarkBlade",
 country:"UA",
+
 device:"Tablet",
+deviceTag:"TB",
+
 sword:"LT1",
 mace:"HT2",
 axe:"LT2",
@@ -787,10 +1075,14 @@ pot:"LT3",
 nethop:"LT2",
 vanilla:"LT1"
 },
+
 {
 nick:"NeoPvP",
 country:"KZ",
+
 device:"PC",
+deviceTag:"PC",
+
 sword:"LT1",
 mace:"LT2",
 axe:"LT1",
@@ -799,10 +1091,14 @@ pot:"LT1",
 nethop:"HT2",
 vanilla:"LT2"
 },
+
 {
 nick:"Frost",
 country:"BY",
-device:"Console",
+
+device:"Controller",
+deviceTag:"CT",
+
 sword:"LT2",
 mace:"LT1",
 axe:"LT3",
@@ -810,13 +1106,32 @@ uhc:"HT2",
 pot:"LT2",
 nethop:"LT2",
 vanilla:"LT1"
+},
+
+{
+nick:"Vortex",
+country:"RU",
+
+device:"OTG",
+deviceTag:"OTG",
+
+sword:"HT2",
+mace:"HT3",
+axe:"LT2",
+uhc:"LT1",
+pot:"HT2",
+nethop:"HT3",
+vanilla:"LT2"
 }
+
 ];
 
 let currentMode="overall";
 
 function calculateOverall(player){
+
 return(
+
 tierPoints[player.sword]+
 tierPoints[player.mace]+
 tierPoints[player.axe]+
@@ -824,10 +1139,13 @@ tierPoints[player.uhc]+
 tierPoints[player.pot]+
 tierPoints[player.nethop]+
 tierPoints[player.vanilla]
+
 );
+
 }
 
 function setMode(mode,button){
+
 currentMode=mode;
 
 document.querySelectorAll('.mode-tabs button').forEach(btn=>{
@@ -835,34 +1153,57 @@ btn.classList.remove('active-mode');
 });
 
 button.classList.add('active-mode');
+
 renderPlayers();
+
 }
 
 function renderPlayers(){
 
 const container=document.getElementById('playersContainer');
+
 container.innerHTML='';
 
 let filtered=[...players];
 
 const search=document.getElementById('searchInput').value.toLowerCase();
+
 const country=document.getElementById('countryFilter').value;
+
 const device=document.getElementById('deviceFilter').value;
 
 filtered=filtered.filter(player=>{
 
-const matchSearch=player.nick.toLowerCase().includes(search);
-const matchCountry=country==='all'||player.country===country;
-const matchDevice=device==='all'||player.device===device;
+const matchSearch=
+player.nick.toLowerCase().includes(search);
 
-return matchSearch&&matchCountry&&matchDevice;
+const matchCountry=
+country==='all'||player.country===country;
+
+const matchDevice=
+device==='all'||player.device===device;
+
+return(
+matchSearch&&
+matchCountry&&
+matchDevice
+);
 
 });
 
 if(currentMode==='overall'){
-filtered.sort((a,b)=>calculateOverall(b)-calculateOverall(a));
+
+filtered.sort((a,b)=>
+calculateOverall(b)-calculateOverall(a)
+);
+
 }else{
-filtered.sort((a,b)=>tierPoints[b[currentMode]]-tierPoints[a[currentMode]]);
+
+filtered.sort((a,b)=>
+tierPoints[b[currentMode]]-
+tierPoints[a[currentMode]]
+);
+
 }
 
 filtered.forEach((player,index)=>{
@@ -879,13 +1220,29 @@ container.innerHTML+=`
 
 <div class="player-left">
 
-<div class="rank">#${index+1}</div>
+<div class="rank">
+#${index+1}
+</div>
 
-<img src="assets/skins/default.png" class="player-skin">
+<img
+src="assets/skins/default.png"
+class="player-skin"
+>
 
 <div>
-<div class="player-nick">${player.nick}</div>
-<div class="player-info">${player.country} • ${player.device}</div>
+
+<div class="player-nick">
+${player.nick}
+</div>
+
+<div class="player-info">
+${player.country}
+•
+${player.deviceTag}
+•
+${player.device}
+</div>
+
 </div>
 
 </div>
@@ -893,7 +1250,13 @@ container.innerHTML+=`
 <div class="player-right">
 
 <div class="player-tier">
-${currentMode==='overall'?'OVERALL':player[currentMode]}
+
+${currentMode==='overall'
+?
+'OVERALL'
+:
+player[currentMode]}
+
 </div>
 
 <div class="player-points">
@@ -910,9 +1273,14 @@ ${points} PTS
 
 }
 
-document.getElementById('searchInput').addEventListener('input',renderPlayers);
-document.getElementById('countryFilter').addEventListener('change',renderPlayers);
-document.getElementById('deviceFilter').addEventListener('change',renderPlayers);
+document.getElementById('searchInput')
+.addEventListener('input',renderPlayers);
+
+document.getElementById('countryFilter')
+.addEventListener('change',renderPlayers);
+
+document.getElementById('deviceFilter')
+.addEventListener('change',renderPlayers);
 
 renderPlayers();
 
