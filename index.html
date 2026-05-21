@@ -1,69 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MultiCraft CIS Tiers</title>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <style>
-
-        @font-face {
-            font-family: "MultiCraft";
-            src: url("assets/MultiCraftFont.ttf") format("truetype");
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "MultiCraft", sans-serif;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            overflow-x: hidden;
-            background:
-                radial-gradient(circle at top left, rgba(255,120,0,0.12), transparent 30%),
-                radial-gradient(circle at bottom right, rgba(255,180,0,0.08), transparent 30%),
-                #07090f;
-            color: white;
-        }
-
-        .glass {
-            background: rgba(15, 20, 30, 0.72);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255,255,255,0.06);
-        }
-
-        .glow {
-            box-shadow:
-                0 0 25px rgba(255,140,0,0.15),
-                0 0 45px rgba(255,180,0,0.08);
-        }
-
-        .orange-text {
-            background: linear-gradient(to right, #ff9d00, #ffd000);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hover-card {
-            transition: all 0.3s ease;
-        }
-
-        .hover-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255,150,0,0.4);
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <title>MultiCraft CIS Tiers</title>
 
@@ -90,22 +29,22 @@
         body{
             overflow-x:hidden;
             background:
-                radial-gradient(circle at top left, rgba(255,140,0,0.15), transparent 30%),
-                radial-gradient(circle at bottom right, rgba(255,180,0,0.08), transparent 30%),
+                radial-gradient(circle at top left, rgba(255,140,0,0.12), transparent 30%),
+                radial-gradient(circle at bottom right, rgba(255,170,0,0.08), transparent 30%),
                 #05070d;
             color:white;
         }
 
         .glass{
-            background:rgba(10,15,25,0.72);
+            background:rgba(8,12,22,0.72);
             backdrop-filter:blur(18px);
             border:1px solid rgba(255,255,255,0.05);
         }
 
         .glow{
             box-shadow:
-                0 0 20px rgba(255,140,0,0.18),
-                0 0 50px rgba(255,140,0,0.08);
+                0 0 25px rgba(255,140,0,0.18),
+                0 0 60px rgba(255,140,0,0.08);
         }
 
         .orange-text{
@@ -120,7 +59,25 @@
 
         .hover-card:hover{
             transform:translateY(-5px);
-            border-color:rgba(255,150,0,0.3);
+            border-color:rgba(255,140,0,0.25);
+        }
+
+        .section-title{
+            font-size:42px;
+            margin-bottom:35px;
+            line-height:1.2;
+        }
+
+        .subtext{
+            color:#b5b5b5;
+            line-height:1.9;
+        }
+
+        .tier-glow{
+            color:#ffd000;
+            text-shadow:
+                0 0 10px rgba(255,200,0,0.8),
+                0 0 20px rgba(255,140,0,0.6);
         }
 
         .hero-grid{
@@ -130,29 +87,12 @@
             align-items:center;
         }
 
-        .section-title{
-            font-size:42px;
-            margin-bottom:30px;
-            line-height:1.2;
-        }
-
-        .subtext{
-            color:#b7b7b7;
-            line-height:2;
-        }
-
-        .tier-glow{
-            color:#ffd000;
-            text-shadow:
-                0 0 10px rgba(255,200,0,0.7),
-                0 0 20px rgba(255,140,0,0.5);
-        }
-
         .floating{
             animation:float 5s ease-in-out infinite;
         }
 
         @keyframes float{
+
             0%{
                 transform:translateY(0px);
             }
@@ -164,48 +104,12 @@
             100%{
                 transform:translateY(0px);
             }
+
         }
 
         .table-wrapper{
             overflow-x:auto;
             width:100%;
-        }
-
-        table{
-            width:100%;
-            min-width:1100px;
-            border-collapse:collapse;
-        }
-
-        th{
-            background:rgba(255,140,0,0.15);
-            padding:18px;
-            text-align:left;
-            color:#ffd000;
-            font-size:18px;
-        }
-
-        td{
-            padding:18px;
-            border-bottom:1px solid rgba(255,255,255,0.05);
-            color:#d4d4d4;
-        }
-
-        tr{
-            transition:0.3s ease;
-        }
-
-        tr:hover{
-            background:rgba(255,140,0,0.05);
-        }
-
-        .tier-ht{
-            color:#ffd000;
-            text-shadow:0 0 10px rgba(255,180,0,0.7);
-        }
-
-        .tier-lt{
-            color:#ff9d00;
         }
 
         .nav-btn{
@@ -214,14 +118,15 @@
 
         .nav-btn:hover{
             background:rgba(255,140,0,0.12);
+            transform:translateY(-2px);
         }
 
-        .footer-link{
-            transition:0.3s ease;
+        .tier-ht{
+            color:#ffd000;
         }
 
-        .footer-link:hover{
-            color:orange;
+        .tier-lt{
+            color:#ff9d00;
         }
 
         @media(max-width:900px){
@@ -241,364 +146,706 @@
 </head>
 <body>
 
-    <!-- HEADER -->
+<!-- HEADER -->
 
-    <header class="glass sticky top-0 z-50 border-b border-orange-500/10">
+<header class="glass sticky top-0 z-50 border-b border-orange-500/10">
 
-        <div class="max-w-7xl mx-auto px-5 py-5 flex items-center justify-between gap-5 flex-wrap">
+    <div class="max-w-7xl mx-auto px-5 py-5 flex flex-wrap items-center justify-between gap-6">
+
+        <div>
+
+            <h1 class="text-4xl md:text-6xl orange-text">
+                MultiCraft CIS Tiers
+            </h1>
+
+            <p class="text-zinc-400 mt-2 text-sm">
+                Competitive СНГ PvP Platform
+            </p>
+
+        </div>
+
+        <nav class="flex flex-wrap gap-3">
+
+            <a href="#leaderboard" class="glass nav-btn px-5 py-3 rounded-2xl">
+                Таблица
+            </a>
+
+            <a href="#topplayers" class="glass nav-btn px-5 py-3 rounded-2xl">
+                Лучшие игроки
+            </a>
+
+            <a href="#kits" class="glass nav-btn px-5 py-3 rounded-2xl">
+                Режимы
+            </a>
+
+            <a href="#testing" class="glass nav-btn px-5 py-3 rounded-2xl">
+                Тир-тест
+            </a>
+
+            <a href="#faq" class="glass nav-btn px-5 py-3 rounded-2xl">
+                FAQ
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+<!-- HERO -->
+
+<section class="max-w-7xl mx-auto px-5 py-20">
+
+    <div class="hero-grid">
+
+        <div>
+
+            <div class="glass glow rounded-3xl p-8">
+
+                <h2 class="text-5xl md:text-7xl leading-tight orange-text mb-8">
+                    СНГ PvP
+                    Ranking
+                    Platform
+                </h2>
+
+                <p class="subtext text-lg mb-8 max-w-3xl">
+                    MultiCraft CIS Tiers — официальная PvP платформа СНГ сообщества.
+                    Проходите тир-тесты, получайте ранги, участвуйте в PvP сцене
+                    и поднимайтесь до HT1.
+                </p>
+
+                <div class="flex flex-wrap gap-4">
+
+                    <a
+                        href="#testing"
+                        class="bg-gradient-to-r from-orange-500 to-yellow-400 text-black px-8 py-4 rounded-2xl text-lg hover:scale-105 transition-all duration-300 glow"
+                    >
+                        ⚔️ Пройти тир-тест
+                    </a>
+
+                    <a
+                        href="#leaderboard"
+                        class="glass px-8 py-4 rounded-2xl text-lg hover:bg-white/5 transition-all duration-300"
+                    >
+                        🏆 Таблица лидеров
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div>
+
+            <div class="glass glow rounded-3xl p-8 floating text-center">
+
+                <img
+                    src="assets/items/sword.png"
+                    class="w-32 h-32 object-contain mx-auto mb-6"
+                    onerror="this.src='assets/items/default.png'"
+                >
+
+                <h3 class="text-5xl tier-glow mb-4">
+                    HT1
+                </h3>
+
+                <p class="text-zinc-300 leading-8">
+                    Самый высокий PvP уровень платформы.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- STATS -->
+
+<section class="max-w-7xl mx-auto px-5 pb-16">
+
+    <div class="grid md:grid-cols-4 gap-5">
+
+        <div class="glass glow rounded-3xl p-7 hover-card">
+            <h3 class="text-5xl orange-text mb-4">1284</h3>
+            <p class="text-zinc-300">Игроков</p>
+        </div>
+
+        <div class="glass glow rounded-3xl p-7 hover-card">
+            <h3 class="text-5xl orange-text mb-4">5892</h3>
+            <p class="text-zinc-300">Тестов</p>
+        </div>
+
+        <div class="glass glow rounded-3xl p-7 hover-card">
+            <h3 class="text-5xl orange-text mb-4">14</h3>
+            <p class="text-zinc-300">Тестеров</p>
+        </div>
+
+        <div class="glass glow rounded-3xl p-7 hover-card">
+            <h3 class="text-5xl orange-text mb-4">11</h3>
+            <p class="text-zinc-300">Регионов СНГ</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- TOP PLAYERS -->
+
+<section class="max-w-7xl mx-auto px-5 py-16" id="topplayers">
+
+    <h2 class="section-title orange-text">
+        Лучшие игроки
+    </h2>
+
+    <div class="grid md:grid-cols-3 gap-6">
+
+        <div class="glass glow rounded-3xl p-7 hover-card">
+
+            <div class="flex items-center gap-4 mb-6">
+
+                <img
+                    src="assets/skins/default.png"
+                    class="w-20 h-20 rounded-2xl object-cover"
+                >
+
+                <div>
+                    <h3 class="text-3xl tier-glow">ReaperX</h3>
+                    <p class="text-zinc-400">Sword HT1</p>
+                </div>
+
+            </div>
+
+            <p class="subtext">
+                Один из сильнейших Sword PvP игроков СНГ региона.
+            </p>
+
+        </div>
+
+        <div class="glass glow rounded-3xl p-7 hover-card">
+
+            <div class="flex items-center gap-4 mb-6">
+
+                <img
+                    src="assets/skins/default.png"
+                    class="w-20 h-20 rounded-2xl object-cover"
+                >
+
+                <div>
+                    <h3 class="text-3xl tier-glow">DarkBlade</h3>
+                    <p class="text-zinc-400">Mace HT2</p>
+                </div>
+
+            </div>
+
+            <p class="subtext">
+                Известный Mace игрок и турнирный участник.
+            </p>
+
+        </div>
+
+        <div class="glass glow rounded-3xl p-7 hover-card">
+
+            <div class="flex items-center gap-4 mb-6">
+
+                <img
+                    src="assets/skins/default.png"
+                    class="w-20 h-20 rounded-2xl object-cover"
+                >
+
+                <div>
+                    <h3 class="text-3xl tier-glow">NeoPvP</h3>
+                    <p class="text-zinc-400">UHC HT1</p>
+                </div>
+
+            </div>
+
+            <p class="subtext">
+                Один из самых опытных UHC PvP игроков платформы.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- KITS -->
+
+<section class="max-w-7xl mx-auto px-5 py-16" id="kits">
+
+    <h2 class="section-title orange-text">
+        PvP Режимы
+    </h2>
+
+    <div class="grid md:grid-cols-2 gap-6">
+
+        <a href="#testing" class="glass glow rounded-3xl p-7 hover-card flex items-center gap-5">
+
+            <img
+                src="assets/items/sword.png"
+                class="w-20 h-20"
+                onerror="this.src='assets/items/default.png'"
+            >
 
             <div>
 
-                <h1 class="text-4xl md:text-6xl orange-text">
-                    MultiCraft CIS Tiers
-                </h1>
+                <h3 class="text-3xl mb-3">
+                    Sword
+                </h3>
 
-                <p class="text-zinc-400 mt-2 text-sm">
-                    Competitive СНГ PvP Platform
+                <p class="subtext">
+                    Основной PvP режим платформы.
                 </p>
 
             </div>
 
-            <nav class="flex gap-3 flex-wrap">
+        </a>
 
-                <a href="#leaderboard" class="glass nav-btn px-5 py-3 rounded-2xl">
-                    Таблица
-                </a>
+        <a href="#testing" class="glass glow rounded-3xl p-7 hover-card flex items-center gap-5">
 
-                <a href="#topplayers" class="glass nav-btn px-5 py-3 rounded-2xl">
-                    Лучшие игроки
-                </a>
-
-                <a href="#kits" class="glass nav-btn px-5 py-3 rounded-2xl">
-                    Режимы
-                </a>
-
-                <a href="#testing" class="glass nav-btn px-5 py-3 rounded-2xl">
-                    Тир-тест
-                </a>
-
-                <a href="#faq" class="glass nav-btn px-5 py-3 rounded-2xl">
-                    FAQ
-                </a>
-
-            </nav>
-
-        </div>
-
-    </header>
-
-    <!-- HERO -->
-
-    <section class="max-w-7xl mx-auto px-5 py-20">
-
-        <div class="hero-grid">
+            <img
+                src="assets/items/mace.png"
+                class="w-20 h-20"
+                onerror="this.src='assets/items/default.png'"
+            >
 
             <div>
 
-                <div class="glass glow rounded-3xl p-8">
+                <h3 class="text-3xl mb-3">
+                    Mace
+                </h3>
 
-                    <h2 class="text-5xl md:text-7xl leading-tight orange-text mb-8">
-                        СНГ PvP
-                        Ranking
-                        Platform
-                    </h2>
-
-                    <p class="subtext text-lg mb-8 max-w-3xl">
-                        MultiCraft CIS Tiers — официальная PvP платформа СНГ сообщества.
-                        Проходите тир-тесты, получайте ранги, участвуйте в PvP сцене
-                        и поднимайтесь до HT1.
-                    </p>
-
-                    <div class="flex flex-wrap gap-4">
-
-                        <button class="bg-gradient-to-r from-orange-500 to-yellow-400 text-black px-8 py-4 rounded-2xl text-lg hover:scale-105 transition-all duration-300 glow">
-                            ⚔️ Пройти тир-тест
-                        </button>
-
-                        <button class="glass px-8 py-4 rounded-2xl text-lg hover:bg-white/5 transition-all duration-300">
-                            🏆 Таблица лидеров
-                        </button>
-
-                    </div>
-
-                </div>
+                <p class="subtext">
+                    Combo и aggressive PvP стиль.
+                </p>
 
             </div>
+
+        </a>
+
+        <a href="#testing" class="glass glow rounded-3xl p-7 hover-card flex items-center gap-5">
+
+            <img
+                src="assets/items/axe.png"
+                class="w-20 h-20"
+                onerror="this.src='assets/items/default.png'"
+            >
 
             <div>
 
-                <div class="glass glow rounded-3xl p-8 floating text-center">
-
-                    <img
-                        src="assets/items/sword.png"
-                        class="w-32 h-32 object-contain mx-auto mb-6"
-                        onerror="this.src='assets/items/default.png'"
-                    >
-
-                    <h3 class="text-5xl tier-glow mb-4">
-                        HT1
-                    </h3>
-
-                    <p class="text-zinc-300 leading-8">
-                        Самый высокий PvP уровень платформы.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- STATS -->
-
-    <section class="max-w-7xl mx-auto px-5 pb-16">
-
-        <div class="grid md:grid-cols-4 gap-5">
-
-            <div class="glass glow rounded-3xl p-7 hover-card">
-                <h3 class="text-5xl orange-text mb-4">1284</h3>
-                <p class="text-zinc-300">Игроков</p>
-            </div>
-
-            <div class="glass glow rounded-3xl p-7 hover-card">
-                <h3 class="text-5xl orange-text mb-4">5892</h3>
-                <p class="text-zinc-300">Тестов</p>
-            </div>
-
-            <div class="glass glow rounded-3xl p-7 hover-card">
-                <h3 class="text-5xl orange-text mb-4">14</h3>
-                <p class="text-zinc-300">Тестеров</p>
-            </div>
-
-            <div class="glass glow rounded-3xl p-7 hover-card">
-                <h3 class="text-5xl orange-text mb-4">11</h3>
-                <p class="text-zinc-300">Регионов СНГ</p>
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- TOP PLAYERS -->
-
-    <section class="max-w-7xl mx-auto px-5 py-16" id="topplayers">
-
-        <h2 class="section-title orange-text">
-            Лучшие игроки
-        </h2>
-
-        <div class="grid md:grid-cols-3 gap-6">
-
-            <div class="glass glow rounded-3xl p-7 hover-card">
-
-                <div class="flex items-center gap-4 mb-6">
-
-                    <img
-                        src="assets/skins/default.png"
-                        class="w-20 h-20 rounded-2xl object-cover"
-                    >
-
-                    <div>
-                        <h3 class="text-3xl tier-glow">ReaperX</h3>
-                        <p class="text-zinc-400">Sword HT1</p>
-                    </div>
-
-                </div>
+                <h3 class="text-3xl mb-3">
+                    Axe
+                </h3>
 
                 <p class="subtext">
-                    Один из сильнейших Sword PvP игроков СНГ региона.
+                    Heavy combo PvP режим.
                 </p>
 
             </div>
 
-            <div class="glass glow rounded-3xl p-7 hover-card">
+        </a>
 
-                <div class="flex items-center gap-4 mb-6">
+        <a href="#testing" class="glass glow rounded-3xl p-7 hover-card flex items-center gap-5">
 
-                    <img
-                        src="assets/skins/default.png"
-                        class="w-20 h-20 rounded-2xl object-cover"
-                    >
+            <img
+                src="assets/items/uhc.png"
+                class="w-20 h-20"
+                onerror="this.src='assets/items/default.png'"
+            >
 
-                    <div>
-                        <h3 class="text-3xl tier-glow">DarkBlade</h3>
-                        <p class="text-zinc-400">Mace HT2</p>
-                    </div>
+            <div>
 
-                </div>
+                <h3 class="text-3xl mb-3">
+                    UHC
+                </h3>
 
                 <p class="subtext">
-                    Известный Mace игрок и турнирный участник.
+                    Rod, Bow и классическое PvP.
                 </p>
 
             </div>
 
-            <div class="glass glow rounded-3xl p-7 hover-card">
+        </a>
 
-                <div class="flex items-center gap-4 mb-6">
+        <a href="#testing" class="glass glow rounded-3xl p-7 hover-card flex items-center gap-5">
 
-                    <img
-                        src="assets/skins/default.png"
-                        class="w-20 h-20 rounded-2xl object-cover"
-                    >
+            <img
+                src="assets/items/pot.png"
+                class="w-20 h-20"
+                onerror="this.src='assets/items/default.png'"
+            >
 
-                    <div>
-                        <h3 class="text-3xl tier-glow">NeoPvP</h3>
-                        <p class="text-zinc-400">UHC HT1</p>
-                    </div>
+            <div>
 
-                </div>
+                <h3 class="text-3xl mb-3">
+                    Pot
+                </h3>
 
                 <p class="subtext">
-                    Один из самых опытных UHC PvP игроков платформы.
+                    Potion based fast PvP режим.
                 </p>
 
             </div>
 
-        </div>
+        </a>
 
-    </section>
+        <a href="#testing" class="glass glow rounded-3xl p-7 hover-card flex items-center gap-5">
 
-    <!-- KITS -->
+            <img
+                src="assets/items/nethop.png"
+                class="w-20 h-20"
+                onerror="this.src='assets/items/default.png'"
+            >
 
-    <section class="max-w-7xl mx-auto px-5 py-16" id="kits">
+            <div>
 
-        <h2 class="section-title orange-text">
-            PvP Режимы
-        </h2>
+                <h3 class="text-3xl mb-3">
+                    NethOP
+                </h3>
 
-        <div class="grid md:grid-cols-2 gap-6">
+                <p class="subtext">
+                    Netherite PvP с OP механиками.
+                </p>
 
-            <div class="glass glow rounded-3xl p-7 hover-card flex items-center gap-5">
-                <img src="assets/items/sword.png" class="w-20 h-20" onerror="this.src='assets/items/default.png'">
-                <div>
-                    <h3 class="text-3xl mb-3">Sword</h3>
-                    <p class="subtext">Основной PvP режим платформы.</p>
-                </div>
             </div>
 
-            <div class="glass glow rounded-3xl p-7 hover-card flex items-center gap-5">
-                <img src="assets/items/mace.png" class="w-20 h-20" onerror="this.src='assets/items/default.png'">
-                <div>
-                    <h3 class="text-3xl mb-3">Mace</h3>
-                    <p class="subtext">Combo и aggressive PvP стиль.</p>
-                </div>
+        </a>
+
+        <a href="#testing" class="glass glow rounded-3xl p-7 hover-card flex items-center gap-5 md:col-span-2">
+
+            <img
+                src="assets/items/vanilla.png"
+                class="w-20 h-20"
+                onerror="this.src='assets/items/default.png'"
+            >
+
+            <div>
+
+                <h3 class="text-3xl mb-3">
+                    Vanilla
+                </h3>
+
+                <p class="subtext">
+                    Чистый vanilla PvP опыт платформы.
+                </p>
+
             </div>
 
-            <div class="glass glow rounded-3xl p-7 hover-card flex items-center gap-5">
-                <img src="assets/items/axe.png" class="w-20 h-20" onerror="this.src='assets/items/default.png'">
-                <div>
-                    <h3 class="text-3xl mb-3">Axe</h3>
-                    <p class="subtext">Heavy combo PvP режим.</p>
-                </div>
-            </div>
+        </a>
 
-            <div class="glass glow rounded-3xl p-7 hover-card flex items-center gap-5">
-                <img src="assets/items/uhc.png" class="w-20 h-20" onerror="this.src='assets/items/default.png'">
-                <div>
-                    <h3 class="text-3xl mb-3">UHC</h3>
-                    <p class="subtext">Rod, Bow и классическое PvP.</p>
-                </div>
-            </div>
+    </div>
 
-            <div class="glass glow rounded-3xl p-7 hover-card flex items-center gap-5">
-                <img src="assets/items/pot.png" class="w-20 h-20" onerror="this.src='assets/items/default.png'">
-                <div>
-                    <h3 class="text-3xl mb-3">Pot</h3>
-                    <p class="subtext">Potion based fast PvP режим.</p>
-                </div>
-            </div>
+</section>
 
-            <div class="glass glow rounded-3xl p-7 hover-card flex items-center gap-5">
-                <img src="assets/items/nethop.png" class="w-20 h-20" onerror="this.src='assets/items/default.png'">
-                <div>
-                    <h3 class="text-3xl mb-3">NethOP</h3>
-                    <p class="subtext">Netherite PvP с OP механиками.</p>
-                </div>
-            </div>
+<!-- LEADERBOARD -->
 
-            <div class="glass glow rounded-3xl p-7 hover-card flex items-center gap-5 md:col-span-2">
-                <img src="assets/items/vanilla.png" class="w-20 h-20" onerror="this.src='assets/items/default.png'">
-                <div>
-                    <h3 class="text-3xl mb-3">Vanilla</h3>
-                    <p class="subtext">Чистый vanilla PvP опыт платформы.</p>
-                </div>
-            </div>
+<section class="max-w-7xl mx-auto px-5 py-16" id="leaderboard">
 
-        </div>
+    <h2 class="section-title orange-text">
+        Таблица лидеров
+    </h2>
 
-    </section>
+    <div class="glass glow rounded-3xl overflow-hidden">
 
-    <!-- LEADERBOARD -->
+        <div class="overflow-x-auto w-full">
 
-    <section class="max-w-7xl mx-auto px-5 py-16" id="leaderboard">
-
-        <h2 class="section-title orange-text">
-            Таблица лидеров
-        </h2>
-
-        <div class="glass glow rounded-3xl p-5 table-wrapper">
-
-            <table>
+            <table class="min-w-[1200px] w-full">
 
                 <thead>
 
-                    <tr>
-                        <th>Игрок</th>
-                        <th>Страна</th>
-                        <th>Устройство</th>
-                        <th>Sword</th>
-                        <th>Mace</th>
-                        <th>Axe</th>
-                        <th>UHC</th>
-                        <th>Pot</th>
-                        <th>NethOP</th>
-                        <th>Vanilla</th>
+                    <tr class="bg-orange-500/10">
+
+                        <th class="px-6 py-5 text-left text-yellow-300">
+                            Игрок
+                        </th>
+
+                        <th class="px-6 py-5 text-left text-yellow-300">
+                            Страна
+                        </th>
+
+                        <th class="px-6 py-5 text-left text-yellow-300">
+                            Устройство
+                        </th>
+
+                        <th class="px-6 py-5 text-left text-yellow-300">
+                            Sword
+                        </th>
+
+                        <th class="px-6 py-5 text-left text-yellow-300">
+                            Mace
+                        </th>
+
+                        <th class="px-6 py-5 text-left text-yellow-300">
+                            Axe
+                        </th>
+
+                        <th class="px-6 py-5 text-left text-yellow-300">
+                            UHC
+                        </th>
+
+                        <th class="px-6 py-5 text-left text-yellow-300">
+                            Pot
+                        </th>
+
+                        <th class="px-6 py-5 text-left text-yellow-300">
+                            NethOP
+                        </th>
+
+                        <th class="px-6 py-5 text-left text-yellow-300">
+                            Vanilla
+                        </th>
+
                     </tr>
 
                 </thead>
 
                 <tbody>
 
-                    <tr>
-                        <td>ReaperX</td>
-                        <td>RU</td>
-                        <td>Phone</td>
-                        <td class="tier-glow">HT1</td>
-                        <td class="tier-ht">HT2</td>
-                        <td class="tier-lt">LT1</td>
-                        <td class="tier-ht">HT2</td>
-                        <td class="tier-lt">LT2</td>
-                        <td class="tier-ht">HT3</td>
-                        <td class="tier-lt">LT1</td>
+                    <tr class="border-b border-white/5 hover:bg-orange-500/5 transition-all duration-300">
+
+                        <td class="px-6 py-5 flex items-center gap-4">
+
+                            <img
+                                src="assets/skins/default.png"
+                                class="w-12 h-12 rounded-xl object-cover"
+                            >
+
+                            <div>
+
+                                <div class="text-white text-lg">
+                                    ReaperX
+                                </div>
+
+                                <div class="text-zinc-500 text-sm">
+                                    Sword Main
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                        <td class="px-6 py-5 text-zinc-300">
+                            RU
+                        </td>
+
+                        <td class="px-6 py-5 text-zinc-300">
+                            Phone
+                        </td>
+
+                        <td class="px-6 py-5 tier-glow">
+                            HT1
+                        </td>
+
+                        <td class="px-6 py-5 tier-ht">
+                            HT2
+                        </td>
+
+                        <td class="px-6 py-5 tier-lt">
+                            LT1
+                        </td>
+
+                        <td class="px-6 py-5 tier-ht">
+                            HT2
+                        </td>
+
+                        <td class="px-6 py-5 tier-lt">
+                            LT2
+                        </td>
+
+                        <td class="px-6 py-5 tier-ht">
+                            HT3
+                        </td>
+
+                        <td class="px-6 py-5 tier-lt">
+                            LT1
+                        </td>
+
                     </tr>
 
-                    <tr>
-                        <td>DarkBlade</td>
-                        <td>UA</td>
-                        <td>Tablet</td>
-                        <td class="tier-lt">LT1</td>
-                        <td class="tier-glow">HT2</td>
-                        <td class="tier-lt">LT2</td>
-                        <td class="tier-lt">LT1</td>
-                        <td class="tier-lt">LT3</td>
-                        <td class="tier-lt">LT2</td>
-                        <td class="tier-lt">LT1</td>
+                    <tr class="border-b border-white/5 hover:bg-orange-500/5 transition-all duration-300">
+
+                        <td class="px-6 py-5 flex items-center gap-4">
+
+                            <img
+                                src="assets/skins/default.png"
+                                class="w-12 h-12 rounded-xl object-cover"
+                            >
+
+                            <div>
+
+                                <div class="text-white text-lg">
+                                    DarkBlade
+                                </div>
+
+                                <div class="text-zinc-500 text-sm">
+                                    Mace Main
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                        <td class="px-6 py-5 text-zinc-300">
+                            UA
+                        </td>
+
+                        <td class="px-6 py-5 text-zinc-300">
+                            Tablet
+                        </td>
+
+                        <td class="px-6 py-5 tier-lt">
+                            LT1
+                        </td>
+
+                        <td class="px-6 py-5 tier-glow">
+                            HT2
+                        </td>
+
+                        <td class="px-6 py-5 tier-lt">
+                            LT2
+                        </td>
+
+                        <td class="px-6 py-5 tier-lt">
+                            LT1
+                        </td>
+
+                        <td class="px-6 py-5 tier-lt">
+                            LT3
+                        </td>
+
+                        <td class="px-6 py-5 tier-lt">
+                            LT2
+                        </td>
+
+                        <td class="px-6 py-5 tier-lt">
+                            LT1
+                        </td>
+
                     </tr>
 
-                    <tr>
-                        <td>NeoPvP</td>
-                        <td>KZ</td>
-                        <td>PC</td>
-                        <td class="tier-lt">LT1</td>
-                        <td class="tier-lt">LT2</td>
-                        <td class="tier-lt">LT1</td>
-                        <td class="tier-glow">HT1</td>
-                        <td class="tier-lt">LT1</td>
-                        <td class="tier-ht">HT2</td>
-                        <td class="tier-lt">LT2</td>
+                    <tr class="hover:bg-orange-500/5 transition-all duration-300">
+
+                        <td class="px-6 py-5 flex items-center gap-4">
+
+                            <img
+                                src="assets/skins/default.png"
+                                class="w-12 h-12 rounded-xl object-cover"
+                            >
+
+                            <div>
+
+                                <div class="text-white text-lg">
+                                    NeoPvP
+                                </div>
+
+                                <div class="text-zinc-500 text-sm">
+                                    UHC Main
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                        <td class="px-6 py-5 text-zinc-300">
+                            KZ
+                        </td>
+
+                        <td class="px-6 py-5 text-zinc-300">
+                            PC
+                        </td>
+
+                        <td class="px-6 py-5 tier-lt">
+                            LT1
+                        </td>
+
+                        <td class="px-6 py-5 tier-lt">
+                            LT2
+                        </td>
+
+                        <td class="px-6 py-5 tier-lt">
+                            LT1
+                        </td>
+
+                        <td class="px-6 py-5 tier-ht">
+                            HT1
+                        </td>
+
+                        <td class="px-6 py-5 tier-lt">
+                            LT1
+                        </td>
+
+                        <td class="px-6 py-5 tier-ht">
+                            HT2
+                        </td>
+
+                        <td class="px-6 py-5 tier-lt">
+                            LT2
+                        </td>
+
+                    </tr>
+
+                    <tr class="border-t border-white/5 hover:bg-orange-500/5 transition-all duration-300">
+
+                        <td class="px-6 py-5 flex items-center gap-4">
+
+                            <img
+                                src="assets/skins/default.png"
+                                class="w-12 h-12 rounded-xl object-cover"
+                            >
+
+                            <div>
+
+                                <div class="text-white text-lg">
+                                    FrostIK
+                                </div>
+
+                                <div class="text-zinc-500 text-sm">
+                                    Vanilla Main
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                        <td class="px-6 py-5 text-zinc-300">
+                            BY
+                        </td>
+
+                        <td class="px-6 py-5 text-zinc-300">
+                            Controller
+                        </td>
+
+                        <td class="px-6 py-5 tier-lt">
+                            LT2
+                        </td>
+
+                        <td class="px-6 py-5 tier-lt">
+                            LT3
+                        </td>
+
+                        <td class="px-6 py-5 tier-lt">
+                            LT2
+                        </td>
+
+                        <td class="px-6 py-5 tier-lt">
+                            LT1
+                        </td>
+
+                        <td class="px-6 py-5 tier-lt">
+                            LT2
+                        </td>
+
+                        <td class="px-6 py-5 tier-lt">
+                            LT3
+                        </td>
+
+                        <td class="px-6 py-5 tier-glow">
+                            HT1
+                        </td>
+
                     </tr>
 
                 </tbody>
@@ -607,164 +854,220 @@
 
         </div>
 
-    </section>
+    </div>
 
-    <!-- TESTING -->
+</section>
 
-    <section class="max-w-7xl mx-auto px-5 py-16" id="testing">
+<!-- TESTING -->
 
-        <h2 class="section-title orange-text">
-            Как пройти тир-тест?
-        </h2>
+<section class="max-w-7xl mx-auto px-5 py-16" id="testing">
 
-        <div class="grid md:grid-cols-3 gap-6">
+    <h2 class="section-title orange-text">
+        Как пройти тир-тест?
+    </h2>
 
-            <div class="glass glow rounded-3xl p-8 hover-card">
+    <div class="grid md:grid-cols-3 gap-6">
 
-                <div class="text-6xl mb-5">
-                    📝
-                </div>
+        <div class="glass glow rounded-3xl p-8 hover-card">
 
-                <h3 class="text-3xl mb-5">
-                    1. Заявка
+            <div class="text-7xl mb-6">
+                📝
+            </div>
+
+            <h3 class="text-4xl mb-6">
+                1. Заявка
+            </h3>
+
+            <p class="subtext text-lg">
+                Перейдите в Telegram Hub нужного режима и заполните анкету
+                для прохождения PvP теста.
+            </p>
+
+        </div>
+
+        <div class="glass glow rounded-3xl p-8 hover-card">
+
+            <div class="text-7xl mb-6">
+                📅
+            </div>
+
+            <h3 class="text-4xl mb-6">
+                2. Назначение
+            </h3>
+
+            <p class="subtext text-lg">
+                Тестер назначит сервер, время и формат PvP теста.
+            </p>
+
+        </div>
+
+        <div class="glass glow rounded-3xl p-8 hover-card">
+
+            <div class="text-7xl mb-6">
+                🏆
+            </div>
+
+            <h3 class="text-4xl mb-6">
+                3. Получение тира
+            </h3>
+
+            <p class="subtext text-lg">
+                После теста вам выдается официальный тир платформы.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FAQ -->
+
+<section class="max-w-7xl mx-auto px-5 py-16" id="faq">
+
+    <h2 class="section-title orange-text">
+        Часто задаваемые вопросы
+    </h2>
+
+    <div class="space-y-6">
+
+        <div class="glass glow rounded-3xl p-7">
+
+            <h3 class="text-3xl mb-4">
+                Что такое тир?
+            </h3>
+
+            <p class="subtext">
+                Тир — это PvP ранг игрока, который показывает его уровень игры
+                в определенном режиме.
+            </p>
+
+        </div>
+
+        <div class="glass glow rounded-3xl p-7">
+
+            <h3 class="text-3xl mb-4">
+                Какие устройства разрешены?
+            </h3>
+
+            <p class="subtext">
+                Phone, Tablet, PC, OTG и Controller.
+            </p>
+
+        </div>
+
+        <div class="glass glow rounded-3xl p-7">
+
+            <h3 class="text-3xl mb-4">
+                Можно ли получить несколько тиров?
+            </h3>
+
+            <p class="subtext">
+                Да. Каждый PvP режим тестируется отдельно.
+            </p>
+
+        </div>
+
+        <div class="glass glow rounded-3xl p-7">
+
+            <h3 class="text-3xl mb-4">
+                Кто такие тестеры?
+            </h3>
+
+            <p class="subtext">
+                Это официальные игроки платформы, которые принимают PvP тесты
+                и выдают ранги.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer class="mt-24 border-t border-orange-500/10">
+
+    <div class="max-w-7xl mx-auto px-5 py-12">
+
+        <div class="grid md:grid-cols-3 gap-10">
+
+            <div>
+
+                <h3 class="text-4xl orange-text mb-5">
+                    MultiCraft CIS Tiers
                 </h3>
 
                 <p class="subtext">
-                    Перейдите в Telegram Hub нужного режима и заполните анкету.
+                    СНГ PvP Ranking платформа для MultiCraft игроков.
                 </p>
 
             </div>
 
-            <div class="glass glow rounded-3xl p-8 hover-card">
+            <div>
 
-                <div class="text-6xl mb-5">
-                    📅
-                </div>
-
-                <h3 class="text-3xl mb-5">
-                    2. Назначение
+                <h3 class="text-2xl text-yellow-300 mb-5">
+                    Навигация
                 </h3>
 
-                <p class="subtext">
-                    Тестер назначит сервер, время и формат PvP теста.
-                </p>
+                <div class="flex flex-col gap-4 text-zinc-300">
+
+                    <a href="#leaderboard" class="hover:text-yellow-300 transition-all duration-300">
+                        Таблица лидеров
+                    </a>
+
+                    <a href="#topplayers" class="hover:text-yellow-300 transition-all duration-300">
+                        Лучшие игроки
+                    </a>
+
+                    <a href="#kits" class="hover:text-yellow-300 transition-all duration-300">
+                        Режимы
+                    </a>
+
+                    <a href="#testing" class="hover:text-yellow-300 transition-all duration-300">
+                        Тир-тест
+                    </a>
+
+                </div>
 
             </div>
 
-            <div class="glass glow rounded-3xl p-8 hover-card">
+            <div>
 
-                <div class="text-6xl mb-5">
-                    ⚔️
-                </div>
-
-                <h3 class="text-3xl mb-5">
-                    3. Тест
+                <h3 class="text-2xl text-yellow-300 mb-5">
+                    Соцсети
                 </h3>
 
-                <p class="subtext">
-                    Пройдите PvP тест и получите официальный тир платформы.
-                </p>
+                <div class="flex flex-col gap-4 text-zinc-300">
+
+                    <a href="#" class="hover:text-yellow-300 transition-all duration-300">
+                        Telegram
+                    </a>
+
+                    <a href="#" class="hover:text-yellow-300 transition-all duration-300">
+                        Discord
+                    </a>
+
+                    <a href="#" class="hover:text-yellow-300 transition-all duration-300">
+                        GitHub
+                    </a>
+
+                </div>
 
             </div>
 
         </div>
 
-    </section>
+        <div class="border-t border-white/5 mt-12 pt-8 text-center text-zinc-500">
 
-    <!-- FAQ -->
-
-    <section class="max-w-7xl mx-auto px-5 py-16" id="faq">
-
-        <h2 class="section-title orange-text">
-            FAQ
-        </h2>
-
-        <div class="space-y-5">
-
-            <div class="glass glow rounded-3xl p-7 hover-card">
-                <h3 class="text-2xl mb-4">Что такое тир?</h3>
-                <p class="subtext">
-                    Тир показывает PvP уровень игрока в определённом режиме.
-                </p>
-            </div>
-
-            <div class="glass glow rounded-3xl p-7 hover-card">
-                <h3 class="text-2xl mb-4">Можно ли играть с телефона?</h3>
-                <p class="subtext">
-                    Да. Phone, Tablet, Controller, Otg и PC разрешены.
-                </p>
-            </div>
-
-            <div class="glass glow rounded-3xl p-7 hover-card">
-                <h3 class="text-2xl mb-4">Какой тир самый высокий?</h3>
-                <p class="subtext">
-                    Самый высокий тир платформы — HT1.
-                </p>
-            </div>
-
-            <div class="glass glow rounded-3xl p-7 hover-card">
-                <h3 class="text-2xl mb-4">Можно ли пройти ретест?</h3>
-                <p class="subtext">
-                    Да. Обычно повторный тест доступен через 14 дней.
-                </p>
-            </div>
+            © 2025 MultiCraft CIS Tiers. All rights reserved.
 
         </div>
 
-    </section>
+    </div>
 
-    <!-- FOOTER -->
+</footer>
 
-    <footer class="border-t border-orange-500/10 mt-20">
-
-        <div class="max-w-7xl mx-auto px-5 py-12">
-
-            <div class="grid md:grid-cols-3 gap-10">
-
-                <div>
-
-                    <h3 class="text-3xl orange-text mb-5">
-                        MultiCraft CIS Tiers
-                    </h3>
-
-                    <p class="subtext">
-                        Competitive PvP ecosystem for СНГ MultiCraft players.
-                    </p>
-
-                </div>
-
-                <div>
-
-                    <h3 class="text-2xl mb-5">
-                        Навигация
-                    </h3>
-
-                    <div class="flex flex-col gap-3 text-zinc-400">
-
-                        <a href="#leaderboard" class="footer-link">
-                            Таблица
-                        </a>
-
-                        <a href="#topplayers" class="footer-link">
-                            Лучшие игроки
-                        </a>
-
-                        <a href="#kits" class="footer-link">
-                            Режимы
-                        </a>
-
-                        <a href="#testing" class="footer-link">
-                            Тир-тест
-                        </a>
-
-                    </div>
-
-                </div>
-
-                <div>
-
-                    <h3 class="text-2xl mb-5">
-                        Соцсети
-                    </h3>
-
-                    <div class="flex 
+</body>
+    </html>
