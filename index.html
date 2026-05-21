@@ -29,16 +29,12 @@ html{
 
 body{
     overflow-x:hidden;
-
     background:
     radial-gradient(circle at top left,
-    rgba(255,170,0,0.13),transparent 30%),
-
+    rgba(255,170,0,0.14),transparent 30%),
     radial-gradient(circle at bottom right,
     rgba(255,120,0,0.08),transparent 30%),
-
     #06080f;
-
     color:white;
 }
 
@@ -63,7 +59,7 @@ body::before{
 
     backdrop-filter:blur(16px);
 
-    background:rgba(5,8,15,0.85);
+    background:rgba(5,8,15,0.86);
 
     border-bottom:1px solid rgba(255,255,255,0.05);
 }
@@ -88,7 +84,6 @@ body::before{
     display:flex;
     flex-wrap:wrap;
     gap:12px;
-
     margin-top:14px;
 }
 
@@ -96,7 +91,7 @@ body::before{
     text-decoration:none;
     color:white;
 
-    background:#101827;
+    background:#111827;
 
     border:1px solid rgba(255,255,255,0.05);
 
@@ -112,7 +107,7 @@ body::before{
 
     border-color:rgba(255,179,0,0.3);
 
-    background:#172133;
+    background:#1a2233;
 }
 
 .hero{
@@ -124,7 +119,6 @@ body::before{
 
 .hero-box{
     position:relative;
-
     overflow:hidden;
 
     border-radius:38px;
@@ -151,7 +145,7 @@ body::before{
     width:520px;
     height:520px;
 
-    right:-160px;
+    right:-170px;
     top:-170px;
 
     background:
@@ -164,7 +158,7 @@ body::before{
     position:relative;
     z-index:2;
 
-    font-size:88px;
+    font-size:90px;
     line-height:0.9;
 
     background:
@@ -231,43 +225,11 @@ body::before{
     transform:translateY(-3px);
 }
 
-.stats-grid{
-    max-width:1450px;
-    margin:auto;
-
-    padding:0 20px 20px;
-
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-
-    gap:18px;
-}
-
-.stat-card{
-    background:#0f1422;
-
-    border-radius:28px;
-
-    padding:28px;
-
-    border:1px solid rgba(255,255,255,0.05);
-}
-
-.stat-number{
-    font-size:44px;
-    color:#ffd166;
-}
-
-.stat-label{
-    margin-top:10px;
-    color:#9c9c9c;
-}
-
 .section{
     max-width:1450px;
     margin:auto;
 
-    padding:45px 20px;
+    padding:46px 20px;
 }
 
 .section-title{
@@ -363,8 +325,6 @@ body::before{
     max-height:950px;
 
     overflow-y:auto;
-
-    padding-right:6px;
 }
 
 .player-card{
@@ -383,6 +343,8 @@ body::before{
     border:1px solid rgba(255,255,255,0.05);
 
     transition:0.25s;
+
+    cursor:pointer;
 }
 
 .player-card:hover{
@@ -414,8 +376,6 @@ body::before{
     color:#999;
 
     font-size:14px;
-
-    line-height:1.7;
 }
 
 .player-right{
@@ -472,6 +432,72 @@ body::before{
     line-height:2;
 }
 
+.modal{
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,0.7);
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    z-index:9999;
+}
+
+.modal-content{
+    width:95%;
+    max-width:700px;
+
+    background:#0f1422;
+
+    border-radius:30px;
+
+    padding:34px;
+
+    border:1px solid rgba(255,255,255,0.05);
+}
+
+.modal-title{
+    font-size:42px;
+
+    color:#ffd166;
+
+    margin-bottom:18px;
+}
+
+.modal-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+.modal-kit{
+    background:#111827;
+
+    padding:16px;
+
+    border-radius:18px;
+}
+
+.close-btn{
+    margin-top:24px;
+
+    background:
+    linear-gradient(to right,#ffb300,#ffd54f);
+
+    color:black;
+
+    border:none;
+
+    padding:16px 22px;
+
+    border-radius:18px;
+
+    cursor:pointer;
+}
+
 .footer{
     margin-top:40px;
 
@@ -487,11 +513,7 @@ body::before{
 @media(max-width:1000px){
 
     .hero-title{
-        font-size:64px;
-    }
-
-    .stats-grid{
-        grid-template-columns:1fr 1fr;
+        font-size:62px;
     }
 
     .info-grid{
@@ -502,20 +524,12 @@ body::before{
 
 @media(max-width:760px){
 
-    .logo{
-        font-size:28px;
-    }
-
     .hero-box{
         padding:30px;
     }
 
     .hero-title{
         font-size:42px;
-    }
-
-    .stats-grid{
-        grid-template-columns:1fr;
     }
 
     .filters{
@@ -534,6 +548,10 @@ body::before{
 
     .section-title{
         font-size:38px;
+    }
+
+    .modal-grid{
+        grid-template-columns:1fr;
     }
 
 }
@@ -557,11 +575,15 @@ Leaderboard
 </a>
 
 <a href="#hall">
-Hall Of Fame
+Доска Почета
+</a>
+
+<a href="#testers">
+Testers
 </a>
 
 <a href="#testing">
-Tier-Test
+Как пройти тир-тест
 </a>
 
 <a href="#faq">
@@ -584,9 +606,9 @@ Platform
 </h1>
 
 <p class="hero-sub">
-Official СНГ PvP ranking platform.
-Проходите тир-тесты, поднимайтесь в OVERALL TOP,
-получайте PvP ранги и становитесь частью competitive community.
+Официальная PvP ranking platform СНГ комьюнити.
+Проходите тир-тесты, попадайте в OVERALL TOP
+и поднимайтесь до высших PvP тиров.
 </p>
 
 <div class="hero-buttons">
@@ -609,30 +631,6 @@ TELEGRAM
 
 </div>
 
-</div>
-
-</section>
-
-<section class="stats-grid">
-
-<div class="stat-card">
-<div class="stat-number">5.8K</div>
-<div class="stat-label">Tests</div>
-</div>
-
-<div class="stat-card">
-<div class="stat-number">1.2K</div>
-<div class="stat-label">Players</div>
-</div>
-
-<div class="stat-card">
-<div class="stat-number">14</div>
-<div class="stat-label">Testers</div>
-</div>
-
-<div class="stat-card">
-<div class="stat-number">11</div>
-<div class="stat-label">CIS Regions</div>
 </div>
 
 </section>
@@ -726,7 +724,48 @@ Vanilla
 <section id="hall" class="section">
 
 <h2 class="section-title">
-HALL OF FAME
+ДОСКА ПОЧЕТА
+</h2>
+
+<div class="info-grid">
+
+<div class="info-card">
+<div class="info-title">ReaperX</div>
+<div class="info-text">
+Первый HT1 Sword игрок платформы.
+Legend of competitive PvP scene.
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">NeoPvP</div>
+<div class="info-text">
+Один из сильнейших UHC игроков СНГ.
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">DarkBlade</div>
+<div class="info-text">
+Известен своими combo mechanics.
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">Frost</div>
+<div class="info-text">
+Лучший Controller player сезона.
+</div>
+</div>
+
+</div>
+
+</section>
+
+<section id="testers" class="section">
+
+<h2 class="section-title">
+TIER TESTERS
 </h2>
 
 <div class="info-grid">
@@ -737,18 +776,8 @@ ReaperX
 </div>
 
 <div class="info-text">
-Первый HT1 Sword игрок платформы.
-Legend of competitive PvP scene.
-</div>
-</div>
-
-<div class="info-card">
-<div class="info-title">
-NeoPvP
-</div>
-
-<div class="info-text">
-Один из сильнейших UHC игроков СНГ комьюнити.
+Sword Tester<br>
+Telegram: @reaperx
 </div>
 </div>
 
@@ -758,7 +787,19 @@ DarkBlade
 </div>
 
 <div class="info-text">
-Известен своими aggressive combo mechanics.
+Mace Tester<br>
+Telegram: @darkblade
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">
+NeoPvP
+</div>
+
+<div class="info-text">
+UHC Tester<br>
+Telegram: @neopvp
 </div>
 </div>
 
@@ -768,7 +809,8 @@ Frost
 </div>
 
 <div class="info-text">
-Лучший Controller PvP игрок сезона.
+Vanilla Tester<br>
+Telegram: @frost
 </div>
 </div>
 
@@ -779,49 +821,61 @@ Frost
 <section id="testing" class="section">
 
 <h2 class="section-title">
-HOW TO PASS TIER TEST
+КАК ПРОЙТИ ТИР-ТЕСТ
 </h2>
 
 <div class="info-grid">
 
 <div class="info-card">
+
 <div class="info-title">
 1. Заявка
 </div>
 
 <div class="info-text">
-Игрок отправляет заявку в Telegram Hub.
+Игрок отправляет заявку
+в Telegram группу платформы.
 </div>
+
 </div>
 
 <div class="info-card">
+
 <div class="info-title">
-2. Queue
+2. Очередь
 </div>
 
 <div class="info-text">
-Тестер назначает время и сервер.
+Тестер назначает сервер,
+режим и время проверки.
 </div>
+
 </div>
 
 <div class="info-card">
+
 <div class="info-title">
-3. PvP Test
+3. Проверка
 </div>
 
 <div class="info-text">
-Игрок проходит серию PvP боёв.
+Игрок проходит PvP бои
+против тир-тестеров платформы.
 </div>
+
 </div>
 
 <div class="info-card">
+
 <div class="info-title">
-4. Tier
+4. Получение тира
 </div>
 
 <div class="info-text">
-После проверки игрок получает PvP тир.
+После завершения проверки
+игрок получает PvP тир.
 </div>
+
 </div>
 
 </div>
@@ -866,12 +920,26 @@ LT5 = 10
 <div class="info-card">
 
 <div class="info-title">
-Что такое OVERALL?
+OVERALL тир
 </div>
 
 <div class="info-text">
-Overall Score складывается
-из всех PvP режимов игрока.
+
+700+ = HT1<br>
+620+ = LT1<br><br>
+
+540+ = HT2<br>
+460+ = LT2<br><br>
+
+380+ = HT3<br>
+300+ = LT3<br><br>
+
+220+ = HT4<br>
+140+ = LT4<br><br>
+
+60+ = HT5<br>
+0+ = LT5
+
 </div>
 
 </div>
@@ -883,7 +951,8 @@ Overall Score складывается
 </div>
 
 <div class="info-text">
-Да. Игрок может пройти повторный тест позже.
+Да. Игрок может пройти
+повторную проверку позже.
 </div>
 
 </div>
@@ -901,34 +970,27 @@ gamesense и consistency.
 
 </div>
 
-<div class="info-card">
-
-<div class="info-title">
-Устройство влияет?
-</div>
-
-<div class="info-text">
-Нет. Phone, Tablet, PC,
-Controller и OTG могут получить HT1.
-</div>
-
-</div>
-
-<div class="info-card">
-
-<div class="info-title">
-Как попасть в топ?
-</div>
-
-<div class="info-text">
-Нужно пройти минимум один Tier-Test.
-</div>
-
-</div>
-
 </div>
 
 </section>
+
+<div class="modal" id="playerModal">
+
+<div class="modal-content">
+
+<div class="modal-title" id="modalName">
+Player
+</div>
+
+<div class="modal-grid" id="modalStats"></div>
+
+<button class="close-btn" onclick="closeModal()">
+Закрыть
+</button>
+
+</div>
+
+</div>
 
 <footer class="footer">
 MultiCraft CIS Tiers
@@ -961,6 +1023,8 @@ const players=[
 nick:"ReaperX",
 country:"RU",
 device:"PH",
+tester:"DarkBlade",
+
 sword:"HT1",
 mace:"HT2",
 axe:"LT1",
@@ -971,22 +1035,11 @@ vanilla:"LT1"
 },
 
 {
-nick:"DarkBlade",
-country:"UA",
-device:"TB",
-sword:"LT1",
-mace:"HT2",
-axe:"LT2",
-uhc:"LT1",
-pot:"LT3",
-nethop:"LT2",
-vanilla:"LT1"
-},
-
-{
 nick:"NeoPvP",
 country:"KZ",
 device:"PC",
+tester:"ReaperX",
+
 sword:"LT1",
 mace:"LT2",
 axe:"LT1",
@@ -997,35 +1050,26 @@ vanilla:"LT2"
 },
 
 {
-nick:"Frost",
-country:"BY",
-device:"CT",
-sword:"LT2",
-mace:"LT1",
-axe:"LT3",
-uhc:"HT2",
-pot:"LT2",
-nethop:"LT2",
-vanilla:"LT1"
-},
+nick:"DarkBlade",
+country:"UA",
+device:"TB",
+tester:"Frost",
 
-{
-nick:"Vortex",
-country:"UZ",
-device:"OTG",
-sword:"HT2",
-mace:"HT3",
+sword:"LT1",
+mace:"HT2",
 axe:"LT2",
 uhc:"LT1",
-pot:"HT2",
-nethop:"HT3",
-vanilla:"LT2"
+pot:"LT3",
+nethop:"LT2",
+vanilla:"LT1"
 },
 
 {
 nick:"Blaze",
 country:"RU",
 device:"PH",
+tester:"NeoPvP",
+
 sword:"HT2",
 mace:"LT1",
 axe:"LT2",
@@ -1036,48 +1080,26 @@ vanilla:"LT1"
 },
 
 {
-nick:"Aether",
-country:"AZ",
-device:"PC",
-sword:"LT1",
-mace:"LT2",
-axe:"HT2",
-uhc:"HT2",
-pot:"LT1",
-nethop:"LT1",
-vanilla:"HT3"
-},
+nick:"Vortex",
+country:"UZ",
+device:"OTG",
+tester:"DarkBlade",
 
-{
-nick:"Venom",
-country:"AM",
-device:"TB",
-sword:"LT2",
-mace:"LT3",
-axe:"LT1",
-uhc:"HT2",
-pot:"LT2",
-nethop:"HT2",
-vanilla:"LT1"
-},
-
-{
-nick:"Ghosty",
-country:"MD",
-device:"PH",
-sword:"HT3",
-mace:"HT2",
+sword:"HT2",
+mace:"HT3",
 axe:"LT2",
-uhc:"LT2",
-pot:"LT1",
-nethop:"LT3",
-vanilla:"LT1"
+uhc:"LT1",
+pot:"HT2",
+nethop:"HT3",
+vanilla:"LT2"
 },
 
 {
 nick:"Inferno",
 country:"KG",
 device:"PC",
+tester:"ReaperX",
+
 sword:"HT2",
 mace:"HT2",
 axe:"HT3",
@@ -1104,6 +1126,26 @@ tierPoints[player.nethop]+
 tierPoints[player.vanilla]
 
 );
+
+}
+
+function getOverallTier(points){
+
+if(points>=700)return"HT1";
+if(points>=620)return"LT1";
+
+if(points>=540)return"HT2";
+if(points>=460)return"LT2";
+
+if(points>=380)return"HT3";
+if(points>=300)return"LT3";
+
+if(points>=220)return"HT4";
+if(points>=140)return"LT4";
+
+if(points>=60)return"HT5";
+
+return"LT5";
 
 }
 
@@ -1171,15 +1213,19 @@ tierPoints[a[currentMode]]
 
 filtered.forEach((player,index)=>{
 
+const overallPoints=calculateOverall(player);
+
+const overallTier=getOverallTier(overallPoints);
+
 const points=currentMode==='overall'
 ?
-calculateOverall(player)
+overallPoints
 :
 tierPoints[player[currentMode]];
 
 container.innerHTML+=`
 
-<div class="player-card">
+<div class="player-card" onclick="openModal('${player.nick}')">
 
 <div class="player-left">
 
@@ -1207,7 +1253,7 @@ ${player.country} • ${player.device}
 
 ${currentMode==='overall'
 ?
-'OVERALL'
+overallTier
 :
 player[currentMode]}
 
@@ -1224,6 +1270,59 @@ ${points} PTS
 `;
 
 });
+
+}
+
+function openModal(nick){
+
+const player=players.find(p=>p.nick===nick);
+
+document.getElementById('playerModal').style.display='flex';
+
+document.getElementById('modalName').innerHTML=
+player.nick;
+
+document.getElementById('modalStats').innerHTML=`
+
+<div class="modal-kit">
+Sword: ${player.sword}
+</div>
+
+<div class="modal-kit">
+Mace: ${player.mace}
+</div>
+
+<div class="modal-kit">
+Axe: ${player.axe}
+</div>
+
+<div class="modal-kit">
+UHC: ${player.uhc}
+</div>
+
+<div class="modal-kit">
+Pot: ${player.pot}
+</div>
+
+<div class="modal-kit">
+NethOP: ${player.nethop}
+</div>
+
+<div class="modal-kit">
+Vanilla: ${player.vanilla}
+</div>
+
+<div class="modal-kit">
+Tester: ${player.tester}
+</div>
+
+`;
+
+}
+
+function closeModal(){
+
+document.getElementById('playerModal').style.display='none';
 
 }
 
