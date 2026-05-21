@@ -144,6 +144,14 @@ transform:translateY(0px);
     color:#ff9d00;
 }
 
+.kit-card img{
+    transition:0.3s ease;
+}
+
+.kit-card:hover img{
+    transform:scale(1.08);
+}
+
 @media(max-width:900px){
 
 .hero-grid{
@@ -186,8 +194,8 @@ Competitive СНГ PvP Platform
 Таблица
 </a>
 
-<a href="#topplayers" class="glass nav-btn px-5 py-3 rounded-2xl">
-Лучшие игроки
+<a href="#halloffame" class="glass nav-btn px-5 py-3 rounded-2xl">
+Зал славы
 </a>
 
 <a href="#kits" class="glass nav-btn px-5 py-3 rounded-2xl">
@@ -315,62 +323,6 @@ HT1
 Таблица лидеров
 </h2>
 
-<div class="glass glow rounded-3xl p-5 mb-6">
-
-<div class="grid xl:grid-cols-4 md:grid-cols-2 gap-4">
-
-<input
-type="text"
-id="searchInput"
-placeholder="Поиск игрока..."
-class="glass rounded-2xl px-5 py-4 bg-transparent outline-none border border-white/5 text-white"
->
-
-<select
-id="countryFilter"
-class="glass rounded-2xl px-5 py-4 bg-[#0b1020] outline-none border border-white/5 text-white"
->
-
-<option value="all">Все страны</option>
-<option value="RU">RU</option>
-<option value="UA">UA</option>
-<option value="KZ">KZ</option>
-<option value="BY">BY</option>
-
-</select>
-
-<select
-id="kitFilter"
-class="glass rounded-2xl px-5 py-4 bg-[#0b1020] outline-none border border-white/5 text-white"
->
-
-<option value="all">Все режимы</option>
-<option value="sword">Sword</option>
-<option value="mace">Mace</option>
-<option value="axe">Axe</option>
-<option value="uhc">UHC</option>
-<option value="pot">Pot</option>
-<option value="nethop">NethOP</option>
-<option value="vanilla">Vanilla</option>
-
-</select>
-
-<select
-id="deviceFilter"
-class="glass rounded-2xl px-5 py-4 bg-[#0b1020] outline-none border border-white/5 text-white"
->
-
-<option value="all">Все устройства</option>
-<option value="Phone">Phone</option>
-<option value="Tablet">Tablet</option>
-<option value="PC">PC</option>
-
-</select>
-
-</div>
-
-</div>
-
 <div class="glass glow rounded-3xl p-4">
 
 <div class="table-scroll rounded-2xl border border-white/5">
@@ -410,12 +362,12 @@ class="glass rounded-2xl px-5 py-4 bg-[#0b1020] outline-none border border-white
 
 </section>
 
-<!-- TOP PLAYERS -->
+<!-- HALL OF FAME -->
 
-<section class="max-w-7xl mx-auto px-5 py-20" id="topplayers">
+<section class="max-w-7xl mx-auto px-5 py-20" id="halloffame">
 
 <h2 class="section-title orange-text">
-Лучшие игроки СНГ
+Зал славы
 </h2>
 
 <div class="grid lg:grid-cols-3 gap-6">
@@ -437,7 +389,7 @@ ReaperX
 </h3>
 
 <p class="text-zinc-400">
-Sword HT1
+Sword Legend
 </p>
 
 </div>
@@ -445,7 +397,8 @@ Sword HT1
 </div>
 
 <p class="subtext">
-Один из сильнейших Sword игроков СНГ платформы.
+Один из самых известных Sword игроков СНГ платформы.
+Победитель множества PvP турниров.
 </p>
 
 </div>
@@ -467,7 +420,7 @@ DarkBlade
 </h3>
 
 <p class="text-zinc-400">
-Mace HT1
+Mace Legend
 </p>
 
 </div>
@@ -475,7 +428,7 @@ Mace HT1
 </div>
 
 <p class="subtext">
-Легендарный Mace PvP игрок.
+Легендарный Mace PvP игрок и один из старейших участников платформы.
 </p>
 
 </div>
@@ -497,7 +450,7 @@ NeoPvP
 </h3>
 
 <p class="text-zinc-400">
-UHC HT1
+UHC Legend
 </p>
 
 </div>
@@ -505,7 +458,201 @@ UHC HT1
 </div>
 
 <p class="subtext">
-Один из лучших UHC игроков СНГ.
+Один из лучших UHC игроков СНГ региона.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- KITS -->
+
+<section class="max-w-7xl mx-auto px-5 py-20" id="kits">
+
+<h2 class="section-title orange-text">
+PvP Режимы
+</h2>
+
+<div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+<div class="glass glow rounded-3xl p-7 hover-card kit-card">
+
+<div class="flex items-center gap-5 mb-5">
+
+<img
+src="assets/items/sword.png"
+class="w-20 h-20 object-contain"
+onerror="this.src='assets/items/default.png'"
+>
+
+<div>
+
+<h3 class="text-3xl">
+Sword
+</h3>
+
+<p class="text-zinc-400">
+Classic PvP
+</p>
+
+</div>
+
+</div>
+
+<p class="subtext">
+Основной PvP режим платформы.
+</p>
+
+</div>
+
+<div class="glass glow rounded-3xl p-7 hover-card kit-card">
+
+<div class="flex items-center gap-5 mb-5">
+
+<img
+src="assets/items/mace.png"
+class="w-20 h-20 object-contain"
+onerror="this.src='assets/items/default.png'"
+>
+
+<div>
+
+<h3 class="text-3xl">
+Mace
+</h3>
+
+<p class="text-zinc-400">
+Combo PvP
+</p>
+
+</div>
+
+</div>
+
+<p class="subtext">
+Aggressive PvP стиль с быстрыми combo.
+</p>
+
+</div>
+
+<div class="glass glow rounded-3xl p-7 hover-card kit-card">
+
+<div class="flex items-center gap-5 mb-5">
+
+<img
+src="assets/items/axe.png"
+class="w-20 h-20 object-contain"
+onerror="this.src='assets/items/default.png'"
+>
+
+<div>
+
+<h3 class="text-3xl">
+Axe
+</h3>
+
+<p class="text-zinc-400">
+Heavy PvP
+</p>
+
+</div>
+
+</div>
+
+<p class="subtext">
+PvP режим с heavy combo механиками.
+</p>
+
+</div>
+
+<div class="glass glow rounded-3xl p-7 hover-card kit-card">
+
+<div class="flex items-center gap-5 mb-5">
+
+<img
+src="assets/items/uhc.png"
+class="w-20 h-20 object-contain"
+onerror="this.src='assets/items/default.png'"
+>
+
+<div>
+
+<h3 class="text-3xl">
+UHC
+</h3>
+
+<p class="text-zinc-400">
+Rod & Bow
+</p>
+
+</div>
+
+</div>
+
+<p class="subtext">
+Классический UHC PvP режим.
+</p>
+
+</div>
+
+<div class="glass glow rounded-3xl p-7 hover-card kit-card">
+
+<div class="flex items-center gap-5 mb-5">
+
+<img
+src="assets/items/pot.png"
+class="w-20 h-20 object-contain"
+onerror="this.src='assets/items/default.png'"
+>
+
+<div>
+
+<h3 class="text-3xl">
+Pot
+</h3>
+
+<p class="text-zinc-400">
+Potion PvP
+</p>
+
+</div>
+
+</div>
+
+<p class="subtext">
+Быстрый PvP режим с potion mechanics.
+</p>
+
+</div>
+
+<div class="glass glow rounded-3xl p-7 hover-card kit-card">
+
+<div class="flex items-center gap-5 mb-5">
+
+<img
+src="assets/items/nethop.png"
+class="w-20 h-20 object-contain"
+onerror="this.src='assets/items/default.png'"
+>
+
+<div>
+
+<h3 class="text-3xl">
+NethOP
+</h3>
+
+<p class="text-zinc-400">
+Netherite PvP
+</p>
+
+</div>
+
+</div>
+
+<p class="subtext">
+Netherite OP PvP режим платформы.
 </p>
 
 </div>
@@ -687,23 +834,17 @@ MultiCraft CIS Tiers
 
 <a href="#"
 class="glass px-6 py-4 rounded-2xl hover:bg-orange-500/10 transition-all duration-300">
-
 Discord
-
 </a>
 
 <a href="#"
 class="glass px-6 py-4 rounded-2xl hover:bg-orange-500/10 transition-all duration-300">
-
 Telegram
-
 </a>
 
 <a href="#"
 class="glass px-6 py-4 rounded-2xl hover:bg-orange-500/10 transition-all duration-300">
-
 GitHub
-
 </a>
 
 </div>
