@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+/>
 
 <title>MultiCraft CIS Tiers</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
 
 <style>
 
@@ -26,112 +33,90 @@ html{
 
 body{
     background:
-    radial-gradient(circle at top left, rgba(255,140,0,0.12), transparent 30%),
-    radial-gradient(circle at bottom right, rgba(255,170,0,0.08), transparent 30%),
+    radial-gradient(circle at top left,
+    rgba(255,170,0,0.12),
+    transparent 30%),
+
+    radial-gradient(circle at bottom right,
+    rgba(255,120,0,0.08),
+    transparent 30%),
+
     #05070d;
+
     color:white;
     overflow-x:hidden;
 }
 
-a{
-    text-decoration:none;
-    color:white;
-}
+/* HEADER */
 
-.container{
-    width:100%;
-    max-width:1350px;
-    margin:auto;
-    padding:0 18px;
-}
-
-.glass{
-    background:rgba(10,14,24,0.82);
-    backdrop-filter:blur(16px);
-    border:1px solid rgba(255,255,255,0.06);
-}
-
-.glow{
-    box-shadow:
-    0 0 25px rgba(255,140,0,0.12),
-    0 0 60px rgba(255,140,0,0.05);
-}
-
-.orange{
-    color:#ffae00;
-}
-
-.sub{
-    color:#909090;
-    line-height:1.7;
-}
-
-header{
+.header{
     position:sticky;
     top:0;
     z-index:100;
-    border-bottom:1px solid rgba(255,140,0,0.08);
+    backdrop-filter:blur(14px);
+    background:rgba(5,7,13,0.85);
+    border-bottom:1px solid rgba(255,255,255,0.05);
 }
 
-.header-wrap{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:20px;
-    padding:16px 0;
-    flex-wrap:wrap;
+.nav-wrapper{
+    max-width:1300px;
+    margin:auto;
+    padding:14px 16px;
 }
 
 .logo{
-    font-size:42px;
+    font-size:34px;
+    color:#ffb300;
     line-height:1;
-    color:#ffae00;
-}
-
-.logo-sub{
-    color:#8c8c8c;
-    margin-top:8px;
-    font-size:13px;
 }
 
 .nav{
     display:flex;
-    gap:12px;
+    gap:10px;
     flex-wrap:wrap;
+    margin-top:14px;
 }
 
 .nav a{
-    padding:14px 22px;
-    border-radius:18px;
-    transition:.25s;
-    font-size:15px;
+    text-decoration:none;
+    color:white;
+    background:#101522;
+    padding:12px 16px;
+    border-radius:16px;
+    transition:0.25s;
+    font-size:14px;
 }
 
 .nav a:hover{
-    transform:translateY(-2px);
-    border-color:rgba(255,170,0,0.25);
+    background:#1a2233;
 }
+
+/* HERO */
 
 .hero{
-    padding:45px 0 25px;
+    max-width:1300px;
+    margin:auto;
+    padding:50px 18px 20px;
 }
 
-.hero-grid{
-    display:grid;
-    grid-template-columns:1fr 330px;
-    gap:28px;
-}
-
-.hero-card{
-    padding:38px;
+.hero-box{
+    background:rgba(12,16,26,0.8);
+    border:1px solid rgba(255,255,255,0.05);
     border-radius:30px;
+    padding:35px;
 }
 
 .hero-title{
-    font-size:76px;
+    font-size:72px;
     line-height:0.95;
-    color:#ffae00;
-    margin-bottom:24px;
+    color:#ffb300;
+}
+
+.hero-sub{
+    color:#9c9c9c;
+    margin-top:20px;
+    line-height:1.8;
+    max-width:700px;
 }
 
 .hero-buttons{
@@ -142,115 +127,114 @@ header{
 }
 
 .hero-buttons a{
-    padding:18px 26px;
+    text-decoration:none;
+    color:white;
+    background:#121826;
+    padding:16px 22px;
     border-radius:18px;
-    transition:.25s;
+    transition:0.25s;
 }
 
 .hero-buttons a:hover{
-    transform:translateY(-3px);
+    background:#1d2638;
 }
 
-.btn-main{
-    background:linear-gradient(to right,#ff9500,#ffd000);
-    color:black;
-}
-
-.rank-card{
-    border-radius:30px;
-    padding:32px;
-    text-align:center;
-}
-
-.rank-card img{
-    width:120px;
-    height:120px;
-    object-fit:contain;
-    margin-bottom:18px;
-}
-
-.rank-big{
-    font-size:58px;
-    color:#ffd000;
-    text-shadow:0 0 18px rgba(255,208,0,0.6);
-}
+/* SECTION */
 
 .section{
-    padding:55px 0;
+    max-width:1300px;
+    margin:auto;
+    padding:35px 18px;
 }
 
 .section-title{
-    font-size:42px;
-    margin-bottom:28px;
-    color:#ffae00;
+    font-size:40px;
+    margin-bottom:10px;
+    color:#ffb300;
 }
 
-.kit-tabs{
-    display:flex;
-    flex-wrap:wrap;
-    gap:14px;
-    margin-bottom:28px;
+.section-sub{
+    color:#969696;
+    line-height:1.8;
+    margin-bottom:30px;
 }
 
-.kit-tabs a{
-    padding:16px 22px;
-    border-radius:18px;
-    transition:.25s;
-}
-
-.kit-tabs a:hover{
-    transform:translateY(-3px);
-}
-
-.active-kit{
-    background:linear-gradient(to right,#ff9500,#ffd000);
-    color:black;
-}
+/* FILTERS */
 
 .filters{
     display:grid;
-    grid-template-columns:2fr 1fr 1fr;
-    gap:16px;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:14px;
+    margin-bottom:20px;
+}
+
+.filters input,
+.filters select{
+    background:#101522;
+    border:none;
+    color:white;
+    padding:16px;
+    border-radius:18px;
+    outline:none;
+    width:100%;
+}
+
+/* MODES */
+
+.mode-tabs{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
     margin-bottom:24px;
 }
 
-.input{
-    width:100%;
-    padding:20px;
+.mode-tabs button{
     border:none;
-    outline:none;
-    border-radius:20px;
-    background:rgba(255,255,255,0.03);
+    cursor:pointer;
+    background:#101522;
     color:white;
-    font-size:15px;
+    padding:14px 18px;
+    border-radius:16px;
+    transition:0.25s;
 }
 
-.table-card{
-    border-radius:28px;
-    overflow:hidden;
+.mode-tabs button:hover{
+    background:#1a2233;
 }
 
-.table-top{
-    padding:22px;
-    border-bottom:1px solid rgba(255,255,255,0.05);
+.active-mode{
+    background:#ffb300 !important;
+    color:black !important;
 }
 
-.table-scroll{
-    max-height:850px;
+/* LEADERBOARD */
+
+.players-container{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    max-height:900px;
     overflow-y:auto;
+    padding-right:6px;
 }
 
-.player{
+.players-container::-webkit-scrollbar{
+    width:6px;
+}
+
+.players-container::-webkit-scrollbar-thumb{
+    background:#ffb300;
+    border-radius:20px;
+}
+
+.player-card{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:22px;
-    border-bottom:1px solid rgba(255,255,255,0.05);
-    transition:.2s;
-}
-
-.player:hover{
-    background:rgba(255,170,0,0.03);
+    background:rgba(12,16,26,0.88);
+    border:1px solid rgba(255,255,255,0.05);
+    border-radius:26px;
+    padding:18px;
 }
 
 .player-left{
@@ -259,243 +243,118 @@ header{
     gap:16px;
 }
 
-.player-left img{
-    width:64px;
-    height:64px;
-    border-radius:18px;
+.rank{
+    font-size:28px;
+    color:#ffb300;
+    min-width:60px;
 }
 
-.player-name{
+.player-skin{
+    width:60px;
+    height:60px;
+    border-radius:16px;
+}
+
+.player-nick{
     font-size:24px;
 }
 
-.player-sub{
-    color:#8e8e8e;
-    margin-top:6px;
+.player-info{
+    color:#949494;
+    margin-top:5px;
     font-size:14px;
 }
 
 .player-right{
     display:flex;
-    gap:12px;
     align-items:center;
-    flex-wrap:wrap;
+    gap:14px;
 }
 
-.badge{
+.player-tier{
+    background:#ffb300;
+    color:black;
     padding:10px 14px;
     border-radius:14px;
-    background:rgba(255,255,255,0.04);
-    border:1px solid rgba(255,255,255,0.06);
     font-size:14px;
 }
 
-.points{
-    color:#ffd000;
+.player-points{
+    color:#ffd966;
+    font-size:15px;
 }
 
-.ht{
-    color:#ffd000;
-}
+/* KITS */
 
-.lt{
-    color:#ff9d00;
-}
-
-.modes-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
-}
-
-.mode{
-    padding:22px;
-    border-radius:24px;
-    display:flex;
-    align-items:center;
-    gap:18px;
-    transition:.25s;
-}
-
-.mode:hover{
-    transform:translateY(-4px);
-}
-
-.mode img{
-    width:54px;
-    height:54px;
-    object-fit:contain;
-}
-
-.mode-name{
-    font-size:28px;
-    margin-bottom:6px;
-}
-
-.testing-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
-}
-
-.test-card{
-    padding:28px;
-    border-radius:28px;
-}
-
-.test-num{
-    font-size:56px;
-    color:#ffae00;
-    margin-bottom:14px;
-}
-
-.rank-system{
+.kits-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:18px;
+    gap:16px;
 }
 
-.rank-box{
-    padding:24px;
+.kit-card{
+    background:#101522;
     border-radius:24px;
+    padding:22px;
     text-align:center;
+    border:1px solid rgba(255,255,255,0.05);
 }
 
-.rank-box h3{
-    font-size:34px;
-    margin-bottom:10px;
+.kit-card img{
+    width:70px;
+    height:70px;
+    object-fit:contain;
+    margin:auto;
+    margin-bottom:16px;
 }
 
-.faq{
+.kit-card span{
+    display:block;
+    font-size:20px;
+}
+
+/* FAQ */
+
+.faq-box{
     display:flex;
     flex-direction:column;
     gap:16px;
 }
 
 .faq-item{
-    padding:24px;
-    border-radius:22px;
+    background:#101522;
+    border-radius:20px;
+    padding:20px;
 }
 
-.footer{
-    padding:55px 0;
-    border-top:1px solid rgba(255,255,255,0.05);
+.faq-question{
+    font-size:22px;
+    margin-bottom:10px;
+    color:#ffb300;
 }
 
-.footer-links{
-    display:flex;
-    flex-wrap:wrap;
-    gap:14px;
-    margin-top:18px;
+.faq-answer{
+    color:#9f9f9f;
+    line-height:1.8;
 }
 
-.footer-links a{
-    padding:14px 18px;
-    border-radius:16px;
-}
+/* MOBILE */
 
-@media(max-width:1100px){
-
-    .hero-grid{
-        grid-template-columns:1fr;
-    }
-
-    .modes-grid{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .rank-system{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .testing-grid{
-        grid-template-columns:1fr;
-    }
-
-}
-
-@media(max-width:760px){
-
-    .logo{
-        font-size:28px;
-    }
-
-    .header-wrap{
-        padding:12px 0;
-    }
-
-    .nav{
-        width:100%;
-        display:grid;
-        grid-template-columns:1fr 1fr;
-    }
-
-    .nav a{
-        text-align:center;
-        padding:16px 10px;
-        font-size:14px;
-    }
-
-    .hero{
-        padding:28px 0 10px;
-    }
-
-    .hero-card{
-        padding:26px;
-    }
+@media(max-width:900px){
 
     .hero-title{
-        font-size:50px;
-    }
-
-    .hero-buttons{
-        flex-direction:column;
-    }
-
-    .hero-buttons a{
-        width:100%;
-        text-align:center;
-    }
-
-    .rank-card{
-        padding:26px;
-    }
-
-    .rank-card img{
-        width:90px;
-        height:90px;
-    }
-
-    .rank-big{
-        font-size:42px;
-    }
-
-    .section{
-        padding:42px 0;
-    }
-
-    .section-title{
-        font-size:32px;
-    }
-
-    .kit-tabs{
-        display:grid;
-        grid-template-columns:1fr 1fr;
+        font-size:48px;
     }
 
     .filters{
         grid-template-columns:1fr;
     }
 
-    .modes-grid{
-        grid-template-columns:1fr;
+    .kits-grid{
+        grid-template-columns:1fr 1fr;
     }
 
-    .rank-system{
-        grid-template-columns:1fr;
-    }
-
-    .player{
+    .player-card{
         flex-direction:column;
         align-items:flex-start;
         gap:18px;
@@ -503,598 +362,703 @@ header{
 
     .player-right{
         width:100%;
+        justify-content:space-between;
     }
 
-    .player-left img{
-        width:54px;
-        height:54px;
+}
+
+@media(max-width:600px){
+
+    .logo{
+        font-size:26px;
     }
 
-    .player-name{
+    .hero{
+        padding-top:30px;
+    }
+
+    .hero-box{
+        padding:24px;
+    }
+
+    .hero-title{
+        font-size:40px;
+    }
+
+    .section-title{
+        font-size:30px;
+    }
+
+    .kits-grid{
+        grid-template-columns:1fr;
+    }
+
+    .player-left{
+        width:100%;
+    }
+
+    .player-skin{
+        width:52px;
+        height:52px;
+    }
+
+    .player-nick{
         font-size:20px;
     }
 
 }
 
 </style>
+
 </head>
 <body>
 
-<header class="glass">
-<div class="container header-wrap">
+<!-- HEADER -->
 
-<div>
-<div class="logo">MultiCraft CIS Tiers</div>
-<div class="logo-sub">Competitive СНГ PvP Platform</div>
-</div>
+<header class="header">
 
-<div class="nav">
-<a class="glass" href="#leaderboard">Таблица</a>
-<a class="glass" href="#hall">Зал славы</a>
-<a class="glass" href="#modes">Режимы</a>
-<a class="glass" href="#testing">Тир-тест</a>
-<a class="glass" href="#faq">FAQ</a>
-</div>
+<div class="nav-wrapper">
 
-</div>
-</header>
-
-<section class="hero">
-<div class="container">
-
-<div class="hero-grid">
-
-<div class="glass glow hero-card">
-
-<div class="hero-title">
-СНГ PvP<br>
-Ranking<br>
-Platform
-</div>
-
-<div class="sub">
-Официальная PvP платформа СНГ сообщества.
-Проходите тир-тесты, участвуйте в PvP сцене,
-получайте ранги и поднимайтесь до HT1.
-</div>
-
-<div class="hero-buttons">
-<a href="#testing" class="btn-main">Пройти тир-тест</a>
-<a href="#leaderboard" class="glass">Таблица лидеров</a>
-</div>
-
-</div>
-
-<div class="glass glow rank-card">
-
-<img src="assets/items/sword.png">
-
-<div class="rank-big">HT1</div>
-
-<div class="sub" style="margin-top:12px;">
-Высший PvP ранг платформы
-</div>
-
-</div>
-
-</div>
-
-</div>
-</section>
-
-<section class="section" id="leaderboard">
-<div class="container">
-
-<div class="section-title">
-Overall Leaderboard
-</div>
-
-<div class="kit-tabs">
-<a class="active-kit">Overall</a>
-<a class="glass">Sword</a>
-<a class="glass">Mace</a>
-<a class="glass">Axe</a>
-<a class="glass">UHC</a>
-<a class="glass">Pot</a>
-<a class="glass">NethOP</a>
-<a class="glass">Vanilla</a>
-</div>
-
-<div class="filters">
-
-<input class="input glass" placeholder="Поиск игрока...">
-
-<select class="input glass">
-<option>Все страны</option>
-<option>RU</option>
-<option>UA</option>
-<option>KZ</option>
-<option>BY</option>
-</select>
-
-<select class="input glass">
-<option>Все устройства</option>
-<option>PC</option>
-<option>Phone</option>
-<option>Tablet</option>
-<option>Controller</option>
-<option>Keyboard + Mouse</option>
-</select>
-
-</div>
-
-<div class="glass glow table-card">
-
-<div class="table-top">
-<div style="font-size:30px;" class="orange">
-Overall Ranking
-</div>
-
-<div class="sub" style="margin-top:8px;">
-Очки суммируются со всех PvP режимов игрока
-</div>
-</div>
-
-<div class="table-scroll">
-
-<!-- PLAYERS -->
-
-<div class="player">
-<div class="player-left">
-<img src="assets/skins/default.png">
-<div>
-<div class="player-name">ReaperX</div>
-<div class="player-sub">RU • Phone • Sword Main</div>
-</div>
-</div>
-
-<div class="player-right">
-<div class="badge ht">HT1 Sword</div>
-<div class="badge ht">HT2 UHC</div>
-<div class="badge">Phone</div>
-<div class="badge points">118 Points</div>
-</div>
-</div>
-
-<div class="player">
-<div class="player-left">
-<img src="assets/skins/default.png">
-<div>
-<div class="player-name">DarkBlade</div>
-<div class="player-sub">UA • Tablet • Mace Main</div>
-</div>
-</div>
-
-<div class="player-right">
-<div class="badge ht">HT2 Mace</div>
-<div class="badge lt">LT1 Sword</div>
-<div class="badge">Tablet</div>
-<div class="badge points">92 Points</div>
-</div>
-</div>
-
-<div class="player">
-<div class="player-left">
-<img src="assets/skins/default.png">
-<div>
-<div class="player-name">NeoPvP</div>
-<div class="player-sub">KZ • PC • UHC Main</div>
-</div>
-</div>
-
-<div class="player-right">
-<div class="badge ht">HT1 UHC</div>
-<div class="badge lt">LT1 Pot</div>
-<div class="badge">PC</div>
-<div class="badge points">104 Points</div>
-</div>
-</div>
-
-<div class="player">
-<div class="player-left">
-<img src="assets/skins/default.png">
-<div>
-<div class="player-name">StormHit</div>
-<div class="player-sub">RU • Keyboard + Mouse • Sword Main</div>
-</div>
-</div>
-
-<div class="player-right">
-<div class="badge ht">HT2 Sword</div>
-<div class="badge lt">LT2 Axe</div>
-<div class="badge">Keyboard + Mouse</div>
-<div class="badge points">88 Points</div>
-</div>
-</div>
-
-<div class="player">
-<div class="player-left">
-<img src="assets/skins/default.png">
-<div>
-<div class="player-name">ComboMaster</div>
-<div class="player-sub">BY • Controller • Mace Main</div>
-</div>
-</div>
-
-<div class="player-right">
-<div class="badge ht">HT1 Mace</div>
-<div class="badge lt">LT1 Axe</div>
-<div class="badge">Controller</div>
-<div class="badge points">101 Points</div>
-</div>
-</div>
-
-<div class="player">
-<div class="player-left">
-<img src="assets/skins/default.png">
-<div>
-<div class="player-name">ColdAim</div>
-<div class="player-sub">UA • Phone • Pot Main</div>
-</div>
-</div>
-
-<div class="player-right">
-<div class="badge lt">LT1 Pot</div>
-<div class="badge lt">LT2 Sword</div>
-<div class="badge">Phone</div>
-<div class="badge points">64 Points</div>
-</div>
-</div>
-
-<div class="player">
-<div class="player-left">
-<img src="assets/skins/default.png">
-<div>
-<div class="player-name">VoidHit</div>
-<div class="player-sub">RU • PC • Axe Main</div>
-</div>
-</div>
-
-<div class="player-right">
-<div class="badge ht">HT3 Axe</div>
-<div class="badge">PC</div>
-<div class="badge points">72 Points</div>
-</div>
-</div>
-
-<div class="player">
-<div class="player-left">
-<img src="assets/skins/default.png">
-<div>
-<div class="player-name">LegendPvP</div>
-<div class="player-sub">KZ • Tablet • Sword Main</div>
-</div>
-</div>
-
-<div class="player-right">
-<div class="badge ht">HT1 Sword</div>
-<div class="badge ht">HT2 Pot</div>
-<div class="badge">Tablet</div>
-<div class="badge points">110 Points</div>
-</div>
-</div>
-
-<div class="player">
-<div class="player-left">
-<img src="assets/skins/default.png">
-<div>
-<div class="player-name">AimGod</div>
-<div class="player-sub">RU • PC • UHC Main</div>
-</div>
-</div>
-
-<div class="player-right">
-<div class="badge ht">HT2 UHC</div>
-<div class="badge lt">LT1 Vanilla</div>
-<div class="badge">PC</div>
-<div class="badge points">86 Points</div>
-</div>
-</div>
-
-<div class="player">
-<div class="player-left">
-<img src="assets/skins/default.png">
-<div>
-<div class="player-name">Sharpness</div>
-<div class="player-sub">BY • Phone • Sword Main</div>
-</div>
-</div>
-
-<div class="player-right">
-<div class="badge lt">LT1 Sword</div>
-<div class="badge lt">LT1 Axe</div>
-<div class="badge">Phone</div>
-<div class="badge points">58 Points</div>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-</section>
-
-<section class="section">
-<div class="container">
-
-<div class="section-title">
-Система очков
-</div>
-
-<div class="rank-system">
-
-<div class="glass glow rank-box">
-<h3 class="ht">HT1</h3>
-<div class="sub">50 очков</div>
-</div>
-
-<div class="glass glow rank-box">
-<h3 class="ht">HT2</h3>
-<div class="sub">40 очков</div>
-</div>
-
-<div class="glass glow rank-box">
-<h3 class="ht">HT3</h3>
-<div class="sub">32 очка</div>
-</div>
-
-<div class="glass glow rank-box">
-<h3 class="lt">LT1</h3>
-<div class="sub">24 очка</div>
-</div>
-
-<div class="glass glow rank-box">
-<h3 class="lt">LT2</h3>
-<div class="sub">18 очков</div>
-</div>
-
-<div class="glass glow rank-box">
-<h3 class="lt">LT3</h3>
-<div class="sub">12 очков</div>
-</div>
-
-<div class="glass glow rank-box">
-<h3 class="lt">LT4</h3>
-<div class="sub">6 очков</div>
-</div>
-
-<div class="glass glow rank-box">
-<h3 class="lt">LT5</h3>
-<div class="sub">2 очка</div>
-</div>
-
-</div>
-
-</div>
-</section>
-
-<section class="section" id="modes">
-<div class="container">
-
-<div class="section-title">
-PvP Режимы
-</div>
-
-<div class="modes-grid">
-
-<div class="glass glow mode">
-<img src="assets/items/sword.png">
-<div>
-<div class="mode-name">Sword</div>
-<div class="sub">Основной PvP режим</div>
-</div>
-</div>
-
-<div class="glass glow mode">
-<img src="assets/items/mace.png">
-<div>
-<div class="mode-name">Mace</div>
-<div class="sub">Combo PvP стиль</div>
-</div>
-</div>
-
-<div class="glass glow mode">
-<img src="assets/items/axe.png">
-<div>
-<div class="mode-name">Axe</div>
-<div class="sub">Heavy PvP режим</div>
-</div>
-</div>
-
-<div class="glass glow mode">
-<img src="assets/items/uhc.png">
-<div>
-<div class="mode-name">UHC</div>
-<div class="sub">Rod и Bow PvP</div>
-</div>
-</div>
-
-<div class="glass glow mode">
-<img src="assets/items/pot.png">
-<div>
-<div class="mode-name">Pot</div>
-<div class="sub">Potion PvP</div>
-</div>
-</div>
-
-<div class="glass glow mode">
-<img src="assets/items/nethop.png">
-<div>
-<div class="mode-name">NethOP</div>
-<div class="sub">Netherite PvP</div>
-</div>
-</div>
-
-</div>
-
-</div>
-</section>
-
-<section class="section" id="hall">
-<div class="container">
-
-<div class="section-title">
-Зал славы
-</div>
-
-<div class="testing-grid">
-
-<div class="glass glow test-card">
-<div class="test-num">HT1</div>
-<div style="font-size:28px;margin-bottom:12px;">ReaperX</div>
-<div class="sub">
-Один из сильнейших Sword игроков платформы
-</div>
-</div>
-
-<div class="glass glow test-card">
-<div class="test-num">HT1</div>
-<div style="font-size:28px;margin-bottom:12px;">NeoPvP</div>
-<div class="sub">
-Легендарный UHC игрок СНГ сцены
-</div>
-</div>
-
-<div class="glass glow test-card">
-<div class="test-num">HT2</div>
-<div style="font-size:28px;margin-bottom:12px;">DarkBlade</div>
-<div class="sub">
-Известный Mace PvP игрок и турнирный участник
-</div>
-</div>
-
-</div>
-
-</div>
-</section>
-
-<section class="section" id="testing">
-<div class="container">
-
-<div class="section-title">
-Как пройти тир-тест
-</div>
-
-<div class="testing-grid">
-
-<div class="glass glow test-card">
-<div class="test-num">1</div>
-<div style="font-size:28px;margin-bottom:12px;">Заявка</div>
-<div class="sub">
-Игрок заходит в Telegram Hub нужного режима
-и отправляет анкету.
-</div>
-</div>
-
-<div class="glass glow test-card">
-<div class="test-num">2</div>
-<div style="font-size:28px;margin-bottom:12px;">Назначение</div>
-<div class="sub">
-Тестер назначает сервер, время
-и формат PvP теста.
-</div>
-</div>
-
-<div class="glass glow test-card">
-<div class="test-num">3</div>
-<div style="font-size:28px;margin-bottom:12px;">Тир</div>
-<div class="sub">
-После серии PvP боёв игрок получает
-официальный тир платформы.
-</div>
-</div>
-
-</div>
-
-</div>
-</section>
-
-<section class="section" id="faq">
-<div class="container">
-
-<div class="section-title">
-FAQ
-</div>
-
-<div class="faq">
-
-<div class="glass faq-item">
-<div style="font-size:24px;margin-bottom:12px;">
-Как работает Overall?
-</div>
-<div class="sub">
-Overall очки суммируются со всех PvP режимов игрока.
-Чем выше тиры — тем больше общий рейтинг.
-</div>
-</div>
-
-<div class="glass faq-item">
-<div style="font-size:24px;margin-bottom:12px;">
-Сколько очков дают за ранги?
-</div>
-<div class="sub">
-HT1 — 50 очков,
-HT2 — 40,
-HT3 — 32,
-LT1 — 24,
-LT2 — 18,
-LT3 — 12,
-LT4 — 6,
-LT5 — 2.
-</div>
-</div>
-
-<div class="glass faq-item">
-<div style="font-size:24px;margin-bottom:12px;">
-Можно ли пройти тест повторно?
-</div>
-<div class="sub">
-Да. Игрок может подать новую заявку
-для повышения своего тира.
-</div>
-</div>
-
-<div class="glass faq-item">
-<div style="font-size:24px;margin-bottom:12px;">
-Есть ли отдельные таблицы для режимов?
-</div>
-<div class="sub">
-Да. У каждого PvP режима есть собственный рейтинг
-и отдельный лидерборд.
-</div>
-</div>
-
-</div>
-
-</div>
-</section>
-
-<footer class="footer">
-<div class="container">
-
-<div style="font-size:34px;" class="orange">
+<div class="logo">
 MultiCraft CIS Tiers
 </div>
 
-<div class="sub" style="margin-top:12px;">
-Competitive СНГ PvP Platform
+<div class="nav">
+
+<a href="#leaderboard">
+Таблица
+</a>
+
+<a href="#kits">
+Режимы
+</a>
+
+<a href="#testing">
+Тир-Тест
+</a>
+
+<a href="#faq">
+FAQ
+</a>
+
 </div>
 
-<div class="footer-links">
+</div>
 
-<a class="glass">Telegram</a>
-<a class="glass">Discord</a>
-<a class="glass">TikTok</a>
-<a class="glass">YouTube</a>
+</header>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="hero-box">
+
+<h1 class="hero-title">
+CIS PvP<br>
+Ranking Platform
+</h1>
+
+<p class="hero-sub">
+Платформа тир-тестинга СНГ PvP сообщества.
+Проходите тесты, получайте тиры,
+участвуйте в лидербордах и поднимайтесь
+в общий OVERALL рейтинг.
+</p>
+
+<div class="hero-buttons">
+
+<a href="#leaderboard">
+OVERALL TOP
+</a>
+
+<a href="#testing">
+ПРОЙТИ ТИР-ТЕСТ
+</a>
 
 </div>
 
-<div class="sub" style="margin-top:28px;">
-© 2026 MultiCraft CIS Tiers
+</div>
+
+</section>
+
+<!-- LEADERBOARD -->
+
+<section
+id="leaderboard"
+class="section"
+>
+
+<h2 class="section-title">
+OVERALL LEADERBOARD
+</h2>
+
+<p class="section-sub">
+Общий рейтинг игроков платформы.
+</p>
+
+<div class="filters">
+
+<input
+type="text"
+id="searchInput"
+placeholder="Поиск игрока..."
+>
+
+<select id="countryFilter">
+
+<option value="all">
+Все страны
+</option>
+
+<option value="RU">
+RU
+</option>
+
+<option value="UA">
+UA
+</option>
+
+<option value="KZ">
+KZ
+</option>
+
+<option value="BY">
+BY
+</option>
+
+</select>
+
+<select id="deviceFilter">
+
+<option value="all">
+Все устройства
+</option>
+
+<option value="PC">
+PC
+</option>
+
+<option value="Phone">
+Phone
+</option>
+
+<option value="Tablet">
+Tablet
+</option>
+
+<option value="Console">
+Console
+</option>
+
+</select>
+
+</div>
+
+<div class="mode-tabs">
+
+<button
+class="active-mode"
+onclick="setMode('overall',this)"
+>
+OVERALL
+</button>
+
+<button onclick="setMode('sword',this)">
+Sword
+</button>
+
+<button onclick="setMode('mace',this)">
+Mace
+</button>
+
+<button onclick="setMode('axe',this)">
+Axe
+</button>
+
+<button onclick="setMode('uhc',this)">
+UHC
+</button>
+
+<button onclick="setMode('pot',this)">
+Pot
+</button>
+
+<button onclick="setMode('nethop',this)">
+NethOP
+</button>
+
+<button onclick="setMode('vanilla',this)">
+Vanilla
+</button>
+
+</div>
+
+<div
+id="playersContainer"
+class="players-container"
+>
+
+</div>
+
+</section>
+
+<!-- KITS -->
+
+<section
+id="kits"
+class="section"
+>
+
+<h2 class="section-title">
+PVP РЕЖИМЫ
+</h2>
+
+<p class="section-sub">
+Режимы платформы для тир-тестинга.
+</p>
+
+<div class="kits-grid">
+
+<div class="kit-card">
+<img src="assets/items/sword.png">
+<span>Sword</span>
+</div>
+
+<div class="kit-card">
+<img src="assets/items/mace.png">
+<span>Mace</span>
+</div>
+
+<div class="kit-card">
+<img src="assets/items/axe.png">
+<span>Axe</span>
+</div>
+
+<div class="kit-card">
+<img src="assets/items/uhc.png">
+<span>UHC</span>
+</div>
+
+<div class="kit-card">
+<img src="assets/items/pot.png">
+<span>Pot</span>
+</div>
+
+<div class="kit-card">
+<img src="assets/items/nethop.png">
+<span>NethOP</span>
+</div>
+
+<div class="kit-card">
+<img src="assets/items/vanilla.png">
+<span>Vanilla</span>
 </div>
 
 </div>
-</footer>
+
+</section>
+
+<!-- TESTING -->
+
+<section
+id="testing"
+class="section"
+>
+
+<h2 class="section-title">
+КАК ПРОЙТИ ТИР-ТЕСТ
+</h2>
+
+<div class="faq-box">
+
+<div class="faq-item">
+
+<div class="faq-question">
+1. Заявка
+</div>
+
+<div class="faq-answer">
+Игрок отправляет заявку на тестирование
+в Telegram Hub платформы.
+</div>
+
+</div>
+
+<div class="faq-item">
+
+<div class="faq-question">
+2. Назначение теста
+</div>
+
+<div class="faq-answer">
+Тестер назначает сервер,
+дату и время тестирования.
+</div>
+
+</div>
+
+<div class="faq-item">
+
+<div class="faq-question">
+3. PvP тест
+</div>
+
+<div class="faq-answer">
+Игрок проходит серию PvP боёв
+в выбранном режиме.
+</div>
+
+</div>
+
+<div class="faq-item">
+
+<div class="faq-question">
+4. Получение тира
+</div>
+
+<div class="faq-answer">
+После теста игрок получает тир
+и попадает в таблицу рейтинга.
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FAQ -->
+
+<section
+id="faq"
+class="section"
+>
+
+<h2 class="section-title">
+FAQ
+</h2>
+
+<div class="faq-box">
+
+<div class="faq-item">
+
+<div class="faq-question">
+Что такое OVERALL?
+</div>
+
+<div class="faq-answer">
+OVERALL — сумма очков всех режимов игрока.
+</div>
+
+</div>
+
+<div class="faq-item">
+
+<div class="faq-question">
+Как считаются очки?
+</div>
+
+<div class="faq-answer">
+
+HT1 = 50<br>
+HT2 = 45<br>
+HT3 = 40<br><br>
+
+LT1 = 35<br>
+LT2 = 30<br>
+LT3 = 25<br>
+LT4 = 20<br>
+LT5 = 15
+
+</div>
+
+</div>
+
+<div class="faq-item">
+
+<div class="faq-question">
+Как попасть в лидерборд?
+</div>
+
+<div class="faq-answer">
+Пройти тир-тест минимум в одном режиме.
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<script>
+
+const tierPoints = {
+
+HT1:50,
+HT2:45,
+HT3:40,
+
+LT1:35,
+LT2:30,
+LT3:25,
+LT4:20,
+LT5:15
+
+};
+
+const players = [
+
+{
+nick:"ReaperX",
+country:"RU",
+device:"Phone",
+
+sword:"HT1",
+mace:"HT2",
+axe:"LT1",
+uhc:"HT2",
+pot:"LT2",
+nethop:"HT3",
+vanilla:"LT1"
+},
+
+{
+nick:"DarkBlade",
+country:"UA",
+device:"Tablet",
+
+sword:"LT1",
+mace:"HT2",
+axe:"LT2",
+uhc:"LT1",
+pot:"LT3",
+nethop:"LT2",
+vanilla:"LT1"
+},
+
+{
+nick:"NeoPvP",
+country:"KZ",
+device:"PC",
+
+sword:"LT1",
+mace:"LT2",
+axe:"LT1",
+uhc:"HT1",
+pot:"LT1",
+nethop:"HT2",
+vanilla:"LT2"
+},
+
+{
+nick:"Frost",
+country:"BY",
+device:"Console",
+
+sword:"LT2",
+mace:"LT1",
+axe:"LT3",
+uhc:"HT2",
+pot:"LT2",
+nethop:"LT2",
+vanilla:"LT1"
+}
+
+];
+
+let currentMode = "overall";
+
+function calculateOverall(player){
+
+return (
+
+tierPoints[player.sword] +
+tierPoints[player.mace] +
+tierPoints[player.axe] +
+tierPoints[player.uhc] +
+tierPoints[player.pot] +
+tierPoints[player.nethop] +
+tierPoints[player.vanilla]
+
+);
+
+}
+
+function setMode(mode,button){
+
+currentMode = mode;
+
+document
+.querySelectorAll(".mode-tabs button")
+.forEach(btn=>{
+btn.classList.remove("active-mode");
+});
+
+button.classList.add("active-mode");
+
+renderPlayers();
+
+}
+
+function renderPlayers(){
+
+const container =
+document.getElementById("playersContainer");
+
+container.innerHTML = "";
+
+let filtered = [...players];
+
+const search =
+document
+.getElementById("searchInput")
+.value
+.toLowerCase();
+
+const country =
+document
+.getElementById("countryFilter")
+.value;
+
+const device =
+document
+.getElementById("deviceFilter")
+.value;
+
+filtered = filtered.filter(player=>{
+
+const matchSearch =
+player.nick
+.toLowerCase()
+.includes(search);
+
+const matchCountry =
+country === "all"
+||
+player.country === country;
+
+const matchDevice =
+device === "all"
+||
+player.device === device;
+
+return (
+matchSearch
+&&
+matchCountry
+&&
+matchDevice
+);
+
+});
+
+if(currentMode === "overall"){
+
+filtered.sort((a,b)=>
+calculateOverall(b)
+-
+calculateOverall(a)
+);
+
+}else{
+
+filtered.sort((a,b)=>
+
+tierPoints[b[currentMode]]
+-
+tierPoints[a[currentMode]]
+
+);
+
+}
+
+filtered.forEach((player,index)=>{
+
+const points =
+currentMode === "overall"
+?
+calculateOverall(player)
+:
+tierPoints[player[currentMode]];
+
+container.innerHTML += `
+
+<div class="player-card">
+
+<div class="player-left">
+
+<div class="rank">
+#${index + 1}
+</div>
+
+<img
+src="assets/skins/default.png"
+class="player-skin"
+>
+
+<div>
+
+<div class="player-nick">
+${player.nick}
+</div>
+
+<div class="player-info">
+
+${player.country}
+•
+${player.device}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="player-right">
+
+<div class="player-tier">
+
+${
+currentMode === "overall"
+?
+"OVERALL"
+:
+player[currentMode]
+}
+
+</div>
+
+<div class="player-points">
+
+${points} PTS
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+document
+.getElementById("searchInput")
+.addEventListener("input",renderPlayers);
+
+document
+.getElementById("countryFilter")
+.addEventListener("change",renderPlayers);
+
+document
+.getElementById("deviceFilter")
+.addEventListener("change",renderPlayers);
+
+renderPlayers();
+
+</script>
 
 </body>
     </html>
