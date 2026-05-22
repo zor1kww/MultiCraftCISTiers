@@ -23,6 +23,10 @@
     font-family:"MultiCraft",sans-serif;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
     background:
     radial-gradient(circle at top left, rgba(255,170,0,.10), transparent 30%),
@@ -32,20 +36,16 @@ body{
     overflow-x:hidden;
 }
 
-html{
-    scroll-behavior:smooth;
-}
-
 .container{
     width:100%;
-    max-width:1300px;
+    max-width:1400px;
     margin:auto;
     padding:0 14px;
 }
 
 .glass{
-    background:rgba(11,13,20,.82);
-    backdrop-filter:blur(18px);
+    background:rgba(12,14,20,.82);
+    backdrop-filter:blur(16px);
     border:1px solid rgba(255,255,255,.05);
 }
 
@@ -57,8 +57,8 @@ html{
 
 .glow{
     box-shadow:
-    0 0 25px rgba(255,170,0,.12),
-    0 0 70px rgba(255,170,0,.05);
+    0 0 30px rgba(255,170,0,.10),
+    0 0 80px rgba(255,170,0,.05);
 }
 
 .nav-btn{
@@ -67,16 +67,18 @@ html{
 
 .nav-btn:hover{
     transform:translateY(-2px);
-    background:rgba(255,170,0,.10);
+    background:rgba(255,170,0,.08);
 }
 
-.tab{
+.mode-card{
     transition:.25s;
+    cursor:pointer;
 }
 
-.tab.active{
-    background:linear-gradient(to right,#ff9900,#ffd000);
-    color:black;
+.mode-card:hover{
+    transform:translateY(-4px);
+    border-color:rgba(255,170,0,.25);
+    background:rgba(255,170,0,.06);
 }
 
 .player-card{
@@ -89,28 +91,47 @@ html{
     background:rgba(255,170,0,.06);
 }
 
+.tab{
+    transition:.25s;
+}
+
+.tab.active{
+    background:linear-gradient(to right,#ff9900,#ffd000);
+    color:black;
+}
+
 .modal{
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.75);
+    background:rgba(0,0,0,.78);
     display:none;
     justify-content:center;
     align-items:center;
     z-index:999;
-    padding:16px;
+    padding:15px;
 }
 
 .modal-content{
     width:100%;
-    max-width:700px;
+    max-width:750px;
 }
 
 .ht{
     color:#ffd000;
+    text-shadow:0 0 12px rgba(255,208,0,.6);
 }
 
 .lt{
-    color:#ff9d00;
+    color:#ff9900;
+}
+
+::-webkit-scrollbar{
+    width:6px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#ff9900;
+    border-radius:20px;
 }
 
 </style>
@@ -197,541 +218,23 @@ Telegram
 
 </header>
 
-<section class="pt-10 pb-8">
+<section class="pt-12 pb-12">
 
 <div class="container">
 
-<div class="glass glow rounded-[35px] p-6 md:p-10">
+<div class="glass glow rounded-[35px] p-7 md:p-12">
 
-<h2 class="text-5xl md:text-7xl orange leading-none mb-6">
-CIS PvP Ranking Platform
+<h2 class="text-5xl md:text-8xl orange leading-none mb-7">
+MultiCraft CIS Tiers
 </h2>
 
-<p class="text-zinc-400 leading-8 max-w-4xl">
-Официальная СНГ платформа для тир-тестов и PvP рейтингов.
-Проходите tier tests, получайте ранги, поднимайтесь в overall leaderboard
-и становитесь частью MultiCraft PvP сцены.
+<p class="text-zinc-400 leading-8 max-w-4xl text-base md:text-lg">
+Официальная СНГ платформа для tier tests и PvP leaderboard системы MultiCraft.
+Проходите тир-тесты, получайте ранги, поднимайтесь в overall leaderboard
+и становитесь частью competitive PvP сцены.
 </p>
 
-<div class="flex flex-wrap gap-4 mt-8">
+<div class="grid md:grid-cols-2 gap-5 mt-10">
 
-<a href="#leaderboard"
-class="bg-gradient-to-r from-orange-500 to-yellow-400 text-black px-7 py-4 rounded-2xl">
-Overall Top
-</a>
-
-<a href="#faq"
-class="glass px-7 py-4 rounded-2xl">
-FAQ
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section id="leaderboard" class="pb-20">
-
-<div class="container">
-
-<div class="flex flex-wrap gap-3 mb-5">
-
-<input
-id="searchInput"
-placeholder="Поиск игрока..."
-class="glass rounded-2xl px-5 py-4 flex-1 min-w-[220px] outline-none"
-/>
-
-<select
-id="regionFilter"
-class="glass rounded-2xl px-5 py-4 outline-none">
-
-<option value="">Все регионы СНГ</option>
-
-<option>RU</option>
-<option>UA</option>
-<option>KZ</option>
-<option>BY</option>
-<option>UZ</option>
-<option>KG</option>
-<option>TJ</option>
-<option>TM</option>
-<option>AM</option>
-<option>AZ</option>
-<option>MD</option>
-
-</select>
-
-<select
-id="deviceFilter"
-class="glass rounded-2xl px-5 py-4 outline-none">
-
-<option value="">Все устройства</option>
-
-<option>PH</option>
-<option>TB</option>
-<option>PC</option>
-<option>CT</option>
-<option>OTG</option>
-
-</select>
-
-</div>
-
-<div class="flex gap-3 mb-6">
-
-<button
-id="mainBtn"
-onclick="switchMode('main')"
-class="tab active glass px-6 py-3 rounded-2xl">
-MAIN KITS
-</button>
-
-<button
-id="subBtn"
-onclick="switchMode('sub')"
-class="tab glass px-6 py-3 rounded-2xl">
-SUB TIERS
-</button>
-
-</div>
-
-<div id="playersContainer" class="space-y-4">
-
-</div>
-
-</div>
-
-</section>
-
-<section id="hall" class="pb-20">
-
-<div class="container">
-
-<div class="glass glow rounded-[35px] p-7">
-
-<h2 class="text-5xl orange mb-8">
-Доска Почета
-</h2>
-
-<div class="grid md:grid-cols-3 gap-5">
-
-<div class="glass rounded-3xl p-6">
-<h3 class="text-3xl mb-2">NeoPvP</h3>
-<p class="text-zinc-400">
-Первый HT1 игрок платформы
-</p>
-</div>
-
-<div class="glass rounded-3xl p-6">
-<h3 class="text-3xl mb-2">Inferno</h3>
-<p class="text-zinc-400">
-Лучший Crystal игрок
-</p>
-</div>
-
-<div class="glass rounded-3xl p-6">
-<h3 class="text-3xl mb-2">Blaze</h3>
-<p class="text-zinc-400">
-Legendary Tier Tester
-</p>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section id="testers" class="pb-20">
-
-<div class="container">
-
-<div class="glass glow rounded-[35px] p-7">
-
-<h2 class="text-5xl orange mb-8">
-Tier Testers
-</h2>
-
-<div class="grid md:grid-cols-3 gap-5">
-
-<div class="glass rounded-3xl p-6">
-<h3 class="text-3xl mb-2">Zor1k</h3>
-<p class="text-zinc-400">@zor1k</p>
-</div>
-
-<div class="glass rounded-3xl p-6">
-<h3 class="text-3xl mb-2">Blaze</h3>
-<p class="text-zinc-400">@blaze</p>
-</div>
-
-<div class="glass rounded-3xl p-6">
-<h3 class="text-3xl mb-2">Inferno</h3>
-<p class="text-zinc-400">@inferno</p>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section id="how" class="pb-20">
-
-<div class="container">
-
-<div class="glass glow rounded-[35px] p-7">
-
-<h2 class="text-5xl orange mb-8">
-Как пройти тир-тест
-</h2>
-
-<div class="space-y-6 text-zinc-300 leading-8">
-
-<p>
-1. Подайте заявку tester'у.
-</p>
-
-<p>
-2. Дождитесь назначения времени.
-</p>
-
-<p>
-3. Пройдите тир-тест на нужном kit.
-</p>
-
-<p>
-4. После теста ваш tier и очки будут добавлены в leaderboard.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section id="faq" class="pb-24">
-
-<div class="container">
-
-<div class="glass glow rounded-[35px] p-7">
-
-<h2 class="text-5xl orange mb-8">
-FAQ
-</h2>
-
-<div class="space-y-8 text-zinc-300">
-
-<div>
-
-<h3 class="text-3xl mb-3">
-Как считаются overall points?
-</h3>
-
-<p>
-Очки со всех kits суммируются отдельно для MAIN KITS и SUB TIERS.
-</p>
-
-</div>
-
-<div>
-
-<h3 class="text-3xl mb-3">
-Какие есть устройства?
-</h3>
-
-<p>
-PH, TB, PC, CT и OTG.
-</p>
-
-</div>
-
-<div>
-
-<h3 class="text-3xl mb-3">
-Можно ли пройти retest?
-</h3>
-
-<p>
-Да, спустя некоторое время после прошлого теста.
-</p>
-
-</div>
-
-<div>
-
-<h3 class="text-3xl mb-3">
-Сколько очков дают за тиры?
-</h3>
-
-<p>
-HT1 = 100<br>
-LT1 = 90<br><br>
-
-HT2 = 80<br>
-LT2 = 70<br><br>
-
-HT3 = 60<br>
-LT3 = 50<br><br>
-
-HT4 = 40<br>
-LT4 = 30<br><br>
-
-HT5 = 20<br>
-LT5 = 10
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<script src="players/players.js"></script>
-
-<script>
-
-let currentMode = "main";
-
-function getOverall(points){
-
-if(points >= 900) return "HT1";
-if(points >= 800) return "LT1";
-if(points >= 700) return "HT2";
-if(points >= 600) return "LT2";
-if(points >= 500) return "HT3";
-if(points >= 400) return "LT3";
-if(points >= 300) return "HT4";
-if(points >= 200) return "LT4";
-if(points >= 100) return "HT5";
-
-return "LT5";
-
-}
-
-function switchMode(mode){
-
-currentMode = mode;
-
-document.getElementById("mainBtn").classList.remove("active");
-document.getElementById("subBtn").classList.remove("active");
-
-if(mode === "main"){
-document.getElementById("mainBtn").classList.add("active");
-}else{
-document.getElementById("subBtn").classList.add("active");
-}
-
-renderPlayers();
-
-}
-
-function renderPlayers(){
-
-const container = document.getElementById("playersContainer");
-
-container.innerHTML = "";
-
-let filtered = [...players];
-
-const search = document.getElementById("searchInput").value.toLowerCase();
-const region = document.getElementById("regionFilter").value;
-const device = document.getElementById("deviceFilter").value;
-
-filtered = filtered.filter(player=>{
-
-const searchMatch = player.name.toLowerCase().includes(search);
-const regionMatch = region ? player.region === region : true;
-const deviceMatch = device ? player.device === device : true;
-
-return searchMatch && regionMatch && deviceMatch;
-
-});
-
-filtered.sort((a,b)=>{
-
-return currentMode === "main"
-? b.mainOverall - a.mainOverall
-: b.subOverall - a.subOverall;
-
-});
-
-filtered.forEach((player,index)=>{
-
-const pts = currentMode === "main"
-? player.mainOverall
-: player.subOverall;
-
-const overall = getOverall(pts);
-
-const card = document.createElement("div");
-
-card.className =
-"player-card glass glow rounded-[28px] p-5";
-
-card.innerHTML = `
-
-<div class="flex justify-between items-center gap-5">
-
-<div>
-
-<div class="flex items-center gap-4">
-
-<div class="text-4xl orange">
-#${index+1}
-</div>
-
-<div>
-
-<h3 class="text-3xl">
-${player.name}
-</h3>
-
-<p class="text-zinc-500 mt-1">
-${player.region} • ${player.device}
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="text-right">
-
-<div class="${overall.includes('HT') ? 'ht':'lt'} text-3xl">
-${overall}
-</div>
-
-<p class="text-zinc-400 mt-1">
-${pts} PTS
-</p>
-
-</div>
-
-</div>
-
-`;
-
-card.onclick = ()=>openModal(player);
-
-container.appendChild(card);
-
-});
-
-}
-
-function openModal(player){
-
-document.getElementById("modal").style.display = "flex";
-
-document.getElementById("modalName").innerText = player.name;
-
-let html = `
-
-<div class="grid md:grid-cols-2 gap-5">
-
-<div class="glass rounded-3xl p-5">
-
-<h3 class="text-3xl orange mb-5">
-MAIN KITS
-</h3>
-
-`;
-
-for(let kit in player.main){
-
-html += `
-<div class="flex justify-between mb-3">
-<span>${kit}</span>
-<span>${player.main[kit]}</span>
-</div>
-`;
-
-}
-
-html += `
-
-</div>
-
-<div class="glass rounded-3xl p-5">
-
-<h3 class="text-3xl orange mb-5">
-SUB TIERS
-</h3>
-
-`;
-
-for(let kit in player.sub){
-
-html += `
-<div class="flex justify-between mb-3">
-<span>${kit}</span>
-<span>${player.sub[kit]}</span>
-</div>
-`;
-
-}
-
-html += `
-
-</div>
-
-</div>
-
-<div class="glass rounded-3xl p-5 mt-5">
-
-<div class="flex justify-between">
-
-<span class="text-zinc-400">
-Tester
-</span>
-
-<span>
-${player.tester}
-</span>
-
-</div>
-
-</div>
-
-`;
-
-document.getElementById("modalContent").innerHTML = html;
-
-}
-
-function closeModal(){
-
-document.getElementById("modal").style.display = "none";
-
-}
-
-document.getElementById("searchInput")
-.addEventListener("input",renderPlayers);
-
-document.getElementById("regionFilter")
-.addEventListener("change",renderPlayers);
-
-document.getElementById("deviceFilter")
-.addEventListener("change",renderPlayers);
-
-renderPlayers();
-
-</script>
-
-</body>
-    </html>
+<div
+onclick
