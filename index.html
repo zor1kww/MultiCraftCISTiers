@@ -12,126 +12,159 @@
 <style>
 
 @font-face{
-    font-family:"MultiCraft";
-    src:url("assets/fonts/MultiCraftFont.ttf") format("truetype");
+font-family:MC;
+src:url('assets/fonts/MultiCraftFont.ttf');
 }
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:"MultiCraft",sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:MC,sans-serif;
 }
 
 html{
-    scroll-behavior:smooth;
+scroll-behavior:smooth;
 }
 
 body{
-    background:
-    radial-gradient(circle at top left, rgba(255,170,0,.10), transparent 30%),
-    radial-gradient(circle at bottom right, rgba(255,170,0,.08), transparent 30%),
-    #06070d;
-    color:white;
-    overflow-x:hidden;
+background:
+radial-gradient(circle at top left, rgba(255,170,0,.12), transparent 25%),
+radial-gradient(circle at bottom right, rgba(255,170,0,.08), transparent 25%),
+#05060b;
+color:white;
+overflow-x:hidden;
 }
 
 .container{
-    width:100%;
-    max-width:1400px;
-    margin:auto;
-    padding:0 14px;
+max-width:1300px;
+margin:auto;
+padding:0 14px;
 }
 
 .glass{
-    background:rgba(12,14,20,.82);
-    backdrop-filter:blur(16px);
-    border:1px solid rgba(255,255,255,.05);
+background:rgba(10,12,18,.82);
+backdrop-filter:blur(14px);
+border:1px solid rgba(255,255,255,.05);
 }
 
 .orange{
-    background:linear-gradient(to right,#ff9900,#ffd000);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
+background:linear-gradient(to right,#ff9900,#ffd000);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 }
 
 .glow{
-    box-shadow:
-    0 0 30px rgba(255,170,0,.10),
-    0 0 80px rgba(255,170,0,.05);
+box-shadow:
+0 0 30px rgba(255,170,0,.10),
+0 0 80px rgba(255,170,0,.05);
 }
 
-.nav-btn{
-    transition:.25s;
+.navBtn{
+padding:12px 18px;
+border-radius:18px;
+transition:.25s;
+font-size:13px;
 }
 
-.nav-btn:hover{
-    transform:translateY(-2px);
-    background:rgba(255,170,0,.08);
+.navBtn:hover{
+transform:translateY(-2px);
+background:rgba(255,170,0,.08);
 }
 
-.mode-card{
-    transition:.25s;
-    cursor:pointer;
+.heroCard{
+padding:35px;
+border-radius:35px;
 }
 
-.mode-card:hover{
-    transform:translateY(-4px);
-    border-color:rgba(255,170,0,.25);
-    background:rgba(255,170,0,.06);
+.modeBtn{
+padding:18px;
+border-radius:22px;
+cursor:pointer;
+transition:.25s;
 }
 
-.player-card{
-    transition:.25s;
-    cursor:pointer;
+.modeBtn:hover{
+transform:translateY(-3px);
+background:rgba(255,170,0,.08);
 }
 
-.player-card:hover{
-    transform:translateY(-2px);
-    background:rgba(255,170,0,.06);
+.activeMode{
+background:linear-gradient(to right,#ff9900,#ffd000);
+color:black;
 }
 
-.tab{
-    transition:.25s;
+.kitBtn{
+padding:12px 18px;
+border-radius:18px;
+white-space:nowrap;
+transition:.25s;
+cursor:pointer;
 }
 
-.tab.active{
-    background:linear-gradient(to right,#ff9900,#ffd000);
-    color:black;
+.activeKit{
+background:linear-gradient(to right,#ff9900,#ffd000);
+color:black;
+}
+
+.player{
+padding:22px;
+border-radius:28px;
+transition:.25s;
+cursor:pointer;
+}
+
+.player:hover{
+transform:translateY(-2px);
+background:rgba(255,170,0,.05);
+}
+
+.rank{
+font-size:20px;
+padding:8px 14px;
+border-radius:14px;
+background:#ffb000;
+color:black;
 }
 
 .modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.78);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    z-index:999;
-    padding:15px;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.82);
+display:none;
+justify-content:center;
+align-items:center;
+padding:15px;
+z-index:999;
 }
 
-.modal-content{
-    width:100%;
-    max-width:750px;
+.modalBox{
+width:100%;
+max-width:750px;
+padding:25px;
+border-radius:35px;
 }
 
-.ht{
-    color:#ffd000;
-    text-shadow:0 0 12px rgba(255,208,0,.6);
+input,select{
+background:rgba(255,255,255,.03);
+border:1px solid rgba(255,255,255,.05);
+outline:none;
+color:white;
+padding:15px;
+border-radius:18px;
 }
 
-.lt{
-    color:#ff9900;
+@media(max-width:700px){
+
+.heroTitle{
+font-size:58px !important;
+line-height:55px;
 }
 
-::-webkit-scrollbar{
-    width:6px;
+.playerName{
+font-size:26px !important;
 }
 
-::-webkit-scrollbar-thumb{
-    background:#ff9900;
-    border-radius:20px;
 }
 
 </style>
@@ -141,7 +174,7 @@ body{
 
 <div id="modal" class="modal">
 
-<div class="modal-content glass glow rounded-[30px] p-6">
+<div class="modalBox glass glow">
 
 <div class="flex justify-between items-center mb-6">
 
@@ -159,58 +192,53 @@ body{
 
 </div>
 
-<header class="sticky top-0 z-50 glass border-b border-orange-500/10">
+<header class="glass border-b border-orange-500/10 sticky top-0 z-50">
 
 <div class="container">
 
-<div class="flex flex-wrap justify-between items-center gap-4 py-4">
+<div class="flex flex-wrap gap-4 justify-between items-center py-5">
 
 <div>
 
-<h1 class="text-3xl md:text-5xl orange">
+<h1 class="text-4xl orange">
 MultiCraft CIS Tiers
 </h1>
 
-<p class="text-zinc-500 text-sm mt-1">
+<p class="text-zinc-500 text-sm">
 Competitive PvP Platform
 </p>
 
 </div>
 
-<nav class="flex flex-wrap gap-2">
+<div class="flex flex-wrap gap-2">
 
-<a href="#leaderboard"
-class="glass nav-btn px-4 py-3 rounded-2xl text-sm">
+<a href="#leaderboard" class="glass navBtn">
 Leaderboard
 </a>
 
-<a href="#hall"
-class="glass nav-btn px-4 py-3 rounded-2xl text-sm">
+<a href="#hall" class="glass navBtn">
 Доска Почета
 </a>
 
-<a href="#testers"
-class="glass nav-btn px-4 py-3 rounded-2xl text-sm">
+<a href="#testers" class="glass navBtn">
 Testers
 </a>
 
-<a href="#how"
-class="glass nav-btn px-4 py-3 rounded-2xl text-sm">
+<a href="#how" class="glass navBtn">
 Как пройти тир-тест
 </a>
 
-<a href="#faq"
-class="glass nav-btn px-4 py-3 rounded-2xl text-sm">
+<a href="#faq" class="glass navBtn">
 FAQ
 </a>
 
 <a href="https://t.me/MultiCraftCISTiers"
 target="_blank"
-class="bg-orange-500 text-black px-4 py-3 rounded-2xl text-sm">
+class="navBtn activeMode">
 Telegram
 </a>
 
-</nav>
+</div>
 
 </div>
 
@@ -218,23 +246,743 @@ Telegram
 
 </header>
 
-<section class="pt-12 pb-12">
+<section class="py-10">
 
 <div class="container">
 
-<div class="glass glow rounded-[35px] p-7 md:p-12">
+<div class="heroCard glass glow">
 
-<h2 class="text-5xl md:text-8xl orange leading-none mb-7">
-MultiCraft CIS Tiers
+<h2 class="heroTitle text-7xl orange leading-none mb-6">
+MultiCraft<br>
+CIS Tiers
 </h2>
 
-<p class="text-zinc-400 leading-8 max-w-4xl text-base md:text-lg">
-Официальная СНГ платформа для tier tests и PvP leaderboard системы MultiCraft.
-Проходите тир-тесты, получайте ранги, поднимайтесь в overall leaderboard
+<p class="text-zinc-400 leading-8 max-w-3xl">
+Официальная СНГ платформа для tier tests и PvP leaderboard системы.
+Проходите тир-тесты, получайте ранги, попадайте в OVERALL TOP
 и становитесь частью competitive PvP сцены.
 </p>
 
-<div class="grid md:grid-cols-2 gap-5 mt-10">
+<div class="grid md:grid-cols-2 gap-4 mt-8">
 
 <div
-onclick
+onclick="switchMode('main')"
+id="mainMode"
+class="modeBtn glass activeMode">
+
+<h3 class="text-4xl mb-3">
+MAIN TIERS
+</h3>
+
+<p>
+Hardcore, SMP, UHC, Lite, Emerald Pot,
+Emerald, Dragonhide KB, Dragonhide,
+Diamond, Wand
+</p>
+
+</div>
+
+<div
+onclick="switchMode('sub')"
+id="subMode"
+class="modeBtn glass">
+
+<h3 class="text-4xl mb-3">
+SUB TIERS
+</h3>
+
+<p>
+Combo, Gapple, Mace,
+Crystal, Axe, DeBuff, Bed
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="leaderboard" class="pb-20">
+
+<div class="container">
+
+<div class="flex flex-wrap gap-3 mb-5">
+
+<input
+id="search"
+placeholder="Поиск игрока..."
+class="flex-1 min-w-[220px]"
+>
+
+<select id="region">
+
+<option value="">
+Все регионы СНГ
+</option>
+
+<option>RU</option>
+<option>UA</option>
+<option>KZ</option>
+<option>BY</option>
+<option>UZ</option>
+<option>KG</option>
+<option>TJ</option>
+<option>TM</option>
+<option>AZ</option>
+<option>AM</option>
+<option>MD</option>
+
+</select>
+
+<select id="device">
+
+<option value="">
+Все устройства
+</option>
+
+<option>PH</option>
+<option>TB</option>
+<option>PC</option>
+<option>CT</option>
+<option>OTG</option>
+
+</select>
+
+</div>
+
+<div
+id="kits"
+class="flex gap-3 overflow-x-auto pb-3 mb-6">
+</div>
+
+<div
+id="players"
+class="space-y-4">
+</div>
+
+</div>
+
+</section>
+
+<section id="hall" class="pb-20">
+
+<div class="container">
+
+<div class="glass glow rounded-[35px] p-7">
+
+<h2 class="text-5xl orange mb-8">
+Доска Почета
+</h2>
+
+<div class="grid md:grid-cols-3 gap-5">
+
+<div class="glass rounded-[28px] p-6">
+<h3 class="text-3xl mb-2">NeoPvP</h3>
+<p class="text-zinc-400">
+Первый HT1 игрок платформы
+</p>
+</div>
+
+<div class="glass rounded-[28px] p-6">
+<h3 class="text-3xl mb-2">Inferno</h3>
+<p class="text-zinc-400">
+Лучший Crystal игрок
+</p>
+</div>
+
+<div class="glass rounded-[28px] p-6">
+<h3 class="text-3xl mb-2">Blaze</h3>
+<p class="text-zinc-400">
+Legendary Tester
+</p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="testers" class="pb-20">
+
+<div class="container">
+
+<div class="glass glow rounded-[35px] p-7">
+
+<h2 class="text-5xl orange mb-8">
+Tier Testers
+</h2>
+
+<div class="grid md:grid-cols-3 gap-5">
+
+<div class="glass rounded-[28px] p-6">
+<h3 class="text-3xl mb-2">Zor1k</h3>
+<p class="text-zinc-400">@zor1k</p>
+</div>
+
+<div class="glass rounded-[28px] p-6">
+<h3 class="text-3xl mb-2">Blaze</h3>
+<p class="text-zinc-400">@blaze</p>
+</div>
+
+<div class="glass rounded-[28px] p-6">
+<h3 class="text-3xl mb-2">Inferno</h3>
+<p class="text-zinc-400">@inferno</p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="how" class="pb-20">
+
+<div class="container">
+
+<div class="glass glow rounded-[35px] p-7">
+
+<h2 class="text-5xl orange mb-7">
+Как пройти тир-тест
+</h2>
+
+<div class="space-y-6 text-zinc-300 leading-8">
+
+<p>
+1. Подайте заявку tester'у.
+</p>
+
+<p>
+2. Дождитесь времени теста.
+</p>
+
+<p>
+3. Пройдите tier test на нужном kit.
+</p>
+
+<p>
+4. После проверки ваш rank появится в leaderboard.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="faq" class="pb-24">
+
+<div class="container">
+
+<div class="glass glow rounded-[35px] p-7">
+
+<h2 class="text-5xl orange mb-8">
+FAQ
+</h2>
+
+<div class="space-y-8 text-zinc-300">
+
+<div>
+
+<h3 class="text-3xl mb-3">
+Как считаются overall points?
+</h3>
+
+<p>
+Очки с main kits суммируются отдельно от sub tiers.
+</p>
+
+</div>
+
+<div>
+
+<h3 class="text-3xl mb-3">
+Какие устройства разрешены?
+</h3>
+
+<p>
+PH, TB, PC, CT и OTG.
+</p>
+
+</div>
+
+<div>
+
+<h3 class="text-3xl mb-3">
+Можно ли пройти retest?
+</h3>
+
+<p>
+Да, спустя некоторое время.
+</p>
+
+</div>
+
+<div>
+
+<h3 class="text-3xl mb-3">
+Сколько очков дают за тиры?
+</h3>
+
+<p>
+
+HT1 = 100<br>
+LT1 = 90<br><br>
+
+HT2 = 80<br>
+LT2 = 70<br><br>
+
+HT3 = 60<br>
+LT3 = 50<br><br>
+
+HT4 = 40<br>
+LT4 = 30<br><br>
+
+HT5 = 20<br>
+LT5 = 10
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<script>
+
+const players = [
+
+{
+name:"NeoPvP",
+region:"KZ",
+device:"PC",
+
+mainOverall:920,
+subOverall:630,
+
+main:{
+"Hardcore":{tier:"HT1",tester:"Zor1k"},
+"SMP":{tier:"HT1",tester:"Blaze"},
+"UHC":{tier:"LT1",tester:"Inferno"},
+"Emerald":{tier:"HT1",tester:"Blaze"}
+},
+
+sub:{
+"Crystal":{tier:"HT2",tester:"Inferno"},
+"Combo":{tier:"LT1",tester:"Zor1k"}
+}
+},
+
+{
+name:"Blaze",
+region:"RU",
+device:"PH",
+
+mainOverall:850,
+subOverall:570,
+
+main:{
+"Hardcore":{tier:"LT1",tester:"Zor1k"},
+"Diamond":{tier:"HT2",tester:"Inferno"}
+},
+
+sub:{
+"Gapple":{tier:"HT2",tester:"Blaze"},
+"Mace":{tier:"LT1",tester:"Inferno"}
+}
+},
+
+{
+name:"Inferno",
+region:"UA",
+device:"TB",
+
+mainOverall:790,
+subOverall:690,
+
+main:{
+"Dragonhide":{tier:"HT2",tester:"Blaze"}
+},
+
+sub:{
+"Crystal":{tier:"HT1",tester:"Zor1k"},
+"Axe":{tier:"HT2",tester:"Inferno"}
+}
+}
+
+];
+
+const mainKits = [
+"OVERALL",
+"Hardcore",
+"SMP",
+"UHC",
+"Lite",
+"Emerald Pot",
+"Emerald",
+"Dragonhide KB",
+"Dragonhide",
+"Diamond",
+"Wand"
+];
+
+const subKits = [
+"OVERALL",
+"Combo",
+"Gapple",
+"Mace",
+"Crystal",
+"Axe",
+"DeBuff",
+"Bed"
+];
+
+let currentMode = "main";
+let currentKit = "OVERALL";
+
+function getOverall(points){
+
+if(points >= 900) return "HT1";
+if(points >= 800) return "LT1";
+if(points >= 700) return "HT2";
+if(points >= 600) return "LT2";
+if(points >= 500) return "HT3";
+if(points >= 400) return "LT3";
+if(points >= 300) return "HT4";
+if(points >= 200) return "LT4";
+
+return "HT5";
+
+}
+
+function switchMode(mode){
+
+currentMode = mode;
+currentKit = "OVERALL";
+
+document.getElementById("mainMode")
+.classList.remove("activeMode");
+
+document.getElementById("subMode")
+.classList.remove("activeMode");
+
+if(mode === "main"){
+document.getElementById("mainMode")
+.classList.add("activeMode");
+}else{
+document.getElementById("subMode")
+.classList.add("activeMode");
+}
+
+renderKits();
+renderPlayers();
+
+}
+
+function renderKits(){
+
+const kitsContainer =
+document.getElementById("kits");
+
+kitsContainer.innerHTML = "";
+
+const kits =
+currentMode === "main"
+? mainKits
+: subKits;
+
+kits.forEach(kit=>{
+
+const btn =
+document.createElement("button");
+
+btn.className =
+`kitBtn glass ${
+currentKit === kit
+? "activeKit"
+: ""
+}`;
+
+btn.innerText = kit;
+
+btn.onclick = ()=>{
+
+currentKit = kit;
+
+renderKits();
+renderPlayers();
+
+};
+
+kitsContainer.appendChild(btn);
+
+});
+
+}
+
+function renderPlayers(){
+
+const container =
+document.getElementById("players");
+
+container.innerHTML = "";
+
+const search =
+document.getElementById("search")
+.value.toLowerCase();
+
+const region =
+document.getElementById("region")
+.value;
+
+const device =
+document.getElementById("device")
+.value;
+
+let filtered = [...players];
+
+filtered = filtered.filter(player=>{
+
+const matchSearch =
+player.name.toLowerCase()
+.includes(search);
+
+const matchRegion =
+region
+? player.region === region
+: true;
+
+const matchDevice =
+device
+? player.device === device
+: true;
+
+if(currentKit === "OVERALL"){
+
+return matchSearch &&
+matchRegion &&
+matchDevice;
+
+}
+
+if(currentMode === "main"){
+
+return player.main[currentKit] &&
+matchSearch &&
+matchRegion &&
+matchDevice;
+
+}
+
+return player.sub[currentKit] &&
+matchSearch &&
+matchRegion &&
+matchDevice;
+
+});
+
+filtered.sort((a,b)=>{
+
+const aPts =
+currentMode === "main"
+? a.mainOverall
+: a.subOverall;
+
+const bPts =
+currentMode === "main"
+? b.mainOverall
+: b.subOverall;
+
+return bPts - aPts;
+
+});
+
+filtered.forEach((player,index)=>{
+
+const pts =
+currentMode === "main"
+? player.mainOverall
+: player.subOverall;
+
+const overall =
+getOverall(pts);
+
+const card =
+document.createElement("div");
+
+card.className =
+"player glass glow";
+
+card.innerHTML = `
+
+<div class="flex justify-between items-center gap-4">
+
+<div class="flex items-center gap-4">
+
+<div class="text-4xl orange">
+#${index+1}
+</div>
+
+<div>
+
+<h3 class="playerName text-4xl">
+${player.name}
+</h3>
+
+<p class="text-zinc-500 mt-1">
+${player.region} • ${player.device}
+</p>
+
+</div>
+
+</div>
+
+<div class="text-right">
+
+<div class="rank">
+${overall}
+</div>
+
+<p class="text-zinc-400 mt-2">
+${pts} PTS
+</p>
+
+</div>
+
+</div>
+
+`;
+
+card.onclick = ()=>openPlayer(player);
+
+container.appendChild(card);
+
+});
+
+}
+
+function openPlayer(player){
+
+document.getElementById("modal")
+.style.display = "flex";
+
+document.getElementById("modalName")
+.innerText = player.name;
+
+let html = `
+
+<div class="grid md:grid-cols-2 gap-5">
+
+<div class="glass rounded-[28px] p-5">
+
+<h3 class="text-3xl orange mb-5">
+MAIN TIERS
+</h3>
+
+`;
+
+for(let kit in player.main){
+
+html += `
+
+<div class="mb-4 pb-4 border-b border-white/5">
+
+<div class="flex justify-between">
+
+<span>${kit}</span>
+
+<span>${player.main[kit].tier}</span>
+
+</div>
+
+<p class="text-zinc-500 mt-2 text-sm">
+Tester: ${player.main[kit].tester}
+</p>
+
+</div>
+
+`;
+
+}
+
+html += `</div>`;
+
+html += `
+
+<div class="glass rounded-[28px] p-5">
+
+<h3 class="text-3xl orange mb-5">
+SUB TIERS
+</h3>
+
+`;
+
+for(let kit in player.sub){
+
+html += `
+
+<div class="mb-4 pb-4 border-b border-white/5">
+
+<div class="flex justify-between">
+
+<span>${kit}</span>
+
+<span>${player.sub[kit].tier}</span>
+
+</div>
+
+<p class="text-zinc-500 mt-2 text-sm">
+Tester: ${player.sub[kit].tester}
+</p>
+
+</div>
+
+`;
+
+}
+
+html += `</div></div>`;
+
+document.getElementById("modalContent")
+.innerHTML = html;
+
+}
+
+function closeModal(){
+
+document.getElementById("modal")
+.style.display = "none";
+
+}
+
+document.getElementById("search")
+.addEventListener("input",renderPlayers);
+
+document.getElementById("region")
+.addEventListener("change",renderPlayers);
+
+document.getElementById("device")
+.addEventListener("change",renderPlayers);
+
+renderKits();
+renderPlayers();
+
+</script>
+
+</body>
+              </html>
