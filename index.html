@@ -3,7 +3,7 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>MultiCraft CIS Tiers</title>
 
@@ -13,7 +13,7 @@
 
 @font-face{
     font-family:"MultiCraft";
-    src:url("assets/MultiCraftFont.ttf") format("truetype");
+    src:url("assets/fonts/MultiCraftFont.ttf") format("truetype");
 }
 
 *{
@@ -28,567 +28,206 @@ html{
 }
 
 body{
-    overflow-x:hidden;
     background:
-    radial-gradient(circle at top left,
-    rgba(255,170,0,0.14),transparent 30%),
-    radial-gradient(circle at bottom right,
-    rgba(255,120,0,0.08),transparent 30%),
-    #06080f;
+    radial-gradient(circle at top left, rgba(255,170,0,0.10), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(255,120,0,0.10), transparent 30%),
+    #07090f;
     color:white;
+    overflow-x:hidden;
 }
 
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-
-    background:
-    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-
-    background-size:40px 40px;
-
-    pointer-events:none;
-}
-
-.header{
-    position:sticky;
-    top:0;
-    z-index:999;
-
-    backdrop-filter:blur(16px);
-
-    background:rgba(5,8,15,0.86);
-
-    border-bottom:1px solid rgba(255,255,255,0.05);
-}
-
-.nav-wrapper{
-    max-width:1450px;
+.container{
+    width:100%;
+    max-width:1500px;
     margin:auto;
-    padding:14px 18px;
+    padding:0 14px;
 }
 
-.logo{
-    font-size:38px;
+.glass{
+    background:rgba(12,15,25,0.82);
+    border:1px solid rgba(255,255,255,0.06);
+    backdrop-filter:blur(16px);
+}
 
-    background:
-    linear-gradient(to right,#ffb300,#fff2b8);
-
+.orange-text{
+    background:linear-gradient(to right,#ff9900,#ffd000);
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
 }
 
-.nav{
-    display:flex;
-    flex-wrap:wrap;
-    gap:12px;
-    margin-top:14px;
+.glow{
+    box-shadow:
+    0 0 20px rgba(255,170,0,0.14),
+    0 0 60px rgba(255,170,0,0.06);
 }
 
-.nav a{
-    text-decoration:none;
-    color:white;
-
-    background:#111827;
-
-    border:1px solid rgba(255,255,255,0.05);
-
-    padding:13px 18px;
-
-    border-radius:18px;
-
-    transition:0.25s;
+.nav-btn{
+    transition:.25s;
 }
 
-.nav a:hover{
+.nav-btn:hover{
     transform:translateY(-2px);
-
-    border-color:rgba(255,179,0,0.3);
-
-    background:#1a2233;
+    background:rgba(255,170,0,0.10);
 }
 
 .hero{
-    max-width:1450px;
-    margin:auto;
-
-    padding:42px 20px 24px;
-}
-
-.hero-box{
-    position:relative;
-    overflow:hidden;
-
-    border-radius:38px;
-
-    padding:58px;
-
-    background:
-    linear-gradient(145deg,
-    rgba(15,20,32,0.98),
-    rgba(8,10,18,0.98));
-
-    border:1px solid rgba(255,255,255,0.05);
-
-    box-shadow:
-    0 0 60px rgba(255,179,0,0.08),
-    inset 0 0 50px rgba(255,255,255,0.02);
-}
-
-.hero-box::after{
-    content:"";
-
-    position:absolute;
-
-    width:520px;
-    height:520px;
-
-    right:-170px;
-    top:-170px;
-
-    background:
-    radial-gradient(circle,
-    rgba(255,179,0,0.18),
-    transparent 70%);
+    padding-top:40px;
+    padding-bottom:30px;
 }
 
 .hero-title{
-    position:relative;
-    z-index:2;
-
-    font-size:90px;
-    line-height:0.9;
-
-    background:
-    linear-gradient(to right,#ffb300,#fff2b8);
-
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
+    font-size:clamp(42px,7vw,90px);
+    line-height:1;
 }
 
-.hero-sub{
-    position:relative;
-    z-index:2;
-
-    max-width:760px;
-
-    margin-top:24px;
-
-    color:#9d9d9d;
-
-    line-height:2;
+.subtext{
+    color:#b4b4b4;
+    line-height:1.8;
 }
 
-.hero-buttons{
-    position:relative;
-    z-index:2;
-
-    display:flex;
-    flex-wrap:wrap;
-
-    gap:14px;
-
-    margin-top:34px;
+.tab-btn{
+    transition:.25s;
 }
 
-.hero-buttons a{
-    text-decoration:none;
-
-    padding:18px 24px;
-
-    border-radius:22px;
-
-    transition:0.25s;
-}
-
-.primary-btn{
-    background:
-    linear-gradient(to right,#ffb300,#ffd54f);
-
+.tab-btn.active{
+    background:linear-gradient(to right,#ff9900,#ffd000);
     color:black;
-
-    box-shadow:
-    0 0 30px rgba(255,179,0,0.22);
 }
 
-.secondary-btn{
-    background:#111827;
-
-    color:white;
-
-    border:1px solid rgba(255,255,255,0.05);
-}
-
-.hero-buttons a:hover{
-    transform:translateY(-3px);
-}
-
-.section{
-    max-width:1450px;
-    margin:auto;
-
-    padding:46px 20px;
-}
-
-.section-title{
-    font-size:54px;
-
-    background:
-    linear-gradient(to right,#ffb300,#fff2b8);
-
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-}
-
-.section-sub{
-    margin-top:12px;
-
-    color:#9d9d9d;
-
-    line-height:1.9;
-}
-
-.filters{
-    margin-top:28px;
-
-    display:grid;
-    grid-template-columns:1fr 1fr 1fr;
-
-    gap:14px;
-}
-
-.filters input,
-.filters select{
-    background:#101827;
-
-    border:none;
-
-    color:white;
-
-    padding:18px;
-
-    border-radius:18px;
-
-    outline:none;
-
-    border:1px solid rgba(255,255,255,0.05);
-}
-
-.mode-tabs{
-    display:flex;
-    flex-wrap:wrap;
-
-    gap:12px;
-
-    margin-top:24px;
-    margin-bottom:28px;
-}
-
-.mode-tabs button{
-    border:none;
+.player-row{
+    transition:.25s;
     cursor:pointer;
-
-    background:#101827;
-
-    color:white;
-
-    padding:15px 20px;
-
-    border-radius:18px;
-
-    transition:0.25s;
-
-    border:1px solid rgba(255,255,255,0.05);
 }
 
-.mode-tabs button:hover{
-    transform:translateY(-2px);
-
-    border-color:rgba(255,179,0,0.3);
+.player-row:hover{
+    background:rgba(255,170,0,0.08);
 }
 
-.active-mode{
-    background:
-    linear-gradient(to right,#ffb300,#ffd54f)!important;
-
-    color:black!important;
+.rank-ht{
+    color:#ffd000;
+    text-shadow:0 0 10px rgba(255,208,0,.8);
 }
 
-.players-container{
-    display:flex;
-    flex-direction:column;
+.rank-lt{
+    color:#ff9d00;
+}
 
-    gap:16px;
-
-    max-height:950px;
-
+.table-scroll{
+    max-height:750px;
     overflow-y:auto;
 }
 
-.player-card{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    gap:18px;
-
-    background:#0f1422;
-
-    border-radius:28px;
-
-    padding:22px;
-
-    border:1px solid rgba(255,255,255,0.05);
-
-    transition:0.25s;
-
-    cursor:pointer;
+.table-scroll::-webkit-scrollbar{
+    width:6px;
 }
 
-.player-card:hover{
-    transform:translateY(-2px);
-
-    border-color:rgba(255,179,0,0.24);
-}
-
-.player-left{
-    display:flex;
-    align-items:center;
-    gap:18px;
-}
-
-.rank{
-    font-size:30px;
-    color:#ffd166;
-
-    min-width:65px;
-}
-
-.player-nick{
-    font-size:30px;
-}
-
-.player-info{
-    margin-top:8px;
-
-    color:#999;
-
-    font-size:14px;
-}
-
-.player-right{
-    display:flex;
-    align-items:center;
-    gap:16px;
-}
-
-.player-tier{
-    background:
-    linear-gradient(to right,#ffb300,#ffd54f);
-
-    color:black;
-
-    padding:12px 16px;
-
-    border-radius:16px;
-}
-
-.player-points{
-    color:#ffe082;
-}
-
-.info-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-
-    gap:18px;
-
-    margin-top:28px;
-}
-
-.info-card{
-    background:#0f1422;
-
-    border-radius:28px;
-
-    padding:30px;
-
-    border:1px solid rgba(255,255,255,0.05);
-}
-
-.info-title{
-    font-size:30px;
-
-    color:#ffd166;
-
-    margin-bottom:16px;
-}
-
-.info-text{
-    color:#9d9d9d;
-
-    line-height:2;
+.table-scroll::-webkit-scrollbar-thumb{
+    background:#ff9900;
+    border-radius:20px;
 }
 
 .modal{
     position:fixed;
     inset:0;
-
-    background:rgba(0,0,0,0.7);
-
+    background:rgba(0,0,0,.75);
     display:none;
-
     align-items:center;
     justify-content:center;
-
-    z-index:9999;
+    z-index:999;
+    padding:15px;
 }
 
 .modal-content{
-    width:95%;
+    width:100%;
     max-width:700px;
-
-    background:#0f1422;
-
-    border-radius:30px;
-
-    padding:34px;
-
-    border:1px solid rgba(255,255,255,0.05);
 }
 
-.modal-title{
-    font-size:42px;
-
-    color:#ffd166;
-
-    margin-bottom:18px;
-}
-
-.modal-grid{
+.mobile-grid{
     display:grid;
+    grid-template-columns:1fr;
+    gap:18px;
+}
+
+@media(min-width:1000px){
+
+.mobile-grid{
     grid-template-columns:1fr 1fr;
-    gap:14px;
 }
-
-.modal-kit{
-    background:#111827;
-
-    padding:16px;
-
-    border-radius:18px;
-}
-
-.close-btn{
-    margin-top:24px;
-
-    background:
-    linear-gradient(to right,#ffb300,#ffd54f);
-
-    color:black;
-
-    border:none;
-
-    padding:16px 22px;
-
-    border-radius:18px;
-
-    cursor:pointer;
-}
-
-.footer{
-    margin-top:40px;
-
-    border-top:1px solid rgba(255,255,255,0.05);
-
-    padding:40px 20px;
-
-    text-align:center;
-
-    color:#888;
-}
-
-@media(max-width:1000px){
-
-    .hero-title{
-        font-size:62px;
-    }
-
-    .info-grid{
-        grid-template-columns:1fr;
-    }
-
-}
-
-@media(max-width:760px){
-
-    .hero-box{
-        padding:30px;
-    }
-
-    .hero-title{
-        font-size:42px;
-    }
-
-    .filters{
-        grid-template-columns:1fr;
-    }
-
-    .player-card{
-        flex-direction:column;
-        align-items:flex-start;
-    }
-
-    .player-right{
-        width:100%;
-        justify-content:space-between;
-    }
-
-    .section-title{
-        font-size:38px;
-    }
-
-    .modal-grid{
-        grid-template-columns:1fr;
-    }
 
 }
 
 </style>
+
 </head>
 <body>
 
-<header class="header">
+<div id="playerModal" class="modal">
 
-<div class="nav-wrapper">
+<div class="modal-content glass glow rounded-3xl p-6">
 
-<div class="logo">
-MultiCraft CIS Tiers
+<div class="flex justify-between items-center mb-6">
+
+<h2 id="modalName" class="text-4xl orange-text"></h2>
+
+<button onclick="closeModal()" class="text-zinc-400 text-3xl">
+×
+</button>
+
 </div>
 
-<div class="nav">
+<div id="modalContent"></div>
 
-<a href="#leaderboard">
+</div>
+
+</div>
+
+<header class="sticky top-0 z-50 glass border-b border-orange-500/10">
+
+<div class="container">
+
+<div class="flex flex-wrap justify-between items-center gap-5 py-4">
+
+<div>
+
+<h1 class="text-3xl md:text-5xl orange-text">
+MultiCraft CIS Tiers
+</h1>
+
+<p class="text-zinc-500 text-sm mt-1">
+Competitive PvP Platform
+</p>
+
+</div>
+
+<nav class="flex flex-wrap gap-3">
+
+<a href="#leaderboard"
+class="glass nav-btn px-5 py-3 rounded-2xl text-sm">
 Leaderboard
 </a>
 
-<a href="#hall">
-Доска Почета
+<a href="#kits"
+class="glass nav-btn px-5 py-3 rounded-2xl text-sm">
+Kits
 </a>
 
-<a href="#testers">
+<a href="#testers"
+class="glass nav-btn px-5 py-3 rounded-2xl text-sm">
 Testers
 </a>
 
-<a href="#testing">
-Как пройти тир-тест
-</a>
-
-<a href="#faq">
+<a href="#faq"
+class="glass nav-btn px-5 py-3 rounded-2xl text-sm">
 FAQ
 </a>
+
+<a href="https://t.me/MultiCraftCISTiers"
+target="_blank"
+class="bg-orange-500 text-black px-5 py-3 rounded-2xl text-sm">
+Telegram
+</a>
+
+</nav>
 
 </div>
 
@@ -598,282 +237,228 @@ FAQ
 
 <section class="hero">
 
-<div class="hero-box">
+<div class="container">
 
-<h1 class="hero-title">
-CIS PvP<br>
-Platform
-</h1>
+<div class="glass glow rounded-[35px] p-7 md:p-12">
 
-<p class="hero-sub">
-Официальная PvP ranking platform СНГ комьюнити.
-Проходите тир-тесты, попадайте в OVERALL TOP
-и поднимайтесь до высших PvP тиров.
+<div class="mobile-grid items-center">
+
+<div>
+
+<h2 class="hero-title orange-text mb-7">
+CIS PvP Ranking Platform
+</h2>
+
+<p class="subtext text-base md:text-lg max-w-3xl">
+Официальная СНГ платформа для тир-тестов и PvP рейтингов.
+Проходите tier tests, получайте ranks, поднимайтесь в overall leaderboard
+и становитесь частью MultiCraft competitive scene.
 </p>
 
-<div class="hero-buttons">
+<div class="flex flex-wrap gap-4 mt-8">
 
-<a href="#leaderboard" class="primary-btn">
-OVERALL TOP
+<a href="#leaderboard"
+class="bg-gradient-to-r from-orange-500 to-yellow-400 text-black px-7 py-4 rounded-2xl">
+Leaderboard
 </a>
 
-<a href="#testing" class="secondary-btn">
-TIER TEST
-</a>
-
-<a href="#" class="secondary-btn">
-DISCORD
-</a>
-
-<a href="#" class="secondary-btn">
-TELEGRAM
+<a href="#kits"
+class="glass px-7 py-4 rounded-2xl">
+Kits
 </a>
 
 </div>
 
 </div>
 
+<div class="glass rounded-3xl p-7">
+
+<h3 class="text-4xl orange-text mb-6">
+Overall System
+</h3>
+
+<div class="space-y-3 text-zinc-300">
+
+<div class="flex justify-between">
+<span>HT1</span>
+<span>900+</span>
+</div>
+
+<div class="flex justify-between">
+<span>LT1</span>
+<span>800+</span>
+</div>
+
+<div class="flex justify-between">
+<span>HT2</span>
+<span>700+</span>
+</div>
+
+<div class="flex justify-between">
+<span>LT2</span>
+<span>600+</span>
+</div>
+
+<div class="flex justify-between">
+<span>HT3</span>
+<span>500+</span>
+</div>
+
+<div class="flex justify-between">
+<span>LT3</span>
+<span>400+</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </section>
 
-<section id="leaderboard" class="section">
+<section id="leaderboard" class="pb-20">
 
-<h2 class="section-title">
-OVERALL LEADERBOARD
+<div class="container">
+
+<div class="flex flex-wrap gap-4 mb-8">
+
+<button id="mainTab"
+class="tab-btn active px-7 py-4 rounded-2xl glass"
+onclick="switchTab('main')">
+MAIN KITS
+</button>
+
+<button id="subTab"
+class="tab-btn px-7 py-4 rounded-2xl glass"
+onclick="switchTab('sub')">
+SUB TIERS
+</button>
+
+</div>
+
+<div class="glass glow rounded-[35px] overflow-hidden">
+
+<div class="table-scroll">
+
+<table class="w-full min-w-[900px]">
+
+<thead>
+
+<tr class="bg-orange-500/10">
+
+<th class="px-6 py-5 text-left">#</th>
+<th class="px-6 py-5 text-left">Игрок</th>
+<th class="px-6 py-5 text-left">Регион</th>
+<th class="px-6 py-5 text-left">Устройство</th>
+<th class="px-6 py-5 text-left">Overall</th>
+<th class="px-6 py-5 text-left">PTS</th>
+<th class="px-6 py-5 text-left">Tester</th>
+
+</tr>
+
+</thead>
+
+<tbody id="leaderboardBody">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="kits" class="pb-20">
+
+<div class="container">
+
+<div class="mobile-grid">
+
+<div class="glass glow rounded-[35px] p-7">
+
+<h2 class="text-4xl orange-text mb-7">
+Main Kits
 </h2>
 
-<p class="section-sub">
-Лучшие PvP игроки платформы по сумме очков.
-</p>
+<div class="space-y-4 text-zinc-300">
 
-<div class="filters">
-
-<input type="text" id="searchInput" placeholder="Поиск игрока...">
-
-<select id="countryFilter">
-
-<option value="all">Все регионы СНГ</option>
-
-<option value="RU">Россия</option>
-<option value="UA">Украина</option>
-<option value="BY">Беларусь</option>
-<option value="KZ">Казахстан</option>
-<option value="UZ">Узбекистан</option>
-<option value="KG">Кыргызстан</option>
-<option value="TJ">Таджикистан</option>
-<option value="TM">Туркменистан</option>
-<option value="AM">Армения</option>
-<option value="AZ">Азербайджан</option>
-<option value="MD">Молдова</option>
-
-</select>
-
-<select id="deviceFilter">
-
-<option value="all">Все устройства</option>
-
-<option value="PH">Phone</option>
-<option value="TB">Tablet</option>
-<option value="PC">PC</option>
-<option value="CT">Controller</option>
-<option value="OTG">OTG</option>
-
-</select>
+<div>Hardcore</div>
+<div>SMP</div>
+<div>UHC</div>
+<div>Lite</div>
+<div>Emerald Pot</div>
+<div>Emerald</div>
+<div>Dragonhide KB</div>
+<div>Dragonhide</div>
+<div>Diamond</div>
+<div>Wand</div>
 
 </div>
 
-<div class="mode-tabs">
-
-<button class="active-mode" onclick="setMode('overall',this)">
-OVERALL
-</button>
-
-<button onclick="setMode('sword',this)">
-Sword
-</button>
-
-<button onclick="setMode('mace',this)">
-Mace
-</button>
-
-<button onclick="setMode('axe',this)">
-Axe
-</button>
-
-<button onclick="setMode('uhc',this)">
-UHC
-</button>
-
-<button onclick="setMode('pot',this)">
-Pot
-</button>
-
-<button onclick="setMode('nethop',this)">
-NethOP
-</button>
-
-<button onclick="setMode('vanilla',this)">
-Vanilla
-</button>
-
 </div>
 
-<div id="playersContainer" class="players-container"></div>
+<div class="glass glow rounded-[35px] p-7">
 
-</section>
-
-<section id="hall" class="section">
-
-<h2 class="section-title">
-ДОСКА ПОЧЕТА
+<h2 class="text-4xl orange-text mb-7">
+Sub Tiers
 </h2>
 
-<div class="info-grid">
+<div class="space-y-4 text-zinc-300">
 
-<div class="info-card">
-<div class="info-title">ReaperX</div>
-<div class="info-text">
-Первый HT1 Sword игрок платформы.
-Legend of competitive PvP scene.
-</div>
-</div>
+<div>Combo</div>
+<div>Gapple</div>
+<div>Mace</div>
+<div>Crystal</div>
+<div>Axe</div>
+<div>DeBuff</div>
+<div>Bed</div>
 
-<div class="info-card">
-<div class="info-title">NeoPvP</div>
-<div class="info-text">
-Один из сильнейших UHC игроков СНГ.
-</div>
 </div>
 
-<div class="info-card">
-<div class="info-title">DarkBlade</div>
-<div class="info-text">
-Известен своими combo mechanics.
-</div>
 </div>
 
-<div class="info-card">
-<div class="info-title">Frost</div>
-<div class="info-text">
-Лучший Controller player сезона.
-</div>
 </div>
 
 </div>
 
 </section>
 
-<section id="testers" class="section">
+<section id="testers" class="pb-20">
 
-<h2 class="section-title">
-TIER TESTERS
+<div class="container">
+
+<div class="glass glow rounded-[35px] p-7">
+
+<h2 class="text-4xl orange-text mb-8">
+Tier Testers
 </h2>
 
-<div class="info-grid">
+<div class="grid md:grid-cols-3 gap-5">
 
-<div class="info-card">
-<div class="info-title">
-ReaperX
+<div class="glass rounded-3xl p-6">
+<h3 class="text-2xl mb-2">Zor1k</h3>
+<p class="text-zinc-400">@zor1k</p>
 </div>
 
-<div class="info-text">
-Sword Tester<br>
-Telegram: @reaperx
-</div>
-</div>
-
-<div class="info-card">
-<div class="info-title">
-DarkBlade
+<div class="glass rounded-3xl p-6">
+<h3 class="text-2xl mb-2">Blaze</h3>
+<p class="text-zinc-400">@blaze</p>
 </div>
 
-<div class="info-text">
-Mace Tester<br>
-Telegram: @darkblade
-</div>
-</div>
-
-<div class="info-card">
-<div class="info-title">
-NeoPvP
+<div class="glass rounded-3xl p-6">
+<h3 class="text-2xl mb-2">Inferno</h3>
+<p class="text-zinc-400">@inferno</p>
 </div>
 
-<div class="info-text">
-UHC Tester<br>
-Telegram: @neopvp
-</div>
-</div>
-
-<div class="info-card">
-<div class="info-title">
-Frost
-</div>
-
-<div class="info-text">
-Vanilla Tester<br>
-Telegram: @frost
-</div>
-</div>
-
-</div>
-
-</section>
-
-<section id="testing" class="section">
-
-<h2 class="section-title">
-КАК ПРОЙТИ ТИР-ТЕСТ
-</h2>
-
-<div class="info-grid">
-
-<div class="info-card">
-
-<div class="info-title">
-1. Заявка
-</div>
-
-<div class="info-text">
-Игрок отправляет заявку
-в Telegram группу платформы.
-</div>
-
-</div>
-
-<div class="info-card">
-
-<div class="info-title">
-2. Очередь
-</div>
-
-<div class="info-text">
-Тестер назначает сервер,
-режим и время проверки.
-</div>
-
-</div>
-
-<div class="info-card">
-
-<div class="info-title">
-3. Проверка
-</div>
-
-<div class="info-text">
-Игрок проходит PvP бои
-против тир-тестеров платформы.
-</div>
-
-</div>
-
-<div class="info-card">
-
-<div class="info-title">
-4. Получение тира
-</div>
-
-<div class="info-text">
-После завершения проверки
-игрок получает PvP тир.
 </div>
 
 </div>
@@ -882,90 +467,46 @@ Telegram: @frost
 
 </section>
 
-<section id="faq" class="section">
+<section id="faq" class="pb-24">
 
-<h2 class="section-title">
+<div class="container">
+
+<div class="glass glow rounded-[35px] p-7">
+
+<h2 class="text-4xl orange-text mb-8">
 FAQ
 </h2>
 
-<div class="info-grid">
+<div class="space-y-7">
 
-<div class="info-card">
-
-<div class="info-title">
-Система очков
+<div>
+<h3 class="text-2xl mb-3">Как пройти тир-тест?</h3>
+<p class="subtext">
+Игрок подает заявку, после чего tester назначает время теста.
+</p>
 </div>
 
-<div class="info-text">
-
-HT1 = 100<br>
-LT1 = 90<br><br>
-
-HT2 = 80<br>
-LT2 = 70<br><br>
-
-HT3 = 60<br>
-LT3 = 50<br><br>
-
-HT4 = 40<br>
-LT4 = 30<br><br>
-
-HT5 = 20<br>
-LT5 = 10
-
+<div>
+<h3 class="text-2xl mb-3">Что влияет на OVERALL?</h3>
+<p class="subtext">
+Очки со всех kits суммируются отдельно для MAIN и SUB leaderboard.
+</p>
 </div>
 
+<div>
+<h3 class="text-2xl mb-3">Какие устройства разрешены?</h3>
+<p class="subtext">
+PH, TB, PC, CT и OTG.
+</p>
 </div>
 
-<div class="info-card">
-
-<div class="info-title">
-OVERALL тир
+<div>
+<h3 class="text-2xl mb-3">Можно ли пройти retest?</h3>
+<p class="subtext">
+Да, но только спустя некоторое время после прошлого теста.
+</p>
 </div>
 
-<div class="info-text">
-
-700+ = HT1<br>
-620+ = LT1<br><br>
-
-540+ = HT2<br>
-460+ = LT2<br><br>
-
-380+ = HT3<br>
-300+ = LT3<br><br>
-
-220+ = HT4<br>
-140+ = LT4<br><br>
-
-60+ = HT5<br>
-0+ = LT5
-
-</div>
-
-</div>
-
-<div class="info-card">
-
-<div class="info-title">
-Можно ли пройти re-test?
-</div>
-
-<div class="info-text">
-Да. Игрок может пройти
-повторную проверку позже.
-</div>
-
-</div>
-
-<div class="info-card">
-
-<div class="info-title">
-Что влияет на тир?
-</div>
-
-<div class="info-text">
-Aim, movement, combo,
-gamesense и consistency.
 </div>
 
 </div>
@@ -974,366 +515,207 @@ gamesense и consistency.
 
 </section>
 
-<div class="modal" id="playerModal">
+<footer class="border-t border-white/5 py-10">
 
-<div class="modal-content">
+<div class="container">
 
-<div class="modal-title" id="modalName">
-Player
-</div>
+<div class="flex flex-wrap justify-between gap-6 items-center">
 
-<div class="modal-grid" id="modalStats"></div>
+<div>
 
-<button class="close-btn" onclick="closeModal()">
-Закрыть
-</button>
-
-</div>
-
-</div>
-
-<footer class="footer">
+<h3 class="text-3xl orange-text">
 MultiCraft CIS Tiers
+</h3>
+
+<p class="text-zinc-500 mt-2">
+Competitive PvP Platform
+</p>
+
+</div>
+
+<div class="flex gap-4">
+
+<a href="https://t.me/MultiCraftCISTiers"
+target="_blank"
+class="glass px-6 py-4 rounded-2xl">
+Telegram
+</a>
+
+<a href="#"
+class="glass px-6 py-4 rounded-2xl">
+Discord
+</a>
+
+</div>
+
+</div>
+
+</div>
+
 </footer>
+
+<script src="players/players.js"></script>
 
 <script>
 
-const tierPoints={
+let currentTab = "main";
 
-HT1:100,
-LT1:90,
+const overallRank = (pts)=>{
 
-HT2:80,
-LT2:70,
+if(pts >= 900) return "HT1";
+if(pts >= 800) return "LT1";
+if(pts >= 700) return "HT2";
+if(pts >= 600) return "LT2";
+if(pts >= 500) return "HT3";
+if(pts >= 400) return "LT3";
+if(pts >= 300) return "HT4";
+if(pts >= 200) return "LT4";
+if(pts >= 100) return "HT5";
 
-HT3:60,
-LT3:50,
-
-HT4:40,
-LT4:30,
-
-HT5:20,
-LT5:10
-
-};
-
-const players=[
-
-{
-nick:"ReaperX",
-country:"RU",
-device:"PH",
-tester:"DarkBlade",
-
-sword:"HT1",
-mace:"HT2",
-axe:"LT1",
-uhc:"HT2",
-pot:"LT2",
-nethop:"HT3",
-vanilla:"LT1"
-},
-
-{
-nick:"NeoPvP",
-country:"KZ",
-device:"PC",
-tester:"ReaperX",
-
-sword:"LT1",
-mace:"LT2",
-axe:"LT1",
-uhc:"HT1",
-pot:"LT1",
-nethop:"HT2",
-vanilla:"LT2"
-},
-
-{
-nick:"DarkBlade",
-country:"UA",
-device:"TB",
-tester:"Frost",
-
-sword:"LT1",
-mace:"HT2",
-axe:"LT2",
-uhc:"LT1",
-pot:"LT3",
-nethop:"LT2",
-vanilla:"LT1"
-},
-
-{
-nick:"Blaze",
-country:"RU",
-device:"PH",
-tester:"NeoPvP",
-
-sword:"HT2",
-mace:"LT1",
-axe:"LT2",
-uhc:"LT2",
-pot:"HT1",
-nethop:"HT2",
-vanilla:"LT1"
-},
-
-{
-nick:"Vortex",
-country:"UZ",
-device:"OTG",
-tester:"DarkBlade",
-
-sword:"HT2",
-mace:"HT3",
-axe:"LT2",
-uhc:"LT1",
-pot:"HT2",
-nethop:"HT3",
-vanilla:"LT2"
-},
-
-{
-nick:"Inferno",
-country:"KG",
-device:"PC",
-tester:"ReaperX",
-
-sword:"HT2",
-mace:"HT2",
-axe:"HT3",
-uhc:"LT1",
-pot:"LT2",
-nethop:"HT2",
-vanilla:"LT1"
-}
-
-];
-
-let currentMode="overall";
-
-function calculateOverall(player){
-
-return(
-
-tierPoints[player.sword]+
-tierPoints[player.mace]+
-tierPoints[player.axe]+
-tierPoints[player.uhc]+
-tierPoints[player.pot]+
-tierPoints[player.nethop]+
-tierPoints[player.vanilla]
-
-);
-
-}
-
-function getOverallTier(points){
-
-if(points>=700)return"HT1";
-if(points>=620)return"LT1";
-
-if(points>=540)return"HT2";
-if(points>=460)return"LT2";
-
-if(points>=380)return"HT3";
-if(points>=300)return"LT3";
-
-if(points>=220)return"HT4";
-if(points>=140)return"LT4";
-
-if(points>=60)return"HT5";
-
-return"LT5";
-
-}
-
-function setMode(mode,button){
-
-currentMode=mode;
-
-document.querySelectorAll('.mode-tabs button').forEach(btn=>{
-btn.classList.remove('active-mode');
-});
-
-button.classList.add('active-mode');
-
-renderPlayers();
+return "LT5";
 
 }
 
 function renderPlayers(){
 
-const container=document.getElementById('playersContainer');
+const body = document.getElementById("leaderboardBody");
 
-container.innerHTML='';
+body.innerHTML = "";
 
-let filtered=[...players];
+const sorted = [...players].sort((a,b)=>{
 
-const search=document.getElementById('searchInput').value.toLowerCase();
-
-const country=document.getElementById('countryFilter').value;
-
-const device=document.getElementById('deviceFilter').value;
-
-filtered=filtered.filter(player=>{
-
-const matchSearch=
-player.nick.toLowerCase().includes(search);
-
-const matchCountry=
-country==='all'||player.country===country;
-
-const matchDevice=
-device==='all'||player.device===device;
-
-return(
-matchSearch&&
-matchCountry&&
-matchDevice
-);
+return currentTab === "main"
+? b.mainOverall - a.mainOverall
+: b.subOverall - a.subOverall;
 
 });
 
-if(currentMode==='overall'){
+sorted.forEach((player,index)=>{
 
-filtered.sort((a,b)=>
-calculateOverall(b)-calculateOverall(a)
-);
+const pts = currentTab === "main"
+? player.mainOverall
+: player.subOverall;
 
+const tr = document.createElement("tr");
+
+tr.className = "player-row border-b border-white/5";
+
+tr.innerHTML = `
+
+<td class="px-6 py-5">
+${index+1}
+</td>
+
+<td class="px-6 py-5">
+${player.name}
+</td>
+
+<td class="px-6 py-5">
+${player.region}
+</td>
+
+<td class="px-6 py-5">
+${player.device}
+</td>
+
+<td class="px-6 py-5 ${overallRank(pts).includes('HT') ? 'rank-ht':'rank-lt'}">
+${overallRank(pts)}
+</td>
+
+<td class="px-6 py-5">
+${pts}
+</td>
+
+<td class="px-6 py-5">
+${player.tester}
+</td>
+
+`;
+
+tr.onclick = ()=> openModal(player);
+
+body.appendChild(tr);
+
+});
+
+}
+
+function switchTab(tab){
+
+currentTab = tab;
+
+document.getElementById("mainTab").classList.remove("active");
+document.getElementById("subTab").classList.remove("active");
+
+if(tab === "main"){
+document.getElementById("mainTab").classList.add("active");
 }else{
+document.getElementById("subTab").classList.add("active");
+}
 
-filtered.sort((a,b)=>
-tierPoints[b[currentMode]]-
-tierPoints[a[currentMode]]
-);
+renderPlayers();
 
 }
 
-filtered.forEach((player,index)=>{
+function openModal(player){
 
-const overallPoints=calculateOverall(player);
+document.getElementById("playerModal").style.display = "flex";
 
-const overallTier=getOverallTier(overallPoints);
+document.getElementById("modalName").innerText = player.name;
 
-const points=currentMode==='overall'
-?
-overallPoints
-:
-tierPoints[player[currentMode]];
+let html = `
 
-container.innerHTML+=`
+<div class="grid md:grid-cols-2 gap-6">
 
-<div class="player-card" onclick="openModal('${player.nick}')">
+<div class="glass rounded-3xl p-5">
 
-<div class="player-left">
-
-<div class="rank">
-#${index+1}
-</div>
-
-<div>
-
-<div class="player-nick">
-${player.nick}
-</div>
-
-<div class="player-info">
-${player.country} • ${player.device}
-</div>
-
-</div>
-
-</div>
-
-<div class="player-right">
-
-<div class="player-tier">
-
-${currentMode==='overall'
-?
-overallTier
-:
-player[currentMode]}
-
-</div>
-
-<div class="player-points">
-${points} PTS
-</div>
-
-</div>
-
-</div>
+<h3 class="text-2xl orange-text mb-5">
+Main Kits
+</h3>
 
 `;
 
-});
+for(let kit in player.main){
+
+html += `
+<div class="flex justify-between mb-3">
+<span>${kit}</span>
+<span>${player.main[kit]}</span>
+</div>
+`;
 
 }
 
-function openModal(nick){
+html += `</div><div class="glass rounded-3xl p-5">
 
-const player=players.find(p=>p.nick===nick);
-
-document.getElementById('playerModal').style.display='flex';
-
-document.getElementById('modalName').innerHTML=
-player.nick;
-
-document.getElementById('modalStats').innerHTML=`
-
-<div class="modal-kit">
-Sword: ${player.sword}
-</div>
-
-<div class="modal-kit">
-Mace: ${player.mace}
-</div>
-
-<div class="modal-kit">
-Axe: ${player.axe}
-</div>
-
-<div class="modal-kit">
-UHC: ${player.uhc}
-</div>
-
-<div class="modal-kit">
-Pot: ${player.pot}
-</div>
-
-<div class="modal-kit">
-NethOP: ${player.nethop}
-</div>
-
-<div class="modal-kit">
-Vanilla: ${player.vanilla}
-</div>
-
-<div class="modal-kit">
-Tester: ${player.tester}
-</div>
+<h3 class="text-2xl orange-text mb-5">
+Sub Tiers
+</h3>
 
 `;
+
+for(let kit in player.sub){
+
+html += `
+<div class="flex justify-between mb-3">
+<span>${kit}</span>
+<span>${player.sub[kit]}</span>
+</div>
+`;
+
+}
+
+html += `</div></div>`;
+
+document.getElementById("modalContent").innerHTML = html;
 
 }
 
 function closeModal(){
 
-document.getElementById('playerModal').style.display='none';
+document.getElementById("playerModal").style.display = "none";
 
 }
-
-document.getElementById('searchInput')
-.addEventListener('input',renderPlayers);
-
-document.getElementById('countryFilter')
-.addEventListener('change',renderPlayers);
-
-document.getElementById('deviceFilter')
-.addEventListener('change',renderPlayers);
 
 renderPlayers();
 
