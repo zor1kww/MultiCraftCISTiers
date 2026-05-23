@@ -1,443 +1,675 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>MultiCraft CIS Tiers</title>
 
 <style>
 
 @font-face{
-    font-family:'MC';
-    src:url('fonts/MultiCraftFont.ttf');
+font-family:'MC';
+src:url('fonts/MultiCraftFont.ttf');
 }
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 html{
-    scroll-behavior:smooth;
+scroll-behavior:smooth;
 }
 
 body{
-    background:#050505;
-    color:white;
-    font-family:'MC',sans-serif;
-    overflow-x:hidden;
+background:#050505;
+color:white;
+font-family:'MC',sans-serif;
+overflow-x:hidden;
 }
 
 body::before{
-    content:'';
-    position:fixed;
-    inset:0;
-    background:
-    radial-gradient(circle at top left, rgba(255,145,0,.22), transparent 30%),
-    radial-gradient(circle at bottom right, rgba(255,170,0,.12), transparent 30%);
-    z-index:-2;
+content:'';
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at top left, rgba(255,145,0,.20), transparent 30%),
+radial-gradient(circle at bottom right, rgba(255,170,0,.12), transparent 30%);
+z-index:-2;
 }
 
 body::after{
-    content:'';
-    position:fixed;
-    inset:0;
-    background-image:
-    linear-gradient(rgba(255,170,0,.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,170,0,.03) 1px, transparent 1px);
-    background-size:40px 40px;
-    z-index:-1;
+content:'';
+position:fixed;
+inset:0;
+background-image:
+linear-gradient(rgba(255,170,0,.03) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255,170,0,.03) 1px, transparent 1px);
+background-size:40px 40px;
+z-index:-1;
+}
+
+::-webkit-scrollbar{
+width:10px;
+}
+
+::-webkit-scrollbar-thumb{
+background:#ffb300;
+border-radius:20px;
 }
 
 header{
-    position:sticky;
-    top:0;
-    z-index:999;
-    background:#070b18;
-    border-bottom:1px solid rgba(255,170,0,.15);
+position:sticky;
+top:0;
+z-index:999;
+background:#070b18;
+border-bottom:1px solid rgba(255,170,0,.12);
+backdrop-filter:blur(12px);
 }
 
 .topbar{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:18px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:18px;
 }
 
 .logo-wrap{
-    display:flex;
-    align-items:center;
-    gap:14px;
+display:flex;
+align-items:center;
+gap:14px;
 }
 
 .menu-btn{
-    width:58px;
-    height:58px;
-    border:none;
-    border-radius:18px;
-    background:#09122d;
-    color:#ffb300;
-    font-size:30px;
-    cursor:pointer;
-    font-family:'MC';
+width:62px;
+height:62px;
+border:none;
+border-radius:18px;
+background:#09122d;
+color:#ffb300;
+font-size:30px;
+font-family:'MC';
+cursor:pointer;
+transition:.2s;
+}
+
+.menu-btn:hover{
+transform:scale(1.05);
+background:#ffb300;
+color:black;
 }
 
 .logo{
-    color:#ffb300;
-    font-size:26px;
-    line-height:1.1;
+font-size:30px;
+line-height:1;
+color:#ffb300;
+text-shadow:0 0 18px rgba(255,170,0,.35);
 }
 
 .telegram-btn{
-    background:#ffab00;
-    color:black;
-    text-decoration:none;
-    padding:18px 26px;
-    border-radius:18px;
-    font-size:18px;
+background:#ffb300;
+color:black;
+text-decoration:none;
+padding:18px 28px;
+border-radius:20px;
+font-size:18px;
+transition:.2s;
+}
+
+.telegram-btn:hover{
+transform:translateY(-2px);
+box-shadow:0 0 25px rgba(255,170,0,.35);
 }
 
 .sidebar{
-    position:fixed;
-    top:0;
-    left:-320px;
-    width:300px;
-    height:100%;
-    background:#050c1f;
-    border-right:1px solid rgba(255,170,0,.15);
-    transition:.25s;
-    z-index:1000;
-    padding:22px;
-    overflow:auto;
+position:fixed;
+top:0;
+left:-340px;
+width:320px;
+height:100%;
+background:#061026;
+border-right:1px solid rgba(255,170,0,.12);
+padding:24px;
+transition:.25s;
+z-index:1001;
+overflow:auto;
 }
 
 .sidebar.active{
-    left:0;
+left:0;
 }
 
 .sidebar-title{
-    color:#ffb300;
-    font-size:30px;
-    margin-bottom:25px;
+font-size:42px;
+line-height:1;
+color:#ffb300;
+margin-bottom:30px;
+}
+
+.side-category{
+font-size:16px;
+color:#8a8a8a;
+margin-bottom:14px;
+margin-top:10px;
+letter-spacing:2px;
 }
 
 .side-btn{
-    width:100%;
-    display:block;
-    background:#0a1433;
-    border:none;
-    color:white;
-    text-align:left;
-    padding:18px;
-    margin-bottom:14px;
-    border-radius:16px;
-    font-family:'MC';
-    font-size:18px;
-    cursor:pointer;
+width:100%;
+border:none;
+background:#08112f;
+color:white;
+padding:20px;
+border-radius:20px;
+margin-bottom:14px;
+font-family:'MC';
+font-size:18px;
+cursor:pointer;
+text-align:left;
+transition:.2s;
 }
 
 .side-btn:hover{
-    background:#ffab00;
-    color:black;
+background:#ffb300;
+color:black;
+transform:translateX(4px);
 }
 
 .overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.6);
-    display:none;
-    z-index:998;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.6);
+display:none;
+z-index:1000;
 }
 
 .overlay.active{
-    display:block;
+display:block;
 }
 
 .page{
-    display:none;
-    padding:22px;
-}
-
-.page.active{
-    display:block;
+padding:22px;
 }
 
 .hero{
-    background:#040b22;
-    border:1px solid rgba(255,170,0,.12);
-    border-radius:35px;
-    padding:35px;
-    box-shadow:0 0 35px rgba(255,145,0,.16);
-    margin-bottom:26px;
+background:#040b22;
+border:1px solid rgba(255,170,0,.12);
+border-radius:36px;
+padding:38px;
+margin-bottom:24px;
+box-shadow:0 0 40px rgba(255,145,0,.14);
+position:relative;
+overflow:hidden;
+}
+
+.hero::before{
+content:'';
+position:absolute;
+width:260px;
+height:260px;
+background:rgba(255,170,0,.08);
+border-radius:50%;
+top:-120px;
+right:-120px;
+filter:blur(20px);
 }
 
 .hero h1{
-    color:#ffb300;
-    font-size:72px;
-    line-height:.9;
-    margin-bottom:20px;
+font-size:86px;
+line-height:.9;
+margin-bottom:20px;
+color:#ffb300;
+position:relative;
+z-index:2;
 }
 
 .hero p{
-    color:#cfcfcf;
-    font-size:19px;
-    line-height:1.7;
+font-size:20px;
+line-height:1.7;
+color:#d0d0d0;
+max-width:900px;
+position:relative;
+z-index:2;
 }
 
-.current-kit{
-    background:#ffab00;
-    color:black;
-    display:inline-block;
-    padding:18px 30px;
-    border-radius:22px;
-    font-size:22px;
-    margin-bottom:24px;
-    box-shadow:0 0 18px rgba(255,170,0,.25);
+.hero-buttons{
+display:flex;
+gap:16px;
+margin-top:30px;
+flex-wrap:wrap;
+}
+
+.hero-btn{
+border:none;
+padding:20px 28px;
+border-radius:22px;
+background:#08112f;
+color:white;
+font-family:'MC';
+font-size:18px;
+cursor:pointer;
+transition:.2s;
+}
+
+.hero-btn.active{
+background:#ffb300;
+color:black;
+}
+
+.hero-btn:hover{
+transform:translateY(-2px);
+}
+
+.section-title{
+font-size:48px;
+margin-bottom:22px;
+color:#ffb300;
+text-shadow:0 0 20px rgba(255,170,0,.22);
 }
 
 .filters{
-    display:flex;
-    flex-direction:column;
-    gap:16px;
-    margin-bottom:20px;
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:16px;
+margin-bottom:24px;
 }
 
 .search,
 .select{
-    width:100%;
-    padding:22px;
-    background:#071030;
-    border:none;
-    border-radius:22px;
-    color:white;
-    font-size:18px;
-    font-family:'MC';
+width:100%;
+padding:22px;
+background:#071030;
+border:none;
+border-radius:22px;
+color:white;
+font-size:18px;
+font-family:'MC';
+outline:none;
 }
 
 .players{
-    display:flex;
-    flex-direction:column;
-    gap:22px;
+display:flex;
+flex-direction:column;
+gap:22px;
 }
 
 .player-card{
-    background:#040b22;
-    border:1px solid rgba(255,170,0,.12);
-    border-radius:32px;
-    padding:22px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    cursor:pointer;
-    transition:.2s;
+background:#040b22;
+border-radius:34px;
+padding:24px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+border:1px solid rgba(255,170,0,.12);
+cursor:pointer;
+transition:.2s;
+position:relative;
+overflow:hidden;
+}
+
+.player-card::before{
+content:'';
+position:absolute;
+inset:0;
+background:linear-gradient(90deg, rgba(255,170,0,.04), transparent);
+opacity:0;
+transition:.2s;
+}
+
+.player-card:hover::before{
+opacity:1;
 }
 
 .player-card:hover{
-    transform:translateY(-3px);
-    box-shadow:0 0 24px rgba(255,170,0,.12);
+transform:translateY(-3px);
+box-shadow:0 0 35px rgba(255,145,0,.14);
 }
 
 .player-left{
-    display:flex;
-    align-items:center;
-    gap:18px;
+display:flex;
+align-items:center;
+gap:18px;
+position:relative;
+z-index:2;
 }
 
 .rank{
-    width:80px;
-    height:80px;
-    background:#09112a;
-    border-radius:24px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#ffb300;
-    font-size:32px;
+width:90px;
+height:90px;
+border-radius:26px;
+background:#09112a;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:34px;
+color:#ffb300;
+box-shadow:0 0 25px rgba(255,170,0,.14);
 }
 
 .player-info h3{
-    font-size:36px;
-    margin-bottom:8px;
+font-size:40px;
+margin-bottom:8px;
 }
 
 .player-info span{
-    color:#b7b7b7;
-    font-size:16px;
+font-size:17px;
+color:#b8b8b8;
 }
 
 .player-right{
-    text-align:right;
+text-align:right;
+position:relative;
+z-index:2;
 }
 
 .player-tier{
-    background:#ffb300;
-    color:black;
-    padding:12px 18px;
-    border-radius:18px;
-    font-size:22px;
-    display:inline-block;
-    margin-bottom:10px;
+background:#ffb300;
+color:black;
+padding:12px 18px;
+border-radius:18px;
+display:inline-block;
+font-size:22px;
+margin-bottom:10px;
 }
 
 .player-pts{
-    color:#ffb300;
-    font-size:34px;
-    line-height:1;
+font-size:42px;
+color:#ffb300;
+line-height:1;
 }
 
 .player-pts small{
-    display:block;
-    font-size:16px;
-    color:#ffc95e;
+display:block;
+font-size:15px;
+color:#ffd978;
+margin-top:6px;
 }
 
-.section-title{
-    color:#ffb300;
-    font-size:42px;
-    margin-bottom:24px;
+.info-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:18px;
+margin-top:24px;
+margin-bottom:24px;
+}
+
+.info-box{
+background:#040b22;
+border-radius:28px;
+padding:28px;
+border:1px solid rgba(255,170,0,.10);
+}
+
+.info-box-title{
+font-size:18px;
+color:#8f8f8f;
+margin-bottom:12px;
+}
+
+.info-box-value{
+font-size:36px;
+color:#ffb300;
 }
 
 .text-card{
-    background:#040b22;
-    border-radius:28px;
-    padding:28px;
-    border:1px solid rgba(255,170,0,.1);
-    margin-bottom:22px;
-    line-height:1.7;
-    color:#d3d3d3;
-    font-size:18px;
+background:#040b22;
+border-radius:30px;
+padding:28px;
+border:1px solid rgba(255,170,0,.10);
+margin-bottom:20px;
+line-height:1.8;
+font-size:18px;
+color:#d0d0d0;
 }
 
-.tester{
-    background:#071030;
-    border-radius:24px;
-    padding:24px;
-    margin-bottom:16px;
-    border:1px solid rgba(255,170,0,.08);
+.tester-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:18px;
 }
 
-.tester-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:14px;
+.tester-card{
+background:#040b22;
+border-radius:30px;
+padding:28px;
+border:1px solid rgba(255,170,0,.10);
+transition:.2s;
+}
+
+.tester-card:hover{
+transform:translateY(-2px);
+box-shadow:0 0 30px rgba(255,170,0,.10);
 }
 
 .tester-name{
-    color:#ffb300;
-    font-size:24px;
+font-size:34px;
+color:#ffb300;
+margin-bottom:14px;
 }
 
-.tester-tier{
-    background:#ffab00;
-    color:black;
-    padding:10px 16px;
-    border-radius:14px;
-    font-size:18px;
+.tester-row{
+margin-bottom:10px;
+font-size:18px;
+color:#d0d0d0;
 }
 
-.tester-info{
-    color:#c9c9c9;
-    font-size:17px;
+.hof-grid{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:18px;
+}
+
+.hof-card{
+background:#040b22;
+border-radius:30px;
+padding:30px;
+border:1px solid rgba(255,170,0,.10);
+text-align:center;
+}
+
+.hof-rank{
+font-size:22px;
+color:#ffb300;
+margin-bottom:16px;
+}
+
+.hof-player{
+font-size:38px;
+margin-bottom:12px;
+}
+
+.hof-desc{
+font-size:17px;
+color:#c7c7c7;
+line-height:1.7;
 }
 
 .modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.7);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:1200;
-    padding:18px;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.72);
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+z-index:1200;
 }
 
 .modal.active{
-    display:flex;
+display:flex;
 }
 
 .modal-box{
-    width:100%;
-    max-width:720px;
-    background:linear-gradient(180deg,#071030,#040b22);
-    border-radius:38px;
-    padding:34px;
-    border:1px solid rgba(255,170,0,.14);
-    max-height:90vh;
-    overflow:auto;
-    box-shadow:
-    0 0 45px rgba(255,145,0,.18),
-    inset 0 0 20px rgba(255,170,0,.03);
+width:100%;
+max-width:760px;
+background:#040b22;
+border-radius:38px;
+padding:30px;
+border:1px solid rgba(255,170,0,.12);
+max-height:90vh;
+overflow:auto;
+position:relative;
 }
 
 .close{
-    float:right;
-    background:#09112a;
-    border:none;
-    width:60px;
-    height:60px;
-    border-radius:18px;
-    color:white;
-    font-size:30px;
-    cursor:pointer;
+position:absolute;
+top:20px;
+right:20px;
+width:60px;
+height:60px;
+border:none;
+border-radius:18px;
+background:#09112a;
+color:white;
+font-size:28px;
+font-family:'MC';
+cursor:pointer;
 }
 
-.modal-name{
-    font-size:64px;
-    color:#ffb300;
-    margin-top:45px;
-    margin-bottom:28px;
-    text-shadow:0 0 18px rgba(255,170,0,.28);
+.profile-header{
+margin-top:20px;
+margin-bottom:30px;
 }
 
-.info-row{
-    background:#071030;
-    border-radius:24px;
-    padding:24px;
-    margin-bottom:16px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    font-size:22px;
-    border:1px solid rgba(255,170,0,.06);
+.profile-name{
+font-size:70px;
+line-height:1;
+color:#ffb300;
+margin-bottom:14px;
+}
+
+.profile-sub{
+font-size:20px;
+color:#c2c2c2;
+}
+
+.profile-stats{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:18px;
+margin-bottom:24px;
+}
+
+.profile-stat{
+background:#071030;
+border-radius:26px;
+padding:24px;
+}
+
+.profile-stat-title{
+font-size:16px;
+color:#8d8d8d;
+margin-bottom:10px;
+}
+
+.profile-stat-value{
+font-size:34px;
+}
+
+.kits-title{
+font-size:34px;
+margin-bottom:18px;
+color:#ffb300;
 }
 
 .kit-row{
-    background:#071030;
-    border-radius:22px;
-    padding:24px;
-    margin-bottom:16px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    font-size:20px;
-    border:1px solid rgba(255,170,0,.05);
+background:#071030;
+border-radius:24px;
+padding:22px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:14px;
+font-size:22px;
+}
+
+.kit-tier{
+background:#ffb300;
+color:black;
+padding:10px 14px;
+border-radius:14px;
+}
+
+.footer{
+margin-top:50px;
+padding:30px;
+text-align:center;
+color:#8f8f8f;
+font-size:16px;
+}
+
+@media(max-width:1000px){
+
+.filters{
+grid-template-columns:1fr;
+}
+
+.hof-grid{
+grid-template-columns:1fr;
+}
+
+.tester-grid{
+grid-template-columns:1fr;
+}
+
 }
 
 @media(max-width:700px){
 
+.hero{
+padding:28px;
+}
+
 .hero h1{
-    font-size:58px;
+font-size:58px;
+}
+
+.logo{
+font-size:22px;
+}
+
+.player-card{
+flex-direction:column;
+align-items:flex-start;
+gap:20px;
+}
+
+.player-right{
+width:100%;
+text-align:left;
 }
 
 .player-info h3{
-    font-size:28px;
-}
-
-.player-pts{
-    font-size:28px;
+font-size:30px;
 }
 
 .rank{
-    width:70px;
-    height:70px;
-    font-size:28px;
+width:76px;
+height:76px;
+font-size:28px;
 }
 
-.modal-name{
-    font-size:48px;
+.player-pts{
+font-size:34px;
+}
+
+.section-title{
+font-size:38px;
+}
+
+.profile-name{
+font-size:48px;
+}
+
+.profile-stats{
+grid-template-columns:1fr;
+}
+
+.info-grid{
+grid-template-columns:1fr;
 }
 
 }
@@ -452,51 +684,109 @@ header{
 <div class="sidebar" id="sidebar">
 
 <div class="sidebar-title">
-MultiCraft<br>CIS Tiers
+MultiCraft<br>
+CIS Tiers
 </div>
 
-<button class="side-btn" onclick="showPage('leaderboard');closeSidebar()">
-Leaderboard
+<div class="side-category">
+MAIN KITS
+</div>
+
+<button class="side-btn">
+Overall
 </button>
 
-<button class="side-btn" onclick="showPage('hof');closeSidebar()">
+<button class="side-btn">
+Hardcore
+</button>
+
+<button class="side-btn">
+SMP
+</button>
+
+<button class="side-btn">
+UHC
+</button>
+
+<button class="side-btn">
+Lite
+</button>
+
+<button class="side-btn">
+Emerald Pot
+</button>
+
+<button class="side-btn">
+Emerald
+</button>
+
+<button class="side-btn">
+Dragonhide KB
+</button>
+
+<button class="side-btn">
+Dragonhide
+</button>
+
+<button class="side-btn">
+Diamond
+</button>
+
+<button class="side-btn">
+Wand
+</button>
+
+<div class="side-category">
+SUBTIERS
+</div>
+
+<button class="side-btn">
+Combo
+</button>
+
+<button class="side-btn">
+Gapple
+</button>
+
+<button class="side-btn">
+Mace
+</button>
+
+<button class="side-btn">
+Crystal
+</button>
+
+<button class="side-btn">
+Axe
+</button>
+
+<button class="side-btn">
+DeBuff
+</button>
+
+<button class="side-btn">
+Bed
+</button>
+
+<div class="side-category">
+OTHER
+</div>
+
+<button class="side-btn">
 Доска Почета
 </button>
 
-<button class="side-btn" onclick="showPage('testers');closeSidebar()">
+<button class="side-btn">
 Тиртестеры
 </button>
 
-<button class="side-btn" onclick="showPage('guide');closeSidebar()">
+<button class="side-btn">
 Как пройти тир-тест
 </button>
 
-<button class="side-btn" onclick="showPage('faq');closeSidebar()">
+<button class="side-btn">
 FAQ
 </button>
-
-<div class="sidebar-title" style="margin-top:35px;">
-KITS
-</div>
-
-<button class="side-btn" onclick="selectKit('Overall');closeSidebar()">Overall</button>
-<button class="side-btn" onclick="selectKit('Hardcore');closeSidebar()">Hardcore</button>
-<button class="side-btn" onclick="selectKit('SMP');closeSidebar()">SMP</button>
-<button class="side-btn" onclick="selectKit('UHC');closeSidebar()">UHC</button>
-<button class="side-btn" onclick="selectKit('Lite');closeSidebar()">Lite</button>
-<button class="side-btn" onclick="selectKit('Emerald Pot');closeSidebar()">Emerald Pot</button>
-<button class="side-btn" onclick="selectKit('Emerald');closeSidebar()">Emerald</button>
-<button class="side-btn" onclick="selectKit('Dragonhide KB');closeSidebar()">Dragonhide KB</button>
-<button class="side-btn" onclick="selectKit('Dragonhide');closeSidebar()">Dragonhide</button>
-<button class="side-btn" onclick="selectKit('Diamond');closeSidebar()">Diamond</button>
-<button class="side-btn" onclick="selectKit('Wand');closeSidebar()">Wand</button>
-<button class="side-btn" onclick="selectKit('Combo');closeSidebar()">Combo</button>
-<button class="side-btn" onclick="selectKit('Gapple');closeSidebar()">Gapple</button>
-<button class="side-btn" onclick="selectKit('Mace');closeSidebar()">Mace</button>
-<button class="side-btn" onclick="selectKit('Crystal');closeSidebar()">Crystal</button>
-<button class="side-btn" onclick="selectKit('Axe');closeSidebar()">Axe</button>
-<button class="side-btn" onclick="selectKit('DeBuff');closeSidebar()">DeBuff</button>
-<button class="side-btn" onclick="selectKit('Bed');closeSidebar()">Bed</button>
 
 </div>
 
@@ -511,14 +801,13 @@ KITS
 </button>
 
 <div class="logo">
-MultiCraft CIS<br>Tiers
+MultiCraft CIS<br>
+Tiers
 </div>
 
 </div>
 
-<a class="telegram-btn"
-href="https://t.me/MultiCraftCISTiers"
-target="_blank">
+<a class="telegram-btn" href="https://t.me/MultiCraftCISTiers" target="_blank">
 Telegram
 </a>
 
@@ -526,7 +815,7 @@ Telegram
 
 </header>
 
-<section class="page active" id="leaderboard">
+<section class="page">
 
 <div class="hero">
 
@@ -536,164 +825,837 @@ CIS Tiers
 </h1>
 
 <p>
-Официальная СНГ платформа для tier tests и PvP leaderboard системы MultiCraft.
+Официальная СНГ платформа для PvP tier tests и competitive leaderboard системы MultiCraft.
+Проходите тир-тесты, получайте ранги, занимайте места в overall leaderboard и становитесь частью лучшего CIS PvP сообщества.
 </p>
+
+<div class="hero-buttons">
+
+<button class="hero-btn active">
+OVERALL
+</button>
+
+<button class="hero-btn">
+MAIN TIERS
+</button>
+
+<button class="hero-btn">
+SUBTIERS
+</button>
 
 </div>
 
-<div class="current-kit">
-OVERALL
 </div>
 
 <div class="filters">
 
-<input class="search"
-id="searchInput"
-type="text"
-placeholder="Поиск игрока..."
-onkeyup="renderPlayers()">
+<input class="search" type="text" placeholder="Поиск игрока...">
 
-<select class="select"
-id="regionFilter"
-onchange="renderPlayers()">
+<select class="select">
 
-<option value="all">Все регионы СНГ</option>
-<option>KZ</option>
-<option>RU</option>
-<option>UA</option>
-<option>BY</option>
-<option>UZ</option>
-<option>KG</option>
-<option>AZ</option>
-<option>AM</option>
-<option>TJ</option>
-<option>TM</option>
-<option>MD</option>
+<option>
+Все регионы СНГ
+</option>
+
+<option>
+KZ
+</option>
+
+<option>
+RU
+</option>
+
+<option>
+UA
+</option>
+
+<option>
+BY
+</option>
+
+<option>
+UZ
+</option>
+
+<option>
+KG
+</option>
+
+<option>
+AZ
+</option>
+
+<option>
+AM
+</option>
+
+<option>
+TJ
+</option>
+
+<option>
+TM
+</option>
+
+<option>
+MD
+</option>
 
 </select>
 
-<select class="select"
-id="deviceFilter"
-onchange="renderPlayers()">
+<select class="select">
 
-<option value="all">Все устройства</option>
-<option>PC</option>
-<option>PH</option>
-<option>TB</option>
-<option>OTG</option>
+<option>
+Все устройства
+</option>
+
+<option>
+PC
+</option>
+
+<option>
+PH
+</option>
+
+<option>
+TB
+</option>
+
+<option>
+Controller
+</option>
+
+<option>
+OTG
+</option>
 
 </select>
 
 </div>
 
-<div class="players" id="playersContainer"></div>
+<div class="players">
 
-</section>
+<div class="player-card" onclick="openModal()">
 
-<section class="page" id="hof">
+<div class="player-left">
+
+<div class="rank">
+#1
+</div>
+
+<div class="player-info">
+
+<h3>
+NeoPvP
+</h3>
+
+<span>
+KZ • PC • 94% Winrate
+</span>
+
+</div>
+
+</div>
+
+<div class="player-right">
+
+<div class="player-tier">
+HT1
+</div>
+
+<div class="player-pts">
+700
+<small>PTS</small>
+</div>
+
+</div>
+
+</div>
+
+<div class="player-card">
+
+<div class="player-left">
+
+<div class="rank">
+#2
+</div>
+
+<div class="player-info">
+
+<h3>
+Blaze
+</h3>
+
+<span>
+RU • PH • 93% Winrate
+</span>
+
+</div>
+
+</div>
+
+<div class="player-right">
+
+<div class="player-tier">
+HT1
+</div>
+
+<div class="player-pts">
+694
+<small>PTS</small>
+</div>
+
+</div>
+
+</div>
+
+<div class="player-card">
+
+<div class="player-left">
+
+<div class="rank">
+#3
+</div>
+
+<div class="player-info">
+
+<h3>
+ReaperX
+</h3>
+
+<span>
+UA • TB • 91% Winrate
+</span>
+
+</div>
+
+</div>
+
+<div class="player-right">
+
+<div class="player-tier">
+HT2
+</div>
+
+<div class="player-pts">
+680
+<small>PTS</small>
+</div>
+
+</div>
+
+</div>
+
+<div class="player-card">
+
+<div class="player-left">
+
+<div class="rank">
+#4
+</div>
+
+<div class="player-info">
+
+<h3>
+DarkBlade
+</h3>
+
+<span>
+UZ • OTG • 89% Winrate
+</span>
+
+</div>
+
+</div>
+
+<div class="player-right">
+
+<div class="player-tier">
+HT2
+</div>
+
+<div class="player-pts">
+662
+<small>PTS</small>
+</div>
+
+</div>
+
+</div>
+
+<div class="player-card">
+
+<div class="player-left">
+
+<div class="rank">
+#5
+</div>
+
+<div class="player-info">
+
+<h3>
+Inferno
+</h3>
+
+<span>
+KZ • Controller • 88% Winrate
+</span>
+
+</div>
+
+</div>
+
+<div class="player-right">
+
+<div class="player-tier">
+LT1
+</div>
+
+<div class="player-pts">
+640
+<small>PTS</small>
+</div>
+
+</div>
+
+    </div>
+
+    <div class="player-card">
+
+<div class="player-left">
+
+<div class="rank">
+#6
+</div>
+
+<div class="player-info">
+
+<h3>
+Vortex
+</h3>
+
+<span>
+RU • PC • 87% Winrate
+</span>
+
+</div>
+
+</div>
+
+<div class="player-right">
+
+<div class="player-tier">
+LT1
+</div>
+
+<div class="player-pts">
+628
+<small>PTS</small>
+</div>
+
+</div>
+
+</div>
+
+<div class="player-card">
+
+<div class="player-left">
+
+<div class="rank">
+#7
+</div>
+
+<div class="player-info">
+
+<h3>
+SkyFall
+</h3>
+
+<span>
+BY • PH • 86% Winrate
+</span>
+
+</div>
+
+</div>
+
+<div class="player-right">
+
+<div class="player-tier">
+LT1
+</div>
+
+<div class="player-pts">
+615
+<small>PTS</small>
+</div>
+
+</div>
+
+</div>
+
+<div class="player-card">
+
+<div class="player-left">
+
+<div class="rank">
+#8
+</div>
+
+<div class="player-info">
+
+<h3>
+RageX
+</h3>
+
+<span>
+KG • Controller • 84% Winrate
+</span>
+
+</div>
+
+</div>
+
+<div class="player-right">
+
+<div class="player-tier">
+LT2
+</div>
+
+<div class="player-pts">
+600
+<small>PTS</small>
+</div>
+
+</div>
+
+</div>
+
+<div class="player-card">
+
+<div class="player-left">
+
+<div class="rank">
+#9
+</div>
+
+<div class="player-info">
+
+<h3>
+Stormer
+</h3>
+
+<span>
+AZ • TB • 83% Winrate
+</span>
+
+</div>
+
+</div>
+
+<div class="player-right">
+
+<div class="player-tier">
+LT2
+</div>
+
+<div class="player-pts">
+592
+<small>PTS</small>
+</div>
+
+</div>
+
+</div>
+
+<div class="player-card">
+
+<div class="player-left">
+
+<div class="rank">
+#10
+</div>
+
+<div class="player-info">
+
+<h3>
+GhostPvP
+</h3>
+
+<span>
+AM • PC • 82% Winrate
+</span>
+
+</div>
+
+</div>
+
+<div class="player-right">
+
+<div class="player-tier">
+LT2
+</div>
+
+<div class="player-pts">
+580
+<small>PTS</small>
+</div>
+
+</div>
+
+</div>
+
+<div class="player-card">
+
+<div class="player-left">
+
+<div class="rank">
+#11
+</div>
+
+<div class="player-info">
+
+<h3>
+Warden
+</h3>
+
+<span>
+TJ • OTG • 81% Winrate
+</span>
+
+</div>
+
+</div>
+
+<div class="player-right">
+
+<div class="player-tier">
+HT3
+</div>
+
+<div class="player-pts">
+570
+<small>PTS</small>
+</div>
+
+</div>
+
+</div>
+
+<div class="player-card">
+
+<div class="player-left">
+
+<div class="rank">
+#12
+</div>
+
+<div class="player-info">
+
+<h3>
+Xenon
+</h3>
+
+<span>
+TM • PH • 80% Winrate
+</span>
+
+</div>
+
+</div>
+
+<div class="player-right">
+
+<div class="player-tier">
+HT3
+</div>
+
+<div class="player-pts">
+560
+<small>PTS</small>
+</div>
+
+</div>
+
+</div>
+
+<div class="player-card">
+
+<div class="player-left">
+
+<div class="rank">
+#13
+</div>
+
+<div class="player-info">
+
+<h3>
+Kairo
+</h3>
+
+<span>
+MD • PC • 80% Winrate
+</span>
+
+</div>
+
+</div>
+
+<div class="player-right">
+
+<div class="player-tier">
+HT3
+</div>
+
+<div class="player-pts">
+552
+<small>PTS</small>
+</div>
+
+</div>
+
+</div>
+
+<div class="player-card">
+
+<div class="player-left">
+
+<div class="rank">
+#14
+</div>
+
+<div class="player-info">
+
+<h3>
+Void
+</h3>
+
+<span>
+KZ • Controller • 79% Winrate
+</span>
+
+</div>
+
+</div>
+
+<div class="player-right">
+
+<div class="player-tier">
+HT3
+</div>
+
+<div class="player-pts">
+545
+<small>PTS</small>
+</div>
+
+</div>
+
+</div>
+
+<div class="player-card">
+
+<div class="player-left">
+
+<div class="rank">
+#15
+</div>
+
+<div class="player-info">
+
+<h3>
+Venom
+</h3>
+
+<span>
+RU • TB • 79% Winrate
+</span>
+
+</div>
+
+</div>
+
+<div class="player-right">
+
+<div class="player-tier">
+HT4
+</div>
+
+<div class="player-pts">
+530
+<small>PTS</small>
+</div>
+
+</div>
+
+</div>
+
+</div>
 
 <h2 class="section-title">
 Доска Почета
 </h2>
 
-<div class="text-card">
-NeoPvP — лучший overall игрок сезона MultiCraft.
+<div class="hof-grid">
+
+<div class="hof-card">
+
+<div class="hof-rank">
+LEGEND
 </div>
 
-<div class="text-card">
-Blaze — легенда Emerald Pot и SMP.
+<div class="hof-player">
+NeoPvP
 </div>
 
-<div class="text-card">
-ReaperX — самый стабильный Hardcore игрок.
+<div class="hof-desc">
+Первый игрок проекта, достигший 700 overall points и HT1 overall.
+Один из самых сильных Hardcore и SMP игроков СНГ сообщества.
 </div>
 
-</section>
+</div>
 
-<section class="page" id="testers">
+<div class="hof-card">
 
-<h2 class="section-title">
+<div class="hof-rank">
+BEST POT
+</div>
+
+<div class="hof-player">
+Blaze
+</div>
+
+<div class="hof-desc">
+Легенда Emerald Pot и Diamond PvP.
+Показывает один из самых высоких винрейтов за историю проекта.
+</div>
+
+</div>
+
+<div class="hof-card">
+
+<div class="hof-rank">
+BEST UHC
+</div>
+
+<div class="hof-player">
+ReaperX
+</div>
+
+<div class="hof-desc">
+Самый стабильный UHC игрок проекта.
+Многократный лидер seasonal leaderboard.
+</div>
+
+</div>
+
+</div>
+
+<h2 class="section-title" style="margin-top:50px;">
 Тиртестеры
 </h2>
 
-<div class="tester">
+<div class="tester-grid">
 
-<div class="tester-top">
+<div class="tester-card">
 
 <div class="tester-name">
 Reaper
 </div>
 
-<div class="tester-tier">
-HT1
+<div class="tester-row">
+Устройства: PC / TB
+</div>
+
+<div class="tester-row">
+Тир: HT1
+</div>
+
+<div class="tester-row">
+Киты: Hardcore, UHC, Diamond
 </div>
 
 </div>
 
-<div class="tester-info">
-Устройства: PC • PH
-</div>
-
-</div>
-
-<div class="tester">
-
-<div class="tester-top">
+<div class="tester-card">
 
 <div class="tester-name">
 Blaze
 </div>
 
-<div class="tester-tier">
-LT1
+<div class="tester-row">
+Устройства: PH / OTG
+</div>
+
+<div class="tester-row">
+Тир: HT2
+</div>
+
+<div class="tester-row">
+Киты: SMP, Emerald Pot
 </div>
 
 </div>
 
-<div class="tester-info">
-Устройства: PH
-</div>
-
-</div>
-
-<div class="tester">
-
-<div class="tester-top">
+<div class="tester-card">
 
 <div class="tester-name">
 Inferno
 </div>
 
-<div class="tester-tier">
-HT2
+<div class="tester-row">
+Устройства: Controller / PC
+</div>
+
+<div class="tester-row">
+Тир: LT1
+</div>
+
+<div class="tester-row">
+Киты: Dragonhide, Crystal
 </div>
 
 </div>
 
-<div class="tester-info">
-Устройства: PC • TB
+<div class="tester-card">
+
+<div class="tester-name">
+Dark
+</div>
+
+<div class="tester-row">
+Устройства: PH / TB
+</div>
+
+<div class="tester-row">
+Тир: LT1
+</div>
+
+<div class="tester-row">
+Киты: Axe, Combo, Bed
 </div>
 
 </div>
 
-</section>
+</div>
 
-<section class="page" id="guide">
-
-<h2 class="section-title">
+<h2 class="section-title" style="margin-top:50px;">
 Как пройти тир-тест
 </h2>
 
 <div class="text-card">
-1. Подайте заявку в Telegram.<br><br>
-2. Дождитесь ответа тиртестера.<br><br>
-3. Зайдите на сервер и пройдите тест.<br><br>
-4. После проверки ваш тир будет добавлен на сайт.
+
+1. Подайте заявку через Telegram сервер проекта.<br><br>
+
+2. Дождитесь ответа свободного тиртестера.<br><br>
+
+3. Уточните устройство и кит, который хотите тестить.<br><br>
+
+4. Зайдите на сервер и пройдите проверку навыков PvP.<br><br>
+
+5. После завершения теста ваш результат будет занесён в leaderboard.
+
 </div>
-
-</section>
-
-<section class="page" id="faq">
 
 <h2 class="section-title">
 FAQ
@@ -705,13 +1667,27 @@ A: Да, через 7 дней после прошлого теста.
 </div>
 
 <div class="text-card">
-Q: Как попасть в overall?<br><br>
-A: Нужно иметь тиры минимум в нескольких китах.
+Q: Можно ли играть с телефона?<br><br>
+A: Да, поддерживаются PH, TB, OTG и Controller устройства.
 </div>
 
 <div class="text-card">
-Q: Можно ли играть с телефона?<br><br>
-A: Да, устройство указывается в профиле игрока.
+Q: Как попасть в overall leaderboard?<br><br>
+A: Нужно иметь результаты сразу в нескольких китах.
+</div>
+
+<div class="text-card">
+Q: Кто добавляет игроков на сайт?<br><br>
+A: Только официальные тиртестеры проекта.
+</div>
+
+<div class="text-card">
+Q: Что делать если результат неверный?<br><br>
+A: Свяжитесь с тиртестером и запросите повторную проверку.
+</div>
+
+<div class="footer">
+MultiCraft CIS Tiers © 2025
 </div>
 
 </section>
@@ -724,31 +1700,117 @@ A: Да, устройство указывается в профиле игро�
 ✕
 </button>
 
-<div class="modal-name" id="modalName">
+<div class="profile-header">
+
+<div class="profile-name">
 NeoPvP
 </div>
 
-<div class="info-row">
-<span>Регион</span>
-<span id="modalRegion"></span>
+<div class="profile-sub">
+KZ • PC • Overall Leaderboard Player
 </div>
 
-<div class="info-row">
-<span>Устройство</span>
-<span id="modalDevice"></span>
 </div>
 
-<div class="info-row">
-<span>Overall</span>
-<span id="modalTier"></span>
+<div class="profile-stats">
+
+<div class="profile-stat">
+
+<div class="profile-stat-title">
+Overall Tier
 </div>
 
-<div class="info-row">
-<span>Очки</span>
-<span id="modalPts"></span>
+<div class="profile-stat-value">
+HT1
 </div>
 
-<div id="modalKits"></div>
+</div>
+
+<div class="profile-stat">
+
+<div class="profile-stat-title">
+Points
+</div>
+
+<div class="profile-stat-value">
+700 PTS
+</div>
+
+</div>
+
+<div class="profile-stat">
+
+<div class="profile-stat-title">
+Winrate
+</div>
+
+<div class="profile-stat-value">
+94%
+</div>
+
+</div>
+
+<div class="profile-stat">
+
+<div class="profile-stat-title">
+Device
+</div>
+
+<div class="profile-stat-value">
+PC
+</div>
+
+</div>
+
+</div>
+
+<div class="kits-title">
+Main Kits
+</div>
+
+<div class="kit-row">
+<span>Hardcore</span>
+<span class="kit-tier">HT1</span>
+</div>
+
+<div class="kit-row">
+<span>SMP</span>
+<span class="kit-tier">HT1</span>
+</div>
+
+<div class="kit-row">
+<span>UHC</span>
+<span class="kit-tier">HT2</span>
+</div>
+
+<div class="kit-row">
+<span>Emerald Pot</span>
+<span class="kit-tier">LT1</span>
+</div>
+
+<div class="kit-row">
+<span>Dragonhide</span>
+<span class="kit-tier">HT2</span>
+</div>
+
+<div class="kits-title" style="margin-top:28px;">
+Subtiers
+</div>
+
+<div class="kit-row">
+<span>Combo</span>
+<span class="kit-tier">HT2</span>
+</div>
+
+<div class="kit-row">
+<span>Crystal</span>
+<span class="kit-tier">LT1</span>
+</div>
+
+<div class="kit-row">
+<span>Axe</span>
+<span class="kit-tier">LT2</span>
+</div>
 
 </div>
 
@@ -756,237 +1818,31 @@ NeoPvP
 
 <script>
 
-let currentKit = 'Overall';
-
-const players = [
-
-{
-name:'NeoPvP',
-region:'KZ',
-device:'PC',
-points:680,
-overall:'HT2',
-kits:{
-'Hardcore':'HT2 • Reaper',
-'SMP':'LT1 • Blaze',
-'UHC':'HT3 • Inferno',
-'Dragonhide':'HT2 • Dark'
-}
-},
-
-{
-name:'Blaze',
-region:'RU',
-device:'PH',
-points:650,
-overall:'HT2',
-kits:{
-'Hardcore':'HT2 • Reaper',
-'SMP':'HT2 • Blaze',
-'UHC':'LT1 • Inferno'
-}
-},
-
-{
-name:'ReaperX',
-region:'UA',
-device:'TB',
-points:620,
-overall:'LT1',
-kits:{
-'Hardcore':'LT1 • Reaper',
-'Emerald Pot':'HT2 • Blaze'
-}
-},
-
-{
-name:'DarkBlade',
-region:'UZ',
-device:'OTG',
-points:590,
-overall:'LT2',
-kits:{
-'Dragonhide':'HT2 • Inferno',
-'Diamond':'LT1 • Reaper'
-}
-}
-
-];
-
 function openSidebar(){
+
 document.getElementById('sidebar').classList.add('active');
 document.getElementById('overlay').classList.add('active');
+
 }
 
 function closeSidebar(){
+
 document.getElementById('sidebar').classList.remove('active');
 document.getElementById('overlay').classList.remove('active');
-}
-
-function showPage(id){
-
-document.querySelectorAll('.page').forEach(p=>{
-p.classList.remove('active');
-});
-
-document.getElementById(id).classList.add('active');
-
-window.scrollTo(0,0);
 
 }
 
-function selectKit(kit){
+function openModal(){
 
-currentKit = kit;
-
-document.querySelector('.current-kit').innerText =
-kit.toUpperCase();
-
-renderPlayers();
-
-}
-
-function renderPlayers(){
-
-const container =
-document.getElementById('playersContainer');
-
-const search =
-document.getElementById('searchInput')
-.value.toLowerCase();
-
-const region =
-document.getElementById('regionFilter').value;
-
-const device =
-document.getElementById('deviceFilter').value;
-
-container.innerHTML='';
-
-players
-.filter(p=>{
-
-const matchSearch =
-p.name.toLowerCase().includes(search);
-
-const matchRegion =
-region==='all' || p.region===region;
-
-const matchDevice =
-device==='all' || p.device===device;
-
-if(currentKit === 'Overall'){
-return matchSearch && matchRegion && matchDevice;
-}
-
-return matchSearch &&
-matchRegion &&
-matchDevice &&
-p.kits[currentKit];
-
-})
-.forEach((p,index)=>{
-
-const tier =
-currentKit === 'Overall'
-? p.overall
-: p.kits[currentKit];
-
-container.innerHTML += `
-
-<div class="player-card"
-onclick='openPlayer(${JSON.stringify(p)})'>
-
-<div class="player-left">
-
-<div class="rank">
-#${index+1}
-</div>
-
-<div class="player-info">
-
-<h3>${p.name}</h3>
-
-<span>
-${p.region} • ${p.device}
-</span>
-
-</div>
-
-</div>
-
-<div class="player-right">
-
-<div class="player-tier">
-${tier}
-</div>
-
-<div class="player-pts">
-${p.points}
-<small>PTS</small>
-</div>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-}
-
-function openPlayer(player){
-
-document.getElementById('playerModal')
-.classList.add('active');
-
-document.getElementById('modalName')
-.innerText = player.name;
-
-document.getElementById('modalRegion')
-.innerText = player.region;
-
-document.getElementById('modalDevice')
-.innerText = player.device;
-
-document.getElementById('modalTier')
-.innerText = player.overall;
-
-document.getElementById('modalPts')
-.innerText = player.points;
-
-let kitsHTML='';
-
-for(let kit in player.kits){
-
-kitsHTML += `
-
-<div class="kit-row">
-
-<span>${kit}</span>
-
-<span>${player.kits[kit]}</span>
-
-</div>
-
-`;
-
-}
-
-document.getElementById('modalKits')
-.innerHTML = kitsHTML;
+document.getElementById('playerModal').classList.add('active');
 
 }
 
 function closeModal(){
 
-document.getElementById('playerModal')
-.classList.remove('active');
+document.getElementById('playerModal').classList.remove('active');
 
 }
-
-renderPlayers();
 
 </script>
 
