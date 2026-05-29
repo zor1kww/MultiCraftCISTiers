@@ -3,1179 +3,1229 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 <title>MultiCraft CIS Tiers</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
 
 <style>
 
 @font-face{
-font-family:'MC';
-src:url('fonts/MultiCraftFont.ttf');
+    font-family:"MultiCraft";
+    src:url("assets/MultiCraftFont.ttf") format("truetype");
 }
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"MultiCraft",sans-serif;
 }
 
 html{
-scroll-behavior:smooth;
+    scroll-behavior:smooth;
 }
 
 body{
-background:#050505;
-color:white;
-font-family:'MC',sans-serif;
-overflow-x:hidden;
+    overflow-x:hidden;
+    background:
+    radial-gradient(circle at top left,
+    rgba(255,170,0,0.14),transparent 30%),
+    radial-gradient(circle at bottom right,
+    rgba(255,120,0,0.08),transparent 30%),
+    #06080f;
+    color:white;
 }
 
 body::before{
-content:'';
-position:fixed;
-inset:0;
-background:
-radial-gradient(circle at top left, rgba(255,145,0,.18), transparent 30%),
-radial-gradient(circle at bottom right, rgba(255,170,0,.10), transparent 30%);
-z-index:-2;
+    content:"";
+    position:fixed;
+    inset:0;
+
+    background:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+
+    background-size:40px 40px;
+
+    pointer-events:none;
 }
 
-body::after{
-content:'';
-position:fixed;
-inset:0;
-background-image:
-linear-gradient(rgba(255,170,0,.025) 1px, transparent 1px),
-linear-gradient(90deg, rgba(255,170,0,.025) 1px, transparent 1px);
-background-size:40px 40px;
-z-index:-1;
+.header{
+    position:sticky;
+    top:0;
+    z-index:999;
+
+    backdrop-filter:blur(16px);
+
+    background:rgba(5,8,15,0.86);
+
+    border-bottom:1px solid rgba(255,255,255,0.05);
 }
 
-::-webkit-scrollbar{
-width:10px;
-}
-
-::-webkit-scrollbar-thumb{
-background:#ffb300;
-border-radius:20px;
-}
-
-header{
-position:sticky;
-top:0;
-z-index:999;
-background:rgba(5,10,22,.78);
-backdrop-filter:blur(18px);
-border-bottom:1px solid rgba(255,170,0,.08);
-}
-
-.topbar{
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:16px 22px;
-gap:16px;
-}
-
-.logo-wrap{
-display:flex;
-align-items:center;
-gap:14px;
-}
-
-.menu-btn{
-width:58px;
-height:58px;
-border:none;
-border-radius:18px;
-background:#09122d;
-color:#ffb300;
-font-size:28px;
-font-family:'MC';
-cursor:pointer;
-transition:.22s;
-box-shadow:0 0 18px rgba(255,170,0,.10);
-}
-
-.menu-btn:hover{
-transform:translateY(-2px);
-background:#ffb300;
-color:black;
+.nav-wrapper{
+    max-width:1450px;
+    margin:auto;
+    padding:14px 18px;
 }
 
 .logo{
-font-size:28px;
-line-height:1;
-color:#ffb300;
-text-shadow:0 0 18px rgba(255,170,0,.35);
+    font-size:38px;
+
+    background:
+    linear-gradient(to right,#ffb300,#fff2b8);
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
 }
 
-.telegram-btn{
-background:#ffb300;
-color:black;
-text-decoration:none;
-padding:16px 24px;
-border-radius:18px;
-font-size:17px;
-transition:.22s;
-box-shadow:0 0 20px rgba(255,170,0,.18);
+.nav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:14px;
 }
 
-.telegram-btn:hover{
-transform:translateY(-2px);
-box-shadow:0 0 30px rgba(255,170,0,.35);
+.nav a{
+    text-decoration:none;
+    color:white;
+
+    background:#111827;
+
+    border:1px solid rgba(255,255,255,0.05);
+
+    padding:13px 18px;
+
+    border-radius:18px;
+
+    transition:0.25s;
 }
 
-.overlay{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.72);
-display:none;
-z-index:1000;
-backdrop-filter:blur(3px);
-}
+.nav a:hover{
+    transform:translateY(-2px);
 
-.overlay.active{
-display:block;
-}
+    border-color:rgba(255,179,0,0.3);
 
-.sidebar{
-position:fixed;
-top:0;
-left:-340px;
-width:320px;
-height:100%;
-background:rgba(6,16,38,.95);
-backdrop-filter:blur(20px);
-border-right:1px solid rgba(255,170,0,.10);
-padding:24px;
-transition:.28s;
-z-index:1001;
-overflow:auto;
-}
-
-.sidebar.active{
-left:0;
-}
-
-.sidebar::-webkit-scrollbar{
-width:6px;
-}
-
-.sidebar-title{
-font-size:40px;
-line-height:1;
-color:#ffb300;
-margin-bottom:30px;
-text-shadow:0 0 18px rgba(255,170,0,.25);
-}
-
-.side-category{
-font-size:15px;
-letter-spacing:2px;
-color:#868686;
-margin-bottom:14px;
-margin-top:18px;
-padding-left:6px;
-}
-
-.side-btn{
-width:100%;
-border:none;
-background:rgba(9,17,42,.88);
-color:white;
-padding:18px 20px;
-border-radius:18px;
-margin-bottom:12px;
-font-family:'MC';
-font-size:17px;
-cursor:pointer;
-text-align:left;
-transition:.22s;
-border:1px solid rgba(255,170,0,.05);
-}
-
-.side-btn:hover{
-background:#ffb300;
-color:black;
-transform:translateX(5px);
-box-shadow:0 0 20px rgba(255,170,0,.18);
-}
-
-.page{
-padding:24px;
-max-width:1700px;
-margin:auto;
+    background:#1a2233;
 }
 
 .hero{
-position:relative;
-overflow:hidden;
-background:rgba(4,11,34,.88);
-border:1px solid rgba(255,170,0,.10);
-border-radius:36px;
-padding:42px;
-margin-bottom:24px;
-box-shadow:
-0 0 40px rgba(255,145,0,.10),
-inset 0 0 0 1px rgba(255,255,255,.02);
+    max-width:1450px;
+    margin:auto;
+
+    padding:42px 20px 24px;
 }
 
-.hero::before{
-content:'';
-position:absolute;
-width:320px;
-height:320px;
-background:rgba(255,170,0,.08);
-border-radius:50%;
-top:-160px;
-right:-140px;
-filter:blur(20px);
+.hero-box{
+    position:relative;
+    overflow:hidden;
+
+    border-radius:38px;
+
+    padding:58px;
+
+    background:
+    linear-gradient(145deg,
+    rgba(15,20,32,0.98),
+    rgba(8,10,18,0.98));
+
+    border:1px solid rgba(255,255,255,0.05);
+
+    box-shadow:
+    0 0 60px rgba(255,179,0,0.08),
+    inset 0 0 50px rgba(255,255,255,0.02);
 }
 
-.hero h1{
-font-size:84px;
-line-height:.9;
-margin-bottom:22px;
-color:#ffb300;
-position:relative;
-z-index:2;
+.hero-box::after{
+    content:"";
+
+    position:absolute;
+
+    width:520px;
+    height:520px;
+
+    right:-170px;
+    top:-170px;
+
+    background:
+    radial-gradient(circle,
+    rgba(255,179,0,0.18),
+    transparent 70%);
 }
 
-.hero p{
-font-size:18px;
-line-height:1.9;
-max-width:920px;
-color:#d0d0d0;
-position:relative;
-z-index:2;
+.hero-title{
+    position:relative;
+    z-index:2;
+
+    font-size:90px;
+    line-height:0.9;
+
+    background:
+    linear-gradient(to right,#ffb300,#fff2b8);
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.hero-sub{
+    position:relative;
+    z-index:2;
+
+    max-width:760px;
+
+    margin-top:24px;
+
+    color:#9d9d9d;
+
+    line-height:2;
 }
 
 .hero-buttons{
-display:flex;
-gap:14px;
-margin-top:28px;
-flex-wrap:wrap;
-position:relative;
-z-index:2;
+    position:relative;
+    z-index:2;
+
+    display:flex;
+    flex-wrap:wrap;
+
+    gap:14px;
+
+    margin-top:34px;
 }
 
-.hero-btn{
-border:none;
-padding:18px 24px;
-border-radius:18px;
-background:#08112f;
-color:white;
-font-family:'MC';
-font-size:16px;
-cursor:pointer;
-transition:.22s;
-border:1px solid rgba(255,170,0,.05);
+.hero-buttons a{
+    text-decoration:none;
+
+    padding:18px 24px;
+
+    border-radius:22px;
+
+    transition:0.25s;
 }
 
-.hero-btn:hover{
-transform:translateY(-2px);
+.primary-btn{
+    background:
+    linear-gradient(to right,#ffb300,#ffd54f);
+
+    color:black;
+
+    box-shadow:
+    0 0 30px rgba(255,179,0,0.22);
 }
 
-.hero-btn.active{
-background:#ffb300;
-color:black;
-box-shadow:0 0 20px rgba(255,170,0,.25);
+.secondary-btn{
+    background:#111827;
+
+    color:white;
+
+    border:1px solid rgba(255,255,255,0.05);
+}
+
+.hero-buttons a:hover{
+    transform:translateY(-3px);
+}
+
+.section{
+    max-width:1450px;
+    margin:auto;
+
+    padding:46px 20px;
 }
 
 .section-title{
-font-size:44px;
-margin-bottom:22px;
-color:#ffb300;
-text-shadow:0 0 16px rgba(255,170,0,.20);
+    font-size:54px;
+
+    background:
+    linear-gradient(to right,#ffb300,#fff2b8);
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.section-sub{
+    margin-top:12px;
+
+    color:#9d9d9d;
+
+    line-height:1.9;
 }
 
 .filters{
-display:grid;
-grid-template-columns:1.5fr 1fr 1fr;
-gap:16px;
-margin-bottom:24px;
+    margin-top:28px;
+
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+
+    gap:14px;
 }
 
-.search,
-.select{
-width:100%;
-padding:20px;
-background:rgba(7,16,48,.92);
-border:1px solid rgba(255,170,0,.06);
-border-radius:22px;
-color:white;
-font-size:17px;
-font-family:'MC';
-outline:none;
-transition:.2s;
+.filters input,
+.filters select{
+    background:#101827;
+
+    border:none;
+
+    color:white;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    outline:none;
+
+    border:1px solid rgba(255,255,255,0.05);
 }
 
-.search:focus,
-.select:focus{
-border-color:rgba(255,170,0,.30);
-box-shadow:0 0 20px rgba(255,170,0,.12);
+.mode-tabs{
+    display:flex;
+    flex-wrap:wrap;
+
+    gap:12px;
+
+    margin-top:24px;
+    margin-bottom:28px;
 }
 
-.players{
-display:flex;
-flex-direction:column;
-gap:18px;
+.mode-tabs button{
+    border:none;
+    cursor:pointer;
+
+    background:#101827;
+
+    color:white;
+
+    padding:15px 20px;
+
+    border-radius:18px;
+
+    transition:0.25s;
+
+    border:1px solid rgba(255,255,255,0.05);
+}
+
+.mode-tabs button:hover{
+    transform:translateY(-2px);
+
+    border-color:rgba(255,179,0,0.3);
+}
+
+.active-mode{
+    background:
+    linear-gradient(to right,#ffb300,#ffd54f)!important;
+
+    color:black!important;
+}
+
+.players-container{
+    display:flex;
+    flex-direction:column;
+
+    gap:16px;
+
+    max-height:950px;
+
+    overflow-y:auto;
 }
 
 .player-card{
-background:rgba(4,11,34,.86);
-border:1px solid rgba(255,170,0,.08);
-border-radius:28px;
-padding:22px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-cursor:pointer;
-transition:.22s;
-position:relative;
-overflow:hidden;
-backdrop-filter:blur(10px);
-}
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 
-.player-card::before{
-content:'';
-position:absolute;
-inset:0;
-background:linear-gradient(90deg, rgba(255,170,0,.04), transparent);
-opacity:0;
-transition:.22s;
-}
+    gap:18px;
 
-.player-card:hover::before{
-opacity:1;
+    background:#0f1422;
+
+    border-radius:28px;
+
+    padding:22px;
+
+    border:1px solid rgba(255,255,255,0.05);
+
+    transition:0.25s;
+
+    cursor:pointer;
 }
 
 .player-card:hover{
-transform:translateY(-3px);
-box-shadow:0 0 35px rgba(255,145,0,.12);
-border-color:rgba(255,170,0,.18);
+    transform:translateY(-2px);
+
+    border-color:rgba(255,179,0,0.24);
 }
 
 .player-left{
-display:flex;
-align-items:center;
-gap:18px;
-position:relative;
-z-index:2;
-min-width:0;
+    display:flex;
+    align-items:center;
+    gap:18px;
 }
 
 .rank{
-width:84px;
-height:84px;
-border-radius:24px;
-background:#09112a;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:30px;
-color:#ffb300;
-flex-shrink:0;
-box-shadow:0 0 24px rgba(255,170,0,.10);
+    font-size:30px;
+    color:#ffd166;
+
+    min-width:65px;
+}
+
+.player-nick{
+    font-size:30px;
 }
 
 .player-info{
-min-width:0;
-}
+    margin-top:8px;
 
-.player-info h3{
-font-size:36px;
-margin-bottom:8px;
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis;
-}
+    color:#999;
 
-.player-info span{
-font-size:16px;
-color:#b7b7b7;
+    font-size:14px;
 }
 
 .player-right{
-text-align:right;
-position:relative;
-z-index:2;
-flex-shrink:0;
+    display:flex;
+    align-items:center;
+    gap:16px;
 }
 
 .player-tier{
-display:inline-block;
-background:#ffb300;
-color:black;
-padding:10px 16px;
-border-radius:16px;
-font-size:20px;
-margin-bottom:10px;
+    background:
+    linear-gradient(to right,#ffb300,#ffd54f);
+
+    color:black;
+
+    padding:12px 16px;
+
+    border-radius:16px;
 }
 
-.player-pts{
-font-size:38px;
-color:#ffb300;
-line-height:1;
-}
-
-.player-pts small{
-display:block;
-font-size:14px;
-margin-top:6px;
-color:#ffd978;
+.player-points{
+    color:#ffe082;
 }
 
 .info-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:18px;
-margin-top:24px;
-margin-bottom:24px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+
+    gap:18px;
+
+    margin-top:28px;
 }
 
-.info-box,
-.text-card,
-.tester-card,
-.hof-card{
-background:rgba(4,11,34,.86);
-backdrop-filter:blur(12px);
-border:1px solid rgba(255,170,0,.08);
-box-shadow:0 0 24px rgba(255,145,0,.06);
+.info-card{
+    background:#0f1422;
+
+    border-radius:28px;
+
+    padding:30px;
+
+    border:1px solid rgba(255,255,255,0.05);
 }
 
-.info-box{
-border-radius:28px;
-padding:28px;
+.info-title{
+    font-size:30px;
+
+    color:#ffd166;
+
+    margin-bottom:16px;
 }
 
-.info-box-title{
-font-size:17px;
-color:#8f8f8f;
-margin-bottom:10px;
-}
+.info-text{
+    color:#9d9d9d;
 
-.info-box-value{
-font-size:34px;
-color:#ffb300;
-}
-
-.text-card{
-border-radius:28px;
-padding:28px;
-line-height:1.9;
-font-size:17px;
-color:#d0d0d0;
-margin-bottom:18px;
-}
-
-.tester-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:18px;
-}
-
-.tester-card{
-border-radius:28px;
-padding:28px;
-transition:.22s;
-}
-
-.tester-card:hover{
-transform:translateY(-2px);
-box-shadow:0 0 30px rgba(255,170,0,.10);
-}
-
-.tester-name{
-font-size:32px;
-color:#ffb300;
-margin-bottom:14px;
-}
-
-.tester-row{
-margin-bottom:10px;
-font-size:17px;
-color:#d0d0d0;
-line-height:1.7;
-}
-
-.hof-grid{
-display:grid;
-grid-template-columns:1fr 1fr 1fr;
-gap:18px;
-}
-
-.hof-card{
-border-radius:28px;
-padding:30px;
-text-align:center;
-}
-
-.hof-rank{
-font-size:20px;
-color:#ffb300;
-margin-bottom:14px;
-}
-
-.hof-player{
-font-size:36px;
-margin-bottom:12px;
-}
-
-.hof-desc{
-font-size:16px;
-line-height:1.8;
-color:#c7c7c7;
+    line-height:2;
 }
 
 .modal{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.78);
-display:none;
-align-items:center;
-justify-content:center;
-padding:20px;
-z-index:1200;
-backdrop-filter:blur(5px);
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,0.7);
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    z-index:9999;
 }
 
-.modal.active{
-display:flex;
+.modal-content{
+    width:95%;
+    max-width:700px;
+
+    background:#0f1422;
+
+    border-radius:30px;
+
+    padding:34px;
+
+    border:1px solid rgba(255,255,255,0.05);
 }
 
-.modal-box{
-width:100%;
-max-width:780px;
-max-height:90vh;
-overflow:auto;
-background:rgba(4,11,34,.94);
-border-radius:34px;
-padding:30px;
-border:1px solid rgba(255,170,0,.10);
-position:relative;
-box-shadow:0 0 50px rgba(255,145,0,.12);
+.modal-title{
+    font-size:42px;
+
+    color:#ffd166;
+
+    margin-bottom:18px;
 }
 
-.close{
-position:absolute;
-top:20px;
-right:20px;
-width:56px;
-height:56px;
-border:none;
-border-radius:18px;
-background:#09112a;
-color:white;
-font-size:24px;
-font-family:'MC';
-cursor:pointer;
-transition:.2s;
+.modal-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
 }
 
-.close:hover{
-background:#ffb300;
-color:black;
+.modal-kit{
+    background:#111827;
+
+    padding:16px;
+
+    border-radius:18px;
 }
 
-.profile-header{
-margin-top:18px;
-margin-bottom:28px;
-}
+.close-btn{
+    margin-top:24px;
 
-.profile-name{
-font-size:64px;
-line-height:1;
-margin-bottom:12px;
-color:#ffb300;
-word-break:break-word;
-}
+    background:
+    linear-gradient(to right,#ffb300,#ffd54f);
 
-.profile-sub{
-font-size:18px;
-color:#c2c2c2;
-line-height:1.7;
-}
+    color:black;
 
-.profile-stats{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:16px;
-margin-bottom:24px;
-}
+    border:none;
 
-.profile-stat{
-background:#071030;
-border-radius:24px;
-padding:24px;
-border:1px solid rgba(255,170,0,.06);
-}
+    padding:16px 22px;
 
-.profile-stat-title{
-font-size:15px;
-color:#8d8d8d;
-margin-bottom:10px;
-}
+    border-radius:18px;
 
-.profile-stat-value{
-font-size:32px;
-word-break:break-word;
-}
-
-.kits-title{
-font-size:32px;
-margin-bottom:18px;
-color:#ffb300;
-}
-
-.kit-row{
-background:#071030;
-border-radius:22px;
-padding:20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:16px;
-margin-bottom:12px;
-font-size:20px;
-border:1px solid rgba(255,170,0,.04);
-}
-
-.kit-row span:first-child{
-word-break:break-word;
-}
-
-.kit-tier{
-background:#ffb300;
-color:black;
-padding:9px 14px;
-border-radius:14px;
-flex-shrink:0;
+    cursor:pointer;
 }
 
 .footer{
-margin-top:50px;
-padding:30px;
-text-align:center;
-font-size:15px;
-color:#8f8f8f;
+    margin-top:40px;
+
+    border-top:1px solid rgba(255,255,255,0.05);
+
+    padding:40px 20px;
+
+    text-align:center;
+
+    color:#888;
 }
 
-@media(max-width:1100px){
+@media(max-width:1000px){
 
-.filters{
-grid-template-columns:1fr;
-}
+    .hero-title{
+        font-size:62px;
+    }
 
-.hof-grid{
-grid-template-columns:1fr;
-}
-
-.tester-grid{
-grid-template-columns:1fr;
-}
-
-.hero h1{
-font-size:68px;
-}
+    .info-grid{
+        grid-template-columns:1fr;
+    }
 
 }
 
-@media(max-width:700px){
+@media(max-width:760px){
 
-.page{
-padding:16px;
-}
+    .hero-box{
+        padding:30px;
+    }
 
-.topbar{
-padding:14px 16px;
-}
+    .hero-title{
+        font-size:42px;
+    }
 
-.logo{
-font-size:21px;
-}
+    .filters{
+        grid-template-columns:1fr;
+    }
 
-.telegram-btn{
-padding:14px 18px;
-font-size:15px;
-}
+    .player-card{
+        flex-direction:column;
+        align-items:flex-start;
+    }
 
-.sidebar{
-width:290px;
-left:-310px;
-padding:20px;
-}
+    .player-right{
+        width:100%;
+        justify-content:space-between;
+    }
 
-.hero{
-padding:26px;
-border-radius:28px;
-}
+    .section-title{
+        font-size:38px;
+    }
 
-.hero h1{
-font-size:52px;
-}
-
-.hero p{
-font-size:16px;
-line-height:1.8;
-}
-
-.hero-buttons{
-flex-direction:column;
-}
-
-.hero-btn{
-width:100%;
-}
-
-.section-title{
-font-size:34px;
-}
-
-.player-card{
-flex-direction:column;
-align-items:flex-start;
-gap:20px;
-padding:20px;
-}
-
-.player-right{
-width:100%;
-text-align:left;
-}
-
-.player-info h3{
-font-size:28px;
-}
-
-.rank{
-width:72px;
-height:72px;
-font-size:24px;
-border-radius:20px;
-}
-
-.player-pts{
-font-size:30px;
-}
-
-.info-grid{
-grid-template-columns:1fr;
-}
-
-.profile-name{
-font-size:44px;
-}
-
-.profile-stats{
-grid-template-columns:1fr;
-}
-
-.modal-box{
-padding:24px;
-border-radius:28px;
-}
-
-.kit-row{
-font-size:17px;
-padding:18px;
-}
+    .modal-grid{
+        grid-template-columns:1fr;
+    }
 
 }
 
 </style>
 </head>
-
 <body>
 
-<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+<header class="header">
 
-<div class="sidebar" id="sidebar">
-
-<div class="sidebar-title">
-MultiCraft<br>
-CIS Tiers
-</div>
-
-<div class="side-category">
-MAIN KITS
-</div>
-
-<button class="side-btn">Overall</button>
-<button class="side-btn">Hardcore</button>
-<button class="side-btn">SMP</button>
-<button class="side-btn">UHC</button>
-<button class="side-btn">Lite</button>
-<button class="side-btn">Emerald Pot</button>
-<button class="side-btn">Emerald</button>
-<button class="side-btn">Dragonhide KB</button>
-<button class="side-btn">Dragonhide</button>
-<button class="side-btn">Diamond</button>
-<button class="side-btn">Wand</button>
-
-<div class="side-category">
-SUBTIERS
-</div>
-
-<button class="side-btn">Combo</button>
-<button class="side-btn">Gapple</button>
-<button class="side-btn">Mace</button>
-<button class="side-btn">Crystal</button>
-<button class="side-btn">Axe</button>
-<button class="side-btn">DeBuff</button>
-<button class="side-btn">Bed</button>
-
-<div class="side-category">
-OTHER
-</div>
-
-<button class="side-btn">Доска Почета</button>
-<button class="side-btn">Тиртестеры</button>
-<button class="side-btn">Как пройти тир-тест</button>
-<button class="side-btn">FAQ</button>
-
-</div>
-
-<header>
-
-<div class="topbar">
-
-<div class="logo-wrap">
-
-<button class="menu-btn" onclick="openSidebar()">
-☰
-</button>
+<div class="nav-wrapper">
 
 <div class="logo">
-MultiCraft CIS<br>
-Tiers
+MultiCraft CIS Tiers
 </div>
 
-</div>
+<div class="nav">
 
-<a class="telegram-btn" href="https://t.me/MultiCraftCISTiers" target="_blank">
-Telegram
+<a href="#leaderboard">
+Leaderboard
 </a>
+
+<a href="#hall">
+Доска Почета
+</a>
+
+<a href="#testers">
+Testers
+</a>
+
+<a href="#testing">
+Как пройти тир-тест
+</a>
+
+<a href="#faq">
+FAQ
+</a>
+
+</div>
 
 </div>
 
 </header>
 
-<section class="page">
+<section class="hero">
 
-<div class="hero">
+<div class="hero-box">
 
-<h1>
-MultiCraft<br>
-CIS Tiers
+<h1 class="hero-title">
+CIS PvP<br>
+Platform
 </h1>
 
-<p>
-Официальная СНГ платформа для PvP tier tests и competitive leaderboard системы MultiCraft.
-Проходите тир-тесты, получайте ранги, занимайте места в overall leaderboard и становитесь частью лучшего CIS PvP сообщества.
+<p class="hero-sub">
+Официальная PvP ranking platform СНГ комьюнити.
+Проходите тир-тесты, попадайте в OVERALL TOP
+и поднимайтесь до высших PvP тиров.
 </p>
 
 <div class="hero-buttons">
 
-<button class="hero-btn active">
-OVERALL
-</button>
+<a href="#leaderboard" class="primary-btn">
+OVERALL TOP
+</a>
 
-<button class="hero-btn">
-MAIN TIERS
-</button>
+<a href="#testing" class="secondary-btn">
+TIER TEST
+</a>
 
-<button class="hero-btn">
-SUBTIERS
-</button>
+<a href="#" class="secondary-btn">
+DISCORD
+</a>
+
+<a href="#" class="secondary-btn">
+TELEGRAM
+</a>
 
 </div>
 
 </div>
+
+</section>
+
+<section id="leaderboard" class="section">
+
+<h2 class="section-title">
+OVERALL LEADERBOARD
+</h2>
+
+<p class="section-sub">
+Лучшие PvP игроки платформы по сумме очков.
+</p>
 
 <div class="filters">
 
-<input class="search" type="text" placeholder="Поиск игрока...">
+<input type="text" id="searchInput" placeholder="Поиск игрока...">
 
-<select class="select">
+<select id="countryFilter">
 
-<option>
-Все регионы СНГ
-</option>
+<option value="all">Все регионы СНГ</option>
 
-<option>KZ</option>
-<option>RU</option>
-<option>UA</option>
-<option>BY</option>
-<option>UZ</option>
-<option>KG</option>
-<option>AZ</option>
-<option>AM</option>
-<option>TJ</option>
-<option>TM</option>
-<option>MD</option>
+<option value="RU">Россия</option>
+<option value="UA">Украина</option>
+<option value="BY">Беларусь</option>
+<option value="KZ">Казахстан</option>
+<option value="UZ">Узбекистан</option>
+<option value="KG">Кыргызстан</option>
+<option value="TJ">Таджикистан</option>
+<option value="TM">Туркменистан</option>
+<option value="AM">Армения</option>
+<option value="AZ">Азербайджан</option>
+<option value="MD">Молдова</option>
 
 </select>
 
-<select class="select">
+<select id="deviceFilter">
 
-<option>
-Все устройства
-</option>
+<option value="all">Все устройства</option>
 
-<option>PC</option>
-<option>PH</option>
-<option>TB</option>
-<option>CT</option>
-<option>OTG</option>
+<option value="PH">Phone</option>
+<option value="TB">Tablet</option>
+<option value="PC">PC</option>
+<option value="CT">Controller</option>
+<option value="OTG">OTG</option>
 
 </select>
 
 </div>
 
-<div class="players" id="playersContainer">
+<div class="mode-tabs">
+
+<button class="active-mode" onclick="setMode('overall',this)">
+OVERALL
+</button>
+
+<button onclick="setMode('sword',this)">
+Sword
+</button>
+
+<button onclick="setMode('mace',this)">
+Mace
+</button>
+
+<button onclick="setMode('axe',this)">
+Axe
+</button>
+
+<button onclick="setMode('uhc',this)">
+UHC
+</button>
+
+<button onclick="setMode('pot',this)">
+Pot
+</button>
+
+<button onclick="setMode('nethop',this)">
+NethOP
+</button>
+
+<button onclick="setMode('vanilla',this)">
+Vanilla
+</button>
 
 </div>
+
+<div id="playersContainer" class="players-container"></div>
+
+</section>
+
+<section id="hall" class="section">
 
 <h2 class="section-title">
-Доска Почета
+ДОСКА ПОЧЕТА
 </h2>
 
-<div class="hof-grid">
+<div class="info-grid">
 
-<div class="hof-card">
-
-<div class="hof-rank">
-LEGEND
+<div class="info-card">
+<div class="info-title">ReaperX</div>
+<div class="info-text">
+Первый HT1 Sword игрок платформы.
+Legend of competitive PvP scene.
+</div>
 </div>
 
-<div class="hof-player">
-NeoPvP
+<div class="info-card">
+<div class="info-title">NeoPvP</div>
+<div class="info-text">
+Один из сильнейших UHC игроков СНГ.
+</div>
 </div>
 
-<div class="hof-desc">
-Первый игрок проекта, достигший 700 overall points и HT1 overall.
-Один из самых сильных Hardcore и SMP игроков СНГ сообщества.
+<div class="info-card">
+<div class="info-title">DarkBlade</div>
+<div class="info-text">
+Известен своими combo mechanics.
+</div>
 </div>
 
+<div class="info-card">
+<div class="info-title">Frost</div>
+<div class="info-text">
+Лучший Controller player сезона.
 </div>
-
-<div class="hof-card">
-
-<div class="hof-rank">
-BEST POT
-</div>
-
-<div class="hof-player">
-Blaze
-</div>
-
-<div class="hof-desc">
-Легенда Emerald Pot и Diamond PvP.
-Показывает один из самых высоких результатов проекта.
 </div>
 
 </div>
 
-<div class="hof-card">
+</section>
 
-<div class="hof-rank">
-BEST UHC
-</div>
+<section id="testers" class="section">
 
-<div class="hof-player">
+<h2 class="section-title">
+TIER TESTERS
+</h2>
+
+<div class="info-grid">
+
+<div class="info-card">
+<div class="info-title">
 ReaperX
 </div>
 
-<div class="hof-desc">
-Самый стабильный UHC игрок проекта.
-Многократный лидер seasonal leaderboard.
+<div class="info-text">
+Sword Tester<br>
+Telegram: @reaperx
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">
+DarkBlade
+</div>
+
+<div class="info-text">
+Mace Tester<br>
+Telegram: @darkblade
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">
+NeoPvP
+</div>
+
+<div class="info-text">
+UHC Tester<br>
+Telegram: @neopvp
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">
+Frost
+</div>
+
+<div class="info-text">
+Vanilla Tester<br>
+Telegram: @frost
+</div>
 </div>
 
 </div>
 
-</div>
+</section>
 
-<h2 class="section-title" style="margin-top:50px;">
-Тиртестеры
+<section id="testing" class="section">
+
+<h2 class="section-title">
+КАК ПРОЙТИ ТИР-ТЕСТ
 </h2>
 
-<div class="tester-grid">
+<div class="info-grid">
 
-<div class="tester-card">
+<div class="info-card">
 
-<div class="tester-name">
-Reaper
+<div class="info-title">
+1. Заявка
 </div>
 
-<div class="tester-row">
-Устройства: PC / TB
-</div>
-
-<div class="tester-row">
-Тир: HT1
-</div>
-
-<div class="tester-row">
-Киты: Hardcore, UHC, Diamond
+<div class="info-text">
+Игрок отправляет заявку
+в Telegram группу платформы.
 </div>
 
 </div>
 
-<div class="tester-card">
+<div class="info-card">
 
-<div class="tester-name">
-Blaze
+<div class="info-title">
+2. Очередь
 </div>
 
-<div class="tester-row">
-Устройства: PH / OTG
-</div>
-
-<div class="tester-row">
-Тир: HT2
-</div>
-
-<div class="tester-row">
-Киты: SMP, Emerald Pot
+<div class="info-text">
+Тестер назначает сервер,
+режим и время проверки.
 </div>
 
 </div>
 
+<div class="info-card">
+
+<div class="info-title">
+3. Проверка
 </div>
 
-<h2 class="section-title" style="margin-top:50px;">
-Как пройти тир-тест
-</h2>
-
-<div class="text-card">
-
-1. Подайте заявку через Telegram сервер проекта.<br><br>
-
-2. Дождитесь ответа свободного тиртестера.<br><br>
-
-3. Уточните устройство и кит, который хотите тестить.<br><br>
-
-4. Зайдите на сервер и пройдите проверку навыков PvP.<br><br>
-
-5. После завершения теста ваш результат будет занесён в leaderboard.
+<div class="info-text">
+Игрок проходит PvP бои
+против тир-тестеров платформы.
+</div>
 
 </div>
+
+<div class="info-card">
+
+<div class="info-title">
+4. Получение тира
+</div>
+
+<div class="info-text">
+После завершения проверки
+игрок получает PvP тир.
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="faq" class="section">
 
 <h2 class="section-title">
 FAQ
 </h2>
 
-<div class="text-card">
-Q: Можно ли пересдать тир?<br><br>
-A: Да, через 7 дней после прошлого теста.
+<div class="info-grid">
+
+<div class="info-card">
+
+<div class="info-title">
+Система очков
 </div>
 
-<div class="text-card">
-Q: Можно ли играть с телефона?<br><br>
-A: Да, поддерживаются PH, TB, OTG и CT устройства.
+<div class="info-text">
+
+HT1 = 100<br>
+LT1 = 90<br><br>
+
+HT2 = 80<br>
+LT2 = 70<br><br>
+
+HT3 = 60<br>
+LT3 = 50<br><br>
+
+HT4 = 40<br>
+LT4 = 30<br><br>
+
+HT5 = 20<br>
+LT5 = 10
+
 </div>
 
-<div class="footer">
-MultiCraft CIS Tiers © 2025
+</div>
+
+<div class="info-card">
+
+<div class="info-title">
+OVERALL тир
+</div>
+
+<div class="info-text">
+
+700+ = HT1<br>
+620+ = LT1<br><br>
+
+540+ = HT2<br>
+460+ = LT2<br><br>
+
+380+ = HT3<br>
+300+ = LT3<br><br>
+
+220+ = HT4<br>
+140+ = LT4<br><br>
+
+60+ = HT5<br>
+0+ = LT5
+
+</div>
+
+</div>
+
+<div class="info-card">
+
+<div class="info-title">
+Можно ли пройти re-test?
+</div>
+
+<div class="info-text">
+Да. Игрок может пройти
+повторную проверку позже.
+</div>
+
+</div>
+
+<div class="info-card">
+
+<div class="info-title">
+Что влияет на тир?
+</div>
+
+<div class="info-text">
+Aim, movement, combo,
+gamesense и consistency.
+</div>
+
+</div>
+
 </div>
 
 </section>
 
 <div class="modal" id="playerModal">
 
+<div class="modal-content">
+
+<div class="modal-title" id="modalName">
+Player
 </div>
 
-<script src="players.js"></script>
+<div class="modal-grid" id="modalStats"></div>
+
+<button class="close-btn" onclick="closeModal()">
+Закрыть
+</button>
+
+</div>
+
+</div>
+
+<footer class="footer">
+MultiCraft CIS Tiers
+</footer>
 
 <script>
 
-const playersContainer = document.getElementById('playersContainer');
+const tierPoints={
 
-const searchInput = document.querySelector('.search');
+HT1:100,
+LT1:90,
 
-const regionFilter = document.querySelectorAll('.select')[0];
+HT2:80,
+LT2:70,
 
-const deviceFilter = document.querySelectorAll('.select')[1];
+HT3:60,
+LT3:50,
 
-let currentCategory = 'overall';
+HT4:40,
+LT4:30,
 
-function openSidebar(){
+HT5:20,
+LT5:10
 
-document.getElementById('sidebar').classList.add('active');
-document.getElementById('overlay').classList.add('active');
+};
+
+const players=[
+
+{
+nick:"ReaperX",
+country:"RU",
+device:"PH",
+tester:"DarkBlade",
+
+sword:"HT1",
+mace:"HT2",
+axe:"LT1",
+uhc:"HT2",
+pot:"LT2",
+nethop:"HT3",
+vanilla:"LT1"
+},
+
+{
+nick:"NeoPvP",
+country:"KZ",
+device:"PC",
+tester:"ReaperX",
+
+sword:"LT1",
+mace:"LT2",
+axe:"LT1",
+uhc:"HT1",
+pot:"LT1",
+nethop:"HT2",
+vanilla:"LT2"
+},
+
+{
+nick:"DarkBlade",
+country:"UA",
+device:"TB",
+tester:"Frost",
+
+sword:"LT1",
+mace:"HT2",
+axe:"LT2",
+uhc:"LT1",
+pot:"LT3",
+nethop:"LT2",
+vanilla:"LT1"
+},
+
+{
+nick:"Blaze",
+country:"RU",
+device:"PH",
+tester:"NeoPvP",
+
+sword:"HT2",
+mace:"LT1",
+axe:"LT2",
+uhc:"LT2",
+pot:"HT1",
+nethop:"HT2",
+vanilla:"LT1"
+},
+
+{
+nick:"Vortex",
+country:"UZ",
+device:"OTG",
+tester:"DarkBlade",
+
+sword:"HT2",
+mace:"HT3",
+axe:"LT2",
+uhc:"LT1",
+pot:"HT2",
+nethop:"HT3",
+vanilla:"LT2"
+},
+
+{
+nick:"Inferno",
+country:"KG",
+device:"PC",
+tester:"ReaperX",
+
+sword:"HT2",
+mace:"HT2",
+axe:"HT3",
+uhc:"LT1",
+pot:"LT2",
+nethop:"HT2",
+vanilla:"LT1"
+}
+
+];
+
+let currentMode="overall";
+
+function calculateOverall(player){
+
+return(
+
+tierPoints[player.sword]+
+tierPoints[player.mace]+
+tierPoints[player.axe]+
+tierPoints[player.uhc]+
+tierPoints[player.pot]+
+tierPoints[player.nethop]+
+tierPoints[player.vanilla]
+
+);
 
 }
 
-function closeSidebar(){
+function getOverallTier(points){
 
-document.getElementById('sidebar').classList.remove('active');
-document.getElementById('overlay').classList.remove('active');
+if(points>=700)return"HT1";
+if(points>=620)return"LT1";
+
+if(points>=540)return"HT2";
+if(points>=460)return"LT2";
+
+if(points>=380)return"HT3";
+if(points>=300)return"LT3";
+
+if(points>=220)return"HT4";
+if(points>=140)return"LT4";
+
+if(points>=60)return"HT5";
+
+return"LT5";
 
 }
 
-function closeModal(){
+function setMode(mode,button){
 
-document.getElementById('playerModal').classList.remove('active');
+currentMode=mode;
 
-}
+document.querySelectorAll('.mode-tabs button').forEach(btn=>{
+btn.classList.remove('active-mode');
+});
 
-function getCategoryTier(player){
+button.classList.add('active-mode');
 
-if(currentCategory === 'overall'){
-return player.overall;
-}
-
-if(player.main[currentCategory]){
-return player.main[currentCategory];
-}
-
-if(player.sub[currentCategory]){
-return player.sub[currentCategory];
-}
-
-return 'UNR';
+renderPlayers();
 
 }
 
 function renderPlayers(){
 
-let filtered = [...players];
+const container=document.getElementById('playersContainer');
 
-const search = searchInput.value.toLowerCase();
+container.innerHTML='';
 
-const region = regionFilter.value;
+let filtered=[...players];
 
-const device = deviceFilter.value;
+const search=document.getElementById('searchInput').value.toLowerCase();
 
-filtered = filtered.filter(player=>{
+const country=document.getElementById('countryFilter').value;
 
-const matchSearch =
-player.name.toLowerCase().includes(search);
+const device=document.getElementById('deviceFilter').value;
 
-const matchRegion =
-region === 'Все регионы СНГ'
-|| player.region === region;
+filtered=filtered.filter(player=>{
 
-const matchDevice =
-device === 'Все устройства'
-|| player.device === device;
+const matchSearch=
+player.nick.toLowerCase().includes(search);
 
-return matchSearch && matchRegion && matchDevice;
+const matchCountry=
+country==='all'||player.country===country;
+
+const matchDevice=
+device==='all'||player.device===device;
+
+return(
+matchSearch&&
+matchCountry&&
+matchDevice
+);
 
 });
 
-filtered.sort((a,b)=>b.points-a.points);
+if(currentMode==='overall'){
 
-playersContainer.innerHTML = '';
+filtered.sort((a,b)=>
+calculateOverall(b)-calculateOverall(a)
+);
+
+}else{
+
+filtered.sort((a,b)=>
+tierPoints[b[currentMode]]-
+tierPoints[a[currentMode]]
+);
+
+}
 
 filtered.forEach((player,index)=>{
 
-playersContainer.innerHTML += `
+const overallPoints=calculateOverall(player);
 
-<div class="player-card" onclick="openModal('${player.name}')">
+const overallTier=getOverallTier(overallPoints);
+
+const points=currentMode==='overall'
+?
+overallPoints
+:
+tierPoints[player[currentMode]];
+
+container.innerHTML+=`
+
+<div class="player-card" onclick="openModal('${player.nick}')">
 
 <div class="player-left">
 
@@ -1183,15 +1233,15 @@ playersContainer.innerHTML += `
 #${index+1}
 </div>
 
+<div>
+
+<div class="player-nick">
+${player.nick}
+</div>
+
 <div class="player-info">
-
-<h3>
-${player.name}
-</h3>
-
-<span>
-${player.region} • ${player.device}
-</span>
+${player.country} • ${player.device}
+</div>
 
 </div>
 
@@ -1200,12 +1250,17 @@ ${player.region} • ${player.device}
 <div class="player-right">
 
 <div class="player-tier">
-${getCategoryTier(player)}
+
+${currentMode==='overall'
+?
+overallTier
+:
+player[currentMode]}
+
 </div>
 
-<div class="player-pts">
-${player.points}
-<small>PTS</small>
+<div class="player-points">
+${points} PTS
 </div>
 
 </div>
@@ -1218,200 +1273,71 @@ ${player.points}
 
 }
 
-function formatKitName(name){
+function openModal(nick){
 
-const names = {
+const player=players.find(p=>p.nick===nick);
 
-hardcore:'Hardcore',
-smp:'SMP',
-uhc:'UHC',
-lite:'Lite',
-emeraldpot:'Emerald Pot',
-emerald:'Emerald',
-dragonhidekb:'Dragonhide KB',
-dragonhide:'Dragonhide',
-diamond:'Diamond',
-wand:'Wand',
+document.getElementById('playerModal').style.display='flex';
 
-combo:'Combo',
-gapple:'Gapple',
-mace:'Mace',
-crystal:'Crystal',
-axe:'Axe',
-debuff:'DeBuff',
-bed:'Bed'
+document.getElementById('modalName').innerHTML=
+player.nick;
 
-};
+document.getElementById('modalStats').innerHTML=`
 
-return names[name] || name;
+<div class="modal-kit">
+Sword: ${player.sword}
+</div>
 
-}
+<div class="modal-kit">
+Mace: ${player.mace}
+</div>
 
-function createKitRows(data){
+<div class="modal-kit">
+Axe: ${player.axe}
+</div>
 
-let html = '';
+<div class="modal-kit">
+UHC: ${player.uhc}
+</div>
 
-for(let kit in data){
+<div class="modal-kit">
+Pot: ${player.pot}
+</div>
 
-html += `
+<div class="modal-kit">
+NethOP: ${player.nethop}
+</div>
 
-<div class="kit-row">
+<div class="modal-kit">
+Vanilla: ${player.vanilla}
+</div>
 
-<span>
-${formatKitName(kit)}
-</span>
-
-<span class="kit-tier">
-${data[kit]}
-</span>
-
+<div class="modal-kit">
+Tester: ${player.tester}
 </div>
 
 `;
 
 }
 
-return html;
+function closeModal(){
+
+document.getElementById('playerModal').style.display='none';
 
 }
 
-function openModal(playerName){
+document.getElementById('searchInput')
+.addEventListener('input',renderPlayers);
 
-const player = players.find(p=>p.name === playerName);
+document.getElementById('countryFilter')
+.addEventListener('change',renderPlayers);
 
-const modal = document.getElementById('playerModal');
+document.getElementById('deviceFilter')
+.addEventListener('change',renderPlayers);
 
-modal.innerHTML = `
+renderPlayers();
 
-<div class="modal-box">
+</script>
 
-<button class="close" onclick="closeModal()">
-✕
-</button>
-
-<div class="profile-header">
-
-<div class="profile-name">
-${player.name}
-</div>
-
-<div class="profile-sub">
-${player.region} • ${player.device} • Overall Leaderboard Player
-</div>
-
-</div>
-
-<div class="profile-stats">
-
-<div class="profile-stat">
-
-<div class="profile-stat-title">
-Overall Tier
-</div>
-
-<div class="profile-stat-value">
-${player.overall}
-</div>
-
-</div>
-
-<div class="profile-stat">
-
-<div class="profile-stat-title">
-Points
-</div>
-
-<div class="profile-stat-value">
-${player.points} PTS
-</div>
-
-</div>
-
-<div class="profile-stat">
-
-<div class="profile-stat-title">
-Region
-</div>
-
-<div class="profile-stat-value">
-${player.region}
-</div>
-
-</div>
-
-<div class="profile-stat">
-
-<div class="profile-stat-title">
-Device
-</div>
-
-<div class="profile-stat-value">
-${player.device}
-</div>
-
-</div>
-
-</div>
-
-<div class="kits-title">
-Main Kits
-</div>
-
-${createKitRows(player.main)}
-
-<div class="kits-title" style="margin-top:28px;">
-Subtiers
-</div>
-
-${createKitRows(player.sub)}
-
-</div>
-
-`;
-
-modal.classList.add('active');
-
-}
-
-searchInput.addEventListener('input',renderPlayers);
-
-regionFilter.addEventListener('change',renderPlayers);
-
-deviceFilter.addEventListener('change',renderPlayers);
-
-document.querySelectorAll('.side-btn').forEach(btn=>{
-
-btn.addEventListener('click',()=>{
-
-const text = btn.innerText.trim().toLowerCase();
-
-const map = {
-
-overall:'overall',
-
-hardcore:'hardcore',
-smp:'smp',
-uhc:'uhc',
-lite:'lite',
-'emerald pot':'emeraldpot',
-emerald:'emerald',
-'dragonhide kb':'dragonhidekb',
-dragonhide:'dragonhide',
-diamond:'diamond',
-wand:'wand',
-
-combo:'combo',
-gapple:'gapple',
-mace:'mace',
-crystal:'crystal',
-axe:'axe',
-debuff:'debuff',
-bed:'bed'
-
-};
-
-if(map[text]){
-
-currentCategory = map[text];
-
-renderPlayers();ло
+</body>
+</html>
