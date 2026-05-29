@@ -1549,4 +1549,187 @@ Emerald:"LT1",
 Gapple:"M1",
 Crystal:"M2",
 Bed:"M4",
-Wan
+Wand:"HT2"
+}
+}
+
+];
+
+function renderPlayers(){
+
+const container=
+document.getElementById('playersContainer');
+
+container.innerHTML='';
+
+const search=
+document.getElementById('searchInput')
+.value
+.toLowerCase();
+
+const region=
+document.getElementById('regionFilter')
+.value;
+
+const device=
+document.getElementById('deviceFilter')
+.value;
+
+let filteredPlayers=
+players.filter(player=>{
+
+const matchSearch=
+player.name.toLowerCase().includes(search);
+
+const matchRegion=
+region==='all'||player.region===region;
+
+const matchDevice=
+device==='all'||player.device===device;
+
+return(
+matchSearch&&
+matchRegion&&
+matchDevice
+);
+
+});
+
+filteredPlayers.sort((a,b)=>
+b.overallPts-a.overallPts
+);
+
+filteredPlayers.forEach((player,index)=>{
+
+container.innerHTML+=`
+
+<div class="player-card" onclick="openPlayerModal('${player.name}')">
+
+<div class="player-name">
+#${index+1} ${player.name} ${player.region} • ${player.device}
+</div>
+
+<div class="player-right">
+${player.overallPts} PTS
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+function openPlayerModal(playerName){
+
+const player=
+players.find(p=>p.name===playerName);
+
+document
+.getElementById('playerModal')
+.classList.add('active');
+
+document
+.getElementById('playerModalTitle')
+.innerHTML=player.name;
+
+const content=
+document.getElementById('playerModalContent');
+
+content.innerHTML='';
+
+for(const kit in player.tiers){
+
+content.innerHTML+=`
+
+<div class="info-card">
+
+<div class="info-title">
+${kit}
+</div>
+
+<div class="info-text">
+Tier: ${player.tiers[kit]}<br>
+Tester: ${player.tester}
+</div>
+
+</div>
+
+`;
+
+}
+
+}
+
+function closeModal(modalId){
+
+document
+.getElementById(modalId)
+.classList.remove('active');
+
+}
+
+const menuBtn=
+document.getElementById('menuBtn');
+
+const sidebar=
+document.getElementById('sidebar');
+
+const overlay=
+document.getElementById('overlay');
+
+menuBtn.addEventListener('click',function(){
+
+sidebar.classList.toggle('active');
+
+overlay.classList.toggle('active');
+
+});
+
+overlay.addEventListener('click',function(){
+
+sidebar.classList.remove('active');
+
+overlay.classList.remove('active');
+
+document
+.querySelectorAll('.modal')
+.forEach(modal=>{
+
+modal.classList.remove('active');
+
+});
+
+});
+
+function openModal(modalId){
+
+document
+.getElementById(modalId)
+.classList.add('active');
+
+sidebar.classList.remove('active');
+
+overlay.classList.remove('active');
+
+}
+
+document
+.getElementById('searchInput')
+.addEventListener('input',renderPlayers);
+
+document
+.getElementById('regionFilter')
+.addEventListener('change',renderPlayers);
+
+document
+.getElementById('deviceFilter')
+.addEventListener('change',renderPlayers);
+
+renderPlayers();
+
+</script>
+
+</body>
+</html>
