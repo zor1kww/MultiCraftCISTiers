@@ -22,6 +22,24 @@
     box-sizing:border-box;
 }
 
+body,
+div,
+span,
+p,
+a,
+button,
+input,
+select,
+table,
+tr,
+td,
+th,
+h1,
+h2,
+h3{
+    font-family:'MultiCraftFont',sans-serif !important;
+}
+
 body{
     background:
     radial-gradient(circle at top left, rgba(255,180,0,0.15), transparent 30%),
@@ -34,25 +52,6 @@ body{
     background-size:cover;
     background-position:center top;
     background-attachment:fixed;
-    font-family:Arial,sans-serif;
-}
-
-button,
-.logo,
-h1,
-h2,
-h3,
-.player-name,
-.sidebar button,
-.sidebar a,
-.player-card,
-table,
-th,
-td,
-.back-btn,
-.filter-box select,
-.filter-box input{
-    font-family:'MultiCraftFont',sans-serif;
 }
 
 header{
@@ -65,26 +64,31 @@ header{
     position:sticky;
     top:0;
     z-index:1000;
-    background:rgba(5,10,20,0.9);
-    backdrop-filter:blur(10px);
+    background:rgba(5,10,20,0.92);
+    backdrop-filter:blur(12px);
     border-bottom:1px solid rgba(255,255,255,0.06);
 }
 
 .logo{
     font-size:30px;
     color:#ffcb47;
-    letter-spacing:1px;
     white-space:nowrap;
 }
 
 .menu-btn{
-    background:#111827;
+    background:rgba(17,24,39,0.95);
     border:1px solid rgba(255,200,80,0.25);
     color:#ffcb47;
     padding:12px 16px;
-    border-radius:14px;
+    border-radius:12px;
     cursor:pointer;
-    font-size:15px;
+    font-size:14px;
+    transition:0.25s;
+}
+
+.menu-btn:hover{
+    box-shadow:0 0 18px rgba(255,200,80,0.35);
+    opacity:0.95;
 }
 
 .sidebar{
@@ -108,16 +112,16 @@ header{
 .sidebar-title{
     font-size:26px;
     color:#ffcb47;
-    margin-bottom:20px;
+    margin-bottom:22px;
 }
 
 .sidebar-group{
-    margin-bottom:24px;
+    margin-bottom:26px;
 }
 
 .sidebar-group h3{
     color:#ffd76b;
-    margin-bottom:12px;
+    margin-bottom:14px;
     font-size:18px;
 }
 
@@ -126,15 +130,22 @@ header{
     width:100%;
     display:block;
     background:#111827;
-    border:1px solid rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.06);
     color:white;
     text-decoration:none;
     padding:14px;
-    border-radius:14px;
+    border-radius:12px;
     margin-bottom:10px;
     text-align:left;
     cursor:pointer;
-    font-size:14px;
+    transition:0.25s;
+    font-size:13px;
+}
+
+.sidebar button:hover,
+.sidebar a:hover{
+    box-shadow:0 0 16px rgba(255,200,80,0.28);
+    background:#172033;
 }
 
 .main-page{
@@ -147,7 +158,7 @@ header{
 .hero{
     background:rgba(10,15,30,0.95);
     border:1px solid rgba(255,255,255,0.06);
-    border-radius:30px;
+    border-radius:28px;
     padding:35px;
     box-shadow:0 0 40px rgba(255,180,0,0.08);
 }
@@ -160,9 +171,10 @@ header{
 
 .hero p{
     margin-top:20px;
-    color:#a5a5a5;
+    color:#c2c2c2;
     line-height:1.8;
-    max-width:800px;
+    max-width:820px;
+    font-size:13px;
 }
 
 .telegram-btn{
@@ -172,8 +184,14 @@ header{
     background:linear-gradient(to right,#ffb300,#ffd95c);
     color:black;
     padding:16px 22px;
-    border-radius:16px;
-    font-size:15px;
+    border-radius:12px;
+    font-size:14px;
+    transition:0.25s;
+}
+
+.telegram-btn:hover{
+    box-shadow:0 0 20px rgba(255,200,80,0.35);
+    opacity:0.95;
 }
 
 .section-title{
@@ -192,12 +210,19 @@ header{
 
 .filter-box input,
 .filter-box select{
-    background:#111827;
-    border:1px solid rgba(255,255,255,0.06);
+    background:rgba(17,24,39,0.92);
+    border:1px solid rgba(255,255,255,0.08);
     color:white;
-    padding:16px;
-    border-radius:16px;
+    padding:15px;
+    border-radius:8px;
     outline:none;
+    font-size:12px;
+}
+
+.filter-box input:focus,
+.filter-box select:focus{
+    border-color:#ffcb47;
+    box-shadow:0 0 14px rgba(255,200,80,0.2);
 }
 
 .players-grid{
@@ -208,28 +233,62 @@ header{
 
 .player-card{
     background:#101827;
-    border:1px solid rgba(255,255,255,0.05);
-    border-radius:20px;
-    padding:15px;
-    height:auto;
-    color:white;
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:18px;
+    padding:15px 18px;
+    transition:0.25s;
+}
+
+.player-card:hover{
+    border-color:rgba(255,200,80,0.28);
+    box-shadow:0 0 18px rgba(255,200,80,0.08);
 }
 
 .player-line{
     display:flex;
     justify-content:space-between;
+    align-items:center;
     gap:10px;
-    flex-wrap:wrap;
+    width:100%;
+}
+
+.player-left{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    min-width:0;
+}
+
+.player-rank{
+    color:#ffcb47;
+    font-size:14px;
+    flex-shrink:0;
 }
 
 .player-name{
-    color:#ffcb47;
-    font-size:18px;
-    word-break:break-word;
+    color:white;
+    font-size:15px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.player-right{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    flex-shrink:0;
+    white-space:nowrap;
+}
+
+.player-region{
+    color:#d8d8d8;
+    font-size:12px;
 }
 
 .player-points{
     color:#ffe28a;
+    font-size:12px;
 }
 
 .tab-content{
@@ -246,9 +305,14 @@ header{
     color:#ffcb47;
     border:1px solid rgba(255,255,255,0.06);
     padding:14px 18px;
-    border-radius:16px;
+    border-radius:12px;
     cursor:pointer;
     margin-bottom:24px;
+    transition:0.25s;
+}
+
+.back-btn:hover{
+    box-shadow:0 0 16px rgba(255,200,80,0.28);
 }
 
 .tab-title{
@@ -259,31 +323,33 @@ header{
 
 .table-wrapper{
     overflow-x:auto;
-    border-radius:20px;
+    border-radius:18px;
 }
 
 table{
     width:100%;
-    border-collapse:collapse;
     min-width:1200px;
+    border-collapse:collapse;
     background:#0f1728;
-    border-radius:20px;
+    border-radius:18px;
     overflow:hidden;
 }
 
 th{
     background:#141f35;
     color:#ffcb47;
-    padding:16px;
-    border:1px solid rgba(255,255,255,0.05);
-    font-size:14px;
+    padding:14px 10px;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+    text-align:center;
+    font-size:12px;
 }
 
 td{
-    padding:14px;
-    border:1px solid rgba(255,255,255,0.05);
+    padding:12px 10px;
+    border-bottom:1px solid rgba(255,255,255,0.08);
     text-align:center;
-    font-size:13px;
+    font-size:12px;
+    color:#f2f2f2;
 }
 
 .rank-tier{
@@ -292,8 +358,8 @@ td{
 
 .info-card{
     background:#101827;
-    border:1px solid rgba(255,255,255,0.05);
-    border-radius:20px;
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:18px;
     padding:24px;
     margin-bottom:18px;
 }
@@ -301,11 +367,13 @@ td{
 .info-card h3{
     color:#ffcb47;
     margin-bottom:12px;
+    font-size:20px;
 }
 
 .info-card p{
-    color:#b3b3b3;
+    color:#d0d0d0;
     line-height:1.8;
+    font-size:13px;
 }
 
 @media(max-width:900px){
@@ -351,6 +419,19 @@ td{
         font-size:28px;
     }
 
+    .player-name{
+        font-size:13px;
+    }
+
+    .player-right{
+        gap:8px;
+    }
+
+    .player-region,
+    .player-points{
+        font-size:10px;
+    }
+
 }
 
 </style>
@@ -362,6 +443,7 @@ td{
 <div class="sidebar-title">MENU</div>
 
 <div class="sidebar-group">
+
 <h3>Навигация</h3>
 
 <button onclick="switchTab('maintiersTab')">MAINTIERS</button>
@@ -465,9 +547,7 @@ MAINTIERS
 </h2>
 
 <div class="table-wrapper">
-
 <table id="maintiersTable"></table>
-
 </div>
 
 </div>
@@ -483,9 +563,7 @@ SUBTIERS
 </h2>
 
 <div class="table-wrapper">
-
 <table id="subtiersTable"></table>
-
 </div>
 
 </div>
@@ -503,28 +581,21 @@ SUBTIERS
 <div class="info-card">
 <h3>ReaperX</h3>
 <p>
-Первый легендарный HT1 игрок платформы. Считается одним из сильнейших PvP игроков ранней эпохи MultiCraft CIS.
+Первый легендарный HT1 игрок платформы MultiCraft CIS.
 </p>
 </div>
 
 <div class="info-card">
 <h3>NeoPvP</h3>
 <p>
-Один из сильнейших UHC игроков СНГ сцены. Прославился своими clutch-моментами и gamesense.
+Легендарный UHC игрок и один из сильнейших clutch-игроков платформы.
 </p>
 </div>
 
 <div class="info-card">
 <h3>Inferno</h3>
 <p>
-Легенда Hardcore PvP. Известен высоким AIM и стабильной механикой.
-</p>
-</div>
-
-<div class="info-card">
-<h3>DarkBlade</h3>
-<p>
-Один из лучших combo-игроков платформы. Прославился доминацией в Combo и Crystal.
+Легенда Hardcore PvP с невероятной стабильностью.
 </p>
 </div>
 
@@ -543,28 +614,14 @@ FAQ
 <div class="info-card">
 <h3>Как работает система тиров?</h3>
 <p>
-Все игроки получают ранги от HT1 до LT5. Чем выше тир, тем сильнее игрок в конкретном PvP ките.
+Все игроки получают ранги от HT1 до LT5.
 </p>
 </div>
 
 <div class="info-card">
-<h3>Как считается OVERALL TOP?</h3>
+<h3>Как считается OVERALL?</h3>
 <p>
-OVERALL PTS автоматически формируется из суммы MAINTIERS и SUBTIERS игрока.
-</p>
-</div>
-
-<div class="info-card">
-<h3>Можно ли пройти повторный тир-тест?</h3>
-<p>
-Да. Игрок может повторно пройти проверку и повысить свой тир.
-</p>
-</div>
-
-<div class="info-card">
-<h3>Что влияет на результат?</h3>
-<p>
-Aim, movement, combo, CPS consistency, gamesense и PvP mechanics.
+OVERALL строится из суммы MAINTIERS и SUBTIERS.
 </p>
 </div>
 
@@ -582,9 +639,9 @@ Aim, movement, combo, CPS consistency, gamesense и PvP mechanics.
 
 <div class="info-card">
 <p>
-1. Зайти в Telegram группу платформы.<br><br>
-2. Написать боту заявку по шаблону на нужный тир-тест.<br><br>
-3. Дождаться ответа и времени проверки.<br><br>
+1. Зайти в Telegram группу.<br><br>
+2. Написать заявку по шаблону.<br><br>
+3. Ждать ответа тестера.<br><br>
 После тиртеста ранг будет внесен на сайт.
 </p>
 </div>
@@ -612,20 +669,6 @@ Hardcore, SMP, UHC, Diamond
 <h3>DarkBlade</h3>
 <p>
 Combo, Crystal, Axe, Bed
-</p>
-</div>
-
-<div class="info-card">
-<h3>Inferno</h3>
-<p>
-Emerald, Emerald Pot, Lite
-</p>
-</div>
-
-<div class="info-card">
-<h3>Blaze</h3>
-<p>
-Dragonhide KB, Dragonhide, Wand
 </p>
 </div>
 
@@ -878,58 +921,6 @@ tiers:{
 "DeBuff":"HT2",
 "Bed":"LT2"
 }
-},
-
-{
-name:"Shadow",
-region:"MD",
-device:"TB",
-tiers:{
-"Hardcore":"HT3",
-"SMP":"HT3",
-"UHC":"LT2",
-"Manhunt":"HT2",
-"Lite":"LT2",
-"Emerald Pot":"HT2",
-"Emerald":"HT3",
-"Dragonhide KB":"LT2",
-"Dragonhide":"LT2",
-"Diamond":"HT3",
-"Wand":"HT3",
-"Combo":"HT3",
-"Gapple":"LT2",
-"Mace":"HT2",
-"Crystal":"LT2",
-"Axe":"HT3",
-"DeBuff":"LT2",
-"Bed":"HT2"
-}
-},
-
-{
-name:"Storm",
-region:"TJ",
-device:"PH",
-tiers:{
-"Hardcore":"LT2",
-"SMP":"HT3",
-"UHC":"HT3",
-"Manhunt":"LT2",
-"Lite":"HT2",
-"Emerald Pot":"LT2",
-"Emerald":"HT2",
-"Dragonhide KB":"HT3",
-"Dragonhide":"HT3",
-"Diamond":"LT2",
-"Wand":"HT2",
-"Combo":"HT2",
-"Gapple":"HT2",
-"Mace":"HT3",
-"Crystal":"HT3",
-"Axe":"LT2",
-"DeBuff":"HT2",
-"Bed":"HT3"
-}
 }
 
 ];
@@ -980,16 +971,28 @@ container.innerHTML+=`
 
 <div class="player-line">
 
-<div class="player-name">
-#${index+1} ${player.name}
+<div class="player-left">
+
+<div class="player-rank">
+#${index+1}
 </div>
 
-<div>
+<div class="player-name">
+${player.name}
+</div>
+
+</div>
+
+<div class="player-right">
+
+<div class="player-region">
 ${player.region} • ${player.device}
 </div>
 
 <div class="player-points">
-[${calculateOverall(player)} PTS]
+${calculateOverall(player)} PTS
+</div>
+
 </div>
 
 </div>
