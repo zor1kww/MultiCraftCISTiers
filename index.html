@@ -9,9 +9,12 @@
 
 <style>
 
-@font-face{
-    font-family:'MultiCraftFont';
-    src:url('fonts/minecraft.ttf') format('truetype');
+@font-face {
+    font-family: 'MultiCraftFont';
+    src: url('assets/MultiCraftFont.ttf') format('truetype'),
+         url('assets/fonts/MultiCraftFont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
 *{
@@ -56,7 +59,8 @@ h3,
 .player-name,
 .modal-title,
 .sidebar-title,
-.info-title{
+.info-title,
+.player-right{
     font-family:'MultiCraftFont',sans-serif;
 }
 
@@ -309,8 +313,6 @@ h3,
     padding:14px 18px;
 
     border-radius:16px;
-
-    font-family:'MultiCraftFont',sans-serif;
 }
 
 .sidebar{
@@ -388,6 +390,13 @@ h3,
     font-family:'MultiCraftFont',sans-serif;
 }
 
+.sidebar-links button:hover,
+.sidebar-links a:hover{
+    transform:translateX(4px);
+
+    border-color:rgba(255,179,0,0.35);
+}
+
 .overlay{
     position:fixed;
     inset:0;
@@ -429,7 +438,7 @@ h3,
 
 .modal-content{
     width:100%;
-    max-width:950px;
+    max-width:1050px;
 
     max-height:90vh;
 
@@ -572,12 +581,24 @@ MC CIS TIERS
 
 <div class="sidebar-links">
 
+<button onclick="openModal('maintiersModal')">
+MAINTIERS
+</button>
+
+<button onclick="openModal('subtiersModal')">
+SUBTIERS
+</button>
+
 <button onclick="openModal('leaderboardModal')">
 Leaderboard
 </button>
 
 <button onclick="openModal('hallModal')">
 Доска почета
+</button>
+
+<button onclick="openModal('testModal')">
+Как пройти тир-тест
 </button>
 
 <button onclick="openModal('testersModal')">
@@ -724,6 +745,216 @@ MultiCraft CIS Tiers © 2026
 
 </div>
 
+<div class="modal" id="maintiersModal">
+
+<div class="modal-content">
+
+<div class="modal-header">
+
+<div class="modal-title">
+MAINTIERS
+</div>
+
+<button class="close-btn" onclick="closeModal('maintiersModal')">
+✕
+</button>
+
+</div>
+
+<div class="modal-grid">
+
+<div class="info-card">
+<div class="info-title">Hardcore</div>
+<div class="info-text">
+#1 ReaperX<br>
+#2 zor1kkqwix<br>
+#3 Inferno
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">SMP</div>
+<div class="info-text">
+#1 Blaze<br>
+#2 Nova<br>
+#3 NeoPvP
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">UHC</div>
+<div class="info-text">
+#1 Inferno<br>
+#2 NeoPvP<br>
+#3 ReaperX
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">Manhunt</div>
+<div class="info-text">
+#1 ReaperX<br>
+#2 Vortex<br>
+#3 Blaze
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">Lite</div>
+<div class="info-text">
+#1 Nova<br>
+#2 Blaze<br>
+#3 DarkBlade
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">Emerald Pot</div>
+<div class="info-text">
+#1 Inferno<br>
+#2 ShadowX<br>
+#3 Nova
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">Emerald</div>
+<div class="info-text">
+#1 ShadowX<br>
+#2 Nova<br>
+#3 Blaze
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">Dragonhide KB</div>
+<div class="info-text">
+#1 Vortex<br>
+#2 ReaperX<br>
+#3 DarkBlade
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">Dragonhide</div>
+<div class="info-text">
+#1 Vortex<br>
+#2 Inferno<br>
+#3 Blaze
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">Diamond</div>
+<div class="info-text">
+#1 Inferno<br>
+#2 StormBreak<br>
+#3 ReaperX
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">Wand</div>
+<div class="info-text">
+#1 Vortex<br>
+#2 Nova<br>
+#3 NeoPvP
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="modal" id="subtiersModal">
+
+<div class="modal-content">
+
+<div class="modal-header">
+
+<div class="modal-title">
+SUBTIERS
+</div>
+
+<button class="close-btn" onclick="closeModal('subtiersModal')">
+✕
+</button>
+
+</div>
+
+<div class="modal-grid">
+
+<div class="info-card">
+<div class="info-title">Combo</div>
+<div class="info-text">
+#1 Vortex<br>
+#2 ReaperX<br>
+#3 Blaze
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">Gapple</div>
+<div class="info-text">
+#1 Nova<br>
+#2 ShadowX<br>
+#3 Blaze
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">Mace</div>
+<div class="info-text">
+#1 Inferno<br>
+#2 DarkBlade<br>
+#3 NeoPvP
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">Crystal</div>
+<div class="info-text">
+#1 Inferno<br>
+#2 Vortex<br>
+#3 Nova
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">Axe</div>
+<div class="info-text">
+#1 ReaperX<br>
+#2 DarkBlade<br>
+#3 zor1kkqwix
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">DeBuff</div>
+<div class="info-text">
+#1 Blaze<br>
+#2 ShadowX<br>
+#3 NeoPvP
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">Bed</div>
+<div class="info-text">
+#1 Inferno<br>
+#2 Vortex<br>
+#3 Nova
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 <div class="modal" id="leaderboardModal">
 
 <div class="modal-content">
@@ -755,7 +986,9 @@ Overall Ranking
 #5 Nova — 540 PTS<br>
 #6 NeoPvP — 530 PTS<br>
 #7 DarkBlade — 520 PTS<br>
-#8 Vortex — 510 PTS
+#8 Vortex — 510 PTS<br>
+#9 ShadowX — 500 PTS<br>
+#10 StormBreak — 495 PTS
 
 </div>
 
@@ -791,6 +1024,7 @@ ReaperX
 
 <div class="info-text">
 Первый HT1 Hardcore игрок платформы.
+Legend of competitive PvP scene.
 </div>
 
 </div>
@@ -798,11 +1032,107 @@ ReaperX
 <div class="info-card">
 
 <div class="info-title">
-zor1kkqwix
+NeoPvP
 </div>
 
 <div class="info-text">
-Легенда PvP сцены СНГ.
+Один из сильнейших UHC игроков СНГ.
+</div>
+
+</div>
+
+<div class="info-card">
+
+<div class="info-title">
+DarkBlade
+</div>
+
+<div class="info-text">
+Известен своими combo mechanics.
+</div>
+
+</div>
+
+<div class="info-card">
+
+<div class="info-title">
+Frost
+</div>
+
+<div class="info-text">
+Лучший Controller player сезона.
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="modal" id="testModal">
+
+<div class="modal-content">
+
+<div class="modal-header">
+
+<div class="modal-title">
+Как пройти тир-тест
+</div>
+
+<button class="close-btn" onclick="closeModal('testModal')">
+✕
+</button>
+
+</div>
+
+<div class="modal-grid">
+
+<div class="info-card">
+
+<div class="info-title">
+1. Зайти в Telegram
+</div>
+
+<div class="info-text">
+Игрок должен зайти в официальную Telegram группу платформы.
+</div>
+
+</div>
+
+<div class="info-card">
+
+<div class="info-title">
+2. Подать заявку
+</div>
+
+<div class="info-text">
+Написать боту заявку на тир-тест по указанному шаблону.
+</div>
+
+</div>
+
+<div class="info-card">
+
+<div class="info-title">
+3. Ожидать ответа
+</div>
+
+<div class="info-text">
+Дождаться ответа тир-тестера и назначенного времени проверки.
+</div>
+
+</div>
+
+<div class="info-card">
+
+<div class="info-title">
+После проверки
+</div>
+
+<div class="info-text">
+После тир-теста ранг игрока будет внесен на сайт.
 </div>
 
 </div>
@@ -840,7 +1170,8 @@ ReaperX
 <div class="info-text">
 Hardcore<br>
 SMP<br>
-Diamond
+Diamond<br>
+Dragonhide
 </div>
 
 </div>
@@ -854,7 +1185,8 @@ DarkBlade
 <div class="info-text">
 Combo<br>
 Mace<br>
-Axe
+Axe<br>
+Crystal
 </div>
 
 </div>
@@ -867,8 +1199,9 @@ Inferno
 
 <div class="info-text">
 UHC<br>
-Crystal<br>
-Bed
+Bed<br>
+Emerald Pot<br>
+Manhunt
 </div>
 
 </div>
@@ -882,7 +1215,36 @@ Nova
 <div class="info-text">
 Lite<br>
 Emerald<br>
-Gapple
+Gapple<br>
+Wand
+</div>
+
+</div>
+
+<div class="info-card">
+
+<div class="info-title">
+Frost
+</div>
+
+<div class="info-text">
+Dragonhide KB<br>
+Controller PvP<br>
+DeBuff
+</div>
+
+</div>
+
+<div class="info-card">
+
+<div class="info-title">
+ShadowX
+</div>
+
+<div class="info-text">
+Bed<br>
+Combo<br>
+Mace
 </div>
 
 </div>
@@ -926,8 +1288,54 @@ HT2 = 80<br>
 LT2 = 70<br><br>
 
 HT3 = 60<br>
-LT3 = 50
+LT3 = 50<br><br>
 
+HT4 = 40<br>
+LT4 = 30<br><br>
+
+HT5 = 20<br>
+LT5 = 10
+
+</div>
+
+</div>
+
+<div class="info-card">
+
+<div class="info-title">
+OVERALL тир
+</div>
+
+<div class="info-text">
+
+700+ = HT1<br>
+620+ = LT1<br><br>
+
+540+ = HT2<br>
+460+ = LT2<br><br>
+
+380+ = HT3<br>
+300+ = LT3<br><br>
+
+220+ = HT4<br>
+140+ = LT4<br><br>
+
+60+ = HT5<br>
+0+ = LT5
+
+</div>
+
+</div>
+
+<div class="info-card">
+
+<div class="info-title">
+Можно ли пройти re-test?
+</div>
+
+<div class="info-text">
+Да. Игрок может пройти
+повторную проверку позже.
 </div>
 
 </div>
@@ -969,7 +1377,8 @@ Hardcore:"HT1",
 SMP:"LT1",
 Combo:"M1",
 Axe:"M2",
-Crystal:"M3"
+Crystal:"M3",
+Diamond:"LT1"
 }
 },
 
@@ -987,7 +1396,8 @@ Hardcore:"HT2",
 UHC:"LT1",
 Combo:"M2",
 Mace:"M3",
-Bed:"M4"
+Bed:"M4",
+Emerald:"LT2"
 }
 },
 
@@ -1005,7 +1415,8 @@ SMP:"HT1",
 Lite:"LT2",
 Gapple:"M2",
 Combo:"M3",
-Crystal:"M4"
+Crystal:"M4",
+DeBuff:"LT1"
 }
 },
 
@@ -1023,7 +1434,8 @@ Hardcore:"LT1",
 Manhunt:"HT1",
 Combo:"M2",
 Axe:"M1",
-Bed:"M3"
+Bed:"M3",
+Dragonhide:"HT2"
 }
 },
 
@@ -1041,7 +1453,8 @@ UHC:"HT1",
 Crystal:"M1",
 Mace:"M2",
 Bed:"M3",
-Diamond:"LT1"
+Diamond:"LT1",
+EmeraldPot:"HT2"
 }
 },
 
@@ -1059,7 +1472,8 @@ Hardcore:"HT2",
 Combo:"M2",
 Mace:"M2",
 Axe:"M3",
-Lite:"LT2"
+Lite:"LT2",
+Crystal:"LT1"
 }
 },
 
@@ -1077,7 +1491,8 @@ Dragonhide:"HT2",
 Combo:"M1",
 Crystal:"M2",
 Bed:"M4",
-Wand:"LT2"
+Wand:"LT2",
+DragonhideKB:"HT1"
 }
 },
 
@@ -1095,7 +1510,8 @@ Emerald:"HT2",
 Gapple:"M2",
 Crystal:"M2",
 Axe:"M4",
-Bed:"M5"
+Bed:"M5",
+DeBuff:"LT2"
 }
 },
 
@@ -1113,7 +1529,8 @@ Hardcore:"LT2",
 Diamond:"HT2",
 Combo:"M3",
 Mace:"M3",
-Crystal:"M4"
+Crystal:"M4",
+SMP:"LT1"
 }
 },
 
@@ -1131,187 +1548,5 @@ Lite:"HT1",
 Emerald:"LT1",
 Gapple:"M1",
 Crystal:"M2",
-Bed:"M4"
-}
-}
-
-];
-
-function renderPlayers(){
-
-const container=
-document.getElementById('playersContainer');
-
-container.innerHTML='';
-
-const search=
-document.getElementById('searchInput')
-.value
-.toLowerCase();
-
-const region=
-document.getElementById('regionFilter')
-.value;
-
-const device=
-document.getElementById('deviceFilter')
-.value;
-
-let filteredPlayers=
-players.filter(player=>{
-
-const matchSearch=
-player.name.toLowerCase().includes(search);
-
-const matchRegion=
-region==='all'||player.region===region;
-
-const matchDevice=
-device==='all'||player.device===device;
-
-return(
-matchSearch&&
-matchRegion&&
-matchDevice
-);
-
-});
-
-filteredPlayers.sort((a,b)=>
-b.overallPts-a.overallPts
-);
-
-filteredPlayers.forEach((player,index)=>{
-
-container.innerHTML+=`
-
-<div class="player-card" onclick="openPlayerModal('${player.name}')">
-
-<div class="player-name">
-#${index+1} ${player.name} ${player.region} • ${player.device}
-</div>
-
-<div class="player-right">
-${player.overallPts} PTS
-</div>
-
-</div>
-
-`;
-
-});
-
-}
-
-function openPlayerModal(playerName){
-
-const player=
-players.find(p=>p.name===playerName);
-
-document
-.getElementById('playerModal')
-.classList.add('active');
-
-document
-.getElementById('playerModalTitle')
-.innerHTML=player.name;
-
-const content=
-document.getElementById('playerModalContent');
-
-content.innerHTML='';
-
-for(const kit in player.tiers){
-
-content.innerHTML+=`
-
-<div class="info-card">
-
-<div class="info-title">
-${kit}
-</div>
-
-<div class="info-text">
-Tier: ${player.tiers[kit]}<br>
-Tester: ${player.tester}
-</div>
-
-</div>
-
-`;
-
-}
-
-}
-
-function closeModal(modalId){
-
-document
-.getElementById(modalId)
-.classList.remove('active');
-
-}
-
-const menuBtn=
-document.getElementById('menuBtn');
-
-const sidebar=
-document.getElementById('sidebar');
-
-const overlay=
-document.getElementById('overlay');
-
-menuBtn.addEventListener('click',function(){
-
-sidebar.classList.toggle('active');
-
-overlay.classList.toggle('active');
-
-});
-
-overlay.addEventListener('click',function(){
-
-sidebar.classList.remove('active');
-
-overlay.classList.remove('active');
-
-document
-.querySelectorAll('.modal')
-.forEach(modal=>{
-
-modal.classList.remove('active');
-
-});
-
-});
-
-function openModal(modalId){
-
-document
-.getElementById(modalId)
-.classList.add('active');
-
-sidebar.classList.remove('active');
-
-overlay.classList.remove('active');
-
-}
-
-document
-.getElementById('searchInput')
-.addEventListener('input',renderPlayers);
-
-document
-.getElementById('regionFilter')
-.addEventListener('change',renderPlayers);
-
-document
-.getElementById('deviceFilter')
-.addEventListener('change',renderPlayers);
-
-renderPlayers();
-
-</script>
-
-</body>
-</html>
+Bed:"M4",
+Wan
