@@ -1,552 +1,576 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MultiCraftCISTiers - PvP Ranking Platform</title>
-    <style>
-        /* 1. ПОДКЛЮЧЕНИЕ ШРИФТА (ТОЧНЫЕ ПУТИ) */
-        @font-face {
-            font-family: 'MultiCraftFont';
-            src: url('assets/MultiCraftFont.ttf') format('truetype'),
-                 url('assets/fonts/MultiCraftFont.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MultiCraftCISTiers</title>
+<style>
+@font-face {
+    font-family: 'MultiCraftFont';
+    src: url('assets/MultiCraftFont.ttf') format('truetype'),
+         url('assets/fonts/MultiCraftFont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 
-        /* 2. ТОТАЛЬНЫЙ СТИЛЬ И СБРОС */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            /* Принудительный пиксельный шрифт абсолютно везде */
-            font-family: 'MultiCraftFont', 'Courier New', monospace !important;
-            -webkit-font-smoothing: none;
-            -moz-osx-font-smoothing: none;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'MultiCraftFont',sans-serif!important;
+}
 
-        body {
-            background-color: #0b0e14;
-            /* Фиксация фона без дублирования на ПК и мобилках */
-            background-image: linear-gradient(rgba(11, 14, 20, 0.85), rgba(11, 14, 20, 0.95)), url('assets/bg.jpg');
-            background-repeat: no-repeat !important;
-            background-size: cover !important;
-            background-position: center top !important;
-            background-attachment: fixed !important;
-            color: #e2e8f0;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+body,html{
+    background:#050816;
+    color:#fff;
+    min-height:100vh;
+    overflow-x:hidden;
+    background-image:
+    radial-gradient(circle at top left,rgba(255,187,0,.15),transparent 30%),
+    radial-gradient(circle at bottom right,rgba(255,170,0,.08),transparent 35%),
+    linear-gradient(180deg,#070b17,#0b1224);
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position:center top;
+    background-attachment:fixed;
+}
 
-        /* Адаптивный Header (Flexbox без перекосов) */
-        header {
-            display: flex !important;
-            justify-content: space-between !important;
-            align-items: center !important;
-            flex-wrap: nowrap !important;
-            padding: 20px;
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(8px);
-            border-bottom: 2px solid #f59e0b;
-        }
+button,a,input,select,p,span,div,td,th,h1,h2,h3{
+    font-family:'MultiCraftFont',sans-serif!important;
+}
 
-        .logo {
-            font-size: 22px;
-            color: #f59e0b;
-            text-shadow: 2px 2px #000;
-        }
+.header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:nowrap;
+    padding:18px 20px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    background:rgba(5,8,22,.9);
+    position:sticky;
+    top:0;
+    z-index:1000;
+    backdrop-filter:blur(12px);
+}
 
-        .menu-btn {
-            background: #1e293b;
-            color: #f59e0b;
-            border: 2px solid #f59e0b;
-            padding: 8px 16px;
-            cursor: pointer;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: all 0.2s ease;
-        }
+.logo{
+    font-size:32px;
+    color:#ffcc47;
+}
 
-        .menu-btn:hover {
-            background: #f59e0b;
-            color: #0b0e14;
-            box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
-        }
+.menu-btn{
+    background:#121d35;
+    border:1px solid rgba(255,204,71,.3);
+    color:#ffcc47;
+    padding:12px 16px;
+    border-radius:10px;
+    cursor:pointer;
+    transition:.25s;
+}
 
-        /* БОКОВОЕ МЕНЮ */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            right: -280px;
-            width: 280px;
-            height: 100%;
-            background: #0f172a;
-            border-left: 3px solid #f59e0b;
-            box-shadow: -5px 0 25px rgba(0,0,0,0.7);
-            transition: right 0.3s ease;
-            z-index: 1000;
-            padding: 30px 20px;
-        }
+.menu-btn:hover,.sidebar a:hover{
+    box-shadow:0 0 15px rgba(255,204,71,.4);
+    opacity:.9;
+}
 
-        .sidebar.active {
-            right: 0;
-        }
+.sidebar{
+    position:fixed;
+    top:0;
+    left:-320px;
+    width:300px;
+    height:100%;
+    background:#0a1020;
+    border-right:1px solid rgba(255,255,255,.08);
+    padding:20px;
+    z-index:2000;
+    overflow-y:auto;
+    transition:.3s;
+}
 
-        .sidebar h2 {
-            color: #f59e0b;
-            font-size: 20px;
-            margin-bottom: 25px;
-            text-align: center;
-            border-bottom: 1px solid rgba(245, 158, 11, 0.3);
-            padding-bottom: 10px;
-        }
+.sidebar.active{
+    left:0;
+}
 
-        .sidebar-menu {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+.sidebar h3{
+    color:#ffcc47;
+    margin:20px 0 10px;
+    font-size:18px;
+}
 
-        .sidebar-menu button, .sidebar-menu a {
-            display: block;
-            width: 100%;
-            background: #1e293b;
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 12px;
-            text-align: left;
-            border-radius: 8px;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 14px;
-            transition: all 0.2s ease;
-        }
+.sidebar a{
+    display:block;
+    text-decoration:none;
+    color:#fff;
+    padding:12px;
+    margin-bottom:8px;
+    border-radius:10px;
+    background:#121b2e;
+    transition:.25s;
+}
 
-        .sidebar-menu button:hover, .sidebar-menu a:hover {
-            border-color: #f59e0b;
-            color: #f59e0b;
-            background: #151f32;
-            padding-left: 18px;
-        }
+.main-page,.tab-content{
+    max-width:1450px;
+    margin:auto;
+    padding:30px 20px;
+}
 
-        .sidebar-menu .tg-link {
-            background: #1d4ed8;
-            color: #fff !important;
-            border-color: #3b82f6;
-            text-align: center;
-            margin-top: 15px;
-        }
+.hero{
+    background:linear-gradient(145deg,rgba(15,20,35,.98),rgba(8,10,18,.98));
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:28px;
+    padding:40px;
+    box-shadow:0 0 40px rgba(255,187,0,.08);
+}
 
-        .sidebar-menu .tg-link:hover {
-            background: #2563eb;
-            color: #fff !important;
-            box-shadow: 0 0 12px rgba(59, 130, 246, 0.6);
-        }
+.hero h1{
+    font-size:70px;
+    line-height:1;
+    color:#ffcc47;
+}
 
-        .close-sidebar {
-            background: none;
-            border: none;
-            color: #ef4444;
-            font-size: 18px;
-            cursor: pointer;
-            position: absolute;
-            top: 15px;
-            right: 15px;
-        }
+.hero p{
+    margin-top:18px;
+    line-height:1.8;
+    color:#c8c8c8;
+}
 
-        /* ОСНОВНОЙ КОНТЕЙНЕР И СИСТЕМА ВКЛАДОК */
-        main {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+.telegram-btn,.back-btn{
+    display:inline-block;
+    margin-top:20px;
+    background:linear-gradient(to right,#ffbb00,#ffd95c);
+    color:#000;
+    text-decoration:none;
+    padding:14px 18px;
+    border-radius:10px;
+    transition:.25s;
+}
 
-        .tab-content {
-            display: none;
-        }
+.telegram-btn:hover,.back-btn:hover{
+    box-shadow:0 0 20px rgba(255,204,71,.45);
+}
 
-        .tab-content.active {
-            display: block;
-        }
+.filters{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:14px;
+    margin-top:30px;
+}
 
-        /* Кнопка "Назад" на полноэкранных вкладках */
-        .back-btn {
-            background: #1e293b;
-            color: #f59e0b;
-            border: 1px solid #f59e0b;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-bottom: 20px;
-            display: inline-block;
-        }
+.filters input,.filters select{
+    background:rgba(16,24,39,.85);
+    border:1px solid rgba(255,255,255,.08);
+    color:#fff;
+    padding:14px;
+    border-radius:8px;
+    outline:none;
+}
 
-        .back-btn:hover {
-            background: #f59e0b;
-            color: #0b0e14;
-        }
+.section-title{
+    font-size:42px;
+    margin:35px 0 20px;
+    color:#ffcc47;
+}
 
-        h1.tab-title {
-            color: #f59e0b;
-            font-size: 28px;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
+.players-list{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
 
-        /* ПРЕВЬЮ-БЛОК С ОПИСАНИЕМ */
-        .hero-card {
-            background: rgba(15, 23, 42, 0.55);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 25px;
-            backdrop-filter: blur(4px);
-        }
+.player-card{
+    background:#0f1729;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:16px;
+    padding:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    height:auto;
+}
 
-        .hero-card h2 {
-            font-size: 32px;
-            color: #f59e0b;
-            margin-bottom: 12px;
-        }
+.player-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    min-width:0;
+}
 
-        .hero-card p {
-            font-size: 13px;
-            line-height: 1.6;
-            color: #94a3b8;
-            margin-bottom: 20px;
-        }
+.player-rank{
+    color:#ffcc47;
+    font-size:20px;
+}
 
-        /* Красивые выпадающие списки (Фильтры) */
-        .filters {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 12px;
-            margin-top: 15px;
-        }
+.player-name{
+    color:#fff;
+    font-size:20px;
+}
 
-        .filters select, .filters input {
-            background: #0f172a;
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 12px;
-            border-radius: 8px;
-            outline: none;
-            font-size: 13px;
-            width: 100%;
-        }
+.player-right{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    white-space:nowrap;
+    color:#ffd76c;
+    font-size:15px;
+}
 
-        .filters select:focus, .filters input:focus {
-            border-color: #f59e0b;
-        }
+.tab-content{
+    display:none;
+}
 
-        /* КАРТОЧКИ OVERALL TOP (Идеальный Flexbox) */
-        .leaderboard-section h2 {
-            font-size: 22px;
-            color: #f59e0b;
-            margin: 25px 0 15px 0;
-        }
+.table-wrap{
+    overflow-x:auto;
+    margin-top:20px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.08);
+}
 
-        .player-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+.table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:1200px;
+    background:#0d1527;
+}
 
-        .player-card {
-            background: rgba(15, 23, 42, 0.65);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 16px 20px;
-            display: flex !important;
-            justify-content: space-between !important;
-            align-items: center !important;
-            height: auto !important; /* Убрана фиксированная высота */
-            transition: transform 0.2s ease, border-color 0.2s ease;
-        }
+.table th{
+    background:#131f37;
+    color:#ffcc47;
+}
 
-        .player-card:hover {
-            border-color: #f59e0b;
-            transform: translateY(-2px);
-        }
+.table th,.table td{
+    padding:12px 10px;
+    text-align:center;
+    border-bottom:1px solid rgba(255,255,255,.1);
+    white-space:nowrap;
+}
 
-        .player-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+.tier{
+    color:#ffd76c;
+}
 
-        .player-rank {
-            color: #f59e0b;
-            font-size: 15px;
-        }
+.info-box{
+    background:#0f1729;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:18px;
+    padding:22px;
+    margin-top:18px;
+    line-height:1.9;
+}
 
-        .player-name {
-            color: #fff;
-            font-size: 16px;
-        }
-
-        .player-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 14px;
-            color: #94a3b8;
-            white-space: nowrap; /* Защита от переноса строки */
-        }
-
-        .player-pts {
-            color: #f59e0b;
-        }
-
-        /* ИДЕАЛЬНО РОВНЫЕ ТАБЛИЦЫ КИТОВ С ГОРИЗОНТАЛЬНЫМ СКРОЛЛОМ */
-        .table-container {
-            width: 100%;
-            overflow-x: auto; /* Позволяет скроллить таблицу пальцем на мобилках */
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            margin-top: 15px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            min-width: 600px; /* Чтобы таблица сохраняла структуру при скролле */
-        }
-
-        th, td {
-            padding: 14px 16px;
-            font-size: 13px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-        }
-
-        th {
-            background: #0f172a;
-            color: #f59e0b;
-            text-transform: uppercase;
-        }
-
-        tr:hover td {
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .tier-badge {
-            color: #f59e0b;
-            text-shadow: 1px 1px #000;
-        }
-
-        /* СТИЛИЗАЦИЯ FAQ И ИНСТРУКЦИЙ */
-        .info-block {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(255,255,255,0.05);
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-        }
-
-        .info-block h3 {
-            color: #f59e0b;
-            margin-bottom: 8px;
-            font-size: 16px;
-        }
-
-        .info-block p, .info-block ol {
-            font-size: 13px;
-            color: #94a3b8;
-            line-height: 1.6;
-            padding-left: 15px;
-        }
-
-        .badge-notice {
-            background: rgba(245, 158, 11, 0.1);
-            border: 1px solid #f59e0b;
-            color: #f59e0b;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            margin-top: 15px;
-            text-align: center;
-        }
-    </style>
+@media(max-width:900px){
+    .hero h1{font-size:42px;}
+    .filters{grid-template-columns:1fr;}
+    .player-card{
+        flex-direction:row;
+        align-items:center;
+    }
+    .player-right{
+        flex-direction:column;
+        align-items:flex-end;
+        gap:4px;
+        font-size:13px;
+    }
+}
+</style>
 </head>
 <body>
 
-    <!-- ШАПКА САЙТА -->
-    <header>
-        <div class="logo">MultiCraftCISTiers</div>
-        <button class="menu-btn" onclick="toggleSidebar()">≡ Меню</button>
-    </header>
+<div class="sidebar" id="sidebar">
+    <h3>Навигация</h3>
+    <a href="#" onclick="switchTab('maintiersTab')">MAINTIERS</a>
+    <a href="#" onclick="switchTab('subtiersTab')">SUBTIERS</a>
+    <a href="#" onclick="switchTab('hallTab')">Доска почета</a>
+    <a href="#" onclick="switchTab('faqTab')">FAQ</a>
+    <a href="#" onclick="switchTab('testTab')">Как пройти тир-тест</a>
+    <a href="#" onclick="switchTab('testersTab')">Testers</a>
+    <a href="https://t.me/MultiCraftCISTiers" target="_blank">Telegram</a>
+</div>
 
-    <!-- БОКОВОЕ МЕНЮ -->
-    <div class="sidebar" id="sidebar">
-        <button class="close-sidebar" onclick="toggleSidebar()">✕</button>
-        <h2>MultiCraft Menu</h2>
-        <ul class="sidebar-menu">
-            <li><button onclick="switchTab('main')">Главная (Топ)</button></li>
-            <li><button onclick="switchTab('maintiers')">MAINTIERS</button></li>
-            <li><button onclick="switchTab('subtiers')">SUBTIERS</button></li>
-            <li><button onclick="switchTab('honors')">Доска почета</button></li>
-            <li><button onclick="switchTab('testers')">Testers</button></li>
-            <li><button onclick="switchTab('guide')">Как пройти тест</button></li>
-            <li><button onclick="switchTab('faq')">FAQ</button></li>
-            <li><a href="https://t.me/MultiCraftCISTiers" target="_blank" class="tg-link">Telegram канал</a></li>
-        </ul>
+<header class="header">
+    <div class="logo">MultiCraftCISTiers</div>
+    <button class="menu-btn" id="menuBtn">☰ Меню</button>
+</header>
+
+<div class="main-page" id="mainPage">
+    <div class="hero">
+        <h1>OVERALL PvP TOP</h1>
+        <p>
+            Официальная PvP ranking platform СНГ комьюнити. Проходите тир-тесты, попадайте в OVERALL TOP и поднимайтесь до высших PvP тиров.
+        </p>
+
+        <a class="telegram-btn" href="https://t.me/MultiCraftCISTiers" target="_blank">Telegram</a>
+
+        <div class="filters">
+            <input type="text" id="searchInput" placeholder="Поиск игрока...">
+
+            <select id="regionFilter">
+                <option value="all">Все регионы СНГ</option>
+                <option value="RU">RU</option>
+                <option value="UA">UA</option>
+                <option value="BY">BY</option>
+                <option value="KZ">KZ</option>
+                <option value="UZ">UZ</option>
+                <option value="KG">KG</option>
+                <option value="AM">AM</option>
+                <option value="AZ">AZ</option>
+                <option value="MD">MD</option>
+                <option value="TJ">TJ</option>
+            </select>
+
+            <select id="deviceFilter">
+                <option value="all">Все устройства</option>
+                <option value="PH">Phone [PH]</option>
+                <option value="TB">Tablet [TB]</option>
+                <option value="PC">PC [PC]</option>
+                <option value="CT">Controller [CT]</option>
+                <option value="OTG">OTG [OTG]</option>
+            </select>
+        </div>
+
+        <h2 class="section-title">OVERALL LEADERBOARD</h2>
+        <div class="players-list" id="playersList"></div>
     </div>
+</div>
 
-    <!-- ОСНОВНОЙ КОНТЕНТ -->
-    <main>
-        
-        <!-- ВКЛАДКА 1: ГЛАВНАЯ СТРАНИЦА (OVERALL TOP) -->
-        <div id="tab-main" class="tab-content active">
-            <div class="hero-card">
-                <h2>CIS PvP Platform</h2>
-                <p>Официальная PvP ranking platform СНГ комьюнити MultiCraft. Проходите тир-тесты, попадайте в OVERALL LEADERBOARD и поднимайтесь до высших PvP рангов платформы.</p>
-                
-                <div class="filters">
-                    <input type="text" id="search" placeholder="Поиск по нику..." oninput="filterPlayers()">
-                    <select id="filter-region" onchange="filterPlayers()">
-                        <option value="">Все регионы СНГ</option>
-                        <option value="RU">RU</option>
-                        <option value="UA">UA</option>
-                        <option value="BY">BY</option>
-                        <option value="KZ">KZ</option>
-                    </select>
-                    <select id="filter-device" onchange="filterPlayers()">
-                        <option value="">Все устройства</option>
-                        <option value="PC">PC</option>
-                        <option value="PH">Phone</option>
-                        <option value="CT">Controller</option>
-                        <option value="OTG">OTG</option>
-                    </select>
-                </div>
+<div class="tab-content" id="maintiersTab">
+    <a href="#" class="back-btn" onclick="backHome()">← Назад на главную</a>
+    <h2 class="section-title">MAINTIERS</h2>
+    <div class="table-wrap">
+        <table class="table" id="maintiersTable"></table>
+    </div>
+</div>
+
+<div class="tab-content" id="subtiersTab">
+    <a href="#" class="back-btn" onclick="backHome()">← Назад на главную</a>
+    <h2 class="section-title">SUBTIERS</h2>
+    <div class="table-wrap">
+        <table class="table" id="subtiersTable"></table>
+    </div>
+</div>
+
+<div class="tab-content" id="hallTab">
+    <a href="#" class="back-btn" onclick="backHome()">← Назад на главную</a>
+    <h2 class="section-title">Доска почета</h2>
+    <div class="info-box">
+        ReaperX — первый HT1 Sword игрок платформы.<br><br>
+        NeoPvP — легенда UHC сцены СНГ.<br><br>
+        DarkBlade — известен своими combo mechanics и агрессивным стилем.<br><br>
+        Inferno — один из сильнейших Emerald игроков платформы.<br><br>
+        Blaze — доминирует в Pot и Hardcore матчах.
+    </div>
+</div>
+
+<div class="tab-content" id="faqTab">
+    <a href="#" class="back-btn" onclick="backHome()">← Назад на главную</a>
+    <h2 class="section-title">FAQ</h2>
+    <div class="info-box">
+        HT1 = 300 PTS<br>
+        LT1 = 280 PTS<br>
+        HT2 = 260 PTS<br>
+        LT2 = 240 PTS<br>
+        HT3 = 220 PTS<br>
+        LT3 = 200 PTS<br>
+        HT4 = 180 PTS<br>
+        LT4 = 160 PTS<br>
+        HT5 = 140 PTS<br>
+        LT5 = 120 PTS<br><br>
+
+        OVERALL TOP формируется автоматически на основе суммы очков всех китов игрока.<br><br>
+
+        Повторный тир-тест разрешен. После успешного re-test игрок может повысить свой ранг.
+    </div>
+</div>
+
+<div class="tab-content" id="testTab">
+    <a href="#" class="back-btn" onclick="backHome()">← Назад на главную</a>
+    <h2 class="section-title">Как пройти тир-тест</h2>
+    <div class="info-box">
+        1. Зайти в Telegram группу платформы.<br><br>
+        2. Написать боту заявку по шаблону.<br><br>
+        3. Ждать ответа тир-тестера.<br><br>
+        После тиртеста ранг будет внесен на сайт.
+    </div>
+</div>
+
+<div class="tab-content" id="testersTab">
+    <a href="#" class="back-btn" onclick="backHome()">← Назад на главную</a>
+    <h2 class="section-title">Testers</h2>
+    <div class="info-box">
+        ReaperX — Hardcore, SMP, UHC, Diamond.<br><br>
+        NeoPvP — Emerald Pot, Emerald, Lite, Combo.<br><br>
+        DarkBlade — Axe, Crystal, Dragonhide, Dragonhide KB.<br><br>
+        Inferno — Mace, Bed, Gapple, Wand.<br><br>
+        Blaze — Manhunt, Debuff, UHC.
+    </div>
+</div>
+
+<script>
+const tierPoints={
+    HT1:300,LT1:280,HT2:260,LT2:240,HT3:220,
+    LT3:200,HT4:180,LT4:160,HT5:140,LT5:120,Unranked:0
+};
+
+const maintiers=["Hardcore","SMP","UHC","Manhunt","Lite","Emerald Pot","Emerald","Dragonhide KB","Dragonhide","Diamond","Wand"];
+const subtiers=["Combo","Gapple","Mace","Crystal","Axe","DeBuff","Bed"];
+
+const players=[
+{
+name:"zor1kkqwix",region:"RU",device:"PC",
+tiers:{"Hardcore":"HT1","SMP":"LT1","UHC":"HT1","Manhunt":"HT2","Lite":"LT1","Emerald Pot":"HT2","Emerald":"HT1","Dragonhide KB":"LT1","Dragonhide":"HT2","Diamond":"HT1","Wand":"LT2","Combo":"HT1","Gapple":"LT1","Mace":"HT2","Crystal":"HT1","Axe":"LT1","DeBuff":"HT2","Bed":"HT1"}
+},
+{
+name:"ReaperX",region:"UA",device:"TB",
+tiers:{"Hardcore":"LT1","SMP":"HT2","UHC":"LT1","Manhunt":"HT2","Lite":"HT2","Emerald Pot":"LT2","Emerald":"HT2","Dragonhide KB":"HT2","Dragonhide":"LT2","Diamond":"HT2","Wand":"LT1","Combo":"LT1","Gapple":"HT2","Mace":"LT2","Crystal":"HT2","Axe":"HT2","DeBuff":"LT2","Bed":"HT2"}
+},
+{
+name:"Inferno",region:"KZ",device:"PH",
+tiers:{"Hardcore":"HT2","SMP":"LT2","UHC":"HT2","Manhunt":"LT1","Lite":"HT3","Emerald Pot":"HT2","Emerald":"LT2","Dragonhide KB":"HT3","Dragonhide":"HT2","Diamond":"LT2","Wand":"HT2","Combo":"HT2","Gapple":"LT2","Mace":"HT1","Crystal":"LT2","Axe":"LT1","DeBuff":"HT3","Bed":"HT2"}
+},
+{
+name:"Blaze",region:"RU",device:"OTG",
+tiers:{"Hardcore":"LT2","SMP":"HT3","UHC":"LT1","Manhunt":"HT2","Lite":"LT2","Emerald Pot":"HT1","Emerald":"HT2","Dragonhide KB":"LT2","Dragonhide":"HT3","Diamond":"HT2","Wand":"LT2","Combo":"HT2","Gapple":"HT3","Mace":"LT1","Crystal":"HT3","Axe":"HT2","DeBuff":"HT2","Bed":"LT1"}
+},
+{
+name:"NeoPvP",region:"BY",device:"PC",
+tiers:{"Hardcore":"HT2","SMP":"HT2","UHC":"HT1","Manhunt":"LT1","Lite":"HT2","Emerald Pot":"HT2","Emerald":"HT1","Dragonhide KB":"HT2","Dragonhide":"LT1","Diamond":"HT2","Wand":"HT3","Combo":"LT1","Gapple":"HT2","Mace":"HT2","Crystal":"LT1","Axe":"HT2","DeBuff":"HT2","Bed":"LT2"}
+},
+{
+name:"DarkBlade",region:"AM",device:"CT",
+tiers:{"Hardcore":"LT2","SMP":"LT2","UHC":"HT2","Manhunt":"HT3","Lite":"LT1","Emerald Pot":"LT2","Emerald":"HT2","Dragonhide KB":"HT1","Dragonhide":"HT1","Diamond":"HT3","Wand":"HT2","Combo":"HT2","Gapple":"LT2","Mace":"HT3","Crystal":"HT1","Axe":"HT1","DeBuff":"LT1","Bed":"HT2"}
+},
+{
+name:"Frost",region:"KG",device:"PH",
+tiers:{"Hardcore":"HT3","SMP":"HT3","UHC":"LT2","Manhunt":"HT2","Lite":"HT2","Emerald Pot":"HT3","Emerald":"LT1","Dragonhide KB":"HT2","Dragonhide":"LT2","Diamond":"HT3","Wand":"LT3","Combo":"HT3","Gapple":"HT2","Mace":"LT2","Crystal":"HT2","Axe":"LT2","DeBuff":"HT3","Bed":"HT2"}
+},
+{
+name:"Vortex",region:"UZ",device:"PC",
+tiers:{"Hardcore":"HT2","SMP":"LT1","UHC":"HT2","Manhunt":"LT2","Lite":"HT3","Emerald Pot":"HT2","Emerald":"LT2","Dragonhide KB":"LT1","Dragonhide":"HT2","Diamond":"LT2","Wand":"HT3","Combo":"LT2","Gapple":"HT3","Mace":"HT2","Crystal":"LT2","Axe":"HT3","DeBuff":"HT2","Bed":"LT2"}
+},
+{
+name:"Shadow",region:"AZ",device:"TB",
+tiers:{"Hardcore":"HT3","SMP":"LT2","UHC":"HT3","Manhunt":"LT2","Lite":"HT3","Emerald Pot":"LT3","Emerald":"HT2","Dragonhide KB":"HT2","Dragonhide":"LT2","Diamond":"HT2","Wand":"LT2","Combo":"HT2","Gapple":"HT3","Mace":"LT3","Crystal":"HT2","Axe":"LT2","DeBuff":"HT2","Bed":"LT3"}
+},
+{
+name:"Venom",region:"TJ",device:"PH",
+tiers:{"Hardcore":"LT3","SMP":"HT3","UHC":"HT3","Manhunt":"LT3","Lite":"HT2","Emerald Pot":"HT3","Emerald":"LT3","Dragonhide KB":"HT3","Dragonhide":"HT2","Diamond":"LT3","Wand":"HT2","Combo":"HT3","Gapple":"LT3","Mace":"HT2","Crystal":"LT3","Axe":"HT3","DeBuff":"HT3","Bed":"HT2"}
+}
+];
+
+function calcPoints(player,kits){
+    let total=0;
+    kits.forEach(kit=>{
+        total+=tierPoints[player.tiers[kit]]||0;
+    });
+    return total;
+}
+
+function renderPlayers(){
+    const list=document.getElementById('playersList');
+    const search=document.getElementById('searchInput').value.toLowerCase();
+    const region=document.getElementById('regionFilter').value;
+    const device=document.getElementById('deviceFilter').value;
+
+    let filtered=players.filter(player=>{
+        return player.name.toLowerCase().includes(search)
+        && (region==='all'||player.region===region)
+        && (device==='all'||player.device===device);
+    });
+
+    filtered.sort((a,b)=>calcPoints(b,[...maintiers,...subtiers])-calcPoints(a,[...maintiers,...subtiers]));
+
+    list.innerHTML='';
+
+    filtered.forEach((player,index)=>{
+        const pts=calcPoints(player,[...maintiers,...subtiers]);
+
+        list.innerHTML+=`
+        <div class="player-card">
+            <div class="player-left">
+                <div class="player-rank">#${index+1}</div>
+                <div class="player-name">${player.name}</div>
             </div>
 
-            <div class="leaderboard-section">
-                <h2>OVERALL LEADERBOARD</h2>
-                <div class="player-list" id="overall-list">
-                    <!-- Сюда рендерятся карточки через JS -->
-                </div>
+            <div class="player-right">
+                <span>${player.region} • ${player.device}</span>
+                <span>${pts} PTS</span>
             </div>
-        </div>
+        </div>`;
+    });
+}
 
-        <!-- ВКЛАДКА 2: MAINTIERS -->
-        <div id="tab-maintiers" class="tab-content">
-            <button class="back-btn" onclick="switchTab('main')">← На главную</button>
-            <h1 class="tab-title">MAINTIERS TOP</h1>
-            <div class="table-container">
-                <table id="table-maintiers">
-                    <!-- Рендерится через JS -->
-                </table>
-            </div>
-        </div>
+function renderTable(id,kits){
+    const table=document.getElementById(id);
 
-        <!-- ВКЛАДКА 3: SUBTIERS -->
-        <div id="tab-subtiers" class="tab-content">
-            <button class="back-btn" onclick="switchTab('main')">← На главную</button>
-            <h1 class="tab-title">SUBTIERS TOP</h1>
-            <div class="table-container">
-                <table id="table-subtiers">
-                    <!-- Рендерится через JS -->
-                </table>
-            </div>
-        </div>
+    let sorted=[...players].sort((a,b)=>calcPoints(b,kits)-calcPoints(a,kits));
 
-        <!-- ВКЛАДКА 4: ДОСКА ПОЧЕТА -->
-        <div id="tab-honors" class="tab-content">
-            <button class="back-btn" onclick="switchTab('main')">← На главную</button>
-            <h1 class="tab-title">Доска почета</h1>
-            <div class="info-block">
-                <h3>Легенды Платформы</h3>
-                <p>Здесь увековечены имена игроков, которые внесли колоссальный вклад в развитие PvP-режима MultiCraft, удерживали статус топ-1 на протяжении многих сезонов или совершили невероятные рекорды.</p>
-            </div>
-            <div class="info-block">
-                <h3>Зал Славы</h3>
-                <p>• zor1kkqwix — Абсолютный чемпион ранних сезонов.<br>• Nomad — Величайший стратег и мастер кита Mace.<br>• Inferno — Самый стабильный лидер списков общего зачета.</p>
-            </div>
-        </div>
+    let html=`<tr><th>#</th><th>Игрок</th><th>Страна</th><th>Устройство</th>`;
 
-        <!-- ВКЛАДКА 5: TESTERS -->
-        <div id="tab-testers" class="tab-content">
-            <button class="back-btn" onclick="switchTab('main')">← На главную</button>
-            <h1 class="tab-title">Тир-Тестеры</h1>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Тестер</th>
-                            <th>Группа проверки китов</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Ares</td><td>MAINTIERS (Hardcore, SMP, UHC, Manhunt)</td></tr>
-                        <tr><td>Vortex</td><td>SUBTIERS (Combo, Gapple, Mace, Crystal)</td></tr>
-                        <tr><td>Reaper</td><td>MAINTIERS & SUBTIERS (Все киты)</td></tr>
-                        <tr><td>NeoPvP</td><td>SUBTIERS (Axe, DeBuff, Bed)</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    kits.forEach(kit=>html+=`<th>${kit}</th>`);
 
-        <!-- ВКЛАДКА 6: КАК ПРОЙТИ ТЕСТ -->
-        <div id="tab-guide" class="tab-content">
-            <button class="back-btn" onclick="switchTab('main')">← На главную</button>
-            <h1 class="tab-title">Инструкция по Тестированию</h1>
-            <div class="info-block">
-                <h3>Как получить свой ранг на сайте?</h3>
-                <ol>
-                    <li>1. Перейдите в наше официальное Телеграм сообщество.</li>
-                    <li>2. Откройте специального бота и оставьте официальную заявку на тир-тест по закрепленному шаблону.</li>
-                    <li>3. Ожидайте распределения и ответа от свободного тир-тестера вашей дисциплины.</li>
-                </ol>
-                <div class="badge-notice">После успешного прохождения теста ваш ранг будет автоматически внесен администрацией на этот сайт.</div>
-            </div>
-        </div>
+    html+=`<th>Сумма PTS</th></tr>`;
 
-        <!-- ВКЛАДКА 7: FAQ -->
-        <div id="tab-faq" class="tab-content">
-            <button class="back-btn" onclick="switchTab('main')">← На главную</button>
-            <h1 class="tab-title">Часто задаваемые вопросы</h1>
-            <div class="info-block">
-                <h3>Как рассчитываются очки OVERALL PTS?</h3>
-                <p>Очки считаются автоматически на основе всех ваших тиров в китах. Чем выше ваш тир (например HT1), тем больше баллов вы получаете в общую копилку лидерборда.</p>
-            </div>
-            <div class="info-block">
-                <h3>Как часто обновляются таблицы?</h3>
-                <p>Списки обновляются сразу после того, как тир-тестер передает результаты проверки администрации платформы.</p>
-            </div>
-        </div>
+    sorted.forEach((player,index)=>{
+        html+=`<tr>
+        <td>#${index+1}</td>
+        <td>${player.name}</td>
+        <td>${player.region}</td>
+        <td>${player.device}</td>`;
 
-    </main>
+        kits.forEach(kit=>{
+            const tier=player.tiers[kit];
+            const pts=tierPoints[tier];
+            html+=`<td class="tier">${tier} (${pts} PTS)</td>`;
+        });
 
-    <!-- СКРИПТЫ С ПОЛНОЙ ЛОГИКОЙ -->
-    <script>
-        // Иерархия силы рангов для правильной числовой сортировки китов
-        const tierWeights = {
-            "HT1": 10, "LT1": 9, "HT2": 8, "LT2": 7, "HT3": 6,
-            "LT3": 5, "HT4": 4, "LT4": 3, "HT5": 2, "LT5": 1, "Unranked": 0
-        };
+        html+=`<td class="tier">${calcPoints(player,kits)} PTS</td></tr>`;
+    });
 
-        // БАЗА ДАННЫХ ИГРОКОВ (Все упоминания тестеров полностью стерты)
-        const players = [
-            { name: "zor1kkqwix", region: "RU", device: "PC", overallPts: 1560, maintiers: { Hardcore: "HT1", SMP: "LT1", UHC: "HT2" }, subtiers: { Combo: "HT1", Gapple: "LT1", Mace: "HT2" } },
-            { name: "NeoPvP", region: "BY", device: "PC", overallPts: 1430, maintiers: { Hardcore: "LT1", SMP: "HT2", UHC: "LT2" }, subtiers: { Combo: "LT1", Gapple: "HT2", Mace: "LT2" } },
-            { name: "Frost", region: "AZ", device: "PC", overallPts: 1420, maintiers: { Hardcore: "HT2", SMP: "LT2", UHC: "HT3" }, subtiers: { Combo: "HT2", Gapple: "LT2", Mace: "HT3" } },
-            { name: "ReaperX", region: "UA", device: "PH", overallPts: 1410, maintiers: { Hardcore: "LT2", SMP: "HT3", UHC: "LT3" }, subtiers: { Combo: "LT2", Gapple: "HT3", Mace: "LT3" } },
-            { name: "DarkBlade", region: "UA", device: "CT", overallPts: 1390, maintiers: { Hardcore: "HT3", SMP: "LT3", UHC: "HT4" }, subtiers: { Combo: "HT3", Gapple: "LT3", Mace: "HT4" } },
-            { name: "Inferno", region: "KZ", device: "PC", overallPts: 1380, maintiers: { Hardcore: "LT3", SMP: "HT4", UHC: "LT4" }, subtiers: { Combo: "LT3", Gapple: "HT4", Mace: "LT4" } },
-            { name: "Blaze", region: "RU", device: "TB", overallPts: 1360, maintiers: { Hardcore: "HT4", SMP: "LT4", UHC: "HT5" }, subtiers: { Combo: "HT4", Gapple: "LT4", Mace: "HT5" } },
-            { name: "Storm", region: "MD", device: "TB", overallPts: 1350, maintiers: { Hardcore: "LT4", SMP: "HT5", UHC: "LT5" }, subtiers: { Combo: "LT4", Gapple: "HT5", Mace: "LT5" } },
-            { name: "Vortex", region: "AM", device: "PC", overallPts: 1330, maintiers: { Hardcore: "HT5", SMP: "LT5", UHC: "Unranked" }, subtiers: { Combo: "HT5", Gapple: "LT5", Mace: "Unranked" } },
-            { name: "GhostPvP", region: "AZ", device: "PH", overallPts: 1320, maintiers: { Hardcore: "LT5", SMP: "Unranked", UHC: "Unranked" }, subtiers: { Combo: "LT5", Gapple: "Unranked", Mace: "Unranked" } }
-        ];
+    table.innerHTML=html;
+}
 
-        // МЕХАНИКА ОТКРЫТИЯ/ЗАКРЫТИЯ МЕНЮ
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('active');
-        }
+function switchTab(tabId){
+    document.getElementById('sidebar').classList.remove('active');
+    document.getElementById('mainPage').style.display='none';
 
-        // ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК (СИСТЕМА ОТДЕЛЬНЫХ СТРАНИЦ)
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content
+    document.querySelectorAll('.tab-content').forEach(tab=>{
+        tab.style.display='none';
+    });
+
+    document.getElementById(tabId).style.display='block';
+    window.scrollTo(0,0);
+}
+
+function backHome(){
+    document.querySelectorAll('.tab-content').forEach(tab=>{
+        tab.style.display='none';
+    });
+
+    document.getElementById('mainPage').style.display='block';
+    window.scrollTo(0,0);
+}
+
+const menuBtn=document.getElementById('menuBtn');
+const sidebar=document.getElementById('sidebar');
+
+menuBtn.addEventListener('click',()=>{
+    sidebar.classList.toggle('active');
+});
+
+window.addEventListener('click',(e)=>{
+    if(!sidebar.contains(e.target)&&!menuBtn.contains(e.target)){
+        sidebar.classList.remove('active');
+    }
+});
+
+document.getElementById('searchInput').addEventListener('input',renderPlayers);
+document.getElementById('regionFilter').addEventListener('change',renderPlayers);
+document.getElementById('deviceFilter').addEventListener('change',renderPlayers);
+
+renderPlayers();
+renderTable('maintiersTable',maintiers);
+renderTable('subtiersTable',subtiers);
+</script>
+
+</body>
+</html>
