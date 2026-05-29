@@ -3,24 +3,18 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>MultiCraft CIS Tiers</title>
 
-<script src="https://cdn.tailwindcss.com"></script>
-
 <style>
 
-@font-face{
-    font-family:"MultiCraft";
-    src:url("assets/MultiCraftFont.ttf") format("truetype");
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:"MultiCraft",sans-serif;
 }
 
 html{
@@ -28,16 +22,18 @@ html{
 }
 
 body{
-    overflow-x:hidden;
-
+    font-family:'Inter',sans-serif;
     background:
     radial-gradient(circle at top left,
-    rgba(255,170,0,0.14),transparent 30%),
+    rgba(255,185,0,0.08),
+    transparent 25%),
     radial-gradient(circle at bottom right,
-    rgba(255,120,0,0.08),transparent 30%),
-    #06080f;
+    rgba(255,140,0,0.06),
+    transparent 25%),
+    #070b14;
 
     color:white;
+    overflow-x:hidden;
 }
 
 body::before{
@@ -46,27 +42,50 @@ body::before{
     inset:0;
 
     background:
-    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);
 
     background-size:40px 40px;
 
     pointer-events:none;
 }
 
-.page{
+.app{
     max-width:1450px;
     margin:auto;
-    padding:30px 20px 60px;
+    padding:20px;
 }
 
-.topbar{
+.header{
     display:flex;
-    align-items:flex-start;
-    gap:18px;
+    justify-content:space-between;
+    align-items:center;
+
+    gap:20px;
+
+    padding:18px 24px;
+
+    background:rgba(15,20,32,0.9);
+
+    border:1px solid rgba(255,255,255,0.06);
+
+    border-radius:28px;
+
+    backdrop-filter:blur(10px);
 }
 
-.menu-button{
+.logo{
+    font-size:38px;
+    font-weight:700;
+
+    background:
+    linear-gradient(to right,#ffb300,#fff0b3);
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.menu-btn{
     border:none;
     cursor:pointer;
 
@@ -75,58 +94,98 @@ body::before{
 
     color:black;
 
-    padding:16px 18px;
+    font-weight:700;
 
-    border-radius:20px;
+    padding:14px 18px;
 
-    font-size:18px;
+    border-radius:18px;
 
     transition:0.25s;
-
-    box-shadow:
-    0 0 25px rgba(255,179,0,0.24);
 }
 
-.menu-button:hover{
+.menu-btn:hover{
     transform:translateY(-2px);
 }
 
 .hero{
-    flex:1;
-}
-
-.logo{
-    font-size:72px;
-    line-height:0.9;
+    margin-top:24px;
 
     background:
-    linear-gradient(to right,#ffb300,#fff2b8);
+    linear-gradient(145deg,
+    rgba(15,20,32,0.96),
+    rgba(8,10,18,0.96));
+
+    border:1px solid rgba(255,255,255,0.06);
+
+    border-radius:36px;
+
+    padding:42px;
+
+    position:relative;
+    overflow:hidden;
+}
+
+.hero::after{
+    content:"";
+
+    position:absolute;
+
+    width:500px;
+    height:500px;
+
+    right:-180px;
+    top:-180px;
+
+    background:
+    radial-gradient(circle,
+    rgba(255,179,0,0.15),
+    transparent 70%);
+}
+
+.hero-title{
+    position:relative;
+    z-index:2;
+
+    font-size:72px;
+    font-weight:700;
+    line-height:0.95;
+
+    background:
+    linear-gradient(to right,#ffb300,#fff0b3);
 
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
 }
 
-.hero-sub{
+.hero-text{
+    position:relative;
+    z-index:2;
+
+    margin-top:22px;
+
     max-width:850px;
 
-    margin-top:24px;
+    color:#9ca3af;
 
-    color:#9d9d9d;
-
-    line-height:2;
+    line-height:1.9;
 }
 
-.hero-buttons{
-    display:flex;
-    flex-wrap:wrap;
+.telegram-btn{
+    position:relative;
+    z-index:2;
 
-    gap:14px;
+    display:inline-block;
 
-    margin-top:28px;
-}
+    margin-top:26px;
 
-.hero-buttons a{
     text-decoration:none;
+
+    background:
+    linear-gradient(to right,#ffb300,#ffd54f);
+
+    color:black;
+
+    font-weight:700;
 
     padding:16px 22px;
 
@@ -135,42 +194,59 @@ body::before{
     transition:0.25s;
 }
 
-.telegram-btn{
-    background:
-    linear-gradient(to right,#ffb300,#ffd54f);
-
-    color:black;
-
-    box-shadow:
-    0 0 30px rgba(255,179,0,0.22);
+.telegram-btn:hover{
+    transform:translateY(-2px);
 }
 
-.hero-buttons a:hover{
-    transform:translateY(-3px);
+.filters{
+    margin-top:30px;
+
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+
+    gap:16px;
+}
+
+.filters input,
+.filters select{
+    width:100%;
+
+    background:#101827;
+
+    border:1px solid rgba(255,255,255,0.06);
+
+    color:white;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    outline:none;
+
+    font-size:15px;
 }
 
 .section-title{
-    margin-top:42px;
+    margin-top:40px;
 
-    font-size:48px;
+    font-size:42px;
+    font-weight:700;
 
     background:
-    linear-gradient(to right,#ffb300,#fff2b8);
+    linear-gradient(to right,#ffb300,#fff0b3);
 
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
 }
 
 .section-sub{
-    margin-top:12px;
+    margin-top:10px;
 
-    color:#9d9d9d;
-
-    line-height:1.9;
+    color:#9ca3af;
 }
 
-.players-container{
-    margin-top:32px;
+.players-list{
+    margin-top:28px;
 
     display:flex;
     flex-direction:column;
@@ -183,19 +259,19 @@ body::before{
     justify-content:space-between;
     align-items:center;
 
-    gap:20px;
+    gap:18px;
 
-    background:#0f1422;
+    background:#0f1726;
 
-    border-radius:28px;
+    border:1px solid rgba(255,255,255,0.06);
+
+    border-radius:26px;
 
     padding:24px;
 
-    border:1px solid rgba(255,255,255,0.05);
+    cursor:pointer;
 
     transition:0.25s;
-
-    cursor:pointer;
 }
 
 .player-card:hover{
@@ -207,50 +283,32 @@ body::before{
     0 0 30px rgba(255,179,0,0.08);
 }
 
-.player-left{
-    display:flex;
-    align-items:center;
-
-    gap:18px;
-}
-
-.rank{
-    font-size:32px;
-    color:#ffd166;
-
-    min-width:70px;
-}
-
-.player-nick{
-    font-size:30px;
-}
-
 .player-info{
-    margin-top:8px;
-
-    color:#999;
-}
-
-.player-right{
     display:flex;
-    align-items:center;
-
-    gap:16px;
+    flex-direction:column;
+    gap:8px;
 }
 
-.player-tier{
+.player-name{
+    font-size:24px;
+    font-weight:700;
+}
+
+.player-meta{
+    color:#9ca3af;
+}
+
+.player-points{
     background:
     linear-gradient(to right,#ffb300,#ffd54f);
 
     color:black;
 
-    padding:12px 16px;
+    font-weight:700;
+
+    padding:14px 18px;
 
     border-radius:16px;
-}
-
-.player-points{
-    color:#ffe082;
 }
 
 .sidebar{
@@ -261,20 +319,20 @@ body::before{
     width:320px;
     height:100vh;
 
-    overflow-y:auto;
-
     background:
     linear-gradient(180deg,
-    rgba(10,14,25,0.98),
-    rgba(5,8,15,0.98));
+    rgba(10,14,24,0.98),
+    rgba(6,8,14,0.98));
 
     border-right:1px solid rgba(255,255,255,0.06);
 
-    padding:28px 20px 40px;
+    padding:24px;
 
-    z-index:9999;
+    overflow-y:auto;
 
-    transition:0.35s ease;
+    transition:0.3s ease;
+
+    z-index:1000;
 }
 
 .sidebar.active{
@@ -282,14 +340,13 @@ body::before{
 }
 
 .sidebar-title{
-    font-size:34px;
-
-    line-height:1;
+    font-size:30px;
+    font-weight:700;
 
     margin-bottom:26px;
 
     background:
-    linear-gradient(to right,#ffb300,#fff2b8);
+    linear-gradient(to right,#ffb300,#fff0b3);
 
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
@@ -314,7 +371,7 @@ body::before{
 
     text-decoration:none;
 
-    background:#111827;
+    background:#121c2d;
 
     color:white;
 
@@ -322,18 +379,16 @@ body::before{
 
     border-radius:18px;
 
-    transition:0.25s;
-
     border:1px solid rgba(255,255,255,0.05);
+
+    transition:0.25s;
 }
 
 .sidebar-links button:hover,
 .sidebar-links a:hover{
     transform:translateX(4px);
 
-    border-color:rgba(255,179,0,0.3);
-
-    background:#1a2233;
+    border-color:rgba(255,179,0,0.35);
 }
 
 .overlay{
@@ -347,7 +402,7 @@ body::before{
 
     transition:0.25s;
 
-    z-index:9998;
+    z-index:999;
 }
 
 .overlay.active{
@@ -359,16 +414,15 @@ body::before{
     position:fixed;
     inset:0;
 
-    background:rgba(0,0,0,0.72);
-
     display:none;
-
     align-items:center;
     justify-content:center;
 
     padding:20px;
 
-    z-index:10000;
+    background:rgba(0,0,0,0.75);
+
+    z-index:2000;
 }
 
 .modal.active{
@@ -383,16 +437,13 @@ body::before{
 
     overflow-y:auto;
 
-    background:#0f1422;
-
-    border-radius:34px;
-
-    padding:34px;
+    background:#0f1726;
 
     border:1px solid rgba(255,255,255,0.06);
 
-    box-shadow:
-    0 0 50px rgba(0,0,0,0.45);
+    border-radius:32px;
+
+    padding:32px;
 }
 
 .modal-header{
@@ -406,12 +457,13 @@ body::before{
 }
 
 .modal-title{
-    font-size:42px;
+    font-size:36px;
+    font-weight:700;
 
     color:#ffd166;
 }
 
-.close-modal{
+.close-btn{
     border:none;
     cursor:pointer;
 
@@ -420,9 +472,11 @@ body::before{
 
     color:black;
 
+    font-weight:700;
+
     padding:12px 16px;
 
-    border-radius:16px;
+    border-radius:14px;
 }
 
 .modal-grid{
@@ -432,90 +486,29 @@ body::before{
     gap:16px;
 }
 
-.modal-card{
-    background:#111827;
+.info-card{
+    background:#121c2d;
+
+    border:1px solid rgba(255,255,255,0.05);
 
     border-radius:22px;
 
-    padding:20px;
-
-    border:1px solid rgba(255,255,255,0.05);
+    padding:22px;
 }
 
-.modal-card-title{
+.info-title{
     color:#ffd166;
-
-    font-size:24px;
-
-    margin-bottom:12px;
-}
-
-.modal-card-text{
-    color:#b6b6b6;
-
-    line-height:2;
-}
-
-.top-table{
-    display:flex;
-    flex-direction:column;
-
-    gap:14px;
-}
-
-.table-player{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    gap:18px;
-
-    background:#111827;
-
-    padding:20px;
-
-    border-radius:20px;
-
-    border:1px solid rgba(255,255,255,0.05);
-}
-
-.table-player-name{
-    font-size:24px;
-}
-
-.table-player-tier{
-    color:#ffd166;
-}
-
-.player-details-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-
-    gap:16px;
-}
-
-.player-kit-card{
-    background:#111827;
-
-    border-radius:20px;
-
-    padding:18px;
-
-    border:1px solid rgba(255,255,255,0.05);
-}
-
-.player-kit-title{
-    color:#ffd166;
-
-    margin-bottom:12px;
 
     font-size:22px;
+    font-weight:700;
+
+    margin-bottom:14px;
 }
 
-.player-kit-info{
-    color:#b8b8b8;
+.info-text{
+    color:#c4c4c4;
 
-    line-height:1.9;
+    line-height:1.8;
 }
 
 .footer{
@@ -523,38 +516,41 @@ body::before{
 
     text-align:center;
 
-    color:#777;
+    color:#7d8590;
 }
 
 @media(max-width:900px){
 
-    .logo{
-        font-size:52px;
+    .filters{
+        grid-template-columns:1fr;
     }
 
     .modal-grid{
         grid-template-columns:1fr;
     }
 
-    .player-details-grid{
-        grid-template-columns:1fr;
-    }
-
 }
 
-@media(max-width:760px){
+@media(max-width:700px){
 
-    .topbar{
-        align-items:flex-start;
+    .header{
+        padding:16px;
     }
 
     .logo{
-        font-size:38px;
+        font-size:26px;
     }
 
-    .menu-button{
-        padding:14px 16px;
-        font-size:16px;
+    .hero{
+        padding:28px;
+    }
+
+    .hero-title{
+        font-size:44px;
+    }
+
+    .section-title{
+        font-size:34px;
     }
 
     .player-card{
@@ -562,26 +558,19 @@ body::before{
         align-items:flex-start;
     }
 
-    .player-right{
+    .player-points{
         width:100%;
-        justify-content:space-between;
-    }
-
-    .modal-title{
-        font-size:30px;
-    }
-
-    .section-title{
-        font-size:34px;
+        text-align:center;
     }
 
     .sidebar{
-        width:290px;
+        width:280px;
     }
 
 }
 
 </style>
+
 </head>
 <body>
 
@@ -590,16 +579,16 @@ body::before{
 <div class="sidebar" id="sidebar">
 
 <div class="sidebar-title">
-MC CIS<br>Tiers
+MC CIS TIERS
 </div>
 
 <div class="sidebar-links">
 
-<button data-modal="mainTiersModal">
+<button data-modal="maintiersModal">
 MAINTIERS
 </button>
 
-<button data-modal="subTiersModal">
+<button data-modal="subtiersModal">
 SUBTIERS
 </button>
 
@@ -631,52 +620,110 @@ Telegram
 
 </div>
 
-<div class="page">
+<div class="app">
 
-<div class="topbar">
-
-<button class="menu-button" id="menuButton">
-☰ Меню
-</button>
-
-<div class="hero">
+<header class="header">
 
 <div class="logo">
 MultiCraftCISTiers
 </div>
 
-<div class="hero-sub">
-Официальная PvP ranking platform СНГ комьюнити.
-Система ранжирования игроков MultiCraft —
-Build and Mine! Проходите тир-тесты,
-поднимайтесь в OVERALL TOP и получайте
-официальные PvP тиры по MAINTIERS и SUBTIERS.
-</div>
+<button class="menu-btn" id="menuBtn">
+☰ Меню
+</button>
 
-<div class="hero-buttons">
+</header>
+
+<section class="hero">
+
+<h1 class="hero-title">
+CIS PvP<br>
+Platform
+</h1>
+
+<p class="hero-text">
+Официальная система ранжирования PvP игроков
+игры MultiCraft — Build and Mine!.
+Проходите тир-тесты, попадайте в OVERALL TOP,
+получайте MAINTIERS и SUBTIERS ранги
+и соревнуйтесь с сильнейшими игроками СНГ.
+</p>
 
 <a href="https://t.me/" target="_blank" class="telegram-btn">
 TELEGRAM
 </a>
 
-</div>
+<div class="filters">
+
+<input
+type="text"
+id="searchInput"
+placeholder="Поиск игрока..."
+>
+
+<select id="regionFilter">
+
+<option value="all">
+Все регионы СНГ
+</option>
+
+<option value="RU">RU</option>
+<option value="UA">UA</option>
+<option value="BY">BY</option>
+<option value="KZ">KZ</option>
+<option value="UZ">UZ</option>
+<option value="KG">KG</option>
+<option value="AM">AM</option>
+<option value="AZ">AZ</option>
+<option value="MD">MD</option>
+<option value="TJ">TJ</option>
+
+</select>
+
+<select id="deviceFilter">
+
+<option value="all">
+Все устройства
+</option>
+
+<option value="PH">
+Phone [PH]
+</option>
+
+<option value="TB">
+Tablet [TB]
+</option>
+
+<option value="PC">
+PC [PC]
+</option>
+
+<option value="CT">
+Controller [CT]
+</option>
+
+<option value="OTG">
+OTG [OTG]
+</option>
+
+</select>
 
 </div>
 
-</div>
+</section>
 
 <h2 class="section-title">
 OVERALL TOP
 </h2>
 
-<div class="section-sub">
-Лучшие игроки платформы по сумме MAINTIERS и SUBTIERS.
-</div>
+<p class="section-sub">
+Лучшие PvP игроки платформы по сумме MAINTIERS и SUBTIERS.
+</p>
 
-<div class="players-container" id="overallPlayers"></div>
+<div class="players-list" id="playersList"></div>
 
 <div class="footer">
-MultiCraft CIS Tiers
+MultiCraft CIS Tiers © 2026
 </div>
 
 </div>
@@ -691,19 +738,19 @@ MultiCraft CIS Tiers
 Игрок
 </div>
 
-<button class="close-modal" data-close="playerModal">
+<button class="close-btn" data-close="playerModal">
 ✕
 </button>
 
 </div>
 
-<div class="player-details-grid" id="playerDetails"></div>
+<div class="modal-grid" id="playerModalContent"></div>
 
 </div>
 
 </div>
 
-<div class="modal" id="mainTiersModal">
+<div class="modal" id="maintiersModal">
 
 <div class="modal-content">
 
@@ -713,19 +760,109 @@ MultiCraft CIS Tiers
 MAINTIERS
 </div>
 
-<button class="close-modal" data-close="mainTiersModal">
+<button class="close-btn" data-close="maintiersModal">
 ✕
 </button>
 
 </div>
 
-<div class="top-table" id="mainTiersTable"></div>
+<div class="modal-grid">
+
+<div class="info-card">
+<div class="info-title">
+Hardcore
+</div>
+<div class="info-text">
+zor1kkqwix — HT1<br>
+ReaperX — LT1<br>
+Infernal — HT2
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">
+SMP
+</div>
+<div class="info-text">
+BlazeFury — HT1<br>
+NeoPvP — LT1<br>
+DarkSoul — HT2
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">
+UHC
+</div>
+<div class="info-text">
+VoidPvP — HT1<br>
+StormBreak — LT1<br>
+Kenshi — HT2
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">
+Manhunt
+</div>
+<div class="info-text">
+Vortex — HT1<br>
+Xenon — LT1<br>
+ReaperX — HT2
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">
+Lite
+</div>
+<div class="info-text">
+Nova — HT1<br>
+BlazeFury — LT1<br>
+ShadowX — HT2
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">
+Emerald Pot
+</div>
+<div class="info-text">
+DarkSoul — HT1<br>
+VoidPvP — LT1<br>
+Kenshi — HT2
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">
+Dragonhide KB
+</div>
+<div class="info-text">
+StormBreak — HT1<br>
+Infernal — LT1<br>
+Vortex — HT2
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">
+Diamond
+</div>
+<div class="info-text">
+zor1kkqwix — HT1<br>
+NeoPvP — LT1<br>
+Nova — HT2
+</div>
+</div>
+
+</div>
 
 </div>
 
 </div>
 
-<div class="modal" id="subTiersModal">
+<div class="modal" id="subtiersModal">
 
 <div class="modal-content">
 
@@ -735,13 +872,92 @@ MAINTIERS
 SUBTIERS
 </div>
 
-<button class="close-modal" data-close="subTiersModal">
+<button class="close-btn" data-close="subtiersModal">
 ✕
 </button>
 
 </div>
 
-<div class="top-table" id="subTiersTable"></div>
+<div class="modal-grid">
+
+<div class="info-card">
+<div class="info-title">
+Combo
+</div>
+<div class="info-text">
+ReaperX — HT1<br>
+VoidPvP — LT1<br>
+Xenon — HT2
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">
+Gapple
+</div>
+<div class="info-text">
+Nova — HT1<br>
+Kenshi — LT1<br>
+BlazeFury — HT2
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">
+Mace
+</div>
+<div class="info-text">
+DarkSoul — HT1<br>
+StormBreak — LT1<br>
+Infernal — HT2
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">
+Crystal
+</div>
+<div class="info-text">
+Vortex — HT1<br>
+NeoPvP — LT1<br>
+ShadowX — HT2
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">
+Axe
+</div>
+<div class="info-text">
+zor1kkqwix — HT1<br>
+VoidPvP — LT1<br>
+ReaperX — HT2
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">
+DeBuff
+</div>
+<div class="info-text">
+Nova — HT1<br>
+Xenon — LT1<br>
+BlazeFury — HT2
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">
+Bed
+</div>
+<div class="info-text">
+Infernal — HT1<br>
+Kenshi — LT1<br>
+StormBreak — HT2
+</div>
+</div>
+
+</div>
 
 </div>
 
@@ -757,13 +973,32 @@ SUBTIERS
 Leaderboard
 </div>
 
-<button class="close-modal" data-close="leaderboardModal">
+<button class="close-btn" data-close="leaderboardModal">
 ✕
 </button>
 
 </div>
 
-<div class="top-table" id="leaderboardTable"></div>
+<div class="info-card">
+
+<div class="info-title">
+TOP OVERALL PLAYERS
+</div>
+
+<div class="info-text">
+#1 zor1kkqwix — 590 PTS<br>
+#2 ReaperX — 570 PTS<br>
+#3 Nova — 560 PTS<br>
+#4 VoidPvP — 548 PTS<br>
+#5 BlazeFury — 532 PTS<br>
+#6 DarkSoul — 521 PTS<br>
+#7 Vortex — 509 PTS<br>
+#8 NeoPvP — 497 PTS<br>
+#9 Infernal — 485 PTS<br>
+#10 Kenshi — 470 PTS
+</div>
+
+</div>
 
 </div>
 
@@ -779,7 +1014,7 @@ Leaderboard
 Доска почета
 </div>
 
-<button class="close-modal" data-close="hallModal">
+<button class="close-btn" data-close="hallModal">
 ✕
 </button>
 
@@ -787,40 +1022,39 @@ Leaderboard
 
 <div class="modal-grid">
 
-<div class="modal-card">
-<div class="modal-card-title">
+<div class="info-card">
+<div class="info-title">
 ReaperX
 </div>
-<div class="modal-card-text">
-Первый HT1 Sword игрок платформы.
-Legend of competitive PvP scene.
+<div class="info-text">
+Первый HT1 Combo игрок платформы.
 </div>
 </div>
 
-<div class="modal-card">
-<div class="modal-card-title">
-NeoPvP
+<div class="info-card">
+<div class="info-title">
+zor1kkqwix
 </div>
-<div class="modal-card-text">
-Один из сильнейших UHC игроков СНГ.
-</div>
-</div>
-
-<div class="modal-card">
-<div class="modal-card-title">
-DarkBlade
-</div>
-<div class="modal-card-text">
-Известен своими combo mechanics.
+<div class="info-text">
+Легенда Hardcore PvP сцены.
 </div>
 </div>
 
-<div class="modal-card">
-<div class="modal-card-title">
-Frost
+<div class="info-card">
+<div class="info-title">
+VoidPvP
 </div>
-<div class="modal-card-text">
-Лучший Controller player сезона.
+<div class="info-text">
+Один из лучших Crystal игроков СНГ.
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">
+Nova
+</div>
+<div class="info-text">
+Лучший универсальный PvP игрок сезона.
 </div>
 </div>
 
@@ -840,7 +1074,7 @@ Frost
 Testers
 </div>
 
-<button class="close-modal" data-close="testersModal">
+<button class="close-btn" data-close="testersModal">
 ✕
 </button>
 
@@ -848,52 +1082,64 @@ Testers
 
 <div class="modal-grid">
 
-<div class="modal-card">
-<div class="modal-card-title">
+<div class="info-card">
+
+<div class="info-title">
 ReaperX
 </div>
-<div class="modal-card-text">
+
+<div class="info-text">
 Hardcore<br>
 SMP<br>
-UHC<br>
-Diamond
-</div>
+Diamond<br>
+Wand
 </div>
 
-<div class="modal-card">
-<div class="modal-card-title">
-DarkBlade
 </div>
-<div class="modal-card-text">
+
+<div class="info-card">
+
+<div class="info-title">
+DarkSoul
+</div>
+
+<div class="info-text">
 Combo<br>
 Mace<br>
 Axe<br>
 Crystal
 </div>
+
 </div>
 
-<div class="modal-card">
-<div class="modal-card-title">
-NeoPvP
+<div class="info-card">
+
+<div class="info-title">
+Nova
 </div>
-<div class="modal-card-text">
-Manhunt<br>
+
+<div class="info-text">
 Lite<br>
 Emerald Pot<br>
-Emerald
-</div>
+Emerald<br>
+Gapple
 </div>
 
-<div class="modal-card">
-<div class="modal-card-title">
-Frost
 </div>
-<div class="modal-card-text">
-Dragonhide KB<br>
-Dragonhide<br>
-Wand<br>
+
+<div class="info-card">
+
+<div class="info-title">
+VoidPvP
+</div>
+
+<div class="info-text">
+UHC<br>
+Manhunt<br>
+DeBuff<br>
 Bed
 </div>
+
 </div>
 
 </div>
@@ -912,7 +1158,7 @@ Bed
 Как пройти тир-тест
 </div>
 
-<button class="close-modal" data-close="testingModal">
+<button class="close-btn" data-close="testingModal">
 ✕
 </button>
 
@@ -920,40 +1166,52 @@ Bed
 
 <div class="modal-grid">
 
-<div class="modal-card">
-<div class="modal-card-title">
+<div class="info-card">
+
+<div class="info-title">
 1. Telegram
 </div>
-<div class="modal-card-text">
-Зайти в Телеграм группу платформы.
-</div>
+
+<div class="info-text">
+Зайти в Telegram группу платформы.
 </div>
 
-<div class="modal-card">
-<div class="modal-card-title">
+</div>
+
+<div class="info-card">
+
+<div class="info-title">
 2. Заявка
 </div>
-<div class="modal-card-text">
-Написать в бота заявку на тир-тест по шаблону.
-</div>
+
+<div class="info-text">
+Написать боту заявку по шаблону.
 </div>
 
-<div class="modal-card">
-<div class="modal-card-title">
+</div>
+
+<div class="info-card">
+
+<div class="info-title">
 3. Ожидание
 </div>
-<div class="modal-card-text">
-Ждать ответа от тир-тестера платформы.
-</div>
+
+<div class="info-text">
+Ждать ответа от тир-тестера.
 </div>
 
-<div class="modal-card">
-<div class="modal-card-title">
+</div>
+
+<div class="info-card">
+
+<div class="info-title">
 После проверки
 </div>
-<div class="modal-card-text">
+
+<div class="info-text">
 После тир-теста ранг будет внесен на сайт.
 </div>
+
 </div>
 
 </div>
@@ -972,7 +1230,7 @@ Bed
 FAQ
 </div>
 
-<button class="close-modal" data-close="faqModal">
+<button class="close-btn" data-close="faqModal">
 ✕
 </button>
 
@@ -980,13 +1238,13 @@ FAQ
 
 <div class="modal-grid">
 
-<div class="modal-card">
+<div class="info-card">
 
-<div class="modal-card-title">
+<div class="info-title">
 Система очков
 </div>
 
-<div class="modal-card-text">
+<div class="info-text">
 
 HT1 = 100<br>
 LT1 = 90<br><br>
@@ -1007,13 +1265,13 @@ LT5 = 10
 
 </div>
 
-<div class="modal-card">
+<div class="info-card">
 
-<div class="modal-card-title">
+<div class="info-title">
 OVERALL тир
 </div>
 
-<div class="modal-card-text">
+<div class="info-text">
 
 700+ = HT1<br>
 620+ = LT1<br><br>
@@ -1022,38 +1280,31 @@ OVERALL тир
 460+ = LT2<br><br>
 
 380+ = HT3<br>
-300+ = LT3<br><br>
-
-220+ = HT4<br>
-140+ = LT4<br><br>
-
-60+ = HT5<br>
-0+ = LT5
+300+ = LT3
 
 </div>
 
 </div>
 
-<div class="modal-card">
+<div class="info-card">
 
-<div class="modal-card-title">
+<div class="info-title">
 Можно ли пройти re-test?
 </div>
 
-<div class="modal-card-text">
-Да. Игрок может пройти
-повторную проверку позже.
+<div class="info-text">
+Да. Игрок может пройти повторный тест позже.
 </div>
 
 </div>
 
-<div class="modal-card">
+<div class="info-card">
 
-<div class="modal-card-title">
+<div class="info-title">
 Что влияет на тир?
 </div>
 
-<div class="modal-card-text">
+<div class="info-text">
 Aim, movement, combo,
 gamesense и consistency.
 </div>
@@ -1068,474 +1319,248 @@ gamesense и consistency.
 
 <script>
 
-const tierPoints={
-
-HT1:100,
-LT1:90,
-
-HT2:80,
-LT2:70,
-
-HT3:60,
-LT3:50,
-
-HT4:40,
-LT4:30,
-
-HT5:20,
-LT5:10
-
-};
-
 const players=[
 
 {
-nick:"ReaperX",
-country:"RU",
-device:"PH",
-
-tester:{
-hardcore:"ReaperX",
-smp:"ReaperX",
-uhc:"NeoPvP",
-manhunt:"NeoPvP",
-lite:"NeoPvP",
-emeraldpot:"NeoPvP",
-emerald:"NeoPvP",
-dragonhidekb:"Frost",
-dragonhide:"Frost",
-diamond:"ReaperX",
-wand:"Frost",
-
-combo:"DarkBlade",
-gapple:"DarkBlade",
-mace:"DarkBlade",
-crystal:"DarkBlade",
-axe:"DarkBlade",
-debuff:"DarkBlade",
-bed:"Frost"
-},
-
-maintiers:{
-hardcore:"HT1",
-smp:"LT1",
-uhc:"HT2",
-manhunt:"LT1",
-lite:"HT2",
-emeraldpot:"LT2",
-emerald:"HT2",
-dragonhidekb:"HT3",
-dragonhide:"LT2",
-diamond:"HT1",
-wand:"LT1"
-},
-
-subtiers:{
-combo:"HT1",
-gapple:"LT1",
-mace:"HT2",
-crystal:"LT2",
-axe:"HT1",
-debuff:"HT2",
-bed:"LT1"
-}
-
-},
-
-{
-nick:"NeoPvP",
-country:"KZ",
+nick:"zor1kkqwix",
+region:"RU",
 device:"PC",
-
-tester:{
-hardcore:"ReaperX",
-smp:"ReaperX",
-uhc:"NeoPvP",
-manhunt:"NeoPvP",
-lite:"NeoPvP",
-emeraldpot:"NeoPvP",
-emerald:"NeoPvP",
-dragonhidekb:"Frost",
-dragonhide:"Frost",
-diamond:"ReaperX",
-wand:"Frost",
-
-combo:"DarkBlade",
-gapple:"DarkBlade",
-mace:"DarkBlade",
-crystal:"DarkBlade",
-axe:"DarkBlade",
-debuff:"DarkBlade",
-bed:"Frost"
-},
-
-maintiers:{
-hardcore:"LT1",
-smp:"HT2",
-uhc:"HT1",
-manhunt:"HT2",
-lite:"LT1",
-emeraldpot:"HT2",
-emerald:"LT1",
-dragonhidekb:"HT3",
-dragonhide:"HT2",
-diamond:"LT1",
-wand:"HT2"
-},
-
-subtiers:{
-combo:"LT1",
-gapple:"HT2",
-mace:"LT2",
-crystal:"HT2",
-axe:"LT1",
-debuff:"LT1",
-bed:"HT2"
+overall:590,
+tester:"ReaperX",
+kits:{
+Hardcore:"HT1",
+Diamond:"HT1",
+Axe:"HT1",
+Combo:"LT1"
 }
-
 },
 
 {
-nick:"DarkBlade",
-country:"UA",
-device:"TB",
-
-tester:{
-hardcore:"ReaperX",
-smp:"ReaperX",
-uhc:"NeoPvP",
-manhunt:"NeoPvP",
-lite:"NeoPvP",
-emeraldpot:"NeoPvP",
-emerald:"NeoPvP",
-dragonhidekb:"Frost",
-dragonhide:"Frost",
-diamond:"ReaperX",
-wand:"Frost",
-
-combo:"DarkBlade",
-gapple:"DarkBlade",
-mace:"DarkBlade",
-crystal:"DarkBlade",
-axe:"DarkBlade",
-debuff:"DarkBlade",
-bed:"Frost"
-},
-
-maintiers:{
-hardcore:"HT2",
-smp:"LT1",
-uhc:"LT1",
-manhunt:"HT2",
-lite:"HT3",
-emeraldpot:"LT2",
-emerald:"LT1",
-dragonhidekb:"LT2",
-dragonhide:"HT3",
-diamond:"HT2",
-wand:"LT2"
-},
-
-subtiers:{
-combo:"HT2",
-gapple:"LT2",
-mace:"HT1",
-crystal:"LT1",
-axe:"HT2",
-debuff:"HT2",
-bed:"LT1"
-}
-
-},
-
-{
-nick:"Blaze",
-country:"RU",
+nick:"ReaperX",
+region:"UA",
 device:"PH",
-
-tester:{
-hardcore:"ReaperX",
-smp:"ReaperX",
-uhc:"NeoPvP",
-manhunt:"NeoPvP",
-lite:"NeoPvP",
-emeraldpot:"NeoPvP",
-emerald:"NeoPvP",
-dragonhidekb:"Frost",
-dragonhide:"Frost",
-diamond:"ReaperX",
-wand:"Frost",
-
-combo:"DarkBlade",
-gapple:"DarkBlade",
-mace:"DarkBlade",
-crystal:"DarkBlade",
-axe:"DarkBlade",
-debuff:"DarkBlade",
-bed:"Frost"
-},
-
-maintiers:{
-hardcore:"HT2",
-smp:"HT2",
-uhc:"LT2",
-manhunt:"LT1",
-lite:"HT2",
-emeraldpot:"HT1",
-emerald:"HT2",
-dragonhidekb:"LT1",
-dragonhide:"HT2",
-diamond:"LT1",
-wand:"LT2"
-},
-
-subtiers:{
-combo:"HT2",
-gapple:"HT1",
-mace:"LT1",
-crystal:"LT2",
-axe:"LT2",
-debuff:"HT2",
-bed:"HT3"
+overall:570,
+tester:"DarkSoul",
+kits:{
+Combo:"HT1",
+Mace:"HT1",
+Hardcore:"LT1",
+UHC:"HT2"
 }
+},
 
+{
+nick:"Nova",
+region:"KZ",
+device:"PC",
+overall:560,
+tester:"Nova",
+kits:{
+Lite:"HT1",
+Gapple:"HT1",
+Emerald:"LT1",
+Bed:"HT2"
+}
+},
+
+{
+nick:"VoidPvP",
+region:"BY",
+device:"TB",
+overall:548,
+tester:"VoidPvP",
+kits:{
+Crystal:"HT1",
+UHC:"HT1",
+Combo:"LT1",
+Axe:"LT1"
+}
+},
+
+{
+nick:"BlazeFury",
+region:"RU",
+device:"OTG",
+overall:532,
+tester:"ReaperX",
+kits:{
+SMP:"HT1",
+Gapple:"HT2",
+Lite:"LT1",
+Diamond:"HT2"
+}
+},
+
+{
+nick:"DarkSoul",
+region:"UZ",
+device:"PC",
+overall:521,
+tester:"DarkSoul",
+kits:{
+Mace:"HT1",
+Crystal:"LT1",
+Emerald Pot:"HT1",
+Combo:"HT2"
+}
 },
 
 {
 nick:"Vortex",
-country:"UZ",
-device:"OTG",
-
-tester:{
-hardcore:"ReaperX",
-smp:"ReaperX",
-uhc:"NeoPvP",
-manhunt:"NeoPvP",
-lite:"NeoPvP",
-emeraldpot:"NeoPvP",
-emerald:"NeoPvP",
-dragonhidekb:"Frost",
-dragonhide:"Frost",
-diamond:"ReaperX",
-wand:"Frost",
-
-combo:"DarkBlade",
-gapple:"DarkBlade",
-mace:"DarkBlade",
-crystal:"DarkBlade",
-axe:"DarkBlade",
-debuff:"DarkBlade",
-bed:"Frost"
-},
-
-maintiers:{
-hardcore:"HT2",
-smp:"HT3",
-uhc:"LT2",
-manhunt:"LT1",
-lite:"HT2",
-emeraldpot:"HT2",
-emerald:"LT1",
-dragonhidekb:"HT2",
-dragonhide:"HT3",
-diamond:"LT2",
-wand:"HT3"
-},
-
-subtiers:{
-combo:"HT2",
-gapple:"HT2",
-mace:"HT3",
-crystal:"HT2",
-axe:"LT2",
-debuff:"LT1",
-bed:"LT2"
+region:"AM",
+device:"CT",
+overall:509,
+tester:"VoidPvP",
+kits:{
+Manhunt:"HT1",
+Crystal:"HT1",
+Dragonhide:"HT2",
+Bed:"LT2"
 }
-
 },
 
 {
-nick:"Inferno",
-country:"KG",
-device:"PC",
-
-tester:{
-hardcore:"ReaperX",
-smp:"ReaperX",
-uhc:"NeoPvP",
-manhunt:"NeoPvP",
-lite:"NeoPvP",
-emeraldpot:"NeoPvP",
-emerald:"NeoPvP",
-dragonhidekb:"Frost",
-dragonhide:"Frost",
-diamond:"ReaperX",
-wand:"Frost",
-
-combo:"DarkBlade",
-gapple:"DarkBlade",
-mace:"DarkBlade",
-crystal:"DarkBlade",
-axe:"DarkBlade",
-debuff:"DarkBlade",
-bed:"Frost"
-},
-
-maintiers:{
-hardcore:"HT2",
-smp:"HT2",
-uhc:"HT3",
-manhunt:"LT1",
-lite:"LT2",
-emeraldpot:"HT2",
-emerald:"HT3",
-dragonhidekb:"LT1",
-dragonhide:"HT2",
-diamond:"LT1",
-wand:"LT2"
-},
-
-subtiers:{
-combo:"HT2",
-gapple:"LT2",
-mace:"HT2",
-crystal:"LT1",
-axe:"HT3",
-debuff:"HT2",
-bed:"LT1"
+nick:"NeoPvP",
+region:"AZ",
+device:"TB",
+overall:497,
+tester:"Nova",
+kits:{
+Diamond:"LT1",
+Dragonhide KB:"HT2",
+Crystal:"LT1",
+Gapple:"HT2"
 }
+},
 
+{
+nick:"Infernal",
+region:"KG",
+device:"PC",
+overall:485,
+tester:"ReaperX",
+kits:{
+Bed:"HT1",
+Dragonhide KB:"LT1",
+Mace:"HT2",
+Wand:"HT2"
+}
+},
+
+{
+nick:"Kenshi",
+region:"TJ",
+device:"PH",
+overall:470,
+tester:"VoidPvP",
+kits:{
+UHC:"HT2",
+Gapple:"LT1",
+Bed:"LT1",
+Emerald Pot:"HT2"
+}
+},
+
+{
+nick:"StormBreak",
+region:"MD",
+device:"PC",
+overall:463,
+tester:"DarkSoul",
+kits:{
+Dragonhide KB:"HT1",
+UHC:"LT1",
+Mace:"LT1",
+Bed:"HT2"
+}
+},
+
+{
+nick:"ShadowX",
+region:"RU",
+device:"PH",
+overall:452,
+tester:"Nova",
+kits:{
+Lite:"HT2",
+Crystal:"HT2",
+Diamond:"LT2",
+Combo:"HT3"
+}
 }
 
 ];
 
-function getTotalPoints(player){
+const playersList=
+document.getElementById('playersList');
 
-let total=0;
+const searchInput=
+document.getElementById('searchInput');
 
-Object.values(player.maintiers).forEach(tier=>{
-total+=tierPoints[tier];
-});
+const regionFilter=
+document.getElementById('regionFilter');
 
-Object.values(player.subtiers).forEach(tier=>{
-total+=tierPoints[tier];
-});
+const deviceFilter=
+document.getElementById('deviceFilter');
 
-return total;
+function renderPlayers(filteredPlayers){
 
-}
+playersList.innerHTML='';
 
-function renderOverallTop(){
+filteredPlayers
+.sort((a,b)=>b.overall-a.overall)
+.forEach((player,index)=>{
 
-const container=
-document.getElementById('overallPlayers');
+const card=
+document.createElement('div');
 
-container.innerHTML='';
+card.className='player-card';
 
-const sorted=[...players]
-.sort((a,b)=>
-getTotalPoints(b)-getTotalPoints(a)
-);
-
-sorted.forEach((player,index)=>{
-
-container.innerHTML+=`
-
-<div class="player-card" onclick="openPlayerModal('${player.nick}')">
-
-<div class="player-left">
-
-<div class="rank">
-#${index+1}
-</div>
-
-<div>
-
-<div class="player-nick">
-${player.nick}
-</div>
+card.innerHTML=`
 
 <div class="player-info">
-${player.country} • ${player.device}
+
+<div class="player-name">
+#${index+1} ${player.nick}
 </div>
 
+<div class="player-meta">
+${player.region} • ${player.device}
 </div>
 
-</div>
-
-<div class="player-right">
-
-<div class="player-tier">
-OVERALL
 </div>
 
 <div class="player-points">
-${getTotalPoints(player)} PTS
-</div>
-
-</div>
-
+${player.overall} PTS
 </div>
 
 `;
+
+card.addEventListener('click',()=>{
+
+openPlayerModal(player);
+
+});
+
+playersList.appendChild(card);
 
 });
 
 }
 
-function openPlayerModal(nick){
+function filterPlayers(){
 
-const player=
-players.find(p=>p.nick===nick);
+const search=
+searchInput.value.toLowerCase();
 
-document.getElementById('playerModalTitle')
-.innerHTML=player.nick;
+const region=
+regionFilter.value;
 
-const details=
-document.getElementById('playerDetails');
+const device=
+deviceFilter.value;
 
-details.innerHTML='';
+const filtered=
+players.filter(player=>{
 
-Object.entries(player.maintiers).forEach(([kit,tier])=>{
-
-details.innerHTML+=`
-
-<div class="player-kit-card">
-
-<div class="player-kit-title">
-${kit.toUpperCase()}
-</div>
-
-<div class="player-kit-info">
-Тир: ${tier}<br>
-Тестер: ${player.tester[kit]}
-</div>
-
-</div>
-
-`;
-
-});
-
-Object.entries(player.subtiers).forEach(([kit,tier])=>{
-
-details.innerHTML+=`
-
-<div class="player-kit-card">
-
-<div class="player-kit-title">
-${kit.toUpperCase()}
-</div>
-
-<div class="player-kit-info">
-Тир: ${tier}<br>
-Тестер: ${player.tester[kit]}
-</div>
-
-</div>
-
-`;
-
-});
-
-ope
+const matchSearch=
+player.n
