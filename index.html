@@ -7,13 +7,11 @@
 
 <title>MultiCraft CIS Tiers</title>
 
-<script src="https://cdn.tailwindcss.com"></script>
-
 <style>
 
 @font-face{
     font-family:"MultiCraft";
-    src:url("assets/MultiCraftFont.ttf") format("truetype");
+    src:url("fonts/MultiCraftFont.ttf") format("truetype");
 }
 
 *{
@@ -28,14 +26,17 @@ html{
 }
 
 body{
-    overflow-x:hidden;
     background:
     radial-gradient(circle at top left,
-    rgba(255,170,0,0.14),transparent 30%),
+    rgba(255,170,0,0.16),transparent 30%),
+
     radial-gradient(circle at bottom right,
     rgba(255,120,0,0.08),transparent 30%),
+
     #06080f;
+
     color:white;
+    overflow-x:hidden;
 }
 
 body::before{
@@ -52,14 +53,130 @@ body::before{
     pointer-events:none;
 }
 
+.sidebar{
+    position:fixed;
+    top:0;
+    left:-340px;
+
+    width:320px;
+    height:100vh;
+
+    background:#0b101b;
+
+    border-right:1px solid rgba(255,255,255,0.06);
+
+    z-index:9999;
+
+    overflow-y:auto;
+
+    transition:.3s;
+}
+
+.sidebar.active{
+    left:0;
+}
+
+.sidebar-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:24px;
+}
+
+.sidebar-logo{
+    font-size:30px;
+
+    background:linear-gradient(to right,#ffb300,#fff0b3);
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.sidebar-close{
+    width:46px;
+    height:46px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#141c2c;
+
+    color:white;
+
+    font-size:20px;
+
+    cursor:pointer;
+}
+
+.sidebar-section{
+    padding:0 20px 26px;
+}
+
+.sidebar-category{
+    color:#ffcf66;
+
+    margin-bottom:14px;
+
+    font-size:20px;
+}
+
+.sidebar-kit{
+    width:100%;
+
+    border:none;
+
+    text-align:left;
+
+    padding:16px;
+
+    border-radius:16px;
+
+    margin-bottom:10px;
+
+    background:#121a2b;
+
+    color:white;
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.sidebar-kit:hover{
+    background:#1c2740;
+}
+
+.active-kit{
+    background:linear-gradient(to right,#ffb300,#ffd54f)!important;
+    color:black!important;
+}
+
+.sidebar-overlay{
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,0.65);
+
+    display:none;
+
+    z-index:9998;
+}
+
+.sidebar-overlay.active{
+    display:block;
+}
+
 .header{
     position:sticky;
     top:0;
+
     z-index:999;
 
-    backdrop-filter:blur(16px);
+    backdrop-filter:blur(18px);
 
-    background:rgba(5,8,15,0.86);
+    background:rgba(6,8,15,0.86);
 
     border-bottom:1px solid rgba(255,255,255,0.05);
 }
@@ -67,7 +184,37 @@ body::before{
 .nav-wrapper{
     max-width:1450px;
     margin:auto;
-    padding:14px 18px;
+
+    padding:16px 20px;
+}
+
+.top-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.left-top{
+    display:flex;
+    align-items:center;
+    gap:16px;
+}
+
+.menu-btn{
+    width:56px;
+    height:56px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:#121a2b;
+
+    color:#ffb300;
+
+    cursor:pointer;
+
+    font-size:24px;
 }
 
 .logo{
@@ -80,48 +227,31 @@ body::before{
     -webkit-text-fill-color:transparent;
 }
 
-.nav{
-    display:flex;
-    flex-wrap:wrap;
-    gap:12px;
-    margin-top:14px;
-}
-
-.nav a{
+.telegram-btn{
     text-decoration:none;
-    color:white;
 
-    background:#111827;
-
-    border:1px solid rgba(255,255,255,0.05);
-
-    padding:13px 18px;
+    padding:15px 22px;
 
     border-radius:18px;
 
-    transition:0.25s;
-}
+    background:linear-gradient(to right,#ffb300,#ffd54f);
 
-.nav a:hover{
-    transform:translateY(-2px);
-
-    border-color:rgba(255,179,0,0.3);
-
-    background:#1a2233;
+    color:black;
 }
 
 .hero{
     max-width:1450px;
     margin:auto;
 
-    padding:42px 20px 24px;
+    padding:42px 20px 26px;
 }
 
 .hero-box{
     position:relative;
+
     overflow:hidden;
 
-    border-radius:38px;
+    border-radius:40px;
 
     padding:58px;
 
@@ -156,9 +286,11 @@ body::before{
 
 .hero-title{
     position:relative;
+
     z-index:2;
 
-    font-size:90px;
+    font-size:92px;
+
     line-height:0.9;
 
     background:
@@ -170,6 +302,7 @@ body::before{
 
 .hero-sub{
     position:relative;
+
     z-index:2;
 
     max-width:760px;
@@ -182,13 +315,9 @@ body::before{
 }
 
 .hero-buttons{
-    position:relative;
-    z-index:2;
-
     display:flex;
-    flex-wrap:wrap;
-
     gap:14px;
+    flex-wrap:wrap;
 
     margin-top:34px;
 }
@@ -200,7 +329,7 @@ body::before{
 
     border-radius:22px;
 
-    transition:0.25s;
+    transition:.25s;
 }
 
 .primary-btn{
@@ -214,22 +343,18 @@ body::before{
 }
 
 .secondary-btn{
-    background:#111827;
+    background:#121a2b;
 
     color:white;
 
     border:1px solid rgba(255,255,255,0.05);
 }
 
-.hero-buttons a:hover{
-    transform:translateY(-3px);
-}
-
 .section{
     max-width:1450px;
     margin:auto;
 
-    padding:46px 20px;
+    padding:44px 20px;
 }
 
 .section-title{
@@ -243,17 +368,15 @@ body::before{
 }
 
 .section-sub{
+    color:#999;
     margin-top:12px;
-
-    color:#9d9d9d;
-
-    line-height:1.9;
 }
 
 .filters{
-    margin-top:28px;
+    margin-top:26px;
 
     display:grid;
+
     grid-template-columns:1fr 1fr 1fr;
 
     gap:14px;
@@ -261,7 +384,7 @@ body::before{
 
 .filters input,
 .filters select{
-    background:#101827;
+    background:#121a2b;
 
     border:none;
 
@@ -276,98 +399,54 @@ body::before{
     border:1px solid rgba(255,255,255,0.05);
 }
 
-.mode-tabs{
-    display:flex;
-    flex-wrap:wrap;
-
-    gap:12px;
-
-    margin-top:24px;
-    margin-bottom:28px;
-}
-
-.mode-tabs button{
-    border:none;
-    cursor:pointer;
-
-    background:#101827;
-
-    color:white;
-
-    padding:15px 20px;
-
-    border-radius:18px;
-
-    transition:0.25s;
-
-    border:1px solid rgba(255,255,255,0.05);
-}
-
-.mode-tabs button:hover{
-    transform:translateY(-2px);
-
-    border-color:rgba(255,179,0,0.3);
-}
-
-.active-mode{
-    background:
-    linear-gradient(to right,#ffb300,#ffd54f)!important;
-
-    color:black!important;
-}
-
 .players-container{
     display:flex;
     flex-direction:column;
 
     gap:16px;
 
-    max-height:950px;
-
-    overflow-y:auto;
+    margin-top:30px;
 }
 
 .player-card{
+    background:#101726;
+
+    border-radius:30px;
+
+    padding:24px;
+
+    border:1px solid rgba(255,255,255,0.05);
+
     display:flex;
     justify-content:space-between;
     align-items:center;
 
-    gap:18px;
-
-    background:#0f1422;
-
-    border-radius:28px;
-
-    padding:22px;
-
-    border:1px solid rgba(255,255,255,0.05);
-
-    transition:0.25s;
-
     cursor:pointer;
+
+    transition:.25s;
 }
 
 .player-card:hover{
     transform:translateY(-2px);
 
-    border-color:rgba(255,179,0,0.24);
+    border-color:rgba(255,179,0,0.2);
 }
 
 .player-left{
     display:flex;
     align-items:center;
-    gap:18px;
+    gap:20px;
 }
 
 .rank{
-    font-size:30px;
+    font-size:32px;
     color:#ffd166;
 
-    min-width:65px;
+    min-width:70px;
 }
 
 .player-nick{
-    font-size:30px;
+    font-size:32px;
 }
 
 .player-info{
@@ -375,7 +454,7 @@ body::before{
 
     color:#999;
 
-    font-size:14px;
+    font-size:15px;
 }
 
 .player-right{
@@ -390,7 +469,7 @@ body::before{
 
     color:black;
 
-    padding:12px 16px;
+    padding:12px 18px;
 
     border-radius:16px;
 }
@@ -409,25 +488,25 @@ body::before{
 }
 
 .info-card{
-    background:#0f1422;
+    background:#101726;
 
     border-radius:28px;
 
-    padding:30px;
+    padding:28px;
 
     border:1px solid rgba(255,255,255,0.05);
 }
 
 .info-title{
-    font-size:30px;
+    font-size:28px;
 
     color:#ffd166;
 
-    margin-bottom:16px;
+    margin-bottom:14px;
 }
 
 .info-text{
-    color:#9d9d9d;
+    color:#999;
 
     line-height:2;
 }
@@ -443,151 +522,296 @@ body::before{
     align-items:center;
     justify-content:center;
 
-    z-index:9999;
+    z-index:99999;
 }
 
 .modal-content{
     width:95%;
-    max-width:700px;
+    max-width:760px;
 
     background:#0f1422;
 
-    border-radius:30px;
+    border-radius:36px;
 
     padding:34px;
 
-    border:1px solid rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.06);
+}
+
+.modal-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
 .modal-title{
-    font-size:42px;
+    font-size:52px;
 
     color:#ffd166;
-
-    margin-bottom:18px;
-}
-
-.modal-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:14px;
-}
-
-.modal-kit{
-    background:#111827;
-
-    padding:16px;
-
-    border-radius:18px;
 }
 
 .close-btn{
-    margin-top:24px;
-
-    background:
-    linear-gradient(to right,#ffb300,#ffd54f);
-
-    color:black;
+    width:52px;
+    height:52px;
 
     border:none;
 
-    padding:16px 22px;
+    border-radius:16px;
+
+    background:#151f33;
+
+    color:white;
+
+    cursor:pointer;
+}
+
+.modal-player-info{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+
+    gap:14px;
+
+    margin-top:26px;
+}
+
+.modal-info-box{
+    background:#121a2b;
 
     border-radius:18px;
 
-    cursor:pointer;
+    padding:18px;
+}
+
+.modal-label{
+    color:#888;
+    margin-bottom:10px;
+}
+
+.modal-value{
+    font-size:22px;
+    color:#ffd166;
+}
+
+.modal-kits{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+
+    gap:14px;
+
+    margin-top:24px;
+}
+
+.modal-kit{
+    background:#121a2b;
+
+    padding:18px;
+
+    border-radius:18px;
 }
 
 .footer{
     margin-top:40px;
 
-    border-top:1px solid rgba(255,255,255,0.05);
-
-    padding:40px 20px;
+    padding:36px 20px;
 
     text-align:center;
 
-    color:#888;
+    color:#777;
+
+    border-top:1px solid rgba(255,255,255,0.05);
 }
 
-@media(max-width:1000px){
+@media(max-width:900px){
 
-    .hero-title{
-        font-size:62px;
-    }
+.hero-title{
+    font-size:60px;
+}
 
-    .info-grid{
-        grid-template-columns:1fr;
-    }
+.info-grid{
+    grid-template-columns:1fr;
+}
+
+.modal-player-info{
+    grid-template-columns:1fr;
+}
+
+.modal-kits{
+    grid-template-columns:1fr;
+}
 
 }
 
 @media(max-width:760px){
 
-    .hero-box{
-        padding:30px;
-    }
+.hero-box{
+    padding:34px;
+}
 
-    .hero-title{
-        font-size:42px;
-    }
+.hero-title{
+    font-size:44px;
+}
 
-    .filters{
-        grid-template-columns:1fr;
-    }
+.filters{
+    grid-template-columns:1fr;
+}
 
-    .player-card{
-        flex-direction:column;
-        align-items:flex-start;
-    }
+.player-card{
+    flex-direction:column;
+    align-items:flex-start;
+}
 
-    .player-right{
-        width:100%;
-        justify-content:space-between;
-    }
+.player-right{
+    width:100%;
+    justify-content:space-between;
+}
 
-    .section-title{
-        font-size:38px;
-    }
+.logo{
+    font-size:28px;
+}
 
-    .modal-grid{
-        grid-template-columns:1fr;
-    }
+.section-title{
+    font-size:40px;
+}
+
+.sidebar{
+    width:290px;
+}
 
 }
 
 </style>
 </head>
+
 <body>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<div class="sidebar" id="sidebar">
+
+<div class="sidebar-top">
+
+<div class="sidebar-logo">
+MC CIS TIERS
+</div>
+
+<button class="sidebar-close" onclick="closeSidebar()">
+✕
+</button>
+
+</div>
+
+<div class="sidebar-section">
+
+<div class="sidebar-category">
+MAIN TIERS
+</div>
+
+<button class="sidebar-kit active-kit" onclick="setMode('overall',this)">
+OVERALL
+</button>
+
+<button class="sidebar-kit" onclick="setMode('hardcore',this)">
+Hardcore
+</button>
+
+<button class="sidebar-kit" onclick="setMode('smp',this)">
+SMP
+</button>
+
+<button class="sidebar-kit" onclick="setMode('uhc',this)">
+UHC
+</button>
+
+<button class="sidebar-kit" onclick="setMode('lite',this)">
+Lite
+</button>
+
+<button class="sidebar-kit" onclick="setMode('emeraldpot',this)">
+Emerald Pot
+</button>
+
+<button class="sidebar-kit" onclick="setMode('emerald',this)">
+Emerald
+</button>
+
+<button class="sidebar-kit" onclick="setMode('dragonhidekb',this)">
+Dragonhide KB
+</button>
+
+<button class="sidebar-kit" onclick="setMode('dragonhide',this)">
+Dragonhide
+</button>
+
+<button class="sidebar-kit" onclick="setMode('diamond',this)">
+Diamond
+</button>
+
+<button class="sidebar-kit" onclick="setMode('wand',this)">
+Wand
+</button>
+
+</div>
+
+<div class="sidebar-section">
+
+<div class="sidebar-category">
+SUB TIERS
+</div>
+
+<button class="sidebar-kit" onclick="setMode('combo',this)">
+Combo
+</button>
+
+<button class="sidebar-kit" onclick="setMode('gapple',this)">
+Gapple
+</button>
+
+<button class="sidebar-kit" onclick="setMode('mace',this)">
+Mace
+</button>
+
+<button class="sidebar-kit" onclick="setMode('crystal',this)">
+Crystal
+</button>
+
+<button class="sidebar-kit" onclick="setMode('axe',this)">
+Axe
+</button>
+
+<button class="sidebar-kit" onclick="setMode('debuff',this)">
+DeBuff
+</button>
+
+<button class="sidebar-kit" onclick="setMode('bed',this)">
+Bed
+</button>
+
+</div>
+
+</div>
 
 <header class="header">
 
 <div class="nav-wrapper">
 
+<div class="top-row">
+
+<div class="left-top">
+
+<button class="menu-btn" onclick="openSidebar()">
+☰
+</button>
+
 <div class="logo">
 MultiCraft CIS Tiers
 </div>
 
-<div class="nav">
+</div>
 
-<a href="#leaderboard">
-Leaderboard
-</a>
-
-<a href="#hall">
-Доска Почета
-</a>
-
-<a href="#testers">
-Testers
-</a>
-
-<a href="#testing">
-Как пройти тир-тест
-</a>
-
-<a href="#faq">
-FAQ
+<a href="https://t.me/MultiCraftCISTiers"
+class="telegram-btn"
+target="_blank">
+Telegram
 </a>
 
 </div>
@@ -621,14 +845,6 @@ OVERALL TOP
 TIER TEST
 </a>
 
-<a href="#" class="secondary-btn">
-DISCORD
-</a>
-
-<a href="#" class="secondary-btn">
-TELEGRAM
-</a>
-
 </div>
 
 </div>
@@ -647,23 +863,25 @@ OVERALL LEADERBOARD
 
 <div class="filters">
 
-<input type="text" id="searchInput" placeholder="Поиск игрока...">
+<input type="text"
+id="searchInput"
+placeholder="Поиск игрока...">
 
 <select id="countryFilter">
 
 <option value="all">Все регионы СНГ</option>
 
-<option value="RU">Россия</option>
-<option value="UA">Украина</option>
-<option value="BY">Беларусь</option>
-<option value="KZ">Казахстан</option>
-<option value="UZ">Узбекистан</option>
-<option value="KG">Кыргызстан</option>
-<option value="TJ">Таджикистан</option>
-<option value="TM">Туркменистан</option>
-<option value="AM">Армения</option>
-<option value="AZ">Азербайджан</option>
-<option value="MD">Молдова</option>
+<option value="RU">RU</option>
+<option value="UA">UA</option>
+<option value="BY">BY</option>
+<option value="KZ">KZ</option>
+<option value="UZ">UZ</option>
+<option value="KG">KG</option>
+<option value="TJ">TJ</option>
+<option value="TM">TM</option>
+<option value="AM">AM</option>
+<option value="AZ">AZ</option>
+<option value="MD">MD</option>
 
 </select>
 
@@ -671,49 +889,13 @@ OVERALL LEADERBOARD
 
 <option value="all">Все устройства</option>
 
-<option value="PH">Phone</option>
-<option value="TB">Tablet</option>
+<option value="PH">PH</option>
+<option value="TB">TB</option>
 <option value="PC">PC</option>
-<option value="CT">Controller</option>
+<option value="CT">CT</option>
 <option value="OTG">OTG</option>
 
 </select>
-
-</div>
-
-<div class="mode-tabs">
-
-<button class="active-mode" onclick="setMode('overall',this)">
-OVERALL
-</button>
-
-<button onclick="setMode('sword',this)">
-Sword
-</button>
-
-<button onclick="setMode('mace',this)">
-Mace
-</button>
-
-<button onclick="setMode('axe',this)">
-Axe
-</button>
-
-<button onclick="setMode('uhc',this)">
-UHC
-</button>
-
-<button onclick="setMode('pot',this)">
-Pot
-</button>
-
-<button onclick="setMode('nethop',this)">
-NethOP
-</button>
-
-<button onclick="setMode('vanilla',this)">
-Vanilla
-</button>
 
 </div>
 
@@ -732,7 +914,7 @@ Vanilla
 <div class="info-card">
 <div class="info-title">ReaperX</div>
 <div class="info-text">
-Первый HT1 Sword игрок платформы.
+Первый HT1 Hardcore игрок платформы.
 Legend of competitive PvP scene.
 </div>
 </div>
@@ -740,7 +922,7 @@ Legend of competitive PvP scene.
 <div class="info-card">
 <div class="info-title">NeoPvP</div>
 <div class="info-text">
-Один из сильнейших UHC игроков СНГ.
+Один из сильнейших Emerald Pot игроков СНГ.
 </div>
 </div>
 
@@ -776,8 +958,9 @@ ReaperX
 </div>
 
 <div class="info-text">
-Sword Tester<br>
-Telegram: @reaperx
+HT1 Hardcore Tester<br><br>
+Устройства:<br>
+PC • PH
 </div>
 </div>
 
@@ -787,8 +970,9 @@ DarkBlade
 </div>
 
 <div class="info-text">
-Mace Tester<br>
-Telegram: @darkblade
+LT1 Dragonhide Tester<br><br>
+Устройства:<br>
+PC • CT
 </div>
 </div>
 
@@ -798,8 +982,9 @@ NeoPvP
 </div>
 
 <div class="info-text">
-UHC Tester<br>
-Telegram: @neopvp
+HT2 Emerald Pot Tester<br><br>
+Устройства:<br>
+PH • TB
 </div>
 </div>
 
@@ -809,8 +994,9 @@ Frost
 </div>
 
 <div class="info-text">
-Vanilla Tester<br>
-Telegram: @frost
+HT2 UHC Tester<br><br>
+Устройства:<br>
+PC • OTG
 </div>
 </div>
 
@@ -827,55 +1013,47 @@ Telegram: @frost
 <div class="info-grid">
 
 <div class="info-card">
-
 <div class="info-title">
 1. Заявка
 </div>
 
 <div class="info-text">
 Игрок отправляет заявку
-в Telegram группу платформы.
+в Telegram платформы.
 </div>
-
 </div>
 
 <div class="info-card">
-
 <div class="info-title">
 2. Очередь
 </div>
 
 <div class="info-text">
-Тестер назначает сервер,
-режим и время проверки.
+Тестер назначает сервер
+и время проверки.
 </div>
-
 </div>
 
 <div class="info-card">
-
 <div class="info-title">
 3. Проверка
 </div>
 
 <div class="info-text">
 Игрок проходит PvP бои
-против тир-тестеров платформы.
+против тир-тестеров.
 </div>
-
 </div>
 
 <div class="info-card">
-
 <div class="info-title">
 4. Получение тира
 </div>
 
 <div class="info-text">
 После завершения проверки
-игрок получает PvP тир.
+игрок получает тир.
 </div>
-
 </div>
 
 </div>
@@ -944,32 +1122,6 @@ OVERALL тир
 
 </div>
 
-<div class="info-card">
-
-<div class="info-title">
-Можно ли пройти re-test?
-</div>
-
-<div class="info-text">
-Да. Игрок может пройти
-повторную проверку позже.
-</div>
-
-</div>
-
-<div class="info-card">
-
-<div class="info-title">
-Что влияет на тир?
-</div>
-
-<div class="info-text">
-Aim, movement, combo,
-gamesense и consistency.
-</div>
-
-</div>
-
 </div>
 
 </section>
@@ -978,15 +1130,44 @@ gamesense и consistency.
 
 <div class="modal-content">
 
+<div class="modal-top">
+
 <div class="modal-title" id="modalName">
 Player
 </div>
 
-<div class="modal-grid" id="modalStats"></div>
-
 <button class="close-btn" onclick="closeModal()">
-Закрыть
+✕
 </button>
+
+</div>
+
+<div class="modal-player-info">
+
+<div class="modal-info-box">
+<div class="modal-label">
+REGION
+</div>
+<div class="modal-value" id="modalCountry"></div>
+</div>
+
+<div class="modal-info-box">
+<div class="modal-label">
+DEVICE
+</div>
+<div class="modal-value" id="modalDevice"></div>
+</div>
+
+<div class="modal-info-box">
+<div class="modal-label">
+OVERALL
+</div>
+<div class="modal-value" id="modalOverall"></div>
+</div>
+
+</div>
+
+<div class="modal-kits" id="modalStats"></div>
 
 </div>
 
@@ -1023,90 +1204,125 @@ const players=[
 nick:"ReaperX",
 country:"RU",
 device:"PH",
-tester:"DarkBlade",
 
-sword:"HT1",
+hardcore:"HT1",
+smp:"HT2",
+uhc:"LT1",
+lite:"HT2",
+emeraldpot:"HT1",
+emerald:"LT1",
+dragonhidekb:"HT2",
+dragonhide:"LT1",
+diamond:"HT2",
+wand:"LT2",
+
+combo:"HT2",
+gapple:"LT1",
 mace:"HT2",
-axe:"LT1",
-uhc:"HT2",
-pot:"LT2",
-nethop:"HT3",
-vanilla:"LT1"
+crystal:"LT2",
+axe:"HT1",
+debuff:"HT2",
+bed:"LT1"
 },
 
 {
 nick:"NeoPvP",
 country:"KZ",
 device:"PC",
-tester:"ReaperX",
 
-sword:"LT1",
-mace:"LT2",
-axe:"LT1",
+hardcore:"LT1",
+smp:"HT1",
 uhc:"HT1",
-pot:"LT1",
-nethop:"HT2",
-vanilla:"LT2"
+lite:"HT2",
+emeraldpot:"HT1",
+emerald:"HT2",
+dragonhidekb:"LT1",
+dragonhide:"HT2",
+diamond:"LT1",
+wand:"HT2",
+
+combo:"LT2",
+gapple:"HT2",
+mace:"LT1",
+crystal:"HT2",
+axe:"LT1",
+debuff:"HT2",
+bed:"HT3"
 },
 
 {
 nick:"DarkBlade",
 country:"UA",
 device:"TB",
-tester:"Frost",
 
-sword:"LT1",
+hardcore:"HT2",
+smp:"LT1",
+uhc:"LT2",
+lite:"HT2",
+emeraldpot:"LT2",
+emerald:"HT2",
+dragonhidekb:"HT1",
+dragonhide:"HT1",
+diamond:"LT1",
+wand:"HT2",
+
+combo:"HT1",
+gapple:"LT2",
 mace:"HT2",
-axe:"LT2",
-uhc:"LT1",
-pot:"LT3",
-nethop:"LT2",
-vanilla:"LT1"
+crystal:"HT1",
+axe:"HT2",
+debuff:"LT2",
+bed:"LT1"
 },
 
 {
 nick:"Blaze",
 country:"RU",
-device:"PH",
-tester:"NeoPvP",
+device:"CT",
 
-sword:"HT2",
-mace:"LT1",
-axe:"LT2",
-uhc:"LT2",
-pot:"HT1",
-nethop:"HT2",
-vanilla:"LT1"
-},
+hardcore:"HT2",
+smp:"HT2",
+uhc:"HT3",
+lite:"LT1",
+emeraldpot:"HT1",
+emerald:"HT2",
+dragonhidekb:"LT1",
+dragonhide:"LT2",
+diamond:"HT2",
+wand:"HT2",
 
-{
-nick:"Vortex",
-country:"UZ",
-device:"OTG",
-tester:"DarkBlade",
-
-sword:"HT2",
-mace:"HT3",
-axe:"LT2",
-uhc:"LT1",
-pot:"HT2",
-nethop:"HT3",
-vanilla:"LT2"
+combo:"LT1",
+gapple:"HT2",
+mace:"HT2",
+crystal:"LT1",
+axe:"HT2",
+debuff:"HT1",
+bed:"LT2"
 },
 
 {
 nick:"Inferno",
 country:"KG",
 device:"PC",
-tester:"ReaperX",
 
-sword:"HT2",
-mace:"HT2",
-axe:"HT3",
+hardcore:"HT2",
+smp:"HT3",
 uhc:"LT1",
-pot:"LT2",
-nethop:"HT2",
-vanilla:"LT1"
+lite:"HT2",
+emeraldpot:"LT2",
+emerald:"HT1",
+dragonhidekb:"HT2",
+dragonhide:"LT1",
+diamond:"HT2",
+wand:"LT1",
+
+combo:"HT2",
+gapple:"HT1",
+mace:"LT2",
+crystal:"HT2",
+axe:"LT1",
+debuff:"HT2",
+bed:"HT3"
 }
 
 ];
@@ -1117,13 +1333,16 @@ function calculateOverall(player){
 
 return(
 
-tierPoints[player.sword]+
-tierPoints[player.mace]+
-tierPoints[player.axe]+
+tierPoints[player.hardcore]+
+tierPoints[player.smp]+
 tierPoints[player.uhc]+
-tierPoints[player.pot]+
-tierPoints[player.nethop]+
-tierPoints[player.vanilla]
+tierPoints[player.lite]+
+tierPoints[player.emeraldpot]+
+tierPoints[player.emerald]+
+tierPoints[player.dragonhidekb]+
+tierPoints[player.dragonhide]+
+tierPoints[player.diamond]+
+tierPoints[player.wand]
 
 );
 
@@ -1149,15 +1368,38 @@ return"LT5";
 
 }
 
+function openSidebar(){
+
+document.getElementById('sidebar')
+.classList.add('active');
+
+document.getElementById('sidebarOverlay')
+.classList.add('active');
+
+}
+
+function closeSidebar(){
+
+document.getElementById('sidebar')
+.classList.remove('active');
+
+document.getElementById('sidebarOverlay')
+.classList.remove('active');
+
+}
+
 function setMode(mode,button){
 
 currentMode=mode;
 
-document.querySelectorAll('.mode-tabs button').forEach(btn=>{
-btn.classList.remove('active-mode');
+document.querySelectorAll('.sidebar-kit')
+.forEach(btn=>{
+btn.classList.remove('active-kit');
 });
 
-button.classList.add('active-mode');
+button.classList.add('active-kit');
+
+closeSidebar();
 
 renderPlayers();
 
@@ -1165,28 +1407,38 @@ renderPlayers();
 
 function renderPlayers(){
 
-const container=document.getElementById('playersContainer');
+const container=
+document.getElementById('playersContainer');
 
 container.innerHTML='';
 
 let filtered=[...players];
 
-const search=document.getElementById('searchInput').value.toLowerCase();
+const search=
+document.getElementById('searchInput')
+.value.toLowerCase();
 
-const country=document.getElementById('countryFilter').value;
+const country=
+document.getElementById('countryFilter')
+.value;
 
-const device=document.getElementById('deviceFilter').value;
+const device=
+document.getElementById('deviceFilter')
+.value;
 
 filtered=filtered.filter(player=>{
 
 const matchSearch=
-player.nick.toLowerCase().includes(search);
+player.nick.toLowerCase()
+.includes(search);
 
 const matchCountry=
-country==='all'||player.country===country;
+country==='all'||
+player.country===country;
 
 const matchDevice=
-device==='all'||player.device===device;
+device==='all'||
+player.device===device;
 
 return(
 matchSearch&&
@@ -1213,11 +1465,14 @@ tierPoints[a[currentMode]]
 
 filtered.forEach((player,index)=>{
 
-const overallPoints=calculateOverall(player);
+const overallPoints=
+calculateOverall(player);
 
-const overallTier=getOverallTier(overallPoints);
+const overallTier=
+getOverallTier(overallPoints);
 
-const points=currentMode==='overall'
+const points=
+currentMode==='overall'
 ?
 overallPoints
 :
@@ -1225,119 +1480,11 @@ tierPoints[player[currentMode]];
 
 container.innerHTML+=`
 
-<div class="player-card" onclick="openModal('${player.nick}')">
+<div class="player-card"
+onclick="openModal('${player.nick}')">
 
 <div class="player-left">
 
 <div class="rank">
 #${index+1}
-</div>
-
-<div>
-
-<div class="player-nick">
-${player.nick}
-</div>
-
-<div class="player-info">
-${player.country} • ${player.device}
-</div>
-
-</div>
-
-</div>
-
-<div class="player-right">
-
-<div class="player-tier">
-
-${currentMode==='overall'
-?
-overallTier
-:
-player[currentMode]}
-
-</div>
-
-<div class="player-points">
-${points} PTS
-</div>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-}
-
-function openModal(nick){
-
-const player=players.find(p=>p.nick===nick);
-
-document.getElementById('playerModal').style.display='flex';
-
-document.getElementById('modalName').innerHTML=
-player.nick;
-
-document.getElementById('modalStats').innerHTML=`
-
-<div class="modal-kit">
-Sword: ${player.sword}
-</div>
-
-<div class="modal-kit">
-Mace: ${player.mace}
-</div>
-
-<div class="modal-kit">
-Axe: ${player.axe}
-</div>
-
-<div class="modal-kit">
-UHC: ${player.uhc}
-</div>
-
-<div class="modal-kit">
-Pot: ${player.pot}
-</div>
-
-<div class="modal-kit">
-NethOP: ${player.nethop}
-</div>
-
-<div class="modal-kit">
-Vanilla: ${player.vanilla}
-</div>
-
-<div class="modal-kit">
-Tester: ${player.tester}
-</div>
-
-`;
-
-}
-
-function closeModal(){
-
-document.getElementById('playerModal').style.display='none';
-
-}
-
-document.getElementById('searchInput')
-.addEventListener('input',renderPlayers);
-
-document.getElementById('countryFilter')
-.addEventListener('change',renderPlayers);
-
-document.getElementById('deviceFilter')
-.addEventListener('change',renderPlayers);
-
-renderPlayers();
-
-</script>
-
-</body>
-</html>
+</div
