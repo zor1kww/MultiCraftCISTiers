@@ -52,26 +52,86 @@ body::before{
     pointer-events:none;
 }
 
-.header{
-    position:sticky;
-    top:0;
-    z-index:999;
+.menu-btn{
+    position:fixed;
+    top:18px;
+    left:18px;
+    z-index:10001;
 
-    backdrop-filter:blur(16px);
+    border:none;
+    cursor:pointer;
 
-    background:rgba(5,8,15,0.86);
+    background:
+    linear-gradient(to right,#ffb300,#ffd54f);
 
-    border-bottom:1px solid rgba(255,255,255,0.05);
-}
+    color:black;
 
-.nav-wrapper{
-    max-width:1450px;
-    margin:auto;
     padding:14px 18px;
+
+    border-radius:18px;
+
+    font-size:18px;
+
+    box-shadow:
+    0 0 30px rgba(255,179,0,0.22);
 }
 
-.logo{
-    font-size:38px;
+.sidebar{
+    position:fixed;
+    top:0;
+    left:-340px;
+
+    width:320px;
+    height:100vh;
+
+    overflow-y:auto;
+
+    background:
+    linear-gradient(180deg,
+    rgba(12,16,28,0.98),
+    rgba(6,8,15,0.98));
+
+    border-right:1px solid rgba(255,255,255,0.06);
+
+    z-index:10000;
+
+    transition:0.35s ease;
+
+    padding:26px 22px 40px;
+
+    box-shadow:
+    0 0 50px rgba(0,0,0,0.45);
+}
+
+.sidebar.active{
+    left:0;
+}
+
+.sidebar-overlay{
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,0.65);
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:0.3s;
+
+    z-index:9999;
+}
+
+.sidebar-overlay.active{
+    opacity:1;
+    visibility:visible;
+}
+
+.sidebar-logo{
+    font-size:34px;
+
+    line-height:1;
+
+    margin-bottom:30px;
 
     background:
     linear-gradient(to right,#ffb300,#fff2b8);
@@ -80,32 +140,46 @@ body::before{
     -webkit-text-fill-color:transparent;
 }
 
-.nav{
-    display:flex;
-    flex-wrap:wrap;
-    gap:12px;
-    margin-top:14px;
+.sidebar-section{
+    margin-bottom:34px;
 }
 
-.nav a{
+.sidebar-title{
+    color:#ffd166;
+
+    font-size:24px;
+
+    margin-bottom:16px;
+
+    letter-spacing:1px;
+}
+
+.sidebar-links{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.sidebar-links a{
     text-decoration:none;
+
     color:white;
 
     background:#111827;
 
     border:1px solid rgba(255,255,255,0.05);
 
-    padding:13px 18px;
+    padding:14px 16px;
 
-    border-radius:18px;
+    border-radius:16px;
 
     transition:0.25s;
 }
 
-.nav a:hover{
-    transform:translateY(-2px);
+.sidebar-links a:hover{
+    transform:translateX(4px);
 
-    border-color:rgba(255,179,0,0.3);
+    border-color:rgba(255,179,0,0.35);
 
     background:#1a2233;
 }
@@ -114,7 +188,7 @@ body::before{
     max-width:1450px;
     margin:auto;
 
-    padding:42px 20px 24px;
+    padding:90px 20px 24px;
 }
 
 .hero-box{
@@ -554,47 +628,167 @@ body::before{
         grid-template-columns:1fr;
     }
 
+    .sidebar{
+        width:290px;
+        left:-310px;
+    }
+
+    .menu-btn{
+        padding:12px 16px;
+        font-size:16px;
+    }
+
 }
 
 </style>
 </head>
 <body>
 
-<header class="header">
+<button class="menu-btn" onclick="toggleSidebar()">
+☰ Меню
+</button>
 
-<div class="nav-wrapper">
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
-<div class="logo">
-MultiCraft CIS Tiers
+<aside class="sidebar" id="sidebar">
+
+<div class="sidebar-logo">
+MC CIS<br>Tiers
 </div>
 
-<div class="nav">
+<div class="sidebar-section">
 
-<a href="#leaderboard">
+<div class="sidebar-title">
+Навигация
+</div>
+
+<div class="sidebar-links">
+
+<a href="#leaderboard" onclick="handleSidebarLink(event)">
 Leaderboard
 </a>
 
-<a href="#hall">
-Доска Почета
+<a href="#hall" onclick="handleSidebarLink(event)">
+Доска почета
 </a>
 
-<a href="#testers">
+<a href="#testers" onclick="handleSidebarLink(event)">
 Testers
 </a>
 
-<a href="#testing">
+<a href="#testing" onclick="handleSidebarLink(event)">
 Как пройти тир-тест
 </a>
 
-<a href="#faq">
+<a href="#faq" onclick="handleSidebarLink(event)">
 FAQ
+</a>
+
+<a href="https://t.me/" target="_blank" onclick="closeSidebar()">
+Telegram
 </a>
 
 </div>
 
 </div>
 
-</header>
+<div class="sidebar-section">
+
+<div class="sidebar-title">
+MAINTIERS
+</div>
+
+<div class="sidebar-links">
+
+<a href="#leaderboard" onclick="handleSidebarLink(event)">
+Hardcore
+</a>
+
+<a href="#leaderboard" onclick="handleSidebarLink(event)">
+SMP
+</a>
+
+<a href="#leaderboard" onclick="handleSidebarLink(event)">
+UHC
+</a>
+
+<a href="#leaderboard" onclick="handleSidebarLink(event)">
+Manhunt
+</a>
+
+<a href="#leaderboard" onclick="handleSidebarLink(event)">
+Lite
+</a>
+
+<a href="#leaderboard" onclick="handleSidebarLink(event)">
+Emerald Pot
+</a>
+
+<a href="#leaderboard" onclick="handleSidebarLink(event)">
+Emerald
+</a>
+
+<a href="#leaderboard" onclick="handleSidebarLink(event)">
+Dragonhide KB
+</a>
+
+<a href="#leaderboard" onclick="handleSidebarLink(event)">
+Dragonhide
+</a>
+
+<a href="#leaderboard" onclick="handleSidebarLink(event)">
+Diamond
+</a>
+
+<a href="#leaderboard" onclick="handleSidebarLink(event)">
+Wand
+</a>
+
+</div>
+
+</div>
+
+<div class="sidebar-section">
+
+<div class="sidebar-title">
+SUBTIERS
+</div>
+
+<div class="sidebar-links">
+
+<a href="#leaderboard" onclick="handleSidebarLink(event)">
+Combo
+</a>
+
+<a href="#leaderboard" onclick="handleSidebarLink(event)">
+Gapple
+</a>
+
+<a href="#leaderboard" onclick="handleSidebarLink(event)">
+Mace
+</a>
+
+<a href="#leaderboard" onclick="handleSidebarLink(event)">
+Crystal
+</a>
+
+<a href="#leaderboard" onclick="handleSidebarLink(event)">
+Axe
+</a>
+
+<a href="#leaderboard" onclick="handleSidebarLink(event)">
+DeBuff
+</a>
+
+<a href="#leaderboard" onclick="handleSidebarLink(event)">
+Bed
+</a>
+
+</div>
+
+</div>
+
+</aside>
 
 <section class="hero">
 
@@ -621,11 +815,11 @@ OVERALL TOP
 TIER TEST
 </a>
 
-<a href="#" class="secondary-btn">
+<a href="https://discord.com/" target="_blank" class="secondary-btn">
 DISCORD
 </a>
 
-<a href="#" class="secondary-btn">
+<a href="https://t.me/" target="_blank" class="secondary-btn">
 TELEGRAM
 </a>
 
@@ -1260,84 +1454,4 @@ player[currentMode]}
 </div>
 
 <div class="player-points">
-${points} PTS
-</div>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-}
-
-function openModal(nick){
-
-const player=players.find(p=>p.nick===nick);
-
-document.getElementById('playerModal').style.display='flex';
-
-document.getElementById('modalName').innerHTML=
-player.nick;
-
-document.getElementById('modalStats').innerHTML=`
-
-<div class="modal-kit">
-Sword: ${player.sword}
-</div>
-
-<div class="modal-kit">
-Mace: ${player.mace}
-</div>
-
-<div class="modal-kit">
-Axe: ${player.axe}
-</div>
-
-<div class="modal-kit">
-UHC: ${player.uhc}
-</div>
-
-<div class="modal-kit">
-Pot: ${player.pot}
-</div>
-
-<div class="modal-kit">
-NethOP: ${player.nethop}
-</div>
-
-<div class="modal-kit">
-Vanilla: ${player.vanilla}
-</div>
-
-<div class="modal-kit">
-Tester: ${player.tester}
-</div>
-
-`;
-
-}
-
-function closeModal(){
-
-document.getElementById('playerModal').style.display='none';
-
-}
-
-document.getElementById('searchInput')
-.addEventListener('input',renderPlayers);
-
-document.getElementById('countryFilter')
-.addEventListener('change',renderPlayers);
-
-document.getElementById('deviceFilter')
-.addEventListener('change',renderPlayers);
-
-renderPlayers();
-
-</script>
-
-</body>
-</html>
+$
