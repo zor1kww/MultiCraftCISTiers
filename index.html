@@ -164,12 +164,19 @@ body, html {
 
 .filters {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 12px;
     margin-top: 20px;
 }
 
-.filters input, .filters select {
+.filters-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.filters input, .filters select, .filters-row-2 select {
     background: rgba(16, 24, 39, .85);
     border: 1px solid rgba(255,255,255,.08);
     color: #fff;
@@ -248,22 +255,12 @@ body, html {
     border-radius: 6px;
 }
 
-.mini-tier-badge {
-    background: rgba(18, 29, 53, 0.8);
-    border: 1px solid rgba(255, 204, 71, 0.15);
-    color: #ffcc47;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 11px;
-    white-space: nowrap;
-}
-
 .player-right {
     color: #ffcc47;
     font-size: 15px;
     font-weight: bold;
     text-align: right;
-    min-width: 80px;
+    min-width: 100px;
 }
 
 /* МОДАЛЬНОЕ ОКНО ПРОФИЛЯ */
@@ -474,7 +471,7 @@ body, html {
 
 @media(max-width: 768px) {
     .hero h1 { font-size: 26px; }
-    .filters { grid-template-columns: 1fr; gap: 8px; }
+    .filters, .filters-row-2 { grid-template-columns: 1fr; gap: 8px; }
     
     .player-card-row {
         flex-direction: column;
@@ -494,11 +491,6 @@ body, html {
         gap: 4px;
     }
     
-    .mini-tier-badge {
-        font-size: 10px;
-        padding: 3px 5px;
-    }
-    
     .player-right {
         text-align: right;
         width: 100%;
@@ -515,6 +507,7 @@ body, html {
 </head>
 <body>
 
+<!-- МОДАЛЬНОЕ ОКНО ПРОФИЛЯ -->
 <div class="modal-overlay" id="profileModal" onclick="closeModal()">
     <div class="modal-card" onclick="event.stopPropagation()">
         <div class="modal-header">
@@ -541,25 +534,28 @@ body, html {
     </div>
 </div>
 
+<!-- БОКОВОЕ МЕНЮ -->
 <div class="sidebar" id="sidebar">
     <h3>Навигация</h3>
-    <a href="#" onclick="switchTab('mainPage')">🏠 Главная</a>
-    <a href="#" onclick="switchTab('hallTab')">🏆 Доска почета</a>
-    <a href="#" onclick="switchTab('faqTab')">📊 Система PTS</a>
-    <a href="#" onclick="switchTab('testTab')">⚔️ Пройти Тир-Тест</a>
-    <a href="#" onclick="switchTab('testersTab')">👥 Testers</a>
-    <a href="https://t.me/MultiCraftCISTiers" target="_blank">💬 Telegram</a>
+    <a href="#" onclick="switchTab('mainPage')">Главная</a>
+    <a href="#" onclick="switchTab('hallTab')">Доска почета</a>
+    <a href="#" onclick="switchTab('faqTab')">Система PTS</a>
+    <a href="#" onclick="switchTab('testTab')">Пройти Тир-Тест</a>
+    <a href="#" onclick="switchTab('testersTab')">Testers</a>
+    <a href="https://t.me/MultiCraftCISTiers" target="_blank">Telegram</a>
 </div>
 
+<!-- ХЕДЕР -->
 <header class="header">
     <div class="logo">MultiCraftCISTiers</div>
-    <button class="menu-btn" id="menuBtn">☰ Меню</button>
+    <button class="menu-btn" id="menuBtn">Меню</button>
 </header>
 
+<!-- ГЛАВНАЯ СТРАНИЦА -->
 <div class="main-page" id="mainPage" style="display: block;">
     <div class="hero">
-        <h1>OVERALL PvP TOP</h1>
-        <p>Официальная PvP ranking platform СНГ комьюнити MultiCraftCISTiers. Проходите тир-тесты, попадайте в OVERALL TOP и поднимайтесь до высших PvP тиров.</p>
+        <h1 id="leaderboardTitle">OVERALL PvP TOP</h1>
+        <p>Официальная PvP ranking platform СНГ комьюнити MultiCraftCISTiers. Проходите тир-тесты, попадайте в рейтинги и поднимайтесь до высших PvP тиров.</p>
 
         <div class="tg-wrapper">
             <a class="telegram-btn" href="https://t.me/MultiCraftCISTiers" target="_blank">Telegram</a>
@@ -567,7 +563,31 @@ body, html {
 
         <div class="filters">
             <input type="text" id="searchInput" placeholder="Поиск игрока...">
+            
+            <select id="kitFilter">
+                <option value="all">Все режимы (Overall)</option>
+                <option value="Hardcore">Hardcore</option>
+                <option value="SMP">SMP</option>
+                <option value="UHC">UHC</option>
+                <option value="Manhunt">Manhunt</option>
+                <option value="Lite">Lite</option>
+                <option value="Emerald Pot">Emerald Pot</option>
+                <option value="Emerald">Emerald</option>
+                <option value="Dragonhide KB">Dragonhide KB</option>
+                <option value="Dragonhide">Dragonhide</option>
+                <option value="Diamond">Diamond</option>
+                <option value="Wand">Wand</option>
+                <option value="Combo">Combo</option>
+                <option value="Gapple">Gapple</option>
+                <option value="Mace">Mace</option>
+                <option value="Crystal">Crystal</option>
+                <option value="Axe">Axe</option>
+                <option value="DeBuff">DeBuff</option>
+                <option value="Bed">Bed</option>
+            </select>
+        </div>
 
+        <div class="filters-row-2">
             <select id="regionFilter">
                 <option value="all">Все регионы СНГ</option>
                 <option value="RU">RU</option>
@@ -592,11 +612,12 @@ body, html {
             </select>
         </div>
 
-        <h2 class="section-title">OVERALL LEADERBOARD</h2>
+        <h2 class="section-title" id="tableSubtitle">OVERALL LEADERBOARD</h2>
         <div class="players-list" id="playersList"></div>
     </div>
 </div>
 
+<!-- ВКЛАДКА: ДОСКА ПОЧЕТА -->
 <div class="tab-content" id="hallTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">← Назад</button>
     <h2 class="section-title">Доска почета</h2>
@@ -609,6 +630,7 @@ body, html {
     </div>
 </div>
 
+<!-- ВКЛАДКА: FAQ / СИСТЕМА PTS -->
 <div class="tab-content" id="faqTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">← Назад</button>
     <h2 class="section-title">Система начисления PTS</h2>
@@ -623,22 +645,23 @@ body, html {
                 </tr>
             </thead>
             <tbody>
-                <tr><td><span class="faq-highlight">HT1</span> (High Tier 1)</td><td>300 PTS</td></tr>
-                <tr><td><span class="faq-highlight">LT1</span> (Low Tier 1)</td><td>280 PTS</td></tr>
-                <tr><td><span class="faq-highlight">HT2</span> (High Tier 2)</td><td>260 PTS</td></tr>
-                <tr><td><span class="faq-highlight">LT2</span> (Low Tier 2)</td><td>240 PTS</td></tr>
-                <tr><td><span class="faq-highlight">HT3</span> (High Tier 3)</td><td>220 PTS</td></tr>
-                <tr><td><span class="faq-highlight">LT3</span> (Low Tier 3)</td><td>200 PTS</td></tr>
-                <tr><td><span class="faq-highlight">HT4</span> (High Tier 4)</td><td>180 PTS</td></tr>
-                <tr><td><span class="faq-highlight">LT4</span> (Low Tier 4)</td><td>160 PTS</td></tr>
-                <tr><td><span class="faq-highlight">HT5</span> (High Tier 5)</td><td>140 PTS</td></tr>
-                <tr><td><span class="faq-highlight">LT5</span> (Low Tier 5)</td><td>120 PTS</td></tr>
+                <tr><td><span class="faq-highlight">HT1</span> (High Tier 1)</td><td>100 PTS</td></tr>
+                <tr><td><span class="faq-highlight">LT1</span> (Low Tier 1)</td><td>90 PTS</td></tr>
+                <tr><td><span class="faq-highlight">HT2</span> (High Tier 2)</td><td>80 PTS</td></tr>
+                <tr><td><span class="faq-highlight">LT2</span> (Low Tier 2)</td><td>70 PTS</td></tr>
+                <tr><td><span class="faq-highlight">HT3</span> (High Tier 3)</td><td>60 PTS</td></tr>
+                <tr><td><span class="faq-highlight">LT3</span> (Low Tier 3)</td><td>50 PTS</td></tr>
+                <tr><td><span class="faq-highlight">HT4</span> (High Tier 4)</td><td>40 PTS</td></tr>
+                <tr><td><span class="faq-highlight">LT4</span> (Low Tier 4)</td><td>30 PTS</td></tr>
+                <tr><td><span class="faq-highlight">HT5</span> (High Tier 5)</td><td>20 PTS</td></tr>
+                <tr><td><span class="faq-highlight">LT5</span> (Low Tier 5)</td><td>10 PTS</td></tr>
                 <tr><td><span class="faq-highlight">Unranked</span> (Без ранга)</td><td>0 PTS</td></tr>
             </tbody>
         </table>
     </div>
 </div>
 
+<!-- ВКЛАДКА: КАК ПРОЙТИ ТЕСТ -->
 <div class="tab-content" id="testTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">← Назад</button>
     <h2 class="section-title">Как пройти Тир-Тест?</h2>
@@ -671,6 +694,7 @@ body, html {
     </div>
 </div>
 
+<!-- ВКЛАДКА: ТЕСТЕРЫ -->
 <div class="tab-content" id="testersTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">← Назад</button>
     <h2 class="section-title">Официальные Тестеры</h2>
@@ -683,6 +707,7 @@ body, html {
     </div>
 </div>
 
+<!-- УМНЫЙ АВТОМАТИЧЕСКИЙ ЗАГРУЗЧИК БАЗЫ ДАННЫХ -->
 <script>
 function loadPlayersScript(url, callback) {
     const script = document.createElement('script');
@@ -708,13 +733,15 @@ window.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <script>
+// Обновленные круглые и легко считаемые PTS
 const tierPoints={
-    HT1:300,LT1:280,HT2:260,LT2:240,HT3:220,
-    LT3:200,HT4:180,LT4:160,HT5:140,LT5:120,Unranked:0
+    HT1:100,LT1:90,HT2:80,LT2:70,HT3:60,
+    LT3:50,HT4:40,LT4:30,HT5:20,LT5:10,Unranked:0
 };
 
 const maintiers=["Hardcore","SMP","UHC","Manhunt","Lite","Emerald Pot","Emerald","Dragonhide KB","Dragonhide","Diamond","Wand"];
 const subtiers=["Combo","Gapple","Mace","Crystal","Axe","DeBuff","Bed"];
+const allKits = [...maintiers, ...subtiers];
 
 function calcPoints(player,kits){
     let total=0;
@@ -762,19 +789,49 @@ function renderPlayers(){
     const search=document.getElementById('searchInput').value.toLowerCase();
     const region=document.getElementById('regionFilter').value;
     const device=document.getElementById('deviceFilter').value;
+    const targetKit=document.getElementById('kitFilter').value;
 
     if (typeof players === 'undefined' || !Array.isArray(players)) {
         list.innerHTML = '<div style="text-align:center;color:#ffcc47;padding:40px;">Загрузка базы данных игроков...</div>';
         return;
     }
 
+    // Обновляем заголовки в зависимости от режима
+    if (targetKit === 'all') {
+        document.getElementById('leaderboardTitle').innerText = 'OVERALL PvP TOP';
+        document.getElementById('tableSubtitle').innerText = 'OVERALL LEADERBOARD';
+    } else {
+        document.getElementById('leaderboardTitle').innerText = `${targetKit.toUpperCase()} TOP`;
+        document.getElementById('tableSubtitle').innerText = `${targetKit.toUpperCase()} LEADERBOARD`;
+    }
+
+    // Базовая фильтрация по региону, поиску и устройству
     let filtered=players.filter(player=>{
-        return player.name.toLowerCase().includes(search)
-        && (region==='all'||player.region===region)
-        && (device==='all'||player.device===device);
+        const matchesSearch = player.name.toLowerCase().includes(search);
+        const matchesRegion = (region==='all'||player.region===region);
+        const matchesDevice = (device==='all'||player.device===device);
+        
+        // Если выбран конкретный кит, скрываем тех, у кого там Unranked
+        if (targetKit !== 'all') {
+            const tier = player.tiers[targetKit] || "Unranked";
+            return matchesSearch && matchesRegion && matchesDevice && tier !== "Unranked";
+        }
+        
+        return matchesSearch && matchesRegion && matchesDevice;
     });
 
-    filtered.sort((a,b)=>calcPoints(b,[...maintiers,...subtiers])-calcPoints(a,[...maintiers,...subtiers]));
+    // Сортировка
+    if (targetKit === 'all') {
+        // По сумме PTS на всех китах
+        filtered.sort((a,b)=>calcPoints(b,allKits)-calcPoints(a,allKits));
+    } else {
+        // По очкам конкретного выбранного кита
+        filtered.sort((a,b)=>{
+            const tierA = a.tiers[targetKit] || "Unranked";
+            const tierB = b.tiers[targetKit] || "Unranked";
+            return (tierPoints[tierB] || 0) - (tierPoints[tierA] || 0);
+        });
+    }
 
     list.innerHTML='';
     
@@ -786,10 +843,15 @@ function renderPlayers(){
     const filteredJSON = encodeURIComponent(JSON.stringify(filtered));
 
     filtered.forEach((player,index)=>{
-        const totalPts=calcPoints(player,[...maintiers,...subtiers]);
-        const hcTier = player.tiers["Hardcore"] || "Unranked";
-        const smpTier = player.tiers["SMP"] || "Unranked";
-        const uhcTier = player.tiers["UHC"] || "Unranked";
+        let rightColumnContent = '';
+        
+        if (targetKit === 'all') {
+            const totalPts=calcPoints(player,allKits);
+            rightColumnContent = `<span>${totalPts} PTS</span>`;
+        } else {
+            const currentTier = player.tiers[targetKit] || "Unranked";
+            rightColumnContent = `<span>${currentTier}</span>`;
+        }
 
         list.innerHTML+=`
         <div class="player-container">
@@ -800,12 +862,9 @@ function renderPlayers(){
                 </div>
                 <div class="player-center">
                     <span class="player-meta-tag">${player.region} • ${player.device}</span>
-                    <span class="mini-tier-badge">⚔️ HC: ${hcTier}</span>
-                    <span class="mini-tier-badge">🛡️ SMP: ${smpTier}</span>
-                    <span class="mini-tier-badge">🏹 UHC: ${uhcTier}</span>
                 </div>
                 <div class="player-right">
-                    <span>${totalPts} PTS</span>
+                    ${rightColumnContent}
                 </div>
             </div>
         </div>`;
@@ -849,6 +908,7 @@ window.addEventListener('click',(e)=>{
 document.getElementById('searchInput').addEventListener('input',renderPlayers);
 document.getElementById('regionFilter').addEventListener('change',renderPlayers);
 document.getElementById('deviceFilter').addEventListener('change',renderPlayers);
+document.getElementById('kitFilter').addEventListener('change',renderPlayers);
 
 function initSite() {
     if (typeof players !== 'undefined' && Array.isArray(players)) {
