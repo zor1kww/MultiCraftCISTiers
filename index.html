@@ -73,7 +73,7 @@ body, html {
     opacity: .9;
 }
 
-/* БОКОВОЕ МЕНЮ (СЛЕВА) */
+/* БОКОВОЕ МЕНЮ */
 .sidebar {
     position: fixed;
     top: 0;
@@ -189,7 +189,7 @@ body, html {
     gap: 10px;
 }
 
-/* МОНОЛИТНЫЙ КОНТЕЙНЕР ДЛЯ СТИЛЯ MCTIERS + ATIERS */
+/* КОНТЕЙНЕРЫ КАРТОЧЕК */
 .player-container {
     background: #0f1729;
     border: 1px solid rgba(255,255,255,.08);
@@ -202,7 +202,7 @@ body, html {
     border-color: #ffcc47;
 }
 
-/* Кликабельная строка игрока (mctiers) */
+/* Кликабельный mctiers ряд */
 .player-card-row {
     padding: 18px 20px;
     display: flex;
@@ -271,7 +271,7 @@ body, html {
     min-width: 110px;
 }
 
-/* РАСКРЫВАЮЩИЙСЯ ПРОФИЛЬ ИГРОКА (atiers.net) */
+/* РАСКРЫВАЮЩИЙСЯ ПРОФИЛЬ (atiers.net) */
 .player-expanded-profile {
     display: none;
     background: rgba(10, 16, 32, 0.95);
@@ -416,7 +416,7 @@ body, html {
     <button class="menu-btn" id="menuBtn">☰ Меню</button>
 </header>
 
-<div class="main-page" id="mainPage">
+<div class="main-page" id="mainPage" style="display: block;">
     <div class="hero">
         <h1>OVERALL PvP TOP</h1>
         <p>
@@ -457,7 +457,7 @@ body, html {
     </div>
 </div>
 
-<div class="tab-content" id="maintiersTab">
+<div class="tab-content" id="maintiersTab" style="display: none;">
     <a href="#" class="back-btn" onclick="backHome()">← Назад на главную</a>
     <h2 class="section-title">MAINTIERS</h2>
     <div class="table-wrap">
@@ -465,7 +465,7 @@ body, html {
     </div>
 </div>
 
-<div class="tab-content" id="subtiersTab">
+<div class="tab-content" id="subtiersTab" style="display: none;">
     <a href="#" class="back-btn" onclick="backHome()">← Назад на главную</a>
     <h2 class="section-title">SUBTIERS</h2>
     <div class="table-wrap">
@@ -473,7 +473,7 @@ body, html {
     </div>
 </div>
 
-<div class="tab-content" id="hallTab">
+<div class="tab-content" id="hallTab" style="display: none;">
     <a href="#" class="back-btn" onclick="backHome()">← Назад на главную</a>
     <h2 class="section-title">Доска почета</h2>
     <div class="info-box">
@@ -485,7 +485,7 @@ body, html {
     </div>
 </div>
 
-<div class="tab-content" id="faqTab">
+<div class="tab-content" id="faqTab" style="display: none;">
     <a href="#" class="back-btn" onclick="backHome()">← Назад на главную</a>
     <h2 class="section-title">FAQ</h2>
     <div class="info-box">
@@ -504,7 +504,7 @@ body, html {
     </div>
 </div>
 
-<div class="tab-content" id="testTab">
+<div class="tab-content" id="testTab" style="display: none;">
     <a href="#" class="back-btn" onclick="backHome()">← Назад на главную</a>
     <h2 class="section-title">Как пройти тир-тест</h2>
     <div class="info-box">
@@ -515,7 +515,7 @@ body, html {
     </div>
 </div>
 
-<div class="tab-content" id="testersTab">
+<div class="tab-content" id="testersTab" style="display: none;">
     <a href="#" class="back-btn" onclick="backHome()">← Назад на главную</a>
     <h2 class="section-title">Testers</h2>
     <div class="info-box">
@@ -530,17 +530,14 @@ body, html {
 <script src="players.js"></script>
 
 <script>
-// Очки за ранги
 const tierPoints={
     HT1:300,LT1:280,HT2:260,LT2:240,HT3:220,
     LT3:200,HT4:180,LT4:160,HT5:140,LT5:120,Unranked:0
 };
 
-// Списки распределения китов
 const maintiers=["Hardcore","SMP","UHC","Manhunt","Lite","Emerald Pot","Emerald","Dragonhide KB","Dragonhide","Diamond","Wand"];
 const subtiers=["Combo","Gapple","Mace","Crystal","Axe","DeBuff","Bed"];
 
-// Автоматический подсчет очков за определенный массив китов
 function calcPoints(player,kits){
     let total=0;
     kits.forEach(kit=>{
@@ -550,7 +547,6 @@ function calcPoints(player,kits){
     return total;
 }
 
-// Аккордеон (Открытие профиля игрока)
 function toggleProfile(idx) {
     const profileBlock = document.getElementById(`expanded-${idx}`);
     if(profileBlock.classList.contains('active')) {
@@ -561,26 +557,27 @@ function toggleProfile(idx) {
     }
 }
 
-// Рендер главного лидерборда (Дизайн mctiers.com + atiers.net)
+// Защищенная функция рендера списка игроков
 function renderPlayers(){
     const list=document.getElementById('playersList');
+    if (!list) return;
+
     const search=document.getElementById('searchInput').value.toLowerCase();
     const region=document.getElementById('regionFilter').value;
     const device=document.getElementById('deviceFilter').value;
 
+    // Проверка: загрузился ли внешний массив
     if (typeof players === 'undefined' || !Array.isArray(players)) {
-        list.innerHTML = '<div style="text-align:center;color:#ff4747;padding:20px;">Ошибка: Файл players.js не найден на сервере!</div>';
+        list.innerHTML = '<div style="text-align:center;color:#ffcc47;padding:20px;">Загрузка базы данных игроков...</div>';
         return;
     }
 
-    // Фильтрация
     let filtered=players.filter(player=>{
         return player.name.toLowerCase().includes(search)
         && (region==='all'||player.region===region)
         && (device==='all'||player.device===device);
     });
 
-    // Сортировка по общему количеству PTS (Main + Sub)
     filtered.sort((a,b)=>calcPoints(b,[...maintiers,...subtiers])-calcPoints(a,[...maintiers,...subtiers]));
 
     list.innerHTML='';
@@ -590,7 +587,6 @@ function renderPlayers(){
         const mainPts=calcPoints(player,maintiers);
         const subPts=calcPoints(player,subtiers);
 
-        // Извлекаем ключевые тиры для превью-плашек в строке
         const hcTier = player.tiers["Hardcore"] || "Unranked";
         const smpTier = player.tiers["SMP"] || "Unranked";
         const uhcTier = player.tiers["UHC"] || "Unranked";
@@ -602,14 +598,12 @@ function renderPlayers(){
                     <div class="player-rank">#${index+1}</div>
                     <div class="player-name">${player.name}</div>
                 </div>
-
                 <div class="player-center">
                     <span class="player-meta-tag">${player.region} • ${player.device}</span>
                     <span class="mini-tier-badge">⚔️ HC: ${hcTier}</span>
                     <span class="mini-tier-badge">🛡️ SMP: ${smpTier}</span>
                     <span class="mini-tier-badge">🏹 UHC: ${uhcTier}</span>
                 </div>
-
                 <div class="player-right">
                     <span>${totalPts} PTS</span>
                 </div>
@@ -617,7 +611,6 @@ function renderPlayers(){
 
             <div class="player-expanded-profile" id="expanded-${index}">
                 <div class="profile-grid">
-                    
                     <div class="profile-category-block">
                         <h4>Main Tiers</h4>
                         ${maintiers.map(kit => {
@@ -631,7 +624,6 @@ function renderPlayers(){
                         }).join('')}
                         <div class="profile-block-total">Всего за Main: ${mainPts} PTS</div>
                     </div>
-
                     <div class="profile-category-block">
                         <h4>Sub Tiers</h4>
                         ${subtiers.map(kit => {
@@ -645,17 +637,15 @@ function renderPlayers(){
                         }).join('')}
                         <div class="profile-block-total">Всего за Sub: ${subPts} PTS</div>
                     </div>
-
                 </div>
             </div>
         </div>`;
     });
 }
 
-// Таблицы статистики внутри вкладок
 function renderTable(id,kits){
     const table=document.getElementById(id);
-    if (typeof players === 'undefined' || !Array.isArray(players)) return;
+    if (!table || typeof players === 'undefined' || !Array.isArray(players)) return;
 
     let sorted=[...players].sort((a,b)=>calcPoints(b,kits)-calcPoints(a,kits));
 
@@ -682,19 +672,20 @@ function renderTable(id,kits){
     table.innerHTML=html;
 }
 
-// Переключение страниц
+// Универсальное переключение вкладок без багов пустого экрана
 function switchTab(tabId){
     document.getElementById('sidebar').classList.remove('active');
     
-    // Скрываем вообще всё
+    // Прячем всё
     document.getElementById('mainPage').style.display='none';
     document.querySelectorAll('.tab-content').forEach(tab=>{
         tab.style.display='none';
     });
 
-    // Открываем нужное
+    // Открываем нужный блок
     if(tabId === 'mainPage') {
         document.getElementById('mainPage').style.display='block';
+        renderPlayers(); // На всякий случай обновляем список на главной
     } else {
         document.getElementById(tabId).style.display='block';
     }
@@ -705,16 +696,17 @@ function backHome(){
     switchTab('mainPage');
 }
 
-// Слушатели бокового меню
+// Инициализация событий
 const menuBtn=document.getElementById('menuBtn');
 const sidebar=document.getElementById('sidebar');
 
-menuBtn.addEventListener('click',()=>{
+menuBtn.addEventListener('click',(e)=>{
+    e.stopPropagation();
     sidebar.classList.toggle('active');
 });
 
 window.addEventListener('click',(e)=>{
-    if(!sidebar.contains(e.target)&&!menuBtn.contains(e.target)){
+    if(!sidebar.contains(e.target) && e.target !== menuBtn){
         sidebar.classList.remove('active');
     }
 });
@@ -723,12 +715,23 @@ document.getElementById('searchInput').addEventListener('input',renderPlayers);
 document.getElementById('regionFilter').addEventListener('change',renderPlayers);
 document.getElementById('deviceFilter').addEventListener('change',renderPlayers);
 
-// Запуск рендеров при загрузке страницы
-if (typeof players !== 'undefined') {
-    renderPlayers();
-    renderTable('maintiersTable',maintiers);
-    renderTable('subtiersTable',subtiers);
+// Безопасный запуск рендера
+function initSite() {
+    if (typeof players !== 'undefined' && Array.isArray(players)) {
+        renderPlayers();
+        renderTable('maintiersTable',maintiers);
+        renderTable('subtiersTable',subtiers);
+    } else {
+        // Если скрипт players.js еще грузится, пробуем снова через 100мс
+        setTimeout(initSite, 100);
+    }
 }
+
+// Принудительно показываем главную и запускаем рендер
+window.onload = function() {
+    switchTab('mainPage');
+    initSite();
+};
 </script>
 
 </body>
