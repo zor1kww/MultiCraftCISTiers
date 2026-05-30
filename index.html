@@ -27,7 +27,6 @@ body, html {
     color: #fff;
     min-height: 100vh;
     overflow-x: hidden;
-    /* Оптимизированный фон без тяжелых наслоений для плавной прокрутки */
     background-image: linear-gradient(180deg, #070b17, #0b1224);
     background-repeat: no-repeat;
     background-size: cover;
@@ -41,7 +40,6 @@ body, html {
     justify-content: space-between;
     padding: 15px 20px;
     border-bottom: 1px solid rgba(255,255,255,.08);
-    /* Заменено с backdrop-filter на обычный rgba для устранения лагов при скролле */
     background: rgba(5,8,22,.98);
     position: sticky;
     top: 0;
@@ -80,7 +78,6 @@ body, html {
     z-index: 2000;
     overflow-y: auto;
     transition: transform .3s ease;
-    /* Включение GPU ускорения */
     will-change: transform;
     transform: translateX(0);
 }
@@ -257,11 +254,17 @@ body, html {
 }
 
 .player-right {
-    color: #ffcc47;
     font-size: 15px;
     font-weight: bold;
     text-align: right;
     min-width: 100px;
+}
+
+.tier-badge {
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+    display: inline-block;
 }
 
 /* МОДАЛЬНОЕ ОКНО ПРОФИЛЯ */
@@ -293,7 +296,7 @@ body, html {
     max-width: 650px;
     max-height: 85vh;
     overflow-y: auto;
-    transform: translateZ(0); /* Оптимизация рендеринга слоев */
+    transform: translateZ(0);
     animation: fadeIn 0.2s ease-out;
 }
 
@@ -365,6 +368,7 @@ body, html {
 .modal-row {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     font-size: 12px;
     padding: 6px 0;
     border-bottom: 1px dashed rgba(255,255,255,0.05);
@@ -375,7 +379,6 @@ body, html {
 }
 
 .m-kit { color: #a0aec0; }
-.m-tier { color: #fff; font-weight: bold; }
 
 .modal-block-footer {
     margin-top: 10px;
@@ -393,7 +396,6 @@ body, html {
     line-height: 1.8;
 }
 
-/* ОФОРМЛЕНИЕ СИСТЕМЫ PTS */
 .faq-table {
     width: 100%;
     border-collapse: collapse;
@@ -423,12 +425,6 @@ body, html {
     border-bottom: none;
 }
 
-.faq-highlight {
-    color: #ffcc47;
-    font-weight: bold;
-}
-
-/* ОФОРМЛЕНИЕ ИНСТРУКЦИИ ТЕСТА */
 .steps-container {
     display: flex;
     flex-direction: column;
@@ -568,24 +564,23 @@ body, html {
             
             <select id="kitFilter">
                 <option value="all">Все режимы (Overall)</option>
-                <option value="Hardcore">Hardcore</option>
-                <option value="SMP">SMP</option>
-                <option value="UHC">UHC</option>
-                <option value="Manhunt">Manhunt</option>
-                <option value="Lite">Lite</option>
-                <option value="Emerald Pot">Emerald Pot</option>
-                <option value="Emerald">Emerald</option>
-                <option value="Dragonhide KB">Dragonhide KB</option>
-                <option value="Dragonhide">Dragonhide</option>
-                <option value="Diamond">Diamond</option>
-                <option value="Wand">Wand</option>
-                <option value="Combo">Combo</option>
-                <option value="Gapple">Gapple</option>
-                <option value="Mace">Mace</option>
-                <option value="Crystal">Crystal</option>
-                <option value="Axe">Axe</option>
-                <option value="DeBuff">DeBuff</option>
-                <option value="Bed">Bed</option>
+                <optgroup label="Main Kits">
+                    <option value="Hardcore">Hardcore</option>
+                    <option value="Manhunt">Manhunt</option>
+                    <option value="Diamond">Diamond</option>
+                    <option value="Beast">Beast</option>
+                    <option value="Emerald">Emerald</option>
+                    <option value="Emerald Pot">Emerald Pot</option>
+                    <option value="RVM">RVM</option>
+                    <option value="Dragonhide">Dragonhide</option>
+                    <option value="Pickaxe">Pickaxe</option>
+                </optgroup>
+                <optgroup label="Sub Kits">
+                    <option value="Combo">Combo</option>
+                    <option value="Gapple">Gapple</option>
+                    <option value="Mace">Mace</option>
+                    <option value="Crystal">Crystal</option>
+                </optgroup>
             </select>
         </div>
 
@@ -624,11 +619,8 @@ body, html {
     <button class="back-btn" onclick="backHome()">← Назад</button>
     <h2 class="section-title">Доска почета</h2>
     <div class="info-box">
-        ReaperX — первый HT1 Sword игрок платформы.<br><br>
-        NeoPvP — легенда UHC сцены СНГ.<br><br>
-        DarkBlade — известен своими combo mechanics и агрессивным стилем.<br><br>
-        Inferno — один из сильнейших Emerald игроков платформы.<br><br>
-        Blaze — доминирует в Pot и Hardcore матчах.
+        <strong style="color: gold;">-999-</strong> — Создатель сервера HT1, также соавтор системы MultiCraftCISTiers.<br><br>
+        <strong style="color: gold;">zor1kkqwix</strong> — Главный Админ на сервере HT1, создатель системы MultiCraftCISTiers.
     </div>
 </div>
 
@@ -643,22 +635,11 @@ body, html {
             <thead>
                 <tr>
                     <th>Тир (Tier)</th>
+                    <th>Цвет</th>
                     <th>Очки (PTS)</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr><td><span class="faq-highlight">HT1</span> (High Tier 1)</td><td>100 PTS</td></tr>
-                <tr><td><span class="faq-highlight">LT1</span> (Low Tier 1)</td><td>90 PTS</td></tr>
-                <tr><td><span class="faq-highlight">HT2</span> (High Tier 2)</td><td>80 PTS</td></tr>
-                <tr><td><span class="faq-highlight">LT2</span> (Low Tier 2)</td><td>70 PTS</td></tr>
-                <tr><td><span class="faq-highlight">HT3</span> (High Tier 3)</td><td>60 PTS</td></tr>
-                <tr><td><span class="faq-highlight">LT3</span> (Low Tier 3)</td><td>50 PTS</td></tr>
-                <tr><td><span class="faq-highlight">HT4</span> (High Tier 4)</td><td>40 PTS</td></tr>
-                <tr><td><span class="faq-highlight">LT4</span> (Low Tier 4)</td><td>30 PTS</td></tr>
-                <tr><td><span class="faq-highlight">HT5</span> (High Tier 5)</td><td>20 PTS</td></tr>
-                <tr><td><span class="faq-highlight">LT5</span> (Low Tier 5)</td><td>10 PTS</td></tr>
-                <tr><td><span class="faq-highlight">Unranked</span> (Без ранга)</td><td>0 PTS</td></tr>
-            </tbody>
+            <tbody id="faqTableBody"></tbody>
         </table>
     </div>
 </div>
@@ -700,16 +681,11 @@ body, html {
 <div class="tab-content" id="testersTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">← Назад</button>
     <h2 class="section-title">Официальные Тестеры</h2>
-    <div class="info-box">
-        ReaperX — Hardcore, SMP, UHC, Diamond.<br><br>
-        NeoPvP — Emerald Pot, Emerald, Lite, Combo.<br><br>
-        DarkBlade — Axe, Crystal, Dragonhide, Dragonhide KB.<br><br>
-        Inferno — Mace, Bed, Gapple, Wand.<br><br>
-        Blaze — Manhunt, Debuff, UHC.
+    <div class="info-box" style="text-align: center; color: #8892b0;">
+        Список актуальных тестеров модерируется Администрацией в Telegram.
     </div>
 </div>
 
-<!-- УМНЫЙ АВТОМАТИЧЕСКИЙ ЗАГРУЗЧИК БАЗЫ ДАННЫХ -->
 <script>
 function loadPlayersScript(url, callback) {
     const script = document.createElement('script');
@@ -740,8 +716,23 @@ const tierPoints={
     LT3:50,HT4:40,LT4:30,HT5:20,LT5:10,Unranked:0
 };
 
-const maintiers=["Hardcore","SMP","UHC","Manhunt","Lite","Emerald Pot","Emerald","Dragonhide KB","Dragonhide","Diamond","Wand"];
-const subtiers=["Combo","Gapple","Mace","Crystal","Axe","DeBuff","Bed"];
+const tierColors = {
+    HT1: 'gold',
+    LT1: '#DAA520',
+    HT2: 'silver',
+    LT2: '#A9A9A9',
+    HT3: '#A0522D',
+    LT3: '#8B4513',
+    HT4: '#808080',
+    LT4: '#696969',
+    HT5: '#008080',
+    LT5: '#2F4F4F',
+    Unranked: '#8892b0'
+};
+
+// Финальные обновленные киты комьюнити
+const maintiers=["Hardcore","Manhunt","Diamond","Beast","Emerald","Emerald Pot","RVM","Dragonhide","Pickaxe"];
+const subtiers=["Combo","Gapple","Mace","Crystal"];
 const allKits = [...maintiers, ...subtiers];
 
 function calcPoints(player,kits){
@@ -751,6 +742,11 @@ function calcPoints(player,kits){
         total+=tierPoints[tier]||0;
     });
     return total;
+}
+
+function getTierBadge(tier) {
+    const color = tierColors[tier] || '#fff';
+    return `<span class="tier-badge" style="color: ${color};">${tier}</span>`;
 }
 
 function openProfile(idx, filteredPlayersJSON) {
@@ -765,12 +761,12 @@ function openProfile(idx, filteredPlayersJSON) {
     
     mainRows.innerHTML = maintiers.map(kit => {
         const t = player.tiers[kit] || "Unranked";
-        return `<div class="modal-row"><span class="m-kit">${kit}</span><span class="m-tier">${t} (${tierPoints[t]} PTS)</span></div>`;
+        return `<div class="modal-row"><span class="m-kit">${kit}</span><span>${getTierBadge(t)} <span style="color:#8892b0; font-size:11px;">(${tierPoints[t]} PTS)</span></span></div>`;
     }).join('');
     
     subRows.innerHTML = subtiers.map(kit => {
         const t = player.tiers[kit] || "Unranked";
-        return `<div class="modal-row"><span class="m-kit">${kit}</span><span class="m-tier">${t} (${tierPoints[t]} PTS)</span></div>`;
+        return `<div class="modal-row"><span class="m-kit">${kit}</span><span>${getTierBadge(t)} <span style="color:#8892b0; font-size:11px;">(${tierPoints[t]} PTS)</span></span></div>`;
     }).join('');
     
     document.getElementById('modalMainTotal').innerText = `Всего за Main: ${calcPoints(player, maintiers)} PTS`;
@@ -836,18 +832,17 @@ function renderPlayers(){
     }
 
     const filteredJSON = encodeURIComponent(JSON.stringify(filtered));
-
-    // Создаем всю разметку в памяти одной строкой, чтобы не дергать DOM дерево на каждой итерации
     let htmlFragment = '';
+
     filtered.forEach((player,index)=>{
         let rightColumnContent = '';
         
         if (targetKit === 'all') {
             const totalPts=calcPoints(player,allKits);
-            rightColumnContent = `<span>${totalPts} PTS</span>`;
+            rightColumnContent = `<span style="color: #ffcc47;">${totalPts} PTS</span>`;
         } else {
             const currentTier = player.tiers[targetKit] || "Unranked";
-            rightColumnContent = `<span>${currentTier}</span>`;
+            rightColumnContent = getTierBadge(currentTier);
         }
 
         htmlFragment += `
@@ -870,6 +865,21 @@ function renderPlayers(){
     list.innerHTML = htmlFragment;
 }
 
+function buildFaqTable() {
+    const tbody = document.getElementById('faqTableBody');
+    if(!tbody) return;
+    
+    const order = ['HT1', 'LT1', 'HT2', 'LT2', 'HT3', 'LT3', 'HT4', 'LT4', 'HT5', 'LT5', 'Unranked'];
+    tbody.innerHTML = order.map(tier => {
+        const color = tierColors[tier];
+        return `<tr>
+            <td><span style="color: ${color}; font-weight:bold;">${tier}</span></td>
+            <td><span style="display:inline-block; width:50px; height:15px; background:${color}; border-radius:3px; border:1px solid rgba(255,255,255,0.1);"></span> <code style="font-size:11px; margin-left:5px; color:#8892b0;">${color}</code></td>
+            <td><span style="color: #ffcc47; font-weight:bold;">${tierPoints[tier]} PTS</span></td>
+        </tr>`;
+    }).join('');
+}
+
 function switchTab(tabId){
     document.getElementById('sidebar').classList.remove('active');
     document.getElementById('mainPage').style.display='none';
@@ -882,6 +892,7 @@ function switchTab(tabId){
         renderPlayers();
     } else {
         document.getElementById(tabId).style.display='block';
+        if(tabId === 'faqTab') buildFaqTable();
     }
     window.scrollTo(0,0);
 }
