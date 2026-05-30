@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>MultiCraftCISTiers</title>
 <style>
 @font-face {
@@ -13,7 +13,6 @@
     font-style: normal;
 }
 
-/* ТОТАЛЬНЫЙ ПИКСЕЛЬНЫЙ СТИЛЬ ДЛЯ ВСЕХ ЭЛЕМЕНТОВ */
 *, body, div, span, p, a, button, input, select, option, table, tr, td, th, h1, h2, h3, h4 {
     margin: 0;
     padding: 0;
@@ -23,7 +22,6 @@
     -moz-osx-font-smoothing: none;
 }
 
-/* ЖЕСТКАЯ ФИКСАЦИЯ ФОНА */
 body, html {
     background: #050816;
     color: #fff;
@@ -43,18 +41,18 @@ body, html {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: nowrap;
-    padding: 18px 20px;
+    padding: 15px 20px;
     border-bottom: 1px solid rgba(255,255,255,.08);
-    background: rgba(5,8,22,.9);
+    background: rgba(5,8,22,.95);
     position: sticky;
     top: 0;
     z-index: 1000;
     backdrop-filter: blur(12px);
+    width: 100%;
 }
 
 .logo {
-    font-size: 32px;
+    font-size: 22px;
     color: #ffcc47;
 }
 
@@ -62,7 +60,7 @@ body, html {
     background: #121d35;
     border: 1px solid rgba(255,204,71,.3);
     color: #ffcc47;
-    padding: 12px 16px;
+    padding: 10px 14px;
     border-radius: 10px;
     cursor: pointer;
     transition: .25s;
@@ -70,10 +68,9 @@ body, html {
 
 .menu-btn:hover {
     box-shadow: 0 0 15px rgba(255,204,71,.4);
-    opacity: .9;
 }
 
-/* БОКОВОЕ МЕНЮ */
+/* БОКОВОЕ МЕНЮ (Только важные разделы) */
 .sidebar {
     position: fixed;
     top: 0;
@@ -115,41 +112,49 @@ body, html {
 }
 
 .main-page, .tab-content {
-    max-width: 1450px;
+    max-width: 1200px;
     margin: auto;
-    padding: 30px 20px;
+    padding: 20px 15px;
 }
 
 .hero {
     background: linear-gradient(145deg, rgba(15,20,35,.98), rgba(8,10,18,.98));
     border: 1px solid rgba(255,255,255,.08);
-    border-radius: 28px;
-    padding: 40px;
+    border-radius: 20px;
+    padding: 25px;
     box-shadow: 0 0 40px rgba(255,187,0,.08);
 }
 
 .hero h1 {
-    font-size: 70px;
-    line-height: 1;
+    font-size: 36px;
     color: #ffcc47;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 .hero p {
-    margin-top: 18px;
-    line-height: 1.8;
+    line-height: 1.6;
     color: #c8c8c8;
+    font-size: 14px;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 20px;
+}
+
+.tg-wrapper {
+    text-align: center;
+    margin-bottom: 25px;
 }
 
 .telegram-btn, .back-btn {
     display: inline-block;
-    margin-top: 20px;
     background: linear-gradient(to right, #ffbb00, #ffd95c);
     color: #000;
     text-decoration: none;
-    padding: 14px 18px;
+    padding: 12px 24px;
     border-radius: 10px;
-    transition: .25s;
     font-weight: bold;
+    transition: .25s;
 }
 
 .telegram-btn:hover, .back-btn:hover {
@@ -159,28 +164,25 @@ body, html {
 .filters {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 14px;
-    margin-top: 30px;
+    gap: 12px;
+    margin-top: 20px;
 }
 
 .filters input, .filters select {
     background: rgba(16, 24, 39, .85);
     border: 1px solid rgba(255,255,255,.08);
     color: #fff;
-    padding: 14px;
+    padding: 12px;
     border-radius: 8px;
     outline: none;
-}
-
-.filters select option {
-    background: #0f1729;
-    color: #fff;
+    width: 100%;
 }
 
 .section-title {
-    font-size: 42px;
-    margin: 35px 0 20px;
+    font-size: 26px;
+    margin: 30px 0 15px;
     color: #ffcc47;
+    text-align: center;
 }
 
 .players-list {
@@ -189,46 +191,45 @@ body, html {
     gap: 10px;
 }
 
-/* КОНТЕЙНЕРЫ КАРТОЧЕК */
+/* СТИЛИЗАЦИЯ СТРОК ЛИДЕРБОРДА */
 .player-container {
     background: #0f1729;
     border: 1px solid rgba(255,255,255,.08);
-    border-radius: 16px;
+    border-radius: 14px;
     overflow: hidden;
-    transition: border-color 0.2s ease;
+    transition: .2s;
 }
 
 .player-container:hover {
     border-color: #ffcc47;
+    background: #131d33;
 }
 
-/* Кликабельный mctiers ряд */
 .player-card-row {
-    padding: 18px 20px;
+    padding: 14px 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 15px;
     cursor: pointer;
-    user-select: none;
 }
 
 .player-left {
     display: flex;
     align-items: center;
-    gap: 15px;
-    min-width: 160px;
+    gap: 12px;
+    min-width: 140px;
 }
 
 .player-rank {
     color: #ffcc47;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
 }
 
 .player-name {
     color: #fff;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 .player-center {
@@ -236,136 +237,153 @@ body, html {
     align-items: center;
     gap: 8px;
     flex-grow: 1;
-    overflow-x: auto;
-}
-
-.player-center::-webkit-scrollbar {
-    display: none;
 }
 
 .player-meta-tag {
-    font-size: 13px;
+    font-size: 12px;
     color: #8892b0;
-    margin-right: 5px;
     white-space: nowrap;
+    background: rgba(255,255,255,0.04);
+    padding: 4px 8px;
+    border-radius: 6px;
 }
 
 .mini-tier-badge {
     background: rgba(18, 29, 53, 0.8);
-    border: 1px solid rgba(255, 204, 71, 0.25);
+    border: 1px solid rgba(255, 204, 71, 0.15);
     color: #ffcc47;
     padding: 4px 8px;
     border-radius: 6px;
-    font-size: 12px;
+    font-size: 11px;
     white-space: nowrap;
 }
 
 .player-right {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    white-space: nowrap;
     color: #ffcc47;
-    font-size: 18px;
+    font-size: 15px;
     font-weight: bold;
-    min-width: 110px;
+    text-align: right;
+    min-width: 80px;
 }
 
-/* РАСКРЫВАЮЩИЙСЯ ПРОФИЛЬ (atiers.net) */
-.player-expanded-profile {
+/* МОДАЛЬНОЕ ОКНО ПРОФИЛЯ */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(3, 5, 12, 0.85);
+    backdrop-filter: blur(8px);
     display: none;
-    background: rgba(10, 16, 32, 0.95);
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 25px;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+    padding: 15px;
 }
 
-.player-expanded-profile.active {
-    display: block;
+.modal-overlay.active {
+    display: flex;
 }
 
-.profile-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
+.modal-card {
+    background: #0b1120;
+    border: 1px solid rgba(255, 204, 71, 0.3);
+    box-shadow: 0 0 35px rgba(255, 204, 71, 0.15);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 650px;
+    max-height: 85vh;
+    overflow-y: auto;
+    animation: fadeIn 0.25s ease-out;
 }
 
-.profile-category-block {
-    background: rgba(19, 31, 55, 0.4);
-    border: 1px solid rgba(255,255,255,0.04);
-    padding: 18px;
-    border-radius: 12px;
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
 }
 
-.profile-category-block h4 {
-    color: #ffcc47;
-    font-size: 16px;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-    border-bottom: 1px solid rgba(255,254,71,0.15);
-    padding-bottom: 8px;
-}
-
-.profile-kit-item {
+.modal-header {
     display: flex;
     justify-content: space-between;
-    font-size: 14px;
-    padding: 8px 0;
-    border-bottom: 1px dashed rgba(255,255,255,0.05);
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
-.profile-kit-item:last-child {
-    border-bottom: none;
+.modal-title-box h2 {
+    color: #ffcc47;
+    font-size: 24px;
 }
 
-.p-kit-name {
-    color: #a0aec0;
+.modal-title-box p {
+    color: #8892b0;
+    font-size: 13px;
+    margin-top: 4px;
 }
 
-.p-kit-tier {
+.close-modal-btn {
+    background: #16223f;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #fff;
+    font-size: 16px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.close-modal-btn:hover {
+    background: #cc3333;
     color: #fff;
 }
 
-.profile-block-total {
-    margin-top: 15px;
+.modal-body {
+    padding: 20px;
+}
+
+.modal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.modal-block {
+    background: rgba(18, 28, 49, 0.5);
+    border: 1px solid rgba(255,255,255,0.04);
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.modal-block h4 {
+    color: #ffcc47;
+    font-size: 14px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255,204,71,0.2);
+    padding-bottom: 4px;
+}
+
+.modal-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    padding: 6px 0;
+    border-bottom: 1px dashed rgba(255,255,255,0.05);
+}
+
+.modal-row:last-child {
+    border-bottom: none;
+}
+
+.m-kit { color: #a0aec0; }
+.m-tier { color: #fff; font-weight: bold; }
+
+.modal-block-footer {
+    margin-top: 10px;
     text-align: right;
-    font-size: 13px;
+    font-size: 12px;
     color: #ffcc47;
     font-weight: bold;
-}
-
-/* СТИЛИ СТАРЫХ СТАТИЧНЫХ ТАБЛИЦ */
-.table-wrap {
-    overflow-x: auto;
-    margin-top: 20px;
-    border-radius: 14px;
-    border: 1px solid rgba(255,255,255,.08);
-}
-
-.table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 1200px;
-    background: #0d1527;
-}
-
-.table th {
-    background: #131f37;
-    color: #ffcc47;
-    padding: 12px 10px;
-    text-align: center;
-    border-bottom: 1px solid rgba(255,255,255,.1);
-    white-space: nowrap;
-}
-
-.table td {
-    padding: 12px 10px;
-    text-align: center;
-    border-bottom: 1px solid rgba(255,255,255,.1);
-    white-space: nowrap;
-}
-
-.tier {
-    color: #ffd76c;
 }
 
 .info-box {
@@ -373,57 +391,102 @@ body, html {
     border: 1px solid rgba(255,255,255,.08);
     border-radius: 18px;
     padding: 22px;
-    margin-top: 18px;
-    line-height: 1.9;
+    line-height: 1.8;
 }
 
-@media(max-width:900px){
-    .hero h1 { font-size: 42px; }
-    .filters { grid-template-columns: 1fr; }
+/* МОБИЛЬНЫЙ АДАПТИВ */
+@media(max-width: 768px) {
+    .hero h1 { font-size: 26px; }
+    .filters { grid-template-columns: 1fr; gap: 8px; }
+    
     .player-card-row {
-        flex-direction: row;
-        align-items: center;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: 12px;
     }
-    .player-right {
-        font-size: 14px;
-        min-width: auto;
-    }
+    
     .player-left {
-        min-width: auto;
+        justify-content: space-between;
+        width: 100%;
     }
-    .player-name, .player-rank {
-        font-size: 16px;
+    
+    .player-center {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+    
+    .mini-tier-badge {
+        font-size: 10px;
+        padding: 3px 5px;
+    }
+    
+    .player-right {
+        text-align: right;
+        width: 100%;
+        border-top: 1px solid rgba(255,255,255,0.05);
+        padding-top: 6px;
+        font-size: 13px;
+    }
+    
+    .modal-grid {
+        grid-template-columns: 1fr;
     }
 }
 </style>
 </head>
 <body>
 
+<div class="modal-overlay" id="profileModal" onclick="closeModal()">
+    <div class="modal-card" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <div class="modal-title-box">
+                <h2 id="modalPlayerName">Игрок</h2>
+                <p id="modalPlayerMeta">Регион • Устройство</p>
+            </div>
+            <button class="close-modal-btn" onclick="closeModal()">✕</button>
+        </div>
+        <div class="modal-body">
+            <div class="modal-grid">
+                <div class="modal-block">
+                    <h4>Main Tiers</h4>
+                    <div id="modalMainRows"></div>
+                    <div class="modal-block-footer" id="modalMainTotal">Всего за Main: 0 PTS</div>
+                </div>
+                <div class="modal-block">
+                    <h4>Sub Tiers</h4>
+                    <div id="modalSubRows"></div>
+                    <div class="modal-block-footer" id="modalSubTotal">Всего за Sub: 0 PTS</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="sidebar" id="sidebar">
     <h3>Навигация</h3>
     <a href="#" onclick="switchTab('mainPage')">🏠 Главная</a>
-    <a href="#" onclick="switchTab('maintiersTab')">MAINTIERS TOP</a>
-    <a href="#" onclick="switchTab('subtiersTab')">SUBTIERS TOP</a>
     <a href="#" onclick="switchTab('hallTab')">Доска почета</a>
-    <a href="#" onclick="switchTab('faqTab')">FAQ</a>
+    <a href="#" onclick="switchTab('faqTab')">FAQ / PTS Система</a>
     <a href="#" onclick="switchTab('testTab')">Как пройти тир-тест</a>
     <a href="#" onclick="switchTab('testersTab')">Testers</a>
     <a href="https://t.me/MultiCraftCISTiers" target="_blank">Telegram</a>
 </div>
 
 <header class="header">
-    <div class="logo">MultiCraftCISTiers</div>
+    <div class="logo">MultiCraftCIS</div>
     <button class="menu-btn" id="menuBtn">☰ Меню</button>
 </header>
 
 <div class="main-page" id="mainPage" style="display: block;">
     <div class="hero">
         <h1>OVERALL PvP TOP</h1>
-        <p>
-            Официальная PvP ranking platform СНГ комьюнити. Проходите тир-тесты, попадайте в OVERALL TOP и поднимайтесь до высших PvP тиров.
-        </p>
+        <p>Официальная PvP ranking platform СНГ комьюнити. Проходите тир-тесты, попадайте в OVERALL TOP и поднимайтесь до высших PvP тиров.</p>
 
-        <a class="telegram-btn" href="https://t.me/MultiCraftCISTiers" target="_blank">Telegram</a>
+        <div class="tg-wrapper">
+            <a class="telegram-btn" href="https://t.me/MultiCraftCISTiers" target="_blank">Telegram</a>
+        </div>
 
         <div class="filters">
             <input type="text" id="searchInput" placeholder="Поиск игрока...">
@@ -457,24 +520,8 @@ body, html {
     </div>
 </div>
 
-<div class="tab-content" id="maintiersTab" style="display: none;">
-    <a href="#" class="back-btn" onclick="backHome()">← Назад на главную</a>
-    <h2 class="section-title">MAINTIERS</h2>
-    <div class="table-wrap">
-        <table class="table" id="maintiersTable"></table>
-    </div>
-</div>
-
-<div class="tab-content" id="subtiersTab" style="display: none;">
-    <a href="#" class="back-btn" onclick="backHome()">← Назад на главную</a>
-    <h2 class="section-title">SUBTIERS</h2>
-    <div class="table-wrap">
-        <table class="table" id="subtiersTable"></table>
-    </div>
-</div>
-
 <div class="tab-content" id="hallTab" style="display: none;">
-    <a href="#" class="back-btn" onclick="backHome()">← Назад на главную</a>
+    <a href="#" class="back-btn" onclick="backHome()">← Назад</a>
     <h2 class="section-title">Доска почета</h2>
     <div class="info-box">
         ReaperX — первый HT1 Sword игрок платформы.<br><br>
@@ -486,26 +533,22 @@ body, html {
 </div>
 
 <div class="tab-content" id="faqTab" style="display: none;">
-    <a href="#" class="back-btn" onclick="backHome()">← Назад на главную</a>
-    <h2 class="section-title">FAQ</h2>
+    <a href="#" class="back-btn" onclick="backHome()">← Назад</a>
+    <h2 class="section-title">FAQ & Таблица PTS</h2>
     <div class="info-box">
-        HT1 = 300 PTS<br>
-        LT1 = 280 PTS<br>
-        HT2 = 260 PTS<br>
-        LT2 = 240 PTS<br>
-        HT3 = 220 PTS<br>
-        LT3 = 200 PTS<br>
-        HT4 = 180 PTS<br>
-        LT4 = 160 PTS<br>
-        HT5 = 140 PTS<br>
-        LT5 = 120 PTS<br><br>
+        HT1 = 300 PTS &nbsp;|&nbsp; LT1 = 280 PTS<br>
+        HT2 = 260 PTS &nbsp;|&nbsp; LT2 = 240 PTS<br>
+        HT3 = 220 PTS &nbsp;|&nbsp; LT3 = 200 PTS<br>
+        HT4 = 180 PTS &nbsp;|&nbsp; LT4 = 160 PTS<br>
+        HT5 = 140 PTS &nbsp;|&nbsp; LT5 = 120 PTS<br>
+        Unranked = 0 PTS<br><br>
         OVERALL TOP формируется автоматически на основе суммы очков всех китов игрока.<br><br>
         Повторный тир-тест разрешен. После успешного re-test игрок может повысить свой ранг.
     </div>
 </div>
 
 <div class="tab-content" id="testTab" style="display: none;">
-    <a href="#" class="back-btn" onclick="backHome()">← Назад на главную</a>
+    <a href="#" class="back-btn" onclick="backHome()">← Назад</a>
     <h2 class="section-title">Как пройти тир-тест</h2>
     <div class="info-box">
         1. Зайти в Telegram группу платформы.<br><br>
@@ -516,7 +559,7 @@ body, html {
 </div>
 
 <div class="tab-content" id="testersTab" style="display: none;">
-    <a href="#" class="back-btn" onclick="backHome()">← Назад на главную</a>
+    <a href="#" class="back-btn" onclick="backHome()">← Назад</a>
     <h2 class="section-title">Testers</h2>
     <div class="info-box">
         ReaperX — Hardcore, SMP, UHC, Diamond.<br><br>
@@ -527,7 +570,7 @@ body, html {
     </div>
 </div>
 
-<script src="players.js"></script>
+<script src="files/players/players.js"></script>
 
 <script>
 const tierPoints={
@@ -547,17 +590,36 @@ function calcPoints(player,kits){
     return total;
 }
 
-function toggleProfile(idx) {
-    const profileBlock = document.getElementById(`expanded-${idx}`);
-    if(profileBlock.classList.contains('active')) {
-        profileBlock.classList.remove('active');
-    } else {
-        document.querySelectorAll('.player-expanded-profile').forEach(p => p.classList.remove('active'));
-        profileBlock.classList.add('active');
-    }
+function openProfile(idx, filteredPlayersJSON) {
+    const localFiltered = JSON.parse(decodeURIComponent(filteredPlayersJSON));
+    const player = localFiltered[idx];
+    
+    document.getElementById('modalPlayerName').innerText = player.name;
+    document.getElementById('modalPlayerMeta').innerText = `${player.region} • ${player.device}`;
+    
+    const mainRows = document.getElementById('modalMainRows');
+    const subRows = document.getElementById('modalSubRows');
+    
+    mainRows.innerHTML = maintiers.map(kit => {
+        const t = player.tiers[kit] || "Unranked";
+        return `<div class="modal-row"><span class="m-kit">${kit}</span><span class="m-tier">${t} (${tierPoints[t]} PTS)</span></div>`;
+    }).join('');
+    
+    subRows.innerHTML = subtiers.map(kit => {
+        const t = player.tiers[kit] || "Unranked";
+        return `<div class="modal-row"><span class="m-kit">${kit}</span><span class="m-tier">${t} (${tierPoints[t]} PTS)</span></div>`;
+    }).join('');
+    
+    document.getElementById('modalMainTotal').innerText = `Всего за Main: ${calcPoints(player, maintiers)} PTS`;
+    document.getElementById('modalSubTotal').innerText = `Всего за Sub: ${calcPoints(player, subtiers)} PTS`;
+    
+    document.getElementById('profileModal').classList.add('active');
 }
 
-// Защищенная функция рендера списка игроков
+function closeModal() {
+    document.getElementById('profileModal').classList.remove('active');
+}
+
 function renderPlayers(){
     const list=document.getElementById('playersList');
     if (!list) return;
@@ -566,7 +628,6 @@ function renderPlayers(){
     const region=document.getElementById('regionFilter').value;
     const device=document.getElementById('deviceFilter').value;
 
-    // Проверка: загрузился ли внешний массив
     if (typeof players === 'undefined' || !Array.isArray(players)) {
         list.innerHTML = '<div style="text-align:center;color:#ffcc47;padding:20px;">Загрузка базы данных игроков...</div>';
         return;
@@ -581,19 +642,17 @@ function renderPlayers(){
     filtered.sort((a,b)=>calcPoints(b,[...maintiers,...subtiers])-calcPoints(a,[...maintiers,...subtiers]));
 
     list.innerHTML='';
+    const filteredJSON = encodeURIComponent(JSON.stringify(filtered));
 
     filtered.forEach((player,index)=>{
         const totalPts=calcPoints(player,[...maintiers,...subtiers]);
-        const mainPts=calcPoints(player,maintiers);
-        const subPts=calcPoints(player,subtiers);
-
         const hcTier = player.tiers["Hardcore"] || "Unranked";
         const smpTier = player.tiers["SMP"] || "Unranked";
         const uhcTier = player.tiers["UHC"] || "Unranked";
 
         list.innerHTML+=`
         <div class="player-container">
-            <div class="player-card-row" onclick="toggleProfile(${index})">
+            <div class="player-card-row" onclick="openProfile(${index}, '${filteredJSON}')">
                 <div class="player-left">
                     <div class="player-rank">#${index+1}</div>
                     <div class="player-name">${player.name}</div>
@@ -608,84 +667,20 @@ function renderPlayers(){
                     <span>${totalPts} PTS</span>
                 </div>
             </div>
-
-            <div class="player-expanded-profile" id="expanded-${index}">
-                <div class="profile-grid">
-                    <div class="profile-category-block">
-                        <h4>Main Tiers</h4>
-                        ${maintiers.map(kit => {
-                            const t = player.tiers[kit] || "Unranked";
-                            return `
-                                <div class="profile-kit-item">
-                                    <span class="p-kit-name">${kit}</span>
-                                    <span class="p-kit-tier">${t} (${tierPoints[t]} PTS)</span>
-                                </div>
-                            `;
-                        }).join('')}
-                        <div class="profile-block-total">Всего за Main: ${mainPts} PTS</div>
-                    </div>
-                    <div class="profile-category-block">
-                        <h4>Sub Tiers</h4>
-                        ${subtiers.map(kit => {
-                            const t = player.tiers[kit] || "Unranked";
-                            return `
-                                <div class="profile-kit-item">
-                                    <span class="p-kit-name">${kit}</span>
-                                    <span class="p-kit-tier">${t} (${tierPoints[t]} PTS)</span>
-                                </div>
-                            `;
-                        }).join('')}
-                        <div class="profile-block-total">Всего за Sub: ${subPts} PTS</div>
-                    </div>
-                </div>
-            </div>
         </div>`;
     });
 }
 
-function renderTable(id,kits){
-    const table=document.getElementById(id);
-    if (!table || typeof players === 'undefined' || !Array.isArray(players)) return;
-
-    let sorted=[...players].sort((a,b)=>calcPoints(b,kits)-calcPoints(a,kits));
-
-    let html=`<tr><th>#</th><th>Игрок</th><th>Страна</th><th>Устройство</th>`;
-    kits.forEach(kit=>html+=`<th>${kit}</th>`);
-    html+=`<th>Сумма PTS</th></tr>`;
-
-    sorted.forEach((player,index)=>{
-        html+=`<tr>
-        <td>#${index+1}</td>
-        <td>${player.name}</td>
-        <td>${player.region}</td>
-        <td>${player.device}</td>`;
-
-        kits.forEach(kit=>{
-            const tier=player.tiers[kit] || "Unranked";
-            const pts=tierPoints[tier];
-            html+=`<td class="tier">${tier} (${pts} PTS)</td>`;
-        });
-
-        html+=`<td class="tier">${calcPoints(player,kits)} PTS</td></tr>`;
-    });
-
-    table.innerHTML=html;
-}
-
-// Универсальное переключение вкладок без багов пустого экрана
 function switchTab(tabId){
     document.getElementById('sidebar').classList.remove('active');
-    
-    // Прячем всё
     document.getElementById('mainPage').style.display='none';
     document.querySelectorAll('.tab-content').forEach(tab=>{
         tab.style.display='none';
     });
 
-    // Открываем нужный блок
     if(tabId === 'mainPage') {
         document.getElementById('mainPage').style.display='block';
-        renderPlayers(); // На всякий случай обновляем список на главной
+        renderPlayers();
     } else {
         document.getElementById(tabId).style.display='block';
     }
@@ -696,7 +691,6 @@ function backHome(){
     switchTab('mainPage');
 }
 
-// Инициализация событий
 const menuBtn=document.getElementById('menuBtn');
 const sidebar=document.getElementById('sidebar');
 
@@ -715,24 +709,18 @@ document.getElementById('searchInput').addEventListener('input',renderPlayers);
 document.getElementById('regionFilter').addEventListener('change',renderPlayers);
 document.getElementById('deviceFilter').addEventListener('change',renderPlayers);
 
-// Безопасный запуск рендера
 function initSite() {
     if (typeof players !== 'undefined' && Array.isArray(players)) {
         renderPlayers();
-        renderTable('maintiersTable',maintiers);
-        renderTable('subtiersTable',subtiers);
     } else {
-        // Если скрипт players.js еще грузится, пробуем снова через 100мс
         setTimeout(initSite, 100);
     }
 }
 
-// Принудительно показываем главную и запускаем рендер
 window.onload = function() {
     switchTab('mainPage');
     initSite();
 };
 </script>
-
 </body>
 </html>
