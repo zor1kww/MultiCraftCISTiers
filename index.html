@@ -70,7 +70,6 @@ body, html {
     box-shadow: 0 0 15px rgba(255,204,71,.4);
 }
 
-/* БОКОВОЕ МЕНЮ (Только важные разделы) */
 .sidebar {
     position: fixed;
     top: 0;
@@ -155,6 +154,8 @@ body, html {
     border-radius: 10px;
     font-weight: bold;
     transition: .25s;
+    border: none;
+    cursor: pointer;
 }
 
 .telegram-btn:hover, .back-btn:hover {
@@ -191,7 +192,6 @@ body, html {
     gap: 10px;
 }
 
-/* СТИЛИЗАЦИЯ СТРОК ЛИДЕРБОРДА */
 .player-container {
     background: #0f1729;
     border: 1px solid rgba(255,255,255,.08);
@@ -390,11 +390,88 @@ body, html {
     background: #0f1729;
     border: 1px solid rgba(255,255,255,.08);
     border-radius: 18px;
-    padding: 22px;
+    padding: 25px;
     line-height: 1.8;
 }
 
-/* МОБИЛЬНЫЙ АДАПТИВ */
+/* ОФОРМЛЕНИЕ СИСТЕМЫ PTS */
+.faq-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: rgba(10, 16, 32, 0.6);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.faq-table th, .faq-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.faq-table th {
+    background: #121d35;
+    color: #ffcc47;
+    font-size: 14px;
+}
+
+.faq-table td {
+    font-size: 13px;
+}
+
+.faq-table tr:last-child td {
+    border-bottom: none;
+}
+
+.faq-highlight {
+    color: #ffcc47;
+    font-weight: bold;
+}
+
+/* ОФОРМЛЕНИЕ ИНСТРУКЦИИ ТЕСТА */
+.steps-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.step-card {
+    background: #121d35;
+    border: 1px solid rgba(255,204,71,0.15);
+    border-radius: 12px;
+    padding: 15px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.step-num {
+    background: #ffcc47;
+    color: #000;
+    min-width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.step-text h4 {
+    color: #ffcc47;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.step-text p {
+    color: #c8c8c8;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
 @media(max-width: 768px) {
     .hero h1 { font-size: 26px; }
     .filters { grid-template-columns: 1fr; gap: 8px; }
@@ -438,6 +515,7 @@ body, html {
 </head>
 <body>
 
+<!-- МОДАЛЬНОЕ ОКНО ПРОФИЛЯ -->
 <div class="modal-overlay" id="profileModal" onclick="closeModal()">
     <div class="modal-card" onclick="event.stopPropagation()">
         <div class="modal-header">
@@ -464,21 +542,24 @@ body, html {
     </div>
 </div>
 
+<!-- БОКОВОЕ МЕНЮ -->
 <div class="sidebar" id="sidebar">
     <h3>Навигация</h3>
     <a href="#" onclick="switchTab('mainPage')">🏠 Главная</a>
-    <a href="#" onclick="switchTab('hallTab')">Доска почета</a>
-    <a href="#" onclick="switchTab('faqTab')">FAQ / PTS Система</a>
-    <a href="#" onclick="switchTab('testTab')">Как пройти тир-тест</a>
-    <a href="#" onclick="switchTab('testersTab')">Testers</a>
-    <a href="https://t.me/MultiCraftCISTiers" target="_blank">Telegram</a>
+    <a href="#" onclick="switchTab('hallTab')">🏆 Доска почета</a>
+    <a href="#" onclick="switchTab('faqTab')">📊 Система PTS</a>
+    <a href="#" onclick="switchTab('testTab')">⚔️ Пройти Тир-Тест</a>
+    <a href="#" onclick="switchTab('testersTab')">👥 Testers</a>
+    <a href="https://t.me/MultiCraftCISTiers" target="_blank">💬 Telegram</a>
 </div>
 
+<!-- ХЕДЕР -->
 <header class="header">
     <div class="logo">MultiCraftCIS</div>
-    <button class="menu-btn" id="menuBtn">☰ Меню</button>
+    <button class="menu-btn" id="menuBtn">☰ Мею</button>
 </header>
 
+<!-- ГЛАВНАЯ СТРАНИЦА -->
 <div class="main-page" id="mainPage" style="display: block;">
     <div class="hero">
         <h1>OVERALL PvP TOP</h1>
@@ -520,8 +601,9 @@ body, html {
     </div>
 </div>
 
+<!-- ВКЛАДКА: ДОСКА ПОЧЕТА -->
 <div class="tab-content" id="hallTab" style="display: none;">
-    <a href="#" class="back-btn" onclick="backHome()">← Назад</a>
+    <button class="back-btn" onclick="backHome()">← Назад</button>
     <h2 class="section-title">Доска почета</h2>
     <div class="info-box">
         ReaperX — первый HT1 Sword игрок платформы.<br><br>
@@ -532,35 +614,74 @@ body, html {
     </div>
 </div>
 
+<!-- ВКЛАДКА: FAQ / СИСТЕМА PTS -->
 <div class="tab-content" id="faqTab" style="display: none;">
-    <a href="#" class="back-btn" onclick="backHome()">← Назад</a>
-    <h2 class="section-title">FAQ & Таблица PTS</h2>
+    <button class="back-btn" onclick="backHome()">← Назад</button>
+    <h2 class="section-title">Система начисления PTS</h2>
     <div class="info-box">
-        HT1 = 300 PTS &nbsp;|&nbsp; LT1 = 280 PTS<br>
-        HT2 = 260 PTS &nbsp;|&nbsp; LT2 = 240 PTS<br>
-        HT3 = 220 PTS &nbsp;|&nbsp; LT3 = 200 PTS<br>
-        HT4 = 180 PTS &nbsp;|&nbsp; LT4 = 160 PTS<br>
-        HT5 = 140 PTS &nbsp;|&nbsp; LT5 = 120 PTS<br>
-        Unranked = 0 PTS<br><br>
-        OVERALL TOP формируется автоматически на основе суммы очков всех китов игрока.<br><br>
-        Повторный тир-тест разрешен. После успешного re-test игрок может повысить свой ранг.
+        <p style="text-align: center; margin-bottom: 15px;">Рейтинг OVERALL TOP формируется автоматически путём сложения PTS за каждый полученный ранг на всех доступных китах.</p>
+        
+        <table class="faq-table">
+            <thead>
+                <tr>
+                    <th>Тир (Tier)</th>
+                    <th>Очки (PTS)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><span class="faq-highlight">HT1</span> (High Tier 1)</td><td>300 PTS</td></tr>
+                <tr><td><span class="faq-highlight">LT1</span> (Low Tier 1)</td><td>280 PTS</td></tr>
+                <tr><td><span class="faq-highlight">HT2</span> (High Tier 2)</td><td>260 PTS</td></tr>
+                <tr><td><span class="faq-highlight">LT2</span> (Low Tier 2)</td><td>240 PTS</td></tr>
+                <tr><td><span class="faq-highlight">HT3</span> (High Tier 3)</td><td>220 PTS</td></tr>
+                <tr><td><span class="faq-highlight">LT3</span> (Low Tier 3)</td><td>200 PTS</td></tr>
+                <tr><td><span class="faq-highlight">HT4</span> (High Tier 4)</td><td>180 PTS</td></tr>
+                <tr><td><span class="faq-highlight">LT4</span> (Low Tier 4)</td><td>160 PTS</td></tr>
+                <tr><td><span class="faq-highlight">HT5</span> (High Tier 5)</td><td>140 PTS</td></tr>
+                <tr><td><span class="faq-highlight">LT5</span> (Low Tier 5)</td><td>120 PTS</td></tr>
+                <tr><td><span class="faq-highlight">Unranked</span> (Без ранга)</td><td>0 PTS</td></tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
+<!-- ВКЛАДКА: КАК ПРОЙТИ ТЕСТ -->
 <div class="tab-content" id="testTab" style="display: none;">
-    <a href="#" class="back-btn" onclick="backHome()">← Назад</a>
-    <h2 class="section-title">Как пройти тир-тест</h2>
+    <button class="back-btn" onclick="backHome()">← Назад</button>
+    <h2 class="section-title">Как пройти Тир-Тест?</h2>
     <div class="info-box">
-        1. Зайти в Telegram группу платформы.<br><br>
-        2. Написать боту заявку по шаблону.<br><br>
-        3. Ждать ответа тир-тестера.<br><br>
-        После тиртеста ранг будет внесен на сайт.
+        <p style="text-align: center;">Пройти официальный тест на определение вашего PvP уровня может любой желающий игрок. Для этого выполните три простых шага:</p>
+        
+        <div class="steps-container">
+            <div class="step-card">
+                <div class="step-num">1</div>
+                <div class="step-text">
+                    <h4>Перейдите в Telegram платформу</h4>
+                    <p>Нажмите на кнопку "Telegram" на главной странице или в меню, чтобы попасть в наше официальное сообщество.</p>
+                </div>
+            </div>
+            <div class="step-card">
+                <div class="step-num">2</div>
+                <div class="step-text">
+                    <h4>Подайте заявку боту</h4>
+                    <p>Напишите нашему официальному боту регистрации. Заполните шаблон заявки, указав ваш никнейм, устройство (PC, PH, TB и т.д.) и регион.</p>
+                </div>
+            </div>
+            <div class="step-card">
+                <div class="step-num">3</div>
+                <div class="step-text">
+                    <h4>Ожидайте тестера и дуэль</h4>
+                    <p>Один из свободных сертифицированных тестеров свяжется с вами, назначит время дуэли и проверит ваши навыки. После этого ваш ранг обновится в общей таблице!</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
+<!-- ВКЛАДКА: ТЕСТЕРЫ -->
 <div class="tab-content" id="testersTab" style="display: none;">
-    <a href="#" class="back-btn" onclick="backHome()">← Назад</a>
-    <h2 class="section-title">Testers</h2>
+    <button class="back-btn" onclick="backHome()">← Назад</button>
+    <h2 class="section-title">Официальные Тестеры</h2>
     <div class="info-box">
         ReaperX — Hardcore, SMP, UHC, Diamond.<br><br>
         NeoPvP — Emerald Pot, Emerald, Lite, Combo.<br><br>
@@ -570,7 +691,31 @@ body, html {
     </div>
 </div>
 
-<script src="files/players/players.js"></script>
+<!-- УМНЫЙ АВТОМАТИЧЕСКИЙ ЗАГРУЗЧИК БАЗЫ ДАННЫХ -->
+<script>
+function loadPlayersScript(url, callback) {
+    const script = document.createElement('script');
+    script.src = url;
+    script.onload = () => callback(true);
+    script.onerror = () => callback(false);
+    document.head.appendChild(script);
+}
+
+// Поочередно проверяем все варианты путей, чтобы точно подгрузить файл
+window.addEventListener('DOMContentLoaded', () => {
+    loadPlayersScript('files/players/players.js', (success) => {
+        if (success && typeof players !== 'undefined') { initSite(); } 
+        else {
+            loadPlayersScript('Files/Players/players.js', (success2) => {
+                if (success2 && typeof players !== 'undefined') { initSite(); } 
+                else {
+                    loadPlayersScript('players.js', () => { initSite(); });
+                }
+            });
+        }
+    });
+});
+</script>
 
 <script>
 const tierPoints={
@@ -629,7 +774,7 @@ function renderPlayers(){
     const device=document.getElementById('deviceFilter').value;
 
     if (typeof players === 'undefined' || !Array.isArray(players)) {
-        list.innerHTML = '<div style="text-align:center;color:#ffcc47;padding:20px;">Загрузка базы данных игроков...</div>';
+        list.innerHTML = '<div style="text-align:center;color:#ffcc47;padding:40px;">Загрузка базы данных игроков...</div>';
         return;
     }
 
@@ -642,6 +787,12 @@ function renderPlayers(){
     filtered.sort((a,b)=>calcPoints(b,[...maintiers,...subtiers])-calcPoints(a,[...maintiers,...subtiers]));
 
     list.innerHTML='';
+    
+    if (filtered.length === 0) {
+        list.innerHTML = '<div style="text-align:center;color:#8892b0;padding:20px;">Игроки не найдены</div>';
+        return;
+    }
+
     const filteredJSON = encodeURIComponent(JSON.stringify(filtered));
 
     filtered.forEach((player,index)=>{
@@ -712,15 +863,8 @@ document.getElementById('deviceFilter').addEventListener('change',renderPlayers)
 function initSite() {
     if (typeof players !== 'undefined' && Array.isArray(players)) {
         renderPlayers();
-    } else {
-        setTimeout(initSite, 100);
     }
 }
-
-window.onload = function() {
-    switchTab('mainPage');
-    initSite();
-};
 </script>
 </body>
 </html>
