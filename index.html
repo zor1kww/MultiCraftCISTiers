@@ -676,7 +676,7 @@ body, html {
     <h2 class="section-title">Доска почета</h2>
     <div class="info-box">
         <p style="margin-bottom: 12px; font-size: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; color: #ffcc47;">Руководство платформы:</p>
-        <strong style="color: #ff4500;">-999-</strong> — Создатель сервера HT1, а также главный соавтор системы MultiCraftCISTiers.<br><br>
+        <strong style="color: #ffcc47;">-999-</strong> — Создатель сервера HT1, а также главный соавтор системы MultiCraftCISTiers.<br><br>
         <strong style="color: #ffcc47;">zor1kkqwix</strong> — Главный Администратор на сервере HT1, создатель и технический разработчик системы MultiCraftCISTiers.
     </div>
 </div>
@@ -786,9 +786,13 @@ const tierPoints={
     LT3:50,HT4:40,LT4:30,HT5:20,LT5:10,Unranked:0
 };
 
+// Оригинальные HEX-коды тиров со скриншота 1000018800.png
 const tierColors = {
-    HT1: '#ff3333', LT1: '#ff6600', HT2: '#ffcc00', LT2: '#ffff33', HT3: '#33ff33',
-    LT3: '#00cc66', HT4: '#00ffff', LT4: '#3399ff', HT5: '#9933ff', LT5: '#ff33cc',
+    HT1: '#DAA520', LT1: '#DAA520', 
+    HT2: '#A9A9A9', LT2: '#A9A9A9', 
+    HT3: '#A0522D', LT3: '#8B4513', 
+    HT4: '#808080', LT4: '#696969', 
+    HT5: '#008080', LT5: '#2F4F4F', 
     Unranked: '#8892b0'
 };
 
@@ -817,11 +821,8 @@ function openProfile(idx, filteredPlayersJSON) {
     document.getElementById('modalPlayerMeta').innerText = `${player.region} • ${player.device}`;
     
     const roleContainer = document.getElementById('modalRoleContainer');
-    if (player.name === "-999-") {
-        roleContainer.innerHTML = `<span class="custom-role-badge">Администратор MultiCraftCISTiers • Tier-Tester</span>`;
-    } else if (player.name === "zor1kkqwix") {
-        roleContainer.innerHTML = `<span class="custom-role-badge">Создатель MultiCraftCISTiers • Tier-Tester</span>`;
-    } else if (player.name === "Sneger") {
+    // Теперь у всех тестеров пишется одинаково без выделения должностей
+    if (player.name === "-999-" || player.name === "zor1kkqwix" || player.name === "Sneger") {
         roleContainer.innerHTML = `<span class="custom-role-badge">Tier-Tester</span>`;
     } else {
         roleContainer.innerHTML = '';
@@ -897,7 +898,6 @@ function renderPlayers(){
         return matchesSearch && matchesRegion && matchesDevice;
     });
 
-    // Изменение здесь: если выбран режим "all", сортируем ТОЛЬКО по массиву maintiers!
     if (targetKit === 'all') {
         filtered.sort((a,b)=>calcPoints(b,maintiers)-calcPoints(a,maintiers));
     } else {
@@ -922,7 +922,6 @@ function renderPlayers(){
         let rightColumnContent = '';
         
         if (targetKit === 'all') {
-            // И на карточке в общем топе тоже выводим сумму только за Main киты
             const mainPts=calcPoints(player,maintiers);
             rightColumnContent = `<span style="color: #ffcc47;">${mainPts} PTS</span>`;
         } else {
