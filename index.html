@@ -515,7 +515,6 @@ body, html {
 </head>
 <body>
 
-<!-- МОДАЛЬНОЕ ОКНО ПРОФИЛЯ -->
 <div class="modal-overlay" id="profileModal" onclick="closeModal()">
     <div class="modal-card" onclick="event.stopPropagation()">
         <div class="modal-header">
@@ -542,7 +541,6 @@ body, html {
     </div>
 </div>
 
-<!-- БОКОВОЕ МЕНЮ -->
 <div class="sidebar" id="sidebar">
     <h3>Навигация</h3>
     <a href="#" onclick="switchTab('mainPage')">🏠 Главная</a>
@@ -553,17 +551,15 @@ body, html {
     <a href="https://t.me/MultiCraftCISTiers" target="_blank">💬 Telegram</a>
 </div>
 
-<!-- ХЕДЕР -->
 <header class="header">
-    <div class="logo">MultiCraftCIS</div>
-    <button class="menu-btn" id="menuBtn">☰ Мею</button>
+    <div class="logo">MultiCraftCISTiers</div>
+    <button class="menu-btn" id="menuBtn">☰ Меню</button>
 </header>
 
-<!-- ГЛАВНАЯ СТРАНИЦА -->
 <div class="main-page" id="mainPage" style="display: block;">
     <div class="hero">
         <h1>OVERALL PvP TOP</h1>
-        <p>Официальная PvP ranking platform СНГ комьюнити. Проходите тир-тесты, попадайте в OVERALL TOP и поднимайтесь до высших PvP тиров.</p>
+        <p>Официальная PvP ranking platform СНГ комьюнити MultiCraftCISTiers. Проходите тир-тесты, попадайте в OVERALL TOP и поднимайтесь до высших PvP тиров.</p>
 
         <div class="tg-wrapper">
             <a class="telegram-btn" href="https://t.me/MultiCraftCISTiers" target="_blank">Telegram</a>
@@ -601,7 +597,6 @@ body, html {
     </div>
 </div>
 
-<!-- ВКЛАДКА: ДОСКА ПОЧЕТА -->
 <div class="tab-content" id="hallTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">← Назад</button>
     <h2 class="section-title">Доска почета</h2>
@@ -614,7 +609,6 @@ body, html {
     </div>
 </div>
 
-<!-- ВКЛАДКА: FAQ / СИСТЕМА PTS -->
 <div class="tab-content" id="faqTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">← Назад</button>
     <h2 class="section-title">Система начисления PTS</h2>
@@ -645,7 +639,6 @@ body, html {
     </div>
 </div>
 
-<!-- ВКЛАДКА: КАК ПРОЙТИ ТЕСТ -->
 <div class="tab-content" id="testTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">← Назад</button>
     <h2 class="section-title">Как пройти Тир-Тест?</h2>
@@ -678,7 +671,6 @@ body, html {
     </div>
 </div>
 
-<!-- ВКЛАДКА: ТЕСТЕРЫ -->
 <div class="tab-content" id="testersTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">← Назад</button>
     <h2 class="section-title">Официальные Тестеры</h2>
@@ -691,7 +683,6 @@ body, html {
     </div>
 </div>
 
-<!-- УМНЫЙ АВТОМАТИЧЕСКИЙ ЗАГРУЗЧИК БАЗЫ ДАННЫХ -->
 <script>
 function loadPlayersScript(url, callback) {
     const script = document.createElement('script');
@@ -701,7 +692,6 @@ function loadPlayersScript(url, callback) {
     document.head.appendChild(script);
 }
 
-// Поочередно проверяем все варианты путей, чтобы точно подгрузить файл
 window.addEventListener('DOMContentLoaded', () => {
     loadPlayersScript('files/players/players.js', (success) => {
         if (success && typeof players !== 'undefined') { initSite(); } 
