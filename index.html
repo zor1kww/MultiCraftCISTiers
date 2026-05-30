@@ -27,10 +27,8 @@ body, html {
     color: #fff;
     min-height: 100vh;
     overflow-x: hidden;
-    background-image:
-    radial-gradient(circle at top left, rgba(255,187,0,.15), transparent 30%),
-    radial-gradient(circle at bottom right, rgba(255,170,0,.08), transparent 35%),
-    linear-gradient(180deg, #070b17, #0b1224);
+    /* Оптимизированный фон без тяжелых наслоений для плавной прокрутки */
+    background-image: linear-gradient(180deg, #070b17, #0b1224);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center top;
@@ -43,11 +41,11 @@ body, html {
     justify-content: space-between;
     padding: 15px 20px;
     border-bottom: 1px solid rgba(255,255,255,.08);
-    background: rgba(5,8,22,.95);
+    /* Заменено с backdrop-filter на обычный rgba для устранения лагов при скролле */
+    background: rgba(5,8,22,.98);
     position: sticky;
     top: 0;
     z-index: 1000;
-    backdrop-filter: blur(12px);
     width: 100%;
 }
 
@@ -81,11 +79,14 @@ body, html {
     padding: 20px;
     z-index: 2000;
     overflow-y: auto;
-    transition: .3s;
+    transition: transform .3s ease;
+    /* Включение GPU ускорения */
+    will-change: transform;
+    transform: translateX(0);
 }
 
 .sidebar.active {
-    left: 0;
+    transform: translateX(320px);
 }
 
 .sidebar h3 {
@@ -121,7 +122,7 @@ body, html {
     border: 1px solid rgba(255,255,255,.08);
     border-radius: 20px;
     padding: 25px;
-    box-shadow: 0 0 40px rgba(255,187,0,.08);
+    box-shadow: 0 0 40px rgba(255,187,0,.04);
 }
 
 .hero h1 {
@@ -204,7 +205,7 @@ body, html {
     border: 1px solid rgba(255,255,255,.08);
     border-radius: 14px;
     overflow: hidden;
-    transition: .2s;
+    transition: background-color .2s, border-color .2s;
 }
 
 .player-container:hover {
@@ -271,12 +272,12 @@ body, html {
     width: 100%;
     height: 100%;
     background: rgba(3, 5, 12, 0.85);
-    backdrop-filter: blur(8px);
     display: none;
     justify-content: center;
     align-items: center;
     z-index: 3000;
     padding: 15px;
+    will-change: opacity;
 }
 
 .modal-overlay.active {
@@ -292,11 +293,12 @@ body, html {
     max-width: 650px;
     max-height: 85vh;
     overflow-y: auto;
-    animation: fadeIn 0.25s ease-out;
+    transform: translateZ(0); /* Оптимизация рендеринга слоев */
+    animation: fadeIn 0.2s ease-out;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
+    from { opacity: 0; transform: scale(0.97); }
     to { opacity: 1; transform: scale(1); }
 }
 
@@ -733,7 +735,6 @@ window.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <script>
-// Обновленные круглые и легко считаемые PTS
 const tierPoints={
     HT1:100,LT1:90,HT2:80,LT2:70,HT3:60,
     LT3:50,HT4:40,LT4:30,HT5:20,LT5:10,Unranked:0
@@ -796,7 +797,6 @@ function renderPlayers(){
         return;
     }
 
-    // Обновляем заголовки в зависимости от режима
     if (targetKit === 'all') {
         document.getElementById('leaderboardTitle').innerText = 'OVERALL PvP TOP';
         document.getElementById('tableSubtitle').innerText = 'OVERALL LEADERBOARD';
@@ -805,13 +805,11 @@ function renderPlayers(){
         document.getElementById('tableSubtitle').innerText = `${targetKit.toUpperCase()} LEADERBOARD`;
     }
 
-    // Базовая фильтрация по региону, поиску и устройству
     let filtered=players.filter(player=>{
         const matchesSearch = player.name.toLowerCase().includes(search);
         const matchesRegion = (region==='all'||player.region===region);
         const matchesDevice = (device==='all'||player.device===device);
         
-        // Если выбран конкретный кит, скрываем тех, у кого там Unranked
         if (targetKit !== 'all') {
             const tier = player.tiers[targetKit] || "Unranked";
             return matchesSearch && matchesRegion && matchesDevice && tier !== "Unranked";
@@ -820,12 +818,9 @@ function renderPlayers(){
         return matchesSearch && matchesRegion && matchesDevice;
     });
 
-    // Сортировка
     if (targetKit === 'all') {
-        // По сумме PTS на всех китах
         filtered.sort((a,b)=>calcPoints(b,allKits)-calcPoints(a,allKits));
     } else {
-        // По очкам конкретного выбранного кита
         filtered.sort((a,b)=>{
             const tierA = a.tiers[targetKit] || "Unranked";
             const tierB = b.tiers[targetKit] || "Unranked";
@@ -842,6 +837,8 @@ function renderPlayers(){
 
     const filteredJSON = encodeURIComponent(JSON.stringify(filtered));
 
+    // Создаем всю разметку в памяти одной строкой, чтобы не дергать DOM дерево на каждой итерации
+    let htmlFragment = '';
     filtered.forEach((player,index)=>{
         let rightColumnContent = '';
         
@@ -853,7 +850,7 @@ function renderPlayers(){
             rightColumnContent = `<span>${currentTier}</span>`;
         }
 
-        list.innerHTML+=`
+        htmlFragment += `
         <div class="player-container">
             <div class="player-card-row" onclick="openProfile(${index}, '${filteredJSON}')">
                 <div class="player-left">
@@ -869,6 +866,8 @@ function renderPlayers(){
             </div>
         </div>`;
     });
+    
+    list.innerHTML = htmlFragment;
 }
 
 function switchTab(tabId){
