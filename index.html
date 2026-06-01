@@ -23,7 +23,6 @@
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Переменные тем оформления */
 :root {
     --bg-start: #070b17;
     --bg-end: #0b1224;
@@ -82,12 +81,15 @@ body, html {
 .logo {
     font-size: 22px;
     color: #ffcc47;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .header-right {
     display: flex;
     align-items: center;
-    gap: 12px;
+    flex-grow: 1;
+    justify-content: flex-end;
 }
 
 .theme-toggle-btn {
@@ -100,6 +102,8 @@ body, html {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: auto;
+    margin-right: 15px; /* Смещаем правее, чтобы не наползало на лого */
 }
 
 [data-theme="light"] .theme-toggle-btn {
@@ -258,7 +262,6 @@ body, html {
     background: var(--card-hover);
 }
 
-/* Подсветка ТОП-3 мест */
 .top-rank-1 { border-color: rgba(255, 204, 71, 0.6) !important; box-shadow: 0 0 15px rgba(255, 204, 71, 0.15); }
 .top-rank-2 { border-color: rgba(169, 169, 169, 0.6) !important; box-shadow: 0 0 15px rgba(169, 169, 169, 0.15); }
 .top-rank-3 { border-color: rgba(160, 82, 45, 0.6) !important; box-shadow: 0 0 15px rgba(160, 82, 45, 0.15); }
@@ -268,15 +271,15 @@ body, html {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
     cursor: pointer;
 }
 
 .player-left {
     display: flex;
     align-items: center;
-    gap: 12px;
-    min-width: 160px;
+    gap: 15px;
+    min-width: 180px;
 }
 
 .player-rank {
@@ -293,7 +296,7 @@ body, html {
 .player-center {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 8px;
     flex-grow: 1;
 }
 
@@ -316,36 +319,65 @@ body, html {
     background: rgba(0,0,0,0.04);
 }
 
-/* Контейнер быстрых тиров под ником */
-.player-quick-tiers {
+/* Контейнер для отображения иконок тиров в ряд (стиль как на скриншоте 1000018875.jpg) */
+.player-tiers-row {
     display: flex;
-    gap: 6px;
+    gap: 10px;
     flex-wrap: wrap;
-    margin-top: 2px;
+    margin-top: 4px;
 }
 
-.quick-tier-mini {
+.tier-item-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    width: 42px;
+}
+
+.tier-icon-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    overflow: hidden;
+}
+
+.tier-icon-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.tier-icon-circle.unranked {
+    opacity: 0.25;
+}
+
+.tier-label-under {
     font-size: 10px;
-    padding: 1px 4px;
-    border-radius: 3px;
     font-weight: bold;
-    background: rgba(255,255,255,0.02);
+    text-align: center;
 }
 
 .player-right {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: bold;
     text-align: right;
-    min-width: 100px;
+    min-width: 90px;
 }
 
 .tier-badge {
-    padding: 2px 8px;
-    border-radius: 4px;
+    padding: 4px 10px;
+    border-radius: 6px;
     font-weight: bold;
     display: inline-block;
     text-align: center;
-    min-width: 48px;
+    min-width: 55px;
 }
 
 /* МОДАЛЬНОЕ ОКНО ПРОФИЛЯ */
@@ -373,7 +405,7 @@ body, html {
     box-shadow: 0 0 35px rgba(255, 204, 71, 0.15);
     border-radius: 20px;
     width: 100%;
-    max-width: 650px;
+    max-width: 700px;
     max-height: 85vh;
     overflow-y: auto;
     animation: fadeIn 0.2s ease-out;
@@ -460,8 +492,8 @@ body, html {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 12px;
-    padding: 6px 0;
+    font-size: 13px;
+    padding: 8px 0;
     border-bottom: 1px dashed var(--border-color);
 }
 
@@ -469,17 +501,29 @@ body, html {
     border-bottom: none;
 }
 
-.m-kit { color: var(--text-main); }
-
-.m-right-side {
+.modal-kit-left {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
+.modal-kit-icon {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
+
+.m-kit { color: var(--text-main); }
+
+.m-right-side {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
 .m-pts-box {
     display: inline-block;
-    width: 75px; 
+    width: 65px; 
     text-align: right;
     color: var(--text-muted);
     font-size: 11px;
@@ -531,48 +575,6 @@ body, html {
     border-bottom: none;
 }
 
-.steps-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 15px;
-}
-
-.step-card {
-    background: var(--bg-solid);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 15px 20px;
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
-}
-
-.step-num {
-    background: #ffcc47;
-    color: #000;
-    min-width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 16px;
-}
-
-.step-text h4 {
-    color: #ffcc47;
-    font-size: 16px;
-    margin-bottom: 5px;
-}
-
-.step-text p {
-    color: var(--text-muted);
-    font-size: 13px;
-    line-height: 1.5;
-}
-
 .testers-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -607,8 +609,8 @@ body, html {
     .player-card-row {
         flex-direction: column;
         align-items: stretch;
-        gap: 8px;
-        padding: 12px;
+        gap: 12px;
+        padding: 14px;
     }
     
     .player-left {
@@ -624,8 +626,7 @@ body, html {
         text-align: right;
         width: 100%;
         border-top: 1px solid var(--border-color);
-        padding-top: 6px;
-        font-size: 13px;
+        padding-top: 10px;
     }
     
     .modal-grid {
@@ -636,6 +637,7 @@ body, html {
 </head>
 <body>
 
+<!-- МОДАЛЬНОЕ ОКНО ПРОФИЛЯ -->
 <div class="modal-overlay" id="profileModal" onclick="closeModal()">
     <div class="modal-card" onclick="event.stopPropagation()">
         <div class="modal-header">
@@ -663,16 +665,17 @@ body, html {
     </div>
 </div>
 
+<!-- БОКОВОЕ МЕНЮ -->
 <div class="sidebar" id="sidebar">
     <h3>Навигация</h3>
     <a href="#" onclick="switchTab('mainPage')">Главная</a>
     <a href="#" onclick="switchTab('hallTab')">Доска почета</a>
     <a href="#" onclick="switchTab('faqTab')">Система PTS</a>
-    <a href="#" onclick="switchTab('testTab')">Пройти Тир-Тест</a>
     <a href="#" onclick="switchTab('testersTab')">Testers</a>
     <a href="https://t.me/MultiCraftCISTiers" target="_blank">Telegram</a>
 </div>
 
+<!-- ХЕДЕР -->
 <header class="header">
     <div class="logo">MultiCraftCISTiers</div>
     <div class="header-right">
@@ -681,6 +684,7 @@ body, html {
     </div>
 </header>
 
+<!-- ГЛАВНАЯ СТРАНИЦА -->
 <div class="main-page" id="mainPage" style="display: block;">
     <div class="hero">
         <h1 id="leaderboardTitle">OVERALL PvP TOP</h1>
@@ -745,6 +749,7 @@ body, html {
     </div>
 </div>
 
+<!-- ВКЛАДКА: ДОСКА ПОЧЕТА -->
 <div class="tab-content" id="hallTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">← Назад</button>
     <h2 class="section-title">Доска почета</h2>
@@ -755,6 +760,7 @@ body, html {
     </div>
 </div>
 
+<!-- ВКЛАДКА: FAQ / СИСТЕМА PTS -->
 <div class="tab-content" id="faqTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">← Назад</button>
     <h2 class="section-title">Система начисления PTS</h2>
@@ -773,38 +779,7 @@ body, html {
     </div>
 </div>
 
-<div class="tab-content" id="testTab" style="display: none;">
-    <button class="back-btn" onclick="backHome()">← Назад</button>
-    <h2 class="section-title">Как пройти Тир-Тест?</h2>
-    <div class="info-box">
-        <p style="text-align: center;">Пройти официальный тест на определение вашего PvP уровня может любой желающий игрок. Для этого выполните три простых шага:</p>
-        
-        <div class="steps-container">
-            <div class="step-card">
-                <div class="step-num">1</div>
-                <div class="step-text">
-                    <h4>Перейдите в Telegram платформу</h4>
-                    <p>Нажмите на кнопку "Telegram" на главной странице или в меню, чтобы попасть в наше официальное сообщество.</p>
-                </div>
-            </div>
-            <div class="step-card">
-                <div class="step-num">2</div>
-                <div class="step-text">
-                    <h4>Подайте заявку боту</h4>
-                    <p>Напишите нашему официальному боту регистрации. Заполните шаблон заявки, указав ваш игровой никнейм, используемое устройство (PC, PH, TB и т.д.) и ваш регион.</p>
-                </div>
-            </div>
-            <div class="step-card">
-                <div class="step-num">3</div>
-                <div class="step-text">
-                    <h4>Укажите свободное время и ожидайте дуэли</h4>
-                    <p>Обязательно напишите боту своё <strong>удобное/свободное время для тир-тестинга</strong> (например, по МСК). После этого сертифицированный тестер свяжется с вами, проведет проверку навыков, и ваш ранг появится на сайте!</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
+<!-- ВКЛАДКА: ТЕСТЕРЫ -->
 <div class="tab-content" id="testersTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">← Назад</button>
     <h2 class="section-title">Официальные Тестеры</h2>
@@ -852,6 +827,23 @@ window.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <script>
+// Карты путей к вашим будущим иконкам предметов. Положите их в папку assets/icons/
+const kitImages = {
+    "Hardcore": "assets/icons/hardcore.png",
+    "Manhunt": "assets/icons/manhunt.png",
+    "Diamond": "assets/icons/diamond.png",
+    "Beast": "assets/icons/beast.png",
+    "Emerald": "assets/icons/emerald.png",
+    "Emerald Pot": "assets/icons/emerald_pot.png",
+    "RVM": "assets/icons/rvm.png",
+    "Dragonhide": "assets/icons/dragonhide.png",
+    "Pickaxe": "assets/icons/pickaxe.png",
+    "Combo": "assets/icons/combo.png",
+    "Gapple": "assets/icons/gapple.png",
+    "Mace": "assets/icons/mace.png",
+    "Crystal": "assets/icons/crystal.png"
+};
+
 const tierPoints={
     HT1:100,LT1:90,HT2:80,LT2:70,HT3:60,
     LT3:50,HT4:40,LT4:30,HT5:20,LT5:10,Unranked:0
@@ -866,7 +858,6 @@ const tierColors = {
     Unranked: '#8892b0'
 };
 
-// Словари красивых визуальных обозначений
 const regionFlags = {
     RU: '🇷🇺', UA: '🇺🇦', BY: '🇧🇾', KZ: '🇰🇿', UZ: '🇺🇿', 
     KG: '🇰🇬', AM: '🇦🇲', AZ: '🇦🇿', MD: '🇲🇩', TJ: '🇹🇯'
@@ -879,7 +870,6 @@ const deviceIcons = {
 const maintiers=["Hardcore","Manhunt","Diamond","Beast","Emerald","Emerald Pot","RVM","Dragonhide","Pickaxe"];
 const subtiers=["Combo","Gapple","Mace","Crystal"];
 
-// Управление темой
 function toggleTheme() {
     const currentTheme = document.documentElement.getAttribute('data-theme');
     const targetTheme = currentTheme === 'light' ? 'dark' : 'light';
@@ -923,8 +913,12 @@ function openProfile(idx, filteredPlayersJSON) {
     
     mainRows.innerHTML = maintiers.map(kit => {
         const t = player.tiers[kit] || "Unranked";
+        const iconSrc = kitImages[kit] || "";
         return `<div class="modal-row">
-            <span class="m-kit">${kit}</span>
+            <div class="modal-kit-left">
+                <img class="modal-kit-icon" src="${iconSrc}" onerror="this.style.display='none'" alt="">
+                <span class="m-kit">${kit}</span>
+            </div>
             <div class="m-right-side">
                 ${getTierBadge(t)} 
                 <span class="m-pts-box">(${tierPoints[t]} PTS)</span>
@@ -934,8 +928,12 @@ function openProfile(idx, filteredPlayersJSON) {
     
     subRows.innerHTML = subtiers.map(kit => {
         const t = player.tiers[kit] || "Unranked";
+        const iconSrc = kitImages[kit] || "";
         return `<div class="modal-row">
-            <span class="m-kit">${kit}</span>
+            <div class="modal-kit-left">
+                <img class="modal-kit-icon" src="${iconSrc}" onerror="this.style.display='none'" alt="">
+                <span class="m-kit">${kit}</span>
+            </div>
             <div class="m-right-side">
                 ${getTierBadge(t)} 
                 <span class="m-pts-box">(${tierPoints[t]} PTS)</span>
@@ -1010,14 +1008,13 @@ function renderPlayers(){
 
     filtered.forEach((player,index)=>{
         let rightColumnContent = '';
-        let rankPrefix = `#${index+1}`;
+        let rankPrefix = `#${index+1}`; // Чистая строгая нумерация без коронок
         let topClass = '';
         
-        // Кастомные короны для топ-3 мест
         if (targetKit === 'all') {
-            if (index === 0) { rankPrefix = '👑 #1'; topClass = 'top-rank-1'; }
-            else if (index === 1) { rankPrefix = '🥈 #2'; topClass = 'top-rank-2'; }
-            else if (index === 2) { rankPrefix = '🥉 #3'; topClass = 'top-rank-3'; }
+            if (index === 0) topClass = 'top-rank-1';
+            else if (index === 1) topClass = 'top-rank-2';
+            else if (index === 2) topClass = 'top-rank-3';
         }
 
         if (targetKit === 'all') {
@@ -1028,21 +1025,35 @@ function renderPlayers(){
             rightColumnContent = getTierBadge(currentTier);
         }
 
-        // Логика автоматического вывода топ-3 тиров игрока в меню списка
+        // Ряд картинок китов в овералле (как на скриншоте 1000018875.jpg)
         let quickTiersHTML = '';
         if (targetKit === 'all') {
-            let activeMainKits = maintiers
-                .map(k => ({ name: k, tier: player.tiers[k] || "Unranked", pts: tierPoints[player.tiers[k] || "Unranked"] }))
-                .filter(k => k.tier !== "Unranked")
-                .sort((a,b) => b.pts - a.pts)
-                .slice(0, 3);
-
-            if (activeMainKits.length > 0) {
-                quickTiersHTML = `<div class="player-quick-tiers">` + activeMainKits.map(k => {
-                    const clr = tierColors[k.tier] || '#fff';
-                    return `<span class="quick-tier-mini" style="color: ${clr}; border: 1px solid ${clr}33;">${k.name.split(' ')[0]}:${k.tier}</span>`;
-                }).join('') + `</div>`;
-            }
+            quickTiersHTML = `<div class="player-tiers-row">`;
+            maintiers.forEach(kit => {
+                const tier = player.tiers[kit] || "Unranked";
+                const clr = tierColors[tier] || '#8892b0';
+                const iconSrc = kitImages[kit] || "";
+                
+                if (tier !== "Unranked") {
+                    quickTiersHTML += `
+                    <div class="tier-item-box">
+                        <div class="tier-icon-circle" style="border-color: ${clr}cc; box-shadow: 0 0 6px ${clr}22;">
+                            <img src="${iconSrc}" onerror="this.style.opacity=0" alt="">
+                        </div>
+                        <div class="tier-label-under" style="color: ${clr};">${tier}</div>
+                    </div>`;
+                } else {
+                    // Шаблон-заглушка для неразблокированных китов
+                    quickTiersHTML += `
+                    <div class="tier-item-box">
+                        <div class="tier-icon-circle unranked">
+                            <img src="${iconSrc}" onerror="this.style.opacity=0" alt="">
+                        </div>
+                        <div class="tier-label-under" style="color: #444b66;">-</div>
+                    </div>`;
+                }
+            });
+            quickTiersHTML += `</div>`;
         }
 
         const flag = regionFlags[player.region] || player.region;
