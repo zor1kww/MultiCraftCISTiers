@@ -36,6 +36,7 @@
     --sidebar-item: #121b2e;
     --modal-bg: #0b1120;
     --modal-block: rgba(18, 28, 49, 0.5);
+    --accent: #ffcc47;
 }
 
 [data-theme="light"] {
@@ -80,7 +81,7 @@ body, html {
 
 .logo {
     font-size: 22px;
-    color: #ffcc47;
+    color: var(--accent);
     white-space: nowrap;
     flex-shrink: 0;
 }
@@ -93,7 +94,7 @@ body, html {
 .menu-btn {
     background: #121d35;
     border: 1px solid rgba(255,204,71,.3);
-    color: #ffcc47;
+    color: var(--accent);
     padding: 10px 14px;
     border-radius: 10px;
     cursor: pointer;
@@ -122,7 +123,7 @@ body, html {
 }
 
 .sidebar h3 {
-    color: #ffcc47;
+    color: var(--accent);
     margin: 20px 0 10px;
     font-size: 18px;
 }
@@ -139,7 +140,7 @@ body, html {
 
 .sidebar a:hover {
     box-shadow: 0 0 15px rgba(255,204,71,.4);
-    color: #ffcc47;
+    color: var(--accent);
 }
 
 .theme-toggle-container {
@@ -163,11 +164,7 @@ body, html {
     gap: 10px;
 }
 
-[data-theme="light"] .theme-toggle-btn {
-    background: #e2e8f0;
-}
-
-.main-page, .tab-content {
+main-page, .tab-content {
     max-width: 1200px;
     margin: auto;
     padding: 20px 15px;
@@ -183,7 +180,7 @@ body, html {
 
 .hero h1 {
     font-size: 36px;
-    color: #ffcc47;
+    color: var(--accent);
     text-align: center;
     margin-bottom: 10px;
 }
@@ -204,7 +201,7 @@ body, html {
 
 .telegram-btn {
     display: inline-block;
-    background: #ffcc47;
+    background: var(--accent);
     color: #070b17 !important;
     padding: 12px 28px;
     border-radius: 8px;
@@ -221,8 +218,8 @@ body, html {
 
 .back-btn {
     background: #16223f;
-    border: 1px solid #ffcc47;
-    color: #ffcc47;
+    border: 1px solid var(--accent);
+    color: var(--accent);
     padding: 8px 16px;
     border-radius: 6px;
     cursor: pointer;
@@ -231,7 +228,7 @@ body, html {
 }
 
 .back-btn:hover {
-    background: #ffcc47;
+    background: var(--accent);
     color: #16223f;
 }
 
@@ -273,7 +270,7 @@ body, html {
     width: 18px;
     height: 18px;
     cursor: pointer;
-    accent-color: #ffcc47;
+    accent-color: var(--accent);
 }
 
 .filters input, .filters select, .filters-row-2 select {
@@ -289,7 +286,7 @@ body, html {
 .section-title {
     font-size: 26px;
     margin: 30px 0 15px;
-    color: #ffcc47;
+    color: var(--accent);
     text-align: center;
 }
 
@@ -307,7 +304,7 @@ body, html {
 }
 
 .player-container:hover {
-    border-color: #ffcc47;
+    border-color: var(--accent);
     background: var(--card-hover);
 }
 
@@ -327,7 +324,6 @@ body, html {
     background: var(--card-hover);
 }
 
-/* Изменено: Стиль тега retired приведен к виду мета-тегов региона и устройства */
 .retired-meta-tag {
     font-size: 12px;
     color: #ff4747;
@@ -357,7 +353,7 @@ body, html {
 }
 
 .player-rank {
-    color: #ffcc47;
+    color: var(--accent);
     font-size: 16px;
     font-weight: bold;
 }
@@ -506,7 +502,7 @@ body, html {
 }
 
 .modal-title-box h2 {
-    color: #ffcc47;
+    color: var(--accent);
     font-size: 24px;
 }
 
@@ -521,7 +517,7 @@ body, html {
 .custom-role-badge {
     display: inline-block;
     font-size: 11px;
-    color: #ffcc47;
+    color: var(--accent);
     background: rgba(255, 204, 71, 0.12);
     border: 1px solid rgba(255, 204, 71, 0.25);
     padding: 3px 8px;
@@ -563,7 +559,7 @@ body, html {
 }
 
 .modal-block h4 {
-    color: #ffcc47;
+    color: var(--accent);
     font-size: 14px;
     margin-bottom: 10px;
     text-transform: uppercase;
@@ -616,7 +612,7 @@ body, html {
     margin-top: 10px;
     text-align: right;
     font-size: 12px;
-    color: #ffcc47;
+    color: var(--accent);
     font-weight: bold;
 }
 
@@ -646,7 +642,7 @@ body, html {
 
 .faq-table th {
     background: #121d35;
-    color: #ffcc47;
+    color: var(--accent);
     font-size: 14px;
 }
 
@@ -668,7 +664,7 @@ body, html {
 }
 
 .faq-block-item h3 {
-    color: #ffcc47;
+    color: var(--accent);
     font-size: 16px;
     margin-bottom: 8px;
 }
@@ -699,11 +695,80 @@ body, html {
 }
 .tester-status {
     font-size: 12px;
-    color: #ffcc47;
+    color: var(--accent);
     background: rgba(255,204,71,0.1);
     padding: 2px 8px;
     border-radius: 4px;
     display: inline-block;
+}
+
+.step-list {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.step-card {
+    background: var(--bg-solid);
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    border-radius: 10px;
+}
+.step-num {
+    color: var(--accent);
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+.form-template {
+    background: rgba(0,0,0,0.2);
+    border: 1px dashed rgba(255,204,71,0.3);
+    padding: 12px;
+    border-radius: 6px;
+    margin-top: 10px;
+    font-family: monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #a6b2c9;
+}
+.wiki-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 15px;
+}
+.wiki-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 15px;
+}
+.wiki-card h3 {
+    color: var(--accent);
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+.wiki-card p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+.inv-preview-box {
+    background: var(--bg-solid);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 12px;
+    overflow: hidden;
+}
+.inv-preview-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 @media(max-width: 768px) {
@@ -741,13 +806,11 @@ body, html {
 </head>
 <body>
 
-<!-- МОДАЛЬНОЕ ОКНО ПРОФИЛЯ -->
 <div class="modal-overlay" id="profileModal" onclick="closeModal()">
     <div class="modal-card" onclick="event.stopPropagation()">
         <div class="modal-header">
             <div class="modal-title-box">
                 <h2 id="modalPlayerName">Игрок</h2>
-                <!-- Изменено: Отредактирован вывод мета-данных в профиле -->
                 <p id="modalPlayerMeta">RU PC</p>
                 <div id="modalRoleContainer"></div>
             </div>
@@ -770,10 +833,11 @@ body, html {
     </div>
 </div>
 
-<!-- БОКОВОЕ МЕНЮ -->
 <div class="sidebar" id="sidebar">
     <h3>Навигация</h3>
     <a href="#" onclick="switchTab('mainPage')">Главная</a>
+    <a href="#" onclick="switchTab('howToTestTab')">Как пройти тиртест?</a>
+    <a href="#" onclick="switchTab('wikiTab')">Вики</a>
     <a href="#" onclick="switchTab('hallTab')">Доска почета</a>
     <a href="#" onclick="switchTab('faqTab')">Система PTS & FAQ</a>
     <a href="#" onclick="switchTab('testersTab')">Testers</a>
@@ -784,7 +848,6 @@ body, html {
     </div>
 </div>
 
-<!-- ХЕДЕР -->
 <header class="header">
     <div class="logo">MultiCraftCISTiers</div>
     <div class="header-right">
@@ -792,7 +855,6 @@ body, html {
     </div>
 </header>
 
-<!-- ГЛАВНАЯ СТРАНИЦА -->
 <div class="main-page" id="mainPage" style="display: block;">
     <div class="hero">
         <h1 id="leaderboardTitle">OVERALL PvP TOP</h1>
@@ -832,7 +894,7 @@ body, html {
                 <option value="all">Все регионы СНГ</option>
                 <option value="RU">RU</option>
                 <option value="UA">UA</option>
-                <option value="BY">BY</option>
+                                <option value="BY">BY</option>
                 <option value="KZ">KZ</option>
                 <option value="UZ">UZ</option>
                 <option value="KG">KG</option>
@@ -864,24 +926,115 @@ body, html {
     </div>
 </div>
 
-<!-- ДОСКА ПОЧЕТА -->
+<div class="tab-content" id="howToTestTab" style="display: none;">
+    <button class="back-btn" onclick="backHome()">← Назад</button>
+    <h2 class="section-title">Как пройти тиртест?</h2>
+    
+    <div class="info-box">
+        <p style="margin-bottom: 15px;">Процесс подачи заявки и этапы прохождения тестирования разделены на несколько шагов:</p>
+        
+        <div class="step-list">
+            <div class="step-card">
+                <div class="step-num">Шаг 1. Переход в Telegram</div>
+                <p>Игрок заходит в нашу официальную Телеграм-группу платформы.</p>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-num">Шаг 2. Заполнение анкеты боту</div>
+                <p>Игрок отправляет специальному боту анкету для тиртестинга по следующему шаблону:</p>
+                <div class="form-template">
+                    1. Ваш никнейм:<br>
+                    2. Регион:<br>
+                    3. Устройство:<br>
+                    4. Кит для теста:<br>
+                    5. Действующий ранг (если нет, поставьте "-"):<br>
+                    6. Удобное время для проведения теста:
+                </div>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-num">Шаг 3. Ожидание и проведение дуэлей</div>
+                <p>Ожидайте ответа от назначенного тестера. Он согласует с вами точное время, выберет сервер и проведет серию дуэлей. Спустя некоторое время после окончания результаты будут занесены в общую таблицу на сайте.</p>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">Иерархия и типы тестеров</h2>
+    <div class="info-box" style="line-height: 1.7;">
+        <p style="margin-bottom: 12px;"><strong style="color: var(--accent);">1. Квалификационный тестер</strong> — игрок с рангом от <strong style="color:#A9A9A9;">LT3</strong> до <strong style="color:#A9A9A9;">LT2</strong>. Максимальный тир, который данный тестер имеет право выдать по результатам поединков — <strong style="color:#DAA520;">LT3</strong>.</p>
+        
+        <p style="margin-bottom: 12px;"><strong style="color: var(--accent);">2. Старший тестер</strong> — опытные игроки уровня от <strong style="color:#A9A9A9;">HT2</strong> до <strong style="color:#DAA520;">HT1</strong>. Если вы успешно забрали планку <strong style="color:#DAA520;">LT3</strong> у квалификационного тестера, вы переходите на 2-й этап тестирования со Старшим тестером.</p>
+        
+        <div class="faq-block-item" style="border-color: rgba(255,204,71,0.15);">
+            <h3 style="font-size: 15px;">Регламент проведения боев у Старшего тестера:</h3>
+            <p style="margin-top: 5px;">Каждый такой тест состоит ровно из <b>10 дуэлей</b>.</p>
+            <ul style="margin-left: 20px; margin-top: 5px; font-size: 13px; color: var(--text-main); display: flex; flex-direction: column; gap: 4px;">
+                <li>Минимальный возможный исход по итогам серии — сохранение за собой ранга <b>LT3</b>.</li>
+                <li>Максимальный возможный ранг за данный тест — <b>LT1</b>.</li>
+            </ul>
+        </div>
+
+        <div class="faq-block-item" style="border-color: rgba(255,204,71,0.15); margin-top: 12px;">
+            <h3 style="font-size: 15px;">Как выйти на Высший тир (HT1)?</h3>
+            <p style="margin-top: 5px;">После успешного завоевания тира <b>LT1</b>, игроку открывается финальное испытание — прямая дуэль с действующим игроком уровня <b>HT1</b>:</p>
+            <ul style="margin-left: 20px; margin-top: 5px; font-size: 13px; color: var(--text-main); display: flex; flex-direction: column; gap: 4px;">
+                <li><b>Победа:</b> Вы получаете заслуженный статус <b>HT1</b>.</li>
+                <li><b>Поражение:</b> Ранг претендента остается прежним (LT1). Действующий игрок HT1 при любом исходе дуэли не теряет свой ранг и остается на HT1.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="tab-content" id="wikiTab" style="display: none;">
+    <button class="back-btn" onclick="backHome()">← Назад</button>
+    <h2 class="section-title">Вики — Гайды по режимам</h2>
+    
+    <div class="wiki-grid">
+        <div class="wiki-card">
+            <h3>Hardcore Kit</h3>
+            <p>Классическое PvP на истощение. Важно следить за таймингами ударов и расходом брони. Ниже представлен стандартный сетап инвентаря для матчей.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/hardcore_inv.png" onerror="this.style.display='none';">
+                <span>[Скриншот инвентаря Hardcore]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <h3>Manhunt Kit</h3>
+            <p>Динамичный режим с упором на позиционирование, использование лавы, ведер с водой и компаса для отслеживания оппонента на местности.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/manhunt_inv.png" onerror="this.style.display='none';">
+                <span>[Скриншот инвентаря Manhunt]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <h3>Crystal Kit</h3>
+            <p>Высокотехнологичный режим, завязанный на моментальном уроне от взрывов кристаллов Энда. Требует идеального пинга и молниеносной реакции.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/crystal_inv.png" onerror="this.style.display='none';">
+                <span>[Скриншот инвентаря Crystal]</span>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="tab-content" id="hallTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">← Назад</button>
     <h2 class="section-title">Доска почета</h2>
     <div class="info-box">
-        <p style="margin-bottom: 12px; font-size: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; color: #ffcc47;">Руководство платформы:</p>
-        <strong style="color: #ffcc47;">-999-</strong> — Создатель сервера HT1, а также главный соавтор системы MultiCraftCISTiers.<br><br>
-        <strong style="color: #ffcc47;">zor1kkqwix</strong> — Главный Администратор на сервере HT1, создатель и технический разработчик системы MultiCraftCISTiers.
+        <p style="margin-bottom: 12px; font-size: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; color: var(--accent);">Руководство платформы:</p>
+        <strong style="color: var(--accent);">-999-</strong> — Создатель сервера HT1, а также главный соавтор системы MultiCraftCISTiers.<br><br>
+        <strong style="color: var(--accent);">zor1kkqwix</strong> — Главный Администратор на сервере HT1, создатель и технический разработчик системы MultiCraftCISTiers.
     </div>
 </div>
 
-<!-- FAQ -->
 <div class="tab-content" id="faqTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">← Назад</button>
     <h2 class="section-title">Система начисления PTS & FAQ</h2>
     
     <div class="info-box">
-        <p style="text-align: center; margin-bottom: 15px; font-weight: bold; color: #ffcc47;">Рейтинг OVERALL TOP формируется автоматически путём сложения PTS за каждый полученный ранг исключительно на китах категории Main.</p>
+        <p style="text-align: center; margin-bottom: 15px; font-weight: bold; color: var(--accent);">Рейтинг OVERALL TOP формируется автоматически путём сложения PTS за каждый полученный ранг исключительно на китах категории Main.</p>
         <table class="faq-table">
             <thead>
                 <tr>
@@ -906,7 +1059,6 @@ body, html {
     </div>
 </div>
 
-<!-- ТЕСТЕРЫ -->
 <div class="tab-content" id="testersTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">← Назад</button>
     <h2 class="section-title">Официальные Тестеры</h2>
@@ -939,13 +1091,16 @@ function loadPlayersScript(url, callback) {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    loadPlayersScript('files/players/players.js', (success) => {
-        if (success && typeof players !== 'undefined') { initSite(); } 
-        else {
-            loadPlayersScript('Files/Players/players.js', (success2) => {
-                if (success2 && typeof players !== 'undefined') { initSite(); } 
+    loadPlayersScript('players.js', (successRoot) => {
+        if (successRoot && typeof players !== 'undefined') { 
+            initSite(); 
+        } else {
+            loadPlayersScript('files/players/players.js', (success) => {
+                if (success && typeof players !== 'undefined') { initSite(); } 
                 else {
-                    loadPlayersScript('players.js', () => { initSite(); });
+                    loadPlayersScript('Files/Players/players.js', (success2) => {
+                        if (success2 && typeof players !== 'undefined') { initSite(); }
+                    });
                 }
             });
         }
@@ -954,6 +1109,27 @@ window.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <script>
+const clickSound = new Audio('assets/sounds/click.mp3');
+
+function playInterfaceClick() {
+    clickSound.currentTime = 0;
+    clickSound.play().catch(err => {});
+}
+
+document.addEventListener('click', (e) => {
+    const t = e.target;
+    if (
+        t.tagName === 'BUTTON' || 
+        t.tagName === 'A' || 
+        t.tagName === 'SELECT' || 
+        t.tagName === 'INPUT' ||
+        t.closest('.player-card-row') ||
+        t.closest('.sidebar a')
+    ) {
+        playInterfaceClick();
+    }
+});
+
 const kitImages = {
     "Hardcore": "assets/logos/hardcore.png",
     "Manhunt": "assets/logos/manhunt.png",
@@ -1014,10 +1190,8 @@ function openProfile(idx, filteredPlayersJSON) {
     const player = localFiltered[idx];
     
     const isRetired = player.retired === true;
-    // Изменено: Убран вывод тега retired из контейнера имени
     document.getElementById('modalPlayerName').innerHTML = player.name;
     
-    // Изменено: Форматирование строки без скобок, знаков и лишних разделителей
     let metaText = `${player.region} ${player.device}`;
     if (isRetired) {
         metaText += ` RETIRED`;
@@ -1102,7 +1276,6 @@ function renderPlayers(){
         const matchesRegion = (region==='all'||player.region===region);
         const matchesDevice = (device==='all'||player.device===device);
         
-        // Изменено: Если чекбокс выключен, полностью исключаем ретайред игроков из выборки
         if (!showRetiredInPlace && player.retired === true) {
             return false;
         }
@@ -1168,7 +1341,7 @@ function renderPlayers(){
 
         if (targetKit === 'all') {
             const mainPts=calcPoints(player,maintiers);
-            rightColumnContent = `<span style="color: #ffcc47;">${mainPts} PTS</span>`;
+            rightColumnContent = `<span style="color: var(--accent);">${mainPts} PTS</span>`;
         } else {
             const currentTier = player.tiers[targetKit] || "Unranked";
             rightColumnContent = getTierBadge(currentTier, isRetired);
@@ -1205,7 +1378,6 @@ function renderPlayers(){
             quickTiersHTML += `</div>`;
         }
 
-        // Изменено: Никнейм жестко зафиксирован слева, а тег RETIRED перенесен в общий блок мета-тегов и стилизован кнопкой
         htmlFragment += `
         <div class="player-container ${topClass}">
             <div class="player-card-row" onclick="openProfile(${index}, '${filteredJSON}')">
@@ -1242,7 +1414,7 @@ function buildFaqTable() {
         const color = tierColors[tier];
         return `<tr>
             <td><span style="color: ${color}; font-weight:bold; padding: 2px 6px; border-radius:4px; border:1px solid ${color}44; background:${color}11;">${tier}</span></td>
-            <td><span style="color: #ffcc47; font-weight:bold;">${tierPoints[tier]} PTS</span></td>
+            <td><span style="color: var(--accent); font-weight:bold;">${tierPoints[tier]} PTS</span></td>
         </tr>`;
     }).join('');
 }
