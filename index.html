@@ -293,33 +293,33 @@
     </div>
 </div>
 
-<!-- Динамический загрузчик из папки players в корне -->
-<script>
-function loadPlayersScript(url, callback) {
-    const script = document.createElement('script');
-    script.src = url;
-    script.onload = () => callback(true);
-    script.onerror = () => callback(false);
-    document.head.appendChild(script);
-}
+    <script>
+    function loadPlayersScript(url, callback) {
+        const script = document.createElement('script');
+        // Добавляем маркер времени, чтобы браузер каждый раз читал обновленный файл players.js
+        const cacheBuster = '?v=' + new Date().getTime();
+        script.src = url + cacheBuster;
+        script.onload = () => callback(true);
+        script.onerror = () => callback(false);
+        document.head.appendChild(script);
+    }
 
-window.addEventListener('DOMContentLoaded', () => {
-    // Пробуем загрузить из папки players/ в корне проекта
-    loadPlayersScript('players/players.js', (success) => {
-        if (success && typeof players !== 'undefined') { 
-            initSite(); 
-        } else {
-            // Фолбек на случай, если лежит прямо в корне
-            loadPlayersScript('players.js', (successRoot) => {
-                if (successRoot && typeof players !== 'undefined') { initSite(); }
-            });
-        }
+    window.addEventListener('DOMContentLoaded', () => {
+        // Пробуем загрузить из папки players/players.js
+        loadPlayersScript('players/players.js', (success) => {
+            if (success && typeof players !== 'undefined') { 
+                initSite(); 
+            } else {
+                // Если не нашли, ищем напрямую в корне проекта
+                loadPlayersScript('players.js', (successRoot) => {
+                    if (successRoot && typeof players !== 'undefined') { initSite(); }
+                });
+            }
+        });
     });
-});
-</script>
+    </script>
 
-<!-- Скрипты конфигурации и логики -->
-<script src="js/config.js"></script>
-<script src="js/main.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
