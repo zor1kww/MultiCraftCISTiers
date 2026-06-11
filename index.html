@@ -90,7 +90,6 @@ body, html {
     align-items: center;
 }
 
-/* Кнопка меню возвращена в исходное статичное положение в хедере */
 .menu-btn {
     background: #121d35;
     border: 1px solid rgba(255,204,71,.3);
@@ -198,9 +197,43 @@ body, html {
     margin: 0 auto 20px;
 }
 
+/* Кнопка Telegram возвращена к старому кастомному стилю */
 .tg-wrapper {
     text-align: center;
     margin-bottom: 25px;
+}
+
+.telegram-btn {
+    display: inline-block;
+    background: #2481cc;
+    color: #ffffff !important;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.telegram-btn:hover {
+    background: #2075b9;
+    box-shadow: 0 0 15px rgba(36,129,204,0.4);
+}
+
+/* Кнопка Назад возвращена к старому кастомному стилю */
+.back-btn {
+    background: #16223f;
+    border: 1px solid #ffcc47;
+    color: #ffcc47;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.back-btn:hover {
+    background: #ffcc47;
+    color: #16223f;
 }
 
 .filters {
@@ -237,10 +270,12 @@ body, html {
     user-select: none;
 }
 
+/* Изменен цвет галочки на желтый */
 .checkbox-label input {
     width: 18px;
     height: 18px;
     cursor: pointer;
+    accent-color: #ffcc47;
 }
 
 .filters input, .filters select, .filters-row-2 select {
@@ -278,14 +313,13 @@ body, html {
     background: var(--card-hover);
 }
 
-/* КРАСОЧНЫЕ ВКЛАДКИ ТОП-5 */
+/* ВКЛАДКИ ДЛЯ ТОП-5 */
 .top-rank-1 { border-color: rgba(218, 165, 32, 0.7) !important; box-shadow: 0 0 15px rgba(218, 165, 32, 0.15); }
 .top-rank-2 { border-color: rgba(169, 169, 169, 0.7) !important; box-shadow: 0 0 15px rgba(169, 169, 169, 0.15); }
 .top-rank-3 { border-color: rgba(160, 82, 45, 0.7) !important; box-shadow: 0 0 15px rgba(160, 82, 45, 0.15); }
 .top-rank-4 { border-color: rgba(128, 128, 128, 0.7) !important; box-shadow: 0 0 15px rgba(128, 128, 128, 0.15); }
 .top-rank-5 { border-color: rgba(0, 128, 128, 0.7) !important; box-shadow: 0 0 15px rgba(0, 128, 128, 0.15); }
 
-/* Специфические стили для Retired статуса */
 .player-container.retired-status {
     opacity: 0.55;
     border-color: rgba(136, 146, 176, 0.2) !important;
@@ -427,7 +461,7 @@ body, html {
     min-width: 55px;
 }
 
-/* МОДАЛЬНОЕ ОКНО ПРОФИЛЯ */
+/* МОДАЛЬНОЕ ОКНО */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -705,13 +739,12 @@ body, html {
 </head>
 <body>
 
-<!-- МОДАЛЬНОЕ ОКНО ПРОФИЛЯ -->
 <div class="modal-overlay" id="profileModal" onclick="closeModal()">
     <div class="modal-card" onclick="event.stopPropagation()">
         <div class="modal-header">
             <div class="modal-title-box">
                 <h2 id="modalPlayerName">Игрок</h2>
-                <p id="modalPlayerMeta">Регион • Устройство</p>
+                <p id="modalPlayerMeta">RU PC</p>
                 <div id="modalRoleContainer"></div>
             </div>
             <button class="close-modal-btn" onclick="closeModal()">✕</button>
@@ -733,7 +766,6 @@ body, html {
     </div>
 </div>
 
-<!-- БОКОВОЕ МЕНЮ (САЙДБАР) -->
 <div class="sidebar" id="sidebar">
     <h3>Навигация</h3>
     <a href="#" onclick="switchTab('mainPage')">Главная</a>
@@ -747,7 +779,6 @@ body, html {
     </div>
 </div>
 
-<!-- ХЕДЕР -->
 <header class="header">
     <div class="logo">MultiCraftCISTiers</div>
     <div class="header-right">
@@ -755,7 +786,6 @@ body, html {
     </div>
 </header>
 
-<!-- ГЛАВНАЯ СТРАНИЦА -->
 <div class="main-page" id="mainPage" style="display: block;">
     <div class="hero">
         <h1 id="leaderboardTitle">OVERALL PvP TOP</h1>
@@ -769,7 +799,7 @@ body, html {
             <input type="text" id="searchInput" placeholder="Поиск игрока...">
             
             <select id="kitFilter">
-                <option value="all">Все режимы (Overall)</option>
+                <option value="all">⚡ Все режимы (Overall)</option>
                 <optgroup label="Main Kits">
                     <option value="Hardcore">Hardcore</option>
                     <option value="Manhunt">Manhunt</option>
@@ -792,30 +822,29 @@ body, html {
 
         <div class="filters-row-2">
             <select id="regionFilter">
-                <option value="all">Все регионы СНГ</option>
-                <option value="RU">RU</option>
-                <option value="UA">UA</option>
-                <option value="BY">BY</option>
-                <option value="KZ">KZ</option>
-                <option value="UZ">UZ</option>
-                <option value="KG">KG</option>
-                <option value="AM">AM</option>
-                <option value="AZ">AZ</option>
-                <option value="MD">MD</option>
-                <option value="TJ">TJ</option>
+                <option value="all">🌍 Все регионы СНГ</option>
+                <option value="RU">🇷🇺 RU</option>
+                <option value="UA">🇺🇦 UA</option>
+                <option value="BY">🇧🇾 BY</option>
+                <option value="KZ">🇰🇿 KZ</option>
+                <option value="UZ">🇺🇿 UZ</option>
+                <option value="KG">🇰🇬 KG</option>
+                <option value="AM">🇦🇲 AM</option>
+                <option value="AZ">🇦🇿 AZ</option>
+                <option value="MD">🇲🇩 MD</option>
+                <option value="TJ">🇹🇯 TJ</option>
             </select>
 
             <select id="deviceFilter">
-                <option value="all">Все устройства</option>
-                <option value="PH">Phone [PH]</option>
-                <option value="TB">Tablet [TB]</option>
-                <option value="PC">PC [PC]</option>
-                <option value="CT">Controller [CT]</option>
-                <option value="OTG">OTG [OTG]</option>
+                <option value="all">💻 Все устройства</option>
+                <option value="PH">📱 Phone [PH]</option>
+                <option value="TB">📟 Tablet [TB]</option>
+                <option value="PC">💻 PC [PC]</option>
+                <option value="CT">🎮 Controller [CT]</option>
+                <option value="OTG">🔌 OTG [OTG]</option>
             </select>
         </div>
 
-        <!-- ОПЦИЯ ВКЛЮЧЕНИЯ RETIRED НАРАВНЕ С АКТИВНЫМИ ИГРОКАМИ -->
         <div class="filters-row-3">
             <label class="checkbox-label">
                 <input type="checkbox" id="retiredToggle" checked>
@@ -828,7 +857,6 @@ body, html {
     </div>
 </div>
 
-<!-- ВКЛАДКА: ДОСКА ПОЧЕТА -->
 <div class="tab-content" id="hallTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">← Назад</button>
     <h2 class="section-title">Доска почета</h2>
@@ -839,7 +867,6 @@ body, html {
     </div>
 </div>
 
-<!-- ВКЛАДКА: PTS СИСТЕМА & FAQ -->
 <div class="tab-content" id="faqTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">← Назад</button>
     <h2 class="section-title">Система начисления PTS & FAQ</h2>
@@ -860,22 +887,16 @@ body, html {
     <h2 class="section-title">Часто задаваемые вопросы (FAQ)</h2>
     
     <div class="faq-block-item">
-        <h3>Что означает статус [RETIRED]?</h3>
-        <p>Статус **Retired** присваивается игрокам, которые официально завершили свою активную соревновательную карьеру в Minecraft PvP СНГ региона, ушли в инактив или больше не проходят регулярные тир-тесты платформы.</p>
-    </div>
-
-    <div class="faq-block-item">
-        <h3>Как работает фильтр отображения Retired?</h3>
-        <p>На главной странице есть специальная галочка управления. Если она **включена**, то Retired-игроки отображаются наравне со всеми активными игроками, занимая места в топе по количеству своих честно заработанных PTS. При этом к их тиру добавляется буква **R** (например, **HT1-R**). Если галочка **выключена**, они автоматически опускаются в самый низ таблицы лидеров, уступая свои места действующим игрокам.</p>
-    </div>
-
-    <div class="faq-block-item">
         <h3>Учитываются ли под-режимы (Sub Kits) в OVERALL?</h3>
-        <p>Нет, очки PTS начисляются строго за 9 основных режимов (Main Kits). Под-режимы (Sub Kits), такие как Combo, Gapple, Mace и Crystal, созданы для локальных соревнований и отображаются только внутри личных профилей игроков.</p>
+        <p>Нет. Очки PTS начисляются строго за основные режимы (Main Kits). Под-режимы созданы для локальных соревнований и отображаются только в личных профилях игроков.</p>
+    </div>
+
+    <div class="faq-block-item">
+        <h3>Как работает статус Retired?</h3>
+        <p>Если игрок более двух месяцев не проходит тир-тест, у него автоматически добавляется приписка R в тире (например, RHT1). Чтобы убрать её и вернуться в активный статус, нужно пройти повторный тир-тест.</p>
     </div>
 </div>
 
-<!-- ВКЛАДКА: ТЕСТЕРЫ -->
 <div class="tab-content" id="testersTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">← Назад</button>
     <h2 class="section-title">Официальные Тестеры</h2>
@@ -953,15 +974,6 @@ const tierColors = {
     Unranked: '#8892b0'
 };
 
-const regionFlags = {
-    RU: '🇷🇺', UA: '🇺🇦', BY: '🇧🇾', KZ: '🇰🇿', UZ: '🇺🇿', 
-    KG: '🇰🇬', AM: '🇦🇲', AZ: '🇦🇿', MD: '🇲🇩', TJ: '🇹🇯'
-};
-
-const deviceIcons = {
-    PC: '💻 [PC]', PH: '📱 [PH]', TB: '平板 [TB]', CT: '🎮 [CT]', OTG: '🔌 [OTG]'
-};
-
 const maintiers=["Hardcore","Manhunt","Diamond","Beast","Emerald","Emerald Pot","RVM","Dragonhide","Pickaxe"];
 const subtiers=["Combo","Gapple","Mace","Crystal"];
 
@@ -983,7 +995,8 @@ function calcPoints(player,kits){
 
 function getTierBadge(tier, appendR = false) {
     const color = tierColors[tier] || '#fff';
-    const displayLabel = appendR && tier !== "Unranked" ? `${tier}-R` : tier;
+    // Добавление префикса R перед тиром (например, RHT1)
+    const displayLabel = appendR && tier !== "Unranked" ? `R${tier}` : tier;
     return `<span class="tier-badge" style="color: ${color}; border: 1px solid ${color}44; background: ${color}11;">${displayLabel}</span>`;
 }
 
@@ -991,12 +1004,11 @@ function openProfile(idx, filteredPlayersJSON) {
     const localFiltered = JSON.parse(decodeURIComponent(filteredPlayersJSON));
     const player = localFiltered[idx];
     
-    const isRetired = player.retired === true || player.status === 'retired';
+    const isRetired = player.retired === true;
     document.getElementById('modalPlayerName').innerHTML = player.name + (isRetired ? ' <span class="retired-tag">[RETIRED]</span>' : '');
     
-    const flag = regionFlags[player.region] || player.region;
-    const device = deviceIcons[player.device] || player.device;
-    document.getElementById('modalPlayerMeta').innerText = `${flag} ${player.region} • ${device}`;
+    // Смайлики убраны из профиля
+    document.getElementById('modalPlayerMeta').innerText = `${player.region} ${player.device}`;
     
     const roleContainer = document.getElementById('modalRoleContainer');
     if (player.name === "-999-" || player.name === "zor1kkqwix" || player.name === "Sneger") {
@@ -1084,17 +1096,14 @@ function renderPlayers(){
         return matchesSearch && matchesRegion && matchesDevice;
     });
 
-    // СОРТИРОВКА С УЧЕТОМ ГАЛОЧКИ ДЛЯ RETIRED
     if (targetKit === 'all') {
         filtered.sort((a,b)=>{
-            const aRetired = a.retired === true || a.status === 'retired';
-            const bRetired = b.retired === true || b.status === 'retired';
+            const aRetired = a.retired === true;
+            const bRetired = b.retired === true;
             
             if (showRetiredInPlace) {
-                // Если галочка включена — сортируем строго по очкам, Retired равны активным
                 return calcPoints(b,maintiers) - calcPoints(a,maintiers);
             } else {
-                // Если выключена — Retired падают строго вниз
                 if (aRetired !== bRetired) {
                     return aRetired ? 1 : -1;
                 }
@@ -1124,9 +1133,9 @@ function renderPlayers(){
         let rankPrefix = `#${index+1}`; 
         let topClass = '';
         
-        const isRetired = player.retired === true || player.status === 'retired';
+        const isRetired = player.retired === true;
 
-        // ДИНАМИЧЕСКИЙ ТОП-5 ДЛЯ АКТИВНЫХ (ИЛИ ДЛЯ RETIRED, ЕСЛИ ВКЛЮЧЕНА СОРТИРОВКА НАРАВНЕ)
+        // Пять игроков в топе имеют уникальные рамки/вкладки
         if (targetKit === 'all') {
             if (index === 0) topClass = 'top-rank-1';
             else if (index === 1) topClass = 'top-rank-2';
@@ -1135,7 +1144,6 @@ function renderPlayers(){
             else if (index === 4) topClass = 'top-rank-5';
         }
         
-        // Перебиваем класс пенсии, только если галочка выключена и игрок улетел вниз
         if (isRetired && !showRetiredInPlace) {
             topClass = 'retired-status';
         }
@@ -1156,8 +1164,8 @@ function renderPlayers(){
                 const clr = tierColors[tier] || '#8892b0';
                 const iconSrc = kitImages[kit] || "";
                 
-                // Добавляем -R в овералл ряд иконок, если включена опция
-                const labelText = (isRetired && tier !== "Unranked") ? `${tier}-R` : tier;
+                // Префикс R перед тиром на главной
+                const labelText = (isRetired && tier !== "Unranked") ? `R${tier}` : tier;
                 
                 if (tier !== "Unranked") {
                     quickTiersHTML += `
@@ -1180,9 +1188,7 @@ function renderPlayers(){
             quickTiersHTML += `</div>`;
         }
 
-        const flag = regionFlags[player.region] || player.region;
-        const device = deviceIcons[player.device] ? deviceIcons[player.device].split(' ')[0] : player.device;
-
+        // Смайлики из карточки полностью убраны
         htmlFragment += `
         <div class="player-container ${topClass}">
             <div class="player-card-row" onclick="openProfile(${index}, '${filteredJSON}')">
@@ -1195,8 +1201,8 @@ function renderPlayers(){
                 </div>
                 <div class="player-center">
                     <div class="player-meta-box">
-                        <span class="player-meta-tag">${flag} ${player.region}</span>
-                        <span class="player-meta-tag">${device}</span>
+                        <span class="player-meta-tag">${player.region}</span>
+                        <span class="player-meta-tag">${player.device}</span>
                     </div>
                     ${quickTiersHTML}
                 </div>
