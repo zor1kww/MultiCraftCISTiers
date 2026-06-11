@@ -197,29 +197,29 @@ body, html {
     margin: 0 auto 20px;
 }
 
-/* Кнопка Telegram возвращена к старому кастомному стилю */
 .tg-wrapper {
     text-align: center;
     margin-bottom: 25px;
 }
 
+/* Изменено: Перекрашено в красивый золотисто-жёлтый цвет */
 .telegram-btn {
     display: inline-block;
-    background: #2481cc;
-    color: #ffffff !important;
-    padding: 10px 24px;
+    background: #ffcc47;
+    color: #070b17 !important;
+    padding: 12px 28px;
     border-radius: 8px;
     font-weight: bold;
     text-decoration: none;
-    transition: background 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .telegram-btn:hover {
-    background: #2075b9;
-    box-shadow: 0 0 15px rgba(36,129,204,0.4);
+    background: #ffe082;
+    box-shadow: 0 0 15px rgba(255, 204, 71, 0.4);
+    transform: translateY(-1px);
 }
 
-/* Кнопка Назад возвращена к старому кастомному стилю */
 .back-btn {
     background: #16223f;
     border: 1px solid #ffcc47;
@@ -270,7 +270,6 @@ body, html {
     user-select: none;
 }
 
-/* Изменен цвет галочки на желтый */
 .checkbox-label input {
     width: 18px;
     height: 18px;
@@ -313,7 +312,6 @@ body, html {
     background: var(--card-hover);
 }
 
-/* ВКЛАДКИ ДЛЯ ТОП-5 */
 .top-rank-1 { border-color: rgba(218, 165, 32, 0.7) !important; box-shadow: 0 0 15px rgba(218, 165, 32, 0.15); }
 .top-rank-2 { border-color: rgba(169, 169, 169, 0.7) !important; box-shadow: 0 0 15px rgba(169, 169, 169, 0.15); }
 .top-rank-3 { border-color: rgba(160, 82, 45, 0.7) !important; box-shadow: 0 0 15px rgba(160, 82, 45, 0.15); }
@@ -338,7 +336,6 @@ body, html {
     border-radius: 4px;
     font-weight: bold;
     margin-left: 8px;
-    letter-spacing: 0.5px;
 }
 
 .player-card-row {
@@ -392,13 +389,15 @@ body, html {
     font-size: 12px;
     color: var(--text-muted);
     white-space: nowrap;
-    background: rgba(255,255,255,0.04);
-    padding: 4px 8px;
+    background: rgba(255,255,255,0.05);
+    padding: 4px 10px;
     border-radius: 6px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
 }
 
 [data-theme="light"] .player-meta-tag {
-    background: rgba(0,0,0,0.04);
+    background: rgba(0,0,0,0.05);
 }
 
 .player-tiers-row {
@@ -436,7 +435,7 @@ body, html {
 }
 
 .tier-icon-circle.unranked {
-    opacity: 0.25;
+    opacity: 0.15;
 }
 
 .tier-label-under {
@@ -461,7 +460,6 @@ body, html {
     min-width: 55px;
 }
 
-/* МОДАЛЬНОЕ ОКНО */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -920,6 +918,7 @@ body, html {
 </div>
 
 <script>
+// Автоматический поиск и подключение файла базы данных игроков
 function loadPlayersScript(url, callback) {
     const script = document.createElement('script');
     script.src = url;
@@ -944,20 +943,21 @@ window.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <script>
+// Пути до иконок режимов в папке logos
 const kitImages = {
-    "Hardcore": "assets/icons/hardcore.png",
-    "Manhunt": "assets/icons/manhunt.png",
-    "Diamond": "assets/icons/diamond.png",
-    "Beast": "assets/icons/beast.png",
-    "Emerald": "assets/icons/emerald.png",
-    "Emerald Pot": "assets/icons/emerald_pot.png",
-    "RVM": "assets/icons/rvm.png",
-    "Dragonhide": "assets/icons/dragonhide.png",
-    "Pickaxe": "assets/icons/pickaxe.png",
-    "Combo": "assets/icons/combo.png",
-    "Gapple": "assets/icons/gapple.png",
-    "Mace": "assets/icons/mace.png",
-    "Crystal": "assets/icons/crystal.png"
+    "Hardcore": "logos/hardcore.png",
+    "Manhunt": "logos/manhunt.png",
+    "Diamond": "logos/diamond.png",
+    "Beast": "logos/beast.png",
+    "Emerald": "logos/emerald.png",
+    "Emerald Pot": "logos/emerald_pot.png",
+    "RVM": "logos/rvm.png",
+    "Dragonhide": "logos/dragonhide.png",
+    "Pickaxe": "logos/pickaxe.png",
+    "Combo": "logos/combo.png",
+    "Gapple": "logos/gapple.png",
+    "Mace": "logos/mace.png",
+    "Crystal": "logos/crystal.png"
 };
 
 const tierPoints={
@@ -971,7 +971,7 @@ const tierColors = {
     HT3: '#A0522D', LT3: '#8B4513', 
     HT4: '#808080', LT4: '#696969', 
     HT5: '#008080', LT5: '#2F4F4F', 
-    Unranked: '#8892b0'
+    Unranked: '#444b66'
 };
 
 const maintiers=["Hardcore","Manhunt","Diamond","Beast","Emerald","Emerald Pot","RVM","Dragonhide","Pickaxe"];
@@ -995,7 +995,6 @@ function calcPoints(player,kits){
 
 function getTierBadge(tier, appendR = false) {
     const color = tierColors[tier] || '#fff';
-    // Добавление префикса R перед тиром (например, RHT1)
     const displayLabel = appendR && tier !== "Unranked" ? `R${tier}` : tier;
     return `<span class="tier-badge" style="color: ${color}; border: 1px solid ${color}44; background: ${color}11;">${displayLabel}</span>`;
 }
@@ -1007,8 +1006,8 @@ function openProfile(idx, filteredPlayersJSON) {
     const isRetired = player.retired === true;
     document.getElementById('modalPlayerName').innerHTML = player.name + (isRetired ? ' <span class="retired-tag">[RETIRED]</span>' : '');
     
-    // Смайлики убраны из профиля
-    document.getElementById('modalPlayerMeta').innerText = `${player.region} ${player.device}`;
+    // Очищено: вывод мета-данных строго в виде текста "RU [PC]"
+    document.getElementById('modalPlayerMeta').innerText = `${player.region} [${player.device}]`;
     
     const roleContainer = document.getElementById('modalRoleContainer');
     if (player.name === "-999-" || player.name === "zor1kkqwix" || player.name === "Sneger") {
@@ -1025,7 +1024,7 @@ function openProfile(idx, filteredPlayersJSON) {
         const iconSrc = kitImages[kit] || "";
         return `<div class="modal-row">
             <div class="modal-kit-left">
-                <img class="modal-kit-icon" src="${iconSrc}" onerror="this.style.display='none'" alt="">
+                <img class="modal-kit-icon" src="${iconSrc}" onerror="this.style.opacity='0'" alt="">
                 <span class="m-kit">${kit}</span>
             </div>
             <div class="m-right-side">
@@ -1040,7 +1039,7 @@ function openProfile(idx, filteredPlayersJSON) {
         const iconSrc = kitImages[kit] || "";
         return `<div class="modal-row">
             <div class="modal-kit-left">
-                <img class="modal-kit-icon" src="${iconSrc}" onerror="this.style.display='none'" alt="">
+                <img class="modal-kit-icon" src="${iconSrc}" onerror="this.style.opacity='0'" alt="">
                 <span class="m-kit">${kit}</span>
             </div>
             <div class="m-right-side">
@@ -1135,7 +1134,6 @@ function renderPlayers(){
         
         const isRetired = player.retired === true;
 
-        // Пять игроков в топе имеют уникальные рамки/вкладки
         if (targetKit === 'all') {
             if (index === 0) topClass = 'top-rank-1';
             else if (index === 1) topClass = 'top-rank-2';
@@ -1161,10 +1159,9 @@ function renderPlayers(){
             quickTiersHTML = `<div class="player-tiers-row">`;
             maintiers.forEach(kit => {
                 const tier = player.tiers[kit] || "Unranked";
-                const clr = tierColors[tier] || '#8892b0';
+                const clr = tierColors[tier] || '#444b66';
                 const iconSrc = kitImages[kit] || "";
                 
-                // Префикс R перед тиром на главной
                 const labelText = (isRetired && tier !== "Unranked") ? `R${tier}` : tier;
                 
                 if (tier !== "Unranked") {
@@ -1188,7 +1185,7 @@ function renderPlayers(){
             quickTiersHTML += `</div>`;
         }
 
-        // Смайлики из карточки полностью убраны
+        // Очищено: текстовые мета-теги БЕЗ графических или текстовых смайликов
         htmlFragment += `
         <div class="player-container ${topClass}">
             <div class="player-card-row" onclick="openProfile(${index}, '${filteredJSON}')">
