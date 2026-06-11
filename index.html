@@ -8,6 +8,7 @@
 </head>
 <body>
 
+    <!-- ШАПКА И НАВИГАЦИЯ (Сохраняем твой оригинальный UI) -->
     <header class="site-header">
         <div class="header-container">
             <span class="logo-text" onclick="switchScreen('main')">MultiCraftCISTiers</span>
@@ -22,17 +23,23 @@
 
     <main class="main-content">
         
+        <!-- ================================================================= -->
+        <!-- 1. ГЛАВНЫЙ ЭКРАН: ЛИДЕРБОРД (MAIN SCREEN)                         -->
+        <!-- ================================================================= -->
         <div id="main-screen" class="screen-content">
             
+            <!-- Информационный промо-блок -->
             <div class="promo-box">
+                <!-- Пункт 1: Переделанная надпись большими буквами PVP и кастомный класс для стилей -->
                 <h1 class="main-title-custom">OVERALL PVP TOP</h1>
                 <p class="promo-description">
                     Официальная PvP ranking platform СНГ комьюнити MultiCraftCISTiers. 
-                    Проходите тир-тесты, попадайте в рейтинги и поднимайтесь до высших PVP тиров.
+                    Проходите тир-тесты, попадайте в рейтинги и поднимайтесь до высших PvP тиров.
                 </p>
                 <a href="https://t.me/ваша_ссылка" target="_blank" class="tg-btn">Telegram</a>
             </div>
 
+            <!-- Фильтры и поиск (Оригинальная структура с кастомными селектами) -->
             <div class="filters-panel">
                 <input type="text" id="search-input" placeholder="Поиск игрока..." class="search-field">
                 
@@ -52,7 +59,9 @@
                         <option value="Gapple">🍏 Gapple Kit</option>
                         <option value="Mace">🔨 Mace Kit</option>
                         <option value="Crystal">💥 Crystal Kit</option>
-                        <option value="SMP">🌍 SMP Kit</option> </select>
+                        <!-- Пункт 5: Добавлен новый main кит SMP -->
+                        <option value="SMP">🌍 SMP Kit</option>
+                    </select>
                 </div>
 
                 <div class="select-wrapper">
@@ -82,29 +91,53 @@
             </div>
 
             <div class="leaderboard-title-sub">OVERALL LEADERBOARD</div>
+            
+            <!-- Контейнер вывода игроков. Логика main.js автоматически добавит свечения top1-top5 -->
             <div id="leaderboard-container" class="cards-grid">
-                </div>
+                <!-- Генерируется через js/main.js -->
+            </div>
 
         </div>
 
+        <!-- ================================================================= -->
+        <!-- 2. ЭКРАН: ТЕСТЕРЫ (TESTERS SCREEN)                                -->
+        <!-- ================================================================= -->
         <div id="testers-screen" class="screen-content hidden">
             <button class="back-btn" onclick="switchScreen('main')">← Назад</button>
-            <h2 class="screen-title">Официальные Тестеры</h2>
             
-            <div id="testers-list-container">
-                </div>
+            <div class="promo-box">
+                <!-- Изменили на русский по Пункту 2 -->
+                <h1 class="main-title-custom">Официальные Тестеры</h1>
+                <p class="promo-description">
+                    Действующий состав команды тестеров MultiCraftCISTiers:
+                </p>
+            </div>
+            
+            <!-- Пункт 2: Сюда скрипт выведет Старших и Квалификационных тестеров в красивом дизайне -->
+            <div id="testers-list-container" class="testers-section-wrapper">
+                <!-- Генерируется через js/main.js -->
+            </div>
         </div>
 
+        <!-- ================================================================= -->
+        <!-- 3. ЭКРАН: ВИКИ (WIKI SCREEN)                                      -->
+        <!-- ================================================================= -->
         <div id="wiki-screen" class="screen-content hidden">
             <button class="back-btn" onclick="switchScreen('main')">← Назад</button>
-            <h2 class="screen-title">Вики — Гайды по режимам</h2>
             
+            <div class="promo-box">
+                <h1 class="main-title-custom">Вики — Гайды по режимам</h1>
+            </div>
+            
+            <!-- Пункт 3: Чистый контейнер для вывода 14 китов с иконками слева от названий -->
             <div id="wiki-list-container" class="wiki-grid">
-                </div>
+                <!-- Генерируется через js/main.js -->
+            </div>
         </div>
 
     </main>
 
+    <!-- Переключатель мобильного меню -->
     <script>
     function toggleMobileMenu() {
         const menu = document.getElementById('nav-menu');
@@ -112,9 +145,11 @@
     }
     </script>
 
+    <!-- Динамический загрузчик базы игроков. Защищает от кэша при обновлении ников -->
     <script>
     function loadPlayersScript(url, callback) {
         const script = document.createElement('script');
+        // cacheBuster генерирует уникальный хвост ?v=TIMESTAMP при каждой загрузке
         const cacheBuster = '?v=' + new Date().getTime();
         script.src = url + cacheBuster;
         script.onload = () => callback(true);
@@ -123,10 +158,12 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+        // Загружаем из основной папки проекта
         loadPlayersScript('players/players.js', (success) => {
             if (success && typeof players !== 'undefined') { 
                 initSite(); 
             } else {
+                // Запасной путь (если файл случайно упал в корень)
                 loadPlayersScript('players.js', (successRoot) => {
                     if (successRoot && typeof players !== 'undefined') { initSite(); }
                 });
@@ -135,6 +172,7 @@
     });
     </script>
 
+    <!-- Основные файлы логики и конфигурации платформы -->
     <script src="js/config.js"></script>
     <script src="js/main.js"></script>
 </body>
