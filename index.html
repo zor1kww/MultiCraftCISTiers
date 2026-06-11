@@ -2,301 +2,119 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MultiCraftCISTiers</title>
-    <!-- Подключение стилей -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MultiCraftCISTiers — PvP Ranking Platform</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<!-- Модальное окно профиля -->
-<div class="modal-overlay" id="profileModal" onclick="closeModal()">
-    <div class="modal-card" onclick="event.stopPropagation()">
-        <div class="modal-header">
-            <div class="modal-title-box">
-                <h2 id="modalPlayerName">Игрок</h2>
-                <p id="modalPlayerMeta">RU PC</p>
-                <div id="modalRoleContainer"></div>
-            </div>
-            <button class="close-modal-btn" onclick="closeModal()">✕</button>
+    <header class="site-header">
+        <div class="header-container">
+            <span class="logo-text" onclick="switchScreen('main')">MultiCraftCISTiers</span>
+            <button class="menu-toggle-btn" onclick="toggleMobileMenu()">Меню</button>
+            <nav class="nav-menu" id="nav-menu">
+                <a href="#" onclick="switchScreen('main'); toggleMobileMenu(); return false;">Рейтинг</a>
+                <a href="#" onclick="switchScreen('testers'); toggleMobileMenu(); return false;">Тестеры</a>
+                <a href="#" onclick="switchScreen('wiki'); toggleMobileMenu(); return false;">Вики</a>
+            </nav>
         </div>
-        <div class="modal-body">
-            <div class="modal-grid">
-                <div class="modal-block">
-                    <h4>Main Tiers</h4>
-                    <div id="modalMainRows"></div>
-                    <div class="modal-block-footer" id="modalMainTotal">Всего за Main: 0 PTS</div>
-                </div>
-                <div class="modal-block">
-                    <h4>Sub Tiers</h4>
-                    <div id="modalSubRows"></div>
-                    <div class="modal-block-footer" id="modalSubTotal">Всего за Sub: 0 PTS</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    </header>
 
-<!-- Боковая панель навигации -->
-<div class="sidebar" id="sidebar">
-    <h3>Навигация</h3>
-    <a href="#" onclick="switchTab('mainPage')">Главная</a>
-    <a href="#" onclick="switchTab('howToTestTab')">Как пройти тиртест?</a>
-    <a href="#" onclick="switchTab('wikiTab')">Вики</a>
-    <a href="#" onclick="switchTab('hallTab')">Доска почета</a>
-    <a href="#" onclick="switchTab('faqTab')">Система PTS & FAQ</a>
-    <a href="#" onclick="switchTab('testersTab')">Testers</a>
-    <a href="https://t.me/MultiCraftCISTiers" target="_blank">Telegram</a>
-    
-    <div class="theme-toggle-container">
-        <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">☀️ Светлая тема</button>
-    </div>
-</div>
-
-<!-- Шапка сайта -->
-<header class="header">
-    <div class="logo">MultiCraftCISTiers</div>
-    <div class="header-right">
-        <button class="menu-btn" id="menuBtn">Меню</button>
-    </div>
-</header>
-
-<!-- ГЛАВНАЯ СТРАНИЦА: ТОП ИГРОКОВ -->
-<div class="main-page" id="mainPage" style="display: block;">
-    <div class="hero">
-        <h1 id="leaderboardTitle">OVERALL PvP TOP</h1>
-        <p>Официальная PvP ranking platform СНГ комьюнити MultiCraftCISTiers. Проходите тир-тесты, попадайте в рейтинги и поднимайтесь до высших PvP тиров.</p>
-
-        <div class="tg-wrapper">
-            <a class="telegram-btn" href="https://t.me/MultiCraftCISTiers" target="_blank">Telegram</a>
-        </div>
-
-        <div class="filters">
-            <input type="text" id="searchInput" placeholder="Поиск игрока...">
-            
-            <select id="kitFilter">
-                <option value="all">Все режимы (Overall)</option>
-                <optgroup label="Main Kits">
-                    <option value="Hardcore">Hardcore</option>
-                    <option value="Manhunt">Manhunt</option>
-                    <option value="Diamond">Diamond</option>
-                    <option value="Beast">Beast</option>
-                    <option value="Emerald">Emerald</option>
-                    <option value="Emerald Pot">Emerald Pot</option>
-                    <option value="RVM">RVM</option>
-                    <option value="Dragonhide">Dragonhide</option>
-                    <option value="Pickaxe">Pickaxe</option>
-                </optgroup>
-                <optgroup label="Sub Kits">
-                    <option value="Combo">Combo</option>
-                    <option value="Gapple">Gapple</option>
-                    <option value="Mace">Mace</option>
-                    <option value="Crystal">Crystal</option>
-                </optgroup>
-            </select>
-        </div>
-
-        <div class="filters-row-2">
-            <select id="regionFilter">
-                <option value="all">Все регионы СНГ</option>
-                <option value="RU">RU</option>
-                <option value="UA">UA</option>
-                <option value="BY">BY</option>
-                <option value="KZ">KZ</option>
-                <option value="UZ">UZ</option>
-                <option value="KG">KG</option>
-                <option value="AM">AM</option>
-                <option value="AZ">AZ</option>
-                <option value="MD">MD</option>
-                <option value="TJ">TJ</option>
-            </select>
-
-            <select id="deviceFilter">
-                <option value="all">Все устройства</option>
-                <option value="PH">Phone [PH]</option>
-                <option value="TB">Tablet [TB]</option>
-                <option value="PC">PC [PC]</option>
-                <option value="CT">Controller [CT]</option>
-                <option value="OTG">OTG [OTG]</option>
-            </select>
-        </div>
-
-        <div class="filters-row-3">
-            <label class="checkbox-label">
-                <input type="checkbox" id="retiredToggle" checked>
-                Показывать Retired в топе (наравне по PTS)
-            </label>
-        </div>
-
-        <h2 class="section-title" id="tableSubtitle">OVERALL LEADERBOARD</h2>
-        <div class="players-list" id="playersList"></div>
-    </div>
-</div>
-
-<!-- ВКЛАДКА: КАК ПРОЙТИ ТИРТЕСТ -->
-<div class="tab-content" id="howToTestTab" style="display: none;">
-    <button class="back-btn" onclick="backHome()">← Назад</button>
-    <h2 class="section-title">Как пройти тиртест?</h2>
-    
-    <div class="info-box">
-        <p style="margin-bottom: 15px;">Процесс подачи заявки и этапы прохождения тестирования разделены на несколько шагов:</p>
+    <main class="main-content">
         
-        <div class="step-list">
-            <div class="step-card">
-                <div class="step-num">Шаг 1. Переход в Telegram</div>
-                <p>Игрок заходит в нашу официальную Телеграм-группу платформы.</p>
-            </div>
+        <div id="main-screen" class="screen-content">
             
-            <div class="step-card">
-                <div class="step-num">Шаг 2. Заполнение анкеты боту</div>
-                <p>Игрок отправляет специальному боту анкету для тиртестинга по следующему шаблону:</p>
-                <div class="form-template">
-                    1. Ваш никнейм:<br>
-                    2. Регион:<br>
-                    3. Устройство:<br>
-                    4. Кит для теста:<br>
-                    5. Действующий ранг (если нет, поставьте "-"):<br>
-                    6. Удобное время для проведения теста:
+            <div class="promo-box">
+                <h1 class="main-title-custom">OVERALL PVP TOP</h1>
+                <p class="promo-description">
+                    Официальная PvP ranking platform СНГ комьюнити MultiCraftCISTiers. 
+                    Проходите тир-тесты, попадайте в рейтинги и поднимайтесь до высших PVP тиров.
+                </p>
+                <a href="https://t.me/ваша_ссылка" target="_blank" class="tg-btn">Telegram</a>
+            </div>
+
+            <div class="filters-panel">
+                <input type="text" id="search-input" placeholder="Поиск игрока..." class="search-field">
+                
+                <div class="select-wrapper">
+                    <select id="kit-filter" class="filter-select">
+                        <option value="Overall">⚡ Все режимы (Overall)</option>
+                        <option value="Hardcore">❤️ Hardcore Kit</option>
+                        <option value="Manhunt">🪣 Manhunt Kit</option>
+                        <option value="Diamond">💎 Diamond Kit</option>
+                        <option value="Beast">⚔️ Beast Kit</option>
+                        <option value="Emerald">🟢 Emerald Kit</option>
+                        <option value="Emerald Pot">🧪 Emerald Pot Kit</option>
+                        <option value="RVM">🩸 RVM Kit</option>
+                        <option value="Dragonhide">🛡️ Dragonhide Kit</option>
+                        <option value="Pickaxe">⛏️ Pickaxe Kit</option>
+                        <option value="Combo">🥊 Combo Kit</option>
+                        <option value="Gapple">🍏 Gapple Kit</option>
+                        <option value="Mace">🔨 Mace Kit</option>
+                        <option value="Crystal">💥 Crystal Kit</option>
+                        <option value="SMP">🌍 SMP Kit</option> </select>
                 </div>
+
+                <div class="select-wrapper">
+                    <select id="region-filter" class="filter-select">
+                        <option value="All">🌍 Все регионы СНГ</option>
+                        <option value="RU">RU</option>
+                        <option value="UA">UA</option>
+                        <option value="BY">BY</option>
+                        <option value="KZ">KZ</option>
+                    </select>
+                </div>
+
+                <div class="select-wrapper">
+                    <select id="device-filter" class="filter-select">
+                        <option value="All">💻 Все устройства</option>
+                        <option value="PC">ПК (PC)</option>
+                        <option value="PH">Телефон (Phone)</option>
+                        <option value="TB">Планшет (Tablet)</option>
+                    </select>
+                </div>
+
+                <label class="checkbox-label">
+                    <input type="checkbox" id="retired-checkbox" checked>
+                    <span class="custom-checkbox"></span>
+                    Показывать Retired в топе (наравне по PTS)
+                </label>
             </div>
+
+            <div class="leaderboard-title-sub">OVERALL LEADERBOARD</div>
+            <div id="leaderboard-container" class="cards-grid">
+                </div>
+
+        </div>
+
+        <div id="testers-screen" class="screen-content hidden">
+            <button class="back-btn" onclick="switchScreen('main')">← Назад</button>
+            <h2 class="screen-title">Официальные Тестеры</h2>
             
-            <div class="step-card">
-                <div class="step-num">Шаг 3. Ожидание и проведение дуэлей</div>
-                <p>Ожидайте ответа от назначенного тестера. Он согласует с вами точное время, выберет сервер и проведет серию дуэлей. Спустя некоторое время после окончания результаты будут занесены в общую таблицу на сайте.</p>
-            </div>
-        </div>
-    </div>
-
-    <h2 class="section-title">Иерархия и типы тестеров</h2>
-    <div class="info-box" style="line-height: 1.7;">
-        <p style="margin-bottom: 12px;"><strong style="color: var(--accent);">1. Квалификационный тестер</strong> — игрок с рангом от <strong style="color:#A9A9A9;">LT3</strong> до <strong style="color:#A9A9A9;">LT2</strong>. Максимальный тир, который данный тестер имеет право выдать по результатам поединков — <strong style="color:#DAA520;">LT3</strong>.</p>
-        
-        <p style="margin-bottom: 12px;"><strong style="color: var(--accent);">2. Старший тестер</strong> — опытные игроки уровня от <strong style="color:#A9A9A9;">HT2</strong> до <strong style="color:#DAA520;">HT1</strong>. Если вы успешно забрали планку <strong style="color:#DAA520;">LT3</strong> у квалификационного тестера, вы переходите на 2-й этап тестирования со Старшим тестером.</p>
-        
-        <div class="faq-block-item" style="border-color: rgba(255,204,71,0.15);">
-            <h3 style="font-size: 15px;">Регламент проведения боев у Старшего тестера:</h3>
-            <p style="margin-top: 5px;">Каждый такой тест состоит ровно из <b>10 дуэлей</b>.</p>
-            <ul style="margin-left: 20px; margin-top: 5px; font-size: 13px; color: var(--text-main); display: flex; flex-direction: column; gap: 4px;">
-                <li>Минимальный возможный исход по итогам серии — сохранение за собой ранга <b>LT3</b>.</li>
-                <li>Максимальный возможный ранг за данный тест — <b>LT1</b>.</li>
-            </ul>
+            <div id="testers-list-container">
+                </div>
         </div>
 
-        <div class="faq-block-item" style="border-color: rgba(255,204,71,0.15); margin-top: 12px;">
-            <h3 style="font-size: 15px;">Как выйти на Высший тир (HT1)?</h3>
-            <p style="margin-top: 5px;">После успешного завоевания тира <b>LT1</b>, игроку открывается финальное испытание — прямая дуэль с действующим игроком уровня <b>HT1</b>:</p>
-            <ul style="margin-left: 20px; margin-top: 5px; font-size: 13px; color: var(--text-main); display: flex; flex-direction: column; gap: 4px;">
-                <li><b>Победа:</b> Вы получаете заслуженный статус <b>HT1</b>.</li>
-                <li><b>Поражение:</b> Ранг претендента остается прежним (LT1). Действующий игрок HT1 при любом исходе дуэли не теряет свой ранг и остается на HT1.</li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-<!-- ВКЛАДКА: ВИКИ -->
-<div class="tab-content" id="wikiTab" style="display: none;">
-    <button class="back-btn" onclick="backHome()">← Назад</button>
-    <h2 class="section-title">Вики — Гайды по режимам</h2>
-    
-    <div class="wiki-grid">
-        <div class="wiki-card">
-            <h3>Hardcore Kit</h3>
-            <p>Классическое PvP на истощение. Важно следить за таймингами ударов и расходом брони. Ниже представлен стандартный сетап инвентаря для матчей.</p>
-            <div class="inv-preview-box">
-                <img src="assets/wiki/hardcore_inv.png" onerror="this.style.display='none';">
-                <span>[Скриншот инвентаря Hardcore]</span>
-            </div>
+        <div id="wiki-screen" class="screen-content hidden">
+            <button class="back-btn" onclick="switchScreen('main')">← Назад</button>
+            <h2 class="screen-title">Вики — Гайды по режимам</h2>
+            
+            <div id="wiki-list-container" class="wiki-grid">
+                </div>
         </div>
 
-        <div class="wiki-card">
-            <h3>Manhunt Kit</h3>
-            <p>Динамичный режим с упором на позиционирование, использование лавы, ведер с водой и компаса для отслеживания оппонента на местности.</p>
-            <div class="inv-preview-box">
-                <img src="assets/wiki/manhunt_inv.png" onerror="this.style.display='none';">
-                <span>[Скриншот инвентаря Manhunt]</span>
-            </div>
-        </div>
+    </main>
 
-        <div class="wiki-card">
-            <h3>Crystal Kit</h3>
-            <p>Высокотехнологичный режим, завязанный на моментальном уроне от взрывов кристаллов Энда. Требует идеального пинга и молниеносной реакции.</p>
-            <div class="inv-preview-box">
-                <img src="assets/wiki/crystal_inv.png" onerror="this.style.display='none';">
-                <span>[Скриншот инвентаря Crystal]</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- ДОСКА ПОЧЕТА -->
-<div class="tab-content" id="hallTab" style="display: none;">
-    <button class="back-btn" onclick="backHome()">← Назад</button>
-    <h2 class="section-title">Доска почета</h2>
-    <div class="info-box">
-        <p style="margin-bottom: 12px; font-size: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; color: var(--accent);">Руководство платформы:</p>
-        <strong style="color: var(--accent);">-999-</strong> — Создатель сервера HT1, а также главный соавтор системы MultiCraftCISTiers.<br><br>
-        <strong style="color: var(--accent);">zor1kkqwix</strong> — Главный Администратор на сервере HT1, создатель и технический разработчик системы MultiCraftCISTiers.
-    </div>
-</div>
-
-<!-- FAQ -->
-<div class="tab-content" id="faqTab" style="display: none;">
-    <button class="back-btn" onclick="backHome()">← Назад</button>
-    <h2 class="section-title">Система начисления PTS & FAQ</h2>
-    
-    <div class="info-box">
-        <p style="text-align: center; margin-bottom: 15px; font-weight: bold; color: var(--accent);">Рейтинг OVERALL TOP формируется автоматически путём сложения PTS за каждый полученный ранг исключительно на китах категории Main.</p>
-        <table class="faq-table">
-            <thead>
-                <tr>
-                    <th>Тир (Tier)</th>
-                    <th>Очки (PTS)</th>
-                </tr>
-            </thead>
-            <tbody id="faqTableBody"></tbody>
-        </table>
-    </div>
-
-    <h2 class="section-title">Часто задаваемые вопросы (FAQ)</h2>
-    
-    <div class="faq-block-item">
-        <h3>Учитываются ли под-режимы (Sub Kits) в OVERALL?</h3>
-        <p>Нет. Очки PTS начисляются строго за основные режимы (Main Kits). Под-режимы созданы для локальных соревнований и отображаются только в личных профилях игроков.</p>
-    </div>
-
-    <div class="faq-block-item">
-        <h3>Как работает статус Retired?</h3>
-        <p>Если игрок более двух месяцев не проходит тир-тест, у него автоматически добавляется приписка R в тире (например, RHT1). Чтобы убрать её и вернуться в активный статус, нужно пройти повторный тир-тест.</p>
-    </div>
-</div>
-
-<!-- ТЕСТЕРЫ -->
-<div class="tab-content" id="testersTab" style="display: none;">
-    <button class="back-btn" onclick="backHome()">← Назад</button>
-    <h2 class="section-title">Официальные Тестеры</h2>
-    <div class="info-box">
-        <p style="text-align: center; margin-bottom: 10px;">Действующий состав команды тестеров MultiCraftCISTiers:</p>
-        <div class="testers-grid">
-            <div class="tester-card">
-                <div class="tester-name">-999-</div>
-                <div class="tester-status">Tier-Tester</div>
-            </div>
-            <div class="tester-card">
-                <div class="tester-name">Sneger</div>
-                <div class="tester-status">Tier-Tester</div>
-            </div>
-            <div class="tester-card">
-                <div class="tester-name">zor1kkqwix</div>
-                <div class="tester-status">Tier-Tester</div>
-            </div>
-        </div>
-    </div>
-</div>
+    <script>
+    function toggleMobileMenu() {
+        const menu = document.getElementById('nav-menu');
+        if (menu) menu.classList.toggle('active');
+    }
+    </script>
 
     <script>
     function loadPlayersScript(url, callback) {
         const script = document.createElement('script');
-        // Добавляем маркер времени, чтобы браузер каждый раз читал обновленный файл players.js
         const cacheBuster = '?v=' + new Date().getTime();
         script.src = url + cacheBuster;
         script.onload = () => callback(true);
@@ -305,12 +123,10 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-        // Пробуем загрузить из папки players/players.js
         loadPlayersScript('players/players.js', (success) => {
             if (success && typeof players !== 'undefined') { 
                 initSite(); 
             } else {
-                // Если не нашли, ищем напрямую в корне проекта
                 loadPlayersScript('players.js', (successRoot) => {
                     if (successRoot && typeof players !== 'undefined') { initSite(); }
                 });
