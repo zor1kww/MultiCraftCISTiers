@@ -202,7 +202,6 @@ body, html {
     margin-bottom: 25px;
 }
 
-/* Изменено: Перекрашено в красивый золотисто-жёлтый цвет */
 .telegram-btn {
     display: inline-block;
     background: #ffcc47;
@@ -737,6 +736,7 @@ body, html {
 </head>
 <body>
 
+<!-- МОДАЛЬНОЕ ОКНО ПРОФИЛЯ -->
 <div class="modal-overlay" id="profileModal" onclick="closeModal()">
     <div class="modal-card" onclick="event.stopPropagation()">
         <div class="modal-header">
@@ -764,6 +764,7 @@ body, html {
     </div>
 </div>
 
+<!-- БОКОВОЕ МЕНЮ -->
 <div class="sidebar" id="sidebar">
     <h3>Навигация</h3>
     <a href="#" onclick="switchTab('mainPage')">Главная</a>
@@ -777,6 +778,7 @@ body, html {
     </div>
 </div>
 
+<!-- ХЕДЕР -->
 <header class="header">
     <div class="logo">MultiCraftCISTiers</div>
     <div class="header-right">
@@ -784,6 +786,7 @@ body, html {
     </div>
 </header>
 
+<!-- ГЛАВНАЯ СТРАНИЦА -->
 <div class="main-page" id="mainPage" style="display: block;">
     <div class="hero">
         <h1 id="leaderboardTitle">OVERALL PvP TOP</h1>
@@ -796,8 +799,9 @@ body, html {
         <div class="filters">
             <input type="text" id="searchInput" placeholder="Поиск игрока...">
             
+            <!-- Изменено: Полностью удалены смайлики из выпадающих вкладок -->
             <select id="kitFilter">
-                <option value="all">⚡ Все режимы (Overall)</option>
+                <option value="all">Все режимы (Overall)</option>
                 <optgroup label="Main Kits">
                     <option value="Hardcore">Hardcore</option>
                     <option value="Manhunt">Manhunt</option>
@@ -820,26 +824,26 @@ body, html {
 
         <div class="filters-row-2">
             <select id="regionFilter">
-                <option value="all">🌍 Все регионы СНГ</option>
-                <option value="RU">🇷🇺 RU</option>
-                <option value="UA">🇺🇦 UA</option>
-                <option value="BY">🇧🇾 BY</option>
-                <option value="KZ">🇰🇿 KZ</option>
-                <option value="UZ">🇺🇿 UZ</option>
-                <option value="KG">🇰🇬 KG</option>
-                <option value="AM">🇦🇲 AM</option>
-                <option value="AZ">🇦🇿 AZ</option>
-                <option value="MD">🇲🇩 MD</option>
-                <option value="TJ">🇹🇯 TJ</option>
+                <option value="all">Все регионы СНГ</option>
+                <option value="RU">RU</option>
+                <option value="UA">UA</option>
+                <option value="BY">BY</option>
+                <option value="KZ">KZ</option>
+                <option value="UZ">UZ</option>
+                <option value="KG">KG</option>
+                <option value="AM">AM</option>
+                <option value="AZ">AZ</option>
+                <option value="MD">MD</option>
+                <option value="TJ">TJ</option>
             </select>
 
             <select id="deviceFilter">
-                <option value="all">💻 Все устройства</option>
-                <option value="PH">📱 Phone [PH]</option>
-                <option value="TB">📟 Tablet [TB]</option>
-                <option value="PC">💻 PC [PC]</option>
-                <option value="CT">🎮 Controller [CT]</option>
-                <option value="OTG">🔌 OTG [OTG]</option>
+                <option value="all">Все устройства</option>
+                <option value="PH">Phone [PH]</option>
+                <option value="TB">Tablet [TB]</option>
+                <option value="PC">PC [PC]</option>
+                <option value="CT">Controller [CT]</option>
+                <option value="OTG">OTG [OTG]</option>
             </select>
         </div>
 
@@ -855,6 +859,7 @@ body, html {
     </div>
 </div>
 
+<!-- ДОСКА ПОЧЕТА -->
 <div class="tab-content" id="hallTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">← Назад</button>
     <h2 class="section-title">Доска почета</h2>
@@ -865,6 +870,7 @@ body, html {
     </div>
 </div>
 
+<!-- FAQ -->
 <div class="tab-content" id="faqTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">← Назад</button>
     <h2 class="section-title">Система начисления PTS & FAQ</h2>
@@ -895,6 +901,7 @@ body, html {
     </div>
 </div>
 
+<!-- ТЕСТЕРЫ -->
 <div class="tab-content" id="testersTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">← Назад</button>
     <h2 class="section-title">Официальные Тестеры</h2>
@@ -918,7 +925,6 @@ body, html {
 </div>
 
 <script>
-// Автоматический поиск и подключение файла базы данных игроков
 function loadPlayersScript(url, callback) {
     const script = document.createElement('script');
     script.src = url;
@@ -943,21 +949,21 @@ window.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <script>
-// Пути до иконок режимов в папке logos
+// Изменено: Пути перенаправлены на внутреннюю папку assets/logos/
 const kitImages = {
-    "Hardcore": "logos/hardcore.png",
-    "Manhunt": "logos/manhunt.png",
-    "Diamond": "logos/diamond.png",
-    "Beast": "logos/beast.png",
-    "Emerald": "logos/emerald.png",
-    "Emerald Pot": "logos/emerald_pot.png",
-    "RVM": "logos/rvm.png",
-    "Dragonhide": "logos/dragonhide.png",
-    "Pickaxe": "logos/pickaxe.png",
-    "Combo": "logos/combo.png",
-    "Gapple": "logos/gapple.png",
-    "Mace": "logos/mace.png",
-    "Crystal": "logos/crystal.png"
+    "Hardcore": "assets/logos/hardcore.png",
+    "Manhunt": "assets/logos/manhunt.png",
+    "Diamond": "assets/logos/diamond.png",
+    "Beast": "assets/logos/beast.png",
+    "Emerald": "assets/logos/emerald.png",
+    "Emerald Pot": "assets/logos/emerald_pot.png",
+    "RVM": "assets/logos/rvm.png",
+    "Dragonhide": "assets/logos/dragonhide.png",
+    "Pickaxe": "assets/logos/pickaxe.png",
+    "Combo": "assets/logos/combo.png",
+    "Gapple": "assets/logos/gapple.png",
+    "Mace": "assets/logos/mace.png",
+    "Crystal": "assets/logos/crystal.png"
 };
 
 const tierPoints={
@@ -1005,8 +1011,6 @@ function openProfile(idx, filteredPlayersJSON) {
     
     const isRetired = player.retired === true;
     document.getElementById('modalPlayerName').innerHTML = player.name + (isRetired ? ' <span class="retired-tag">[RETIRED]</span>' : '');
-    
-    // Очищено: вывод мета-данных строго в виде текста "RU [PC]"
     document.getElementById('modalPlayerMeta').innerText = `${player.region} [${player.device}]`;
     
     const roleContainer = document.getElementById('modalRoleContainer');
@@ -1185,7 +1189,6 @@ function renderPlayers(){
             quickTiersHTML += `</div>`;
         }
 
-        // Очищено: текстовые мета-теги БЕЗ графических или текстовых смайликов
         htmlFragment += `
         <div class="player-container ${topClass}">
             <div class="player-card-row" onclick="openProfile(${index}, '${filteredJSON}')">
