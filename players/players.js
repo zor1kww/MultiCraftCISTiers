@@ -1,3 +1,4 @@
+// Официальная база данных игроков MultiCraftCISTiers
 const players = [
     {
         name: "Sneger",
