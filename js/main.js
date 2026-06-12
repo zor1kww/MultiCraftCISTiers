@@ -26,7 +26,10 @@ function toggleTheme() {
     const currentTheme = document.documentElement.getAttribute('data-theme');
     const targetTheme = currentTheme === 'light' ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', targetTheme);
-    document.getElementById('themeToggleBtn').innerHTML = targetTheme === 'light' ? '🌙 Темная тема' : '☀️ Светлая тема';
+    const btn = document.getElementById('themeToggleBtn');
+    if (btn) {
+        btn.innerHTML = targetTheme === 'light' ? '🌙 Темная тема' : '☀️ Светлая тема';
+    }
 }
 
 // Расчет общих очков игрока по массиву китов
@@ -60,6 +63,7 @@ function openProfile(idx, filteredPlayersJSON) {
     }
     document.getElementById('modalPlayerMeta').innerText = metaText;
     
+    // В профилях по-прежнему выводится стандартный бейдж без уточнений ранга тестера
     const roleContainer = document.getElementById('modalRoleContainer');
     if (player.name === "-999-" || player.name === "zor1kkqwix" || player.name === "Sneger") {
         roleContainer.innerHTML = `<span class="custom-role-badge">Tier-Tester</span>`;
@@ -156,13 +160,10 @@ function renderPlayers() {
         filtered.sort((a, b) => {
             const aRetired = a.retired === true;
             const bRetired = b.retired === true;
-            
             if (showRetiredInPlace) {
                 return calcPoints(b, maintiers) - calcPoints(a, maintiers);
             } else {
-                if (aRetired !== bRetired) {
-                    return aRetired ? 1 : -1;
-                }
+                if (aRetired !== bRetired) return aRetired ? 1 : -1;
                 return calcPoints(b, maintiers) - calcPoints(a, maintiers);
             }
         });
@@ -191,7 +192,7 @@ function renderPlayers() {
         
         const isRetired = player.retired === true;
 
-        // Свечение топ-5 теперь работает всегда, независимо от выбранного режима
+        // Фикс: Свечение топ-5 теперь применяется ВСЕГДА (и в Overall, и в конкретных китах)
         if (index === 0) topClass = 'top-rank-1';
         else if (index === 1) topClass = 'top-rank-2';
         else if (index === 2) topClass = 'top-rank-3';
@@ -217,7 +218,6 @@ function renderPlayers() {
                 const tier = player.tiers[kit] || "Unranked";
                 const clr = tierColors[tier] || '#444b66';
                 const iconSrc = kitImages[kit] || "";
-                
                 const labelText = (isRetired && tier !== "Unranked") ? `R${tier}` : tier;
                 
                 if (tier !== "Unranked") {
@@ -268,11 +268,10 @@ function renderPlayers() {
     list.innerHTML = htmlFragment;
 }
 
-// Построение таблицы начисления PTS во вкладке FAQ
+// Таблица начисления PTS во вкладке FAQ
 function buildFaqTable() {
     const tbody = document.getElementById('faqTableBody');
     if (!tbody) return;
-    
     const order = ['HT1', 'LT1', 'HT2', 'LT2', 'HT3', 'LT3', 'HT4', 'LT4', 'HT5', 'LT5', 'Unranked'];
     tbody.innerHTML = order.map(tier => {
         const color = tierColors[tier];
@@ -283,19 +282,24 @@ function buildFaqTable() {
     }).join('');
 }
 
-// Логика переключения разделов/вкладок навигации
+// Функция переключения вкладок
 function switchTab(tabId) {
-    document.getElementById('sidebar').classList.remove('active');
-    document.getElementById('mainPage').style.display = 'none';
+    const sb = document.getElementById('sidebar');
+    if (sb) sb.classList.remove('active');
+    
+    const mp = document.getElementById('mainPage');
+    if (mp) mp.style.display = 'none';
+    
     document.querySelectorAll('.tab-content').forEach(tab => {
         tab.style.display = 'none';
     });
     
     if (tabId === 'mainPage') {
-        document.getElementById('mainPage').style.display = 'block';
+        if (mp) mp.style.display = 'block';
         renderPlayers();
     } else {
-        document.getElementById(tabId).style.display = 'block';
+        const target = document.getElementById(tabId);
+        if (target) target.style.display = 'block';
         if (tabId === 'faqTab') buildFaqTable();
     }
     window.scrollTo(0, 0);
@@ -309,27 +313,28 @@ function backHome() {
 const menuBtn = document.getElementById('menuBtn');
 const sidebar = document.getElementById('sidebar');
 
-menuBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    sidebar.classList.toggle('active');
-});
+if (menuBtn && sidebar) {
+    menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        sidebar.classList.toggle('active');
+    });
 
-window.addEventListener('click', (e) => {
-    if (!sidebar.contains(e.target) && e.target !== menuBtn) {
-        sidebar.classList.remove('active');
-    }
-});
+    window.addEventListener('click', (e) => {
+        if (!sidebar.contains(e.target) && e.target !== menuBtn) {
+            sidebar.classList.remove('active');
+        }
+    });
+}
 
-// Слушатели изменений во всех фильтрах на главной странице
-document.getElementById('searchInput').addEventListener('input', renderPlayers);
-document.getElementById('regionFilter').addEventListener('change', renderPlayers);
-document.getElementById('deviceFilter').addEventListener('change', renderPlayers);
-document.getElementById('kitFilter').addEventListener('change', renderPlayers);
-document.getElementById('retiredToggle').addEventListener('change', renderPlayers);
+// Инициализация при изменении фильтров
+if (document.getElementById('searchInput')) {
+    document.getElementById('searchInput').addEventListener('input', renderPlayers);
+    document.getElementById('regionFilter').addEventListener('change', renderPlayers);
+    document.getElementById('deviceFilter').addEventListener('change', renderPlayers);
+    document.getElementById('kitFilter').addEventListener('change', renderPlayers);
+    document.getElementById('retiredToggle').addEventListener('change', renderPlayers);
+}
 
-// Функция инициализации сайта после успешного парсинга базы данных
 function initSite() {
-    if (typeof players !== 'undefined' && Array.isArray(players)) {
-        renderPlayers();
-    }
+    renderPlayers();
 }
