@@ -325,10 +325,9 @@
 
     <div class="info-box">
         
-        <!-- Под-вкладка: Как пройти тиртест? -->
         <div id="tierTestSubTab" class="info-sub-tab-content" style="display: block;">
             <div class="info-section">
-                <div class="info-section-title">⚔️ Как пройти тиртест?</div>
+                <div class="info-section-title">Как пройти тиртест?</div>
                 <div class="step-list">
                     <div class="step-card">
                         <div class="step-num">1. Подача заявки</div>
@@ -344,13 +343,11 @@
                     </div>
                 </div>
             </div>
-            <button class="back-btn" onclick="backHome()">Назад на Главную</button>
         </div>
 
-        <!-- Под-вкладка: Распределение очков -->
         <div id="ptsSubTab" class="info-sub-tab-content" style="display: none;">
             <div class="info-section">
-                <div class="info-section-title">📊 Распределение очков PTS</div>
+                <div class="info-section-title">Распределение очков PTS</div>
                 <p style="font-size: 13px; color: var(--text-main); line-height: 1.6; margin-bottom: 15px;">
                     Рейтинг игрока формируется путём суммирования очков PTS, полученных только за основные (main) киты. Очки, набранные за дополнительные (sub) киты, в общий рейтинг не учитываются.
                 </p>
@@ -365,13 +362,11 @@
                     </tbody>
                 </table>
             </div>
-            <button class="back-btn" onclick="backHome()">Назад на Главную</button>
         </div>
 
-        <!-- Под-вкладка: Тестеры -->
         <div id="testersSubTab" class="info-sub-tab-content" style="display: none;">
             <div class="info-section">
-                <div class="info-section-title">🛡️ Тестеры</div>
+                <div class="info-section-title">Тестеры</div>
                 <p style="font-size: 14px; color: var(--text-main); line-height: 1.6; margin-bottom: 20px;">
                     Тестеры — это опытные игроки, которые проводят проверку навыков и помогают определить ваш уровень мастерства на платформе.
                 </p>
@@ -390,39 +385,34 @@
                     </div>
                 </div>
             </div>
-            <button class="back-btn" onclick="backHome()">Назад на Главную</button>
         </div>
 
-        <!-- Под-вкладка: FAQ -->
         <div id="faqSubTab" class="info-sub-tab-content" style="display: none;">
             <div class="info-section">
-                <div class="info-section-title">❓ Часто задаваемые вопросы (FAQ)</div>
+                <div class="info-section-title">Часто задаваемые вопросы</div>
                 
                 <div class="faq-block-item" style="margin-top: 0;">
                     <h3>Типы тестеров:</h3>
-                    <p>На нашей платформе есть два типа тестеров: обычный и старший.</p>
-                    <ul style="margin-left: 20px; margin-top: 8px; font-size: 13px; color: var(--text-muted); line-height: 1.6;">
-                        <li><strong>Обычный тестер:</strong> Это игроки уровня от ЛТ3 до ЛТ2. Они могут присвоить максимальный уровень ЛТ3.</li>
-                        <li><strong>Старший тестер:</strong> Это опытные игроки уровня от ХТ2 до ХТ1.</li>
+                    <p>На нашей платформе есть два типа тестеров: квалификационный и старший.</p>
+                    <ul style="margin-left: 20px; margin-top: 8px; font-size: 13px; color: var(--text-muted); line-height: 1.6; list-style-type: none; padding-left: 0;">
+                        <li style="margin-bottom: 6px;"><strong>Квалификационный тестер:</strong> Это игроки уровня от <span id="faqColorLT3_1">LT3</span> до <span id="faqColorLT2_1">LT2</span>. Они могут присвоить максимальный уровень <span id="faqColorLT3_2">LT3</span>.</li>
+                        <li><strong>Старший тестер:</strong> Это опытные игроки уровня от <span id="faqColorHT2_1">HT2</span> до <span id="faqColorHT1_1">HT1</span>.</li>
                     </ul>
                 </div>
 
                 <div class="faq-block-item">
                     <h3>Процесс повышения уровня:</h3>
-                    <p style="margin-bottom: 8px;">Если вы достигли уровня ЛТ3, вы можете пройти второй тест со старшим тестером. Каждый тест состоит из 10 дуэлей. Минимальный уровень, который вы можете получить за этот тест, — ЛТ3, а максимальный — ЛТ1.</p>
-                    <p>После получения ЛТ1 вам будет предоставлена возможность сразиться с игроком уровня ХТ1. Если вы одерживаете победу, вам присваивается уровень ХТ1. В случае поражения ваш уровень остается ЛТ1.</p>
+                    <p style="margin-bottom: 8px;">Если вы достигли уровня <span id="faqColorLT3_3">LT3</span>, вы можете пройти второй тест со старшим тестером. Каждый тест состоит из 10 дуэлей. Минимальный уровень, который вы можете получить за этот тест, — <span id="faqColorLT3_4">LT3</span>, а максимальный — <span id="faqColorLT1_1">LT1</span>.</p>
+                    <p>После получения <span id="faqColorLT1_2">LT1</span> вам будет предоставлена возможность сразиться с игроком уровня <span id="faqColorHT1_2">HT1</span>. Если вы одерживаете победу, вам присваивается уровень <span id="faqColorHT1_3">HT1</span>. В случае поражения ваш уровень остается <span id="faqColorLT1_3">LT1</span>.</p>
                 </div>
 
                 <div class="faq-block-item">
-                    <h3>Статус "Retired" (R):</h3>
-                    <p>Если игрок не проходил тиртест по конкретному киту более двух месяцев, рядом с названием этого кита появляется приписка "R" (например, RHT1). Игроки со статусом "Retired" не отображаются в общем топе. Чтобы снова стать активным, достаточно пройти тиртест по соответствующему киту.</p>
-                    <div class="info-accent-box" style="margin-bottom: 0;">
-                        <strong>Примечание для разработчиков:</strong> Необходимо реализовать присвоение статуса "Retired" для каждого кита индивидуально, а не для всего профиля игрока.
-                    </div>
+                    <h3>Статус Retired:</h3>
+                    <p style="margin-bottom: 8px;">Если игрок не проходил тиртест по конкретному киту более двух месяцев, рядом с названием этого кита появляется приписка R, например, <span style="font-weight: bold; color: #ff4747;">R</span><span id="faqColorHT1_4">HT1</span>.</p>
+                    <p>Игроки со статусом Retired не отображаются в общем топе. Чтобы снова стать активным, достаточно пройти тиртест по соответствующему киту.</p>
                 </div>
 
             </div>
-            <button class="back-btn" onclick="backHome()">Назад на Главную</button>
         </div>
 
     </div>
