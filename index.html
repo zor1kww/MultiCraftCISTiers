@@ -40,11 +40,9 @@
 <div class="sidebar" id="sidebar">
     <h3>Навигация</h3>
     <a href="#" onclick="switchTab('mainPage')">Главная</a>
-    <a href="#" onclick="switchTab('howToTestTab')">Как пройти тиртест?</a>
     <a href="#" onclick="switchTab('wikiTab')">Вики</a>
     <a href="#" onclick="switchTab('hallTab')">Доска почета</a>
-    <a href="#" onclick="switchTab('faqTab')">Система PTS & FAQ</a>
-    <a href="#" onclick="switchTab('testersTab')">Тестеры</a>
+    <a href="#" onclick="switchTab('infoCenterTab')">Система тестов & FAQ</a>
     <a href="https://t.me/MultiCraftCISTiers" target="_blank">Telegram</a>
     
     <div class="theme-toggle-container">
@@ -133,45 +131,12 @@
     </div>
 </div>
 
-<!-- ВКЛАДКА: КАК ПРОЙТИ ТИРТЕСТ -->
-<div class="tab-content" id="howToTestTab" style="display: none;">
-    <button class="back-btn" onclick="backHome()">← Назад</button>
-    <h2 class="section-title">Как пройти тиртест?</h2>
-    
-    <div class="info-box">
-        <p style="margin-bottom: 15px;">Процесс подачи заявки и этапы прохождения тестирования разделены на несколько шагов:</p>
-        <div class="step-list">
-            <div class="step-card">
-                <div class="step-num">Шаг 1. Переход в Telegram</div>
-                <p>Игрок заходит в нашу официальную Телеграм-группу платформы.</p>
-            </div>
-            <div class="step-card">
-                <div class="step-num">Шаг 2. Заполнение анкеты боту</div>
-                <p>Игрок отправляет специальному боту анкету для тиртестинга по следующему шаблону:</p>
-                <div class="form-template">
-                    1. Ваш никнейм:<br>
-                    2. Регион:<br>
-                    3. Устройство:<br>
-                    4. Кит для теста:<br>
-                    5. Действующий ранг (если нет, поставьте "-"):<br>
-                    6. Удобное время для проведения теста:
-                </div>
-            </div>
-            <div class="step-card">
-                <div class="step-num">Шаг 3. Ожидание и проведение дуэлей</div>
-                <p>Ожидайте ответа от назначенного тестера. Он согласует с вами точное время, выберет сервер и проведет серию дуэлей.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- ВКЛАДКА: ВИКИ -->
 <div class="tab-content" id="wikiTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">← Назад</button>
     <h2 class="section-title">Вики — Гайды по режимам</h2>
     
     <div class="wiki-grid">
-        <!-- Main Kits -->
         <div class="wiki-card">
             <div class="wiki-title-wrapper">
                 <img class="wiki-title-icon" src="assets/logos/hardcore.png" alt="">
@@ -292,7 +257,6 @@
             </div>
         </div>
 
-        <!-- Sub Kits -->
         <div class="wiki-card">
             <div class="wiki-title-wrapper">
                 <img class="wiki-title-icon" src="assets/logos/combo.png" alt="">
@@ -354,42 +318,112 @@
     </div>
 </div>
 
-<!-- FAQ -->
-<div class="tab-content" id="faqTab" style="display: none;">
-    <button class="back-btn" onclick="backHome()">← Назад</button>
-    <h2 class="section-title">Система начисления PTS & FAQ</h2>
+<!-- ОБЪЕДИНЕННАЯ ВКЛАДКА: СИСТЕМА ТЕСТОВ, ИЕРАРХИЯ, FAQ И ТЕСТЕРЫ -->
+<div class="tab-content" id="infoCenterTab" style="display: none;">
+    <button class="back-btn" onclick="backHome()">← Назад на Главную</button>
+    <h2 class="section-title">Информационный Центр Платформы</h2>
+    
     <div class="info-box">
-        <table class="faq-table">
-            <thead>
-                <tr>
-                    <th>Тир (Tier)</th>
-                    <th>Очки (PTS)</th>
-                </tr>
-            </thead>
-            <tbody id="faqTableBody"></tbody>
-        </table>
-    </div>
-</div>
-
-<!-- ТЕСТЕРЫ -->
-<div class="tab-content" id="testersTab" style="display: none;">
-    <button class="back-btn" onclick="backHome()">← Назад</button>
-    <h2 class="section-title">Официальные Тестеры</h2>
-    <div class="info-box">
-        <div class="testers-grid">
-            <div class="tester-card">
-                <div class="tester-name">-999-</div>
-                <div class="tester-status">Старший Тестер</div>
-            </div>
-            <div class="tester-card">
-                <div class="tester-name">Sneger</div>
-                <div class="tester-status">Старший Тестер</div>
-            </div>
-            <div class="tester-card">
-                <div class="tester-name">zor1kkqwix</div>
-                <div class="tester-status">Квалификационный Тестер</div>
+        
+        <!-- СЕКЦИЯ 1: ИЕРАРХИЯ ТИРОВ -->
+        <div class="info-section">
+            <div class="info-section-title">👑 Иерархия Системы Рангов</div>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
+                Всего в нашей экосистеме существует 5 основных уровней квалификации, каждый из которых разделен на два подранга (HT — High Tier, LT — Low Tier):
+            </p>
+            <div class="tier-hierarchy">
+                <div class="hierarchy-item">
+                    <div class="hierarchy-rank" style="color: #DAA520;">Tier 1 (H/L)</div>
+                    <div class="hierarchy-desc"><strong>Элита СНГ.</strong> Игроки абсолютного уровня, обладающие безупречным пониманием механики, макро-контроля и позиционирования. Разница между HT1 и LT1 определяется стабильностью на длительных дистанциях турниров.</div>
+                </div>
+                <div class="hierarchy-item">
+                    <div class="hierarchy-rank" style="color: #A9A9A9;">Tier 2 (H/L)</div>
+                    <div class="hierarchy-desc"><strong>Мастера.</strong> Сильнейшие конкуренты и претенденты на высший эшелон. Показывают превосходный индивидуальный скилл, регулярно выигрывают региональные квалификации.</div>
+                </div>
+                <div class="hierarchy-item">
+                    <div class="hierarchy-rank" style="color: #A0522D;">Tier 3 (H/L)</div>
+                    <div class="hierarchy-desc"><strong>Опытные бойцы.</strong> Стабильный костяк комьюнити. Обладают хорошей реакцией, знают базовые тактики застроек и ресурс-менеджмента.</div>
+                </div>
+                <div class="hierarchy-item">
+                    <div class="hierarchy-rank" style="color: #808080;">Tier 4 (H/L)</div>
+                    <div class="hierarchy-desc"><strong>Продвинутые игроки.</strong> Прошли базовую адаптацию к соревновательным режимам, умеют вести затяжной бой, но допускают микро-ошибки под давлением.</div>
+                </div>
+                <div class="hierarchy-item">
+                    <div class="hierarchy-rank" style="color: #008080;">Tier 5 (H/L)</div>
+                    <div class="hierarchy-desc"><strong>Начальная квалификация.</strong> Игроки, успешно сдавшие свой первый вводный тест. Обладают базовым PvE/PvP пониманием, готовы развиваться дальше.</div>
+                </div>
             </div>
         </div>
+
+        <!-- СЕКЦИЯ 2: ТАБЛИЦА НАЧИСЛЕНИЯ PTS -->
+        <div class="info-section">
+            <div class="info-section-title">📊 Distribution of PTS / FAQ</div>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">
+                Общий рейтинг игрока формируется суммированием PTS за каждый официально подтвержденный Main-кит. За Sub-киты очки начисляются в профиль, но не влияют на Overall топ.
+            </p>
+            <table class="faq-table">
+                <thead>
+                    <tr>
+                        <th>Завоеванный Тир</th>
+                        <th>Количество PTS в таблицу</th>
+                    </tr>
+                </thead>
+                <tbody id="faqTableBody"></tbody>
+            </table>
+        </div>
+
+        <!-- СЕКЦИЯ 3: ИНСТРУКЦИЯ И АНКЕТА -->
+        <div class="info-section">
+            <div class="info-section-title">⚔️ Как пройти Тир-Тест?</div>
+            <p style="font-size: 13px; line-height: 1.6;">
+                Каждый участник сообщества имеет право подать официальное прошение на квалификационный поединок. Процесс полностью регламентирован:
+            </p>
+            <div class="step-list">
+                <div class="step-card">
+                    <div class="step-num">1. Переход в Телеграм</div>
+                    <p style="font-size: 13px; color: var(--text-muted);">Перейдите в наш официальный информационный канал и найдите контакты верифицированного бота тестирования.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">2. Подача стандартизированной заявки</div>
+                    <p style="font-size: 13px; color: var(--text-muted);">Скопируйте и отправьте боту заполненную анкету строго по шаблону ниже:</p>
+                    <div class="form-template">
+                        1. Ваш игровой никнейм:<br>
+                        2. Регион проживания (RU, UA, BY и т.д.):<br>
+                        3. Игровое устройство (PH, TB, PC, CT):<br>
+                        4. Выбранный кит для тестирования (например, SMP или Hardcore):<br>
+                        5. Ваш текущий тир в этом режиме (если сдаете впервые, ставьте "-"):<br>
+                        6. Желаемое время и пинг, при котором вам комфортно играть:
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">3. Проведение матчей</div>
+                    <p style="font-size: 13px; color: var(--text-muted);">С вами свяжется один из свободных тестеров. Проводится серия контролируемых дуэлей (обычно до 3 или 5 побед) на нейтральном сервере, фиксируется точность ударов, тактика и использование механик режима.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- СЕКЦИЯ 4: ОФИЦИАЛЬНЫЕ ТЕСТЕРЫ -->
+        <div class="info-section">
+            <div class="info-section-title">🛡️ Аккредитованный состав Тестеров</div>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">
+                Данные лица уполномочены проводить официальные проверки, выносить вердикты по присвоению рангов и обновлять единую базу данных:
+            </p>
+            <div class="testers-grid">
+                <div class="tester-card">
+                    <div class="tester-name">-999-</div>
+                    <div class="tester-status">Старший Тестер</div>
+                </div>
+                <div class="tester-card">
+                    <div class="tester-name">Sneger</div>
+                    <div class="tester-status">Старший Тестер</div>
+                </div>
+                <div class="tester-card">
+                    <div class="tester-name">zor1kkqwix</div>
+                    <div class="tester-status">Квалификационный Тестер</div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
