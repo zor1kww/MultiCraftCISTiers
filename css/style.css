@@ -72,7 +72,7 @@ body, html {
     width: 100%;
 }
 
-/* Легкий высокопроизводительный декор (линия под шапкой) */
+/* Высокопроизводительный легкий декор (линия) */
 .header::after {
     content: '';
     position: absolute;
@@ -83,6 +83,7 @@ body, html {
     background: linear-gradient(90deg, transparent, var(--accent), transparent);
     background-size: 200% 100%;
     animation: neonLine 4s linear infinite;
+    will-change: transform;
 }
 
 @keyframes neonLine {
@@ -175,7 +176,7 @@ body, html {
     gap: 10px;
 }
 
-main-page, .tab-content {
+.main-page, .tab-content {
     max-width: 1200px;
     margin: auto;
     padding: 20px 15px;
@@ -318,6 +319,7 @@ main-page, .tab-content {
     background: var(--card-hover);
 }
 
+/* Свечение Топ-5 */
 .top-rank-1 { border-color: rgba(218, 165, 32, 0.7) !important; box-shadow: 0 0 15px rgba(218, 165, 32, 0.15); }
 .top-rank-2 { border-color: rgba(169, 169, 169, 0.7) !important; box-shadow: 0 0 15px rgba(169, 169, 169, 0.15); }
 .top-rank-3 { border-color: rgba(160, 82, 45, 0.7) !important; box-shadow: 0 0 15px rgba(160, 82, 45, 0.15); }
@@ -494,12 +496,6 @@ main-page, .tab-content {
     max-width: 700px;
     max-height: 85vh;
     overflow-y: auto;
-    animation: fadeIn 0.2s ease-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.97); }
-    to { opacity: 1; transform: scale(1); }
 }
 
 .modal-header {
@@ -659,10 +655,6 @@ main-page, .tab-content {
     color: var(--text-main);
 }
 
-.faq-table tr:last-child td {
-    border-bottom: none;
-}
-
 .faq-block-item {
     background: var(--bg-solid);
     border: 1px solid var(--border-color);
@@ -683,6 +675,7 @@ main-page, .tab-content {
     line-height: 1.6;
 }
 
+/* Стили вкладки Тестеры */
 .testers-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
