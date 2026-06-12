@@ -415,3 +415,42 @@
 
                 <div class="faq-block-item">
                     <h3>Статус "Retired" (R):</h3>
+                    <p>Если игрок не проходил тиртест по конкретному киту более двух месяцев, рядом с названием этого кита появляется приписка "R" (например, RHT1). Игроки со статусом "Retired" не отображаются в общем топе. Чтобы снова стать активным, достаточно пройти тиртест по соответствующему киту.</p>
+                    <div class="info-accent-box" style="margin-bottom: 0;">
+                        <strong>Примечание для разработчиков:</strong> Необходимо реализовать присвоение статуса "Retired" для каждого кита индивидуально, а не для всего профиля игрока.
+                    </div>
+                </div>
+
+            </div>
+            <button class="back-btn" onclick="backHome()">Назад на Главную</button>
+        </div>
+
+    </div>
+</div>
+
+<script src="js/config.js"></script>
+<script>
+function loadPlayersScript(url, callback) {
+    const script = document.createElement('script');
+    const cacheBuster = '?v=' + new Date().getTime();
+    script.src = url + cacheBuster;
+    script.onload = () => callback(true);
+    script.onerror = () => callback(false);
+    document.head.appendChild(script);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    loadPlayersScript('players/players.js', (success) => {
+        if (success && typeof players !== 'undefined') { 
+            initSite(); 
+        } else {
+            loadPlayersScript('players.js', (successRoot) => {
+                if (successRoot && typeof players !== 'undefined') { initSite(); }
+            });
+        }
+    });
+});
+</script>
+<script src="js/main.js"></script>
+</body>
+</html>
