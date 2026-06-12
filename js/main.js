@@ -63,7 +63,6 @@ function openProfile(idx, filteredPlayersJSON) {
     }
     document.getElementById('modalPlayerMeta').innerText = metaText;
     
-    // В профилях по-прежнему выводится стандартный бейдж без уточнений ранга тестера
     const roleContainer = document.getElementById('modalRoleContainer');
     if (player.name === "-999-" || player.name === "zor1kkqwix" || player.name === "Sneger") {
         roleContainer.innerHTML = `<span class="custom-role-badge">Tier-Tester</span>`;
@@ -192,7 +191,6 @@ function renderPlayers() {
         
         const isRetired = player.retired === true;
 
-        // Фикс: Свечение топ-5 теперь применяется ВСЕГДА (и в Overall, и в конкретных китах)
         if (index === 0) topClass = 'top-rank-1';
         else if (index === 1) topClass = 'top-rank-2';
         else if (index === 2) topClass = 'top-rank-3';
@@ -268,7 +266,7 @@ function renderPlayers() {
     list.innerHTML = htmlFragment;
 }
 
-// Таблица начисления PTS во вкладке FAQ
+// Автоматическая сборка таблицы начисления PTS внутри объединенного инфо-центра
 function buildFaqTable() {
     const tbody = document.getElementById('faqTableBody');
     if (!tbody) return;
@@ -276,13 +274,13 @@ function buildFaqTable() {
     tbody.innerHTML = order.map(tier => {
         const color = tierColors[tier];
         return `<tr>
-            <td><span style="color: ${color}; font-weight:bold; padding: 2px 6px; border-radius:4px; border:1px solid ${color}44; background:${color}11;">${tier}</span></td>
+            <td><span class="tier-badge" style="color: ${color}; border: 1px solid ${color}44; background:${color}11;">${tier}</span></td>
             <td><span style="color: var(--accent); font-weight:bold;">${tierPoints[tier]} PTS</span></td>
         </tr>`;
     }).join('');
 }
 
-// Функция переключения вкладок
+// Переключение вкладок (Обновленный роутинг)
 function switchTab(tabId) {
     const sb = document.getElementById('sidebar');
     if (sb) sb.classList.remove('active');
@@ -300,7 +298,8 @@ function switchTab(tabId) {
     } else {
         const target = document.getElementById(tabId);
         if (target) target.style.display = 'block';
-        if (tabId === 'faqTab') buildFaqTable();
+        
+        if (tabId === 'infoCenterTab') buildFaqTable();
     }
     window.scrollTo(0, 0);
 }
@@ -326,7 +325,7 @@ if (menuBtn && sidebar) {
     });
 }
 
-// Инициализация при изменении фильтров
+// Инициализация обработчиков фильтров
 if (document.getElementById('searchInput')) {
     document.getElementById('searchInput').addEventListener('input', renderPlayers);
     document.getElementById('regionFilter').addEventListener('change', renderPlayers);
