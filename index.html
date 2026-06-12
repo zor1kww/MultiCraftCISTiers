@@ -1,3 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MultiCraftCISTiers</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- МОДАЛЬНОЕ ОКНО ПРОФИЛЯ -->
+<div class="modal-overlay" id="profileModal" onclick="closeModal()">
+    <div class="modal-card" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <div class="modal-title-box">
+                <h2 id="modalPlayerName">Игрок</h2>
+                <p id="modalPlayerMeta">RU PC</p>
+                <div id="modalRoleContainer"></div>
+            </div>
+            <button class="close-modal-btn" onclick="closeModal()">✕</button>
+        </div>
+        <div class="modal-body">
+            <div class="modal-grid">
+                <div class="modal-block">
+                    <h4>Main Tiers</h4>
+                    <div id="modalMainRows"></div>
+                    <div class="modal-block-footer" id="modalMainTotal">Всего за Main: 0 PTS</div>
+                </div>
+                <div class="modal-block">
+                    <h4>Sub Tiers</h4>
+                    <div id="modalSubRows"></div>
+                    <div class="modal-block-footer" id="modalSubTotal">Всего за Sub: 0 PTS</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- БОКОВОЕ МЕНЮ (БОКОВАЯ ПАНЕЛЬ) -->
+<div class="sidebar" id="sidebar">
+    <h3>Навигация</h3>
+    <a href="#" onclick="switchTab('mainPage')">Главная</a>
+    <a href="#" onclick="switchTab('infoCenterTab')">Информация</a>
+    <a href="#" onclick="switchTab('wikiTab')">Вики</a>
+    <a href="#" onclick="switchTab('hallTab')">Доска почета</a>
+    <a href="https://t.me/MultiCraftCISTiers" target="_blank">Telegram</a>
+    
+    <div class="theme-toggle-container">
+        <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">☀️ Светлая тема</button>
+    </div>
+</div>
+
+<!-- ВЕРХНЯЯ ПАНЕЛЬ (ШАПКА) -->
+<header class="header">
+    <div class="logo">MultiCraftCISTiers</div>
+    <div class="header-right">
+        <button class="menu-btn" id="menuBtn">Меню</button>
+    </div>
+</header>
+
+<!-- ГЛАВНАЯ СТРАНИЦА (ТАБЛИЦА ЛИДЕРОВ) -->
+<div class="main-page" id="mainPage" style="display: block;">
+    <div class="hero">
+        <h1 id="leaderboardTitle">OVERALL PVP TOP</h1>
+        <p>Главный соревновательный рейтинг СНГ PvP комьюнити MultiCraftCISTiers. Прогрессируйте, сдавайте тесты квалифицированным тестерам и занимайте топовые позиции.</p>
+
+        <div class="tg-wrapper">
+            <a class="telegram-btn" href="https://t.me/MultiCraftCISTiers" target="_blank">Telegram</a>
+        </div>
+
+        <!-- Фильтры -->
+        <div class="filters">
+            <input type="text" id="searchInput" placeholder="Поиск игрока...">
+            
+            <select id="kitFilter">
+                <option value="all">Все режимы (Overall)</option>
+                <optgroup label="Main Kits">
+                    <option value="Hardcore">Hardcore</option>
+                    <option value="Manhunt">Manhunt</option>
+                    <option value="Diamond">Diamond</option>
+                    <option value="Beast">Beast</option>
+                    <option value="Emerald">Emerald</option>
+                    <option value="Emerald Pot">Emerald Pot</option>
+                    <option value="RVM">RVM</option>
+                    <option value="Dragonhide">Dragonhide</option>
+                    <option value="Pickaxe">Pickaxe</option>
+                    <option value="SMP">SMP</option>
+                </optgroup>
+                <optgroup label="Sub Kits">
+                    <option value="Combo">Combo</option>
+                    <option value="Gapple">Gapple</option>
+                    <option value="Mace">Mace</option>
+                    <option value="Crystal">Crystal</option>
+                </optgroup>
+            </select>
+        </div>
+        
+        <div class="filters-row-2">
+            <select id="regionFilter">
+                <option value="all">Все регионы СНГ</option>
+                <option value="RU">RU</option>
+                <option value="UA">UA</option>
+                <option value="BY">BY</option>
+                <option value="KZ">KZ</option>
+                <option value="UZ">UZ</option>
+                <option value="KG">KG</option>
+                <option value="AM">AM</option>
+                <option value="AZ">AZ</option>
+                <option value="MD">MD</option>
+                <option value="TJ">TJ</option>
+            </select>
+
+            <select id="deviceFilter">
+                <option value="all">Все устройства</option>
+                <option value="PH">Phone [PH]</option>
+                <option value="TB">Tablet [TB]</option>
+                <option value="PC">PC [PC]</option>
+                <option value="CT">Controller [CT]</option>
+                <option value="OTG">OTG [OTG]</option>
+            </select>
+        </div>
+
+        <div class="filters-row-3">
+            <label class="checkbox-label">
+                <input type="checkbox" id="retiredToggle" checked>
+                Показывать Retired в топе (наравне по PTS)
+            </label>
+        </div>
+
+        <h2 class="section-title" id="tableSubtitle">OVERALL LEADERBOARD</h2>
+        <div class="players-list" id="playersList"></div>
+    </div>
+</div>
+
+<!-- ВКЛАДКА: ВИКИ (ГАЙДЫ ПО РЕЖИМАМ) -->
 <div class="tab-content" id="wikiTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">Назад на Главную</button>
     <h2 class="section-title">Вики — Гайды по режимам</h2>
@@ -186,3 +321,155 @@
         </div>
     </div>
 </div>
+
+<!-- ВКЛАДКА: ДОСКА ПОЧЕТА -->
+<div class="tab-content" id="hallTab" style="display: none;">
+    <button class="back-btn" onclick="backHome()">Назад на Главную</button>
+    <h2 class="section-title">Доска почета</h2>
+    <div class="info-box">
+        <p style="margin-bottom: 12px; font-size: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; color: var(--accent);">Руководство платформы:</p>
+        <strong style="color: var(--accent);">-999-</strong> — Создатель сервера HT1.<br><br>
+        <strong style="color: var(--accent);">zor1kkqwix</strong> — Создатель и технический разработчик системы MultiCraftCISTiers.
+    </div>
+</div>
+
+<!-- ВКЛАДКА: ИНФО-ЦЕНТР (ОБЪЕДИНЕННЫЙ КОНТЕНТ С ПОД-ВКЛАДКАМИ) -->
+<div class="tab-content" id="infoCenterTab" style="display: none;">
+    <button class="back-btn" onclick="backHome()">Назад на Главную</button>
+    <h2 class="section-title">Информация</h2>
+    
+    <!-- Навигационные кнопки под-вкладок -->
+    <div class="info-nav-buttons">
+        <button class="info-nav-btn active" onclick="switchInfoSubTab('tierTestSubTab', this)">Как пройти тиртест?</button>
+        <button class="info-nav-btn" onclick="switchInfoSubTab('ptsSubTab', this)">Распределение очков</button>
+        <button class="info-nav-btn" onclick="switchInfoSubTab('testersSubTab', this)">Тестеры</button>
+        <button class="info-nav-btn" onclick="switchInfoSubTab('faqSubTab', this)">FAQ</button>
+    </div>
+
+    <div class="info-box">
+        
+        <!-- Под-вкладка: Как пройти тиртест? -->
+        <div id="tierTestSubTab" class="info-sub-tab-content" style="display: block;">
+            <div class="info-section">
+                <div class="info-section-title">Как пройти тиртест?</div>
+                <div class="step-list">
+                    <div class="step-card">
+                        <div class="step-num">1. Подача заявки</div>
+                        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">Игрок переходит в нашу Telegram-группу, находит раздел с интересующим его китом и отправляет заявку боту.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">2. Шаблон заявки</div>
+                        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">Для подачи заявки используйте предложенный ботом шаблон, кратко заполнив необходимую информацию.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">3. Проведение матча</div>
+                        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">После подачи заявки тестер свяжется с вами, чтобы договориться о времени проведения теста. По завершении матча результат будет опубликован на сайте через некоторое время.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Под-вкладка: Распределение очков -->
+        <div id="ptsSubTab" class="info-sub-tab-content" style="display: none;">
+            <div class="info-section">
+                <div class="info-section-title">Распределение очков PTS</div>
+                <p style="font-size: 13px; color: var(--text-main); line-height: 1.6; margin-bottom: 15px;">
+                    Рейтинг игрока формируется путём суммирования очков PTS, полученных только за основные (main) киты. Очки, набранные за дополнительные (sub) киты, в общий рейтинг не учитываются.
+                </p>
+                <table class="faq-table">
+                    <thead>
+                        <tr>
+                            <th>Тир</th>
+                            <th>PTS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="faqTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Под-вкладка: Тестеры -->
+        <div id="testersSubTab" class="info-sub-tab-content" style="display: none;">
+            <div class="info-section">
+                <div class="info-section-title">Тестеры</div>
+                <p style="font-size: 14px; color: var(--text-main); line-height: 1.6; margin-bottom: 20px;">
+                    Тестеры — это опытные игроки, которые проводят проверку навыков и помогают определить ваш уровень мастерства на платформе.
+                </p>
+                <div class="testers-grid">
+                    <div class="tester-card">
+                        <div class="tester-name">-999-</div>
+                        <div class="tester-status">Старший Тестер</div>
+                    </div>
+                    <div class="tester-card">
+                        <div class="tester-name">Sneger</div>
+                        <div class="tester-status">Старший Тестер</div>
+                    </div>
+                    <div class="tester-card">
+                        <div class="tester-name">zor1kkqwix</div>
+                        <div class="tester-status">Квалификационный Тестер</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Под-вкладка: FAQ -->
+        <div id="faqSubTab" class="info-sub-tab-content" style="display: none;">
+            <div class="info-section">
+                <div class="info-section-title">Часто задаваемые вопросы</div>
+                
+                <div class="faq-block-item" style="margin-top: 0;">
+                    <h3>Типы тестеров:</h3>
+                    <p>На нашей платформе есть два типа тестеров: квалификационный и старший.</p>
+                    <ul style="margin-left: 20px; margin-top: 8px; font-size: 13px; color: var(--text-muted); line-height: 1.6; list-style-type: none; padding-left: 0;">
+                        <li style="margin-bottom: 6px;"><strong>Квалификационный тестер:</strong> Это игроки уровня от <span id="faqColorLT3_1">LT3</span> до <span id="faqColorLT2_1">LT2</span>. Они могут присвоить максимальный уровень <span id="faqColorLT3_2">LT3</span>.</li>
+                        <li><strong>Старший тестер:</strong> Это опытные игроки уровня от <span id="faqColorHT2_1">HT2</span> до <span id="faqColorHT1_1">HT1</span>.</li>
+                    </ul>
+                </div>
+
+                <div class="faq-block-item">
+                    <h3>Процесс повышения уровня:</h3>
+                    <p style="margin-bottom: 8px;">Если вы достигли уровня <span id="faqColorLT3_3">LT3</span>, вы можете пройти второй тест со старшим тестером. Каждый тест состоит из 10 дуэлей. Минимальный уровень, который вы можете получить за этот тест, — <span id="faqColorLT3_4">LT3</span>, а максимальный — <span id="faqColorLT1_1">LT1</span>.</p>
+                    <p>После получения <span id="faqColorLT1_2">LT1</span> вам будет предоставлена возможность сразиться с игроком уровня <span id="faqColorHT1_2">HT1</span>. Если вы одерживаете победу, вам присваивается уровень <span id="faqColorHT1_3">HT1</span>. В случае поражения ваш уровень остается <span id="faqColorLT1_3">LT1</span>.</p>
+                </div>
+
+                <div class="faq-block-item">
+                    <h3>Статус Retired:</h3>
+                    <p style="margin-bottom: 8px;">Если игрок не проходил тиртест по конкретному киту более двух месяцев, рядом с названием этого кита появляется приписка R, например, <span style="font-weight: bold; color: #ff4747;">R</span><span id="faqColorHT1_4">HT1</span>.</p>
+                    <p>Игроки со статусом Retired не отображаются в общем топе. Чтобы снова стать активным, достаточно пройти тиртест по соответствующему киту.</p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- ПОДКЛЮЧЕНИЕ СКРИПТОВ -->
+<script src="js/config.js"></script>
+<script>
+function loadPlayersScript(url, callback) {
+    const script = document.createElement('script');
+    const cacheBuster = '?v=' + new Date().getTime();
+    script.src = url + cacheBuster;
+    script.onload = () => callback(true);
+    script.onerror = () => callback(false);
+    document.head.appendChild(script);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    loadPlayersScript('players/players.js', (success) => {
+        if (success && typeof players !== 'undefined') { 
+            initSite(); 
+        } else {
+            loadPlayersScript('players.js', (successRoot) => {
+                if (successRoot && typeof players !== 'undefined') { initSite(); }
+            });
+        }
+    });
+});
+</script>
+<script src="js/main.js"></script>
+</body>
+</html>
+             
