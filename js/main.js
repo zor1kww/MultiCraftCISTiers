@@ -34,19 +34,31 @@ function toggleTheme() {
 
 // Хелпер для определения, является ли конкретный кит игрока "Retired"
 function isKitRetired(player, kit) {
-    // Поддержка глобального флага игрока (для обратной совместимости)
     if (player.retired === true) return true;
     
     const kitData = player.tiers[kit];
     if (!kitData) return false;
     
-    // Поддержка индивидуального флага: если кит записан объектом { tier: "HT1", retired: true }
     if (typeof kitData === 'object' && kitData.retired === true) {
         return true;
     }
-    // Поддержка индивидуального флага: если кит записан строкой с префиксом "R" вроде "RHT1"
     if (typeof kitData === 'string' && kitData.startsWith('R') && kitData.length > 2) {
         return true;
+    }
+    return false;
+}
+
+// Проверка: есть ли у игрока ХОТЯ БЫ ОДИН кит со статусом retired
+function hasAnyRetiredKit(player) {
+    if (player.retired === true) return true;
+    const allKits = [...maintiers, ...subtiers];
+    for (let i = 0; i < allKits.length; i++) {
+        if (isKitRetired(player, allKits[i])) {
+            const tier = getCleanTier(player, allKits[i]);
+            if (tier !== "Unranked") {
+                return true;
+            }
+        }
     }
     return false;
 }
@@ -75,7 +87,6 @@ function calcPoints(player, kits) {
     const showRetiredInPlace = document.getElementById('retiredToggle') ? document.getElementById('retiredToggle').checked : true;
     
     kits.forEach(kit => {
-        // Если индивидуальный кит retired и выключен показ retired в топе — он не приносит очки
         if (!showRetiredInPlace && isKitRetired(player, kit)) {
             return;
         }
@@ -100,18 +111,7 @@ function openProfile(idx, filteredPlayersJSON) {
     document.getElementById('modalPlayerName').innerHTML = player.name;
     
     let metaText = `${player.region} ${player.device}`;
-    // Если абсолютно все киты игрока находятся в retired, выводим общую плашку
-    let allRetired = true;
-    const allPlayerKits = [...maintiers, ...subtiers];
-    let hasAnyKit = false;
-    
-    allPlayerKits.forEach(k => {
-        if (getCleanTier(player, k) !== "Unranked") {
-            hasAnyKit = true;
-            if (!isKitRetired(player, k)) allRetired = false;
-        }
-    });
-    if (hasAnyKit && allRetired) {
+    if (hasAnyRetiredKit(player)) {
         metaText += ` RETIRED`;
     }
     document.getElementById('modalPlayerMeta').innerText = metaText;
@@ -207,7 +207,6 @@ function renderPlayers() {
             return matchesSearch && matchesRegion && matchesDevice && tier !== "Unranked";
         }
         
-        // Для Overall проверяем, есть ли у игрока хоть один активный кит, если скрыты retired
         if (!showRetiredInPlace) {
             let hasActiveMainKit = false;
             maintiers.forEach(k => {
@@ -254,11 +253,9 @@ function renderPlayers() {
         else if (index === 3) topClass = 'top-rank-4';
         else if (index === 4) topClass = 'top-rank-5';
         
-        // Если выбран конкретный кит и он в статусе retired
         if (targetKit !== 'all' && isKitRetired(player, targetKit)) {
             topClass = 'retired-status';
         }
-        // Если это Overall топ и все мейн-киты игрока находятся в статусе retired
         if (targetKit === 'all') {
             let allMainRetired = true;
             maintiers.forEach(k => {
@@ -280,16 +277,43 @@ function renderPlayers() {
 
         let quickTiersHTML = '';
         if (targetKit === 'all') {
-            quickTiersHTML = `<div class="player-tiers-row">`;
-            maintiers.forEach(kit => {
+            // Создаем массив объектов китов текущего игрока, чтобы отсортировать их по весу результата
+            let playerKitsObjects = maintiers.map(kit => {
                 const tier = getCleanTier(player, kit);
+                const ret = isKitRetired(player, kit);
+                
+                // Рассчитываем приоритет сортировки:
+                // 1. Активные киты (сортировка от HT1 к LT5 по количеству PTS)
+                // 2. Retired киты (сортировка от RHT1 к RLT5 по количеству PTS)
+                // 3. Unranked киты (самый низший приоритет)
+                let sortWeight = -1000;
+                if (tier !== "Unranked") {
+                    const pts = tierPoints[tier] || 0;
+                    if (!ret) {
+                        sortWeight = pts; // Активный кит: вес от 1000 до 100
+                    } else {
+                        sortWeight = pts - 5000; // Retired кит: вес от -4000 до -4900
+                    }
+                } else {
+                    sortWeight = -10000; // Unranked кит: минимальный вес
+                }
+                
+                return { kit, tier, ret, sortWeight };
+            });
+
+            // Сортировка мейн-китов слева направо (от наибольшего sortWeight к наименьшему)
+            playerKitsObjects.sort((a, b) => b.sortWeight - a.sortWeight);
+
+            quickTiersHTML = `<div class="player-tiers-row">`;
+            playerKitsObjects.forEach(item => {
+                const kit = item.kit;
+                const tier = item.tier;
+                const ret = item.ret;
                 const clr = tierColors[tier] || '#444b66';
                 const iconSrc = kitImages[kit] || "";
-                const ret = isKitRetired(player, kit);
                 const labelText = (ret && tier !== "Unranked") ? `R${tier}` : tier;
                 
                 if (tier !== "Unranked") {
-                    // Если скрываем ретайред-киты, то убираем его визуально или делаем прочерком
                     if (!showRetiredInPlace && ret) {
                         quickTiersHTML += `
                         <div class="tier-item-box" style="opacity: 0.25;">
@@ -321,18 +345,7 @@ function renderPlayers() {
         }
 
         // Проверка на вывод тега RETIRED в карточке
-        let displayProfileRetiredTag = false;
-        if (targetKit !== 'all' && isKitRetired(player, targetKit)) {
-            displayProfileRetiredTag = true;
-        } else if (targetKit === 'all') {
-            let allMainRetired = true;
-            maintiers.forEach(k => {
-                if (getCleanTier(player, k) !== "Unranked" && !isKitRetired(player, k)) {
-                    allMainRetired = false;
-                }
-            });
-            displayProfileRetiredTag = allMainRetired;
-        }
+        let displayProfileRetiredTag = hasAnyRetiredKit(player);
 
         htmlFragment += `
         <div class="player-container ${topClass}">
@@ -375,6 +388,22 @@ function buildFaqTable() {
     }).join('');
 }
 
+// Навешивание кастомных цветов на тиры внутри FAQ текста
+function applyFaqTierColors() {
+    const tiersToColor = ['HT1', 'HT2', 'LT1', 'LT2', 'LT3'];
+    tiersToColor.forEach(tier => {
+        const color = tierColors[tier] || 'var(--accent)';
+        // Находим все элементы-заглушки во вкладке FAQ и красим их
+        for (let i = 1; i <= 4; i++) {
+            const element = document.getElementById(`faqColor${tier}_${i}`);
+            if (element) {
+                element.style.color = color;
+                element.style.fontWeight = 'bold';
+            }
+        }
+    });
+}
+
 // Навигация по под-вкладкам внутри Информации
 function switchInfoSubTab(subTabId, btnElement) {
     document.querySelectorAll('.info-sub-tab-content').forEach(subTab => {
@@ -394,6 +423,9 @@ function switchInfoSubTab(subTabId, btnElement) {
     
     if (subTabId === 'ptsSubTab') {
         buildFaqTable();
+    }
+    if (subTabId === 'faqSubTab') {
+        applyFaqTierColors();
     }
 }
 
@@ -417,7 +449,6 @@ function switchTab(tabId) {
         if (target) target.style.display = 'block';
         
         if (tabId === 'infoCenterTab') {
-            // По умолчанию открываем первую под-вкладку "Как пройти тиртест?"
             const firstNavBtn = document.querySelector('.info-nav-btn');
             switchInfoSubTab('tierTestSubTab', firstNavBtn);
         }
