@@ -205,6 +205,7 @@ body, html {
     max-width: 700px;
     margin: 0 auto 20px;
 }
+
 .tg-wrapper {
     text-align: center;
     margin-bottom: 25px;
@@ -319,7 +320,6 @@ body, html {
     background: var(--card-hover);
 }
 
-/* Свечение Топ-5 */
 .top-rank-1 { border-color: rgba(218, 165, 32, 0.7) !important; box-shadow: 0 0 15px rgba(218, 165, 32, 0.15); }
 .top-rank-2 { border-color: rgba(169, 169, 169, 0.7) !important; box-shadow: 0 0 15px rgba(169, 169, 169, 0.15); }
 .top-rank-3 { border-color: rgba(160, 82, 45, 0.7) !important; box-shadow: 0 0 15px rgba(160, 82, 45, 0.15); }
@@ -675,7 +675,6 @@ body, html {
     line-height: 1.6;
 }
 
-/* Стили вкладки Тестеры */
 .testers-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -732,7 +731,6 @@ body, html {
     color: #a6b2c9;
 }
 
-/* Стили заголовков Вики с иконками */
 .wiki-title-wrapper {
     display: flex;
     align-items: center;
@@ -782,6 +780,70 @@ body, html {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+/* Стили для нового объединенного Инфо-Центра */
+.info-section {
+    margin-bottom: 35px;
+    background: var(--bg-solid);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.info-section:last-child {
+    margin-bottom: 0;
+}
+
+.info-section-title {
+    color: var(--accent);
+    font-size: 20px;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 204, 71, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tier-hierarchy {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.hierarchy-item {
+    display: flex;
+    align-items: center;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 10px 15px;
+    border-radius: 8px;
+    gap: 15px;
+}
+
+.hierarchy-rank {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--text-muted);
+    min-width: 80px;
+}
+
+.hierarchy-desc {
+    font-size: 13px;
+    color: var(--text-main);
+    line-height: 1.4;
+}
+
+.info-accent-box {
+    background: rgba(255, 204, 71, 0.05);
+    border-left: 3px solid var(--accent);
+    padding: 12px 15px;
+    border-radius: 0 8px 8px 0;
+    margin: 15px 0;
+    font-size: 13px;
+    line-height: 1.6;
 }
 
 @media(max-width: 768px) {
