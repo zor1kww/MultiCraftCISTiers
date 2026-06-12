@@ -8,7 +8,6 @@
 </head>
 <body>
 
-<!-- Модальное окно профиля -->
 <div class="modal-overlay" id="profileModal" onclick="closeModal()">
     <div class="modal-card" onclick="event.stopPropagation()">
         <div class="modal-header">
@@ -36,7 +35,6 @@
     </div>
 </div>
 
-<!-- Боковая панель навигации -->
 <div class="sidebar" id="sidebar">
     <h3>Навигация</h3>
     <a href="#" onclick="switchTab('mainPage')">Главная</a>
@@ -50,7 +48,6 @@
     </div>
 </div>
 
-<!-- Шапка сайта -->
 <header class="header">
     <div class="logo">MultiCraftCISTiers</div>
     <div class="header-right">
@@ -58,7 +55,6 @@
     </div>
 </header>
 
-<!-- ГЛАВНАЯ СТРАНИЦА: ТОП ИГРОКОВ -->
 <div class="main-page" id="mainPage" style="display: block;">
     <div class="hero">
         <h1 id="leaderboardTitle">OVERALL PVP TOP</h1>
@@ -131,7 +127,6 @@
     </div>
 </div>
 
-<!-- ВКЛАДКА: ВИКИ -->
 <div class="tab-content" id="wikiTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">← Назад</button>
     <h2 class="section-title">Вики — Гайды по режимам</h2>
@@ -307,7 +302,6 @@
     </div>
 </div>
 
-<!-- ДОСКА ПОЧЕТА -->
 <div class="tab-content" id="hallTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">← Назад</button>
     <h2 class="section-title">Доска почета</h2>
@@ -318,14 +312,12 @@
     </div>
 </div>
 
-<!-- ОБЪЕДИНЕННАЯ ВКЛАДКА: СИСТЕМА ТЕСТОВ, ИЕРАРХИЯ, FAQ И ТЕСТЕРЫ -->
 <div class="tab-content" id="infoCenterTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">← Назад на Главную</button>
     <h2 class="section-title">Информационный Центр Платформы</h2>
     
     <div class="info-box">
         
-        <!-- СЕКЦИЯ 1: ИЕРАРХИЯ ТИРОВ -->
         <div class="info-section">
             <div class="info-section-title">👑 Иерархия Системы Рангов</div>
             <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
@@ -355,9 +347,8 @@
             </div>
         </div>
 
-        <!-- СЕКЦИЯ 2: ТАБЛИЦА НАЧИСЛЕНИЯ PTS -->
         <div class="info-section">
-            <div class="info-section-title">📊 Distribution of PTS / FAQ</div>
+            <div class="info-section-title">📊 Распределение очков (PTS)</div>
             <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">
                 Общий рейтинг игрока формируется суммированием PTS за каждый официально подтвержденный Main-кит. За Sub-киты очки начисляются в профиль, но не влияют на Overall топ.
             </p>
@@ -368,11 +359,11 @@
                         <th>Количество PTS в таблицу</th>
                     </tr>
                 </thead>
-                <tbody id="faqTableBody"></tbody>
+                <tbody id="faqTableBody">
+                    </tbody>
             </table>
         </div>
 
-        <!-- СЕКЦИЯ 3: ИНСТРУКЦИЯ И АНКЕТА -->
         <div class="info-section">
             <div class="info-section-title">⚔️ Как пройти Тир-Тест?</div>
             <p style="font-size: 13px; line-height: 1.6;">
@@ -397,12 +388,11 @@
                 </div>
                 <div class="step-card">
                     <div class="step-num">3. Проведение матчей</div>
-                    <p style="font-size: 13px; color: var(--text-muted);">С вами свяжется один из свободных тестеров. Проводится серия контролируемых дуэлей (обычно до 3 или 5 побед) на нейтральном сервере, фиксируется точность ударов, тактика и использование механик режима.</p>
+                    <p style="font-size: 13px; color: var(--text-muted);">С вами свяжется один из свободных тестеров. Проводится серия контролируемых дуэлей на нейтральном сервере, фиксируется точность ударов, тактика и использование механик режима.</p>
                 </div>
             </div>
         </div>
 
-        <!-- СЕКЦИЯ 4: ОФИЦИАЛЬНЫЕ ТЕСТЕРЫ -->
         <div class="info-section">
             <div class="info-section-title">🛡️ Аккредитованный состав Тестеров</div>
             <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">
@@ -418,23 +408,4 @@
                     <div class="tester-status">Старший Тестер</div>
                 </div>
                 <div class="tester-card">
-                    <div class="tester-name">zor1kkqwix</div>
-                    <div class="tester-status">Квалификационный Тестер</div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<!-- Подключение логики -->
-<script src="js/config.js"></script>
-<script src="players/players.js"></script>
-<script src="js/main.js"></script>
-<script>
-    window.addEventListener('DOMContentLoaded', () => {
-        initSite();
-    });
-</script>
-</body>
-</html>
+                    <div class="tester-name">zor1kkqw
