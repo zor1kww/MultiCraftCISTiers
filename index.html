@@ -1,127 +1,446 @@
+
 <!DOCTYPE html>
-<html lang="ru" data-theme="dark">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MultiCraftCISTiers</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <!-- Шапка и Навигация -->
-    <header class="site-header">
-        <nav class="nav-menu">
-            <a href="#" class="nav-link active" data-target="home">Главная</a>
-            <a href="#" class="nav-link" data-target="info">Информация</a>
-            <a href="#" class="nav-link" data-target="wiki">Вики</a>
-            <a href="#" class="nav-link" data-target="hall-of-fame">Доска почета</a>
-            <a href="https://t.me/your_telegram_link" target="_blank" class="nav-link tg-link">Telegram</a>
-        </nav>
-        <!-- Переключатель темы -->
-        <button id="theme-toggle" class="theme-btn">☀️ Светлая тема</button>
-    </header>
-
-    <!-- Основной Контент (SPA) -->
-    <main class="content-container">
-
-        <!-- СЕКЦИЯ: ГЛАВНАЯ -->
-        <section id="home" class="page-section active">
-            <h1>Добро пожаловать на MultiCraftCISTiers</h1>
-            <p>Главная страница PvP-платформы рейтингов СНГ.</p>
-        </section>
-
-        <!-- СЕКЦИЯ: ИНФОРМАЦИЯ -->
-        <section id="info" class="page-section">
-            <div class="info-main-view">
-                <h1>Информация</h1>
-                
-                <div class="info-buttons-grid">
-                    <button class="info-nav-btn" data-subtarget="how-to-test">Как пройти тиртест?</button>
-                    <button class="info-nav-btn" data-subtarget="pts-distribution">Распределение очков</button>
-                    <button class="info-nav-btn" data-subtarget="testers-list">Тестеры</button>
-                </div>
-
-                <button class="back-home-btn">Назад на Главную</button>
+<div class="modal-overlay" id="profileModal" onclick="closeModal()">
+    <div class="modal-card" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <div class="modal-title-box">
+                <h2 id="modalPlayerName">Игрок</h2>
+                <p id="modalPlayerMeta">RU PC</p>
+                <div id="modalRoleContainer"></div>
             </div>
-
-            <!-- Подвкладка: Как пройти тиртест? -->
-            <div id="how-to-test" class="sub-section hidden">
-                <h2>Как пройти тиртест?</h2>
-                <div class="steps-list">
-                    <div class="step-item">
-                        <strong>1. Переход в Telegram</strong>
-                        <p>Игрок переходит в Telegram-группу, ищет вкладку с нужным китом и отправляет заявку боту.</p>
-                    </div>
-                    <div class="step-item">
-                        <strong>2. Подача заявки</strong>
-                        <p>Заполните краткую форму: ваш ник, желаемый кит и удобное время для связи.</p>
-                    </div>
-                    <div class="step-item">
-                        <strong>3. Проведение матча</strong>
-                        <p>Тестер напишет вам и согласует время. После окончания матча результат через некоторое время появится на сайте.</p>
-                    </div>
+            <button class="close-modal-btn" onclick="closeModal()">✕</button>
+        </div>
+        <div class="modal-body">
+            <div class="modal-grid">
+                <div class="modal-block">
+                    <h4>Main Tiers</h4>
+                    <div id="modalMainRows"></div>
+                    <div class="modal-block-footer" id="modalMainTotal">Всего за Main: 0 PTS</div>
                 </div>
-                <button class="back-home-btn">Назад на Главную</button>
+                <div class="modal-block">
+                    <h4>Sub Tiers</h4>
+                    <div id="modalSubRows"></div>
+                    <div class="modal-block-footer" id="modalSubTotal">Всего за Sub: 0 PTS</div>
+                </div>
             </div>
+        </div>
+    </div>
+</div>
 
-            <!-- Подвкладка: Распределение очков -->
-            <div id="pts-distribution" class="sub-section hidden">
-                <h2>Распределение очков PTS</h2>
-                <p class="pts-note">Рейтинг игрока формируется путем суммирования PTS только за <strong>main kits</strong>. За sub-киты очки не начисляются.</p>
-                
-                <table class="pts-table">
-                    <thead>
-                        <tr>
-                            <th>Тир</th>
-                            <th>PTS</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Tier 1</td>
-                            <td>1000</td>
-                        </tr>
-                        <tr>
-                            <td>Tier 2</td>
-                            <td>750</td>
-                        </tr>
-                        <tr>
-                            <td>Tier 3</td>
-                            <td>500</td>
-                        </tr>
+<div class="sidebar" id="sidebar">
+    <h3>Навигация</h3>
+    <a href="#" onclick="switchTab('mainPage')">Главная</a>
+    <a href="#" onclick="switchTab('wikiTab')">Вики</a>
+    <a href="#" onclick="switchTab('hallTab')">Доска почета</a>
+    <a href="#" onclick="switchTab('infoCenterTab')">Система тестов & FAQ</a>
+    <a href="https://t.me/MultiCraftCISTiers" target="_blank">Telegram</a>
+    
+    <div class="theme-toggle-container">
+        <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">☀️ Светлая тема</button>
+    </div>
+</div>
+
+<header class="header">
+    <div class="logo">MultiCraftCISTiers</div>
+    <div class="header-right">
+        <button class="menu-btn" id="menuBtn">Меню</button>
+    </div>
+</header>
+
+<div class="main-page" id="mainPage" style="display: block;">
+    <div class="hero">
+        <h1 id="leaderboardTitle">OVERALL PVP TOP</h1>
+        <p>Главный соревновательный рейтинг СНГ PvP комьюнити MultiCraftCISTiers. Прогрессируйте, сдавайте тесты квалифицированным тестерам и занимайте топовые позиции.</p>
+
+        <div class="tg-wrapper">
+            <a class="telegram-btn" href="https://t.me/MultiCraftCISTiers" target="_blank">Telegram</a>
+        </div>
+
+        <div class="filters">
+            <input type="text" id="searchInput" placeholder="Поиск игрока...">
+            
+            <select id="kitFilter">
+                <option value="all">Все режимы (Overall)</option>
+                <optgroup label="Main Kits">
+                    <option value="Hardcore">Hardcore</option>
+                    <option value="Manhunt">Manhunt</option>
+                    <option value="Diamond">Diamond</option>
+                    <option value="Beast">Beast</option>
+                    <option value="Emerald">Emerald</option>
+                    <option value="Emerald Pot">Emerald Pot</option>
+                    <option value="RVM">RVM</option>
+                    <option value="Dragonhide">Dragonhide</option>
+                    <option value="Pickaxe">Pickaxe</option>
+                    <option value="SMP">SMP</option>
+                </optgroup>
+                <optgroup label="Sub Kits">
+                    <option value="Combo">Combo</option>
+                    <option value="Gapple">Gapple</option>
+                    <option value="Mace">Mace</option>
+                    <option value="Crystal">Crystal</option>
+                </optgroup>
+            </select>
+        </div>
+        
+        <div class="filters-row-2">
+            <select id="regionFilter">
+                <option value="all">Все регионы СНГ</option>
+                <option value="RU">RU</option>
+                <option value="UA">UA</option>
+                <option value="BY">BY</option>
+                <option value="KZ">KZ</option>
+                <option value="UZ">UZ</option>
+                <option value="KG">KG</option>
+                <option value="AM">AM</option>
+                <option value="AZ">AZ</option>
+                <option value="MD">MD</option>
+                <option value="TJ">TJ</option>
+            </select>
+
+            <select id="deviceFilter">
+                <option value="all">Все устройства</option>
+                <option value="PH">Phone [PH]</option>
+                <option value="TB">Tablet [TB]</option>
+                <option value="PC">PC [PC]</option>
+                <option value="CT">Controller [CT]</option>
+                <option value="OTG">OTG [OTG]</option>
+            </select>
+        </div>
+
+        <div class="filters-row-3">
+            <label class="checkbox-label">
+                <input type="checkbox" id="retiredToggle" checked>
+                Показывать Retired в топе (наравне по PTS)
+            </label>
+        </div>
+
+        <h2 class="section-title" id="tableSubtitle">OVERALL LEADERBOARD</h2>
+        <div class="players-list" id="playersList"></div>
+    </div>
+</div>
+
+<div class="tab-content" id="wikiTab" style="display: none;">
+    <button class="back-btn" onclick="backHome()">← Назад</button>
+    <h2 class="section-title">Вики — Гайды по режимам</h2>
+    
+    <div class="wiki-grid">
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/hardcore.png" alt="">
+                <h3>Hardcore</h3>
+            </div>
+            <p>Классическое PvP на истощение. Важно следить за таймингами ударов и расходом брони.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/hardcore_inv.png" onerror="this.style.display='none';">
+                <span>[Скриншот инвентаря Hardcore]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/manhunt.png" alt="">
+                <h3>Manhunt</h3>
+            </div>
+            <p>Динамичный режим с упором на позиционирование, использование лавы и ведер с водой.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/manhunt_inv.png" onerror="this.style.display='none';">
+                <span>[Скриншот инвентаря Manhunt]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/diamond.png" alt="">
+                <h3>Diamond</h3>
+            </div>
+            <p>Бои в классической алмазной броне. Ключ к победе заключается в поддержании стабильного комбо.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/diamond_inv.png" onerror="this.style.display='none';">
+                <span>[Скриншот инвентаря Diamond]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/beast.png" alt="">
+                <h3>Beast</h3>
+            </div>
+            <p>Режим с повышенным уроном. Требует умения агрессивно атаковать и моментально принимать решения.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/beast_inv.png" onerror="this.style.display='none';">
+                <span>[Скриншот инвентаря Beast]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/emerald.png" alt="">
+                <h3>Emerald</h3>
+            </div>
+            <p>Сбалансированный сетап со средними показателями защиты. Важную роль играет контроль дистанции.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/emerald_inv.png" onerror="this.style.display='none';">
+                <span>[Скриншот инвентаря Emerald]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/emerald_pot.png" alt="">
+                <h3>Emerald Pot</h3>
+            </div>
+            <p>Скоростной режим со взрывными зельями исцеления. Необходимо вовремя бросать зелья под ноги.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/emerald_pot_inv.png" onerror="this.style.display='none';">
+                <span>[Скриншот инвентаря Emerald Pot]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/rvm.png" alt="">
+                <h3>RVM</h3>
+            </div>
+            <p>Уникальный тактический формат. Высокая зависимость от ландшафта карты и инженерных блоков.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/rvm_inv.png" onerror="this.style.display='none';">
+                <span>[Скриншот инвентаря RVM]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/dragonhide.png" alt="">
+                <h3>Dragonhide</h3>
+            </div>
+            <p>Режим с максимальной плотностью брони и долгими разменами. Ошибки в таймингах критичны.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/dragonhide_inv.png" onerror="this.style.display='none';">
+                <span>[Скриншот инвентаря Dragonhide]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/pickaxe.png" alt="">
+                <h3>Pickaxe</h3>
+            </div>
+            <p>Кастомный режим ближнего боя с использованием кирок. Отличается измененной динамикой пробития.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/pickaxe_inv.png" onerror="this.style.display='none';">
+                <span>[Скриншот инвентаря Pickaxe]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/smp.png" alt="">
+                <h3>SMP</h3>
+            </div>
+            <p>Классический ванильный сетап выживания, адаптированный под боевые условия.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/smp_inv.png" onerror="this.style.display='none';">
+                <span>[Скриншот инвентаря SMP]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/combo.png" alt="">
+                <h3>Combo</h3>
+            </div>
+            <p>Режим с полным отсутствием задержки на удары. Главная цель — поймать оппонента в бесконечный цикл.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/combo_inv.png" onerror="this.style.display='none';">
+                <span>[Скриншот инвентаря Combo]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/gapple.png" alt="">
+                <h3>Gapple</h3>
+            </div>
+            <p>Поединки на золотых яблоках с упором на долгое удержание темпа регенерации.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/gapple_inv.png" onerror="this.style.display='none';">
+                <span>[Скриншот инвентаря Gapple]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/mace.png" alt="">
+                <h3>Mace</h3>
+            </div>
+            <p>Сражения с использованием Булавы. Огромный акцент на атаки в падении с высоты.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/mace_inv.png" onerror="this.style.display='none';">
+                <span>[Скриншот инвентаря Mace]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/crystal.png" alt="">
+                <h3>Crystal</h3>
+            </div>
+            <p>Высокотехнологичный режим, завязанный на моментальном уроне от взрывов кристаллов Энда.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/crystal_inv.png" onerror="this.style.display='none';">
+                <span>[Скриншот инвентаря Crystal]</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="tab-content" id="hallTab" style="display: none;">
+    <button class="back-btn" onclick="backHome()">← Назад</button>
+    <h2 class="section-title">Доска почета</h2>
+    <div class="info-box">
+        <p style="margin-bottom: 12px; font-size: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; color: var(--accent);">Руководство платформы:</p>
+        <strong style="color: var(--accent);">-999-</strong> — Создатель сервера HT1.<br><br>
+        <strong style="color: var(--accent);">zor1kkqwix</strong> — Создатель и технический разработчик системы MultiCraftCISTiers.
+    </div>
+</div>
+
+<div class="tab-content" id="infoCenterTab" style="display: none;">
+    <button class="back-btn" onclick="backHome()">← Назад на Главную</button>
+    <h2 class="section-title">Информационный Центр Платформы</h2>
+    
+    <div class="info-box">
+        
+        <div class="info-section">
+            <div class="info-section-title">👑 Иерархия Системы Рангов</div>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
+                Всего в нашей экосистеме существует 5 основных уровней квалификации, каждый из которых разделен на два подранга (HT — High Tier, LT — Low Tier):
+            </p>
+            <div class="tier-hierarchy">
+                <div class="hierarchy-item">
+                    <div class="hierarchy-rank" style="color: #DAA520;">Tier 1 (H/L)</div>
+                    <div class="hierarchy-desc"><strong>Элита СНГ.</strong> Игроки абсолютного уровня, обладающие безупречным пониманием механики, макро-контроля и позиционирования. Разница между HT1 и LT1 определяется стабильностью на длительных дистанциях турниров.</div>
+                </div>
+                <div class="hierarchy-item">
+                    <div class="hierarchy-rank" style="color: #A9A9A9;">Tier 2 (H/L)</div>
+                    <div class="hierarchy-desc"><strong>Мастера.</strong> Сильнейшие конкуренты и претенденты на высший эшелон. Показывают превосходный индивидуальный скилл, регулярно выигрывают региональные квалификации.</div>
+                </div>
+                <div class="hierarchy-item">
+                    <div class="hierarchy-rank" style="color: #A0522D;">Tier 3 (H/L)</div>
+                    <div class="hierarchy-desc"><strong>Опытные бойцы.</strong> Стабильный костяк комьюнити. Обладают хорошей реакцией, знают базовые тактики застроек и ресурс-менеджмента.</div>
+                </div>
+                <div class="hierarchy-item">
+                    <div class="hierarchy-rank" style="color: #808080;">Tier 4 (H/L)</div>
+                    <div class="hierarchy-desc"><strong>Продвинутые игроки.</strong> Прошли базовую адаптацию к соревновательным режимам, умеют вести затяжной бой, но допускают микро-ошибки под давлением.</div>
+                </div>
+                <div class="hierarchy-item">
+                    <div class="hierarchy-rank" style="color: #008080;">Tier 5 (H/L)</div>
+                    <div class="hierarchy-desc"><strong>Начальная квалификация.</strong> Игроки, успешно сдавшие свой первый вводный тест. Обладают базовым PvE/PvP пониманием, готовы развиваться дальше.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-section-title">📊 Распределение очков (PTS)</div>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">
+                Общий рейтинг игрока формируется суммированием PTS за каждый официально подтвержденный Main-кит. За Sub-киты очки начисляются в профиль, но не влияют на Overall топ.
+            </p>
+            <table class="faq-table">
+                <thead>
+                    <tr>
+                        <th>Завоеванный Тир</th>
+                        <th>Количество PTS в таблицу</th>
+                    </tr>
+                </thead>
+                <tbody id="faqTableBody">
                     </tbody>
-                </table>
-                <button class="back-home-btn">Назад на Главную</button>
+            </table>
+        </div>
+
+        <div class="info-section">
+            <div class="info-section-title">⚔️ Как пройти Тир-Тест?</div>
+            <p style="font-size: 13px; line-height: 1.6;">
+                Каждый участник сообщества имеет право подать официальное прошение на квалификационный поединок. Процесс полностью регламентирован:
+            </p>
+            <div class="step-list">
+                <div class="step-card">
+                    <div class="step-num">1. Переход в Телеграм</div>
+                    <p style="font-size: 13px; color: var(--text-muted);">Перейдите в наш официальный информационный канал и найдите контакты верифицированного бота тестирования.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">2. Подача стандартизированной заявки</div>
+                    <p style="font-size: 13px; color: var(--text-muted);">Скопируйте и отправьте боту заполненную анкету строго по шаблону ниже:</p>
+                    <div class="form-template">
+                        1. Ваш игровой никнейм:<br>
+                        2. Регион проживания (RU, UA, BY и т.д.):<br>
+                        3. Игровое устройство (PH, TB, PC, CT):<br>
+                        4. Выбранный кит для тестирования (например, SMP или Hardcore):<br>
+                        5. Ваш текущий тир в этом режиме (если сдаете впервые, ставьте "-"):<br>
+                        6. Желаемое время и пинг, при котором вам комфортно играть:
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">3. Проведение матчей</div>
+                    <p style="font-size: 13px; color: var(--text-muted);">С вами свяжется один из свободных тестеров. Проводится серия контролируемых дуэлей на нейтральном сервере, фиксируется точность ударов, тактика и использование механик режима.</p>
+                </div>
             </div>
+        </div>
 
-            <!-- Подвкладка: Тестеры -->
-            <div id="testers-list" class="sub-section hidden">
-                <h2>Тестеры</h2>
-                <ul class="simple-testers-list">
-                    <li>НикТестера1 [Основной]</li>
-                    <li>НикТестера2 [Заместитель]</li>
-                    <li>НикТестера3 [Модератор матчей]</li>
-                </ul>
-                <button class="back-home-btn">Назад на Главную</button>
+        <div class="info-section">
+            <div class="info-section-title">🛡️ Аккредитованный состав Тестеров</div>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">
+                Данные лица уполномочены проводить официальные проверки, выносить вердикты по присвоению рангов и обновлять единую базу данных:
+            </p>
+            <div class="testers-grid">
+                <div class="tester-card">
+                    <div class="tester-name">-999-</div>
+                    <div class="tester-status">Старший Тестер</div>
+                </div>
+                <div class="tester-card">
+                    <div class="tester-name">Sneger</div>
+                    <div class="tester-status">Старший Тестер</div>
+                </div>
+                <div class="tester-card">
+                    <div class="tester-name">zor1kkqwix</div>
+                    <div class="tester-status">Квалификационный Тестер</div>
+                </div>
             </div>
-        </section>
+        </div>
 
-        <!-- СЕКЦИЯ: ВИКИ -->
-        <section id="wiki" class="page-section">
-            <h1>Вики</h1>
-            <p>Раздел в разработке (14 китов).</p>
-            <button class="back-home-btn">Назад на Главную</button>
-        </section>
+    </div>
+</div>
 
-        <!-- СЕКЦИЯ: ДОСКА ПОЧЕТА -->
-        <section id="hall-of-fame" class="page-section">
-            <h1>Доска почета</h1>
-            <p>Раздел в разработке (Выдающиеся игроки).</p>
-            <button class="back-home-btn">Назад на Главную</button>
-        </section>
+<script src="js/config.js"></script>
+<script>
+function loadPlayersScript(url, callback) {
+    const script = document.createElement('script');
+    const cacheBuster = '?v=' + new Date().getTime();
+    script.src = url + cacheBuster;
+    script.onload = () => callback(true);
+    script.onerror = () => callback(false);
+    document.head.appendChild(script);
+}
 
-    </main>
-
-    <script src="app.js"></script>
+window.addEventListener('DOMContentLoaded', () => {
+    loadPlayersScript('players/players.js', (success) => {
+        if (success && typeof players !== 'undefined') { 
+            initSite(); 
+        } else {
+            loadPlayersScript('players.js', (successRoot) => {
+                if (successRoot && typeof players !== 'undefined') { initSite(); }
+            });
+        }
+    });
+});
+</script>
+<script src="js/main.js"></script>
 </body>
 </html>
