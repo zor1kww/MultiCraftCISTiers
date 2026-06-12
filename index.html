@@ -408,4 +408,38 @@
                     <div class="tester-status">Старший Тестер</div>
                 </div>
                 <div class="tester-card">
-                    <div class="tester-name">zor1kkqw
+                    <div class="tester-name">zor1kkqwix</div>
+                    <div class="tester-status">Квалификационный Тестер</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="js/config.js"></script>
+<script>
+function loadPlayersScript(url, callback) {
+    const script = document.createElement('script');
+    const cacheBuster = '?v=' + new Date().getTime();
+    script.src = url + cacheBuster;
+    script.onload = () => callback(true);
+    script.onerror = () => callback(false);
+    document.head.appendChild(script);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    loadPlayersScript('players/players.js', (success) => {
+        if (success && typeof players !== 'undefined') { 
+            initSite(); 
+        } else {
+            loadPlayersScript('players.js', (successRoot) => {
+                if (successRoot && typeof players !== 'undefined') { initSite(); }
+            });
+        }
+    });
+});
+</script>
+<script src="js/main.js"></script>
+</body>
+</html>
