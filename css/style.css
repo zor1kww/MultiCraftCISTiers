@@ -925,3 +925,66 @@ body, html {
         text-align: center;
     }
 }
+
+/* --- АНИМАЦИОННЫЙ ДЕКОР ФОНА И ЭЛЕМЕНТОВ ИНТЕРФЕЙСА --- */
+
+/* Плавный интерактивный фон-сетка с эффектом пульсации */
+body {
+    position: relative;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 30px 30px;
+    background-position: center;
+    animation: backgroundPulse 8s infinite alternate ease-in-out;
+}
+
+@keyframes backgroundPulse {
+    0% {
+        background-color: #070b17;
+        opacity: 0.96;
+    }
+    100% {
+        background-color: #0b1224;
+        opacity: 1;
+    }
+}
+
+/* Плавная анимация подъема карточек в Вики при наведении */
+.wiki-card {
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wiki-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 204, 71, 0.25);
+}
+
+/* Высокотехнологичная пульсация рамки для лидера таблицы (ТОП-1) */
+.player-container.top-rank-1 {
+    position: relative;
+    border: 1px solid rgba(218, 165, 32, 0.3) !important;
+    box-shadow: 0 0 12px rgba(218, 165, 32, 0.05);
+    animation: leaderCardGlow 4s infinite alternate ease-in-out;
+}
+
+@keyframes leaderCardGlow {
+    0% {
+        border-color: rgba(218, 165, 32, 0.25);
+        box-shadow: 0 0 10px rgba(218, 165, 32, 0.05);
+    }
+    100% {
+        border-color: rgba(218, 165, 32, 0.6);
+        box-shadow: 0 0 20px rgba(218, 165, 32, 0.15);
+    }
+}
+
+/* Анимация физического нажатия для интерактивных элементов */
+.menu-btn, .back-btn, .telegram-btn, select, input {
+    transition: transform 0.1s ease, filter 0.2s ease;
+}
+
+.menu-btn:active, .back-btn:active, .telegram-btn:active, select:active {
+    transform: scale(0.97);
+}
