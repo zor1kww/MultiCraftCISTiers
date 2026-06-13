@@ -631,7 +631,6 @@ body {
     line-height: 1.5;
 }
 
-/* Исправленный блок инвентарей без жесткой высоты */
 .inv-preview-box {
     width: 100%;
     height: auto;
@@ -639,7 +638,6 @@ body {
     overflow: visible;
     display: flex;
     justify-content: center;
-    align-content: center;
     margin-top: 10px;
 }
 
