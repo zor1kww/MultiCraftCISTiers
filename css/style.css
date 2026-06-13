@@ -631,7 +631,7 @@ body {
     line-height: 1.5;
 }
 
-/* Полное исправление скриншотов инвентарей в Вики */
+/* Исправленный блок инвентарей без жесткой высоты */
 .inv-preview-box {
     width: 100%;
     height: auto;
@@ -640,11 +640,7 @@ body {
     display: flex;
     justify-content: center;
     align-content: center;
-    margin-top: 14px;
-    background: rgba(0, 0, 0, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 6px;
-    padding: 6px;
+    margin-top: 10px;
 }
 
 .inv-preview-box img {
@@ -653,12 +649,6 @@ body {
     max-height: none;
     display: block;
     object-fit: contain;
-    border-radius: 4px;
-}
-
-/* Скрытие ненужных строк под картинкой */
-.inv-preview-box span {
-    display: none !important;
 }
 
 .info-box {
