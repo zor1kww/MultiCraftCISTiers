@@ -13,7 +13,7 @@ const players = [
             "Crystal": "HT2",
             "Combo": "LT1",
             "Mace": "HT1",
-            "Hardcore": "LT1",
+            "Hardcore": "HT2",
             "SMP": "LT1"
         }
     },
