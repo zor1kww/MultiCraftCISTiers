@@ -21,12 +21,12 @@
         <div class="modal-body">
             <div class="modal-grid">
                 <div class="modal-block">
-                    <h4 id="modalMainTitle">Main Tiers</h4>
+                    <h4>Main Tiers</h4>
                     <div id="modalMainRows"></div>
                     <div class="modal-block-footer" id="modalMainTotal">Всего за Main: 0 PTS</div>
                 </div>
                 <div class="modal-block">
-                    <h4 id="modalSubTitle">Sub Tiers</h4>
+                    <h4>Sub Tiers</h4>
                     <div id="modalSubRows"></div>
                     <div class="modal-block-footer" id="modalSubTotal">Всего за Sub: 0 PTS</div>
                 </div>
@@ -36,18 +36,17 @@
 </div>
 
 <div class="sidebar" id="sidebar">
-    <h3 id="navTitle">Навигация</h3>
-    <a href="#" id="navLinkMain" onclick="switchTab('mainPage')">Главная</a>
-    <a href="#" id="navLinkInfo" onclick="switchTab('infoCenterTab')">Информация</a>
-    <a href="#" id="navLinkWiki" onclick="switchTab('wikiTab')">Вики</a>
-    <a href="#" id="navLinkHall" onclick="switchTab('hallTab')">Доска почета</a>
+    <h3>Навигация</h3>
+    <a href="#" onclick="switchTab('mainPage')">Главная</a>
+    <a href="#" onclick="switchTab('infoCenterTab')">Информация</a>
+    <a href="#" onclick="switchTab('wikiTab')">Вики</a>
+    <a href="#" onclick="switchTab('hallTab')">Доска почета</a>
     <a href="https://t.me/MultiCraftCISTiers" target="_blank">Telegram</a>
+    
+    <button class="lang-toggle-btn" id="langToggleBtn" onclick="toggleLanguage()" style="width: 100%; text-align: left; background: none; border: none; color: var(--text-main); font-family: inherit; font-size: 14px; padding: 10px 15px; cursor: pointer; transition: background 0.2s;">English</button>
     
     <div class="theme-toggle-container">
         <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">☀️ Светлая тема</button>
-    </div>
-    <div class="lang-toggle-container">
-        <button class="lang-toggle-btn" id="langToggleBtn" onclick="toggleLanguage()">English</button>
     </div>
 </div>
 
@@ -60,24 +59,24 @@
 
 <div class="main-page" id="mainPage" style="display: block;">
     <div class="hero">
+        <div class="mc-invite-container" style="display: inline-block; background: #2c2c2c; border: 2px solid #555; padding: 6px 12px; margin-bottom: 15px; border-radius: 4px; box-shadow: 0 4px 0 #000;">
+            <span style="color: #aaa; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 2px;">Server Invite Code</span>
+            <strong style="color: #55ff55; font-size: 18px; letter-spacing: 2px; font-family: monospace;">UA75LL01</strong>
+        </div>
+
         <h1 id="leaderboardTitle">OVERALL PVP TOP</h1>
-        <p id="leaderboardDesc">Главный соревновательный рейтинг СНГ PvP комьюнити MultiCraftCISTiers. Прогрессируйте, сдавайте тесты квалифицированным тестерам и занимайте топовые позиции.</p>
+        <p>Главный соревновательный рейтинг СНГ PvP комьюнити MultiCraftCISTiers. Прогрессируйте, сдавайте тесты квалифицированным тестерам и занимайте топовые позиции.</p>
 
         <div class="tg-wrapper">
             <a class="telegram-btn" href="https://t.me/MultiCraftCISTiers" target="_blank">Telegram</a>
-        </div>
-
-        <div class="mc-invite-container" id="mcInviteBtn" onclick="copyInviteCode()">
-            <span class="mc-invite-label" id="mcInviteLabel">Server Code:</span>
-            <span class="mc-invite-code">UA75LL01</span>
         </div>
 
         <div class="filters">
             <input type="text" id="searchInput" placeholder="Поиск игрока...">
             
             <select id="kitFilter">
-                <option value="all" id="optAllKits">Все режимы (Overall)</option>
-                <optgroup label="Main Kits" id="groupMainKits">
+                <option value="all">Все режимы (Overall)</option>
+                <optgroup label="Main Kits">
                     <option value="Hardcore">Hardcore</option>
                     <option value="Manhunt">Manhunt</option>
                     <option value="Diamond">Diamond</option>
@@ -89,7 +88,7 @@
                     <option value="Pickaxe">Pickaxe</option>
                     <option value="SMP">SMP</option>
                 </optgroup>
-                <optgroup label="Sub Kits" id="groupSubKits">
+                <optgroup label="Sub Kits">
                     <option value="Combo">Combo</option>
                     <option value="Gapple">Gapple</option>
                     <option value="Mace">Mace</option>
@@ -100,7 +99,7 @@
         
         <div class="filters-row-2">
             <select id="regionFilter">
-                <option value="all" id="optAllRegions">Все регионы СНГ</option>
+                <option value="all">Все регионы СНГ</option>
                 <option value="RU">RU</option>
                 <option value="UA">UA</option>
                 <option value="BY">BY</option>
@@ -114,7 +113,7 @@
             </select>
 
             <select id="deviceFilter">
-                <option value="all" id="optAllDevices">Все устройства</option>
+                <option value="all">Все устройства</option>
                 <option value="PH">Phone [PH]</option>
                 <option value="TB">Tablet [TB]</option>
                 <option value="PC">PC [PC]</option>
@@ -126,7 +125,7 @@
         <div class="filters-row-3">
             <label class="checkbox-label">
                 <input type="checkbox" id="retiredToggle" checked>
-                <span id="labelRetiredToggle">Показывать Retired в топе (наравне по PTS)</span>
+                Показывать Retired в топе (наравне по PTS)
             </label>
         </div>
 
@@ -136,56 +135,235 @@
 </div>
 
 <div class="tab-content" id="wikiTab" style="display: none;">
-    <button class="back-btn" id="wikiBackBtn" onclick="backHome()">Назад на Главную</button>
-    <h2 class="section-title" id="wikiTitle">Вики — Гайды по режимам</h2>
+    <button class="back-btn" onclick="backHome()">Назад на Главную</button>
+    <h2 class="section-title">Вики — Гайды по режимам</h2>
     
-    <div class="wiki-grid" id="wikiGridContainer">
+    <div class="wiki-grid">
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/hardcore.png" alt="">
+                <h3>Hardcore</h3>
+            </div>
+            <p>Классическое PvP на истощение. Важно следить за таймингами ударов и расходом брони.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/hardcore_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря Hardcore]</span>
+            </div>
         </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/manhunt.png" alt="">
+                <h3>Manhunt</h3>
+            </div>
+            <p>Динамичный режим с упором на позиционирование, использование лавы и ведер с водой.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/manhunt_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря Manhunt]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/diamond.png" alt="">
+                <h3>Diamond</h3>
+            </div>
+            <p>Бои в классической алмазной броне. Ключ к победе заключается в поддержании стабильного комбо.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/diamond_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря Diamond]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/beast.png" alt="">
+                <h3>Beast</h3>
+            </div>
+            <p>Режим с повышенным уроном. Требует умения агрессивно атаковать и моментально принимать решения.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/beast_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря Beast]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/emerald.png" alt="">
+                <h3>Emerald</h3>
+            </div>
+            <p>Сбалансированный сетап со средними показателями защиты. Важную роль играет контроль дистанции.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/emerald_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря Emerald]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/emerald_pot.png" alt="">
+                <h3>Emerald Pot</h3>
+            </div>
+            <p>Скоростной режим со взрывными зельями исцеления. Необходимо вовремя бросать зелья под ноги.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/emerald_pot_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря Emerald Pot]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/rvm.png" alt="">
+                <h3>RVM</h3>
+            </div>
+            <p>Уникальный тактический формат. Высокая зависимость от ландшафта карты и инженерных блоков.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/rvm_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря RVM]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/dragonhide.png" alt="">
+                <h3>Dragonhide</h3>
+            </div>
+            <p>Режим с максимальной плотностью брони и долгими разменами. Ошибки в таймингах критичны.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/dragonhide_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря Dragonhide]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/pickaxe.png" alt="">
+                <h3>Pickaxe</h3>
+            </div>
+            <p>Кастомный режим ближнего боя с использованием кирок. Отличается измененной динамикой пробития.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/pickaxe_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря Pickaxe]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/smp.png" alt="">
+                <h3>SMP</h3>
+            </div>
+            <p>Классический ванильный сетап выживания, адаптированный под боевые условия.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/smp_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря SMP]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/combo.png" alt="">
+                <h3>Combo</h3>
+            </div>
+            <p>Режим с полным отсутствием задержки на удары. Главная цель — поймать оппонента в бесконечный цикл.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/combo_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря Combo]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/gapple.png" alt="">
+                <h3>Gapple</h3>
+            </div>
+            <p>Поединки на золотых яблоках с упором на долгое удержание темпа регенерации.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/gapple_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря Gapple]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/mace.png" alt="">
+                <h3>Mace</h3>
+            </div>
+            <p>Сражения с использованием Булавы. Огромный акцент на атаки в падении с высоты.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/mace_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря Mace]</span>
+            </div>
+        </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/crystal.png" alt="">
+                <h3>Crystal</h3>
+            </div>
+            <p>Высокотехнологичный режим, завязанный на моментальном уроне от взрывов кристаллов Энда.</p>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/crystal_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря Crystal]</span>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="tab-content" id="hallTab" style="display: none;">
-    <button class="back-btn" id="hallBackBtn" onclick="backHome()">Назад на Главную</button>
-    <h2 class="section-title" id="hallTitle">Доска почета</h2>
-    <div class="info-box" id="hallInfoBox">
-        <p style="margin-bottom: 12px; font-size: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; color: var(--accent);" id="hallLeaderTitle">Руководство платформы:</p>
-        <strong style="color: var(--accent);">-999-</strong> <span id="hallOwner1">— Создатель сервера HT1.</span><br><br>
-        <strong style="color: var(--accent);">zor1kkqwix</strong> <span id="hallOwner2">— Создатель и технический разработчик системы MultiCraftCISTiers.</span>
+    <button class="back-btn" onclick="backHome()">Назад на Главную</button>
+    <h2 class="section-title">Доска почета</h2>
+    <div class="info-box">
+        <p style="margin-bottom: 12px; font-size: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; color: var(--accent);">Руководство платформы:</p>
+        <strong style="color: var(--accent);">-999-</strong> — Создатель сервера HT1.<br><br>
+        <strong style="color: var(--accent);">zor1kkqwix</strong> — Создатель и technical разработчик системы MultiCraftCISTiers.
     </div>
 </div>
 
 <div class="tab-content" id="infoCenterTab" style="display: none;">
-    <button class="back-btn" id="infoBackBtn" onclick="backHome()">Назад на Главную</button>
-    <h2 class="section-title" id="infoTitle">Информация</h2>
+    <button class="back-btn" onclick="backHome()">Назад на Главную</button>
+    <h2 class="section-title">Информация</h2>
     
     <div class="info-nav-buttons">
-        <button class="info-nav-btn active" id="subTabBtnTest" onclick="switchInfoSubTab('tierTestSubTab', this)">Как пройти тиртест?</button>
-        <button class="info-nav-btn" id="subTabBtnPts" onclick="switchInfoSubTab('ptsSubTab', this)">Распределение очков</button>
-        <button class="info-nav-btn" id="subTabBtnTesters" onclick="switchInfoSubTab('testersSubTab', this)">Тестеры</button>
-        <button class="info-nav-btn" id="subTabBtnRules" onclick="switchInfoSubTab('rulesSubTab', this)">Правила</button>
-        <button class="info-nav-btn" id="subTabBtnFaq" onclick="switchInfoSubTab('faqSubTab', this)">FAQ</button>
+        <button class="info-nav-btn active" onclick="switchInfoSubTab('tierTestSubTab', this)">Как пройти тиртест?</button>
+        <button class="info-nav-btn" onclick="switchInfoSubTab('ptsSubTab', this)">Распределение очков</button>
+        <button class="info-nav-btn" onclick="switchInfoSubTab('testersSubTab', this)">Тестеры</button>
+        <button class="info-nav-btn" onclick="switchInfoSubTab('rulesSubTab', this)">Правила</button>
+        <button class="info-nav-btn" onclick="switchInfoSubTab('faqSubTab', this)">FAQ</button>
     </div>
 
     <div class="info-box">
         
         <div id="tierTestSubTab" class="info-sub-tab-content" style="display: block;">
             <div class="info-section">
-                <div class="info-section-title" id="tierTestSecTitle">Как пройти тиртест?</div>
-                <div class="step-list" id="tierTestStepList">
+                <div class="info-section-title">Как пройти тиртест?</div>
+                <div class="step-list">
+                    <div class="step-card">
+                        <div class="step-num">1. Подача заявки</div>
+                        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">Игрок переходит в нашу Telegram-группу, находит раздел с интересующим его китом и отправляет заявку боту.</p>
                     </div>
+                    <div class="step-card">
+                        <div class="step-num">2. Шаблон заявки</div>
+                        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">Для подачи заявки используйте предложенный ботом шаблон, кратко заполнив необходимую информацию.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">3. Проведение матча</div>
+                        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">После подачи заявки тестер свяжется с вами, чтобы договориться о времени проведения теста. Пройти тиртест можно также напрямую на сервере, договорившись с тиртестером лично, когда он находится в сети (без обязательного использования Telegram). Результат будет опубликован на сайте.</p>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div id="ptsSubTab" class="info-sub-tab-content" style="display: none;">
             <div class="info-section">
-                <div class="info-section-title" id="ptsSecTitle">Распределение очков PTS</div>
-                <p style="font-size: 13px; color: var(--text-main); line-height: 1.6; margin-bottom: 15px;" id="ptsSecDesc">
+                <div class="info-section-title">Распределение очков PTS</div>
+                <p style="font-size: 13px; color: var(--text-main); line-height: 1.6; margin-bottom: 15px;">
                     Рейтинг игрока формируется путём суммирования очков PTS, полученных только за основные (main) киты. Очки, набранные за дополнительные (sub) киты, в общий рейтинг не учитываются.
                 </p>
                 <table class="faq-table">
                     <thead>
                         <tr>
-                            <th id="thTier">Тир</th>
-                            <th id="thPts">PTS</th>
+                            <th>Тир</th>
+                            <th>PTS</th>
                         </tr>
                     </thead>
                     <tbody id="faqTableBody">
@@ -196,28 +374,64 @@
 
         <div id="testersSubTab" class="info-sub-tab-content" style="display: none;">
             <div class="info-section">
-                <div class="info-section-title" id="testersSecTitle">Тестеры</div>
-                <p style="font-size: 14px; color: var(--text-main); line-height: 1.6; margin-bottom: 20px;" id="testersSecDesc">
+                <div class="info-section-title">Тестеры</div>
+                <p style="font-size: 14px; color: var(--text-main); line-height: 1.6; margin-bottom: 20px;">
                     Тестеры — это опытные игроки, которые проводят проверку навыков и помогают определить ваш уровень мастерства на платформе.
                 </p>
-                <div class="testers-grid" id="testersGridContainer">
+                <div class="testers-grid">
+                    <div class="tester-card">
+                        <div class="tester-name">-999-</div>
+                        <div class="tester-status">Старший Тестер</div>
                     </div>
+                    <div class="tester-card">
+                        <div class="tester-name">Sneger</div>
+                        <div class="tester-status">Старший Тестер</div>
+                    </div>
+                    <div class="tester-card">
+                        <div class="tester-name">zor1kkqwix</div>
+                        <div class="tester-status">Квалификационный Тестер</div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div id="rulesSubTab" class="info-sub-tab-content" style="display: none;">
             <div class="info-section">
-                <div class="info-section-title" id="rulesSecTitle">Правила платформы</div>
-                <div class="step-list" id="rulesListContainer">
-                    </div>
+                <div class="info-section-title">Правила платформы</div>
+                <ul class="rules-list-container" style="margin-left: 20px; margin-top: 15px; font-size: 14px; color: var(--text-main); line-height: 1.8; list-style-type: decimal; padding-left: 0;">
+                    <li style="margin-bottom: 10px;">Если вы хотите пройти тиртест с другого устройства, вам необходимо создать второй (отдельный) аккаунт.</li>
+                    <li style="margin-bottom: 10px;">Запрещено использование любых сторонних модификаций, читов или макросов, дающих преимущество в бою.</li>
+                    <li style="margin-bottom: 10px;">Запрещено умышленно затягивать процесс тиртеста или проявлять токсичность/неуважение к тиртестерам.</li>
+                    <li style="margin-bottom: 10px;">Запрещена передача своего верифицированного аккаунта третьим лицам.</li>
+                </ul>
             </div>
         </div>
 
         <div id="faqSubTab" class="info-sub-tab-content" style="display: none;">
             <div class="info-section">
-                <div class="info-section-title" id="faqSecTitle">Часто задаваемые вопросы</div>
-                <div id="faqBlocksContainer">
-                    </div>
+                <div class="info-section-title">Часто задаваемые вопросы</div>
+                
+                <div class="faq-block-item" style="margin-top: 0;">
+                    <h3>Типы тестеров:</h3>
+                    <p>На нашей платформе есть два типа тестеров: квалификационный и старший.</p>
+                    <ul style="margin-left: 20px; margin-top: 8px; font-size: 13px; color: var(--text-muted); line-height: 1.6; list-style-type: none; padding-left: 0;">
+                        <li style="margin-bottom: 6px;"><strong>Квалификационный тестер:</strong> Это игроки уровня от <span id="faqColorLT3_1">LT3</span> до <span id="faqColorLT2_1">LT2</span>. Они могут присвоить максимальный уровень <span id="faqColorLT3_2">LT3</span>.</li>
+                        <li><strong>Старший тестер:</strong> Это опытные игроки уровня от <span id="faqColorHT2_1">HT2</span> до <span id="faqColorHT1_1">HT1</span>.</li>
+                    </ul>
+                </div>
+
+                <div class="faq-block-item">
+                    <h3>Процесс повышения уровня:</h3>
+                    <p style="margin-bottom: 8px;">Если вы достигли уровня <span id="faqColorLT3_3">LT3</span>, вы можете пройти второй тест со старшим тестером. Каждый тест состоит из 10 дуэлей. Минимальный уровень, который вы можете получить за этот тест, — <span id="faqColorLT3_4">LT3</span>, а максимальный — <span id="faqColorLT1_1">LT1</span>.</p>
+                    <p>После получения <span id="faqColorLT1_2">LT1</span> вам будет предоставлена возможность сразиться с игроком уровня <span id="faqColorHT1_2">HT1</span>. Если вы одерживаете победу, вам присваивается уровень <span id="faqColorHT1_3">HT1</span>. В случае поражения ваш уровень остается <span id="faqColorLT1_3">LT1</span>.</p>
+                </div>
+
+                <div class="faq-block-item">
+                    <h3>Статус Retired:</h3>
+                    <p style="margin-bottom: 8px;">Если игрок не проходил тиртест по конкретному киту более двух месяцев, рядом с названием этого кита появляется приписка R, например, <span style="font-weight: bold; color: #ff4747;">R</span><span id="faqColorHT1_4">HT1</span>.</p>
+                    <p>Игроки со статусом Retired не отображаются в общем топе. Чтобы снова стать активным, достаточно пройти тиртест по соответствующему киту.</p>
+                </div>
+
             </div>
         </div>
 
