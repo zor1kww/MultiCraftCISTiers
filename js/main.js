@@ -277,25 +277,31 @@ function renderPlayers() {
 
         let quickTiersHTML = '';
         if (targetKit === 'all') {
+            // Создаем массив объектов китов текущего игрока, чтобы отсортировать их по весу результата
             let playerKitsObjects = maintiers.map(kit => {
                 const tier = getCleanTier(player, kit);
                 const ret = isKitRetired(player, kit);
                 
+                // Рассчитываем приоритет сортировки:
+                // 1. Активные киты (сортировка от HT1 к LT5 по количеству PTS)
+                // 2. Retired киты (сортировка от RHT1 к RLT5 по количеству PTS)
+                // 3. Unranked киты (самый низший приоритет)
                 let sortWeight = -1000;
                 if (tier !== "Unranked") {
                     const pts = tierPoints[tier] || 0;
                     if (!ret) {
-                        sortWeight = pts; 
+                        sortWeight = pts; // Активный кит: вес от 1000 до 100
                     } else {
-                        sortWeight = pts - 5000; 
+                        sortWeight = pts - 5000; // Retired кит: вес от -4000 до -4900
                     }
                 } else {
-                    sortWeight = -10000; 
+                    sortWeight = -10000; // Unranked кит: минимальный вес
                 }
                 
                 return { kit, tier, ret, sortWeight };
             });
 
+            // Сортировка мейн-китов слева направо (от наибольшего sortWeight к наименьшему)
             playerKitsObjects.sort((a, b) => b.sortWeight - a.sortWeight);
 
             quickTiersHTML = `<div class="player-tiers-row">`;
@@ -338,6 +344,7 @@ function renderPlayers() {
             quickTiersHTML += `</div>`;
         }
 
+        // Проверка на вывод тега RETIRED в карточке
         let displayProfileRetiredTag = hasAnyRetiredKit(player);
 
         htmlFragment += `
@@ -386,6 +393,7 @@ function applyFaqTierColors() {
     const tiersToColor = ['HT1', 'HT2', 'LT1', 'LT2', 'LT3'];
     tiersToColor.forEach(tier => {
         const color = tierColors[tier] || 'var(--accent)';
+        // Находим все элементы-заглушки во вкладке FAQ и красим их
         for (let i = 1; i <= 4; i++) {
             const element = document.getElementById(`faqColor${tier}_${i}`);
             if (element) {
@@ -496,6 +504,7 @@ function copyInviteCode() {
             }, 1500);
         }
     }).catch(err => {
+        // Резервный вариант копирования для старых прошивок / браузеров
         const el = document.createElement('textarea');
         el.value = inviteCode;
         document.body.appendChild(el);
@@ -512,9 +521,6 @@ function copyInviteCode() {
     });
 }
 
-// Корректная точка старта с инициализацией всех таблиц
 function initSite() {
-    buildFaqTable();
-    applyFaqTierColors();
     renderPlayers();
 }
