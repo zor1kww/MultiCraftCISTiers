@@ -32,65 +32,11 @@ function toggleTheme() {
     }
 }
 
-// Хелпер для определения, является ли конкретный кит игрока "Retired"
-function isKitRetired(player, kit) {
-    if (player.retired === true) return true;
-    
-    const kitData = player.tiers[kit];
-    if (!kitData) return false;
-    
-    if (typeof kitData === 'object' && kitData.retired === true) {
-        return true;
-    }
-    if (typeof kitData === 'string' && kitData.startsWith('R') && kitData.length > 2) {
-        return true;
-    }
-    return false;
-}
-
-// Проверка: есть ли у игрока ХОТЯ БЫ ОДИН кит со статусом retired
-function hasAnyRetiredKit(player) {
-    if (player.retired === true) return true;
-    const allKits = [...maintiers, ...subtiers];
-    for (let i = 0; i < allKits.length; i++) {
-        if (isKitRetired(player, allKits[i])) {
-            const tier = getCleanTier(player, allKits[i]);
-            if (tier !== "Unranked") {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-// Хелпер для получения чистого названия тира (без префикса R)
-function getCleanTier(player, kit) {
-    const kitData = player.tiers[kit];
-    if (!kitData) return "Unranked";
-    
-    if (typeof kitData === 'object') {
-        return kitData.tier || "Unranked";
-    }
-    
-    if (typeof kitData === 'string') {
-        if (kitData.startsWith('R') && kitData.length > 2) {
-            return kitData.substring(1);
-        }
-        return kitData;
-    }
-    return "Unranked";
-}
-
 // Расчет общих очков игрока по массиву китов
 function calcPoints(player, kits) {
     let total = 0;
-    const showRetiredInPlace = document.getElementById('retiredToggle') ? document.getElementById('retiredToggle').checked : true;
-    
     kits.forEach(kit => {
-        if (!showRetiredInPlace && isKitRetired(player, kit)) {
-            return;
-        }
-        const tier = getCleanTier(player, kit);
+        const tier = player.tiers[kit] || "Unranked";
         total += tierPoints[tier] || 0;
     });
     return total;
@@ -108,10 +54,11 @@ function openProfile(idx, filteredPlayersJSON) {
     const localFiltered = JSON.parse(decodeURIComponent(filteredPlayersJSON));
     const player = localFiltered[idx];
     
+    const isRetired = player.retired === true;
     document.getElementById('modalPlayerName').innerHTML = player.name;
     
     let metaText = `${player.region} ${player.device}`;
-    if (hasAnyRetiredKit(player)) {
+    if (isRetired) {
         metaText += ` RETIRED`;
     }
     document.getElementById('modalPlayerMeta').innerText = metaText;
@@ -127,32 +74,30 @@ function openProfile(idx, filteredPlayersJSON) {
     const subRows = document.getElementById('modalSubRows');
     
     mainRows.innerHTML = maintiers.map(kit => {
-        const t = getCleanTier(player, kit);
+        const t = player.tiers[kit] || "Unranked";
         const iconSrc = kitImages[kit] || "";
-        const ret = isKitRetired(player, kit);
-        return `<div class="modal-row" style="${ret ? 'opacity:0.5;' : ''}">
+        return `<div class="modal-row">
             <div class="modal-kit-left">
                 <img class="modal-kit-icon" src="${iconSrc}" onerror="this.style.opacity='0'" alt="">
                 <span class="m-kit">${kit}</span>
             </div>
             <div class="m-right-side">
-                ${getTierBadge(t, ret)} 
+                ${getTierBadge(t, isRetired)} 
                 <span class="m-pts-box">(${tierPoints[t]} PTS)</span>
             </div>
         </div>`;
     }).join('');
     
     subRows.innerHTML = subtiers.map(kit => {
-        const t = getCleanTier(player, kit);
+        const t = player.tiers[kit] || "Unranked";
         const iconSrc = kitImages[kit] || "";
-        const ret = isKitRetired(player, kit);
-        return `<div class="modal-row" style="${ret ? 'opacity:0.5;' : ''}">
+        return `<div class="modal-row">
             <div class="modal-kit-left">
                 <img class="modal-kit-icon" src="${iconSrc}" onerror="this.style.opacity='0'" alt="">
                 <span class="m-kit">${kit}</span>
             </div>
             <div class="m-right-side">
-                ${getTierBadge(t, ret)} 
+                ${getTierBadge(t, isRetired)} 
                 <span class="m-pts-box">(${tierPoints[t]} PTS)</span>
             </div>
         </div>`;
@@ -198,23 +143,13 @@ function renderPlayers() {
         const matchesRegion = (region === 'all' || player.region === region);
         const matchesDevice = (device === 'all' || player.device === device);
         
-        if (targetKit !== 'all') {
-            const tier = getCleanTier(player, targetKit);
-            const ret = isKitRetired(player, targetKit);
-            if (!showRetiredInPlace && ret) {
-                return false;
-            }
-            return matchesSearch && matchesRegion && matchesDevice && tier !== "Unranked";
+        if (!showRetiredInPlace && player.retired === true) {
+            return false;
         }
         
-        if (!showRetiredInPlace) {
-            let hasActiveMainKit = false;
-            maintiers.forEach(k => {
-                if (getCleanTier(player, k) !== "Unranked" && !isKitRetired(player, k)) {
-                    hasActiveMainKit = true;
-                }
-            });
-            if (!hasActiveMainKit) return false;
+        if (targetKit !== 'all') {
+            const tier = player.tiers[targetKit] || "Unranked";
+            return matchesSearch && matchesRegion && matchesDevice && tier !== "Unranked";
         }
         
         return matchesSearch && matchesRegion && matchesDevice;
@@ -222,12 +157,19 @@ function renderPlayers() {
 
     if (targetKit === 'all') {
         filtered.sort((a, b) => {
-            return calcPoints(b, maintiers) - calcPoints(a, maintiers);
+            const aRetired = a.retired === true;
+            const bRetired = b.retired === true;
+            if (showRetiredInPlace) {
+                return calcPoints(b, maintiers) - calcPoints(a, maintiers);
+            } else {
+                if (aRetired !== bRetired) return aRetired ? 1 : -1;
+                return calcPoints(b, maintiers) - calcPoints(a, maintiers);
+            }
         });
     } else {
         filtered.sort((a, b) => {
-            const tierA = getCleanTier(a, targetKit);
-            const tierB = getCleanTier(b, targetKit);
+            const tierA = a.tiers[targetKit] || "Unranked";
+            const tierB = b.tiers[targetKit] || "Unranked";
             return (tierPoints[tierB] || 0) - (tierPoints[tierA] || 0);
         });
     }
@@ -247,80 +189,44 @@ function renderPlayers() {
         let rankPrefix = `#${index + 1}`; 
         let topClass = '';
         
+        const isRetired = player.retired === true;
+
         if (index === 0) topClass = 'top-rank-1';
         else if (index === 1) topClass = 'top-rank-2';
         else if (index === 2) topClass = 'top-rank-3';
         else if (index === 3) topClass = 'top-rank-4';
         else if (index === 4) topClass = 'top-rank-5';
         
-        // Присвоение серого фона для карточки (retired-status)
-        if (player.retired === true) {
-            topClass += ' retired-status';
-        } else if (targetKit !== 'all' && isKitRetired(player, targetKit)) {
-            topClass += ' retired-status';
-        } else if (targetKit === 'all') {
-            let allMainRetired = true;
-            maintiers.forEach(k => {
-                if (getCleanTier(player, k) !== "Unranked" && !isKitRetired(player, k)) {
-                    allMainRetired = false;
-                }
-            });
-            if (allMainRetired) topClass += ' retired-status';
+        if (isRetired && showRetiredInPlace) {
+            topClass = 'retired-status';
         }
         
         if (targetKit === 'all') {
             const mainPts = calcPoints(player, maintiers);
             rightColumnContent = `<span style="color: var(--accent);">${mainPts} PTS</span>`;
         } else {
-            const currentTier = getCleanTier(player, targetKit);
-            const ret = isKitRetired(player, targetKit);
-            rightColumnContent = getTierBadge(currentTier, ret);
+            const currentTier = player.tiers[targetKit] || "Unranked";
+            rightColumnContent = getTierBadge(currentTier, isRetired);
         }
 
         let quickTiersHTML = '';
         if (targetKit === 'all') {
-            // Создаем массив объектов китов для умной сортировки
-            let playerKitsObjects = maintiers.map(kit => {
-                const tier = getCleanTier(player, kit);
-                const ret = isKitRetired(player, kit);
-                
-                let sortWeight = -10000; // По умолчанию вес для Unranked
-                
-                if (tier !== "Unranked") {
-                    const pts = tierPoints[tier] || 0;
-                    if (!ret) {
-                        sortWeight = pts; // Активный кит: наивысший приоритет (по PTS)
-                    } else {
-                        sortWeight = pts - 5000; // Retired кит: средний приоритет (по PTS, но ниже активных)
-                    }
-                }
-                
-                return { kit, tier, ret, sortWeight };
-            });
-
-            // Сортировка по убыванию веса: Активные -> Retired -> Unranked
-            playerKitsObjects.sort((a, b) => b.sortWeight - a.sortWeight);
-
             quickTiersHTML = `<div class="player-tiers-row">`;
-            playerKitsObjects.forEach(item => {
-                const kit = item.kit;
-                const tier = item.tier;
-                const ret = item.ret;
+            maintiers.forEach(kit => {
+                const tier = player.tiers[kit] || "Unranked";
                 const clr = tierColors[tier] || '#444b66';
                 const iconSrc = kitImages[kit] || "";
-                const labelText = (ret && tier !== "Unranked") ? `R${tier}` : tier;
+                const labelText = (isRetired && tier !== "Unranked") ? `R${tier}` : tier;
                 
                 if (tier !== "Unranked") {
-                    // Оставляем цветную обводку из первого скриншота, добавляем opacity только для retired
                     quickTiersHTML += `
-                    <div class="tier-item-box" style="${ret ? 'opacity: 0.5;' : ''}">
+                    <div class="tier-item-box">
                         <div class="tier-icon-circle" style="border-color: ${clr}cc; box-shadow: 0 0 6px ${clr}22;">
                             <img src="${iconSrc}" onerror="this.style.opacity=0" alt="">
                         </div>
                         <div class="tier-label-under" style="color: ${clr};">${labelText}</div>
                     </div>`;
                 } else {
-                    // Пустые (Unranked) киты в самом конце
                     quickTiersHTML += `
                     <div class="tier-item-box">
                         <div class="tier-icon-circle unranked">
@@ -332,8 +238,6 @@ function renderPlayers() {
             });
             quickTiersHTML += `</div>`;
         }
-
-        let displayProfileRetiredTag = hasAnyRetiredKit(player);
 
         htmlFragment += `
         <div class="player-container ${topClass}">
@@ -348,7 +252,7 @@ function renderPlayers() {
                     <div class="player-meta-box">
                         <span class="player-meta-tag">${player.region}</span>
                         <span class="player-meta-tag">${player.device}</span>
-                        ${displayProfileRetiredTag ? `<span class="retired-meta-tag">RETIRED</span>` : ''}
+                        ${isRetired ? `<span class="retired-meta-tag">RETIRED</span>` : ''}
                     </div>
                     ${quickTiersHTML}
                 </div>
@@ -376,46 +280,6 @@ function buildFaqTable() {
     }).join('');
 }
 
-// Навешивание кастомных цветов на тиры внутри FAQ текста
-function applyFaqTierColors() {
-    const tiersToColor = ['HT1', 'HT2', 'LT1', 'LT2', 'LT3'];
-    tiersToColor.forEach(tier => {
-        const color = tierColors[tier] || 'var(--accent)';
-        for (let i = 1; i <= 4; i++) {
-            const element = document.getElementById(`faqColor${tier}_${i}`);
-            if (element) {
-                element.style.color = color;
-                element.style.fontWeight = 'bold';
-            }
-        }
-    });
-}
-
-// Навигация по под-вкладкам внутри Информации
-function switchInfoSubTab(subTabId, btnElement) {
-    document.querySelectorAll('.info-sub-tab-content').forEach(subTab => {
-        subTab.style.display = 'none';
-    });
-    document.querySelectorAll('.info-nav-btn').forEach(btn => {
-        btn.classList.remove('active');
-    });
-    
-    const targetSubTab = document.getElementById(subTabId);
-    if (targetSubTab) {
-        targetSubTab.style.display = 'block';
-    }
-    if (btnElement) {
-        btnElement.classList.add('active');
-    }
-    
-    if (subTabId === 'ptsSubTab') {
-        buildFaqTable();
-    }
-    if (subTabId === 'faqSubTab') {
-        applyFaqTierColors();
-    }
-}
-
 // Переключение вкладок (Обновленный роутинг)
 function switchTab(tabId) {
     const sb = document.getElementById('sidebar');
@@ -435,10 +299,7 @@ function switchTab(tabId) {
         const target = document.getElementById(tabId);
         if (target) target.style.display = 'block';
         
-        if (tabId === 'infoCenterTab') {
-            const firstNavBtn = document.querySelector('.info-nav-btn');
-            switchInfoSubTab('tierTestSubTab', firstNavBtn);
-        }
+        if (tabId === 'infoCenterTab') buildFaqTable();
     }
     window.scrollTo(0, 0);
 }
@@ -473,40 +334,5 @@ if (document.getElementById('searchInput')) {
     document.getElementById('retiredToggle').addEventListener('change', renderPlayers);
 }
 
-// Функция автоматического копирования инвайт-кода для кнопки
-function copyInviteCode() {
-    const inviteCode = "UA75LL01";
-    const btn = document.getElementById('inviteBtn');
-    
-    navigator.clipboard.writeText(inviteCode).then(() => {
-        if (btn) {
-            btn.innerHTML = "✅ Скопировано!";
-            btn.style.borderColor = "var(--accent)";
-            btn.style.color = "var(--accent)";
-            
-            setTimeout(() => {
-                btn.innerHTML = `📋 ${inviteCode}`;
-                btn.style.borderColor = "";
-                btn.style.color = "";
-            }, 1500);
-        }
-    }).catch(err => {
-        const el = document.createElement('textarea');
-        el.value = inviteCode;
-        document.body.appendChild(el);
-        el.select();
-        document.execCommand('copy');
-        document.body.removeChild(el);
-        
-        if (btn) {
-            btn.innerHTML = "✅ Скопировано!";
-            setTimeout(() => {
-                btn.innerHTML = `📋 ${inviteCode}`;
-            }, 1500);
-        }
-    });
-}
-
 function initSite() {
     renderPlayers();
-}
