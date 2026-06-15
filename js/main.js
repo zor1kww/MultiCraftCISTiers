@@ -20,6 +20,22 @@ document.addEventListener('click', (e) => {
     }
 });
 
+// Функция копирования инвайт-кода
+function copyInviteCode() {
+    const code = "UA75LL01";
+    navigator.clipboard.writeText(code).then(() => {
+        const btn = document.getElementById('inviteBtn');
+        if (btn) {
+            btn.innerHTML = "✅ Скопировано!";
+            setTimeout(() => {
+                btn.innerHTML = `📋 ${code}`;
+            }, 2000);
+        }
+    }).catch(err => {
+        console.error('Ошибка при копировании: ', err);
+    });
+}
+
 // Переключение тем оформления (Dark/Light)
 function toggleTheme() {
     const currentTheme = document.documentElement.getAttribute('data-theme');
