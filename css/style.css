@@ -317,7 +317,7 @@ body, html {
 }
 
 /* ==========================================================================
-   ИСПРАВЛЕННАЯ СЕТКА КАРТОЧЕК ИГРОКОВ (Глобально и для мобильных)
+   ОСНОВНАЯ СЕТКА КАРТОЧЕК ИГРОКОВ (ДЛЯ ПК ДЕФОЛТ)
    ========================================================================== */
 .player-container {
     width: 100%;
@@ -327,7 +327,7 @@ body, html {
     padding: 16px;
     display: grid;
     grid-template-columns: 90px 1fr 90px;
-    align-items: start;
+    align-items: center;
     gap: 12px;
     cursor: pointer;
     background: var(--card-bg);
@@ -345,7 +345,7 @@ body, html {
 .player-left {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
     align-items: flex-start;
 }
 
@@ -358,7 +358,7 @@ body, html {
 .player-meta-box {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
     width: 100%;
 }
 
@@ -392,7 +392,7 @@ body, html {
 .player-center {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
     align-items: center;
     width: 100%;
     overflow: hidden;
@@ -416,7 +416,7 @@ body, html {
     justify-content: center;
     gap: 4px;
     width: 100%;
-    flex-wrap: nowrap !important; /* Строго запрещаем перенос */
+    flex-wrap: nowrap !important;
 }
 
 .tier-item-box {
@@ -424,7 +424,7 @@ body, html {
     flex-direction: column;
     align-items: center;
     gap: 3px;
-    flex: 1 1 0; /* Равномерно распределяем слоты */
+    flex: 1 1 0;
     min-width: 0;
 }
 
@@ -465,7 +465,7 @@ body, html {
 .player-right {
     display: flex;
     justify-content: flex-end;
-    align-items: flex-start;
+    align-items: center;
     text-align: right;
     font-size: 16px;
     font-weight: bold;
@@ -938,12 +938,46 @@ body, html {
     color: var(--accent);
 }
 
-/* АДАПТИВНОСТЬ ПОД МОБИЛЬНЫЕ УСТРОЙСТВА */
+/* ==========================================================================
+   ИСПРАВЛЕННАЯ АДАПТИВНОСТЬ ПОД МОБИЛЬНЫЕ УСТРОЙСТВА
+   ========================================================================== */
 @media(max-width: 768px) {
     .hero h1 { font-size: 26px; }
     .filters, .filters-row-2 { grid-template-columns: 1fr; gap: 8px; }
     
-    /* УДАЛЕН КРАШИВШИЙ ВЕРСТКУ BLOCK/COLUMN РЕЖИМ ДЛЯ КАРТОЧЕК */
+    /* Свободная резиновая сетка для мобильных карточек */
+    .player-card-row {
+        grid-template-columns: max-content 1fr max-content;
+        gap: 8px;
+        padding: 12px 10px;
+    }
+    
+    .player-left {
+        gap: 6px;
+    }
+
+    .player-name {
+        font-size: 15px; /* Уменьшаем шрифт, чтобы ник не переносился */
+    }
+
+    .player-tiers-row {
+        gap: 2px; /* Минимальный зазор между слотами для экономии места */
+    }
+
+    .tier-icon-circle {
+        max-width: 22px; /* Идеальный размер кружков под мобильный экран */
+        max-height: 22px;
+        padding: 2px;
+    }
+
+    .tier-label-under {
+        font-size: 7px; /* Компактные подписи тиров (HT1, LT2) */
+    }
+
+    .player-right {
+        font-size: 14px;
+    }
+    
     .modal-grid {
         grid-template-columns: 1fr;
     }
