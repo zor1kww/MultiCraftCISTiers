@@ -1,24 +1,23 @@
 :root {
-    /* Тёмная тема — Глубокий тёмно-синий и золото */
-    --bg-main: #0b111e;          /* Глубокий тёмно-синий фон сайта */
-    --bg-card: #111a2e;          /* Карточки игроков и вики (чуть светлее фона) */
-    --bg-sidebar: #0f172a;       /* Боковое меню */
-    --border-color: #1e293b;     /* Сдержанные синеватые границы */
-    --text-main: #f8fafc;        /* Чистый белый текст */
-    --text-muted: #94a3b8;       /* Аккуратный серый текст для описаний */
-    --accent: #ffcc47;           /* Золотистый цвет для акцентов, PTS и важных элементов */
-    --accent-hover: #e0b33f;     /* Тёмно-золотой при наведении */
+    /* Оригинальная тёмно-синяя и золотистая палитра проекта */
+    --bg-main: #0b111e;
+    --bg-card: #111a2e;
+    --bg-sidebar: #0f172a;
+    --border-color: #1e293b;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --accent: #ffcc47;
+    --accent-hover: #e0b33f;
 }
 
 [data-theme="light"] {
-    /* Светлая тема */
     --bg-main: #f1f5f9;
     --bg-card: #ffffff;
     --bg-sidebar: #e2e8f0;
     --border-color: #cbd5e1;
     --text-main: #0f172a;
     --text-muted: #64748b;
-    --accent: #d97706;           /* Приглушенное золото для светлой темы */
+    --accent: #d97706;
     --accent-hover: #b45309;
 }
 
@@ -38,7 +37,7 @@ body {
     transition: background-color 0.2s, color 0.2s;
 }
 
-/* ШАПКА */
+/* ШАПКА (HEADER) */
 .header {
     position: fixed;
     top: 0;
@@ -76,7 +75,7 @@ body {
     background-color: var(--accent-hover);
 }
 
-/* БОКОВОЕ МЕНЮ */
+/* БОКОВОЕ МЕНЮ (SIDEBAR) */
 .sidebar {
     position: fixed;
     top: 60px;
@@ -120,17 +119,19 @@ body {
     background-color: var(--border-color);
 }
 
+/* КОНТЕЙНЕР ДЛЯ КНОПОК ТЕМЫ И ИНВАЙТА */
 .theme-toggle-container {
     margin-top: auto;
     padding-top: 20px;
     border-top: 1px solid var(--border-color);
 }
 
+/* КНОПКИ В БОКОВОМ МЕНЮ (Светлая тема и Инвайт код) */
 .theme-toggle-btn {
     width: 100%;
-    background: #1e293b;        /* Темная подложка для кнопок в меню */
+    background: var(--bg-card);
     color: var(--text-main);
-    border: 1px solid rgba(255, 204, 71, 0.15); /* Едва заметная золотистая обводка */
+    border: 1px solid var(--border-color);
     padding: 12px;
     border-radius: 8px;
     cursor: pointer;
@@ -141,11 +142,11 @@ body {
 }
 
 .theme-toggle-btn:hover {
-    background-color: #27374d;
-    border-color: var(--accent); /* Золотое свечение при наведении */
+    background-color: var(--border-color);
+    border-color: var(--accent);
 }
 
-/* КОНТЕНТНАЯ ЧАСТЬ */
+/* ОСНОВНОЙ КОНТЕНТ */
 .main-page, .tab-content {
     max-width: 800px;
     margin: 0 auto;
@@ -192,7 +193,7 @@ body {
     background-color: #1c6da4;
 }
 
-/* ФИЛЬТРЫ */
+/* СЕТКА ФИЛЬТРОВ И ВЫБОР РЕЖИМОВ */
 .filters, .filters-row-2 {
     display: flex;
     gap: 10px;
@@ -208,6 +209,11 @@ body {
     border-radius: 8px;
     font-size: 14px;
     outline: none;
+    transition: border-color 0.2s;
+}
+
+.filters input:focus, .filters select:focus, .filters-row-2 select:focus {
+    border-color: var(--accent);
 }
 
 .filters-row-3 {
@@ -244,7 +250,7 @@ body {
     text-align: left;
 }
 
-/* ТАБЛИЦА ЛИДЕРОВ */
+/* СТРОКИ СПИСКА ИГРОКОВ (ТАБЛИЦА) */
 .players-list {
     display: flex;
     flex-direction: column;
@@ -264,7 +270,7 @@ body {
 
 .player-card-row:hover {
     transform: translateY(-2px);
-    border-color: var(--text-muted);
+    border-color: var(--accent);
 }
 
 .p-rank-box {
@@ -312,7 +318,7 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* МОДАЛЬНОЕ ОКНО */
+/* МОДАЛЬНЫЕ ОКНА ПРОФИЛЕЙ */
 .modal-overlay {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -456,7 +462,7 @@ body {
     color: var(--accent);
 }
 
-/* ВИКИ И ИНФО-ЦЕНТР */
+/* ВКЛАДКА ИНФОРМАЦИИ И НАВИГАЦИОННЫЕ КНОПКИ КРУГЛЫЕ */
 .back-btn {
     background: var(--border-color);
     color: var(--text-main);
@@ -469,6 +475,133 @@ body {
     margin-bottom: 20px;
 }
 
+.info-box {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: left;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.info-nav-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.info-nav-btn {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.info-nav-btn:hover, .info-nav-btn.active {
+    background-color: var(--border-color);
+    color: var(--text-main);
+    border-color: var(--accent);
+}
+
+.info-section-title {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+/* ШАБЛОНЫ ШАГОВ (КАК ПРОЙТИ ТЕСТ) */
+.step-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.step-card {
+    background: rgba(0,0,0,0.1);
+    border-left: 3px solid var(--accent);
+    padding: 12px;
+    border-radius: 0 8px 8px 0;
+}
+
+.step-num {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+/* ТАБЛИЦЫ РАСПРЕДЕЛЕНИЯ PTS */
+.faq-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.faq-table th, .faq-table td {
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    text-align: left;
+    font-size: 13px;
+}
+
+.faq-table th {
+    background-color: rgba(0,0,0,0.1);
+    color: var(--text-muted);
+}
+
+/* КАРТОЧКИ ТЕСТЕРОВ */
+.testers-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.tester-card {
+    background: rgba(0,0,0,0.1);
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.tester-name {
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.tester-status {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.faq-block-item {
+    margin-top: 20px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 15px;
+}
+
+.faq-block-item h3 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.faq-block-item p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* СЕТКА СТРАНИЦЫ ВИКИ */
 .wiki-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -520,7 +653,7 @@ body {
 
 .wiki-trains {
     font-size: 12px;
-    background: rgba(255, 204, 71, 0.07); /* Едва заметный золотистый фон для тренируемых навыков */
+    background: rgba(255, 204, 71, 0.05);
     color: var(--text-main);
     padding: 6px 10px;
     border-radius: 4px;
@@ -552,131 +685,7 @@ body {
     font-style: italic;
 }
 
-.info-box {
-    background-color: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 20px;
-    text-align: left;
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-/* Навигация подвкладок */
-.info-nav-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 15px;
-}
-
-.info-nav-btn {
-    background-color: var(--bg-card);
-    border: 1px solid var(--border-color);
-    color: var(--text-muted);
-    padding: 8px 14px;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.info-nav-btn:hover, .info-nav-btn.active {
-    background-color: var(--border-color);
-    color: var(--text-main);
-    border-color: var(--text-muted);
-}
-
-.info-section-title {
-    font-size: 18px;
-    font-weight: 800;
-    margin-bottom: 15px;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 8px;
-}
-
-.step-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.step-card {
-    background: rgba(0,0,0,0.1);
-    border-left: 3px solid var(--accent);
-    padding: 12px;
-    border-radius: 0 8px 8px 0;
-}
-
-.step-num {
-    font-weight: 700;
-    font-size: 14px;
-    margin-bottom: 4px;
-}
-
-.faq-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
-
-.faq-table th, .faq-table td {
-    border: 1px solid var(--border-color);
-    padding: 10px;
-    text-align: left;
-    font-size: 13px;
-}
-
-.faq-table th {
-    background-color: rgba(0,0,0,0.1);
-    color: var(--text-muted);
-}
-
-.testers-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-top: 10px;
-}
-
-.tester-card {
-    background: rgba(0,0,0,0.1);
-    border: 1px solid var(--border-color);
-    padding: 12px;
-    border-radius: 8px;
-}
-
-.tester-name {
-    font-weight: 700;
-    font-size: 15px;
-}
-
-.tester-status {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-top: 2px;
-}
-
-.faq-block-item {
-    margin-top: 20px;
-    border-top: 1px solid var(--border-color);
-    padding-top: 15px;
-}
-
-.faq-block-item h3 {
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 6px;
-}
-
-.faq-block-item p {
-    font-size: 13px;
-    color: var(--text-muted);
-    line-height: 1.5;
-}
-
-/* АДАПТИВНОСТЬ */
+/* АДАПТИВНОСТЬ ПОД МОБИЛЬНЫЕ УСТРОЙСТВА */
 @media (max-width: 680px) {
     .modal-grid {
         grid-template-columns: 1fr;
