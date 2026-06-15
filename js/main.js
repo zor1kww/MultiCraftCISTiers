@@ -81,7 +81,7 @@ function getCleanTier(player, kit) {
     return "Unranked";
 }
 
-// Расчет общих очков игрока по массиву китов с учетом индивидуального/глобального Retired-статуса
+// Расчет общих очков игрока по массиву китов
 function calcPoints(player, kits) {
     let total = 0;
     const showRetiredInPlace = document.getElementById('retiredToggle') ? document.getElementById('retiredToggle').checked : true;
@@ -130,7 +130,7 @@ function openProfile(idx, filteredPlayersJSON) {
         const t = getCleanTier(player, kit);
         const iconSrc = kitImages[kit] || "";
         const ret = isKitRetired(player, kit);
-        return `<div class="modal-row" style="${ret ? 'opacity:0.6;' : ''}">
+        return `<div class="modal-row" style="${ret ? 'opacity:0.5;' : ''}">
             <div class="modal-kit-left">
                 <img class="modal-kit-icon" src="${iconSrc}" onerror="this.style.opacity='0'" alt="">
                 <span class="m-kit">${kit}</span>
@@ -146,7 +146,7 @@ function openProfile(idx, filteredPlayersJSON) {
         const t = getCleanTier(player, kit);
         const iconSrc = kitImages[kit] || "";
         const ret = isKitRetired(player, kit);
-        return `<div class="modal-row" style="${ret ? 'opacity:0.6;' : ''}">
+        return `<div class="modal-row" style="${ret ? 'opacity:0.5;' : ''}">
             <div class="modal-kit-left">
                 <img class="modal-kit-icon" src="${iconSrc}" onerror="this.style.opacity='0'" alt="">
                 <span class="m-kit">${kit}</span>
@@ -253,17 +253,19 @@ function renderPlayers() {
         else if (index === 3) topClass = 'top-rank-4';
         else if (index === 4) topClass = 'top-rank-5';
         
-        if (targetKit !== 'all' && isKitRetired(player, targetKit)) {
-            topClass = 'retired-status';
-        }
-        if (targetKit === 'all') {
+        // Присвоение серого фона для карточки (retired-status)
+        if (player.retired === true) {
+            topClass += ' retired-status';
+        } else if (targetKit !== 'all' && isKitRetired(player, targetKit)) {
+            topClass += ' retired-status';
+        } else if (targetKit === 'all') {
             let allMainRetired = true;
             maintiers.forEach(k => {
                 if (getCleanTier(player, k) !== "Unranked" && !isKitRetired(player, k)) {
                     allMainRetired = false;
                 }
             });
-            if (allMainRetired) topClass = 'retired-status';
+            if (allMainRetired) topClass += ' retired-status';
         }
         
         if (targetKit === 'all') {
@@ -277,23 +279,48 @@ function renderPlayers() {
 
         let quickTiersHTML = '';
         if (targetKit === 'all') {
-            quickTiersHTML = `<div class="player-tiers-row">`;
-            maintiers.forEach(kit => {
+            // Создаем массив объектов китов для умной сортировки
+            let playerKitsObjects = maintiers.map(kit => {
                 const tier = getCleanTier(player, kit);
                 const ret = isKitRetired(player, kit);
+                
+                let sortWeight = -10000; // По умолчанию вес для Unranked
+                
+                if (tier !== "Unranked") {
+                    const pts = tierPoints[tier] || 0;
+                    if (!ret) {
+                        sortWeight = pts; // Активный кит: наивысший приоритет (по PTS)
+                    } else {
+                        sortWeight = pts - 5000; // Retired кит: средний приоритет (по PTS, но ниже активных)
+                    }
+                }
+                
+                return { kit, tier, ret, sortWeight };
+            });
+
+            // Сортировка по убыванию веса: Активные -> Retired -> Unranked
+            playerKitsObjects.sort((a, b) => b.sortWeight - a.sortWeight);
+
+            quickTiersHTML = `<div class="player-tiers-row">`;
+            playerKitsObjects.forEach(item => {
+                const kit = item.kit;
+                const tier = item.tier;
+                const ret = item.ret;
                 const clr = tierColors[tier] || '#444b66';
                 const iconSrc = kitImages[kit] || "";
                 const labelText = (ret && tier !== "Unranked") ? `R${tier}` : tier;
                 
                 if (tier !== "Unranked") {
+                    // Оставляем цветную обводку из первого скриншота, добавляем opacity только для retired
                     quickTiersHTML += `
-                    <div class="tier-item-box">
+                    <div class="tier-item-box" style="${ret ? 'opacity: 0.5;' : ''}">
                         <div class="tier-icon-circle" style="border-color: ${clr}cc; box-shadow: 0 0 6px ${clr}22;">
                             <img src="${iconSrc}" onerror="this.style.opacity=0" alt="">
                         </div>
                         <div class="tier-label-under" style="color: ${clr};">${labelText}</div>
                     </div>`;
                 } else {
+                    // Пустые (Unranked) киты в самом конце
                     quickTiersHTML += `
                     <div class="tier-item-box">
                         <div class="tier-icon-circle unranked">
@@ -306,7 +333,6 @@ function renderPlayers() {
             quickTiersHTML += `</div>`;
         }
 
-        // Проверка на вывод тега RETIRED в карточке
         let displayProfileRetiredTag = hasAnyRetiredKit(player);
 
         htmlFragment += `
@@ -355,7 +381,6 @@ function applyFaqTierColors() {
     const tiersToColor = ['HT1', 'HT2', 'LT1', 'LT2', 'LT3'];
     tiersToColor.forEach(tier => {
         const color = tierColors[tier] || 'var(--accent)';
-        // Находим все элементы-заглушки во вкладке FAQ и красим их
         for (let i = 1; i <= 4; i++) {
             const element = document.getElementById(`faqColor${tier}_${i}`);
             if (element) {
@@ -444,7 +469,6 @@ if (document.getElementById('searchInput')) {
     document.getElementById('searchInput').addEventListener('input', renderPlayers);
     document.getElementById('regionFilter').addEventListener('change', renderPlayers);
     document.getElementById('deviceFilter').addEventListener('change', renderPlayers);
-    document.getElementById('kitFilter').addEventListener('change', net);
     document.getElementById('kitFilter').addEventListener('change', renderPlayers);
     document.getElementById('retiredToggle').addEventListener('change', renderPlayers);
 }
