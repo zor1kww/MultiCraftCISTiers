@@ -262,8 +262,28 @@ function renderPlayers() {
         
         if (targetKit === 'all') {
             totalPts = calcPoints(player, maintiers);
-            const activeMainKits = maintiers.filter(k => getCleanTier(player, k) !== "Unranked");
-            tierDisplayHtml = `<span style="color:var(--text-muted);font-size:13px;">Kits: ${activeMainKits.length}</span>`;
+            
+            // Объединяем main и sub киты для вывода горизонтальной строки иконок (как на втором скриншоте)
+            const allKits = [...maintiers, ...subtiers];
+            tierDisplayHtml = `<div class="player-tiers-row">`;
+            
+            allKits.forEach(k => {
+                const cleanT = getCleanTier(player, k);
+                if (cleanT !== "Unranked") {
+                    const iconSrc = kitImages[k] || "";
+                    const kitRet = isKitRetired(player, k);
+                    const color = tierColors[cleanT] || '#fff';
+                    tierDisplayHtml += `
+                        <div class="tier-item-box" style="${kitRet ? 'opacity: 0.5;' : ''}">
+                            <div class="tier-icon-circle" style="border-color: ${color}88;">
+                                <img src="${iconSrc}" onerror="this.style.opacity='0'" alt="">
+                            </div>
+                            <span class="tier-label-under" style="color: ${color};">${kitRet ? 'R' : ''}${cleanT}</span>
+                        </div>`;
+                }
+            });
+            
+            tierDisplayHtml += `</div>`;
         } else {
             const cleanT = getCleanTier(player, targetKit);
             totalPts = tierPoints[cleanT] || 0;
