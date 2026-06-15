@@ -313,19 +313,27 @@ body, html {
 .players-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
+}
+
+/* ==========================================================================
+   ИСПРАВЛЕННАЯ СЕТКА КАРТОЧЕК ИГРОКОВ (Глобально и для мобильных)
+   ========================================================================== */
+.player-container {
+    width: 100%;
 }
 
 .player-card-row {
-    padding: 14px 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
+    padding: 16px;
+    display: grid;
+    grid-template-columns: 90px 1fr 90px;
+    align-items: start;
+    gap: 12px;
     cursor: pointer;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
-    border-radius: 14px;
+    border-radius: 18px;
+    position: relative;
 }
 
 .player-card-row:hover {
@@ -333,42 +341,82 @@ body, html {
     background: var(--card-hover);
 }
 
-.p-rank-box {
-    color: var(--accent);
-    font-size: 16px;
-    font-weight: bold;
-    min-width: 35px;
-}
-
-.p-info-box {
+/* Левая колонка: Ранг и Мета-теги */
+.player-left {
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    min-width: 120px;
+    gap: 12px;
+    align-items: flex-start;
 }
 
-.p-name {
-    color: var(--text-main);
-    font-size: 16px;
-    word-break: break-all;
+.player-rank {
+    color: var(--accent);
+    font-size: 18px;
+    font-weight: bold;
 }
 
-.p-meta {
+.player-meta-box {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+.player-meta-tag {
+    display: inline-block;
     font-size: 11px;
     color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    padding: 3px 6px;
+    border-radius: 4px;
+    text-align: center;
+    width: fit-content;
+    min-width: 32px;
 }
 
-.p-tiers-box {
-    flex-grow: 1;
+.retired-meta-tag {
+    display: inline-block;
+    font-size: 10px;
+    color: #ff4a4a;
+    background: rgba(255, 74, 74, 0.1);
+    border: 1px solid rgba(255, 74, 74, 0.25);
+    padding: 3px 6px;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+    width: fit-content;
+}
+
+/* Центральная колонка: Ник сверху, Иконки снизу */
+.player-center {
     display: flex;
+    flex-direction: column;
+    gap: 14px;
     align-items: center;
+    width: 100%;
+    overflow: hidden;
 }
 
+.player-name-wrapper {
+    width: 100%;
+    text-align: center;
+}
+
+.player-name {
+    color: var(--text-main);
+    font-size: 18px;
+    word-break: break-all;
+    text-align: center;
+}
+
+/* Горизонтальный ряд иконок китов строго в 1 линию */
 .player-tiers-row {
     display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    margin-top: 4px;
+    justify-content: center;
+    gap: 4px;
+    width: 100%;
+    flex-wrap: nowrap !important; /* Строго запрещаем перенос */
 }
 
 .tier-item-box {
@@ -376,12 +424,15 @@ body, html {
     flex-direction: column;
     align-items: center;
     gap: 3px;
-    width: 38px;
+    flex: 1 1 0; /* Равномерно распределяем слоты */
+    min-width: 0;
 }
 
 .tier-icon-circle {
-    width: 32px;
-    height: 32px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    max-width: 32px;
+    max-height: 32px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.03);
     border: 1.5px solid rgba(255, 255, 255, 0.1);
@@ -398,19 +449,37 @@ body, html {
     object-fit: contain;
 }
 
-.tier-label-under {
-    font-size: 9px;
-    font-weight: bold;
-    text-align: center;
+.tier-icon-circle.unranked {
+    border-color: rgba(255, 255, 255, 0.05);
+    opacity: 0.2;
 }
 
-.p-pts-box {
+.tier-label-under {
+    font-size: 8px;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Правая колонка: PTS */
+.player-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    text-align: right;
     font-size: 16px;
     font-weight: bold;
-    color: var(--text-main);
-    text-align: right;
-    min-width: 80px;
 }
+
+/* Статусы топ-рангов и Retired карточек */
+.retired-status .player-card-row {
+    border-color: rgba(255, 74, 74, 0.15);
+}
+.top-rank-1 .player-rank { color: #ffd700; }
+.top-rank-2 .player-rank { color: #c0c0c0; }
+.top-rank-3 .player-rank { color: #cd7f32; }
+
+/* ========================================================================== */
 
 .tier-badge {
     padding: 4px 10px;
@@ -683,9 +752,6 @@ body, html {
     color: #a6b2c9;
 }
 
-/* ==========================================================================
-   ОБНОВЛЕННЫЙ И ОПТИМИЗИРОВАННЫЙ РАЗДЕЛ ВИКИ
-   ========================================================================== */
 .wiki-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -697,7 +763,7 @@ body, html {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 16px;
-    padding: 24px; /* Увеличенные безопасные отступы от краев */
+    padding: 24px;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -724,7 +790,6 @@ body, html {
     letter-spacing: 0.5px;
 }
 
-/* Стандартизированный красивый мелкий текст */
 .wiki-card p, 
 .wiki-stats, 
 .wiki-trains {
@@ -757,7 +822,7 @@ body, html {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    margin-top: auto; /* Прижимает картинку к низу карточки */
+    margin-top: auto;
     width: 100%;
 }
 
@@ -767,10 +832,6 @@ body, html {
     display: block;
     object-fit: contain;
 }
-
-/* ==========================================================================
-   КОНЕЦ РАЗДЕЛА ВИКИ
-   ========================================================================== */
 
 .info-section {
     margin-bottom: 35px;
@@ -882,37 +943,7 @@ body, html {
     .hero h1 { font-size: 26px; }
     .filters, .filters-row-2 { grid-template-columns: 1fr; gap: 8px; }
     
-    .player-card-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-        padding: 14px;
-    }
-    
-    .p-info-box {
-        width: 100%;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .p-meta {
-        font-size: 12px;
-    }
-    
-    .p-tiers-box {
-        width: 100%;
-        justify-content: flex-start;
-        padding: 4px 0;
-    }
-    
-    .p-pts-box {
-        text-align: right;
-        width: 100%;
-        border-top: 1px solid var(--border-color);
-        padding-top: 8px;
-    }
-    
+    /* УДАЛЕН КРАШИВШИЙ ВЕРСТКУ BLOCK/COLUMN РЕЖИМ ДЛЯ КАРТОЧЕК */
     .modal-grid {
         grid-template-columns: 1fr;
     }
@@ -927,12 +958,11 @@ body, html {
         text-align: center;
     }
 
-    /* Дополнительные безопасные лимиты для Вики на мобилках */
     .wiki-grid {
         grid-template-columns: 1fr;
         gap: 16px;
     }
     .wiki-card {
-        padding: 16px; /* Оптимально для экранов телефонов */
+        padding: 16px;
     }
 }
