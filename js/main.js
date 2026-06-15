@@ -529,3 +529,24 @@ function applyLanguage() {
 
     renderPlayers();
 }
+
+function toggleLanguage() {
+    currentLanguage =
+        currentLanguage === "ru"
+            ? "en"
+            : "ru";
+
+    localStorage.setItem(
+        "language",
+        currentLanguage
+    );
+
+    applyLanguage();
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+        applyLanguage();
+    }
+);
