@@ -364,6 +364,45 @@ body, html {
     align-items: center;
     gap: 20px;
     cursor: pointer;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+}
+
+.player-card-row:hover {
+    border-color: var(--accent);
+    background: var(--card-hover);
+}
+
+.p-rank-box {
+    color: var(--accent);
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 35px;
+}
+
+.p-info-box {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 120px;
+}
+
+.p-name {
+    color: var(--text-main);
+    font-size: 16px;
+    word-break: break-all;
+}
+
+.p-meta {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.p-tiers-box {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
 }
 
 .player-left {
@@ -420,7 +459,7 @@ body, html {
 
 .player-tiers-row {
     display: flex;
-    gap: 10px;
+    gap: 6px;
     flex-wrap: wrap;
     margin-top: 4px;
 }
@@ -430,7 +469,7 @@ body, html {
     flex-direction: column;
     align-items: center;
     gap: 3px;
-    width: 42px;
+    width: 38px;
 }
 
 .tier-icon-circle {
@@ -457,9 +496,17 @@ body, html {
 }
 
 .tier-label-under {
-    font-size: 10px;
+    font-size: 9px;
     font-weight: bold;
     text-align: center;
+}
+
+.p-pts-box {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--text-main);
+    text-align: right;
+    min-width: 80px;
 }
 
 .player-right {
@@ -761,16 +808,26 @@ body, html {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 14px;
-    padding: 15px;
+    padding: 20px;
 }
 .wiki-card h3 {
     color: var(--accent);
     font-size: 18px;
 }
 .wiki-card p {
-    font-size: 13px;
+    font-size: 12px !important;
+    line-height: 1.5 !important;
     color: var(--text-muted);
-    line-height: 1.5;
+    margin-bottom: 12px;
+}
+.wiki-stats {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 10px;
+}
+.wiki-trains {
+    font-size: 11px !important;
+    line-height: 1.4 !important;
     margin-bottom: 12px;
 }
 .inv-preview-box {
@@ -906,25 +963,33 @@ body, html {
     
     .player-card-row {
         flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
+        align-items: flex-start;
+        gap: 10px;
         padding: 14px;
     }
     
-    .player-left {
+    .p-info-box {
+        width: 100%;
+        flex-direction: row;
         justify-content: space-between;
-        width: 100%;
+        align-items: center;
+    }
+
+    .p-meta {
+        font-size: 12px;
     }
     
-    .player-center {
+    .p-tiers-box {
         width: 100%;
+        justify-content: flex-start;
+        padding: 4px 0;
     }
     
-    .player-right {
+    .p-pts-box {
         text-align: right;
         width: 100%;
         border-top: 1px solid var(--border-color);
-        padding-top: 10px;
+        padding-top: 8px;
     }
     
     .modal-grid {
@@ -937,7 +1002,7 @@ body, html {
     }
     
     .info-nav-btn {
-        width: 100%;
+      width: 100%;
         text-align: center;
     }
 }
