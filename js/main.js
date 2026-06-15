@@ -493,26 +493,39 @@ function initSite() {
 let currentLanguage = localStorage.getItem("language") || "ru";
 
 function applyLanguage() {
-    const ruElements = document.querySelectorAll(".lang-ru");
-    const enElements = document.querySelectorAll(".lang-en");
+    const ruElements =
+        document.querySelectorAll(".lang-ru");
+
+    const enElements =
+        document.querySelectorAll(".lang-en");
 
     if (currentLanguage === "en") {
-        ruElements.forEach(el => el.style.display = "none");
-        enElements.forEach(el => el.style.display = "");
+        ruElements.forEach(el =>
+            el.style.display = "none"
+        );
+
+        enElements.forEach(el =>
+            el.style.display = ""
+        );
     } else {
-        ruElements.forEach(el => el.style.display = "");
-        enElements.forEach(el => el.style.display = "none");
+        ruElements.forEach(el =>
+            el.style.display = ""
+        );
+
+        enElements.forEach(el =>
+            el.style.display = "none"
+        );
     }
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    if (searchInput) {
+        searchInput.placeholder =
+            currentLanguage === "en"
+                ? "Search player..."
+                : "Поиск игрока...";
+    }
+
+    renderPlayers();
 }
-
-function toggleLanguage() {
-    currentLanguage = currentLanguage === "ru" ? "en" : "ru";
-
-    localStorage.setItem("language", currentLanguage);
-
-    applyLanguage();
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    applyLanguage();
-});
