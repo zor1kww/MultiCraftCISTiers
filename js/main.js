@@ -496,7 +496,6 @@ function copyInviteCode() {
             }, 1500);
         }
     }).catch(err => {
-        // Резервный вариант копирования для старых прошивок / браузеров
         const el = document.createElement('textarea');
         el.value = inviteCode;
         document.body.appendChild(el);
