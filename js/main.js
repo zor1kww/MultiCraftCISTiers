@@ -277,60 +277,22 @@ function renderPlayers() {
 
         let quickTiersHTML = '';
         if (targetKit === 'all') {
-            // Создаем массив объектов китов текущего игрока, чтобы отсортировать их по весу результата
-            let playerKitsObjects = maintiers.map(kit => {
+            quickTiersHTML = `<div class="player-tiers-row">`;
+            maintiers.forEach(kit => {
                 const tier = getCleanTier(player, kit);
                 const ret = isKitRetired(player, kit);
-                
-                // Рассчитываем приоритет сортировки:
-                // 1. Активные киты (сортировка от HT1 к LT5 по количеству PTS)
-                // 2. Retired киты (сортировка от RHT1 к RLT5 по количеству PTS)
-                // 3. Unranked киты (самый низший приоритет)
-                let sortWeight = -1000;
-                if (tier !== "Unranked") {
-                    const pts = tierPoints[tier] || 0;
-                    if (!ret) {
-                        sortWeight = pts; // Активный кит: вес от 1000 до 100
-                    } else {
-                        sortWeight = pts - 5000; // Retired кит: вес от -4000 до -4900
-                    }
-                } else {
-                    sortWeight = -10000; // Unranked кит: минимальный вес
-                }
-                
-                return { kit, tier, ret, sortWeight };
-            });
-
-            // Сортировка мейн-китов слева направо (от наибольшего sortWeight к наименьшему)
-            playerKitsObjects.sort((a, b) => b.sortWeight - a.sortWeight);
-
-            quickTiersHTML = `<div class="player-tiers-row">`;
-            playerKitsObjects.forEach(item => {
-                const kit = item.kit;
-                const tier = item.tier;
-                const ret = item.ret;
                 const clr = tierColors[tier] || '#444b66';
                 const iconSrc = kitImages[kit] || "";
                 const labelText = (ret && tier !== "Unranked") ? `R${tier}` : tier;
                 
                 if (tier !== "Unranked") {
-                    if (!showRetiredInPlace && ret) {
-                        quickTiersHTML += `
-                        <div class="tier-item-box" style="opacity: 0.25;">
-                            <div class="tier-icon-circle unranked">
-                                <img src="${iconSrc}" onerror="this.style.opacity=0" alt="">
-                            </div>
-                            <div class="tier-label-under" style="color: #444b66;">-</div>
-                        </div>`;
-                    } else {
-                        quickTiersHTML += `
-                        <div class="tier-item-box" style="${ret ? 'opacity:0.4;' : ''}">
-                            <div class="tier-icon-circle" style="border-color: ${clr}cc; box-shadow: 0 0 6px ${clr}22;">
-                                <img src="${iconSrc}" onerror="this.style.opacity=0" alt="">
-                            </div>
-                            <div class="tier-label-under" style="color: ${clr};">${labelText}</div>
-                        </div>`;
-                    }
+                    quickTiersHTML += `
+                    <div class="tier-item-box">
+                        <div class="tier-icon-circle" style="border-color: ${clr}cc; box-shadow: 0 0 6px ${clr}22;">
+                            <img src="${iconSrc}" onerror="this.style.opacity=0" alt="">
+                        </div>
+                        <div class="tier-label-under" style="color: ${clr};">${labelText}</div>
+                    </div>`;
                 } else {
                     quickTiersHTML += `
                     <div class="tier-item-box">
@@ -482,6 +444,7 @@ if (document.getElementById('searchInput')) {
     document.getElementById('searchInput').addEventListener('input', renderPlayers);
     document.getElementById('regionFilter').addEventListener('change', renderPlayers);
     document.getElementById('deviceFilter').addEventListener('change', renderPlayers);
+    document.getElementById('kitFilter').addEventListener('change', net);
     document.getElementById('kitFilter').addEventListener('change', renderPlayers);
     document.getElementById('retiredToggle').addEventListener('change', renderPlayers);
 }
@@ -504,7 +467,6 @@ function copyInviteCode() {
             }, 1500);
         }
     }).catch(err => {
-        // Резервный вариант копирования для старых прошивок / браузеров
         const el = document.createElement('textarea');
         el.value = inviteCode;
         document.body.appendChild(el);
