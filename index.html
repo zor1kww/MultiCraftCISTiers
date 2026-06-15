@@ -36,44 +36,34 @@
 </div>
 
 <div class="sidebar" id="sidebar">
-    <h3><span class="lang-ru">Навигация</span><span class="lang-en" style="display:none;">Navigation</span></h3>
-    <a href="#" onclick="switchTab('mainPage')"><span class="lang-ru">Главная</span><span class="lang-en" style="display:none;">Home</span></a>
-    <a href="#" onclick="switchTab('infoCenterTab')"><span class="lang-ru">Информация</span><span class="lang-en" style="display:none;">Information</span></a>
-    <a href="#" onclick="switchTab('wikiTab')"><span class="lang-ru">Вики</span><span class="lang-en" style="display:none;">Wiki</span></a>
-    <a href="#" onclick="switchTab('hallTab')"><span class="lang-ru">Доска почета</span><span class="lang-en" style="display:none;">Hall of Fame</span></a>
+    <h3>Навигация</h3>
+    <a href="#" onclick="switchTab('mainPage')">Главная</a>
+    <a href="#" onclick="switchTab('infoCenterTab')">Информация</a>
+    <a href="#" onclick="switchTab('wikiTab')">Вики</a>
+    <a href="#" onclick="switchTab('hallTab')">Доска почета</a>
     <a href="https://t.me/MultiCraftCISTiers" target="_blank">Telegram</a>
     
     <div class="theme-toggle-container">
-        <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">
-            <span class="lang-ru">☀️ Светлая тема</span><span class="lang-en" style="display:none;">☀️ Light theme</span>
-        </button>
-        <button class="theme-toggle-btn" id="langToggleBtn" onclick="toggleLanguage()" style="margin-top: 10px;">
-            <span class="lang-ru">🇬🇧 English</span><span class="lang-en" style="display:none;">🇷🇺 Русский</span>
-        </button>
+        <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">☀️ Светлая тема</button>
+        
+        <div class="mc-invite-container" style="display: block; background: #2c2c2c; border: 2px solid #555; padding: 10px 12px; margin-top: 15px; border-radius: 4px; box-shadow: 0 4px 0 #000; text-align: center;">
+            <span style="color: #aaa; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 4px;">Server Invite Code</span>
+            <strong style="color: #55ff55; font-size: 16px; letter-spacing: 2px; font-family: monospace;">UA75LL01</strong>
+        </div>
     </div>
 </div>
 
 <header class="header">
     <div class="logo">MultiCraftCISTiers</div>
-    
-    <div class="invite-container" onclick="copyInvite()" title="Скопировать / Copy IP">
-        <span class="invite-label"><span class="lang-ru">IP:</span><span class="lang-en" style="display:none;">IP:</span></span>
-        <span class="invite-code">UA75LL01</span>
-        <span class="copy-icon">📋</span>
-    </div>
-
     <div class="header-right">
-        <button class="menu-btn" id="menuBtn"><span class="lang-ru">Меню</span><span class="lang-en" style="display:none;">Menu</span></button>
+        <button class="menu-btn" id="menuBtn">Меню</button>
     </div>
 </header>
 
 <div class="main-page" id="mainPage" style="display: block;">
     <div class="hero">
         <h1 id="leaderboardTitle">OVERALL PVP TOP</h1>
-        <p>
-            <span class="lang-ru">Главный соревновательный рейтинг СНГ PvP комьюнити MultiCraftCISTiers. Прогрессируйте, сдавайте тесты квалифицированным тестерам и занимайте топовые позиции.</span>
-            <span class="lang-en" style="display:none;">The main competitive ranking of the CIS PvP community MultiCraftCISTiers. Progress, pass tests with qualified testers, and take top positions.</span>
-        </p>
+        <p>Главный соревновательный рейтинг СНГ PvP комьюнити MultiCraftCISTiers. Прогрессируйте, сдавайте тесты квалифицированным тестерам и занимайте топовые позиции.</p>
 
         <div class="tg-wrapper">
             <a class="telegram-btn" href="https://t.me/MultiCraftCISTiers" target="_blank">Telegram</a>
@@ -83,7 +73,7 @@
             <input type="text" id="searchInput" placeholder="Поиск игрока...">
             
             <select id="kitFilter">
-                <option value="all" class="lang-opt" data-ru="Все режимы (Overall)" data-en="All kits (Overall)">Все режимы (Overall)</option>
+                <option value="all">Все режимы (Overall)</option>
                 <optgroup label="Main Kits">
                     <option value="Hardcore">Hardcore</option>
                     <option value="Manhunt">Manhunt</option>
@@ -107,7 +97,7 @@
         
         <div class="filters-row-2">
             <select id="regionFilter">
-                <option value="all" class="lang-opt" data-ru="Все регионы СНГ" data-en="All CIS regions">Все регионы СНГ</option>
+                <option value="all">Все регионы СНГ</option>
                 <option value="RU">RU</option>
                 <option value="UA">UA</option>
                 <option value="BY">BY</option>
@@ -121,7 +111,7 @@
             </select>
 
             <select id="deviceFilter">
-                <option value="all" class="lang-opt" data-ru="Все устройства" data-en="All devices">Все устройства</option>
+                <option value="all">Все устройства</option>
                 <option value="PH">Phone [PH]</option>
                 <option value="TB">Tablet [TB]</option>
                 <option value="PC">PC [PC]</option>
@@ -133,8 +123,7 @@
         <div class="filters-row-3">
             <label class="checkbox-label">
                 <input type="checkbox" id="retiredToggle" checked>
-                <span class="lang-ru">Показывать Retired в топе (наравне по PTS)</span>
-                <span class="lang-en" style="display:none;">Show Retired in top (equal by PTS)</span>
+                Показывать Retired в топе (наравне по PTS)
             </label>
         </div>
 
@@ -144,10 +133,8 @@
 </div>
 
 <div class="tab-content" id="wikiTab" style="display: none;">
-    <button class="back-btn" onclick="backHome()">
-        <span class="lang-ru">Назад на Главную</span><span class="lang-en" style="display:none;">Back to Home</span>
-    </button>
-    <h2 class="section-title"><span class="lang-ru">Вики — Гайды по режимам</span><span class="lang-en" style="display:none;">Wiki — Kit Guides</span></h2>
+    <button class="back-btn" onclick="backHome()">Назад на Главную</button>
+    <h2 class="section-title">Вики — Гайды по режимам</h2>
     
     <div class="wiki-grid">
         <div class="wiki-card">
@@ -155,13 +142,10 @@
                 <img class="wiki-title-icon" src="assets/logos/hardcore.png" alt="">
                 <h3>Hardcore</h3>
             </div>
-            <p>
-                <span class="lang-ru">Классическое PvP на истощение. Важно следить за таймингами ударов и расходом брони.</span>
-                <span class="lang-en" style="display:none;">Classic attrition PvP. It is important to monitor hit timings and armor consumption.</span>
-            </p>
+            <p>Классическое PvP на истощение. Важно следить за таймингами ударов и расходом брони.</p>
             <div class="inv-preview-box">
                 <img src="assets/wiki/hardcore_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря / Screenshot]</span>
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря Hardcore]</span>
             </div>
         </div>
 
@@ -170,13 +154,10 @@
                 <img class="wiki-title-icon" src="assets/logos/manhunt.png" alt="">
                 <h3>Manhunt</h3>
             </div>
-            <p>
-                <span class="lang-ru">Динамичный режим с упором на позиционирование, использование лавы и ведер с водой.</span>
-                <span class="lang-en" style="display:none;">Dynamic mode focusing on positioning, using lava, and water buckets.</span>
-            </p>
+            <p>Динамичный режим с упором на позиционирование, использование лавы и ведер с водой.</p>
             <div class="inv-preview-box">
                 <img src="assets/wiki/manhunt_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря / Screenshot]</span>
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря Manhunt]</span>
             </div>
         </div>
 
@@ -185,13 +166,10 @@
                 <img class="wiki-title-icon" src="assets/logos/diamond.png" alt="">
                 <h3>Diamond</h3>
             </div>
-            <p>
-                <span class="lang-ru">Бои в классической алмазной броне. Ключ к победе заключается в поддержании стабильного комбо.</span>
-                <span class="lang-en" style="display:none;">Fights in classic diamond armor. The key to victory is maintaining a stable combo.</span>
-            </p>
+            <p>Бои в классической алмазной броне. Ключ к победе заключается в поддержании стабильного комбо.</p>
             <div class="inv-preview-box">
                 <img src="assets/wiki/diamond_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря / Screenshot]</span>
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря Diamond]</span>
             </div>
         </div>
 
@@ -200,13 +178,10 @@
                 <img class="wiki-title-icon" src="assets/logos/beast.png" alt="">
                 <h3>Beast</h3>
             </div>
-            <p>
-                <span class="lang-ru">Режим с повышенным уроном. Требует умения агрессивно атаковать и моментально принимать решения.</span>
-                <span class="lang-en" style="display:none;">High damage mode. Requires the ability to attack aggressively and make instant decisions.</span>
-            </p>
+            <p>Режим с повышенным уроном. Требует умения агрессивно атаковать и моментально принимать решения.</p>
             <div class="inv-preview-box">
                 <img src="assets/wiki/beast_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря / Screenshot]</span>
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря Beast]</span>
             </div>
         </div>
 
@@ -215,13 +190,10 @@
                 <img class="wiki-title-icon" src="assets/logos/emerald.png" alt="">
                 <h3>Emerald</h3>
             </div>
-            <p>
-                <span class="lang-ru">Сбалансированный сетап со средними показателями защиты. Важную роль играет контроль дистанции.</span>
-                <span class="lang-en" style="display:none;">Balanced setup with average defense stats. Distance control plays a crucial role.</span>
-            </p>
+            <p>Сбалансированный сетап со средними показателями защиты. Важную роль играет контроль дистанции.</p>
             <div class="inv-preview-box">
                 <img src="assets/wiki/emerald_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря / Screenshot]</span>
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря Emerald]</span>
             </div>
         </div>
 
@@ -230,13 +202,10 @@
                 <img class="wiki-title-icon" src="assets/logos/emerald_pot.png" alt="">
                 <h3>Emerald Pot</h3>
             </div>
-            <p>
-                <span class="lang-ru">Скоростной режим со взрывными зельями исцеления. Необходимо вовремя бросать зелья под ноги.</span>
-                <span class="lang-en" style="display:none;">High-speed mode with splash potions of healing. Potions must be thrown underfoot in time.</span>
-            </p>
+            <p>Скоростной режим со взрывными зельями исцеления. Необходимо вовремя бросать зелья под ноги.</p>
             <div class="inv-preview-box">
                 <img src="assets/wiki/emerald_pot_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря / Screenshot]</span>
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря Emerald Pot]</span>
             </div>
         </div>
 
@@ -245,13 +214,10 @@
                 <img class="wiki-title-icon" src="assets/logos/rvm.png" alt="">
                 <h3>RVM</h3>
             </div>
-            <p>
-                <span class="lang-ru">Уникальный тактический формат. Высокая зависимость от ландшафта карты и инженерных блоков.</span>
-                <span class="lang-en" style="display:none;">Unique tactical format. High dependence on map terrain and engineering blocks.</span>
-            </p>
+            <p>Уникальный тактический формат. Высокая зависимость от ландшафта карты и инженерных блоков.</p>
             <div class="inv-preview-box">
                 <img src="assets/wiki/rvm_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря / Screenshot]</span>
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря RVM]</span>
             </div>
         </div>
 
@@ -260,13 +226,10 @@
                 <img class="wiki-title-icon" src="assets/logos/dragonhide.png" alt="">
                 <h3>Dragonhide</h3>
             </div>
-            <p>
-                <span class="lang-ru">Режим с максимальной плотностью брони и долгими разменами. Ошибки в таймингах критичны.</span>
-                <span class="lang-en" style="display:none;">Mode with maximum armor density and long trades. Timing mistakes are critical.</span>
-            </p>
+            <p>Режим с максимальной плотностью брони и долгими разменами. Ошибки в таймингах критичны.</p>
             <div class="inv-preview-box">
                 <img src="assets/wiki/dragonhide_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря / Screenshot]</span>
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря Dragonhide]</span>
             </div>
         </div>
 
@@ -275,13 +238,10 @@
                 <img class="wiki-title-icon" src="assets/logos/pickaxe.png" alt="">
                 <h3>Pickaxe</h3>
             </div>
-            <p>
-                <span class="lang-ru">Кастомный режим ближнего боя с использованием кирок. Отличается измененной динамикой пробития.</span>
-                <span class="lang-en" style="display:none;">Custom melee mode using pickaxes. Features altered penetration dynamics.</span>
-            </p>
+            <p>Кастомный режим ближнего боя с использованием кирок. Отличается измененной динамикой пробития.</p>
             <div class="inv-preview-box">
                 <img src="assets/wiki/pickaxe_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря / Screenshot]</span>
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря Pickaxe]</span>
             </div>
         </div>
 
@@ -290,13 +250,10 @@
                 <img class="wiki-title-icon" src="assets/logos/smp.png" alt="">
                 <h3>SMP</h3>
             </div>
-            <p>
-                <span class="lang-ru">Классический ванильный сетап выживания, адаптированный под боевые условия.</span>
-                <span class="lang-en" style="display:none;">Classic vanilla survival setup adapted for combat conditions.</span>
-            </p>
+            <p>Классический ванильный сетап выживания, адаптированный под боевые условия.</p>
             <div class="inv-preview-box">
                 <img src="assets/wiki/smp_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря / Screenshot]</span>
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря SMP]</span>
             </div>
         </div>
 
@@ -305,13 +262,10 @@
                 <img class="wiki-title-icon" src="assets/logos/combo.png" alt="">
                 <h3>Combo</h3>
             </div>
-            <p>
-                <span class="lang-ru">Режим с полным отсутствием задержки на удары. Главная цель — поймать оппонента в бесконечный цикл.</span>
-                <span class="lang-en" style="display:none;">Mode with no hit delay. The main goal is to catch the opponent in an infinite loop.</span>
-            </p>
+            <p>Режим с полным отсутствием задержки на удары. Главная цель — поймать оппонента в бесконечный цикл.</p>
             <div class="inv-preview-box">
                 <img src="assets/wiki/combo_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря / Screenshot]</span>
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря Combo]</span>
             </div>
         </div>
 
@@ -320,13 +274,10 @@
                 <img class="wiki-title-icon" src="assets/logos/gapple.png" alt="">
                 <h3>Gapple</h3>
             </div>
-            <p>
-                <span class="lang-ru">Поединки на золотых яблоках с упором на долгое удержание темпа регенерации.</span>
-                <span class="lang-en" style="display:none;">Enchanted Golden Apple duels focusing on sustaining regeneration pace over time.</span>
-            </p>
+            <p>Поединки на золотых яблоках с упором на долгое удержание темпа регенерации.</p>
             <div class="inv-preview-box">
                 <img src="assets/wiki/gapple_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря / Screenshot]</span>
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря Gapple]</span>
             </div>
         </div>
 
@@ -335,13 +286,10 @@
                 <img class="wiki-title-icon" src="assets/logos/mace.png" alt="">
                 <h3>Mace</h3>
             </div>
-            <p>
-                <span class="lang-ru">Сражения с использованием Булавы. Огромный акцент на атаки в падении с высоты.</span>
-                <span class="lang-en" style="display:none;">Battles using the Mace. Huge emphasis on falling attacks from a height.</span>
-            </p>
+            <p>Сражения с использованием Булавы. Огромный акцент на атаки в падении с высоты.</p>
             <div class="inv-preview-box">
                 <img src="assets/wiki/mace_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря / Screenshot]</span>
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря Mace]</span>
             </div>
         </div>
 
@@ -350,82 +298,96 @@
                 <img class="wiki-title-icon" src="assets/logos/crystal.png" alt="">
                 <h3>Crystal</h3>
             </div>
-            <p>
-                <span class="lang-ru">Высокотехнологичный режим, завязанный на моментальном уроне от взрывов кристаллов Энда.</span>
-                <span class="lang-en" style="display:none;">High-tech mode reliant on instant damage from End Crystal explosions.</span>
-            </p>
+            <p>Высокотехнологичный режим, завязанный на моментальном уроне от взрывов кристаллов Энда.</p>
             <div class="inv-preview-box">
                 <img src="assets/wiki/crystal_inv.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря / Screenshot]</span>
+                <span class="img-placeholder" style="display:none;">[Скриншот инвентаря Crystal]</span>
             </div>
         </div>
     </div>
 </div>
 
 <div class="tab-content" id="hallTab" style="display: none;">
-    <button class="back-btn" onclick="backHome()">
-        <span class="lang-ru">Назад на Главную</span><span class="lang-en" style="display:none;">Back to Home</span>
-    </button>
-    <h2 class="section-title"><span class="lang-ru">Доска почета</span><span class="lang-en" style="display:none;">Hall of Fame</span></h2>
+    <button class="back-btn" onclick="backHome()">Назад на Главную</button>
+    <h2 class="section-title">Доска почета</h2>
     <div class="info-box">
-        <p style="margin-bottom: 12px; font-size: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; color: var(--accent);">
-            <span class="lang-ru">Руководство платформы:</span><span class="lang-en" style="display:none;">Platform Management:</span>
-        </p>
-        <strong style="color: var(--accent);">-999-</strong> — <span class="lang-ru">Создатель сервера HT1.</span><span class="lang-en" style="display:none;">Creator of the HT1 server.</span><br><br>
-        <strong style="color: var(--accent);">zor1kkqwix</strong> — <span class="lang-ru">Создатель и технический разработчик системы MultiCraftCISTiers.</span><span class="lang-en" style="display:none;">Creator and technical developer of the MultiCraftCISTiers system.</span>
+        <p style="margin-bottom: 12px; font-size: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; color: var(--accent);">Руководство платформы:</p>
+        <strong style="color: var(--accent);">-999-</strong> — Создатель сервера HT1.<br><br>
+        <strong style="color: var(--accent);">zor1kkqwix</strong> — Создатель и technical разработчик системы MultiCraftCISTiers.
     </div>
 </div>
 
 <div class="tab-content" id="infoCenterTab" style="display: none;">
-    <button class="back-btn" onclick="backHome()">
-        <span class="lang-ru">Назад на Главную</span><span class="lang-en" style="display:none;">Back to Home</span>
-    </button>
-    <h2 class="section-title"><span class="lang-ru">Информация</span><span class="lang-en" style="display:none;">Information</span></h2>
+    <button class="back-btn" onclick="backHome()">Назад на Главную</button>
+    <h2 class="section-title">Информация</h2>
     
     <div class="info-nav-buttons">
-        <button class="info-nav-btn active" onclick="switchInfoSubTab('tierTestSubTab', this)">
-            <span class="lang-ru">Как пройти тиртест?</span><span class="lang-en" style="display:none;">How to pass a tiertest?</span>
-        </button>
-        <button class="info-nav-btn" onclick="switchInfoSubTab('ptsSubTab', this)">
-            <span class="lang-ru">Распределение очков</span><span class="lang-en" style="display:none;">Points Distribution</span>
-        </button>
-        <button class="info-nav-btn" onclick="switchInfoSubTab('testersSubTab', this)">
-            <span class="lang-ru">Тестеры</span><span class="lang-en" style="display:none;">Testers</span>
-        </button>
+        <button class="info-nav-btn active" onclick="switchInfoSubTab('tierTestSubTab', this)">Как пройти тиртест?</button>
+        <button class="info-nav-btn" onclick="switchInfoSubTab('ptsSubTab', this)">Распределение очков</button>
+        <button class="info-nav-btn" onclick="switchInfoSubTab('testersSubTab', this)">Тестеры</button>
+        <button class="info-nav-btn" onclick="switchInfoSubTab('rulesSubTab', this)">Правила</button>
         <button class="info-nav-btn" onclick="switchInfoSubTab('faqSubTab', this)">FAQ</button>
-        <button class="info-nav-btn" onclick="switchInfoSubTab('rulesSubTab', this)">
-            <span class="lang-ru">Правила</span><span class="lang-en" style="display:none;">Rules</span>
-        </button>
     </div>
 
     <div class="info-box">
         
         <div id="tierTestSubTab" class="info-sub-tab-content" style="display: block;">
             <div class="info-section">
-                <div class="info-section-title">
-                    <span class="lang-ru">Как пройти тиртест?</span><span class="lang-en" style="display:none;">How to pass a tiertest?</span>
-                </div>
+                <div class="info-section-title">Как пройти тиртест?</div>
                 <div class="step-list">
                     <div class="step-card">
-                        <div class="step-num"><span class="lang-ru">1. Подача заявки</span><span class="lang-en" style="display:none;">1. Application</span></div>
-                        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">
-                            <span class="lang-ru">Игрок переходит в нашу Telegram-группу, находит раздел с интересующим его китом и отправляет заявку боту.</span>
-                            <span class="lang-en" style="display:none;">The player goes to our Telegram group, finds the section with the desired kit, and sends an application to the bot.</span>
-                        </p>
+                        <div class="step-num">1. Подача заявки</div>
+                        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">Игрок переходит в нашу Telegram-группу, находит раздел с интересующим его китом и отправляет заявку боту.</p>
                     </div>
                     <div class="step-card">
-                        <div class="step-num"><span class="lang-ru">2. Прохождение на сервере</span><span class="lang-en" style="display:none;">2. Passing on the server</span></div>
-                        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">
-                            <span class="lang-ru">Также пройти тиртест можно напрямую на сервере, договорившись с тиртестером лично во время его нахождения в сети (без обязательного использования Telegram).</span>
-                            <span class="lang-en" style="display:none;">You can also pass a tiertest directly on the server by agreeing with a tiertester in person when they are online (without necessarily using Telegram).</span>
-                        </p>
+                        <div class="step-num">2. Шаблон заявки</div>
+                        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">Для подачи заявки используйте предложенный ботом шаблон, кратко заполнив необходимую информацию.</p>
                     </div>
                     <div class="step-card">
-                        <div class="step-num"><span class="lang-ru">3. Проведение матча</span><span class="lang-en" style="display:none;">3. Match processing</span></div>
-                        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">
-                            <span class="lang-ru">После подачи заявки тестер свяжется с вами, чтобы договориться о времени проведения теста. По завершении матча результат будет опубликован на сайте.</span>
-                            <span class="lang-en" style="display:none;">After submitting an application, the tester will contact you to arrange a time. Upon completion of the match, the result will be published on the website.</span>
-                        </p>
+                        <div class="step-num">3. Проведение матча</div>
+                        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">После подачи заявки тестер свяжется с вами, чтобы договориться о времени проведения теста. Пройти тиртест можно также напрямую на сервере, договорившись с тиртестером лично, когда он находится в сети (без обязательного использования Telegram). Результат будет опубликован на сайте.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="ptsSubTab" class="info-sub-tab-content" style="display: none;">
+            <div class="info-section">
+                <div class="info-section-title">Распределение очков PTS</div>
+                <p style="font-size: 13px; color: var(--text-main); line-height: 1.6; margin-bottom: 15px;">
+                    Рейтинг игрока формируется путём суммирования очков PTS, полученных только за основные (main) киты. Очки, набранные за дополнительные (sub) киты, в общий рейтинг не учитываются.
+                </p>
+                <table class="faq-table">
+                    <thead>
+                        <tr>
+                            <th>Тир</th>
+                            <th>PTS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="faqTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="testersSubTab" class="info-sub-tab-content" style="display: none;">
+            <div class="info-section">
+                <div class="info-section-title">Тестеры</div>
+                <p style="font-size: 14px; color: var(--text-main); line-height: 1.6; margin-bottom: 20px;">
+                    Тестеры — это опытные игроки, которые проводят проверку навыков и помогают определить ваш уровень мастерства на платформе.
+                </p>
+                <div class="testers-grid">
+                    <div class="tester-card">
+                        <div class="tester-name">-999-</div>
+                        <div class="tester-status">Старший Тестер</div>
+                    </div>
+                    <div class="tester-card">
+                        <div class="tester-name">Sneger</div>
+                        <div class="tester-status">Старший Тестер</div>
+                    </div>
+                    <div class="tester-card">
+                        <div class="tester-name">zor1kkqwix</div>
+                        <div class="tester-status">Квалификационный Тестер</div>
                     </div>
                 </div>
             </div>
@@ -433,121 +395,39 @@
 
         <div id="rulesSubTab" class="info-sub-tab-content" style="display: none;">
             <div class="info-section">
-                <div class="info-section-title">
-                    <span class="lang-ru">Правила платформы</span><span class="lang-en" style="display:none;">Platform Rules</span>
-                </div>
-                <ul class="rules-list">
-                    <li>
-                        <span class="lang-ru">Если вы хотите пройти тиртест с другого устройства, вам необходимо создать второй (отдельный) аккаунт.</span>
-                        <span class="lang-en" style="display:none;">If you want to pass a tiertest from another device, you must create a second (separate) account.</span>
-                    </li>
-                    <li>
-                        <span class="lang-ru">Запрещено использование любых сторонних модификаций, читов или макросов, дающих преимущество в бою.</span>
-                        <span class="lang-en" style="display:none;">The use of any third-party modifications, cheats, or macros that provide an advantage in combat is strictly prohibited.</span>
-                    </li>
-                    <li>
-                        <span class="lang-ru">Запрещено умышленно затягивать процесс тиртеста или проявлять токсичность/неуважение к тиртестерам.</span>
-                        <span class="lang-en" style="display:none;">It is forbidden to intentionally delay the tiertest process or show toxicity/disrespect towards tiertesters.</span>
-                    </li>
-                    <li>
-                        <span class="lang-ru">Запрещена передача своего верифицированного аккаунта третьим лицам.</span>
-                        <span class="lang-en" style="display:none;">Transferring your verified account to third parties is strictly prohibited.</span>
-                    </li>
+                <div class="info-section-title">Правила платформы</div>
+                <ul class="rules-list-container" style="margin-left: 20px; margin-top: 15px; font-size: 14px; color: var(--text-main); line-height: 1.8; list-style-type: decimal; padding-left: 0;">
+                    <li style="margin-bottom: 10px;">Если вы хотите пройти тиртест с другого устройства, вам необходимо создать второй (отдельный) аккаунт.</li>
+                    <li style="margin-bottom: 10px;">Запрещено использование любых сторонних модификаций, читов или макросов, дающих преимущество в бою.</li>
+                    <li style="margin-bottom: 10px;">Запрещено умышленно затягивать процесс тиртеста или проявлять токсичность/неуважение к тиртестерам.</li>
+                    <li style="margin-bottom: 10px;">Запрещена передача своего верифицированного аккаунта третьим лицам.</li>
                 </ul>
-            </div>
-        </div>
-
-        <div id="ptsSubTab" class="info-sub-tab-content" style="display: none;">
-            <div class="info-section">
-                <div class="info-section-title">
-                    <span class="lang-ru">Распределение очков PTS</span><span class="lang-en" style="display:none;">PTS Distribution</span>
-                </div>
-                <p style="font-size: 13px; color: var(--text-main); line-height: 1.6; margin-bottom: 15px;">
-                    <span class="lang-ru">Рейтинг игрока формируется путём суммирования очков PTS, полученных только за основные (main) киты. Очки, набранные за дополнительные (sub) киты, в общий рейтинг не учитываются.</span>
-                    <span class="lang-en" style="display:none;">A player's rating is formed by summing up PTS earned only from main kits. Points earned from sub kits are not included in the overall rating.</span>
-                </p>
-                <table class="faq-table">
-                    <thead>
-                        <tr>
-                            <th><span class="lang-ru">Тир</span><span class="lang-en" style="display:none;">Tier</span></th>
-                            <th>PTS</th>
-                        </tr>
-                    </thead>
-                    <tbody id="faqTableBody"></tbody>
-                </table>
-            </div>
-        </div>
-
-        <div id="testersSubTab" class="info-sub-tab-content" style="display: none;">
-            <div class="info-section">
-                <div class="info-section-title">
-                    <span class="lang-ru">Тестеры</span><span class="lang-en" style="display:none;">Testers</span>
-                </div>
-                <p style="font-size: 14px; color: var(--text-main); line-height: 1.6; margin-bottom: 20px;">
-                    <span class="lang-ru">Тестеры — это опытные игроки, которые проводят проверку навыков и помогают определить ваш уровень мастерства на платформе.</span>
-                    <span class="lang-en" style="display:none;">Testers are experienced players who conduct skill checks and help determine your mastery level on the platform.</span>
-                </p>
-                <div class="testers-grid">
-                    <div class="tester-card">
-                        <div class="tester-name">-999-</div>
-                        <div class="tester-status"><span class="lang-ru">Старший Тестер</span><span class="lang-en" style="display:none;">Senior Tester</span></div>
-                    </div>
-                    <div class="tester-card">
-                        <div class="tester-name">Sneger</div>
-                        <div class="tester-status"><span class="lang-ru">Старший Тестер</span><span class="lang-en" style="display:none;">Senior Tester</span></div>
-                    </div>
-                    <div class="tester-card">
-                        <div class="tester-name">zor1kkqwix</div>
-                        <div class="tester-status"><span class="lang-ru">Квалификационный Тестер</span><span class="lang-en" style="display:none;">Qualification Tester</span></div>
-                    </div>
-                </div>
             </div>
         </div>
 
         <div id="faqSubTab" class="info-sub-tab-content" style="display: none;">
             <div class="info-section">
-                <div class="info-section-title">FAQ</div>
+                <div class="info-section-title">Часто задаваемые вопросы</div>
                 
                 <div class="faq-block-item" style="margin-top: 0;">
-                    <h3><span class="lang-ru">Типы тестеров:</span><span class="lang-en" style="display:none;">Types of testers:</span></h3>
-                    <p>
-                        <span class="lang-ru">На нашей платформе есть два типа тестеров: квалификационный и старший.</span>
-                        <span class="lang-en" style="display:none;">There are two types of testers on our platform: qualification and senior.</span>
-                    </p>
+                    <h3>Типы тестеров:</h3>
+                    <p>На нашей платформе есть два типа тестеров: квалификационный и старший.</p>
                     <ul style="margin-left: 20px; margin-top: 8px; font-size: 13px; color: var(--text-muted); line-height: 1.6; list-style-type: none; padding-left: 0;">
-                        <li style="margin-bottom: 6px;">
-                            <span class="lang-ru"><strong>Квалификационный тестер:</strong> Это игроки уровня от <span id="faqColorLT3_1">LT3</span> до <span id="faqColorLT2_1">LT2</span>. Они могут присвоить максимальный уровень <span id="faqColorLT3_2">LT3</span>.</span>
-                            <span class="lang-en" style="display:none;"><strong>Qualification tester:</strong> Players from <span id="faqColorLT3_1">LT3</span> to <span id="faqColorLT2_1">LT2</span>. They can assign a maximum of <span id="faqColorLT3_2">LT3</span>.</span>
-                        </li>
-                        <li>
-                            <span class="lang-ru"><strong>Старший тестер:</strong> Это опытные игроки уровня от <span id="faqColorHT2_1">HT2</span> до <span id="faqColorHT1_1">HT1</span>.</span>
-                            <span class="lang-en" style="display:none;"><strong>Senior tester:</strong> Experienced players from <span id="faqColorHT2_1">HT2</span> to <span id="faqColorHT1_1">HT1</span>.</span>
-                        </li>
+                        <li style="margin-bottom: 6px;"><strong>Квалификационный тестер:</strong> Это игроки уровня от <span id="faqColorLT3_1">LT3</span> до <span id="faqColorLT2_1">LT2</span>. Они могут присвоить максимальный уровень <span id="faqColorLT3_2">LT3</span>.</li>
+                        <li><strong>Старший тестер:</strong> Это опытные игроки уровня от <span id="faqColorHT2_1">HT2</span> до <span id="faqColorHT1_1">HT1</span>.</li>
                     </ul>
                 </div>
 
                 <div class="faq-block-item">
-                    <h3><span class="lang-ru">Процесс повышения уровня:</span><span class="lang-en" style="display:none;">Leveling process:</span></h3>
-                    <p style="margin-bottom: 8px;">
-                        <span class="lang-ru">Если вы достигли уровня <span id="faqColorLT3_3">LT3</span>, вы можете пройти второй тест со старшим тестером. Каждый тест состоит из 10 дуэлей. Минимальный уровень, который вы можете получить за этот тест, — <span id="faqColorLT3_4">LT3</span>, а максимальный — <span id="faqColorLT1_1">LT1</span>.</span>
-                        <span class="lang-en" style="display:none;">If you reach <span id="faqColorLT3_3">LT3</span>, you can take a second test with a senior tester. Minimum result is <span id="faqColorLT3_4">LT3</span>, max is <span id="faqColorLT1_1">LT1</span>.</span>
-                    </p>
-                    <p>
-                        <span class="lang-ru">После получения <span id="faqColorLT1_2">LT1</span> вам будет предоставлена возможность сразиться с игроком уровня <span id="faqColorHT1_2">HT1</span>. Если вы одерживаете победу, вам присваивается уровень <span id="faqColorHT1_3">HT1</span>. В случае поражения ваш уровень остается <span id="faqColorLT1_3">LT1</span>.</span>
-                        <span class="lang-en" style="display:none;">After getting <span id="faqColorLT1_2">LT1</span>, you battle an <span id="faqColorHT1_2">HT1</span> player. Win = <span id="faqColorHT1_3">HT1</span>. Loss = stay at <span id="faqColorLT1_3">LT1</span>.</span>
-                    </p>
+                    <h3>Процесс повышения уровня:</h3>
+                    <p style="margin-bottom: 8px;">Если вы достигли уровня <span id="faqColorLT3_3">LT3</span>, вы можете пройти второй тест со старшим тестером. Каждый тест состоит из 10 дуэлей. Минимальный уровень, который вы можете получить за этот тест, — <span id="faqColorLT3_4">LT3</span>, а максимальный — <span id="faqColorLT1_1">LT1</span>.</p>
+                    <p>После получения <span id="faqColorLT1_2">LT1</span> вам будет предоставлена возможность сразиться с игроком уровня <span id="faqColorHT1_2">HT1</span>. Если вы одерживаете побеву, вам присваивается уровень <span id="faqColorHT1_3">HT1</span>. В случае поражения ваш уровень остается <span id="faqColorLT1_3">LT1</span>.</p>
                 </div>
 
                 <div class="faq-block-item">
-                    <h3><span class="lang-ru">Статус Retired:</span><span class="lang-en" style="display:none;">Retired Status:</span></h3>
-                    <p style="margin-bottom: 8px;">
-                        <span class="lang-ru">Если игрок не проходил тиртест по конкретному киту более двух месяцев, рядом с названием этого кита появляется приписка R, например, <span style="font-weight: bold; color: #ff4747;">R</span><span id="faqColorHT1_4">HT1</span>.</span>
-                        <span class="lang-en" style="display:none;">If inactive in a kit for 2 months, an R is added (e.g. <span style="font-weight: bold; color: #ff4747;">R</span><span id="faqColorHT1_4">HT1</span>).</span>
-                    </p>
-                    <p>
-                        <span class="lang-ru">Игроки со статусом Retired не отображаются в общем топе. Чтобы снова стать активным, достаточно пройти тиртест по соответствующему киту.</span>
-                        <span class="lang-en" style="display:none;">Retired players are hidden from the overall top. Pass a tiertest to become active again.</span>
-                    </p>
+                    <h3>Статус Retired:</h3>
+                    <p style="margin-bottom: 8px;">Если игрок не проходил тиртест по конкретному киту более двух месяцев, рядом с названием этого кита появляется приписка R, например, <span style="font-weight: bold; color: #ff4747;">R</span><span id="faqColorHT1_4">HT1</span>.</p>
+                    <p>Игроки со статусом Retired не отображаются в общем топе. Чтобы снова стать активным, достаточно пройти тиртест по соответствующему киту.</p>
                 </div>
 
             </div>
