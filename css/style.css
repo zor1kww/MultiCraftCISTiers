@@ -72,6 +72,7 @@ body, html {
     width: 100%;
 }
 
+/* Декоративная неоновая линия под шапкой с аппаратным ускорением */
 .header::after {
     content: '';
     position: absolute;
@@ -96,39 +97,6 @@ body, html {
     white-space: nowrap;
     flex-shrink: 0;
 }
-
-/* Стили для нового инвайт-кода */
-.invite-container {
-    display: flex;
-    align-items: center;
-    background: rgba(0,0,0,0.3);
-    border: 1px solid var(--border-color);
-    padding: 8px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    gap: 10px;
-}
-.invite-container:hover {
-    background: rgba(255,204,71,0.05);
-    border-color: var(--accent);
-    box-shadow: 0 0 10px rgba(255,204,71,0.2);
-}
-.invite-label {
-    color: var(--text-muted);
-    font-size: 12px;
-    font-weight: bold;
-}
-.invite-code {
-    color: var(--accent);
-    font-size: 16px;
-    letter-spacing: 1px;
-    font-weight: bold;
-}
-.copy-icon {
-    font-size: 14px;
-}
-
-[data-theme="light"] .invite-container { background: rgba(0,0,0,0.03); }
 
 .header-right {
     display: flex;
@@ -751,20 +719,6 @@ body, html {
     font-size: 18px;
     margin-bottom: 5px;
 }
-
-/* Стили для новых Правил */
-.rules-list {
-    margin-left: 20px;
-    margin-top: 10px;
-    color: var(--text-main);
-    font-size: 13px;
-    line-height: 1.6;
-}
-.rules-list li {
-    margin-bottom: 12px;
-    padding-left: 5px;
-}
-
 .form-template {
     background: rgba(0,0,0,0.2);
     border: 1px dashed rgba(255,204,71,0.3);
@@ -810,8 +764,6 @@ body, html {
     line-height: 1.5;
     margin-bottom: 12px;
 }
-
-/* Измененный блок превью для Вики-инвентарей */
 .inv-preview-box {
     background: var(--bg-solid);
     border: 1px solid var(--border-color);
@@ -822,15 +774,16 @@ body, html {
     color: var(--text-muted);
     font-size: 12px;
     overflow: hidden;
-    padding: 5px; /* добавлен отступ для опрятности */
-}
-.inv-preview-box img {
-    width: 100%;
-    height: auto; /* убран фиксированный размер и искажения */
-    object-fit: contain;
-    display: block;
 }
 
+.inv-preview-box img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
+/* Стили для нового объединенного Инфо-Центра */
 .info-section {
     margin-bottom: 35px;
     background: var(--bg-solid);
@@ -894,6 +847,7 @@ body, html {
     line-height: 1.6;
 }
 
+/* Навигация под-вкладок раздела Информация */
 .info-nav-buttons {
     display: flex;
     gap: 10px;
@@ -958,10 +912,8 @@ body, html {
         padding-top: 10px;
     }
     
-    .modal-grid { grid-template-columns: 1fr; }
-    
-    .invite-container {
-        display: none; /* Скрываем инвайт-код в шапке на очень узких экранах, чтобы не ломать верстку */
+    .modal-grid {
+        grid-template-columns: 1fr;
     }
 
     .info-nav-buttons {
