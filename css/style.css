@@ -1,3 +1,11 @@
+@font-face {
+    font-family: 'MultiCraftFont';
+    src: url('../assets/MultiCraftFont.ttf') format('truetype'),
+         url('../assets/fonts/MultiCraftFont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 :root {
     /* Оригинальная тёмно-синяя и золотистая палитра проекта */
     --bg-main: #0b111e;
@@ -25,14 +33,14 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'MultiCraftFont', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     -webkit-tap-highlight-color: transparent;
 }
 
 body {
     background-color: var(--bg-main);
     color: var(--text-main);
-    padding-top: 60px;
+    padding-top: 80px;
     padding-bottom: 20px;
     transition: background-color 0.2s, color 0.2s;
 }
@@ -683,6 +691,13 @@ body {
     font-size: 11px;
     color: var(--text-muted);
     font-style: italic;
+}
+
+/* ТЕКСТ ДЛЯ ОФОРМЛЕНИЯ ИНВАЙТ КОДА */
+.minecraft-invite {
+    font-family: 'MultiCraftFont', sans-serif;
+    color: #ffcc47;
+    text-shadow: 2px 2px 0px #3f3311;
 }
 
 /* АДАПТИВНОСТЬ ПОД МОБИЛЬНЫЕ УСТРОЙСТВА */
