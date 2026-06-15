@@ -1,23 +1,25 @@
 :root {
-    --bg-main: #141414;
-    --bg-card: #1e1e1e;
-    --bg-sidebar: #1a1a1a;
-    --border-color: #2c2c2c;
-    --text-main: #ffffff;
-    --text-muted: #aaaaaa;
-    --accent: #55ff55;
-    --accent-hover: #44dd44;
+    /* Тёмная тема — Глубокий тёмно-синий и золото */
+    --bg-main: #0b111e;          /* Глубокий тёмно-синий фон сайта */
+    --bg-card: #111a2e;          /* Карточки игроков и вики (чуть светлее фона) */
+    --bg-sidebar: #0f172a;       /* Боковое меню */
+    --border-color: #1e293b;     /* Сдержанные синеватые границы */
+    --text-main: #f8fafc;        /* Чистый белый текст */
+    --text-muted: #94a3b8;       /* Аккуратный серый текст для описаний */
+    --accent: #ffcc47;           /* Золотистый цвет для акцентов, PTS и важных элементов */
+    --accent-hover: #e0b33f;     /* Тёмно-золотой при наведении */
 }
 
 [data-theme="light"] {
-    --bg-main: #f4f6f9;
+    /* Светлая тема */
+    --bg-main: #f1f5f9;
     --bg-card: #ffffff;
-    --bg-sidebar: #eaedf2;
-    --border-color: #d1d8e0;
-    --text-main: #1e272e;
-    --text-muted: #68707a;
-    --accent: #05c46b;
-    --accent-hover: #04a75b;
+    --bg-sidebar: #e2e8f0;
+    --border-color: #cbd5e1;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --accent: #d97706;           /* Приглушенное золото для светлой темы */
+    --accent-hover: #b45309;
 }
 
 * {
@@ -67,6 +69,11 @@ body {
     font-weight: 600;
     cursor: pointer;
     font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.menu-btn:hover {
+    background-color: var(--accent-hover);
 }
 
 /* БОКОВОЕ МЕНЮ */
@@ -121,20 +128,21 @@ body {
 
 .theme-toggle-btn {
     width: 100%;
-    background: var(--border-color);
+    background: #1e293b;        /* Темная подложка для кнопок в меню */
     color: var(--text-main);
-    border: none;
+    border: 1px solid rgba(255, 204, 71, 0.15); /* Едва заметная золотистая обводка */
     padding: 12px;
     border-radius: 8px;
     cursor: pointer;
     font-weight: 500;
     font-size: 14px;
     text-align: center;
-    transition: background-color 0.2s;
+    transition: all 0.2s;
 }
 
 .theme-toggle-btn:hover {
-    background-color: rgba(128, 128, 128, 0.2);
+    background-color: #27374d;
+    border-color: var(--accent); /* Золотое свечение при наведении */
 }
 
 /* КОНТЕНТНАЯ ЧАСТЬ */
@@ -512,11 +520,12 @@ body {
 
 .wiki-trains {
     font-size: 12px;
-    background: rgba(85, 255, 85, 0.05);
+    background: rgba(255, 204, 71, 0.07); /* Едва заметный золотистый фон для тренируемых навыков */
     color: var(--text-main);
     padding: 6px 10px;
     border-radius: 4px;
     line-height: 1.4;
+    border-left: 2px solid var(--accent);
 }
 
 .inv-preview-box {
@@ -553,7 +562,7 @@ body {
     line-height: 1.6;
 }
 
-/* Новые подвкладки информации */
+/* Навигация подвкладок */
 .info-nav-buttons {
     display: flex;
     flex-wrap: wrap;
