@@ -316,17 +316,17 @@ body, html {
     gap: 14px;
 }
 
+/* ==========================================================================
+   ОСНОВНАЯ СЕТКА КАРТОЧЕК ИГРОКОВ (СТРОГО В ОДИН РЯД)
+   ========================================================================== */
 .player-container {
     width: 100%;
 }
 
-/* --- ИДЕАЛЬНЫЙ БАЛАНС СЕТКИ ДЛЯ ПК --- */
 .player-card-row {
-    padding: 16px 24px;
+    padding: 14px 24px;
     display: grid;
-    /* Место(60px) -> Ник(2.2 части) -> Тиры(1.8 части) -> PTS(100px) */
-    /* Такое деление удерживает тиры близко к нику и не дает им "улетать" на ультрашироких экранах */
-    grid-template-columns: 60px 2.2fr 1.8fr 100px;
+    grid-template-columns: 60px 160px 1fr auto;
     align-items: center;
     gap: 20px;
     cursor: pointer;
@@ -354,10 +354,7 @@ body, html {
 .player-name-wrapper {
     justify-self: start;
     width: 100%;
-    min-width: 0; /* Разрешает внутреннему тексту сжиматься до троеточия */
-    display: flex;
-    align-items: center;
-    padding-right: 10px;
+    min-width: 0;
 }
 
 .player-name {
@@ -366,7 +363,6 @@ body, html {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 100%;
     text-align: left;
 }
 
@@ -377,7 +373,6 @@ body, html {
     justify-content: center;
     gap: 6px;
     width: 100%;
-    min-width: 0; /* Защита от вылезания контента за границы своей фракции */
 }
 
 .player-meta-box {
@@ -460,6 +455,11 @@ body, html {
     justify-self: end;
 }
 
+/* ==========================================================================
+   ТОП 1-5 СВЕЧЕНИЯ И ЦВЕТА РАМОК (ИСКЛЮЧИТЕЛЬНО ТВОИ ХЕКС-КОДЫ)
+   ========================================================================== */
+
+/* 1 место — #ffcc47 */
 .top-rank-1 .player-rank { color: var(--accent) !important; }
 .top-rank-1 .player-card-row {
     border-color: var(--accent) !important;
@@ -469,36 +469,44 @@ body, html {
     box-shadow: 0 0 6px rgba(255, 204, 71, 0.1) !important;
 }
 
+/* 2 место — #e0b33f */
 .top-rank-2 .player-rank { color: #e0b33f !important; }
 .top-rank-2 .player-card-row {
     border-color: #e0b33f !important;
     box-shadow: 0 0 16px rgba(224, 179, 63, 0.3) !important;
 }
 
+/* 3 место — Мягкий #ffcc47 */
 .top-rank-3 .player-rank { color: rgba(255, 204, 71, 0.9) !important; }
 .top-rank-3 .player-card-row {
     border-color: rgba(255, 204, 71, 0.6) !important;
     box-shadow: 0 0 12px rgba(255, 204, 71, 0.2) !important;
 }
 
+/* 4 место — Аккуратный контур #e0b33f */
 .top-rank-4 .player-rank { color: rgba(224, 179, 63, 0.8) !important; }
 .top-rank-4 .player-card-row {
     border-color: rgba(224, 179, 63, 0.4) !important;
 }
 
+/* 5 место — Тонкий контур #ffcc47 */
 .top-rank-5 .player-rank { color: rgba(255, 204, 71, 0.7) !important; }
 .top-rank-5 .player-card-row {
     border-color: rgba(255, 204, 71, 0.25) !important;
 }
 
-.retired-status .player-card-row {
+/* Стили для общего Retired статуса (ПРИМЕНЯЮТСЯ ТОЛЬКО ЕСЛИ ИГРОК НЕ В ТОП-5) */
+.retired-status:not(.top-rank-1):not(.top-rank-2):not(.top-rank-3):not(.top-rank-4):not(.top-rank-5) .player-card-row {
     border-color: rgba(255, 255, 255, 0.05) !important;
-    opacity: 0.5 !important;
+    opacity: 0.5 !important; /* Обычные игроки затухают */
 }
-.retired-status .player-rank,
-.retired-status .player-name {
+
+.retired-status:not(.top-rank-1):not(.top-rank-2):not(.top-rank-3):not(.top-rank-4):not(.top-rank-5) .player-rank,
+.retired-status:not(.top-rank-1):not(.top-rank-2):not(.top-rank-3):not(.top-rank-4):not(.top-rank-5) .player-name {
     color: var(--text-muted) !important;
 }
+
+/* ========================================================================== */
 
 .tier-badge {
     padding: 4px 10px;
@@ -935,6 +943,7 @@ body, html {
 .info-nav-btn:hover {
     border-color: var(--accent);
 }
+
 .info-nav-btn.active {
     background: var(--accent);
     color: #070b17;
@@ -956,6 +965,7 @@ body, html {
     color: var(--accent);
 }
 
+/* Стили для сабтиров ветеранов (независимы от общего статуса игрока) */
 .tier-item-box.retired-kit .tier-icon-circle {
     border-color: rgba(255, 74, 74, 0.25);
 }
@@ -964,18 +974,19 @@ body, html {
     color: #ff4a4a;
 }
 
-/* --- ИДЕАЛЬНЫЙ ПРОПОРЦИОНАЛЬНЫЙ МОБИЛЬНЫЙ АДАПТИВ --- */
+/* ==========================================================================
+   УМНАЯ МОБИЛЬНАЯ ОПТИМИЗАЦИЯ (СТРОГАЯ СТРОКА С УВЕЛИЧЕННЫМИ РАМКАМИ)
+   ========================================================================== */
 @media(max-width: 768px) {
     .hero h1 { font-size: 26px; }
     .filters, .filters-row-2 { grid-template-columns: 1fr; gap: 8px; }
     
+    /* Увеличенная рамка карточки лидера/игрока */
     .player-card-row {
-        /* Место(35px) -> Ник(1 часть) -> Тиры(1.2 части) -> PTS(65px) */
-        /* Позволяет и нику, и тирам динамически сжиматься и расширяться вместе с экраном смартфона */
-        grid-template-columns: 35px 1fr 1.2fr 65px;
+        grid-template-columns: 40px 105px 1fr auto;
         gap: 10px;
-        padding: 18px 12px;
-        min-height: 85px;
+        padding: 18px 14px; /* Крупные отступы */
+        min-height: 85px;   /* Высокая и просторная рамка */
         align-items: center;
     }
     
@@ -983,21 +994,19 @@ body, html {
         font-size: 16px;
     }
     
-    .player-name-wrapper {
-        padding-right: 5px;
-    }
-
     .player-name {
         font-size: 14px;
         font-weight: bold;
     }
     
+    /* Иконки сидят строго в ряд, без скрытых скроллов */
     .player-tiers-block {
         overflow: visible;
+        width: 100%;
     }
     
     .player-tiers-row {
-        gap: 4px; /* Плотная, ровная посадка иконок */
+        gap: 4px;
         flex-wrap: nowrap;
     }
     
