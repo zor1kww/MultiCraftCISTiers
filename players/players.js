@@ -42,5 +42,20 @@ const players = [
         tiers: {
             "Hardcore": "LT1"
         }
+    },
+    {
+        name: "VortexFx",
+        region: "BY",
+        device: "PH",
+        retired: false,
+        tiers: {
+            "Dragonhide": "LT1",
+            "Emerald": "HT2",
+            "Diamond": "LT2",
+            "Crystal": "HT1",
+            "Combo": "LT1",
+            "Mace": "LT1",
+            "Hardcore": "HT1"
+        }
     }
 ];
