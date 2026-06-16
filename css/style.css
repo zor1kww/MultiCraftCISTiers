@@ -473,8 +473,16 @@ body, html {
 
 /* Статусы топ-рангов и Retired карточек */
 .retired-status .player-card-row {
-    border-color: rgba(255, 74, 74, 0.15);
+    border-color: rgba(255, 255, 255, 0.06) !important;
+    opacity: 0.55 !important;
 }
+.retired-status .player-rank {
+    color: var(--text-muted) !important;
+}
+.retired-status .player-name {
+    color: var(--text-muted) !important;
+}
+
 .top-rank-1 .player-rank { color: #ffd700; }
 .top-rank-2 .player-rank { color: #c0c0c0; }
 .top-rank-3 .player-rank { color: #cd7f32; }
@@ -939,61 +947,91 @@ body, html {
 }
 
 /* ==========================================================================
-   ИСПРАВЛЕННАЯ АДАПТИВНОСТЬ ПОД МОБИЛЬНЫЕ УСТРОЙСТВА (ВАР-1, ИКОНКИ В 2 РЯДА)
+   ИСПРАВЛЕННАЯ АДАПТИВНОСТЬ ПОД МОБИЛЬНЫЕ УСТРОЙСТВА (ВАР-2, ПОЛНЫЙ СТЕК)
    ========================================================================== */
 @media(max-width: 768px) {
     .hero h1 { font-size: 26px; }
     .filters, .filters-row-2 { grid-template-columns: 1fr; gap: 8px; }
     
-    /* Сетка карточки: даем колонкам адаптироваться по контенту */
+    /* Переключаем сетку карточки в режим вертикального стека */
     .player-card-row {
-        grid-template-columns: max-content 1fr max-content;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
         gap: 12px;
-        padding: 14px 10px;
-        align-items: center;
+        padding: 20px;
     }
     
-    .player-left {
-        gap: 6px;
+    /* Разворачиваем промежуточные контейнеры */
+    .player-left, .player-center {
+        display: contents;
     }
-
+    
+    /* Распределяем элементы по порядку как на фото 2 */
+    .player-rank {
+        order: 1;
+        font-size: 18px;
+    }
+    
+    .player-name-wrapper {
+        order: 2;
+        text-align: left !important;
+        width: auto;
+    }
+    
     .player-name {
-        font-size: 16px;
+        font-size: 18px;
+        text-align: left !important;
     }
-
-    /* Флекс-контейнер иконок с разрешением переноса (двухстрочный режим) */
+    
+    /* Мета-теги выстраиваются горизонтально в один ряд */
+    .player-meta-box {
+        order: 3;
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        gap: 6px !important;
+        width: auto;
+    }
+    
+    /* Блок иконок тиров */
     .player-tiers-row {
+        order: 4;
         display: flex;
         flex-wrap: wrap !important;
-        justify-content: center;
-        gap: 6px 4px; /* 6px между строками, 4px между иконками */
+        justify-content: flex-start !important;
+        gap: 8px 6px !important;
         width: 100%;
-        max-width: 150px; /* Жестко контролируем ширину ряда для переноса по 5 штук */
-        margin: 0 auto;
+        max-width: none !important;
+        margin: 4px 0 0 0 !important;
     }
 
-    /* Рассчитываем размер слотов, чтобы помещалось ровно 5 элементов в ряд */
     .tier-item-box {
-        flex: 0 0 18%; 
-        min-width: 22px;
+        flex: 0 0 auto;
+        min-width: 32px;
     }
 
     .tier-icon-circle {
-        width: 22px;
-        height: 22px;
-        max-width: 22px;
-        max-height: 22px;
-        padding: 2px;
+        width: 32px;
+        height: 32px;
+        max-width: 32px;
+        max-height: 32px;
+        padding: 4px;
     }
 
-    /* Четкие, не наезжающие друг на друга подписи */
     .tier-label-under {
         font-size: 8px;
         white-space: nowrap;
+        margin-top: 2px;
     }
 
+    /* Блок PTS уходит в самый низ */
     .player-right {
-        font-size: 14px;
+        order: 5;
+        justify-content: flex-start !important;
+        text-align: left !important;
+        font-size: 16px;
+        margin-top: 4px;
+        width: 100%;
     }
     
     .modal-grid {
