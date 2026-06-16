@@ -1079,4 +1079,12 @@ body, html {
     .wiki-card {
         padding: 16px;
     }
+
+/* Стили для конкретного retired-кита */
+.tier-item-box.retired-kit .tier-icon-circle {
+    border-color: rgba(255, 74, 74, 0.3); /* Слегка красноватая рамка */
+}
+
+.tier-item-box.retired-kit .tier-label-under {
+    color: #ff4a4a; /* Текст тира (например, HT1) станет приглушенно-красным */
 }
