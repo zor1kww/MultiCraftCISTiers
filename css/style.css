@@ -320,14 +320,15 @@ body, html {
     width: 100%;
 }
 
-/* --- ОБНОВЛЕННЫЕ СТИЛИ КАРТОЧКИ (НАОБОРОТ) --- */
+/* --- ИДЕАЛЬНЫЙ БАЛАНС СЕТКИ ДЛЯ ПК --- */
 .player-card-row {
     padding: 16px 24px;
     display: grid;
-    /* Место -> Ник забирает всё свободное место (1fr) -> Тиры по размеру контента -> PTS справа */
-    grid-template-columns: 60px 1fr auto auto;
+    /* Место(60px) -> Ник(2.2 части) -> Тиры(1.8 части) -> PTS(100px) */
+    /* Такое деление удерживает тиры близко к нику и не дает им "улетать" на ультрашироких экранах */
+    grid-template-columns: 60px 2.2fr 1.8fr 100px;
     align-items: center;
-    gap: 24px; /* Чуть увеличили общий зазор для солидности */
+    gap: 20px;
     cursor: pointer;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
@@ -353,10 +354,10 @@ body, html {
 .player-name-wrapper {
     justify-self: start;
     width: 100%;
-    min-width: 0; /* Дает право длинным никам сжиматься и уходить в троеточие */
+    min-width: 0; /* Разрешает внутреннему тексту сжиматься до троеточия */
     display: flex;
     align-items: center;
-    padding-right: 15px; /* Защитный отступ перед блоком тиров */
+    padding-right: 10px;
 }
 
 .player-name {
@@ -375,6 +376,8 @@ body, html {
     align-items: flex-start;
     justify-content: center;
     gap: 6px;
+    width: 100%;
+    min-width: 0; /* Защита от вылезания контента за границы своей фракции */
 }
 
 .player-meta-box {
@@ -455,7 +458,6 @@ body, html {
     text-align: right;
     white-space: nowrap;
     justify-self: end;
-    margin-left: 10px;
 }
 
 .top-rank-1 .player-rank { color: var(--accent) !important; }
@@ -962,16 +964,17 @@ body, html {
     color: #ff4a4a;
 }
 
-/* --- ОПТИМИЗИРОВАННЫЙ МОБИЛЬНЫЙ АДАПТИВ (НАОБОРОТ) --- */
+/* --- ИДЕАЛЬНЫЙ ПРОПОРЦИОНАЛЬНЫЙ МОБИЛЬНЫЙ АДАПТИВ --- */
 @media(max-width: 768px) {
     .hero h1 { font-size: 26px; }
     .filters, .filters-row-2 { grid-template-columns: 1fr; gap: 8px; }
     
     .player-card-row {
-        /* Место (35px) -> Ник забирает весь остаток (1fr) -> Тиры (auto по размеру иконок) -> PTS (auto) */
-        grid-template-columns: 35px 1fr auto auto;
+        /* Место(35px) -> Ник(1 часть) -> Тиры(1.2 части) -> PTS(65px) */
+        /* Позволяет и нику, и тирам динамически сжиматься и расширяться вместе с экраном смартфона */
+        grid-template-columns: 35px 1fr 1.2fr 65px;
         gap: 10px;
-        padding: 18px 14px;
+        padding: 18px 12px;
         min-height: 85px;
         align-items: center;
     }
@@ -981,7 +984,7 @@ body, html {
     }
     
     .player-name-wrapper {
-        padding-right: 5px; /* Минимальный зазор перед иконками на мобилках */
+        padding-right: 5px;
     }
 
     .player-name {
@@ -994,12 +997,12 @@ body, html {
     }
     
     .player-tiers-row {
-        gap: 4px; /* Иконки плотно стоят в ряд без слипания */
-        flex-wrap: nowrap; /* Жестко в один ряд */
+        gap: 4px; /* Плотная, ровная посадка иконок */
+        flex-wrap: nowrap;
     }
     
     .tier-icon-circle {
-        width: 25px; /* Аккуратный мобильный размер */
+        width: 25px;
         height: 25px;
         padding: 3px;
     }
@@ -1017,7 +1020,6 @@ body, html {
     .player-right {
         font-size: 16px;
         justify-self: end;
-        margin-left: 4px;
     }
 
     .modal-grid { grid-template-columns: 1fr; }
