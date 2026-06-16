@@ -317,24 +317,25 @@ body, html {
 }
 
 /* ==========================================================================
-   ОСНОВНАЯ СЕТКА КАРТОЧЕК ИГРОКОВ (ПК ВЕРСИЯ — МАКСИМУМ ВОЗДУХА)
+   ОСНОВНАЯ СЕТКА КАРТОЧЕК ИГРОКОВ (СТРОГО В ОДИН РЯД — ПОД СКРИНШОТ 1000042972.jpg)
    ========================================================================== */
 .player-container {
     width: 100%;
 }
 
 .player-card-row {
-    padding: 18px 24px;
+    padding: 14px 24px;
     display: grid;
-    /* Место (70px) | Никнейм (Мин 160px) | Блок тиров (Занимает всё инфо-поле) | PTS (110px) */
-    grid-template-columns: 70px minmax(160px, 1.2fr) 2fr 110px;
+    /* Место (60px) | Никнейм (160px) | Блок тиров (Всё свободное поле) | PTS (Автосправа) */
+    grid-template-columns: 60px 160px 1fr auto;
     align-items: center;
-    gap: 24px;
+    gap: 20px;
     cursor: pointer;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 16px;
     position: relative;
+    transition: all 0.2s ease;
 }
 
 .player-card-row:hover {
@@ -344,46 +345,46 @@ body, html {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* 1. Слева по середине — Место */
+/* Номер места слева */
 .player-rank {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     justify-self: start;
-    align-self: center;
-    letter-spacing: 0.5px;
+    white-space: nowrap;
 }
 
-/* 2. Затем — Ник игрока */
+/* Никнейм идет строго на одной линии с местом */
 .player-name-wrapper {
     justify-self: start;
-    align-self: center;
     width: 100%;
-    padding-right: 10px;
+    min-width: 0;
 }
 
 .player-name {
     color: var(--text-main);
-    font-size: 18px;
-    word-break: break-all;
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     text-align: left;
-    letter-spacing: 0.3px;
 }
 
-/* 3. После этого — Блок тиров */
+/* Центр карточки: Мета-теги над иконками тиров */
 .player-tiers-block {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    gap: 8px; /* Отступ между метой и самими иконками */
+    gap: 6px;
     width: 100%;
 }
 
-/* Данные о регионе, девайсе и ретайред — строго НАД первыми двумя тирами */
+/* Блок тегов (Регион, Девайс, Статус) */
 .player-meta-box {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+    flex-wrap: nowrap;
 }
 
 .player-meta-tag {
@@ -392,8 +393,9 @@ body, html {
     color: var(--text-muted);
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--border-color);
-    padding: 3px 8px;
+    padding: 2px 7px;
     border-radius: 5px;
+    font-family: monospace;
 }
 
 .retired-meta-tag {
@@ -402,12 +404,12 @@ body, html {
     color: #ff4a4a;
     background: rgba(255, 74, 74, 0.08);
     border: 1px solid rgba(255, 74, 74, 0.2);
-    padding: 3px 8px;
+    padding: 2px 7px;
     border-radius: 5px;
     font-weight: bold;
 }
 
-/* Ряд иконок основных тиров */
+/* Ряд круглых иконок под тегами */
 .player-tiers-row {
     display: flex;
     align-items: center;
@@ -418,20 +420,19 @@ body, html {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 3px;
 }
 
 .tier-icon-circle {
-    width: 34px;
-    height: 34px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.02);
     border: 1.5px solid rgba(255, 255, 255, 0.08);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 5px;
-    overflow: hidden;
+    padding: 4px;
 }
 
 .tier-icon-circle img {
@@ -448,19 +449,16 @@ body, html {
 .tier-label-under {
     font-size: 9px;
     font-weight: bold;
-    text-align: center;
-    white-space: nowrap;
     color: var(--text-muted);
 }
 
-/* 4. В самом конце справа по середине — количество PTS */
+/* Очки PTS справа в конце */
 .player-right {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
     font-size: 18px;
     font-weight: bold;
+    color: var(--accent);
     text-align: right;
+    white-space: nowrap;
     justify-self: end;
 }
 
@@ -973,62 +971,46 @@ body, html {
     color: var(--accent);
 }
 
+.tier-item-box.retired-kit .tier-icon-circle {
+    border-color: rgba(255, 74, 74, 0.25);
+}
+
+.tier-item-box.retired-kit .tier-label-under {
+    color: #ff4a4a;
+}
+
 /* ==========================================================================
-   УМНАЯ МОБИЛЬНАЯ ОПТИМИЗАЦИЯ (ИСПРАВЛЕНИЕ «СЛИПАНИЯ»)
+   УМНАЯ МОБИЛЬНАЯ ОПТИМИЗАЦИЯ (СТРОГО В ОДИН РЯД ПОД СКРИНШОТ 1000042972.jpg)
    ========================================================================== */
 @media(max-width: 768px) {
     .hero h1 { font-size: 26px; }
     .filters, .filters-row-2 { grid-template-columns: 1fr; gap: 8px; }
     
-    /* Перестраиваем сетку карточки в 2 строки, чтобы дать контенту воздух */
+    /* Сохраняем каноничный горизонтальный скелет таблицы */
     .player-card-row {
-        grid-template-columns: 50px 1fr auto;
-        grid-template-rows: auto auto;
-        gap: 14px 16px;
-        padding: 14px 18px;
+        grid-template-columns: 45px 110px 1fr auto;
+        gap: 12px;
+        padding: 12px 14px;
     }
     
-    /* Место слева по центру (занимает обе строки) */
     .player-rank {
-        grid-column: 1;
-        grid-row: 1 / span 2;
-        justify-self: start;
-        align-self: center;
-        font-size: 17px;
-    }
-    
-    /* Ник игрока сверху во второй колонке */
-    .player-name-wrapper {
-        grid-column: 2;
-        grid-row: 1;
-        justify-self: start;
-        align-self: center;
+        font-size: 15px;
     }
     
     .player-name {
-        font-size: 16px;
-        text-align: left;
+        font-size: 14px;
     }
     
-    /* Блок тиров уходит строго под ник игрока во вторую строку */
+    /* Фикс раздувания карточки: иконки плавно скроллятся пальцем по горизонтали */
     .player-tiers-block {
-        grid-column: 2;
-        grid-row: 2;
-        gap: 6px;
+        overflow-x: auto;
+        scrollbar-width: none; /* Убираем полосу в Firefox */
+        padding-bottom: 2px;
+        width: 100%;
     }
     
-    .player-meta-box {
-        gap: 6px;
-    }
-    
-    .player-meta-tag {
-        font-size: 10px;
-        padding: 2px 6px;
-    }
-    
-    .retired-meta-tag {
-        font-size: 10px;
-        padding: 2px 6px;
+    .player-tiers-block::-webkit-scrollbar {
+        display: none; /* Убираем полосу в Chrome/Safari */
     }
     
     .player-tiers-row {
@@ -1036,23 +1018,22 @@ body, html {
     }
     
     .tier-icon-circle {
-        width: 28px;
-        height: 28px;
-        padding: 4px;
+        width: 26px;
+        height: 26px;
+        padding: 3px;
     }
     
     .tier-label-under {
         font-size: 8px;
     }
     
-    /* PTS справа по центру (занимает обе строки) */
+    .player-meta-tag, .retired-meta-tag {
+        font-size: 9px;
+        padding: 1px 5px;
+    }
+    
     .player-right {
-        grid-column: 3;
-        grid-row: 1 / span 2;
-        justify-self: end;
-        align-self: center;
-        font-size: 16px;
-        text-align: right;
+        font-size: 15px;
     }
 
     .modal-grid { grid-template-columns: 1fr; }
@@ -1060,12 +1041,4 @@ body, html {
     .info-nav-btn { width: 100%; text-align: center; }
     .wiki-grid { grid-template-columns: 1fr; gap: 16px; }
     .wiki-card { padding: 16px; }
-}
-
-.tier-item-box.retired-kit .tier-icon-circle {
-    border-color: rgba(255, 74, 74, 0.25);
-}
-
-.tier-item-box.retired-kit .tier-label-under {
-    color: #ff4a4a;
 }
