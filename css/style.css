@@ -470,18 +470,67 @@ body, html {
     font-weight: bold;
 }
 
-/* Точные кастомные цвета для топа (Золото, Серебро, Бронза) */
-.top-rank-1 .player-rank { color: #ffcc47; } /* Точное кастомное золото */
-.top-rank-2 .player-rank { color: #b0b8c9; } /* Чистое серебро */
-.top-rank-3 .player-rank { color: #ff9f43; } /* Насыщенная яркая бронза */
+/* ==========================================================================
+   ТОП 1-5 ЦВЕТА И СВЕЧЕНИЯ РАМОК
+   ========================================================================== */
 
-/* Статусы для Retired карточек */
+/* 1 место */
+.top-rank-1 .player-rank { color: #ff4500 !important; }
+.top-rank-1 .player-card-row {
+    border-color: #ff4500 !important;
+    box-shadow: 0 0 15px rgba(255, 69, 0, 0.6) !important;
+}
+.top-rank-1.retired-status .player-card-row {
+    box-shadow: 0 0 5px rgba(255, 69, 0, 0.2) !important;
+}
+
+/* 2 место */
+.top-rank-2 .player-rank { color: #da70d6 !important; }
+.top-rank-2 .player-card-row {
+    border-color: #da70d6 !important;
+    box-shadow: 0 0 15px rgba(218, 112, 214, 0.6) !important;
+}
+.top-rank-2.retired-status .player-card-row {
+    box-shadow: 0 0 5px rgba(218, 112, 214, 0.2) !important;
+}
+
+/* 3 место */
+.top-rank-3 .player-rank { color: #4169e1 !important; }
+.top-rank-3 .player-card-row {
+    border-color: #4169e1 !important;
+    box-shadow: 0 0 15px rgba(65, 105, 225, 0.6) !important;
+}
+.top-rank-3.retired-status .player-card-row {
+    box-shadow: 0 0 5px rgba(65, 105, 225, 0.2) !important;
+}
+
+/* 4 место */
+.top-rank-4 .player-rank { color: #32cd32 !important; }
+.top-rank-4 .player-card-row {
+    border-color: #32cd32 !important;
+    box-shadow: 0 0 15px rgba(50, 205, 50, 0.6) !important;
+}
+.top-rank-4.retired-status .player-card-row {
+    box-shadow: 0 0 5px rgba(50, 205, 50, 0.2) !important;
+}
+
+/* 5 место */
+.top-rank-5 .player-rank { color: #ffd700 !important; }
+.top-rank-5 .player-card-row {
+    border-color: #ffd700 !important;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6) !important;
+}
+.top-rank-5.retired-status .player-card-row {
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.2) !important;
+}
+
+/* Статусы для Retired карточек (Общее) */
 .retired-status .player-card-row {
-    border-color: rgba(255, 255, 255, 0.06) !important;
+    border-color: rgba(255, 255, 255, 0.06);
     opacity: 0.55 !important;
 }
 .retired-status .player-rank {
-    color: var(--text-muted) !important;
+    color: var(--text-muted);
 }
 .retired-status .player-name {
     color: var(--text-muted) !important;
