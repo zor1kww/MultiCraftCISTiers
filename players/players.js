@@ -73,7 +73,7 @@ const players = [
             "Dragonhide": "HT2",
             "Emerald": "HT1",
             "Crystal": "LT1",
-            "Combo": "HT1",
+            "Combo": "RHT1",
             "SMP": "LT1"
         }
     },
@@ -82,14 +82,14 @@ const players = [
         region: "UA",
         device: "PC",
         tiers: {
-            "RVM": "LT1",
+            "RVM": "RLT1",
             "Crystal": "HT2",
             "Combo": "LT2",
             "SMP": "HT1"
         }
     },
     {
-        name: "LEGENDAMERRO",
+        name: "LEGENDAMETRO",
         region: "RU",
         device: "PH",
         tiers: {
