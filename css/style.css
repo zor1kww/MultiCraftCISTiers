@@ -316,18 +316,15 @@ body, html {
     gap: 14px;
 }
 
-/* ==========================================================================
-   ОСНОВНАЯ СЕТКА КАРТОЧЕК ИГРОКОВ (СТРОГО В ОДИН РЯД — ПОД СКРИНШОТ 1000042972.jpg)
-   ========================================================================== */
 .player-container {
     width: 100%;
 }
 
+/* --- ОСНОВНЫЕ СТИЛИ КАРТОЧКИ --- */
 .player-card-row {
-    padding: 14px 24px;
+    padding: 16px 24px;
     display: grid;
-    /* Место (60px) | Никнейм (160px) | Блок тиров (Всё свободное поле) | PTS (Автосправа) */
-    grid-template-columns: 60px 160px 1fr auto;
+    grid-template-columns: 60px 170px 1fr auto;
     align-items: center;
     gap: 20px;
     cursor: pointer;
@@ -345,7 +342,6 @@ body, html {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Номер места слева */
 .player-rank {
     font-size: 18px;
     font-weight: bold;
@@ -353,11 +349,12 @@ body, html {
     white-space: nowrap;
 }
 
-/* Никнейм идет строго на одной линии с местом */
 .player-name-wrapper {
     justify-self: start;
     width: 100%;
     min-width: 0;
+    display: flex;
+    align-items: center;
 }
 
 .player-name {
@@ -366,10 +363,10 @@ body, html {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    width: 100%;
     text-align: left;
 }
 
-/* Центр карточки: Мета-теги над иконками тиров */
 .player-tiers-block {
     display: flex;
     flex-direction: column;
@@ -377,9 +374,9 @@ body, html {
     justify-content: center;
     gap: 6px;
     width: 100%;
+    min-width: 0;
 }
 
-/* Блок тегов (Регион, Девайс, Статус) */
 .player-meta-box {
     display: flex;
     align-items: center;
@@ -409,7 +406,6 @@ body, html {
     font-weight: bold;
 }
 
-/* Ряд круглых иконок под тегами */
 .player-tiers-row {
     display: flex;
     align-items: center;
@@ -452,7 +448,6 @@ body, html {
     color: var(--text-muted);
 }
 
-/* Очки PTS справа в конце */
 .player-right {
     font-size: 18px;
     font-weight: bold;
@@ -462,11 +457,6 @@ body, html {
     justify-self: end;
 }
 
-/* ==========================================================================
-   ТОП 1-5 СВЕЧЕНИЯ И ЦВЕТА РАМОК (ИСКЛЮЧИТЕЛЬНО ТВОИ ХЕКС-КОДЫ)
-   ========================================================================== */
-
-/* 1 место — #ffcc47 */
 .top-rank-1 .player-rank { color: var(--accent) !important; }
 .top-rank-1 .player-card-row {
     border-color: var(--accent) !important;
@@ -476,33 +466,28 @@ body, html {
     box-shadow: 0 0 6px rgba(255, 204, 71, 0.1) !important;
 }
 
-/* 2 место — #e0b33f */
 .top-rank-2 .player-rank { color: #e0b33f !important; }
 .top-rank-2 .player-card-row {
     border-color: #e0b33f !important;
     box-shadow: 0 0 16px rgba(224, 179, 63, 0.3) !important;
 }
 
-/* 3 место — Мягкий #ffcc47 */
 .top-rank-3 .player-rank { color: rgba(255, 204, 71, 0.9) !important; }
 .top-rank-3 .player-card-row {
     border-color: rgba(255, 204, 71, 0.6) !important;
     box-shadow: 0 0 12px rgba(255, 204, 71, 0.2) !important;
 }
 
-/* 4 место — Аккуратный контур #e0b33f */
 .top-rank-4 .player-rank { color: rgba(224, 179, 63, 0.8) !important; }
 .top-rank-4 .player-card-row {
     border-color: rgba(224, 179, 63, 0.4) !important;
 }
 
-/* 5 место — Тонкий контур #ffcc47 */
 .top-rank-5 .player-rank { color: rgba(255, 204, 71, 0.7) !important; }
 .top-rank-5 .player-card-row {
     border-color: rgba(255, 204, 71, 0.25) !important;
 }
 
-/* Общие стили для Retired статуса */
 .retired-status .player-card-row {
     border-color: rgba(255, 255, 255, 0.05) !important;
     opacity: 0.5 !important;
@@ -511,8 +496,6 @@ body, html {
 .retired-status .player-name {
     color: var(--text-muted) !important;
 }
-
-/* ========================================================================== */
 
 .tier-badge {
     padding: 4px 10px;
@@ -949,7 +932,6 @@ body, html {
 .info-nav-btn:hover {
     border-color: var(--accent);
 }
-
 .info-nav-btn.active {
     background: var(--accent);
     color: #070b17;
@@ -979,24 +961,21 @@ body, html {
     color: #ff4a4a;
 }
 
-/* /* ==========================================================================
-   ОПТИМИЗАЦИЯ ПОД МОБИЛЬНЫЕ (УВЕЛИЧЕННЫЕ РАМКИ И СТРОГАЯ СТРОКА)
-   ========================================================================== */
+/* --- МОБИЛЬНЫЙ АДАПТИВ --- */
 @media(max-width: 768px) {
     .hero h1 { font-size: 26px; }
     .filters, .filters-row-2 { grid-template-columns: 1fr; gap: 8px; }
     
-    /* Делаем саму рамку (карточку) больше, выше и просторнее */
     .player-card-row {
-        grid-template-columns: 40px 105px 1fr auto; /* Сбалансировали ширину колонок */
-        gap: 10px;
-        padding: 18px 14px; /* Увеличили отступы сверху и снизу — рамка стала крупнее */
-        min-height: 85px;   /* Задали четкую, солидную высоту для каждой карточки */
+        grid-template-columns: 35px 95px 1fr auto;
+        gap: 8px;
+        padding: 18px 14px;
+        min-height: 85px;
         align-items: center;
     }
     
     .player-rank {
-        font-size: 16px; /* Чуть крупнее номер места */
+        font-size: 16px;
     }
     
     .player-name {
@@ -1004,21 +983,19 @@ body, html {
         font-weight: bold;
     }
     
-    /* Убираем скролл, пускай элементы сидят намертво, но за счет рамки им свободно */
     .player-tiers-block {
-        overflow: visible; 
+        overflow: visible;
         width: 100%;
+        min-width: 0;
     }
     
-    /* Слегка уплотняем иконки, чтобы они гарантированно влезли в один ряд */
     .player-tiers-row {
-        gap: 4px; 
+        gap: 4px;
         flex-wrap: nowrap;
     }
     
-    /* Идеальный адаптивный размер ушек/кружков для мобильных */
     .tier-icon-circle {
-        width: 25px; 
+        width: 25px;
         height: 25px;
         padding: 3px;
     }
@@ -1034,11 +1011,10 @@ body, html {
     }
     
     .player-right {
-        font-size: 16px;
+        font-size: 15px;
         justify-self: end;
     }
 
-    /* Остальные мобильные фиксы для модалок и вики */
     .modal-grid { grid-template-columns: 1fr; }
     .info-nav-buttons { flex-direction: column; width: 100%; }
     .info-nav-btn { width: 100%; text-align: center; }
