@@ -350,7 +350,6 @@ body, html {
 }
 
 .player-rank {
-    color: var(--accent);
     font-size: 18px;
     font-weight: bold;
 }
@@ -388,7 +387,7 @@ body, html {
     width: fit-content;
 }
 
-/* Центральная колонка: Ник сверху, Иконки снину */
+/* Центральная колонка: Ник сверху, Иконки снизу */
 .player-center {
     display: flex;
     flex-direction: column;
@@ -471,7 +470,12 @@ body, html {
     font-weight: bold;
 }
 
-/* Статусы топ-рангов и Retired карточек */
+/* Точные кастомные цвета для топа (Золото, Серебро, Бронза) */
+.top-rank-1 .player-rank { color: #ffcc47; } /* Точное кастомное золото */
+.top-rank-2 .player-rank { color: #b0b8c9; } /* Чистое серебро */
+.top-rank-3 .player-rank { color: #ff9f43; } /* Насыщенная яркая бронза */
+
+/* Статусы для Retired карточек */
 .retired-status .player-card-row {
     border-color: rgba(255, 255, 255, 0.06) !important;
     opacity: 0.55 !important;
@@ -482,10 +486,6 @@ body, html {
 .retired-status .player-name {
     color: var(--text-muted) !important;
 }
-
-.top-rank-1 .player-rank { color: #ffd700; }
-.top-rank-2 .player-rank { color: #c0c0c0; }
-.top-rank-3 .player-rank { color: #cd7f32; }
 
 /* ========================================================================== */
 
@@ -947,26 +947,25 @@ body, html {
 }
 
 /* ==========================================================================
-   ИСПРАВЛЕННАЯ АДАПТИВНОСТЬ ПОД МОБИЛЬНЫЕ УСТРОЙСТВА (СЕТКА С ТИРАМИ В 2 РЯДА)
+   ОБНОВЛЕННАЯ МОБИЛЬНАЯ АДАПТИВНОСТЬ (ТИРЫ: ИДЕАЛЬНЫЕ 2 РЯДА ПО 5 ШТУК)
    ========================================================================== */
 @media(max-width: 768px) {
     .hero h1 { font-size: 26px; }
     .filters, .filters-row-2 { grid-template-columns: 1fr; gap: 8px; }
     
-    /* Основной контейнер карточки превращаем в умную 2-колоночную Grid-сетку */
+    /* Основной контейнер карточки */
     .player-card-row {
         display: grid !important;
         grid-template-columns: 1fr 1fr;
-        gap: 12px;
-        padding: 20px;
+        gap: 10px;
+        padding: 16px; /* Чуть уменьшили внутренние отступы для компактности карточки */
     }
     
-    /* Разворачиваем промежуточные обертки для свободного позиционирования детей */
     .player-left, .player-center {
         display: contents !important;
     }
     
-    /* СТРОКА 1: Ранг слева, Никнейм справа на одной высоте */
+    /* СТРОКА 1: Место игрока слева, Никнейм справа на одном уровне */
     .player-rank {
         grid-row: 1;
         grid-column: 1;
@@ -989,7 +988,7 @@ body, html {
         text-align: right !important;
     }
     
-    /* СТРОКА 2: Мета-теги выстраиваются горизонтально */
+    /* СТРОКА 2: Иконки устройств, регион и retired (сделали покрупнее) */
     .player-meta-box {
         grid-row: 2;
         grid-column: 1 / span 2;
@@ -998,53 +997,57 @@ body, html {
         flex-wrap: wrap;
         gap: 8px !important;
         width: auto;
-        margin-top: 2px;
+        margin-top: 4px;
     }
     
-    /* Делаем иконки/теги устройств, регионов и retired чуть больше */
     .player-meta-tag {
         font-size: 13px !important;
-        padding: 4px 8px !important;
+        padding: 5px 9px !important;
     }
     
     .retired-meta-tag {
         font-size: 12px !important;
-        padding: 4px 8px !important;
+        padding: 5px 9px !important;
     }
     
-    /* СТРОКА 3: Блок иконок тиров центрируется и делится ровно на 2 ряда по 5 штук */
+    /* СТРОКА 3: Тиры — СТРОГО 2 ряда по 5 штук, иконки увеличены до 34px */
     .player-tiers-row {
         grid-row: 3;
         grid-column: 1 / span 2;
         justify-self: center;
-        display: flex !important;
-        flex-wrap: wrap !important;
-        justify-content: center !important;
-        gap: 6px 4px !important;
+        
+        display: grid !important;
+        grid-template-columns: repeat(5, 1fr) !important; /* Ровно 5 колонок в ряд */
+        justify-items: center !important;
+        
+        gap: 10px 8px !important;
         width: 100%;
-        max-width: 150px; /* Фиксированная ширина гарантирует перенос ровно по 5 элементов */
-        margin: 8px auto 4px auto !important;
+        max-width: 240px; /* Оптимальная ширина под 5 крупных иконок */
+        margin: 14px auto 6px auto !important;
     }
 
     .tier-item-box {
-        flex: 0 0 18% !important;
-        min-width: 22px !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
     }
 
     .tier-icon-circle {
-        width: 22px !important;
-        height: 22px !important;
-        max-width: 22px !important;
-        max-height: 22px !important;
-        padding: 2px !important;
+        width: 34px !important; /* Увеличено с 22px — теперь они крупные и четкие */
+        height: 34px !important;
+        max-width: 34px !important;
+        max-height: 34px !important;
+        padding: 4px !important;
     }
 
     .tier-label-under {
-        font-size: 8px !important;
+        font-size: 9px !important;
+        margin-top: 3px !important;
         white-space: nowrap !important;
     }
 
-    /* СТРОКА 4: Блок PTS переносится на самый нижний ряд в правый угол */
+    /* СТРОКА 4: ПТС уходит направо в самый низ карточки */
     .player-right {
         grid-row: 4;
         grid-column: 1 / span 2;
