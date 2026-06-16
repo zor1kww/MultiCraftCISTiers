@@ -353,6 +353,7 @@ body, html {
     border-radius: 6px;
     font-weight: bold;
     letter-spacing: 0.5px;
+    margin-top: 4px; /* Небольшой отступ сверху при переносе */
 }
 
 .player-card-row {
@@ -400,6 +401,7 @@ body, html {
     display: flex;
     align-items: center;
     gap: 8px;
+    flex-wrap: wrap; /* Разрешаем перенос тега ветерана на ПК вниз, под регион и девайс */
 }
 .player-meta-tag {
     font-size: 12px;
