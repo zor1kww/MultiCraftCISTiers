@@ -4,52 +4,48 @@ const players = [
         name: "Sneger",
         region: "RU",
         device: "PH",
-        retired: true,
         tiers: {
-            "Dragonhide": "HT1",
-            "Emerald": "LT1",
-            "Diamond": "HT1",
-            "RVM": "HT1",
-            "Crystal": "HT2",
-            "Combo": "LT1",
-            "Mace": "HT1",
-            "Hardcore": "HT2",
-            "SMP": "LT1"
+            "Dragonhide": "RHT1", // Этот кит retired
+            "Emerald": "RLT1",    // Этот тоже
+            "Diamond": "RHT1",
+            "RVM": "RHT1",
+            "Crystal": "RHT2",
+            "Combo": "RLT1",
+            "Mace": "RHT1",
+            "Hardcore": "RHT2",
+            "SMP": "RLT1"
         }
     },
     {
         name: "-999-",
         region: "RU",
         device: "TB",
-        retired: true,
         tiers: {
-            "Dragonhide": "LT1",
-            "Emerald": "HT1",
-            "Diamond": "LT1",
-            "RVM": "HT1",
-            "Crystal": "HT1",
-            "Combo": "HT1",
-            "Mace": "HT1",
-            "Hardcore": "HT1",
-            "SMP": "HT1"
+            "Dragonhide": "RLT1",
+            "Emerald": "RHT1",
+            "Diamond": "RLT1",
+            "RVM": "RHT1",
+            "Crystal": "RHT1",
+            "Combo": "RHT1",
+            "Mace": "RHT1",
+            "Hardcore": "RHT1",
+            "SMP": "RHT1"
         }
     },
     {
         name: "zor1kkqwix",
         region: "RU",
         device: "PH",
-        retired: true,
         tiers: {
-            "Hardcore": "LT1"
+            "Hardcore": "RLT1"
         }
     },
     {
         name: "VortexFx",
         region: "BY",
         device: "PH",
-        retired: false,
         tiers: {
-            "Dragonhide": "LT1",
+            "Dragonhide": "LT1", // Активный игрок (без буквы R)
             "Emerald": "HT2",
             "Diamond": "LT2",
             "Crystal": "HT1",
