@@ -979,63 +979,66 @@ body, html {
     color: #ff4a4a;
 }
 
-/* ==========================================================================
-   УМНАЯ МОБИЛЬНАЯ ОПТИМИЗАЦИЯ (СТРОГО В ОДИН РЯД ПОД СКРИНШОТ 1000042972.jpg)
+/* /* ==========================================================================
+   ОПТИМИЗАЦИЯ ПОД МОБИЛЬНЫЕ (УВЕЛИЧЕННЫЕ РАМКИ И СТРОГАЯ СТРОКА)
    ========================================================================== */
 @media(max-width: 768px) {
     .hero h1 { font-size: 26px; }
     .filters, .filters-row-2 { grid-template-columns: 1fr; gap: 8px; }
     
-    /* Сохраняем каноничный горизонтальный скелет таблицы */
+    /* Делаем саму рамку (карточку) больше, выше и просторнее */
     .player-card-row {
-        grid-template-columns: 45px 110px 1fr auto;
-        gap: 12px;
-        padding: 12px 14px;
+        grid-template-columns: 40px 105px 1fr auto; /* Сбалансировали ширину колонок */
+        gap: 10px;
+        padding: 18px 14px; /* Увеличили отступы сверху и снизу — рамка стала крупнее */
+        min-height: 85px;   /* Задали четкую, солидную высоту для каждой карточки */
+        align-items: center;
     }
     
     .player-rank {
-        font-size: 15px;
+        font-size: 16px; /* Чуть крупнее номер места */
     }
     
     .player-name {
         font-size: 14px;
+        font-weight: bold;
     }
     
-    /* Фикс раздувания карточки: иконки плавно скроллятся пальцем по горизонтали */
+    /* Убираем скролл, пускай элементы сидят намертво, но за счет рамки им свободно */
     .player-tiers-block {
-        overflow-x: auto;
-        scrollbar-width: none; /* Убираем полосу в Firefox */
-        padding-bottom: 2px;
+        overflow: visible; 
         width: 100%;
     }
     
-    .player-tiers-block::-webkit-scrollbar {
-        display: none; /* Убираем полосу в Chrome/Safari */
-    }
-    
+    /* Слегка уплотняем иконки, чтобы они гарантированно влезли в один ряд */
     .player-tiers-row {
-        gap: 6px;
+        gap: 4px; 
+        flex-wrap: nowrap;
     }
     
+    /* Идеальный адаптивный размер ушек/кружков для мобильных */
     .tier-icon-circle {
-        width: 26px;
-        height: 26px;
+        width: 25px; 
+        height: 25px;
         padding: 3px;
     }
     
     .tier-label-under {
         font-size: 8px;
+        letter-spacing: 0.3px;
     }
     
     .player-meta-tag, .retired-meta-tag {
         font-size: 9px;
-        padding: 1px 5px;
+        padding: 2px 5px;
     }
     
     .player-right {
-        font-size: 15px;
+        font-size: 16px;
+        justify-self: end;
     }
 
+    /* Остальные мобильные фиксы для модалок и вики */
     .modal-grid { grid-template-columns: 1fr; }
     .info-nav-buttons { flex-direction: column; width: 100%; }
     .info-nav-btn { width: 100%; text-align: center; }
