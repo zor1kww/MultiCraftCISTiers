@@ -34,15 +34,13 @@ function toggleTheme() {
 
 // Хелпер для определения, является ли конкретный кит игрока "Retired"
 function isKitRetired(player, kit) {
-    if (player.retired === true) return true;
-    
     const kitData = player.tiers[kit];
     if (!kitData) return false;
     
     if (typeof kitData === 'object' && kitData.retired === true) {
         return true;
     }
-    if (typeof kitData === 'string' && kitData.startsWith('R') && kitData.length > 2) {
+    if (typeof kitData === 'string' && kitData.startsWith('R') && kitData.length > 1) {
         return true;
     }
     return false;
@@ -73,7 +71,7 @@ function getCleanTier(player, kit) {
     }
     
     if (typeof kitData === 'string') {
-        if (kitData.startsWith('R') && kitData.length > 2) {
+        if (kitData.startsWith('R') && kitData.length > 1) {
             return kitData.substring(1);
         }
         return kitData;
@@ -207,14 +205,8 @@ function renderPlayers() {
             return matchesSearch && matchesRegion && matchesDevice && tier !== "Unranked";
         }
         
-        if (!showRetiredInPlace) {
-            let hasActiveMainKit = false;
-            maintiers.forEach(k => {
-                if (getCleanTier(player, k) !== "Unranked" && !isKitRetired(player, k)) {
-                    hasActiveMainKit = true;
-                }
-            });
-            if (!hasActiveMainKit) return false;
+        if (!showRetiredInPlace && hasAnyRetiredKit(player)) {
+            return false;
         }
         
         return matchesSearch && matchesRegion && matchesDevice;
@@ -256,14 +248,8 @@ function renderPlayers() {
         if (targetKit !== 'all' && isKitRetired(player, targetKit)) {
             topClass = 'retired-status';
         }
-        if (targetKit === 'all') {
-            let allMainRetired = true;
-            maintiers.forEach(k => {
-                if (getCleanTier(player, k) !== "Unranked" && !isKitRetired(player, k)) {
-                    allMainRetired = false;
-                }
-            });
-            if (allMainRetired) topClass = 'retired-status';
+        if (targetKit === 'all' && hasAnyRetiredKit(player)) {
+            topClass = 'retired-status';
         }
         
         if (targetKit === 'all') {
@@ -495,6 +481,7 @@ function copyInviteCode() {
                 btn.style.borderColor = "";
                 btn.style.color = "";
             }, 1500);
+            
         }
     }).catch(err => {
         const el = document.createElement('textarea');
