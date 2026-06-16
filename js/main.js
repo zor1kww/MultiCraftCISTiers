@@ -472,12 +472,12 @@ function copyInviteCode() {
     
     navigator.clipboard.writeText(inviteCode).then(() => {
         if (btn) {
-            btn.innerHTML = "✅ Скопировано!";
+            btn.innerHTML = "Скопировано!";
             btn.style.borderColor = "var(--accent)";
             btn.style.color = "var(--accent)";
             
             setTimeout(() => {
-                btn.innerHTML = `📋 ${inviteCode}`;
+                btn.innerHTML = `${inviteCode}`;
                 btn.style.borderColor = "";
                 btn.style.color = "";
             }, 1500);
@@ -492,9 +492,9 @@ function copyInviteCode() {
         document.body.removeChild(el);
         
         if (btn) {
-            btn.innerHTML = "✅ Скопировано!";
+            btn.innerHTML = "Скопировано!";
             setTimeout(() => {
-                btn.innerHTML = `📋 ${inviteCode}`;
+                btn.innerHTML = `${inviteCode}`;
             }, 1500);
         }
     });
