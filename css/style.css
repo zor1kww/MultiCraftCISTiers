@@ -410,13 +410,13 @@ body, html {
     text-align: center;
 }
 
-/* Горизонтальный ряд иконок китов строго в 1 линию */
+/* Горизонтальный ряд иконок китов */
 .player-tiers-row {
     display: flex;
     justify-content: center;
     gap: 4px;
     width: 100%;
-    flex-wrap: nowrap !important;
+    flex-wrap: nowrap;
 }
 
 .tier-item-box {
@@ -939,17 +939,18 @@ body, html {
 }
 
 /* ==========================================================================
-   ИСПРАВЛЕННАЯ АДАПТИВНОСТЬ ПОД МОБИЛЬНЫЕ УСТРОЙСТВА
+   ИСПРАВЛЕННАЯ АДАПТИВНОСТЬ ПОД МОБИЛЬНЫЕ УСТРОЙСТВА (ВАР-1, ИКОНКИ В 2 РЯДА)
    ========================================================================== */
 @media(max-width: 768px) {
     .hero h1 { font-size: 26px; }
     .filters, .filters-row-2 { grid-template-columns: 1fr; gap: 8px; }
     
-    /* Свободная резиновая сетка для мобильных карточек */
+    /* Сетка карточки: даем колонкам адаптироваться по контенту */
     .player-card-row {
         grid-template-columns: max-content 1fr max-content;
-        gap: 8px;
-        padding: 12px 10px;
+        gap: 12px;
+        padding: 14px 10px;
+        align-items: center;
     }
     
     .player-left {
@@ -957,21 +958,38 @@ body, html {
     }
 
     .player-name {
-        font-size: 15px; /* Уменьшаем шрифт, чтобы ник не переносился */
+        font-size: 16px;
     }
 
+    /* Флекс-контейнер иконок с разрешением переноса (двухстрочный режим) */
     .player-tiers-row {
-        gap: 2px; /* Минимальный зазор между слотами для экономии места */
+        display: flex;
+        flex-wrap: wrap !important;
+        justify-content: center;
+        gap: 6px 4px; /* 6px между строками, 4px между иконками */
+        width: 100%;
+        max-width: 150px; /* Жестко контролируем ширину ряда для переноса по 5 штук */
+        margin: 0 auto;
+    }
+
+    /* Рассчитываем размер слотов, чтобы помещалось ровно 5 элементов в ряд */
+    .tier-item-box {
+        flex: 0 0 18%; 
+        min-width: 22px;
     }
 
     .tier-icon-circle {
-        max-width: 22px; /* Идеальный размер кружков под мобильный экран */
+        width: 22px;
+        height: 22px;
+        max-width: 22px;
         max-height: 22px;
         padding: 2px;
     }
 
+    /* Четкие, не наезжающие друг на друга подписи */
     .tier-label-under {
-        font-size: 7px; /* Компактные подписи тиров (HT1, LT2) */
+        font-size: 8px;
+        white-space: nowrap;
     }
 
     .player-right {
