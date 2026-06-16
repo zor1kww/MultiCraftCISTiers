@@ -456,7 +456,7 @@ body, html {
 }
 
 /* ==========================================================================
-   ТОП 1-5 СВЕЧЕНИЯ И ЦВЕТА РАМОК (ИСКЛЮЧИТЕЛЬНО ТВОИ ХЕКС-КОДЫ)
+   ТОП 1-5 СВЕЧЕНИЯ И ЦВЕТА РАМОК
    ========================================================================== */
 
 /* 1 место — #ffcc47 */
@@ -495,10 +495,10 @@ body, html {
     border-color: rgba(255, 204, 71, 0.25) !important;
 }
 
-/* Стили для общего Retired статуса (ПРИМЕНЯЮТСЯ ТОЛЬКО ЕСЛИ ИГРОК НЕ В ТОП-5) */
+/* Стили для Retired-статуса (ПРИМЕНЯЮТСЯ ТОЛЬКО ЕСЛИ ИГРОК НЕ НАХОДИТЬСЯ В ТОП 1-5) */
 .retired-status:not(.top-rank-1):not(.top-rank-2):not(.top-rank-3):not(.top-rank-4):not(.top-rank-5) .player-card-row {
     border-color: rgba(255, 255, 255, 0.05) !important;
-    opacity: 0.5 !important; /* Обычные игроки затухают */
+    opacity: 0.5 !important;
 }
 
 .retired-status:not(.top-rank-1):not(.top-rank-2):not(.top-rank-3):not(.top-rank-4):not(.top-rank-5) .player-rank,
@@ -965,7 +965,7 @@ body, html {
     color: var(--accent);
 }
 
-/* Стили для сабтиров ветеранов (независимы от общего статуса игрока) */
+/* Стили для сабтиров ветеранов (выглядят отдельно от статуса игрока) */
 .tier-item-box.retired-kit .tier-icon-circle {
     border-color: rgba(255, 74, 74, 0.25);
 }
@@ -981,12 +981,12 @@ body, html {
     .hero h1 { font-size: 26px; }
     .filters, .filters-row-2 { grid-template-columns: 1fr; gap: 8px; }
     
-    /* Увеличенная рамка карточки лидера/игрока */
+    /* Просторная рамка карточки на мобильных */
     .player-card-row {
         grid-template-columns: 40px 105px 1fr auto;
         gap: 10px;
-        padding: 18px 14px; /* Крупные отступы */
-        min-height: 85px;   /* Высокая и просторная рамка */
+        padding: 18px 14px;
+        min-height: 85px;
         align-items: center;
     }
     
@@ -999,7 +999,7 @@ body, html {
         font-weight: bold;
     }
     
-    /* Иконки сидят строго в ряд, без скрытых скроллов */
+    /* Элементы жестко держатся в одну строчку без полос прокрутки */
     .player-tiers-block {
         overflow: visible;
         width: 100%;
