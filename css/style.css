@@ -388,7 +388,7 @@ body, html {
     width: fit-content;
 }
 
-/* Центральная колонка: Ник сверху, Иконки снизу */
+/* Центральная колонка: Ник сверху, Иконки снину */
 .player-center {
     display: flex;
     flex-direction: column;
@@ -947,88 +947,109 @@ body, html {
 }
 
 /* ==========================================================================
-   ИСПРАВЛЕННАЯ АДАПТИВНОСТЬ ПОД МОБИЛЬНЫЕ УСТРОЙСТВА (ВАР-2, ПОЛНЫЙ СТЕК)
+   ИСПРАВЛЕННАЯ АДАПТИВНОСТЬ ПОД МОБИЛЬНЫЕ УСТРОЙСТВА (СЕТКА С ТИРАМИ В 2 РЯДА)
    ========================================================================== */
 @media(max-width: 768px) {
     .hero h1 { font-size: 26px; }
     .filters, .filters-row-2 { grid-template-columns: 1fr; gap: 8px; }
     
-    /* Переключаем сетку карточки в режим вертикального стека */
+    /* Основной контейнер карточки превращаем в умную 2-колоночную Grid-сетку */
     .player-card-row {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
         gap: 12px;
         padding: 20px;
     }
     
-    /* Разворачиваем промежуточные контейнеры */
+    /* Разворачиваем промежуточные обертки для свободного позиционирования детей */
     .player-left, .player-center {
-        display: contents;
+        display: contents !important;
     }
     
-    /* Распределяем элементы по порядку как на фото 2 */
+    /* СТРОКА 1: Ранг слева, Никнейм справа на одной высоте */
     .player-rank {
-        order: 1;
+        grid-row: 1;
+        grid-column: 1;
+        justify-self: start;
+        align-self: center;
         font-size: 18px;
     }
     
     .player-name-wrapper {
-        order: 2;
-        text-align: left !important;
-        width: auto;
+        grid-row: 1;
+        grid-column: 2;
+        justify-self: end;
+        align-self: center;
+        text-align: right !important;
+        width: 100%;
     }
     
     .player-name {
         font-size: 18px;
-        text-align: left !important;
+        text-align: right !important;
     }
     
-    /* Мета-теги выстраиваются горизонтально в один ряд */
+    /* СТРОКА 2: Мета-теги выстраиваются горизонтально */
     .player-meta-box {
-        order: 3;
+        grid-row: 2;
+        grid-column: 1 / span 2;
+        justify-self: start;
         flex-direction: row !important;
         flex-wrap: wrap;
-        gap: 6px !important;
+        gap: 8px !important;
         width: auto;
+        margin-top: 2px;
     }
     
-    /* Блок иконок тиров */
+    /* Делаем иконки/теги устройств, регионов и retired чуть больше */
+    .player-meta-tag {
+        font-size: 13px !important;
+        padding: 4px 8px !important;
+    }
+    
+    .retired-meta-tag {
+        font-size: 12px !important;
+        padding: 4px 8px !important;
+    }
+    
+    /* СТРОКА 3: Блок иконок тиров центрируется и делится ровно на 2 ряда по 5 штук */
     .player-tiers-row {
-        order: 4;
-        display: flex;
+        grid-row: 3;
+        grid-column: 1 / span 2;
+        justify-self: center;
+        display: flex !important;
         flex-wrap: wrap !important;
-        justify-content: flex-start !important;
-        gap: 8px 6px !important;
+        justify-content: center !important;
+        gap: 6px 4px !important;
         width: 100%;
-        max-width: none !important;
-        margin: 4px 0 0 0 !important;
+        max-width: 150px; /* Фиксированная ширина гарантирует перенос ровно по 5 элементов */
+        margin: 8px auto 4px auto !important;
     }
 
     .tier-item-box {
-        flex: 0 0 auto;
-        min-width: 32px;
+        flex: 0 0 18% !important;
+        min-width: 22px !important;
     }
 
     .tier-icon-circle {
-        width: 32px;
-        height: 32px;
-        max-width: 32px;
-        max-height: 32px;
-        padding: 4px;
+        width: 22px !important;
+        height: 22px !important;
+        max-width: 22px !important;
+        max-height: 22px !important;
+        padding: 2px !important;
     }
 
     .tier-label-under {
-        font-size: 8px;
-        white-space: nowrap;
-        margin-top: 2px;
+        font-size: 8px !important;
+        white-space: nowrap !important;
     }
 
-    /* Блок PTS уходит в самый низ */
+    /* СТРОКА 4: Блок PTS переносится на самый нижний ряд в правый угол */
     .player-right {
-        order: 5;
-        justify-content: flex-start !important;
-        text-align: left !important;
+        grid-row: 4;
+        grid-column: 1 / span 2;
+        justify-self: end;
+        text-align: right !important;
         font-size: 16px;
         margin-top: 4px;
         width: 100%;
