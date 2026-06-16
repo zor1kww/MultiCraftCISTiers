@@ -320,13 +320,14 @@ body, html {
     width: 100%;
 }
 
-/* --- ОСНОВНЫЕ СТИЛИ КАРТОЧКИ --- */
+/* --- ОБНОВЛЕННЫЕ СТИЛИ КАРТОЧКИ (НАОБОРОТ) --- */
 .player-card-row {
     padding: 16px 24px;
     display: grid;
-    grid-template-columns: 60px 170px 1fr auto;
+    /* Место -> Ник забирает всё свободное место (1fr) -> Тиры по размеру контента -> PTS справа */
+    grid-template-columns: 60px 1fr auto auto;
     align-items: center;
-    gap: 20px;
+    gap: 24px; /* Чуть увеличили общий зазор для солидности */
     cursor: pointer;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
@@ -352,9 +353,10 @@ body, html {
 .player-name-wrapper {
     justify-self: start;
     width: 100%;
-    min-width: 0;
+    min-width: 0; /* Дает право длинным никам сжиматься и уходить в троеточие */
     display: flex;
     align-items: center;
+    padding-right: 15px; /* Защитный отступ перед блоком тиров */
 }
 
 .player-name {
@@ -373,8 +375,6 @@ body, html {
     align-items: flex-start;
     justify-content: center;
     gap: 6px;
-    width: 100%;
-    min-width: 0;
 }
 
 .player-meta-box {
@@ -455,6 +455,7 @@ body, html {
     text-align: right;
     white-space: nowrap;
     justify-self: end;
+    margin-left: 10px;
 }
 
 .top-rank-1 .player-rank { color: var(--accent) !important; }
@@ -961,14 +962,15 @@ body, html {
     color: #ff4a4a;
 }
 
-/* --- МОБИЛЬНЫЙ АДАПТИВ --- */
+/* --- ОПТИМИЗИРОВАННЫЙ МОБИЛЬНЫЙ АДАПТИВ (НАОБОРОТ) --- */
 @media(max-width: 768px) {
     .hero h1 { font-size: 26px; }
     .filters, .filters-row-2 { grid-template-columns: 1fr; gap: 8px; }
     
     .player-card-row {
-        grid-template-columns: 35px 95px 1fr auto;
-        gap: 8px;
+        /* Место (35px) -> Ник забирает весь остаток (1fr) -> Тиры (auto по размеру иконок) -> PTS (auto) */
+        grid-template-columns: 35px 1fr auto auto;
+        gap: 10px;
         padding: 18px 14px;
         min-height: 85px;
         align-items: center;
@@ -978,6 +980,10 @@ body, html {
         font-size: 16px;
     }
     
+    .player-name-wrapper {
+        padding-right: 5px; /* Минимальный зазор перед иконками на мобилках */
+    }
+
     .player-name {
         font-size: 14px;
         font-weight: bold;
@@ -985,17 +991,15 @@ body, html {
     
     .player-tiers-block {
         overflow: visible;
-        width: 100%;
-        min-width: 0;
     }
     
     .player-tiers-row {
-        gap: 4px;
-        flex-wrap: nowrap;
+        gap: 4px; /* Иконки плотно стоят в ряд без слипания */
+        flex-wrap: nowrap; /* Жестко в один ряд */
     }
     
     .tier-icon-circle {
-        width: 25px;
+        width: 25px; /* Аккуратный мобильный размер */
         height: 25px;
         padding: 3px;
     }
@@ -1011,8 +1015,9 @@ body, html {
     }
     
     .player-right {
-        font-size: 15px;
+        font-size: 16px;
         justify-self: end;
+        margin-left: 4px;
     }
 
     .modal-grid { grid-template-columns: 1fr; }
