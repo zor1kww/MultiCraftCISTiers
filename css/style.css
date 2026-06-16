@@ -313,41 +313,44 @@ body, html {
 .players-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
 }
 
 /* ==========================================================================
-   ОСНОВНАЯ СЕТКА КАРТОЧЕК ИГРОКОВ (СТРОГО ПО ТВОЕМУ ТЗ)
+   ОСНОВНАЯ СЕТКА КАРТОЧЕК ИГРОКОВ (ПК ВЕРСИЯ — МАКСИМУМ ВОЗДУХА)
    ========================================================================== */
 .player-container {
     width: 100%;
 }
 
 .player-card-row {
-    padding: 16px;
+    padding: 18px 24px;
     display: grid;
-    /* Место, Никнейм, Блок с тирами/сабтирами, ПТС в конце */
-    grid-template-columns: 65px 1.2fr 2fr 100px;
+    /* Место (70px) | Никнейм (Мин 160px) | Блок тиров (Занимает всё инфо-поле) | PTS (110px) */
+    grid-template-columns: 70px minmax(160px, 1.2fr) 2fr 110px;
     align-items: center;
-    gap: 16px;
+    gap: 24px;
     cursor: pointer;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
-    border-radius: 18px;
+    border-radius: 16px;
     position: relative;
 }
 
 .player-card-row:hover {
     border-color: var(--accent);
     background: var(--card-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* 1. Слева по середине — Место */
 .player-rank {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
     justify-self: start;
     align-self: center;
+    letter-spacing: 0.5px;
 }
 
 /* 2. Затем — Ник игрока */
@@ -355,6 +358,7 @@ body, html {
     justify-self: start;
     align-self: center;
     width: 100%;
+    padding-right: 10px;
 }
 
 .player-name {
@@ -362,69 +366,71 @@ body, html {
     font-size: 18px;
     word-break: break-all;
     text-align: left;
+    letter-spacing: 0.3px;
 }
 
-/* 3. После этого — Общий блок тиров */
+/* 3. После этого — Блок тиров */
 .player-tiers-block {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    gap: 6px;
+    gap: 8px; /* Отступ между метой и самими иконками */
+    width: 100%;
 }
 
-/* Данные о регионе, устройстве и ретайред статусе (сабтиры) — строго НАД первыми двумя тирами */
+/* Данные о регионе, девайсе и ретайред — строго НАД первыми двумя тирами */
 .player-meta-box {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
 }
 
 .player-meta-tag {
     display: inline-block;
     font-size: 11px;
     color: var(--text-muted);
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--border-color);
-    padding: 3px 6px;
-    border-radius: 4px;
+    padding: 3px 8px;
+    border-radius: 5px;
 }
 
 .retired-meta-tag {
     display: inline-block;
-    font-size: 10px;
+    font-size: 11px;
     color: #ff4a4a;
-    background: rgba(255, 74, 74, 0.1);
-    border: 1px solid rgba(255, 74, 74, 0.25);
-    padding: 3px 6px;
-    border-radius: 4px;
+    background: rgba(255, 74, 74, 0.08);
+    border: 1px solid rgba(255, 74, 74, 0.2);
+    padding: 3px 8px;
+    border-radius: 5px;
     font-weight: bold;
 }
 
-/* Горизонтальный ряд иконок основных тиров */
+/* Ряд иконок основных тиров */
 .player-tiers-row {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
 }
 
 .tier-item-box {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3px;
+    gap: 4px;
 }
 
 .tier-icon-circle {
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1.5px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1.5px solid rgba(255, 255, 255, 0.08);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 4px;
+    padding: 5px;
     overflow: hidden;
 }
 
@@ -435,15 +441,16 @@ body, html {
 }
 
 .tier-icon-circle.unranked {
-    border-color: rgba(255, 255, 255, 0.05);
-    opacity: 0.2;
+    border-color: rgba(255, 255, 255, 0.03);
+    opacity: 0.15;
 }
 
 .tier-label-under {
-    font-size: 8px;
+    font-size: 9px;
     font-weight: bold;
     text-align: center;
     white-space: nowrap;
+    color: var(--text-muted);
 }
 
 /* 4. В самом конце справа по середине — количество PTS */
@@ -451,68 +458,58 @@ body, html {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     text-align: right;
     justify-self: end;
 }
 
 /* ==========================================================================
-   ТОП 1-5 ЦВЕТА И СВЕЧЕНИЯ РАМОК (ИСПОЛЬЗУЕМ ТВОИ ХЕКС-КОДЫ)
+   ТОП 1-5 СВЕЧЕНИЯ И ЦВЕТА РАМОК (ИСКЛЮЧИТЕЛЬНО ТВОИ ХЕКС-КОДЫ)
    ========================================================================== */
 
-/* 1 место — Самый яркий золотой акцент темы */
+/* 1 место — #ffcc47 */
 .top-rank-1 .player-rank { color: var(--accent) !important; }
 .top-rank-1 .player-card-row {
     border-color: var(--accent) !important;
-    box-shadow: 0 0 18px rgba(255, 204, 71, 0.55) !important;
+    box-shadow: 0 0 20px rgba(255, 204, 71, 0.35) !important;
 }
 .top-rank-1.retired-status .player-card-row {
-    box-shadow: 0 0 6px rgba(255, 204, 71, 0.2) !important;
+    box-shadow: 0 0 6px rgba(255, 204, 71, 0.1) !important;
 }
 
-/* 2 место — Плотный янтарно-золотой из палитры */
+/* 2 место — #e0b33f */
 .top-rank-2 .player-rank { color: #e0b33f !important; }
 .top-rank-2 .player-card-row {
     border-color: #e0b33f !important;
-    box-shadow: 0 0 14px rgba(224, 179, 63, 0.45) !important;
-}
-.top-rank-2.retired-status .player-card-row {
-    box-shadow: 0 0 5px rgba(224, 179, 63, 0.15) !important;
+    box-shadow: 0 0 16px rgba(224, 179, 63, 0.3) !important;
 }
 
-/* 3 место — Мягкий полупрозрачный акцент */
-.top-rank-3 .player-rank { color: rgba(255, 204, 71, 0.85) !important; }
+/* 3 место — Мягкий #ffcc47 */
+.top-rank-3 .player-rank { color: rgba(255, 204, 71, 0.9) !important; }
 .top-rank-3 .player-card-row {
     border-color: rgba(255, 204, 71, 0.6) !important;
-    box-shadow: 0 0 10px rgba(255, 204, 71, 0.3) !important;
-}
-.top-rank-3.retired-status .player-card-row {
-    box-shadow: 0 0 4px rgba(255, 204, 71, 0.1) !important;
+    box-shadow: 0 0 12px rgba(255, 204, 71, 0.2) !important;
 }
 
-/* 4 место — Аккуратная тонкая рамка */
-.top-rank-4 .player-rank { color: rgba(255, 204, 71, 0.7) !important; }
+/* 4 место — Аккуратный контур #e0b33f */
+.top-rank-4 .player-rank { color: rgba(224, 179, 63, 0.8) !important; }
 .top-rank-4 .player-card-row {
-    border-color: rgba(255, 204, 71, 0.35) !important;
-    box-shadow: 0 0 6px rgba(255, 204, 71, 0.15) !important;
+    border-color: rgba(224, 179, 63, 0.4) !important;
 }
 
-/* 5 место — Легкое, едва заметное свечение */
-.top-rank-5 .player-rank { color: rgba(255, 204, 71, 0.55) !important; }
+/* 5 место — Тонкий контур #ffcc47 */
+.top-rank-5 .player-rank { color: rgba(255, 204, 71, 0.7) !important; }
 .top-rank-5 .player-card-row {
-    border-color: rgba(255, 204, 71, 0.2) !important;
-    box-shadow: 0 0 4px rgba(255, 204, 71, 0.08) !important;
+    border-color: rgba(255, 204, 71, 0.25) !important;
 }
 
-/* Общие стили для карточек со статусом Retired */
+/* Общие стили для Retired статуса */
 .retired-status .player-card-row {
-    border-color: rgba(255, 255, 255, 0.06);
-    opacity: 0.55 !important;
+    border-color: rgba(255, 255, 255, 0.05) !important;
+    opacity: 0.5 !important;
 }
-.retired-status .player-rank {
-    color: var(--text-muted) !important;
-}
+.retired-status .player-rank,
 .retired-status .player-name {
     color: var(--text-muted) !important;
 }
@@ -971,34 +968,92 @@ body, html {
     to { opacity: 1; transform: translateY(0); }
 }
 
-.minecraft-invite {
+.multicraft-invite {
     font-family: 'MultiCraftFont', 'Courier New', monospace !important;
     color: var(--accent);
 }
 
 /* ==========================================================================
-   АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ СТРОК
+   УМНАЯ МОБИЛЬНАЯ ОПТИМИЗАЦИЯ (ИСПРАВЛЕНИЕ «СЛИПАНИЯ»)
    ========================================================================== */
 @media(max-width: 768px) {
     .hero h1 { font-size: 26px; }
     .filters, .filters-row-2 { grid-template-columns: 1fr; gap: 8px; }
     
-    /* Сохраняем строгую однострочную структуру с адаптивным сжатием колонок */
+    /* Перестраиваем сетку карточки в 2 строки, чтобы дать контенту воздух */
     .player-card-row {
-        grid-template-columns: 45px 1fr 1.5fr 75px;
-        gap: 10px;
-        padding: 12px;
+        grid-template-columns: 50px 1fr auto;
+        grid-template-rows: auto auto;
+        gap: 14px 16px;
+        padding: 14px 18px;
     }
     
-    .player-rank { font-size: 15px; }
-    .player-name { font-size: 14px; }
+    /* Место слева по центру (занимает обе строки) */
+    .player-rank {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        justify-self: start;
+        align-self: center;
+        font-size: 17px;
+    }
     
-    .player-meta-tag { font-size: 10px; padding: 2px 4px; }
-    .retired-meta-tag { font-size: 9px; padding: 2px 4px; }
+    /* Ник игрока сверху во второй колонке */
+    .player-name-wrapper {
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: start;
+        align-self: center;
+    }
     
-    .tier-icon-circle { width: 26px; height: 26px; padding: 3px; }
-    .tier-label-under { font-size: 7px; }
-    .player-right { font-size: 14px; }
+    .player-name {
+        font-size: 16px;
+        text-align: left;
+    }
+    
+    /* Блок тиров уходит строго под ник игрока во вторую строку */
+    .player-tiers-block {
+        grid-column: 2;
+        grid-row: 2;
+        gap: 6px;
+    }
+    
+    .player-meta-box {
+        gap: 6px;
+    }
+    
+    .player-meta-tag {
+        font-size: 10px;
+        padding: 2px 6px;
+    }
+    
+    .retired-meta-tag {
+        font-size: 10px;
+        padding: 2px 6px;
+    }
+    
+    .player-tiers-row {
+        gap: 6px;
+    }
+    
+    .tier-icon-circle {
+        width: 28px;
+        height: 28px;
+        padding: 4px;
+    }
+    
+    .tier-label-under {
+        font-size: 8px;
+    }
+    
+    /* PTS справа по центру (занимает обе строки) */
+    .player-right {
+        grid-column: 3;
+        grid-row: 1 / span 2;
+        justify-self: end;
+        align-self: center;
+        font-size: 16px;
+        text-align: right;
+    }
 
     .modal-grid { grid-template-columns: 1fr; }
     .info-nav-buttons { flex-direction: column; width: 100%; }
@@ -1008,7 +1063,7 @@ body, html {
 }
 
 .tier-item-box.retired-kit .tier-icon-circle {
-    border-color: rgba(255, 74, 74, 0.3);
+    border-color: rgba(255, 74, 74, 0.25);
 }
 
 .tier-item-box.retired-kit .tier-label-under {
