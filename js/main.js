@@ -46,10 +46,10 @@ function isKitRetired(player, kit) {
     return false;
 }
 
-// Проверка: есть ли у игрока ХОТЯ БЫ ОДИН кит со статусом retired
+// Проверка: есть ли у игрока ХОТЯ БЫ ОДИН кит со статусом retired (Только для Main китов)
 function hasAnyRetiredKit(player) {
     if (player.retired === true) return true;
-    const allKits = [...maintiers, ...subtiers];
+    const allKits = [...maintiers];
     for (let i = 0; i < allKits.length; i++) {
         if (isKitRetired(player, allKits[i])) {
             const tier = getCleanTier(player, allKits[i]);
@@ -245,11 +245,15 @@ function renderPlayers() {
         else if (index === 3) topClass = 'top-rank-4';
         else if (index === 4) topClass = 'top-rank-5';
         
+        let isRet = false;
         if (targetKit !== 'all' && isKitRetired(player, targetKit)) {
-            topClass = 'retired-status';
+            isRet = true;
+        } else if (targetKit === 'all' && hasAnyRetiredKit(player)) {
+            isRet = true;
         }
-        if (targetKit === 'all' && hasAnyRetiredKit(player)) {
-            topClass = 'retired-status';
+        
+        if (isRet) {
+            topClass = topClass ? topClass + ' retired-status' : 'retired-status';
         }
         
         if (targetKit === 'all') {
@@ -326,7 +330,6 @@ function renderPlayers() {
 
         let displayProfileRetiredTag = hasAnyRetiredKit(player);
 
-        /* ПОЛНОСТЬЮ СКОРРЕКТИРОВАННАЯ ИСПРАВЛЕННАЯ СТРУКТУРА КАРТОЧКИ ДЛЯ СЕТКИ */
         htmlFragment += `
         <div class="player-container ${topClass}">
             <div class="player-card-row" onclick="openProfile(${index}, '${filteredJSON}')">
