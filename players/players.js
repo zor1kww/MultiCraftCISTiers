@@ -37,21 +37,7 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            "Hardcore": "RLT1"
-        }
-    },
-    {
-        name: "VortexFx",
-        region: "BY",
-        device: "PH",
-        tiers: {
-            "Dragonhide": "LT1", // Активный игрок (без буквы R)
-            "Emerald": "HT2",
-            "Diamond": "LT2",
-            "Crystal": "HT1",
-            "Combo": "LT1",
-            "Mace": "LT1",
-            "Hardcore": "HT1"
+            "Hardcore": "LT1"
         }
     }
 ];
