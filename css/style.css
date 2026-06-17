@@ -389,7 +389,7 @@ body, html {
 }
 
 /* ==========================================================================
-   ЕДИНЫЙ СТАНДАРТ ДЛЯ ВСЕХ МЕТА-ТЕГОВ (Регион, Устройство, Retired)
+   ЕДИНЫЙ СТАНДАРТ ДЛЯ ВСЕХ МЕТА-ТЕГОВ (Регион, Устройство)
    ========================================================================== */
 .player-meta-tag {
     display: inline-flex;
@@ -413,12 +413,12 @@ body, html {
     background: rgba(0,0,0,0.05);
 }
 
-/* Отдельный класс для Retired, который копирует базовые свойства, но меняет цвет */
+/* Отдельный класс для Retired — исправлено выравнивание и возвращен красный цвет */
 .retired-meta-tag {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    height: 22px; /* Такая же высота, чтобы стоять вровень с RU и PC/Phone */
+    height: 22px; /* Вровень с остальными тегами */
     padding: 0 8px;
     font-size: 11px;
     font-weight: bold;
@@ -430,7 +430,7 @@ body, html {
     border: 1px solid rgba(255, 71, 71, 0.25) !important;
     box-sizing: border-box;
     white-space: nowrap;
-    margin-top: 0; /* Убрали старый отступ */
+    margin-top: 0; /* Убран кривой сдвиг */
 }
 
 .player-tiers-row {
@@ -461,7 +461,7 @@ body, html {
     overflow: hidden;
 }
 
-/* Стили для сабтиров ветеранов (красная обводка применяется независимо от Топа) */
+/* Стили для сабтиров ветеранов */
 .tier-item-box.retired-kit .tier-icon-circle {
     border-color: rgba(255, 71, 71, 0.4) !important;
     background: rgba(255, 71, 71, 0.02);
@@ -777,7 +777,7 @@ body, html {
 }
 
 /* ==========================================================================
-   ИЗОЛИРОВАННЫЙ И ОТРЕМОНТИРОВАННЫЙ РАЗДЕЛ "ВИКИ" (.wiki-grid)
+   ИЗОЛИРОВАННЫЙ РАЗДЕЛ "ВИКИ" (.wiki-grid) — ИСПРАВЛЕНЫ СКРИНШОТЫ И ШРИФТЫ
    ========================================================================== */
 .wiki-grid {
     display: grid;
@@ -809,14 +809,16 @@ body, html {
     object-fit: contain;
 }
 
+/* Красивый аккуратный заголовок кита */
 .wiki-card h3 {
     color: var(--accent);
     font-size: 16px;
     font-weight: normal; 
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     letter-spacing: 0.5px;
 }
 
+/* Оптимизированный мелкий шрифт для описания */
 .wiki-card p {
     font-size: 11px;
     font-weight: normal;
@@ -830,31 +832,28 @@ body, html {
     margin-bottom: 0;
 }
 
+/* Подсветка важных слов ("Тренирует:", "Изумрудный Меч:") золотым */
 .wiki-card p b, 
 .wiki-card p strong {
     color: var(--accent);
     font-weight: normal;
 }
 
+/* Исправленный контейнер инвентаря — картинка больше не сжимается */
 .inv-preview-box {
-    margin-top: auto; /* Смещает инвентарь вниз карточки */
-    background: var(--bg-solid);
+    margin-top: auto; 
+    background: rgba(0, 0, 0, 0.15);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-muted);
-    font-size: 12px;
+    border-radius: 10px;
     overflow: hidden;
-    height: 80px; /* Фиксированная высота блока превью */
+    width: 100%;
 }
 
+/* Картинка идеально растягивается на всю ширину без черных полос по бокам */
 .inv-preview-box img {
     width: 100%;
-    height: 100%;
+    height: auto;
     display: block;
-    object-fit: contain;
 }
 
 /* ==========================================================================
@@ -923,7 +922,6 @@ body, html {
     line-height: 1.6;
 }
 
-/* Навигация под-вкладок раздела Информация */
 .info-nav-buttons {
     display: flex;
     gap: 10px;
