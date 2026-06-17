@@ -330,26 +330,29 @@ function renderPlayers() {
 
         let displayProfileRetiredTag = hasAnyRetiredKit(player);
 
+        // Обновленная структура карточки игрока
         htmlFragment += `
         <div class="player-container ${topClass}">
             <div class="player-card-row" onclick="openProfile(${index}, '${filteredJSON}')">
-                <div class="player-left">
-                    <div class="player-rank">${rankPrefix}</div>
+                
+                <div class="player-name-block">
+                    <span class="player-rank">${rankPrefix}</span>
+                    <span class="player-name">${player.name}</span>
+                </div>
+
+                <div class="player-center-block">
                     <div class="player-meta-box">
                         <span class="player-meta-tag">${player.region}</span>
                         <span class="player-meta-tag">${player.device}</span>
-                        ${displayProfileRetiredTag ? `<span class="retired-meta-tag">RETIRED</span>` : ''}
-                    </div>
-                </div>
-                <div class="player-center">
-                    <div class="player-name-wrapper">
-                        <div class="player-name">${player.name}</div>
+                        ${displayProfileRetiredTag ? `<span class="player-meta-tag retired-meta-tag">RETIRED</span>` : ''}
                     </div>
                     ${quickTiersHTML}
                 </div>
+
                 <div class="player-right">
                     ${rightColumnContent}
                 </div>
+
             </div>
         </div>`;
     });
