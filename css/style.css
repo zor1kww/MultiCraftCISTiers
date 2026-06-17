@@ -344,7 +344,7 @@ body, html {
 }
 
 /* ==========================================================================
-   ОБНОВЛЕННАЯ СТРУКТУРА КАРТОЧКИ ИГРОКА (.player-card-row)
+   СТРУКТУРА КАРТОЧКИ ИГРОКА (.player-card-row)
    ========================================================================== */
 .player-card-row {
     padding: 14px 16px;
@@ -355,7 +355,6 @@ body, html {
     width: 100%;
 }
 
-/* 1. Блок никнейма и ранга (Слева) */
 .player-name-block {
     display: flex;
     align-items: center;
@@ -375,7 +374,6 @@ body, html {
     font-size: 16px;
 }
 
-/* 2. Центральный блок: Мета-теги + Сетка иконок китов */
 .player-center-block {
     display: flex;
     flex-direction: column;
@@ -390,18 +388,20 @@ body, html {
     flex-wrap: wrap; 
 }
 
-/* ЕДИНЫЙ СТАНДАРТ ДЛЯ ВСЕХ МЕТА-ТЕГОВ (Регион, Устройство, Retired) */
-.player-meta-box .player-meta-tag {
+/* ==========================================================================
+   ЕДИНЫЙ СТАНДАРТ ДЛЯ ВСЕХ МЕТА-ТЕГОВ (Регион, Устройство, Retired)
+   ========================================================================== */
+.player-meta-tag {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    height: 22px; /* Фиксированная высота */
-    padding: 0 8px; /* Одинаковые внутренние отступы */
-    font-size: 11px; /* Аккуратный читаемый размер */
+    height: 22px; /* Фиксированная высота для идеального горизонтального выравнивания */
+    padding: 0 8px;
+    font-size: 11px;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    border-radius: 4px; /* Единый радиус скругления */
+    border-radius: 4px;
     background: rgba(255,255,255,0.05);
     color: var(--text-muted);
     border: 1px solid var(--border-color);
@@ -409,15 +409,28 @@ body, html {
     white-space: nowrap;
 }
 
-[data-theme="light"] .player-meta-box .player-meta-tag {
+[data-theme="light"] .player-meta-tag {
     background: rgba(0,0,0,0.05);
 }
 
-/* Модификатор исключительно для статуса Retired внутри общего стандарта */
-.player-meta-box .player-meta-tag.retired-meta-tag {
+/* Отдельный класс для Retired, который копирует базовые свойства, но меняет цвет */
+.retired-meta-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 22px; /* Такая же высота, чтобы стоять вровень с RU и PC/Phone */
+    padding: 0 8px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 4px;
     background: rgba(255, 71, 71, 0.1) !important;
     color: #ff4747 !important;
     border: 1px solid rgba(255, 71, 71, 0.25) !important;
+    box-sizing: border-box;
+    white-space: nowrap;
+    margin-top: 0; /* Убрали старый отступ */
 }
 
 .player-tiers-row {
@@ -474,9 +487,9 @@ body, html {
     text-align: center;
 }
 
-/* 3. Блок PTS / Тир (Всегда прижат в самый правый край) */
+/* Блок PTS / Тир (Всегда прижат в самый правый край) */
 .player-right {
-    margin-left: auto; /* Сдвигает блок строго вправо */
+    margin-left: auto;
     flex-shrink: 0;
     display: flex;
     align-items: center;
@@ -787,7 +800,7 @@ body, html {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 0; /* Сброшен лишний маргин во флексе */
+    margin-bottom: 0;
 }
 
 .wiki-title-icon {
@@ -798,17 +811,29 @@ body, html {
 
 .wiki-card h3 {
     color: var(--accent);
-    font-size: 18px;
-    font-weight: 600; /* Более аккуратный вес шрифта */
-    margin: 0;
+    font-size: 16px;
+    font-weight: normal; 
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
 }
 
 .wiki-card p {
-    font-size: 13px;
-    font-weight: 400; /* Обычный легкий текст */
-    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: normal;
+    color: #b0bacd;
     line-height: 1.6;
-    margin-bottom: 0; /* Убран глобальный отступ снизу */
+    margin-bottom: 10px;
+    letter-spacing: 0.3px;
+}
+
+.wiki-card p:last-of-type {
+    margin-bottom: 0;
+}
+
+.wiki-card p b, 
+.wiki-card p strong {
+    color: var(--accent);
+    font-weight: normal;
 }
 
 .inv-preview-box {
@@ -832,7 +857,9 @@ body, html {
     object-fit: contain;
 }
 
-/* Стили для объединенного Инфо-Центра */
+/* ==========================================================================
+   ИНФО-ЦЕНТР
+   ========================================================================== */
 .info-section {
     margin-bottom: 35px;
     background: var(--bg-solid);
