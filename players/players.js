@@ -38,6 +38,7 @@ const players = [
         device: "PH",
         tiers: {
             "Hardcore": "RLT1"
+            "SMP": "HT3"
         }
     },
     {
@@ -64,6 +65,7 @@ const players = [
         device: "PH",
         tiers: {
             "Emerald Pot": "RLT2"
+            "SMP": "LT2"
         }
     },
     {
