@@ -32,18 +32,35 @@ function toggleTheme() {
     }
 }
 
+// Универсальный парсер данных тира
+function parseTierInfo(tierData) {
+    if (!tierData) return { tier: "Unranked", isRetired: false, pts: 0 };
+    
+    let tier = "Unranked";
+    let isRetired = false;
+
+    if (typeof tierData === 'string') {
+        if (tierData.startsWith('R') && tierData.length > 1) {
+            isRetired = true;
+            tier = tierData.substring(1);
+        } else {
+            tier = tierData;
+        }
+    } else if (typeof tierData === 'object') {
+        tier = tierData.tier || "Unranked";
+        isRetired = tierData.retired === true;
+    }
+
+    return {
+        tier: tier,
+        isRetired: isRetired,
+        pts: tierPoints[tier] || 0
+    };
+}
+
 // Хелпер для определения, является ли конкретный кит игрока "Retired"
 function isKitRetired(player, kit) {
-    const kitData = player.tiers[kit];
-    if (!kitData) return false;
-    
-    if (typeof kitData === 'object' && kitData.retired === true) {
-        return true;
-    }
-    if (typeof kitData === 'string' && kitData.startsWith('R') && kitData.length > 1) {
-        return true;
-    }
-    return false;
+    return parseTierInfo(player.tiers[kit]).isRetired;
 }
 
 // Проверка: есть ли у игрока ХОТЯ БЫ ОДИН кит со статусом retired (Только для Main китов)
@@ -63,35 +80,12 @@ function hasAnyRetiredKit(player) {
 
 // Хелпер для получения чистого названия тира (без префикса R)
 function getCleanTier(player, kit) {
-    const kitData = player.tiers[kit];
-    if (!kitData) return "Unranked";
-    
-    if (typeof kitData === 'object') {
-        return kitData.tier || "Unranked";
-    }
-    
-    if (typeof kitData === 'string') {
-        if (kitData.startsWith('R') && kitData.length > 1) {
-            return kitData.substring(1);
-        }
-        return kitData;
-    }
-    return "Unranked";
+    return parseTierInfo(player.tiers[kit]).tier;
 }
 
-// Расчет общих очков игрока по массиву китов с учетом индивидуального/глобального Retired-статуса
+// Расчет общих очков игрока по массиву китов (Main или Sub)
 function calcPoints(player, kits) {
-    let total = 0;
-    const showRetiredInPlace = document.getElementById('retiredToggle') ? document.getElementById('retiredToggle').checked : true;
-    
-    kits.forEach(kit => {
-        if (!showRetiredInPlace && isKitRetired(player, kit)) {
-            return;
-        }
-        const tier = getCleanTier(player, kit);
-        total += tierPoints[tier] || 0;
-    });
-    return total;
+    return kits.reduce((total, kit) => total + parseTierInfo(player.tiers[kit]).pts, 0);
 }
 
 // Генерация HTML-бейдж-тиров
@@ -330,7 +324,6 @@ function renderPlayers() {
 
         let displayProfileRetiredTag = hasAnyRetiredKit(player);
 
-        // Обновленная структура карточки игрока
         htmlFragment += `
         <div class="player-container ${topClass}">
             <div class="player-card-row" onclick="openProfile(${index}, '${filteredJSON}')">
