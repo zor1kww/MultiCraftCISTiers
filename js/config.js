@@ -18,8 +18,12 @@ const kitImages = {
 
 // Очки PTS за каждый тир
 const tierPoints = {
-    HT1: 100, LT1: 90, HT2: 80, LT2: 70, HT3: 60,
-    LT3: 50, HT4: 40, LT4: 30, HT5: 20, LT5: 10, Unranked: 0
+    HT1: 60, LT1: 45,
+    HT2: 30, LT2: 20,
+    HT3: 10, LT3: 6,
+    HT4: 4,  LT4: 3,
+    HT5: 2,  LT5: 1,
+    Unranked: 0
 };
 
 // Цветовая палитра тиров (для рамок и текста)
