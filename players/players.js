@@ -5,8 +5,8 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            "Dragonhide": "RHT1", // Этот кит retired
-            "Emerald": "RLT1",    // Этот тоже
+            "Dragonhide": "RHT1",
+            "Emerald": "RLT1",
             "Diamond": "RHT1",
             "RVM": "RHT1",
             "Crystal": "RHT2",
@@ -37,68 +37,124 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            "Hardcore": "LT1"
+            "Hardcore": "RLT1"
         }
     },
     {
-        name: "VortexFx",
-        region: "BY",
+        name: "Itz-Fake",
+        region: "RU",
         device: "PH",
         tiers: {
-            "Dragonhide": "LT1",
-            "Emerald": "HT2",
-            "Diamond": "LT2",
-            "Crystal": "HT1",
-            "Combo": "LT1",
-            "Mace": "LT1",
-            "Hardcore": "HT1"
+            "Hardcore": "RLT4"
         }
     },
     {
-        name: "Drakon_CS",
-        region: "KZ",
+        name: "Dev1ce",
+        region: "RU",
         device: "PH",
         tiers: {
-            "Diamond": "HT1",
-            "RVM": "LT1",
-            "Mace": "HT2",
-            "Hardcore": "LT2"
+            "Hardcore": "RLT4",
+            "Diamond": "RHT4",
+            "RVM": "RHT4"
         }
     },
     {
-        name: "Xenon_ZT",
+        name: "_Xx_deras_xX",
+        region: "UA",
+        device: "PH",
+        tiers: {
+            "Emerald Pot": "RLT2"
+        }
+    },
+    {
+        name: "2b2tPE",
+        region: "KG",
+        device: "PH",
+        tiers: {
+            "Dragonhide": "RLT3",
+            "RVM": "RHT3",
+            "Emerald": "RHT3"
+        }
+    },
+    {
+        name: "The_FV4005",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Emerald": "RLT3"
+        }
+    },
+    {
+        name: "YouTube_ggs",
         region: "RU",
         device: "TB",
         tiers: {
-            "Dragonhide": "HT2",
-            "Emerald": "HT1",
-            "Crystal": "LT1",
-            "Combo": "RHT1",
-            "SMP": "LT1"
+            "Crystal": "RHT5",
+            "Mace": "RLT5"
         }
     },
     {
-        name: "FluffyCat",
-        region: "UA",
-        device: "PC",
-        tiers: {
-            "RVM": "RLT1",
-            "Crystal": "HT2",
-            "Combo": "LT2",
-            "SMP": "HT1"
-        }
-    },
-    {
-        name: "LEGENDAMETRO",
+        name: "iuqqkdkq",
         region: "RU",
         device: "PH",
         tiers: {
-            "Dragonhide": "LT5",
-            "Emerald": "LT5",
-            "Diamond": "LT5",
-            "RVM": "LT5",
-            "Mace": "LT5",
-            "Hardcore": "LT5"
+            "Crystal": "RLT3"
+        }
+    },
+    {
+        name: "Master",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "RVM": "RHT4"
+        }
+    },
+    {
+        name: "Fialka",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "RVM": "RLT4"
+        }
+    },
+    {
+        name: "Darius",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "RVM": "RHT4"
+        }
+    },
+    {
+        name: "komi_lotik",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "RVM": "RLT4"
+        }
+    },
+    {
+        name: "OcM_sila",
+        region: "RU",
+        device: "TB",
+        tiers: {
+            "SMP": "RHT4"
+        }
+    },
+    {
+        name: "wkqwd",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Emerald Pot": "RLT3"
+        }
+    },
+    {
+        name: "OcM",
+        region: "UA",
+        device: "TB",
+        tiers: {
+            "Hardcore": "RHT2"
         }
     }
 ];
