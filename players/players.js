@@ -66,6 +66,16 @@ const players = [
         tiers: {
             "Emerald Pot": "RLT2"
             "SMP": "LT2"
+            "Hardcore": "LT2"
+            "Pickaxe": "HT2"
+            "RVM": "LT2"
+            "Emerald": "LT1"
+            "Dragonhide": "HT3"
+            "Beast": "LT1"
+            "Combo": "LT3"
+            "Gapple": "LT2"
+            "Mace": "HT3"
+            "Crystal": "LT3"
         }
     },
     {
