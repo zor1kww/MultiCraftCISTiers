@@ -30,8 +30,9 @@ const players = [
             "Combo": "RHT1",
             "Mace": "RHT1",
             "Hardcore": "RHT1",
-            "SMP": "RHT1",
-            "Emerald Pot: "LT1"
+            "Emerald Pot": "LT1",
+            "SMP": "RHT1"
+            
         }
     },
     {
