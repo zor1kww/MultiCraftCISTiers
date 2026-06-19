@@ -108,10 +108,8 @@ function openProfile(idx, filteredPlayersJSON) {
     }
     document.getElementById('modalPlayerMeta').innerText = metaText;
     
-    // ДОБАВЛЕНЫ ДЕРАС И ИРЕН В СПИСОК ТЕСТЕРОВ
     const roleContainer = document.getElementById('modalRoleContainer');
-    const pName = player.name;
-    if (pName === "-999-" || pName === "zor1kkqwix" || pName === "Sneger" || pName === "_Xx_deras_xX" || pName === "Deras" || pName === "IREN") {
+    if (player.name === "-999-" || player.name === "zor1kkqwix" || player.name === "Sneger" || player.name === "Deras" || player.name === "_Xx_deras_xX" || player.name === "IREN") {
         roleContainer.innerHTML = `<span class="custom-role-badge">Tier-Tester</span>`;
     } else {
         roleContainer.innerHTML = '';
@@ -504,6 +502,3 @@ function copyInviteCode() {
 function initSite() {
     renderPlayers();
 }
-
-// Запуск инициализации при загрузке документа
-document.addEventListener('DOMContentLoaded', initSite);
