@@ -149,11 +149,17 @@ function renderLeaderboard() {
     const listContainer = document.getElementById('playersList');
     if(!listContainer) return;
 
-    const searchVal = document.getElementById('searchInput')?.value.toLowerCase().trim() || '';
-    const kitFilterVal = document.getElementById('kitFilter')?.value || 'all';
-    const regionFilterVal = document.getElementById('regionFilter')?.value || 'all';
-    const deviceFilterVal = document.getElementById('deviceFilter')?.value || 'all';
-    const showRetired = document.getElementById('retiredToggle')?.checked;
+    const searchInput = document.getElementById('searchInput');
+    const kitFilter = document.getElementById('kitFilter');
+    const regionFilter = document.getElementById('regionFilter');
+    const deviceFilter = document.getElementById('deviceFilter');
+    const retiredToggle = document.getElementById('retiredToggle');
+
+    const searchVal = searchInput ? searchInput.value.toLowerCase().trim() : '';
+    const kitFilterVal = kitFilter ? kitFilter.value : 'all';
+    const regionFilterVal = regionFilter ? regionFilter.value : 'all';
+    const deviceFilterVal = deviceFilter ? deviceFilter.value : 'all';
+    const showRetired = retiredToggle ? retiredToggle.checked : true;
 
     // 1. Фильтрация и первичный маппинг
     let processed = players.filter(p => {
@@ -269,8 +275,10 @@ function renderLeaderboard() {
         let pointsBlock = '';
         if(kitFilterVal === 'all') {
             pointsBlock = `
-                <div class="player-pts">${item.pts} <span style="font-size:11px; opacity:0.6;">PTS</span></div>
-                <div class="player-sub-pts">${item.subPts} sub</div>
+                <div class="player-card-right-inner">
+                    <div class="player-pts">${item.pts} <span style="font-size:11px; opacity:0.6;">PTS</span></div>
+                    <div class="player-sub-pts">${item.subPts} sub</div>
+                </div>
             `;
         } else {
             const tColor = CONFIG.tierColors[item.singleTier] || '#fff';
@@ -302,7 +310,7 @@ function renderPlayerModal(player) {
     document.getElementById('modalPlayerName').innerText = player.name;
     document.getElementById('modalPlayerMeta').innerText = `${player.region} [${player.device}]`;
 
-    // Настройка ролей тестеров (Включая _Xx_deras_xX)
+    // Настройка ролей тестеров
     const roleContainer = document.getElementById('modalRoleContainer');
     roleContainer.innerHTML = '';
     if(player.name === '-999-' || player.name === 'Sneger') {
@@ -326,7 +334,6 @@ function renderPlayerModal(player) {
         const row = document.createElement('div');
         row.className = 'modal-tier-row';
         
-        // Модификация: Полупрозрачность для Retired И для Unranked
         if (isRetired || tier === 'Unranked') {
             row.style.opacity = '0.6';
         }
@@ -355,7 +362,6 @@ function renderPlayerModal(player) {
         const row = document.createElement('div');
         row.className = 'modal-tier-row';
         
-        // Модификация: Полупрозрачность для Retired И для Unranked
         if (isRetired || tier === 'Unranked') {
             row.style.opacity = '0.6';
         }
@@ -374,7 +380,6 @@ function renderPlayerModal(player) {
         subRows.appendChild(row);
     });
 
-    // Подсчет итогов для футера модалки
     const calc = calculatePlayerPTS(player, 'all');
     document.getElementById('modalMainTotal').innerText = `Всего за Main: ${calc.pts} PTS`;
     document.getElementById('modalSubTotal').innerText = `Всего за Sub: ${calc.subPts} PTS`;
@@ -395,7 +400,6 @@ function fillFAQTable() {
     if(!tbody) return;
     tbody.innerHTML = '';
     
-    // Порядок вывода тиров в таблице
     const order = ['HT1', 'HT2', 'HT3', 'LT1', 'LT2', 'LT3'];
     order.forEach(tier => {
         const pts = CONFIG.ptsWeights[tier] || 0;
