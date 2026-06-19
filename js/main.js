@@ -9,7 +9,6 @@ function playInterfaceClick() {
 // Глобальный слушатель кликов для эффекта нажатия кнопок
 document.addEventListener('click', (e) => {
     const t = e.target;
-    if (!t) return;
     if (
         t.tagName === 'BUTTON' || 
         t.tagName === 'A' || 
@@ -33,23 +32,19 @@ function toggleTheme() {
     }
 }
 
-// Универсальный парсер данных тира (Исправлен под приписку "R")
+// Универсальный парсер данных тира
 function parseTierInfo(tierData) {
-    // Безопасная заглушка, если данные не переданы
-    const pointsMap = typeof tierPoints !== 'undefined' ? tierPoints : {};
-    
     if (!tierData) return { tier: "Unranked", isRetired: false, pts: 0 };
     
     let tier = "Unranked";
     let isRetired = false;
 
     if (typeof tierData === 'string') {
-        let clean = tierData.trim();
-        if (clean.startsWith('R') && clean.length > 1) {
+        if (tierData.startsWith('R') && tierData.length > 1) {
             isRetired = true;
-            tier = clean.substring(1);
+            tier = tierData.substring(1);
         } else {
-            tier = clean;
+            tier = tierData;
         }
     } else if (typeof tierData === 'object') {
         tier = tierData.tier || "Unranked";
@@ -59,22 +54,18 @@ function parseTierInfo(tierData) {
     return {
         tier: tier,
         isRetired: isRetired,
-        pts: pointsMap[tier] || 0
+        pts: tierPoints[tier] || 0
     };
 }
 
 // Хелпер для определения, является ли конкретный кит игрока "Retired"
 function isKitRetired(player, kit) {
-    if (!player || !player.tiers || !player.tiers[kit]) return false;
     return parseTierInfo(player.tiers[kit]).isRetired;
 }
 
 // Проверка: есть ли у игрока ХОТЯ БЫ ОДИН кит со статусом retired (Только для Main китов)
 function hasAnyRetiredKit(player) {
-    if (!player) return false;
     if (player.retired === true) return true;
-    if (typeof maintiers === 'undefined' || !Array.isArray(maintiers)) return false;
-
     const allKits = [...maintiers];
     for (let i = 0; i < allKits.length; i++) {
         if (isKitRetired(player, allKits[i])) {
@@ -89,20 +80,17 @@ function hasAnyRetiredKit(player) {
 
 // Хелпер для получения чистого названия тира (без префикса R)
 function getCleanTier(player, kit) {
-    if (!player || !player.tiers || !player.tiers[kit]) return "Unranked";
     return parseTierInfo(player.tiers[kit]).tier;
 }
 
 // Расчет общих очков игрока по массиву китов (Main или Sub)
 function calcPoints(player, kits) {
-    if (!player || !player.tiers || !Array.isArray(kits)) return 0;
     return kits.reduce((total, kit) => total + parseTierInfo(player.tiers[kit]).pts, 0);
 }
 
 // Генерация HTML-бейдж-тиров
 function getTierBadge(tier, appendR = false) {
-    const colorsMap = typeof tierColors !== 'undefined' ? tierColors : {};
-    const color = colorsMap[tier] || '#fff';
+    const color = tierColors[tier] || '#fff';
     const displayLabel = appendR && tier !== "Unranked" ? `R${tier}` : tier;
     return `<span class="tier-badge" style="color: ${color}; border: 1px solid ${color}44; background: ${color}11;">${displayLabel}</span>`;
 }
@@ -111,84 +99,68 @@ function getTierBadge(tier, appendR = false) {
 function openProfile(idx, filteredPlayersJSON) {
     const localFiltered = JSON.parse(decodeURIComponent(filteredPlayersJSON));
     const player = localFiltered[idx];
-    if (!player) return;
     
     document.getElementById('modalPlayerName').innerHTML = player.name;
     
-    let metaText = `${player.region || ''} ${player.device || ''}`;
+    let metaText = `${player.region} ${player.device}`;
     if (hasAnyRetiredKit(player)) {
         metaText += ` RETIRED`;
     }
     document.getElementById('modalPlayerMeta').innerText = metaText;
     
+    // ДОБАВЛЕНЫ ДЕРАС И ИРЕН В СПИСОК ТЕСТЕРОВ
     const roleContainer = document.getElementById('modalRoleContainer');
-    if (roleContainer) {
-        if (player.name === "-999-" || player.name === "zor1kkqwix" || player.name === "Sneger") {
-            roleContainer.innerHTML = `<span class="custom-role-badge">Tier-Tester</span>`;
-        } else {
-            roleContainer.innerHTML = '';
-        }
+    const pName = player.name;
+    if (pName === "-999-" || pName === "zor1kkqwix" || pName === "Sneger" || pName === "_Xx_deras_xX" || pName === "Deras" || pName === "IREN") {
+        roleContainer.innerHTML = `<span class="custom-role-badge">Tier-Tester</span>`;
+    } else {
+        roleContainer.innerHTML = '';
     }
     
     const mainRows = document.getElementById('modalMainRows');
     const subRows = document.getElementById('modalSubRows');
     
-    const currentMaintiers = typeof maintiers !== 'undefined' ? maintiers : [];
-    const currentSubtiers = typeof subtiers !== 'undefined' ? subtiers : [];
-    const currentKitImages = typeof kitImages !== 'undefined' ? kitImages : {};
-    const currentTierPoints = typeof tierPoints !== 'undefined' ? tierPoints : {};
-
-    if (mainRows) {
-        mainRows.innerHTML = currentMaintiers.map(kit => {
-            const t = getCleanTier(player, kit);
-            const iconSrc = currentKitImages[kit] || "";
-            const ret = isKitRetired(player, kit);
-            const pts = currentTierPoints[t] || 0;
-            return `<div class="modal-row" style="${ret ? 'opacity:0.6;' : ''}">
-                <div class="modal-kit-left">
-                    <img class="modal-kit-icon" src="${iconSrc}" onerror="this.style.opacity='0'" alt="">
-                    <span class="m-kit">${kit}</span>
-                </div>
-                <div class="m-right-side">
-                    ${getTierBadge(t, ret)} 
-                    <span class="m-pts-box">(${pts} PTS)</span>
-                </div>
-            </div>`;
-        }).join('');
-    }
+    mainRows.innerHTML = maintiers.map(kit => {
+        const t = getCleanTier(player, kit);
+        const iconSrc = kitImages[kit] || "";
+        const ret = isKitRetired(player, kit);
+        return `<div class="modal-row" style="${ret ? 'opacity:0.6;' : ''}">
+            <div class="modal-kit-left">
+                <img class="modal-kit-icon" src="${iconSrc}" onerror="this.style.opacity='0'" alt="">
+                <span class="m-kit">${kit}</span>
+            </div>
+            <div class="m-right-side">
+                ${getTierBadge(t, ret)} 
+                <span class="m-pts-box">(${tierPoints[t]} PTS)</span>
+            </div>
+        </div>`;
+    }).join('');
     
-    if (subRows) {
-        subRows.innerHTML = currentSubtiers.map(kit => {
-            const t = getCleanTier(player, kit);
-            const iconSrc = currentKitImages[kit] || "";
-            const ret = isKitRetired(player, kit);
-            const pts = currentTierPoints[t] || 0;
-            return `<div class="modal-row" style="${ret ? 'opacity:0.6;' : ''}">
-                <div class="modal-kit-left">
-                    <img class="modal-kit-icon" src="${iconSrc}" onerror="this.style.opacity='0'" alt="">
-                    <span class="m-kit">${kit}</span>
-                </div>
-                <div class="m-right-side">
-                    ${getTierBadge(t, ret)} 
-                    <span class="m-pts-box">(${pts} PTS)</span>
-                </div>
-            </div>`;
-        }).join('');
-    }
+    subRows.innerHTML = subtiers.map(kit => {
+        const t = getCleanTier(player, kit);
+        const iconSrc = kitImages[kit] || "";
+        const ret = isKitRetired(player, kit);
+        return `<div class="modal-row" style="${ret ? 'opacity:0.6;' : ''}">
+            <div class="modal-kit-left">
+                <img class="modal-kit-icon" src="${iconSrc}" onerror="this.style.opacity='0'" alt="">
+                <span class="m-kit">${kit}</span>
+            </div>
+            <div class="m-right-side">
+                ${getTierBadge(t, ret)} 
+                <span class="m-pts-box">(${tierPoints[t]} PTS)</span>
+            </div>
+        </div>`;
+    }).join('');
     
-    const mTotal = document.getElementById('modalMainTotal');
-    const sTotal = document.getElementById('modalSubTotal');
-    if (mTotal) mTotal.innerText = `Всего за Main: ${calcPoints(player, currentMaintiers)} PTS`;
-    if (sTotal) sTotal.innerText = `Всего за Sub: ${calcPoints(player, currentSubtiers)} PTS`;
+    document.getElementById('modalMainTotal').innerText = `Всего за Main: ${calcPoints(player, maintiers)} PTS`;
+    document.getElementById('modalSubTotal').innerText = `Всего за Sub: ${calcPoints(player, subtiers)} PTS`;
     
-    const modal = document.getElementById('profileModal');
-    if (modal) modal.classList.add('active');
+    document.getElementById('profileModal').classList.add('active');
 }
 
 // Закрытие модального окна профиля
 function closeModal() {
-    const modal = document.getElementById('profileModal');
-    if (modal) modal.classList.remove('active');
+    document.getElementById('profileModal').classList.remove('active');
 }
 
 // Главная функция рендеринга и фильтрации списка игроков
@@ -196,43 +168,27 @@ function renderPlayers() {
     const list = document.getElementById('playersList');
     if (!list) return;
 
+    const search = document.getElementById('searchInput').value.toLowerCase();
+    const region = document.getElementById('regionFilter').value;
+    const device = document.getElementById('deviceFilter').value;
+    const targetKit = document.getElementById('kitFilter').value;
+    const showRetiredInPlace = document.getElementById('retiredToggle').checked;
+
     if (typeof players === 'undefined' || !Array.isArray(players)) {
         list.innerHTML = '<div style="text-align:center;color:#ffcc47;padding:40px;">Загрузка базы данных игроков...</div>';
         return;
     }
 
-    const searchInput = document.getElementById('searchInput');
-    const regionFilter = document.getElementById('regionFilter');
-    const deviceFilter = document.getElementById('deviceFilter');
-    const kitFilter = document.getElementById('kitFilter');
-    const retiredToggle = document.getElementById('retiredToggle');
-
-    const search = searchInput ? searchInput.value.toLowerCase() : '';
-    const region = regionFilter ? regionFilter.value : 'all';
-    const device = deviceFilter ? deviceFilter.value : 'all';
-    const targetKit = kitFilter ? kitFilter.value : 'all';
-    const showRetiredInPlace = retiredToggle ? retiredToggle.checked : true;
-
-    const currentMaintiers = typeof maintiers !== 'undefined' ? maintiers : [];
-    const currentTierPoints = typeof tierPoints !== 'undefined' ? tierPoints : {};
-    const currentTierColors = typeof tierColors !== 'undefined' ? tierColors : {};
-    const currentKitImages = typeof kitImages !== 'undefined' ? kitImages : {};
-
-    const lTitle = document.getElementById('leaderboardTitle');
-    const sTitle = document.getElementById('tableSubtitle');
-    if (lTitle && sTitle) {
-        if (targetKit === 'all') {
-            lTitle.innerText = 'OVERALL PVP TOP';
-            sTitle.innerText = 'OVERALL LEADERBOARD';
-        } else {
-            lTitle.innerText = `${targetKit.toUpperCase()} TOP`;
-            sTitle.innerText = `${targetKit.toUpperCase()} LEADERBOARD`;
-        }
+    if (targetKit === 'all') {
+        document.getElementById('leaderboardTitle').innerText = 'OVERALL PVP TOP';
+        document.getElementById('tableSubtitle').innerText = 'OVERALL LEADERBOARD';
+    } else {
+        document.getElementById('leaderboardTitle').innerText = `${targetKit.toUpperCase()} TOP`;
+        document.getElementById('tableSubtitle').innerText = `${targetKit.toUpperCase()} LEADERBOARD`;
     }
 
     let filtered = players.filter(player => {
-        if (!player) return false;
-        const matchesSearch = player.name ? player.name.toLowerCase().includes(search) : false;
+        const matchesSearch = player.name.toLowerCase().includes(search);
         const matchesRegion = (region === 'all' || player.region === region);
         const matchesDevice = (device === 'all' || player.device === device);
         
@@ -254,13 +210,13 @@ function renderPlayers() {
 
     if (targetKit === 'all') {
         filtered.sort((a, b) => {
-            return calcPoints(b, currentMaintiers) - calcPoints(a, currentMaintiers);
+            return calcPoints(b, maintiers) - calcPoints(a, maintiers);
         });
     } else {
         filtered.sort((a, b) => {
             const tierA = getCleanTier(a, targetKit);
             const tierB = getCleanTier(b, targetKit);
-            return (currentTierPoints[tierB] || 0) - (currentTierPoints[tierA] || 0);
+            return (tierPoints[tierB] || 0) - (tierPoints[tierA] || 0);
         });
     }
 
@@ -297,7 +253,7 @@ function renderPlayers() {
         }
         
         if (targetKit === 'all') {
-            const mainPts = calcPoints(player, currentMaintiers);
+            const mainPts = calcPoints(player, maintiers);
             rightColumnContent = `<span style="color: var(--accent); font-size:15px; white-space:nowrap;">${mainPts} PTS</span>`;
         } else {
             const currentTier = getCleanTier(player, targetKit);
@@ -307,13 +263,13 @@ function renderPlayers() {
 
         let quickTiersHTML = '';
         if (targetKit === 'all') {
-            let playerKitsObjects = currentMaintiers.map(kit => {
+            let playerKitsObjects = maintiers.map(kit => {
                 const tier = getCleanTier(player, kit);
                 const ret = isKitRetired(player, kit);
                 
                 let sortWeight = -1000;
                 if (tier !== "Unranked") {
-                    const pts = currentTierPoints[tier] || 0;
+                    const pts = tierPoints[tier] || 0;
                     if (!ret) {
                         sortWeight = pts;
                     } else {
@@ -333,8 +289,8 @@ function renderPlayers() {
                 const kit = item.kit;
                 const tier = item.tier;
                 const ret = item.ret;
-                const clr = currentTierColors[tier] || '#444b66';
-                const iconSrc = currentKitImages[kit] || "";
+                const clr = tierColors[tier] || '#444b66';
+                const iconSrc = kitImages[kit] || "";
                 const labelText = (ret && tier !== "Unranked") ? `R${tier}` : tier;
                 
                 if (tier !== "Unranked") {
@@ -376,13 +332,13 @@ function renderPlayers() {
                 
                 <div class="player-name-block">
                     <span class="player-rank">${rankPrefix}</span>
-                    <span class="player-name">${player.name || 'Unknown'}</span>
+                    <span class="player-name">${player.name}</span>
                 </div>
 
                 <div class="player-center-block">
                     <div class="player-meta-box">
-                        <span class="player-meta-tag">${player.region || '??'}</span>
-                        <span class="player-meta-tag">${player.device || '??'}</span>
+                        <span class="player-meta-tag">${player.region}</span>
+                        <span class="player-meta-tag">${player.device}</span>
                         ${displayProfileRetiredTag ? `<span class="player-meta-tag retired-meta-tag">RETIRED</span>` : ''}
                     </div>
                     ${quickTiersHTML}
@@ -403,26 +359,21 @@ function renderPlayers() {
 function buildFaqTable() {
     const tbody = document.getElementById('faqTableBody');
     if (!tbody) return;
-    const currentTierColors = typeof tierColors !== 'undefined' ? tierColors : {};
-    const currentTierPoints = typeof tierPoints !== 'undefined' ? tierPoints : {};
-    
     const order = ['HT1', 'LT1', 'HT2', 'LT2', 'HT3', 'LT3', 'HT4', 'LT4', 'HT5', 'LT5', 'Unranked'];
     tbody.innerHTML = order.map(tier => {
-        const color = currentTierColors[tier] || '#fff';
-        const pts = currentTierPoints[tier] || 0;
+        const color = tierColors[tier];
         return `<tr>
             <td><span class="tier-badge" style="color: ${color}; border: 1px solid ${color}44; background:${color}11;">${tier}</span></td>
-            <td><span style="color: var(--accent); font-weight:bold;">${pts} PTS</span></td>
+            <td><span style="color: var(--accent); font-weight:bold;">${tierPoints[tier]} PTS</span></td>
         </tr>`;
     }).join('');
 }
 
 // Навешивание кастомных цветов на тиры внутри FAQ текста
 function applyFaqTierColors() {
-    const currentTierColors = typeof tierColors !== 'undefined' ? tierColors : {};
     const tiersToColor = ['HT1', 'HT2', 'LT1', 'LT2', 'LT3'];
     tiersToColor.forEach(tier => {
-        const color = currentTierColors[tier] || 'var(--accent)';
+        const color = tierColors[tier] || 'var(--accent)';
         for (let i = 1; i <= 4; i++) {
             const element = document.getElementById(`faqColor${tier}_${i}`);
             if (element) {
@@ -506,19 +457,13 @@ if (menuBtn && sidebar) {
     });
 }
 
-// Инициализация обработчиков фильтров и безопасная привязка событий
-function setupFilters() {
-    const sInput = document.getElementById('searchInput');
-    const rFilter = document.getElementById('regionFilter');
-    const dFilter = document.getElementById('deviceFilter');
-    const kFilter = document.getElementById('kitFilter');
-    const rToggle = document.getElementById('retiredToggle');
-
-    if (sInput) sInput.addEventListener('input', renderPlayers);
-    if (rFilter) rFilter.addEventListener('change', renderPlayers);
-    if (dFilter) dFilter.addEventListener('change', renderPlayers);
-    if (kFilter) kFilter.addEventListener('change', renderPlayers);
-    if (rToggle) rToggle.addEventListener('change', renderPlayers);
+// Инициализация обработчиков фильтров
+if (document.getElementById('searchInput')) {
+    document.getElementById('searchInput').addEventListener('input', renderPlayers);
+    document.getElementById('regionFilter').addEventListener('change', renderPlayers);
+    document.getElementById('deviceFilter').addEventListener('change', renderPlayers);
+    document.getElementById('kitFilter').addEventListener('change', renderPlayers);
+    document.getElementById('retiredToggle').addEventListener('change', renderPlayers);
 }
 
 // Функция автоматического копирования инвайт-кода для кнопки
@@ -537,6 +482,7 @@ function copyInviteCode() {
                 btn.style.borderColor = "";
                 btn.style.color = "";
             }, 1500);
+            
         }
     }).catch(err => {
         const el = document.createElement('textarea');
@@ -555,15 +501,9 @@ function copyInviteCode() {
     });
 }
 
-// Безопасная инициализация сайта
 function initSite() {
-    setupFilters();
     renderPlayers();
 }
 
-// Автоматический запуск кода после полной готовности DOM дерева страницы
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initSite);
-} else {
-    initSite();
-}
+// Запуск инициализации при загрузке документа
+document.addEventListener('DOMContentLoaded', initSite);
