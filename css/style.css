@@ -32,21 +32,6 @@
     --accent: #ffcc47;
 }
 
-[data-theme="light"] {
-    --bg-start: #f4f6fa;
-    --bg-end: #e2e8f0;
-    --bg-solid: #f8fafc;
-    --card-bg: #ffffff;
-    --card-hover: #f1f5f9;
-    --text-main: #0f172a;
-    --text-muted: #64748b;
-    --border-color: rgba(0,0,0,.08);
-    --sidebar-bg: #ffffff;
-    --sidebar-item: #f1f5f9;
-    --modal-bg: #ffffff;
-    --modal-block: #f8fafc;
-}
-
 body, html {
     background: var(--bg-solid);
     color: var(--text-main);
@@ -72,7 +57,6 @@ body, html {
     width: 100%;
 }
 
-/* Декоративная неоновая линия под шапкой с аппаратным ускорением */
 .header::after {
     content: '';
     position: absolute;
@@ -94,13 +78,6 @@ body, html {
 .logo {
     font-size: 22px;
     color: var(--accent);
-    white-space: nowrap;
-    flex-shrink: 0;
-}
-
-.header-right {
-    display: flex;
-    align-items: center;
 }
 
 .menu-btn {
@@ -187,7 +164,6 @@ body, html {
     border: 1px solid var(--border-color);
     border-radius: 20px;
     padding: 25px;
-    box-shadow: 0 0 40px rgba(255,187,0,.02);
 }
 
 .hero h1 {
@@ -219,13 +195,11 @@ body, html {
     border-radius: 8px;
     font-weight: bold;
     text-decoration: none;
-    transition: all 0.2s ease;
 }
 
 .telegram-btn:hover {
     background: #ffe082;
     box-shadow: 0 0 15px rgba(255, 204, 71, 0.4);
-    transform: translateY(-1px);
 }
 
 .back-btn {
@@ -235,13 +209,7 @@ body, html {
     padding: 8px 16px;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 14px;
     margin-bottom: 20px;
-}
-
-.back-btn:hover {
-    background: var(--accent);
-    color: #16223f;
 }
 
 .filters {
@@ -264,8 +232,6 @@ body, html {
     border: 1px solid var(--border-color);
     padding: 12px;
     border-radius: 8px;
-    display: flex;
-    align-items: center;
 }
 
 .checkbox-label {
@@ -273,15 +239,12 @@ body, html {
     align-items: center;
     gap: 10px;
     font-size: 13px;
-    color: var(--text-main);
     cursor: pointer;
-    user-select: none;
 }
 
 .checkbox-label input {
     width: 18px;
     height: 18px;
-    cursor: pointer;
     accent-color: var(--accent);
 }
 
@@ -308,47 +271,11 @@ body, html {
     gap: 10px;
 }
 
-.player-container, .player-card {
+/* Стили карточек в топе */
+.player-card {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 14px;
-    overflow: hidden;
-}
-
-/* Изменение: Обычные карточки при наведении просто меняют фон, без золотого glow эффекта */
-.player-container:hover, .player-card:hover {
-    background: var(--card-hover);
-}
-
-/* ==========================================================================
-   ТОП 1-5 ЦВЕТА И СВЕЧЕНИЯ РАМОК
-   ========================================================================== */
-.top-rank-1, .top-1 { border-color: rgba(218, 165, 32, 0.7) !important; box-shadow: 0 0 15px rgba(218, 165, 32, 0.15); }
-.top-rank-2, .top-2 { border-color: rgba(169, 169, 169, 0.7) !important; box-shadow: 0 0 15px rgba(169, 169, 169, 0.15); }
-.top-rank-3, .top-3 { border-color: rgba(160, 82, 45, 0.7) !important; box-shadow: 0 0 15px rgba(160, 82, 45, 0.15); }
-.top-rank-4, .top-4 { border-color: rgba(128, 128, 128, 0.7) !important; box-shadow: 0 0 15px rgba(128, 128, 128, 0.15); }
-.top-rank-5, .top-5 { border-color: rgba(0, 128, 128, 0.7) !important; box-shadow: 0 0 15px rgba(0, 128, 128, 0.15); }
-
-/* ==========================================================================
-   ЛОГИКА ДЛЯ RETIRED-СТАТУСА (ИГНОРИРУЕТСЯ, ЕСЛИ ИГРОК В ТОП 1-5)
-   ========================================================================== */
-.player-container.retired-status:not(.top-rank-1):not(.top-rank-2):not(.top-rank-3):not(.top-rank-4):not(.top-rank-5),
-.player-card.retired-status:not(.top-1):not(.top-2):not(.top-3):not(.top-4):not(.top-5) {
-    opacity: 0.55;
-    border-color: rgba(136, 146, 176, 0.2) !important;
-    box-shadow: none !important;
-}
-
-.player-container.retired-status:not(.top-rank-1):not(.top-rank-2):not(.top-rank-3):not(.top-rank-4):not(.top-rank-5):hover,
-.player-card.retired-status:not(.top-1):not(.top-2):not(.top-3):not(.top-4):not(.top-5):hover {
-    border-color: rgba(136, 146, 176, 0.5) !important;
-    background: var(--card-hover);
-}
-
-/* ==========================================================================
-   СТРУКТУРА КАРТОЧКИ ИГРОКА (.player-card-row / .player-card)
-   ========================================================================== */
-.player-card {
     padding: 14px 16px;
     display: flex;
     align-items: center;
@@ -358,10 +285,21 @@ body, html {
     width: 100%;
 }
 
+.player-card:hover {
+    background: var(--card-hover);
+}
+
 .player-card-left {
     display: flex;
     align-items: center;
     gap: 15px;
+}
+
+.player-rank {
+    color: var(--accent);
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 45px;
 }
 
 .player-info {
@@ -370,46 +308,10 @@ body, html {
     gap: 4px;
 }
 
-.player-card-row {
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    cursor: pointer;
-    width: 100%;
-}
-
-.player-name-block {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    flex-shrink: 0;
-    min-width: 180px;
-}
-
-.player-rank {
-    color: var(--accent);
-    font-size: 16px;
-    font-weight: bold;
-}
-
 .player-name {
     color: var(--text-main);
     font-size: 16px;
-}
-
-.player-center-block {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    flex-grow: 1;
-}
-
-.player-meta-box {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap; 
+    font-weight: bold;
 }
 
 .player-meta {
@@ -417,108 +319,13 @@ body, html {
     color: var(--text-muted);
 }
 
-/* ==========================================================================
-   ЕДИНЫЙ СТАНДАРТ ДЛЯ ВСЕХ МЕТА-ТЕГОВ (Регион, Устройство)
-   ========================================================================== */
-.player-meta-tag {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 22px; 
-    padding: 0 8px;
-    font-size: 11px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border-radius: 4px;
-    background: rgba(255,255,255,0.05);
-    color: var(--text-muted);
-    border: 1px solid var(--border-color);
-    box-sizing: border-box;
-    white-space: nowrap;
-}
-
-[data-theme="light"] .player-meta-tag {
-    background: rgba(0,0,0,0.05);
-}
-
-.retired-meta-tag {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 22px; 
-    padding: 0 8px;
-    font-size: 11px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border-radius: 4px;
-    background: rgba(255, 71, 71, 0.1) !important;
-    color: #ff4747 !important;
-    border: 1px solid rgba(255, 71, 71, 0.25) !important;
-    box-sizing: border-box;
-    white-space: nowrap;
-    margin-top: 0; 
-}
-
-.player-tiers-row {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 4px;
-}
-
-.tier-item-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3px;
-    width: 42px;
-}
-
-.tier-icon-circle {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1.5px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 4px;
-    overflow: hidden;
-}
-
-.tier-item-box.retired-kit .tier-icon-circle {
-    border-color: rgba(255, 71, 71, 0.4) !important;
-    background: rgba(255, 71, 71, 0.02);
-}
-
-.tier-item-box.retired-kit .tier-label-under {
-    color: #ff4747 !important;
-}
-
-.tier-icon-circle img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.tier-icon-circle.unranked {
-    opacity: 0.15;
-}
-
-.tier-label-under {
-    font-size: 10px;
-    font-weight: bold;
-    text-align: center;
-}
-
 .player-card-right {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: center;
+    align-items: center;
+}
+
+.player-card-right-inner {
+    text-align: right;
 }
 
 .player-pts {
@@ -533,36 +340,27 @@ body, html {
 }
 
 .player-tier-badge {
-    padding: 4px 10px;
+    padding: 6px 14px;
     border: 1px solid;
-    border-radius: 6px;
-    font-size: 12px;
+    border-radius: 8px;
+    font-size: 13px;
     font-weight: bold;
-}
-
-.player-right {
-    margin-left: auto;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    font-size: 16px;
-    font-weight: bold;
-    min-width: 90px;
-}
-
-.tier-badge {
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-weight: bold;
-    display: inline-block;
     text-align: center;
-    min-width: 55px;
 }
 
-/* ==========================================================================
-   МОДАЛЬНЫЕ ОКНА И ДИАЛОГИ
-   ========================================================================== */
+/* Подсветка ТОП-3 */
+.top-1 { border-color: rgba(218, 165, 32, 0.7) !important; box-shadow: 0 0 15px rgba(218, 165, 32, 0.15); }
+.top-2 { border-color: rgba(169, 169, 169, 0.7) !important; box-shadow: 0 0 15px rgba(169, 169, 169, 0.15); }
+.top-3 { border-color: rgba(160, 82, 45, 0.7) !important; box-shadow: 0 0 15px rgba(160, 82, 45, 0.15); }
+
+/* Оформление Retired карт (если они вне ТОП-3) */
+.player-card.retired-status:not(.top-1):not(.top-2):not(.top-3) {
+    opacity: 0.55;
+    border-color: rgba(136, 146, 176, 0.2) !important;
+    box-shadow: none !important;
+}
+
+/* Модальные окна */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -608,9 +406,7 @@ body, html {
 .modal-title-box p {
     color: var(--text-muted);
     font-size: 14px;
-    margin-top: 6px;
-    letter-spacing: 0.5px;
-    font-weight: bold;
+    margin-top: 4px;
 }
 
 .tester-badge {
@@ -646,7 +442,6 @@ body, html {
 
 .close-modal-btn:hover {
     background: #cc3333;
-    color: #fff;
 }
 
 .modal-body {
@@ -694,14 +489,6 @@ body, html {
     gap: 8px;
 }
 
-.modal-kit-icon {
-    font-size: 12px;
-}
-
-.modal-kit-name {
-    color: var(--text-main);
-}
-
 .modal-kit-right {
     display: flex;
     align-items: center;
@@ -711,8 +498,6 @@ body, html {
 .modal-kit-pts {
     color: var(--text-muted);
     font-size: 11px;
-    min-width: 50px;
-    text-align: right;
 }
 
 .modal-block-footer {
@@ -723,25 +508,56 @@ body, html {
     font-weight: bold;
 }
 
-/* ==========================================================================
-   ИНФО-ЦЕНТР И ТАБЛИЦЫ FAQ
-   ========================================================================== */
+/* Инфо-центр, Вики, Таблицы */
 .info-box {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 18px;
     padding: 25px;
-    line-height: 1.8;
-    margin-bottom: 20px;
+}
+
+.info-nav-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.info-nav-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.info-nav-btn.active {
+    background: var(--accent);
+    color: #070b17;
+    font-weight: bold;
+}
+
+.info-section {
+    background: var(--bg-solid);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.info-section-title {
+    color: var(--accent);
+    font-size: 20px;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 204, 71, 0.2);
 }
 
 .faq-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 15px;
-    background: var(--bg-solid);
-    border-radius: 10px;
-    overflow: hidden;
 }
 
 .faq-table th, .faq-table td {
@@ -753,12 +569,6 @@ body, html {
 .faq-table th {
     background: #121d35;
     color: var(--accent);
-    font-size: 14px;
-}
-
-.faq-table td {
-    font-size: 13px;
-    color: var(--text-main);
 }
 
 .faq-block-item {
@@ -775,18 +585,14 @@ body, html {
     margin-bottom: 8px;
 }
 
-.faq-block-item p {
-    font-size: 13px;
-    color: var(--text-main);
-    line-height: 1.6;
-}
-
+/* Сетка тестеров в Инфо-центре */
 .testers-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 15px;
     margin-top: 15px;
 }
+
 .tester-card {
     background: var(--bg-solid);
     border: 1px solid rgba(255,204,71,0.2);
@@ -794,11 +600,13 @@ body, html {
     padding: 15px;
     text-align: center;
 }
+
 .tester-name {
     font-size: 18px;
     color: var(--text-main);
     margin-bottom: 5px;
 }
+
 .tester-status {
     font-size: 12px;
     color: var(--accent);
@@ -808,27 +616,7 @@ body, html {
     display: inline-block;
 }
 
-.step-list {
-    margin-top: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-.step-card {
-    background: var(--bg-solid);
-    border: 1px solid var(--border-color);
-    padding: 15px;
-    border-radius: 10px;
-}
-.step-num {
-    color: var(--accent);
-    font-size: 18px;
-    margin-bottom: 5px;
-}
-
-/* ==========================================================================
-   ИЗОЛИРОВАННЫЙ РАЗДЕЛ "ВИКИ" (.wiki-grid)
-   ========================================================================== */
+/* Сетка Вики */
 .wiki-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -861,22 +649,12 @@ body, html {
 .wiki-card h3 {
     color: var(--accent);
     font-size: 16px;
-    font-weight: normal; 
-    letter-spacing: 0.5px;
 }
 
 .wiki-card p {
-    font-size: 11px;
-    font-weight: normal;
+    font-size: 12px;
     color: #b0bacd;
     line-height: 1.6;
-    letter-spacing: 0.3px;
-}
-
-.wiki-card p b, 
-.wiki-card p strong {
-    color: var(--accent);
-    font-weight: normal;
 }
 
 .inv-preview-box {
@@ -885,7 +663,6 @@ body, html {
     border: 1px solid var(--border-color);
     border-radius: 10px;
     overflow: hidden;
-    width: 100%;
 }
 
 .inv-preview-box img {
@@ -894,68 +671,33 @@ body, html {
     display: block;
 }
 
-/* ==========================================================================
-   ИНФО-ЦЕНТР
-   ========================================================================== */
-.info-section {
-    margin-bottom: 35px;
+.step-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.step-card {
     background: var(--bg-solid);
     border: 1px solid var(--border-color);
-    border-radius: 14px;
-    padding: 20px;
+    padding: 15px;
+    border-radius: 10px;
 }
 
-.info-section-title {
+.step-num {
     color: var(--accent);
-    font-size: 20px;
-    margin-bottom: 15px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid rgba(255, 204, 71, 0.2);
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    font-size: 18px;
+    margin-bottom: 5px;
 }
 
-.info-nav-buttons {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 15px;
+.no-results {
+    text-align: center;
+    padding: 30px;
+    color: var(--text-muted);
 }
 
-.info-nav-btn {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    color: var(--text-main);
-    padding: 10px 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 13px;
-}
-
-.info-nav-btn:hover {
-    border-color: var(--accent);
-}
-
-.info-nav-btn.active {
-    background: var(--accent);
-    color: #070b17;
-    border-color: var(--accent);
-    font-weight: bold;
-}
-
-.info-sub-tab-content {
-    animation: fadeInSubTab 0.2s ease;
-}
-
-@keyframes fadeInSubTab {
-    from { opacity: 0; transform: translateY(2px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* ==========================================================================
-   АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ ЭКРАНОВ (max-width: 768px)
-   ========================================================================== */
+/* Мобильная адаптивность */
 @media(max-width: 768px) {
     .hero h1 { font-size: 26px; }
     .filters, .filters-row-2 { grid-template-columns: 1fr; gap: 8px; }
@@ -967,10 +709,13 @@ body, html {
     }
     
     .player-card-right {
-        align-items: flex-start;
         width: 100%;
         border-top: 1px solid var(--border-color);
         padding-top: 10px;
+    }
+    
+    .player-card-right-inner {
+        text-align: left;
     }
     
     .modal-grid {
@@ -979,7 +724,6 @@ body, html {
 
     .info-nav-buttons {
         flex-direction: column;
-        width: 100%;
     }
     
     .info-nav-btn {
