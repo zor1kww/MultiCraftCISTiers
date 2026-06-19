@@ -308,44 +308,68 @@ body, html {
     gap: 10px;
 }
 
-.player-container {
+.player-container, .player-card {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 14px;
     overflow: hidden;
 }
 
-.player-container:hover {
-    border-color: var(--accent);
+/* Изменение: Обычные карточки при наведении просто меняют фон, без золотого glow эффекта */
+.player-container:hover, .player-card:hover {
     background: var(--card-hover);
 }
 
 /* ==========================================================================
    ТОП 1-5 ЦВЕТА И СВЕЧЕНИЯ РАМОК
    ========================================================================== */
-.top-rank-1 { border-color: rgba(218, 165, 32, 0.7) !important; box-shadow: 0 0 15px rgba(218, 165, 32, 0.15); }
-.top-rank-2 { border-color: rgba(169, 169, 169, 0.7) !important; box-shadow: 0 0 15px rgba(169, 169, 169, 0.15); }
-.top-rank-3 { border-color: rgba(160, 82, 45, 0.7) !important; box-shadow: 0 0 15px rgba(160, 82, 45, 0.15); }
-.top-rank-4 { border-color: rgba(128, 128, 128, 0.7) !important; box-shadow: 0 0 15px rgba(128, 128, 128, 0.15); }
-.top-rank-5 { border-color: rgba(0, 128, 128, 0.7) !important; box-shadow: 0 0 15px rgba(0, 128, 128, 0.15); }
+.top-rank-1, .top-1 { border-color: rgba(218, 165, 32, 0.7) !important; box-shadow: 0 0 15px rgba(218, 165, 32, 0.15); }
+.top-rank-2, .top-2 { border-color: rgba(169, 169, 169, 0.7) !important; box-shadow: 0 0 15px rgba(169, 169, 169, 0.15); }
+.top-rank-3, .top-3 { border-color: rgba(160, 82, 45, 0.7) !important; box-shadow: 0 0 15px rgba(160, 82, 45, 0.15); }
+.top-rank-4, .top-4 { border-color: rgba(128, 128, 128, 0.7) !important; box-shadow: 0 0 15px rgba(128, 128, 128, 0.15); }
+.top-rank-5, .top-5 { border-color: rgba(0, 128, 128, 0.7) !important; box-shadow: 0 0 15px rgba(0, 128, 128, 0.15); }
 
 /* ==========================================================================
    ЛОГИКА ДЛЯ RETIRED-СТАТУСА (ИГНОРИРУЕТСЯ, ЕСЛИ ИГРОК В ТОП 1-5)
    ========================================================================== */
-.player-container.retired-status:not(.top-rank-1):not(.top-rank-2):not(.top-rank-3):not(.top-rank-4):not(.top-rank-5) {
+.player-container.retired-status:not(.top-rank-1):not(.top-rank-2):not(.top-rank-3):not(.top-rank-4):not(.top-rank-5),
+.player-card.retired-status:not(.top-1):not(.top-2):not(.top-3):not(.top-4):not(.top-5) {
     opacity: 0.55;
     border-color: rgba(136, 146, 176, 0.2) !important;
     box-shadow: none !important;
 }
 
-.player-container.retired-status:not(.top-rank-1):not(.top-rank-2):not(.top-rank-3):not(.top-rank-4):not(.top-rank-5):hover {
+.player-container.retired-status:not(.top-rank-1):not(.top-rank-2):not(.top-rank-3):not(.top-rank-4):not(.top-rank-5):hover,
+.player-card.retired-status:not(.top-1):not(.top-2):not(.top-3):not(.top-4):not(.top-5):hover {
     border-color: rgba(136, 146, 176, 0.5) !important;
     background: var(--card-hover);
 }
 
 /* ==========================================================================
-   СТРУКТУРА КАРТОЧКИ ИГРОКА (.player-card-row)
+   СТРУКТУРА КАРТОЧКИ ИГРОКА (.player-card-row / .player-card)
    ========================================================================== */
+.player-card {
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.player-card-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.player-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
 .player-card-row {
     padding: 14px 16px;
     display: flex;
@@ -388,6 +412,11 @@ body, html {
     flex-wrap: wrap; 
 }
 
+.player-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
 /* ==========================================================================
    ЕДИНЫЙ СТАНДАРТ ДЛЯ ВСЕХ МЕТА-ТЕГОВ (Регион, Устройство)
    ========================================================================== */
@@ -395,7 +424,7 @@ body, html {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    height: 22px; /* Фиксированная высота для идеального горизонтального выравнивания */
+    height: 22px; 
     padding: 0 8px;
     font-size: 11px;
     font-weight: bold;
@@ -413,12 +442,11 @@ body, html {
     background: rgba(0,0,0,0.05);
 }
 
-/* Отдельный класс для Retired — исправлено выравнивание и возвращен красный цвет */
 .retired-meta-tag {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    height: 22px; /* Вровень с остальными тегами */
+    height: 22px; 
     padding: 0 8px;
     font-size: 11px;
     font-weight: bold;
@@ -430,7 +458,7 @@ body, html {
     border: 1px solid rgba(255, 71, 71, 0.25) !important;
     box-sizing: border-box;
     white-space: nowrap;
-    margin-top: 0; /* Убран кривой сдвиг */
+    margin-top: 0; 
 }
 
 .player-tiers-row {
@@ -461,7 +489,6 @@ body, html {
     overflow: hidden;
 }
 
-/* Стили для сабтиров ветеранов */
 .tier-item-box.retired-kit .tier-icon-circle {
     border-color: rgba(255, 71, 71, 0.4) !important;
     background: rgba(255, 71, 71, 0.02);
@@ -487,7 +514,32 @@ body, html {
     text-align: center;
 }
 
-/* Блок PTS / Тир (Всегда прижат в самый правый край) */
+.player-card-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.player-pts {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--accent);
+}
+
+.player-sub-pts {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.player-tier-badge {
+    padding: 4px 10px;
+    border: 1px solid;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
 .player-right {
     margin-left: auto;
     flex-shrink: 0;
@@ -561,16 +613,25 @@ body, html {
     font-weight: bold;
 }
 
-.custom-role-badge {
+.tester-badge {
     display: inline-block;
     font-size: 11px;
-    color: var(--accent);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    margin-top: 6px;
+}
+
+.tester-badge.senior {
+    color: #ffcc47;
     background: rgba(255, 204, 71, 0.12);
     border: 1px solid rgba(255, 204, 71, 0.25);
-    padding: 3px 8px;
-    border-radius: 6px;
-    margin-top: 6px;
-    font-weight: bold;
+}
+
+.tester-badge.qual {
+    color: #a9a9a9;
+    background: rgba(169, 169, 169, 0.12);
+    border: 1px solid rgba(169, 169, 169, 0.25);
 }
 
 .close-modal-btn {
@@ -614,16 +675,16 @@ body, html {
     padding-bottom: 4px;
 }
 
-.modal-row {
+.modal-tier-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 13px;
     padding: 8px 0;
     border-bottom: 1px dashed var(--border-color);
+    font-size: 13px;
 }
 
-.modal-row:last-child {
+.modal-tier-row:last-child {
     border-bottom: none;
 }
 
@@ -634,26 +695,26 @@ body, html {
 }
 
 .modal-kit-icon {
-    width: 22px;
-    height: 22px;
-    object-fit: contain;
+    font-size: 12px;
 }
 
-.m-kit { color: var(--text-main); }
+.modal-kit-name {
+    color: var(--text-main);
+}
 
-.m-right-side {
+.modal-kit-right {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 10px;
 }
 
-.m-pts-box {
-    display: inline-block;
-    width: 65px; 
-    text-align: right;
+.modal-kit-pts {
     color: var(--text-muted);
     font-size: 11px;
+    min-width: 50px;
+    text-align: right;
 }
+
 .modal-block-footer {
     margin-top: 10px;
     text-align: right;
@@ -764,20 +825,9 @@ body, html {
     font-size: 18px;
     margin-bottom: 5px;
 }
-.form-template {
-    background: rgba(0,0,0,0.2);
-    border: 1px dashed rgba(255,204,71,0.3);
-    padding: 12px;
-    border-radius: 6px;
-    margin-top: 10px;
-    font-family: monospace;
-    font-size: 13px;
-    line-height: 1.5;
-    color: #a6b2c9;
-}
 
 /* ==========================================================================
-   ИЗОЛИРОВАННЫЙ РАЗДЕЛ "ВИКИ" (.wiki-grid) — ИСПРАВЛЕНЫ СКРИНШОТЫ И ШРИФТЫ
+   ИЗОЛИРОВАННЫЙ РАЗДЕЛ "ВИКИ" (.wiki-grid)
    ========================================================================== */
 .wiki-grid {
     display: grid;
@@ -800,7 +850,6 @@ body, html {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 0;
 }
 
 .wiki-title-icon {
@@ -809,37 +858,27 @@ body, html {
     object-fit: contain;
 }
 
-/* Красивый аккуратный заголовок кита */
 .wiki-card h3 {
     color: var(--accent);
     font-size: 16px;
     font-weight: normal; 
-    margin-bottom: 4px;
     letter-spacing: 0.5px;
 }
 
-/* Оптимизированный мелкий шрифт для описания */
 .wiki-card p {
     font-size: 11px;
     font-weight: normal;
     color: #b0bacd;
     line-height: 1.6;
-    margin-bottom: 10px;
     letter-spacing: 0.3px;
 }
 
-.wiki-card p:last-of-type {
-    margin-bottom: 0;
-}
-
-/* Подсветка важных слов ("Тренирует:", "Изумрудный Меч:") золотым */
 .wiki-card p b, 
 .wiki-card p strong {
     color: var(--accent);
     font-weight: normal;
 }
 
-/* Исправленный контейнер инвентаря — картинка больше не сжимается */
 .inv-preview-box {
     margin-top: auto; 
     background: rgba(0, 0, 0, 0.15);
@@ -849,7 +888,6 @@ body, html {
     width: 100%;
 }
 
-/* Картинка идеально растягивается на всю ширину без черных полос по бокам */
 .inv-preview-box img {
     width: 100%;
     height: auto;
@@ -867,10 +905,6 @@ body, html {
     padding: 20px;
 }
 
-.info-section:last-child {
-    margin-bottom: 0;
-}
-
 .info-section-title {
     color: var(--accent);
     font-size: 20px;
@@ -880,46 +914,6 @@ body, html {
     display: flex;
     align-items: center;
     gap: 10px;
-}
-
-.tier-hierarchy {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.hierarchy-item {
-    display: flex;
-    align-items: center;
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    padding: 10px 15px;
-    border-radius: 8px;
-    gap: 15px;
-}
-
-.hierarchy-rank {
-    font-size: 14px;
-    font-weight: bold;
-    color: var(--text-muted);
-    min-width: 80px;
-}
-
-.hierarchy-desc {
-    font-size: 13px;
-    color: var(--text-main);
-    line-height: 1.4;
-}
-
-.info-accent-box {
-    background: rgba(255, 204, 71, 0.05);
-    border-left: 3px solid var(--accent);
-    padding: 12px 15px;
-    border-radius: 0 8px 8px 0;
-    margin: 15px 0;
-    font-size: 13px;
-    line-height: 1.6;
 }
 
 .info-nav-buttons {
@@ -966,30 +960,17 @@ body, html {
     .hero h1 { font-size: 26px; }
     .filters, .filters-row-2 { grid-template-columns: 1fr; gap: 8px; }
     
-    .player-card-row {
+    .player-card {
         flex-direction: column;
-        align-items: stretch;
+        align-items: flex-start;
         gap: 12px;
-        padding: 14px;
     }
     
-    .player-name-block {
-        justify-content: space-between;
-        width: 100%;
-        min-width: 0;
-    }
-    
-    .player-center-block {
-        width: 100%;
-    }
-    
-    .player-right {
-        margin-left: 0;
-        text-align: right;
+    .player-card-right {
+        align-items: flex-start;
         width: 100%;
         border-top: 1px solid var(--border-color);
         padding-top: 10px;
-        justify-content: flex-start;
     }
     
     .modal-grid {
