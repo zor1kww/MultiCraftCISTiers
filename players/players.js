@@ -13,7 +13,8 @@ const players = [
             "Combo": "RLT1",
             "Mace": "RHT1",
             "Hardcore": "RHT2",
-            "SMP": "RLT1"
+            "SMP": "RLT1",
+            "Emerald Pot": "LT1"
         }
     },
     {
@@ -65,7 +66,7 @@ const players = [
         region: "UA",
         device: "PH",
         tiers: {
-            "Emerald Pot": "RLT2",
+            "Emerald Pot": "LT2",
             "SMP": "LT2",
             "Hardcore": "LT2",
             "Pickaxe": "HT2",
@@ -76,7 +77,8 @@ const players = [
             "Combo": "LT3",
             "Gapple": "LT2",
             "Mace": "HT3",
-            "Crystal": "LT3"
+            "Crystal": "LT3",
+            "Diamond": "HT2"
         }
     },
     {
