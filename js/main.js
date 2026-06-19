@@ -109,7 +109,7 @@ function openProfile(idx, filteredPlayersJSON) {
     document.getElementById('modalPlayerMeta').innerText = metaText;
     
     const roleContainer = document.getElementById('modalRoleContainer');
-    if (player.name === "-999-" || player.name === "zor1kkqwix" || player.name === "Sneger" || player.name === "Deras" || player.name === "_Xx_deras_xX" || player.name === "IREN") {
+    if (player.name === "-999-" || player.name === "zor1kkqwix" || player.name === "Sneger") {
         roleContainer.innerHTML = `<span class="custom-role-badge">Tier-Tester</span>`;
     } else {
         roleContainer.innerHTML = '';
