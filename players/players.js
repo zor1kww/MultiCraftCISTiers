@@ -32,7 +32,6 @@ const players = [
             "Hardcore": "RHT1",
             "Emerald Pot": "LT1",
             "SMP": "RHT1"
-            
         }
     },
     {
@@ -42,7 +41,16 @@ const players = [
         tiers: {
             "Hardcore": "RLT1",
             "SMP": "HT3",
-            "Emerald Pot": "HT3"
+            "Emerald Pot": "HT3",
+            "Combo": "HT4",
+            "RVM": "HT3",
+            "Pickaxe": "HT2",
+            "Emerald": "LT3",
+            "Diamond": "HT3",
+            "Dragonhide": "HT3",
+            "Beast": "LT2",
+            "Crystal": "LT1",
+            "Mace": "LT1"
         }
     },
     {
@@ -172,6 +180,15 @@ const players = [
         device: "TB",
         tiers: {
             "Hardcore": "RHT2"
+        }
+    },
+    {
+        name: "Say",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "RVM": "LT3",
+            "Emerald Pot": "HT3"
         }
     }
 ];
