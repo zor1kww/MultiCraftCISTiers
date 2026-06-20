@@ -913,4 +913,97 @@ body, html {
 }
 
 .info-accent-box {
-    background: rgba(255, 204, 71, 0
+    background: rgba(255, 204, 71, 0.05);
+    border-left: 3px solid var(--accent);
+    padding: 12px 15px;
+    border-radius: 0 8px 8px 0;
+    margin: 15px 0;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* Навигация под-вкладок раздела Информация */
+.info-nav-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.info-nav-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.info-nav-btn:hover {
+    border-color: var(--accent);
+}
+
+.info-nav-btn.active {
+    background: var(--accent);
+    color: #070b17;
+    border-color: var(--accent);
+    font-weight: bold;
+}
+
+.info-sub-tab-content {
+    animation: fadeInSubTab 0.2s ease;
+}
+
+@keyframes fadeInSubTab {
+    from { opacity: 0; transform: translateY(2px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ ЭКРАНОВ (max-width: 768px)
+   ========================================================================== */
+@media(max-width: 768px) {
+    .hero h1 { font-size: 26px; }
+    .filters, .filters-row-2 { grid-template-columns: 1fr; gap: 8px; }
+    
+    .player-card-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 14px;
+    }
+    
+    .player-name-block {
+        justify-content: space-between;
+        width: 100%;
+        min-width: 0;
+    }
+    
+    .player-center-block {
+        width: 100%;
+    }
+    
+    .player-right {
+        margin-left: 0;
+        text-align: right;
+        width: 100%;
+        border-top: 1px solid var(--border-color);
+        padding-top: 10px;
+        justify-content: flex-start;
+    }
+    
+    .modal-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .info-nav-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .info-nav-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
