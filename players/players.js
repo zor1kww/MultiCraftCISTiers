@@ -206,7 +206,7 @@ const players = [
     region: "RU",
     device: "PH",
     tiers: {
-        "RVM": "LT3"
+        "RVM": "LT3",
         "Emerald Pot": "HT4"
     }
 },
@@ -241,7 +241,7 @@ const players = [
     region: "RU",
     device: "PH",
     tiers: {
-        "Emerald Pot": "LT3"
+        "Emerald Pot": "LT3",
         "Crystal": "HT3"
     }
 },
