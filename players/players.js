@@ -208,4 +208,5 @@ const players = [
     tiers: {
         "RVM": "LT3"
     }
-},
+}
+];
