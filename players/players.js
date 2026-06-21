@@ -131,7 +131,9 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            "RVM": "RHT4"
+            "RVM": "HT4",
+            "Dragonhide": "HT4",
+            "Mace": "LT3"
         }
     },
     {
@@ -243,7 +245,8 @@ const players = [
     device: "PH",
     tiers: {
         "Emerald Pot": "LT3",
-        "Crystal": "HT3"
+        "Crystal": "HT3",
+        "Hardcore": "HT4"
     }
 },
 {
@@ -281,7 +284,48 @@ const players = [
     device: "PH",
     tiers: {
         "Emerald": "LT5",
-        "Mace": "LT5"
+        "Mace": "LT5",
+        "Combo": "LT5",
+        "RVM": "LT5"
+    }
+},
+{
+    name: "Samaelka",
+    region: "RU",
+    device: "PH",
+    tiers: {
+        "Dragonhide": "HT4",
+        "RVM": "LT3"
+    }
+},
+{
+    name: "DzIla_EDITS",
+    region: "RU",
+    device: "TB",
+    tiers: {
+        "Beast": "LT3",
+        "Emerald Pot": "LT3"
+    }
+},
+{
+    name: "boy",
+    region: "UA",
+    device: "PH",
+    tiers: {
+        "Hardcore": "HT4"
+    }
+},
+{
+    name: "Mirops",
+    region: "RU",
+    device: "PH",
+    tiers: {
+        "Mace": "HT5",
+        "Beast": "HT4",
+        "Emerald": "LT4",
+        "RVM": "LT5",
+        "Crystal": "LT4",
+        "Dragonhide": "HT4"
     }
 }
 ];
