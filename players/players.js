@@ -191,7 +191,7 @@ const players = [
             "RVM": "LT3",
             "Emerald Pot": "HT3"
         }
-    }
+    },
     {
     name: "ZirtMobile",
     region: "RU",
