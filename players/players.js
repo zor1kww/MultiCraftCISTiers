@@ -192,4 +192,20 @@ const players = [
             "Emerald Pot": "HT3"
         }
     }
-];
+    {
+    name: "ZirtMobile",
+    region: "RU",
+    device: "TB",
+    tiers: {
+        "RVM": "LT3",
+        "Dragonhide": "LT3"
+    }
+},
+{
+    name: "WezzikBigClop",
+    region: "RU",
+    device: "PH",
+    tiers: {
+        "RVM": "LT3"
+    }
+},
