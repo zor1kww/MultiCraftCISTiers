@@ -102,7 +102,8 @@ const players = [
             "Hardcore": "LT3",
             "Emerald Pot": "LT3",
             "Beast": "LT3",
-            "Diamond Pot": "LT3"
+            "Diamond Pot": "LT3",
+            "Emerald": "LT3"
         }
     },
     {
