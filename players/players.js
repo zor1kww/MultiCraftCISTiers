@@ -86,7 +86,7 @@ const players = [
             "Beast": "LT1",
             "Combo": "LT3",
             "Gapple": "LT2",
-            "Mace": "HT3",
+            "Mace": "LT2",
             "Crystal": "LT3",
             "Diamond": "HT2"
         }
@@ -179,7 +179,8 @@ const players = [
         region: "UA",
         device: "TB",
         tiers: {
-            "Hardcore": "RHT2"
+            "Hardcore": "RHT2",
+            "Mace": "LT2"
         }
     },
     {
