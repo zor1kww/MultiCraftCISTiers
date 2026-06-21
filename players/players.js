@@ -237,3 +237,4 @@ const players = [
         "Emerald Pot": "LT3"
     }
 }
+];
