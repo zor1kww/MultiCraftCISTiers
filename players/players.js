@@ -103,7 +103,8 @@ const players = [
             "Emerald Pot": "LT3",
             "Beast": "LT3",
             "Diamond Pot": "LT3",
-            "Emerald": "LT3"
+            "Emerald": "LT3",
+            "Diamond Pot": "LT3"
         }
     },
     {
@@ -346,7 +347,8 @@ const players = [
     tiers: {
         "Beast": "LT3",
         "Emerald Pot": "LT3",
-        "Crystal": "LT4"
+        "Crystal": "LT4",
+        "Dragonhide": "HT4"
     }
 }
 ];
