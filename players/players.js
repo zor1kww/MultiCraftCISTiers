@@ -215,7 +215,8 @@ const players = [
     region: "UA",
     device: "PH",
     tiers: {
-        "Emerald Pot": "LT5"
+        "Emerald Pot": "LT5",
+        "Crystal": "LT5"
     }
 },
 {
@@ -272,6 +273,15 @@ const players = [
     device: "PH",
     tiers: {
         "Mace": "HT5"
+    }
+},
+{
+    name: "Hayzi",
+    region: "RU",
+    device: "PH",
+    tiers: {
+        "Emerald": "LT5",
+        "Mace": "LT5"
     }
 }
 ];
