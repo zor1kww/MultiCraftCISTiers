@@ -208,5 +208,32 @@ const players = [
     tiers: {
         "RVM": "LT3"
     }
+},
+{
+    name: "BULL",
+    region: "UA",
+    device: "PH",
+    tiers: {
+        "Emerald Pot": "LT5"
+    }
+},
+{
+    name: "NeXoXoroshy2",
+    region: "KG",
+    device: "PH",
+    tiers: {
+        "Emerald Pot": "HT4",
+        "SMP": "HT4",
+        "Hardcore": "LT4",
+        "RVM": "HT4",
+        "Diamond Pot": "LT3"
+    }
+},
+{
+    name: "LEGENDAMETRO",
+    region: "RU",
+    device: "PH",
+    tiers: {
+        "Emerald Pot": "LT3"
+    }
 }
-];
