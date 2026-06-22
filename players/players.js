@@ -167,7 +167,7 @@ const players = [
         region: "UA",
         device: "PH",
         tiers: {
-            "RVM": "RHT4"
+            "RVM": "RHT4",
             "Beast": "HT5"
         }
     },
