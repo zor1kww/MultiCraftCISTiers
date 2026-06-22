@@ -97,7 +97,7 @@ const players = [
         device: "PH",
         tiers: {
             "Dragonhide": "RLT3",
-            "RVM": "RHT3",
+            "RVM": "LT2",
             "Emerald": "RHT3",
             "Hardcore": "LT3",
             "Emerald Pot": "LT3",
