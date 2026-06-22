@@ -243,7 +243,7 @@ const players = [
             "SMP": "HT4",
             "Hardcore": "LT4",
             "RVM": "HT4",
-            "Diamond Pot": "LT3",
+            "Diamond": "LT3",
             "Dragonhide": "LT3",
             "Emerald": "HT4",
             "Mace": "LT3",
