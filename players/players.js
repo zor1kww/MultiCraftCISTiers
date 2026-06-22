@@ -142,7 +142,8 @@ const players = [
             "Beast": "LT3",
             "Diamond": "HT4",
             "Pickaxe": "LT3",
-            "Emerald": "HT4"
+            "Emerald": "HT4",
+            "SMP": "LT3"
         }
     },
     {
