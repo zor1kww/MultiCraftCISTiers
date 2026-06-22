@@ -231,7 +231,8 @@ const players = [
             "Emerald Pot": "HT4",
             "Crystal": "LT3",
             "SMP": "LT3",
-            "Dragonhide": "LT3"
+            "Dragonhide": "LT3",
+            "Pickaxe": "LT3"
         }
     },
     {
