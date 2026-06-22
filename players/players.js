@@ -425,5 +425,13 @@ const players = [
         tiers: {
             "Mace": "LT3"
         }
+    },
+    {
+        name: "Sh4rk",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Beast": "LT3"
+        }
     }
 ];
