@@ -147,7 +147,8 @@ const players = [
             "Pickaxe": "LT3",
             "Emerald": "HT4",
             "SMP": "LT3",
-            "Emerald Pot": "LT3"
+            "Emerald Pot": "LT3",
+            "Hardcore": "HT4"
         }
     },
     {
