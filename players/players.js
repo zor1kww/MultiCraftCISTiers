@@ -14,8 +14,7 @@ const players = [
             "Mace": "RHT1",
             "Hardcore": "RHT2",
             "Emerald Pot": "LT1",
-            "SMP": "RLT1",
-            "Beast": "HT1"
+            "SMP": "RLT1"
         }
     },
     {
@@ -32,9 +31,7 @@ const players = [
             "Mace": "RHT1",
             "Hardcore": "RHT1",
             "Emerald Pot": "LT1",
-            "SMP": "RHT1",
-            "Pickaxe": "HT1",
-            "Beast": "LT1"
+            "SMP": "RHT1"
         }
     },
     {
@@ -86,7 +83,7 @@ const players = [
             "Pickaxe": "HT2",
             "RVM": "LT2",
             "Emerald": "LT1",
-            "Dragonhide": "HT3",
+            "Dragonhide": "LT2", // <- Понижен с HT3 после теста со Снегером
             "Beast": "LT1",
             "Combo": "LT3",
             "Gapple": "LT2",
@@ -102,10 +99,10 @@ const players = [
         tiers: {
             "Dragonhide": "RLT3",
             "RVM": "LT2",
+            "Emerald": "RHT3",
             "Hardcore": "LT3",
             "Emerald Pot": "LT3",
             "Beast": "LT3",
-            "Emerald": "LT3",
             "Diamond": "LT3"
         }
     },
@@ -207,214 +204,235 @@ const players = [
         }
     },
     {
-    name: "ZirtMobile",
-    region: "RU",
-    device: "TB",
-    tiers: {
-        "RVM": "LT3",
-        "Dragonhide": "LT2",
-        "Emerald Pot": "LT3",
-        "Mace": "LT3",
-        "Crystal": "LT3",
-        "Diamond": "LT1",
-        "Beast": "LT2",
-        "Pickaxe": "LT3"
+        name: "ZirtMobile",
+        region: "RU",
+        device: "TB",
+        tiers: {
+            "RVM": "LT3",
+            "Dragonhide": "LT2",
+            "Emerald Pot": "LT3",
+            "Mace": "LT3",
+            "Crystal": "LT4", // <- Понижен с LT3 до LT4
+            "Diamond Pot": "LT1",
+            "Beast": "LT3",
+            "Pickaxe": "LT3",
+            "Hardcore": "HT3", // <- Новый режим
+            "Gapple": "LT2",   // <- Новый режим
+            "Combo": "LT3",    // <- Новый режим
+            "SMP": "HT4"       // <- Первый ХТ4 в жизни!
+        }
+    },
+    {
+        name: "WezzikBigClop",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "RVM": "LT3",
+            "Emerald Pot": "HT4",
+            "Crystal": "LT3",
+            "SMP": "LT3",
+            "Dragonhide": "LT3"
+        }
+    },
+    {
+        name: "BULL",
+        region: "UA",
+        device: "PH",
+        tiers: {
+            "Emerald Pot": "LT5",
+            "Crystal": "LT5"
+        }
+    },
+    {
+        name: "NeXoXoroshy2",
+        region: "KG",
+        device: "PH",
+        tiers: {
+            "Emerald Pot": "HT4",
+            "SMP": "HT4",
+            "Hardcore": "LT4",
+            "RVM": "HT4",
+            "Diamond Pot": "LT3",
+            "Dragonhide": "LT3",
+            "Emerald": "HT4",
+            "Mace": "LT3",
+            "Crystal": "LT3",
+            "Combo": "HT4",
+            "Gapple": "LT4"
+        }
+    },
+    {
+        name: "LEGENDAMETRO",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Emerald Pot": "LT3",
+            "Crystal": "HT3",
+            "Hardcore": "HT4"
+        }
+    },
+    {
+        name: "Nikos",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "RVM": "HT5",
+            "Emerald Pot": "LT4"
+        }
+    },
+    {
+        name: "Y-Japan",
+        region: "RU",
+        device: "TB",
+        tiers: {
+            "Crystal": "LT4",
+            "Mace": "LT5",
+            "SMP": "HT5",
+            "Hardcore": "LT5",
+            "Beast": "LT4"
+        }
+    },
+    {
+        name: "-BaCk-",
+        region: "KZ",
+        device: "PH",
+        tiers: {
+            "Mace": "HT5"
+        }
+    },
+    {
+        name: "Hayzi",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Emerald": "LT5",
+            "Mace": "LT5",
+            "Combo": "LT5",
+            "RVM": "LT5"
+        }
+    },
+    {
+        name: "Samaelka",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Dragonhide": "HT4",
+            "RVM": "LT3",
+            "Beast": "HT4",
+            "SMP": "LT3",
+            "Hardcore": "LT3",
+            "Mace": "LT3"
+        }
+    },
+    {
+        name: "DzIla_EDITS",
+        region: "RU",
+        device: "TB",
+        tiers: {
+            "Beast": "LT3",
+            "Emerald Pot": "LT3",
+            "SMP": "LT3"
+        }
+    },
+    {
+        name: "boy",
+        region: "UA",
+        device: "PH",
+        tiers: {
+            "Hardcore": "HT4",
+            "Crystal": "LT3" // <- Добавлен из новых тестов
+        }
+    },
+    {
+        name: "Mirops",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Mace": "HT5",
+            "Beast": "HT4",
+            "Emerald": "LT4",
+            "RVM": "LT5",
+            "Crystal": "LT4",
+            "Dragonhide": "HT4"
+        }
+    },
+    {
+        name: "blablablublubluble",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Beast": "LT3",
+            "Emerald Pot": "LT3",
+            "Crystal": "LT4",
+            "Dragonhide": "HT4"
+        }
+    },
+    {
+        name: "_-XKaKTakX-_",
+        region: "RU",
+        device: "TB",
+        tiers: {
+            "Dragonhide": "LT3"
+        }
+    },
+    {
+        name: "Olegorex",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Emerald Pot": "LT3"
+        }
+    },
+    {
+        name: "Igrok355",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Beast": "HT4",
+            "Emerald": "HT4",
+            "Dragonhide": "LT3"
+        }
+    },
+    {
+        name: "Prosto_oleg100-7",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Hardcore": "LT3",
+            "Crystal": "LT1" // <- Апнулся с LT3 до LT1
+        }
+    },
+    {
+        name: "BossKFC",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Hardcore": "LT3"
+        }
+    },
+    {
+        name: "Lolotrack",
+        region: "UA",
+        device: "PH",
+        tiers: {
+            "Crystal": "HT5",
+            "Diamond": "HT5"
+        }
+    },
+    {
+        name: "Cira",
+        region: "RU",
+        device: "TB",
+        tiers: {
+            "Hardcore": "LT2"
+        }
+    },
+    {
+        name: "Gggg1029",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Mace": "LT3"
+        }
     }
-},
-{
-    name: "WezzikBigClop",
-    region: "RU",
-    device: "PH",
-    tiers: {
-        "RVM": "LT3",
-        "Emerald Pot": "HT4",
-        "Crystal": "LT3",
-        "SMP": "LT3",
-        "Dragonhide": "LT3"
-    }
-},
-{
-    name: "BULL",
-    region: "UA",
-    device: "PH",
-    tiers: {
-        "Emerald Pot": "LT5",
-        "Crystal": "LT5"
-    }
-},
-{
-    name: "NeXoXoroshy2",
-    region: "KG",
-    device: "PH",
-    tiers: {
-        "Emerald Pot": "HT4",
-        "SMP": "HT4",
-        "Hardcore": "LT4",
-        "RVM": "HT4",
-        "Diamond Pot": "LT3",
-        "Dragonhide": "LT3",
-        "Emerald": "HT4",
-        "Mace": "LT3",
-        "Crystal": "LT3",
-        "Combo": "HT4",
-        "Gapple": "LT4"
-    }
-},
-{
-    name: "LEGENDAMETRO",
-    region: "RU",
-    device: "PH",
-    tiers: {
-        "Emerald Pot": "LT3",
-        "Crystal": "HT3",
-        "Hardcore": "HT4"
-    }
-},
-{
-    name: "Nikos",
-    region: "RU",
-    device: "PH",
-    tiers: {
-        "RVM": "HT5",
-        "Emerald Pot": "LT4"
-    }
-},
-{
-    name: "Y-Japan",
-    region: "RU",
-    device: "TB",
-    tiers: {
-        "Crystal": "LT4",
-        "Mace": "LT5",
-        "SMP": "HT5",
-        "Hardcore": "LT5",
-        "Beast": "LT4"
-    }
-},
-{
-    name: "-BaCk-",
-    region: "KZ",
-    device: "PH",
-    tiers: {
-        "Mace": "HT5"
-    }
-},
-{
-    name: "Hayzi",
-    region: "RU",
-    device: "PH",
-    tiers: {
-        "Emerald": "LT5",
-        "Mace": "LT5",
-        "Combo": "LT5",
-        "RVM": "LT5"
-    }
-},
-{
-    name: "Samaelka",
-    region: "RU",
-    device: "PH",
-    tiers: {
-        "Dragonhide": "HT4",
-        "RVM": "LT3",
-        "Beast": "HT4",
-        "SMP": "LT3",
-        "Hardcore": "LT3",
-        "Mace": "LT3"
-    }
-},
-{
-    name: "DzIla_EDITS",
-    region: "RU",
-    device: "TB",
-    tiers: {
-        "Beast": "LT3",
-        "Emerald Pot": "LT3",
-        "SMP": "LT3"
-    }
-},
-{
-    name: "boy",
-    region: "UA",
-    device: "PH",
-    tiers: {
-        "Hardcore": "HT4"
-    }
-},
-{
-    name: "Mirops",
-    region: "RU",
-    device: "PH",
-    tiers: {
-        "Mace": "HT5",
-        "Beast": "HT4",
-        "Emerald": "LT4",
-        "RVM": "LT5",
-        "Crystal": "LT4",
-        "Dragonhide": "HT4"
-    }
-},
-{
-    name: "blablablublubluble",
-    region: "RU",
-    device: "PH",
-    tiers: {
-        "Beast": "LT3",
-        "Emerald Pot": "LT3",
-        "Crystal": "LT4",
-        "Dragonhide": "HT4"
-    }
-},
-{
-    name: "_-XKaKTakX-_",
-    region: "RU",
-    device: "TB",
-    tiers: {
-        "Dragonhide": "LT3"
-    }
-},
-{
-    name: "Olegorex",
-    region: "RU",
-    device: "PH",
-    tiers: {
-        "Emerald Pot": "LT3"
-    }
-},
-{
-    name: "Igrok355",
-    region: "RU",
-    device: "PH",
-    tiers: {
-        "Beast": "HT4",
-        "Emerald": "HT4",
-        "Dragonhide": "LT3"
-    }
-},
-{
-    name: "Prosto_oleg100-7",
-    region: "RU",
-    device: "PH",
-    tiers: {
-        "Hardcore": "LT3",
-        "Crystal": "LT3"
-    }
-},
-{
-    name: "BossKFC",
-    region: "RU",
-    device: "PH",
-    tiers: {
-        "Hardcore": "LT3"
-    }
-},
-{
-    name: "Lolotrack",
-    region: "UA",
-    device: "PH",
-    tiers: {
-        "Crystal": "HT5",
-        "Diamond": "HT5"
-    }
-}
 ];
