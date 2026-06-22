@@ -106,8 +106,8 @@ const players = [
             "Hardcore": "LT3",
             "Emerald Pot": "LT3",
             "Beast": "LT1",
-            "Diamond": "HT2",
-            "Mace": "HT2",
+            "Diamond": "LT2",
+            "Mace": "LT2",
             "SMP": "HT4"
         }
     },
@@ -345,7 +345,9 @@ const players = [
         tiers: {
             "Hardcore": "HT4",
             "Crystal": "LT3",
-            "Pickaxe": "HT4"
+            "Pickaxe": "HT4",
+            "Emerald": "HT4",
+            "Beast": "LT3"
         }
     },
     {
