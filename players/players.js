@@ -25,13 +25,13 @@ const players = [
             "Dragonhide": "RLT1",
             "Emerald": "RHT1",
             "Diamond": "RLT1",
-            "RVM": "RHT1",
+            "SMP": "RHT1",
             "Crystal": "LT1",
             "Combo": "RHT1",
             "Mace": "RHT1",
             "Hardcore": "RHT1",
             "Emerald Pot": "LT1",
-            "SMP": "RHT1"
+            "RVM": "RHT1"
         }
     },
     {
