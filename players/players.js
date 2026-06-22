@@ -216,7 +216,7 @@ const players = [
         tiers: {
             "RVM": "LT3",
             "Dragonhide": "LT2",
-            "Emerald Pot": "LT3",
+            "Emerald Pot": "LT2",
             "Mace": "HT3",
             "Crystal": "LT4",
             "Diamond": "LT1",
