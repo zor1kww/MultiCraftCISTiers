@@ -103,9 +103,8 @@ const players = [
             "Hardcore": "LT3",
             "Emerald Pot": "LT3",
             "Beast": "LT3",
-            "Diamond Pot": "LT3",
             "Emerald": "LT3",
-            "Diamond Pot": "LT3"
+            "Diamond": "LT3"
         }
     },
     {
@@ -141,6 +140,9 @@ const players = [
             "RVM": "HT4",
             "Dragonhide": "HT4",
             "Mace": "LT3"
+            "Beast": "LT3",
+            "Diamond": "HT4",
+            "Pickaxe": "LT3"
         }
     },
     {
@@ -207,7 +209,12 @@ const players = [
     device: "TB",
     tiers: {
         "RVM": "LT3",
-        "Dragonhide": "LT3"
+        "Dragonhide": "LT3",
+        "Emerald Pot": "LT3",
+        "Mace": "LT3",
+        "Crystal": "LT3",
+        "Diamond": "LT3",
+        "Beast": "LT3"
     }
 },
 {
@@ -219,6 +226,7 @@ const players = [
         "Emerald Pot": "HT4",
         "Crystal": "LT3",
         "SMP": "LT3"
+        "Dragonhide": "LT3"
     }
 },
 {
@@ -317,7 +325,8 @@ const players = [
     device: "TB",
     tiers: {
         "Beast": "LT3",
-        "Emerald Pot": "LT3"
+        "Emerald Pot": "LT3",
+        "SMP": "LT3"
     }
 },
 {
@@ -350,6 +359,56 @@ const players = [
         "Emerald Pot": "LT3",
         "Crystal": "LT4",
         "Dragonhide": "HT4"
+    }
+},
+{
+    name: "_-XKaKTakX-_",
+    region: "RU",
+    device: "TB",
+    tiers: {
+        "Dragonhide": "LT3"
+    }
+},
+{
+    name: "Olegorex",
+    region: "RU",
+    device: "PH",
+    tiers: {
+        "Emerald Pot": "LT3"
+    }
+},
+{
+    name: "Igrok355",
+    region: "RU",
+    device: "PH",
+    tiers: {
+        "Beast": "HT4",
+        "Emerald": "HT4",
+        "Dragonhide": "LT3"
+    }
+},
+{
+    name: "Prosto_oleg100-7",
+    region: "RU",
+    device: "PH",
+    tiers: {
+        "Hardcore": "LT3"
+    }
+},
+{
+    name: "BossKFC",
+    region: "RU",
+    device: "PH",
+    tiers: {
+        "Hardcore": "LT3"
+    }
+},
+{
+    name: "Lolotrack",
+    region: "UA",
+    device: "PH",
+    tiers: {
+        "Crystal": "HT5"
     }
 }
 ];
