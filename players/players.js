@@ -26,7 +26,7 @@ const players = [
             "Emerald": "RHT1",
             "Diamond": "RLT1",
             "RVM": "RHT1",
-            "Crystal": "RHT1",
+            "Crystal": "LT1",
             "Combo": "RHT1",
             "Mace": "RHT1",
             "Hardcore": "RHT1",
@@ -49,7 +49,7 @@ const players = [
             "Diamond": "HT3",
             "Dragonhide": "HT3",
             "Beast": "LT2",
-            "Crystal": "LT1",
+            "Crystal": "HT1",
             "Mace": "LT1",
             "Gapple": "LT3"
         }
