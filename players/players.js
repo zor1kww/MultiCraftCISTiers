@@ -331,7 +331,8 @@ const players = [
         device: "PH",
         tiers: {
             "Hardcore": "HT4",
-            "Crystal": "LT3"
+            "Crystal": "LT3",
+            "Pickaxe": "HT4"
         }
     },
     {
