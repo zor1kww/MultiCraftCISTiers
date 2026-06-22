@@ -213,7 +213,7 @@ const players = [
             "Emerald Pot": "LT3",
             "Mace": "LT3",
             "Crystal": "LT4",
-            "Diamond Pot": "LT1",
+            "Diamond": "LT1",
             "Beast": "LT3",
             "Pickaxe": "LT3",
             "Hardcore": "HT3",
