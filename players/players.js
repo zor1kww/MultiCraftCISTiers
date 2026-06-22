@@ -214,7 +214,7 @@ const players = [
         "Mace": "LT3",
         "Crystal": "LT3",
         "Diamond": "LT3",
-        "Beast": "LT3"
+        "Beast": "LT2"
     }
 },
 {
