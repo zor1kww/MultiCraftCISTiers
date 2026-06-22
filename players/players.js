@@ -211,15 +211,16 @@ const players = [
             "RVM": "LT3",
             "Dragonhide": "LT2",
             "Emerald Pot": "LT3",
-            "Mace": "LT3",
+            "Mace": "HT3",
             "Crystal": "LT4",
             "Diamond": "LT1",
             "Beast": "LT3",
             "Pickaxe": "LT3",
             "Hardcore": "HT3",
             "Gapple": "LT2",
-            "Combo": "LT3",
-            "SMP": "HT4"
+            "Combo": "LT2",
+            "SMP": "HT4",
+            "Emerald": "HT2"
         }
     },
     {
