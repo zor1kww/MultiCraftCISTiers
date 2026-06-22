@@ -14,7 +14,8 @@ const players = [
             "Mace": "RHT1",
             "Hardcore": "RHT2",
             "Emerald Pot": "LT1",
-            "SMP": "RLT1"
+            "SMP": "RLT1",
+            "Beast": "HT1"
         }
     },
     {
@@ -31,7 +32,9 @@ const players = [
             "Mace": "RHT1",
             "Hardcore": "RHT1",
             "Emerald Pot": "LT1",
-            "RVM": "RHT1"
+            "RVM": "RHT1",
+            "Beast: "LT1",
+            "Pickaxe": "HT1"
         }
     },
     {
