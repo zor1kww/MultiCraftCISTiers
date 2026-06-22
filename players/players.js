@@ -83,7 +83,7 @@ const players = [
             "Pickaxe": "HT2",
             "RVM": "LT2",
             "Emerald": "LT1",
-            "Dragonhide": "LT2", // <- Понижен с HT3 после теста со Снегером
+            "Dragonhide": "LT2",
             "Beast": "LT1",
             "Combo": "LT3",
             "Gapple": "LT2",
@@ -212,14 +212,14 @@ const players = [
             "Dragonhide": "LT2",
             "Emerald Pot": "LT3",
             "Mace": "LT3",
-            "Crystal": "LT4", // <- Понижен с LT3 до LT4
+            "Crystal": "LT4,
             "Diamond Pot": "LT1",
             "Beast": "LT3",
             "Pickaxe": "LT3",
-            "Hardcore": "HT3", // <- Новый режим
-            "Gapple": "LT2",   // <- Новый режим
-            "Combo": "LT3",    // <- Новый режим
-            "SMP": "HT4"       // <- Первый ХТ4 в жизни!
+            "Hardcore": "HT3",
+            "Gapple": "LT2",
+            "Combo": "LT3",
+            "SMP": "HT4"
         }
     },
     {
@@ -232,15 +232,6 @@ const players = [
             "Crystal": "LT3",
             "SMP": "LT3",
             "Dragonhide": "LT3"
-        }
-    },
-    {
-        name: "BULL",
-        region: "UA",
-        device: "PH",
-        tiers: {
-            "Emerald Pot": "LT5",
-            "Crystal": "LT5"
         }
     },
     {
@@ -340,7 +331,7 @@ const players = [
         device: "PH",
         tiers: {
             "Hardcore": "HT4",
-            "Crystal": "LT3" // <- Добавлен из новых тестов
+            "Crystal": "LT3"
         }
     },
     {
@@ -376,14 +367,6 @@ const players = [
         }
     },
     {
-        name: "Olegorex",
-        region: "RU",
-        device: "PH",
-        tiers: {
-            "Emerald Pot": "LT3"
-        }
-    },
-    {
         name: "Igrok355",
         region: "RU",
         device: "PH",
@@ -399,7 +382,7 @@ const players = [
         device: "PH",
         tiers: {
             "Hardcore": "LT3",
-            "Crystal": "LT1" // <- Апнулся с LT3 до LT1
+            "Crystal": "LT1"
         }
     },
     {
