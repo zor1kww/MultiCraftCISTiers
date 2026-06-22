@@ -212,7 +212,7 @@ const players = [
             "Dragonhide": "LT2",
             "Emerald Pot": "LT3",
             "Mace": "LT3",
-            "Crystal": "LT4",
+            "Crystal": "LT4", // <- Ошибка исправлена (закрыта кавычка)
             "Diamond Pot": "LT1",
             "Beast": "LT3",
             "Pickaxe": "LT3",
