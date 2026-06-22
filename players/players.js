@@ -86,7 +86,7 @@ const players = [
             "Pickaxe": "HT2",
             "RVM": "LT2",
             "Emerald": "LT1",
-            "Dragonhide": "LT2", // Исправлено по тесту Снегера (3/1)
+            "Dragonhide": "LT2",
             "Beast": "LT1",
             "Combo": "LT3",
             "Gapple": "LT2",
@@ -100,9 +100,9 @@ const players = [
         region: "KG",
         device: "PH",
         tiers: {
-            "Dragonhide": "LT3", // Исправлено (Был RLT3)
+            "Dragonhide": "LT3",
             "RVM": "LT2",
-            "Emerald": "LT3",    // Исправлено (Был RHT3)
+            "Emerald": "LT3",
             "Hardcore": "LT3",
             "Emerald Pot": "LT3",
             "Beast": "LT3",
@@ -216,15 +216,15 @@ const players = [
             "Dragonhide": "LT2",
             "Emerald Pot": "LT3",
             "Mace": "HT3",
-            "Crystal": "LT4",    // Хронологически последний тест от -999-
-            "Diamond": "LT1",    // Топ-ранг Diamond Pot от Снегера (3/1)
-            "Beast": "LT2",      // Исправлено по последнему тесту -999- (1:4)
+            "Crystal": "LT4",
+            "Diamond": "LT1",
+            "Beast": "LT2",
             "Pickaxe": "LT3",
             "Hardcore": "HT3",
-            "Gapple": "LT2",     // Хронологически последний тест от -999-
-            "Combo": "LT2",      // Хронологически последний тест от Снегера
+            "Gapple": "LT2",
+            "Combo": "LT2",
             "SMP": "HT4",
-            "Emerald": "HT2"     // Хронологически последний тест от Снегера (2/1)
+            "Emerald": "HT2"
         }
     },
     {
@@ -389,7 +389,7 @@ const players = [
         device: "PH",
         tiers: {
             "Hardcore": "LT3",
-            "Crystal": "LT1" // Исправлено по финальному тесту Снегера (3/1 в пользу Олега)
+            "Crystal": "LT1"
         }
     },
     {
