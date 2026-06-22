@@ -50,7 +50,8 @@ const players = [
             "Dragonhide": "HT3",
             "Beast": "LT2",
             "Crystal": "LT1",
-            "Mace": "LT1"
+            "Mace": "LT1",
+            "Gapple": "LT3"
         }
     },
     {
