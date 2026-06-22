@@ -99,7 +99,6 @@ const players = [
         tiers: {
             "Dragonhide": "RLT3",
             "RVM": "LT2",
-            "Emerald": "RHT3",
             "Hardcore": "LT3",
             "Emerald Pot": "LT3",
             "Beast": "LT3",
@@ -139,7 +138,7 @@ const players = [
         tiers: {
             "RVM": "HT4",
             "Dragonhide": "HT4",
-            "Mace": "LT3"
+            "Mace": "LT3",
             "Beast": "LT3",
             "Diamond": "HT4",
             "Pickaxe": "LT3"
@@ -225,7 +224,7 @@ const players = [
         "RVM": "LT3",
         "Emerald Pot": "HT4",
         "Crystal": "LT3",
-        "SMP": "LT3"
+        "SMP": "LT3",
         "Dragonhide": "LT3"
     }
 },
