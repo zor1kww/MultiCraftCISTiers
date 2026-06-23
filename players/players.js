@@ -326,7 +326,7 @@ const players = [
             "SMP": "LT3",
             "Hardcore": "LT3",
             "Mace": "LT3",
-            "Pickaxe": "HT4"
+            "Pickaxe": "HT4""
         }
     },
     {
