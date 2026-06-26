@@ -457,7 +457,7 @@ const players = [
         }
     },
     {
-        name: "YouTubePxPXelp_999",
+        name: "YouTubePvPXelp_999",
         region: "RU",
         device: "PH",
         tiers: {
