@@ -103,7 +103,7 @@ const players = [
             "Dragonhide": "HT2",
             "RVM": "LT2",
             "Emerald": "LT3",
-            "Hardcore": "LT3",
+            "Hardcore": "HT3",
             "Emerald Pot": "HT3",
             "Beast": "LT1",
             "Diamond": "LT2",
@@ -210,7 +210,7 @@ const players = [
         device: "PH",
         tiers: {
             "RVM": "LT3",
-            "Emerald Pot": "HT3"
+            "Emerald Pot": "LT2"
         }
     },
     {
@@ -425,7 +425,8 @@ const players = [
         region: "RU",
         device: "TB",
         tiers: {
-            "Hardcore": "LT2"
+            "Hardcore": "LT2",
+            "Emerald Pot": "LT1"
         }
     },
     {
@@ -442,15 +443,8 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            "Beast": "LT3"
-        }
-    },
-    {
-        name: "tlpur",
-        region: "RU",
-        device: "PH",
-        tiers: {
-            "Emerald Pot": "LT3"
+            "Beast": "LT3",
+            "Hardcore": "HT4"
         }
     },
     {
@@ -459,6 +453,59 @@ const players = [
         device: "PC",
         tiers: {
             "Hardcore": "HT3"
+        }
+    },
+    {
+        name: "YouTubePxPXelp_999",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "SMP": "LT4",
+            "Emerald Pot": "LT4"
+        }
+    },
+    {
+        name: "Saxapok13373",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "SMP": "HT4"
+        }
+    },
+    {
+        name: "Dzhambulat1322",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "RVM": "HT5",
+            "Mace": "HT5",
+            "Crystal": "LT4"
+        }
+    },
+    {
+        name: "D4rK_S1lA",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Beast": "LT3"
+        }
+    },
+    {
+        name: "zerdolbaeb173",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Dragonhide": "LT3",
+            "RVM": "LT4"
+        }
+    },
+    {
+        name: "Kenny13",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Hardcore": "HT5",
+            "Beast": "LT4"
         }
     }
 ];
