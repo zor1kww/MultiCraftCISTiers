@@ -349,7 +349,8 @@ const players = [
             "Pickaxe": "HT4",
             "Emerald": "HT4",
             "Beast": "LT3",
-            "Dragonhide": "LT3"
+            "Dragonhide": "LT3",
+            "Emerald Pot": "LT3"
         }
     },
     {
