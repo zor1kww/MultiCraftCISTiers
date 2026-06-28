@@ -301,7 +301,9 @@ const players = [
         region: "KZ",
         device: "PH",
         tiers: {
-            "Mace": "HT5"
+            "Mace": "HT5",
+            "Dragonhide": "LT4",
+            "Beast": "HT5"
         }
     },
     {
@@ -374,7 +376,8 @@ const players = [
             "Beast": "LT3",
             "Emerald Pot": "LT3",
             "Crystal": "LT4",
-            "Dragonhide": "HT4"
+            "Dragonhide": "HT4",
+            "Diamond": "LT4"
         }
     },
     {
@@ -488,7 +491,11 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            "Beast": "LT3"
+            "Beast": "LT3",
+            "RVM": "LT3",
+            "Hardcore": "LT3",
+            "Mace": "LT3",
+            "Gapple": "HT4"
         }
     },
     {
@@ -507,6 +514,34 @@ const players = [
         tiers: {
             "Hardcore": "HT5",
             "Beast": "LT4"
+        }
+    },
+    {
+        name: "Exponat",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Emerald Pot": "HT4",
+            "Gapple": "LT3",
+            "Crystal": "HT4",
+            "RVM": "HT4",
+            "Mace": "LT3"
+        }
+    },
+    {
+        name: "Noch",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "RVM": "LT3"
+        }
+    },
+    {
+        name: "-_-nyschka-_-",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Mace": "LT3"
         }
     }
 ];
