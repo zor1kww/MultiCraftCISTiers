@@ -348,9 +348,9 @@ const players = [
         tiers: {
             "Hardcore": "HT4",
             "Crystal": "LT3",
-            "Pickaxe": "HT4",
+            "Pickaxe": "LT3",
             "Emerald": "HT4",
-            "Beast": "LT3",
+            "Beast": "HT3",
             "Dragonhide": "LT3",
             "Emerald Pot": "LT3"
         }
@@ -473,7 +473,8 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            "SMP": "HT4"
+            "SMP": "HT4",
+            "Mace": "HT4"
         }
     },
     {
@@ -542,6 +543,32 @@ const players = [
         device: "PH",
         tiers: {
             "Mace": "LT3"
+        }
+    },
+    {
+        name: "Susla",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Mace": "HT4",
+            "Crystal": "LT4"
+       }
+    },
+    {
+        name: "rrrr11",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Mace": "LT4",
+            "Crystal": "LT4"
+       }
+    },
+    {
+        name: "hohNagiBator",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Emerald": "LT3"
         }
     }
 ];
