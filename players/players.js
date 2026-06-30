@@ -270,8 +270,8 @@ const players = [
         device: "PH",
         tiers: {
             "Emerald Pot": "LT3",
-            "Crystal": "HT3",
-            "Hardcore": "HT4"
+            "Crystal": "LT1",
+            "Hardcore": "LT4"
         }
     },
     {
@@ -352,7 +352,10 @@ const players = [
             "Emerald": "HT4",
             "Beast": "HT3",
             "Dragonhide": "LT3",
-            "Emerald Pot": "LT3"
+            "Emerald Pot": "LT3",
+            "RVM": "HT4",
+            "SMP": "HT4",
+            "Diamond": "HT4"
         }
     },
     {
@@ -569,6 +572,16 @@ const players = [
         device: "PH",
         tiers: {
             "Emerald": "LT3"
+       }
+    },
+    {
+        name: "Legenda_loytaba",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Hardcore": "LT4",
+            "Mace": "HT4",
+            "Crystal": "HT4"
         }
     }
 ];
