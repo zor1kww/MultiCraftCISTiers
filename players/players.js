@@ -116,7 +116,15 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            "Emerald": "RLT3"
+            "Emerald": "LT3",
+            "Hardcore": "HT4",
+            "SMP": "LT4",
+            "RVM": "LT3",
+            "Emerald Pot": "HT4",
+            "Pickaxe": "LT3",
+            "Diamond": "LT3",
+            "Dragonhide": "LT3",
+            "Beast": "LT3"
         }
     },
     {
@@ -269,9 +277,9 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            "Emerald Pot": "LT3",
+            "Emerald Pot": "HT3",
             "Crystal": "LT1",
-            "Hardcore": "LT4"
+            "Hardcore": "LT3"
         }
     },
     {
@@ -328,7 +336,8 @@ const players = [
             "SMP": "LT3",
             "Hardcore": "LT3",
             "Mace": "LT3",
-            "Pickaxe": "HT4"
+            "Pickaxe": "HT4",
+            "Emerald Pot": "LT3"
         }
     },
     {
@@ -407,7 +416,8 @@ const players = [
         device: "PH",
         tiers: {
             "Hardcore": "LT3",
-            "Crystal": "LT1"
+            "Crystal": "LT1",
+            "Beast": "LT3"
         }
     },
     {
@@ -582,6 +592,34 @@ const players = [
             "Hardcore": "LT4",
             "Mace": "HT4",
             "Crystal": "HT4"
+       }
+    },
+    {
+        name: "MAXTY",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "RVM": "LT5",
+            "Emerald": "LT4",
+            "Beast": "LT4"
+       }
+    },
+    {
+        name: "saimon",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Mace": "HT5",
+            "Hardcore": "LT4"
+       }
+    },
+    {
+        name: "Grisha",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Mace": "LT4",
+            "Crystal": "HT5"
         }
     }
 ];
