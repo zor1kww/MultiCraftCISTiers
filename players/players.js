@@ -149,8 +149,8 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            "RVM": "HT4",
-            "Dragonhide": "HT4",
+            "RVM": "LT3",
+            "Dragonhide": "LT3",
             "Mace": "LT3",
             "Beast": "LT3",
             "Diamond": "HT4",
@@ -158,7 +158,7 @@ const players = [
             "Emerald": "HT4",
             "SMP": "LT3",
             "Emerald Pot": "LT3",
-            "Hardcore": "HT4",
+            "Hardcore": "LT3",
             "Crystal": "LT3"
         }
     },
@@ -309,8 +309,8 @@ const players = [
         region: "KZ",
         device: "PH",
         tiers: {
-            "Mace": "HT5",
-            "Dragonhide": "LT4",
+            "Mace": "LT35",
+            "Dragonhide": "HT4",
             "Beast": "HT5"
         }
     },
@@ -620,6 +620,31 @@ const players = [
         tiers: {
             "Mace": "LT4",
             "Crystal": "HT5"
+       }
+    },
+    {
+        name: "Meteor",
+        region: "UA",
+        device: "PH",
+        tiers: {
+            "Beast": "HT4"
+       }
+    },
+    {
+        name: "killdoIbaeb4455",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Hardcore": "LT2"
+       }
+    },
+    {
+        name: "Sneszok123",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Beast": "HT3",
+            "Mace": "LT3"
         }
     }
 ];
