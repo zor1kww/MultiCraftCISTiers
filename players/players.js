@@ -645,6 +645,15 @@ const players = [
         tiers: {
             "Beast": "HT3",
             "Mace": "LT3"
+      }
+    },
+    {
+        name: "Aliazo",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Hardcore": "HT5",
+            "SMP": "HT5"
         }
     }
 ];
