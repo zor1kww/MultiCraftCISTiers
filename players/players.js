@@ -417,7 +417,10 @@ const players = [
         tiers: {
             "Hardcore": "LT3",
             "Crystal": "LT1",
-            "Beast": "LT3"
+            "Beast": "LT3",
+            "Mace": "LT4",
+            "RVM": "HT5",
+            "Diamond": "HT5"
         }
     },
     {
@@ -452,7 +455,8 @@ const players = [
         device: "PH",
         tiers: {
             "Mace": "LT3",
-            "Emerald Pot": "HT4"
+            "Emerald Pot": "HT4",
+            "Hardcore": "LT3"
         }
     },
     {
