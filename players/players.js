@@ -537,7 +537,7 @@ const players = [
             "SMP": "HT5",
             "Mace": "LT4",
             "Combo": "HT4",
-            "Beast": "LT4"
+            "Beast": "LT4",
             "Diamond": "LT4",
             "Emerald": "LT3",
             "Gapple": "LT4",
@@ -668,7 +668,7 @@ const players = [
         tiers: {
             "Beast": "HT3",
             "Mace": "LT3"
-      }
+       }
     },
     {
         name: "Aliazo",
@@ -677,7 +677,7 @@ const players = [
         tiers: {
             "Hardcore": "HT5",
             "SMP": "HT5"
-      }
+       }
     },
     {
         name: "gftun",
