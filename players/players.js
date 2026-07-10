@@ -90,7 +90,7 @@ const players = [
             "Beast": "LT1",
             "Combo": "LT3",
             "Gapple": "LT2",
-            "Mace": "LT2",
+            "Mace": "LT1",
             "Crystal": "LT3",
             "Diamond": "HT2"
         }
@@ -124,7 +124,11 @@ const players = [
             "Pickaxe": "LT3",
             "Diamond": "LT3",
             "Dragonhide": "LT3",
-            "Beast": "LT3"
+            "Beast": "LT3",
+            "Crystal": "HT5",
+            "Mace": "HT4",
+            "Gapple": "LT3",
+            "Combo": "LT3"
         }
     },
     {
@@ -159,7 +163,9 @@ const players = [
             "SMP": "LT3",
             "Emerald Pot": "LT3",
             "Hardcore": "LT3",
-            "Crystal": "LT3"
+            "Crystal": "LT3",
+            "Combo": "LT4",
+            "Gapple": "HT4"
         }
     },
     {
@@ -420,7 +426,8 @@ const players = [
             "Beast": "LT3",
             "Mace": "LT4",
             "RVM": "HT5",
-            "Diamond": "HT5"
+            "Diamond": "HT5",
+            "Emerald": "LT4"
         }
     },
     {
@@ -456,6 +463,10 @@ const players = [
         tiers: {
             "Mace": "LT3",
             "Emerald Pot": "HT4",
+            "Hardcore": "LT3",
+            "Combo": "HT4",
+            "RVM": "LT3",
+            "SMP": "HT4",
             "Hardcore": "LT3"
         }
     },
@@ -522,7 +533,16 @@ const players = [
         device: "PH",
         tiers: {
             "Dragonhide": "LT3",
-            "RVM": "LT4"
+            "RVM": "LT4",
+            "Hardcore": "HT5",
+            "SMP": "HT5",
+            "Mace": "LT4",
+            "Combo": "HT4",
+            "Beast": "LT4"
+            "Diamond": "LT4",
+            "Emerald": "LT3",
+            "Gapple": "LT4",
+            "Emerald Pot": "LT3"
         }
     },
     {
@@ -658,6 +678,16 @@ const players = [
         tiers: {
             "Hardcore": "HT5",
             "SMP": "HT5"
+      }
+    },
+    {
+        name: "gftun",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Dragonhide": "LT4",
+            "Emerald Pot": "HT5",
+            "RVM": "HT5"
         }
     }
 ];
