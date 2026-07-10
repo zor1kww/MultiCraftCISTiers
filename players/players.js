@@ -466,8 +466,7 @@ const players = [
             "Hardcore": "LT3",
             "Combo": "HT4",
             "RVM": "LT3",
-            "SMP": "HT4",
-            "Hardcore": "LT3"
+            "SMP": "HT4"
         }
     },
     {
