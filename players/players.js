@@ -711,7 +711,8 @@ const players = [
             "Emerald Pot": "LT3",
             "RVM": "LT3",
             "Beast": "LT3",
-            "Pickaxe": "LT3"
+            "Pickaxe": "LT3",
+            "Gapple": "LT3"
         }
     }
 ];
