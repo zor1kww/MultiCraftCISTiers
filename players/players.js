@@ -316,7 +316,7 @@ const players = [
         region: "KZ",
         device: "PH",
         tiers: {
-            "Mace": "LT35",
+            "Mace": "LT3",
             "Dragonhide": "HT4",
             "Beast": "HT5"
         }
