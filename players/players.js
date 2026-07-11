@@ -157,7 +157,7 @@ const players = [
             "Dragonhide": "LT3",
             "Mace": "LT3",
             "Beast": "LT3",
-            "Diamond": "HT4",
+            "Diamond": "LT3",
             "Pickaxe": "LT3",
             "Emerald": "HT4",
             "SMP": "LT3",
@@ -243,7 +243,7 @@ const players = [
             "Hardcore": "HT3",
             "Gapple": "LT2",
             "Combo": "LT2",
-            "SMP": "HT4",
+            "SMP": "LT3",
             "Emerald": "HT2"
         }
     },
@@ -257,7 +257,8 @@ const players = [
             "Crystal": "LT3",
             "SMP": "LT3",
             "Dragonhide": "LT3",
-            "Pickaxe": "LT3"
+            "Pickaxe": "LT3",
+            "Hardcore": "LT4"
         }
     },
     {
@@ -427,7 +428,12 @@ const players = [
             "Mace": "LT4",
             "RVM": "HT5",
             "Diamond": "HT5",
-            "Emerald": "LT4"
+            "Emerald": "LT4",
+            "Pickaxe": "HT4",
+            "Gapple": "LT3",
+            "SMP": "HT4",
+            "Dragonhide": "LT4",
+            "Emerald Pot": "HT4"
         }
     },
     {
@@ -687,6 +693,25 @@ const players = [
             "Dragonhide": "LT4",
             "Emerald Pot": "HT5",
             "RVM": "HT5"
+       }
+    },
+    {
+        name: "Live",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Dragonhide": "LT3",
+            "Emerald": "LT3",
+            "Diamond": "LT3",
+            "SMP": "LT3",
+            "Crystal": "LT3",
+            "Combo": "LT3",
+            "Mace": "LT3",
+            "Hardcore": "LT3",
+            "Emerald Pot": "LT3",
+            "RVM": "LT3",
+            "Beast": "LT3",
+            "Pickaxe": "LT3"
         }
     }
 ];
