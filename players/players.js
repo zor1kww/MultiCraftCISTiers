@@ -656,7 +656,7 @@ const players = [
         region: "UA",
         device: "PH",
         tiers: {
-            "Beast": "HT4"
+            "RVM": "HT4"
        }
     },
     {
