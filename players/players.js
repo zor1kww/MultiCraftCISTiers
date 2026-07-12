@@ -695,5 +695,13 @@ const players = [
             "Emerald Pot": "HT5",
             RVM: "HT5"
         }
+    },
+    {
+        name: "123",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            RVM: "HT4"
+        }
     }
 ];
