@@ -318,7 +318,7 @@ const players = [
         tiers: {
             Mace: "HT4",
             Dragonhide: "HT4",
-            Beast: "HT5"
+            Beast: "HT4"
         }
     },
     {
