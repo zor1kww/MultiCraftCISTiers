@@ -88,7 +88,7 @@ const players = [
             Emerald: "LT1",
             Dragonhide: "LT2",
             Beast: "LT1",
-            Combo: "LT3",
+            Combo: "LT2",
             Gapple: "LT2",
             Mace: "LT1",
             Crystal: "LT3",
