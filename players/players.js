@@ -718,12 +718,13 @@ const players = [
     {
         name: "test",
         region: "RU",
-        device: "PH",
+        device: "TB",
         tiers: {
             RVM: "HT1",
             Hardcore: "HT1",
             Diamond: "HT1",
-            "Diamond Pot": "HT1"
+            "Diamond Pot": "HT1",
+            Emerald: "LT5"
         }
     }
 ];
