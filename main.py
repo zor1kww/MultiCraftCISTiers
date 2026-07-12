@@ -18,7 +18,7 @@ VALID_KITS = [
     "Dragonhide", "Pickaxe", "Crystal", "Mace", "Gapple", "SMP", "Manhunt", "Diamond"
 ]
 
-@bot.message_handler(func=lambda message: message.message_thread_id == 11)
+@bot.message_handler(func=lambda message: message.message_thread_id == 2)
 def handle_telegram_message(message):
     # Бот реагирует только на сообщения, содержащие ключевые поля шаблона
     if "Игрок:" not in message.text or "Кит:" not in message.text or "Полученный ранг:" not in message.text:
