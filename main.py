@@ -12,13 +12,18 @@ GH_REPO = os.environ.get('GH_REPO')  # Формат: "ваш_логин/имя_�
 
 bot = telebot.TeleBot(TG_TOKEN)
 
+# Константы для жесткой привязки к вашей группе и теме
+TARGET_CHAT_ID = -1003257860755
+TARGET_THREAD_ID = 11
+
 # Список всех ваших 15 китов для проверки
 VALID_KITS = [
     "Hardcore", "Combo", "Emerald Pot", "RVM", "Emerald", "Beast", "Vanilla", 
     "Dragonhide", "Pickaxe", "Crystal", "Mace", "Gapple", "SMP", "Manhunt", "Diamond"
 ]
 
-@bot.message_handler(func=lambda message: message.message_thread_id == 11)
+# Бот сработает ТОЛЬКО если совпадает ID группы И ID топика
+@bot.message_handler(func=lambda message: message.chat.id == TARGET_CHAT_ID and message.message_thread_id == TARGET_THREAD_ID)
 def handle_telegram_message(message):
     # Бот реагирует только на сообщения, содержащие ключевые поля шаблона
     if "Игрок:" not in message.text or "Кит:" not in message.text or "Полученный ранг:" not in message.text:
@@ -42,7 +47,7 @@ def handle_telegram_message(message):
         bot.reply_to(message, f"⚠️ Предупреждение: Кит '{kit_name}' не найден в официальном списке, но я попробую внести как есть.")
         matched_kit = kit_name
 
-    # ПУТЬ К ФАЙЛУ: Установили точный путь
+    # ПУТЬ К ФАЙЛУ: Оставляем ваш стандартный путь
     file_path = "players/players.js"
     url = f"https://api.github.com/repos/{GH_REPO}/contents/{file_path}"
     headers = {"Authorization": f"token {GH_TOKEN}"}
@@ -70,8 +75,7 @@ def handle_telegram_message(message):
 
         raw_json_text = json_array_match.group(1)
         
-        # --- МОДИФИКАЦИЯ ТУТ: Превращаем JS-объект в строгий JSON ---
-        # Находим все ключи без кавычек (например, name:, region:) и оборачиваем их в двойные кавычки
+        # Превращаем JS-объект в строгий JSON (оборачиваем ключи в кавычки)
         valid_json_text = re.sub(r'(\s*)(\w+)(\s*):', r'\1"\2"\3:', raw_json_text)
         
         try:
@@ -103,9 +107,8 @@ def handle_telegram_message(message):
             }
             players_list.append(new_player)
 
-        # 4. Собираем структуру файла обратно в формат JavaScript (ключи без кавычек, как у вас было)
+        # 4. Собираем структуру файла обратно в формат JavaScript (убираем кавычки у ключей)
         new_json_array = json.dumps(players_list, indent=4, ensure_ascii=False)
-        # Убираем кавычки у ключей перед сохранением, чтобы не ломать исходный стиль JS-файла
         new_js_array = re.sub(r'"(\w+)"\s*:', r'\1:', new_json_array)
         
         prefix = content.split('[')[0]
@@ -132,5 +135,5 @@ def handle_telegram_message(message):
         bot.reply_to(message, f"❌ Системная ошибка: {str(e)}")
 
 if __name__ == '__main__':
-    print("Бот успешно запущен и ожидает результаты...")
+    print("Бот успешно запущен и защищен. Ожидаю результаты...")
     bot.infinity_polling()
