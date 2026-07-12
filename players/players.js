@@ -400,11 +400,11 @@ const players = [
         }
     },
     {
-        name: "_-XKaKTakX-_",
+        name: "_-XKakTakX-_",
         region: "RU",
-        device: "TB",
+        device: "PH",
         tiers: {
-            Dragonhide: "LT3"
+            Dragonhide: "LT4"
         }
     },
     {
