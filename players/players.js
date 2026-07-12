@@ -720,7 +720,8 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            RVM: "HT1"
+            RVM: "HT1",
+            Hardcore: "HT1"
         }
     }
 ];
