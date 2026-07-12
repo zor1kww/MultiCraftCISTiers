@@ -722,7 +722,8 @@ const players = [
         tiers: {
             RVM: "HT1",
             Hardcore: "HT1",
-            Diamond: "HT1"
+            Diamond: "HT1",
+            "Diamond Pot": "HT1"
         }
     }
 ];
