@@ -42,7 +42,7 @@ def handle_telegram_message(message):
         bot.reply_to(message, f"⚠️ Предупреждение: Кит '{kit_name}' не найден в официальном списке, но я попробую внести как есть.")
         matched_kit = kit_name
 
-    # ПУТЬ К ФАЙЛУ: Если players.js лежит прямо в корне, оставляем так.
+    # ПУТЬ К ФАЙЛУ: Установили точный путь
     file_path = "players/players.js"
     url = f"https://api.github.com/repos/{GH_REPO}/contents/{file_path}"
     headers = {"Authorization": f"token {GH_TOKEN}"}
@@ -70,10 +70,14 @@ def handle_telegram_message(message):
 
         raw_json_text = json_array_match.group(1)
         
+        # --- МОДИФИКАЦИЯ ТУТ: Превращаем JS-объект в строгий JSON ---
+        # Находим все ключи без кавычек (например, name:, region:) и оборачиваем их в двойные кавычки
+        valid_json_text = re.sub(r'(\s*)(\w+)(\s*):', r'\1"\2"\3:', raw_json_text)
+        
         try:
-            players_list = json.loads(raw_json_text)
+            players_list = json.loads(valid_json_text)
         except json.JSONDecodeError as je:
-            bot.reply_to(message, f"❌ Ошибка JSON: {str(je)}\nУбедитесь, что в файле players.js ВСЕ ключи и строки используют ДВОЙНЫЕ кавычки.")
+            bot.reply_to(message, f"❌ Ошибка JSON после обработки: {str(je)}\nПроверьте структуру файла players.js.")
             return
 
         # 3. Ищем игрока в списке (без учета регистра букв)
@@ -99,12 +103,15 @@ def handle_telegram_message(message):
             }
             players_list.append(new_player)
 
-        # 4. Собираем структуру файла обратно в формат JavaScript
+        # 4. Собираем структуру файла обратно в формат JavaScript (ключи без кавычек, как у вас было)
         new_json_array = json.dumps(players_list, indent=4, ensure_ascii=False)
+        # Убираем кавычки у ключей перед сохранением, чтобы не ломать исходный стиль JS-файла
+        new_js_array = re.sub(r'"(\w+)"\s*:', r'\1:', new_json_array)
+        
         prefix = content.split('[')[0]
         suffix = ";" if content.strip().endswith(';') else ""
         
-        new_file_content = f"{prefix}{new_json_array}{suffix}"
+        new_file_content = f"{prefix}{new_js_array}{suffix}"
         new_content_encoded = base64.b64encode(new_file_content.encode('utf-8')).decode('utf-8')
 
         # 5. Отправляем обновленный файл обратно на GitHub
