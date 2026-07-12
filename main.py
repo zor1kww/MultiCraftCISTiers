@@ -43,7 +43,7 @@ def handle_telegram_message(message):
         matched_kit = kit_name
 
     # ПУТЬ К ФАЙЛУ: Если players.js лежит прямо в корне, оставляем так.
-    FILE_PATH = "files/players.js"
+    FILE_PATH = "players/players.js"
     url = f"https://api.github.com/repos/{GH_REPO}/contents/{file_path}"
     headers = {"Authorization": f"token {GH_TOKEN}"}
 
