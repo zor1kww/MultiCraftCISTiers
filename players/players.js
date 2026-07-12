@@ -725,7 +725,7 @@ const players = [
             Diamond: "HT1",
             "Diamond Pot": "HT1",
             Emerald: "LT5",
-            Manhunt: "LT6"
+            Manhunt: "UNRANKED"
         }
     }
 ];
