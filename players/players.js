@@ -717,8 +717,8 @@ const players = [
     },
     {
         name: "test",
-        region: "KZ",
-        device: "TB",
+        region: "EU",
+        device: "DD",
         tiers: {
             RVM: "HT1",
             Hardcore: "HT1",
