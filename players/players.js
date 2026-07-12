@@ -721,7 +721,8 @@ const players = [
         device: "PH",
         tiers: {
             RVM: "HT1",
-            Hardcore: "HT1"
+            Hardcore: "HT1",
+            Diamond: "HT1"
         }
     }
 ];
