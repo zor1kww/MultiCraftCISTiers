@@ -694,38 +694,5 @@ const players = [
             "Emerald Pot": "HT5",
             RVM: "HT5"
         }
-    },
-    {
-        name: "Live",
-        region: "RU",
-        device: "PH",
-        tiers: {
-            Dragonhide: "LT3",
-            Emerald: "LT3",
-            Diamond: "LT3",
-            SMP: "LT3",
-            Crystal: "LT3",
-            Combo: "LT3",
-            Mace: "LT3",
-            Hardcore: "LT3",
-            "Emerald Pot": "LT3",
-            RVM: "LT3",
-            Beast: "LT3",
-            Pickaxe: "LT3",
-            Gapple: "LT3"
-        }
-    },
-    {
-        name: "test",
-        region: "EU",
-        device: "DD",
-        tiers: {
-            RVM: "HT1",
-            Hardcore: "HT1",
-            Diamond: "HT1",
-            "Diamond Pot": "HT1",
-            Emerald: "LT5",
-            Manhunt: "UNRANKED"
-        }
     }
 ];
