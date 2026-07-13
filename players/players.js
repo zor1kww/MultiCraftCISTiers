@@ -431,7 +431,7 @@ const players = [
             Beast: "LT3",
             Mace: "LT4",
             RVM: "LT4",
-            Diamond: "HT5",
+            Diamond: "LT3",
             Emerald: "LT4",
             Pickaxe: "HT4",
             Gapple: "LT3",
