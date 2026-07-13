@@ -319,7 +319,8 @@ const players = [
             Mace: "LT3",
             Dragonhide: "HT4",
             Beast: "HT4",
-            Hardcore: "HT4"
+            Hardcore: "HT4",
+            RVM: "LT3"
         }
     },
     {
