@@ -479,15 +479,6 @@ const players = [
         }
     },
     {
-        name: "Sh4rk",
-        region: "RU",
-        device: "PH",
-        tiers: {
-            Beast: "LT3",
-            Hardcore: "HT4"
-        }
-    },
-    {
         name: "767676_",
         region: "UA",
         device: "PC",
