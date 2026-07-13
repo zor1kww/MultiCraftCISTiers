@@ -214,7 +214,7 @@ const players = [
         region: "UA",
         device: "TB",
         tiers: {
-            Hardcore: "GAYTIER1",
+            Hardcore: "RHT2",
             Mace: "LT2"
         }
     },
