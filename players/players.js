@@ -422,7 +422,7 @@ const players = [
         }
     },
     {
-        name: "Prosto_Oleg100-7",
+        name: "Prosto_oleg100-7",
         region: "RU",
         device: "PH",
         tiers: {
