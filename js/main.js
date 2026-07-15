@@ -38,7 +38,7 @@ function toggleTheme() {
 }
 
 // ==========================================
-// 2. ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ И ПАРСИНГ ТИРОВ (Перенесены наверх!)
+// 2. ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ И ПАРСИНГ ТИРОВ
 // ==========================================
 
 // Универсальный парсер данных тира
@@ -70,7 +70,7 @@ function parseTierInfo(tierData) {
 }
 
 // Хелпер для получения чистого названия тира (без префикса R)
-function getCleanTier(player, kit) {
+getCleanTier(player, kit) {
     if (!player || !player.tiers) return "Unranked";
     return parseTierInfo(player.tiers[kit]).tier;
 }
@@ -106,16 +106,84 @@ function calcPoints(player, kits) {
     return kits.reduce((total, kit) => total + parseTierInfo(player.tiers[kit]).pts, 0);
 }
 
-// Генерация HTML-бейдж-тиров
+// Расчет среднего тира игрока по всем его Main китам (исключая Unranked)
+function calcAverageTier(player) {
+    if (!player || !player.tiers) return "Unranked";
+    
+    const activeMaintiers = (typeof maintiers !== 'undefined') ? maintiers : [];
+    const tierWeights = {
+        'HT1': 10, 'LT1': 9,
+        'HT2': 8,  'LT2': 7,
+        'HT3': 6,  'LT3': 5,
+        'HT4': 4,  'LT4': 3,
+        'HT5': 2,  'LT5': 1
+    };
+    
+    const reverseWeights = {
+        10: 'HT1', 9: 'LT1',
+        8: 'HT2',  7: 'LT2',
+        6: 'HT3',  5: 'LT3',
+        4: 'HT4',  3: 'LT4',
+        2: 'HT5',  1: 'LT5'
+    };
+
+    let totalWeight = 0;
+    let count = 0;
+
+    activeMaintiers.forEach(kit => {
+        const tier = getCleanTier(player, kit);
+        if (tier !== "Unranked" && tierWeights[tier] !== undefined) {
+            totalWeight += tierWeights[tier];
+            count++;
+        }
+    });
+
+    if (count === 0) return "Unranked";
+    
+    const avgWeight = Math.round(totalWeight / count);
+    return reverseWeights[avgWeight] || "Unranked";
+}
+
+// Генерация HTML-бейдж-тиров для правой стороны (список в один тон или с R)
 function getTierBadge(tier, appendR = false) {
     const activeColors = (typeof tierColors !== 'undefined') ? tierColors : {};
     const color = activeColors[tier] || '#fff';
-    const displayLabel = appendR && tier !== "Unranked" ? `R${tier}` : tier;
-    return `<span class="tier-badge" style="color: ${color}; border: 1px solid ${color}44; background: ${color}11;">${displayLabel}</span>`;
+    
+    if (appendR && tier !== "Unranked") {
+        // Красивая разноцветная плашка для правого блока, если нужно
+        return `<span class="tier-badge" style="border: 1px solid ${color}44; background: ${color}11;">
+            <span style="color: #ff4a4a; font-weight: bold;">R</span><span style="color: ${color};">${tier}</span>
+        </span>`;
+    }
+    return `<span class="tier-badge" style="color: ${color}; border: 1px solid ${color}44; background: ${color}11;">${tier}</span>`;
+}
+
+// КЛЮЧЕВАЯ ФУНКЦИЯ: Генерация маленького тега тира (среднего или конкретного) после устройства.
+// Если игрок retired, буква R окрашивается в красный, а сам тир — в свой HEX цвет.
+function getMetaTierTag(tier, isRetired = false) {
+    const activeColors = (typeof tierColors !== 'undefined') ? tierColors : {};
+    const color = activeColors[tier] || '#8892b0';
+    
+    if (isRetired && tier !== "Unranked") {
+        return `
+        <span class="player-meta-tag" style="border-color: ${color}55; background: ${color}11; padding: 2px 6px;">
+            <span style="color: #ff4a4a; font-weight: bold; margin-right: 1px;">R</span><span style="color: ${color}; font-weight: bold;">${tier}</span>
+        </span>`;
+    }
+    
+    return `<span class="player-meta-tag" style="color: ${color}; border-color: ${color}55; background: ${color}11; font-weight: bold;">${tier}</span>`;
+}
+
+// Проверка, является ли игрок тестером
+function isTester(playerName) {
+    if (!playerName) return false;
+    const nameLower = playerName.toLowerCase();
+    const testers = ["-999-", "zor1kkqwix", "sneger", "_xx_deras_xx_"];
+    return testers.includes(nameLower);
 }
 
 // ==========================================
-// 3. ОКНА ПРОФИЛЕЙ
+// 3. ОКНА ПРОФИЛЕЙ (МОДАЛЬНЫЕ ОКНА)
 // ==========================================
 
 // Открытие детального профиля игрока в модальном окне
@@ -128,17 +196,42 @@ function openProfile(idx, filteredPlayersJSON) {
         const modalName = document.getElementById('modalPlayerName');
         if (modalName) modalName.innerHTML = player.name;
         
-        let metaText = `${player.region || ''} ${player.device || ''}`;
-        if (hasAnyRetiredKit(player)) {
-            metaText += ` RETIRED`;
+        // Генерация красивых тегов оформления для профиля в ряд
+        let metaHTML = '';
+        if (player.region) {
+            metaHTML += `<span class="player-meta-tag">${player.region}</span>`;
         }
+        if (player.device) {
+            metaHTML += `<span class="player-meta-tag">${player.device}</span>`;
+        }
+
+        // Сбор и отображение объединенного тира в модальном окне
+        const kitFilter = document.getElementById('kitFilter');
+        const targetKit = kitFilter ? kitFilter.value : 'all';
+        const displayProfileRetiredTag = hasAnyRetiredKit(player);
+        
+        if (targetKit === 'all') {
+            const avgTier = calcAverageTier(player);
+            if (avgTier !== "Unranked") {
+                metaHTML += getMetaTierTag(avgTier, displayProfileRetiredTag);
+            }
+        } else {
+            const currentTier = getCleanTier(player, targetKit);
+            const ret = isKitRetired(player, targetKit);
+            if (currentTier !== "Unranked") {
+                metaHTML += getMetaTierTag(currentTier, ret);
+            }
+        }
+
         const modalMeta = document.getElementById('modalPlayerMeta');
-        if (modalMeta) modalMeta.innerText = metaText;
+        if (modalMeta) {
+            modalMeta.innerHTML = `<div class="player-meta-box" style="justify-content: flex-start; margin-top: 5px; gap: 6px;">${metaHTML}</div>`;
+        }
         
         const roleContainer = document.getElementById('modalRoleContainer');
         if (roleContainer) {
-            if (player.name === "-999-" || player.name === "zor1kkqwix" || player.name === "Sneger") {
-                roleContainer.innerHTML = `<span class="custom-role-badge">Tier-Tester</span>`;
+            if (isTester(player.name)) {
+                roleContainer.innerHTML = `<span class="custom-role-badge">Tester</span>`;
             } else {
                 roleContainer.innerHTML = '';
             }
@@ -390,6 +483,31 @@ function renderPlayers() {
 
         let displayProfileRetiredTag = hasAnyRetiredKit(player);
 
+        // Формирование тегов мета-информации для карточки игрока
+        let metaTagsHTML = '';
+        if (player.region) {
+            metaTagsHTML += `<span class="player-meta-tag">${player.region}</span>`;
+        }
+        if (player.device) {
+            metaTagsHTML += `<span class="player-meta-tag">${player.device}</span>`;
+        }
+        
+        // ВЫВОДИМ ТИР СРАЗУ ПОСЛЕ УСТРОЙСТВА:
+        // Если выбран конкретный кит — выводим тир этого кита (объединенный с R при необходимости).
+        // Если выбран Overall — рассчитываем и выводим СРЕДНИЙ ТИР игрока (AVG), объединенный с R.
+        if (targetKit !== 'all') {
+            const currentTier = getCleanTier(player, targetKit);
+            const ret = isKitRetired(player, targetKit);
+            if (currentTier !== "Unranked") {
+                metaTagsHTML += getMetaTierTag(currentTier, ret);
+            }
+        } else {
+            const avgTier = calcAverageTier(player);
+            if (avgTier !== "Unranked") {
+                metaTagsHTML += getMetaTierTag(avgTier, displayProfileRetiredTag);
+            }
+        }
+
         htmlFragment += `
         <div class="player-container ${topClass}">
             <div class="player-card-row" onclick="openProfile(${index}, '${filteredJSON}')">
@@ -401,9 +519,7 @@ function renderPlayers() {
 
                 <div class="player-center-block">
                     <div class="player-meta-box">
-                        <span class="player-meta-tag">${player.region || ''}</span>
-                        <span class="player-meta-tag">${player.device || ''}</span>
-                        ${displayProfileRetiredTag ? `<span class="player-meta-tag retired-meta-tag">RETIRED</span>` : ''}
+                        ${metaTagsHTML}
                     </div>
                     ${quickTiersHTML}
                 </div>
