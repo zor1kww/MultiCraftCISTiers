@@ -429,7 +429,7 @@ const players = [
             Hardcore: "LT3",
             Crystal: "LT1",
             Beast: "LT2",
-            Mace: "LT4",
+            Mace: "LT3",
             RVM: "LT4",
             Diamond: "LT3",
             Emerald: "LT4",
