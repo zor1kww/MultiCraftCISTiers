@@ -697,5 +697,13 @@ const players = [
         tiers: {
             Hardcore: "HT3"
         }
+    },
+    {
+        name: "M_E_G_A",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            RVM: "LT5"
+        }
     }
 ];
