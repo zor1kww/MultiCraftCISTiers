@@ -70,7 +70,7 @@ function parseTierInfo(tierData) {
 }
 
 // Хелпер для получения чистого названия тира (без префикса R)
-getCleanTier(player, kit) {
+function getCleanTier(player, kit) {
     if (!player || !player.tiers) return "Unranked";
     return parseTierInfo(player.tiers[kit]).tier;
 }
@@ -150,7 +150,6 @@ function getTierBadge(tier, appendR = false) {
     const color = activeColors[tier] || '#fff';
     
     if (appendR && tier !== "Unranked") {
-        // Красивая разноцветная плашка для правого блока, если нужно
         return `<span class="tier-badge" style="border: 1px solid ${color}44; background: ${color}11;">
             <span style="color: #ff4a4a; font-weight: bold;">R</span><span style="color: ${color};">${tier}</span>
         </span>`;
@@ -158,8 +157,7 @@ function getTierBadge(tier, appendR = false) {
     return `<span class="tier-badge" style="color: ${color}; border: 1px solid ${color}44; background: ${color}11;">${tier}</span>`;
 }
 
-// КЛЮЧЕВАЯ ФУНКЦИЯ: Генерация маленького тега тира (среднего или конкретного) после устройства.
-// Если игрок retired, буква R окрашивается в красный, а сам тир — в свой HEX цвет.
+// Генерация маленького тега тира (среднего или конкретного) после устройства.
 function getMetaTierTag(tier, isRetired = false) {
     const activeColors = (typeof tierColors !== 'undefined') ? tierColors : {};
     const color = activeColors[tier] || '#8892b0';
@@ -493,8 +491,6 @@ function renderPlayers() {
         }
         
         // ВЫВОДИМ ТИР СРАЗУ ПОСЛЕ УСТРОЙСТВА:
-        // Если выбран конкретный кит — выводим тир этого кита (объединенный с R при необходимости).
-        // Если выбран Overall — рассчитываем и выводим СРЕДНИЙ ТИР игрока (AVG), объединенный с R.
         if (targetKit !== 'all') {
             const currentTier = getCleanTier(player, targetKit);
             const ret = isKitRetired(player, targetKit);
