@@ -707,14 +707,6 @@ const players = [
         }
     },
     {
-        name: "Prosto_oleg2",
-        region: "RU",
-        device: "PH",
-        tiers: {
-            Hardcore: "LT3"
-        }
-    },
-    {
         name: "JANDELL",
         region: "RU",
         device: "PH",
@@ -728,7 +720,8 @@ const players = [
         region: "EU",
         device: "PH",
         tiers: {
-            Hardcore: "HT4"
+            Hardcore: "HT4",
+            Beast: "HT5"
         }
     },
     {
@@ -737,14 +730,6 @@ const players = [
         device: "PH",
         tiers: {
             "Emerald Pot": "LT3"
-        }
-    },
-    {
-        name: "Prosto_oleg100-8",
-        region: "EU",
-        device: "PH",
-        tiers: {
-            Mace: "LT3"
         }
     }
 ];
