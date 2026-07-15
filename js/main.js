@@ -1,3 +1,7 @@
+// ==========================================
+// 1. БАЗОВЫЕ НАСТРОЙКИ И ЗВУК
+// ==========================================
+
 // Звуковое сопровождение интерфейса
 const clickSound = new Audio('assets/sounds/click.mp3');
 
@@ -9,6 +13,7 @@ function playInterfaceClick() {
 // Глобальный слушатель кликов для эффекта нажатия кнопок
 document.addEventListener('click', (e) => {
     const t = e.target;
+    if (!t) return;
     if (
         t.tagName === 'BUTTON' || 
         t.tagName === 'A' || 
@@ -32,59 +37,9 @@ function toggleTheme() {
     }
 }
 
-// Карта соответствия тиров числовым значениям для расчета среднего ранга
-const tierValueMap = {
-    "HT1": 10,
-    "LT1": 9,
-    "HT2": 8,
-    "LT2": 7,
-    "HT3": 6,
-    "LT3": 5,
-    "HT4": 4,
-    "LT4": 3,
-    "HT5": 2,
-    "LT5": 1
-};
-
-// Обратная карта для получения названия тира из числа
-const valueTierMap = {
-    10: "HT1",
-    9: "LT1",
-    8: "HT2",
-    7: "LT2",
-    6: "HT3",
-    5: "LT3",
-    4: "HT4",
-    3: "LT4",
-    2: "HT5",
-    1: "LT5"
-};
-
-// Функция расчета общего среднего ранга игрока
-function calcAverageTier(player) {
-    let totalScore = 0;
-    let testCount = 0;
-    
-    // Объединяем main и sub для учета всех пройденных тестов
-    const allKits = [...maintiers, ...subtiers];
-    
-    allKits.forEach(kit => {
-        const cleanTier = getCleanTier(player, kit);
-        if (cleanTier !== "Unranked" && tierValueMap[cleanTier] !== undefined) {
-            totalScore += tierValueMap[cleanTier];
-            testCount++;
-        }
-    });
-    
-    if (testCount === 0) return "Unranked";
-    
-    // Округление: 3.50 идет в пользу игрока (то есть в сторону большего числа / лучшего тира)
-    // В JS стандартный Math.round(3.5) возвращает 4, что нам и нужно.
-    const averageValue = totalScore / testCount;
-    const roundedValue = Math.round(averageValue);
-    
-    return valueTierMap[roundedValue] || "Unranked";
-}
+// ==========================================
+// 2. ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ И ПАРСИНГ ТИРОВ (Перенесены наверх!)
+// ==========================================
 
 // Универсальный парсер данных тира
 function parseTierInfo(tierData) {
@@ -105,22 +60,35 @@ function parseTierInfo(tierData) {
         isRetired = tierData.retired === true;
     }
 
+    // Безопасное получение очков
+    const activePts = (typeof tierPoints !== 'undefined') ? tierPoints : {};
     return {
         tier: tier,
         isRetired: isRetired,
-        pts: tierPoints[tier] || 0
+        pts: activePts[tier] || 0
     };
+}
+
+// Хелпер для получения чистого названия тира (без префикса R)
+function getCleanTier(player, kit) {
+    if (!player || !player.tiers) return "Unranked";
+    return parseTierInfo(player.tiers[kit]).tier;
 }
 
 // Хелпер для определения, является ли конкретный кит игрока "Retired"
 function isKitRetired(player, kit) {
+    if (!player || !player.tiers) return false;
     return parseTierInfo(player.tiers[kit]).isRetired;
 }
 
 // Проверка: есть ли у игрока ХОТЯ БЫ ОДИН кит со статусом retired (Только для Main китов)
 function hasAnyRetiredKit(player) {
+    if (!player) return false;
     if (player.retired === true) return true;
-    const allKits = [...maintiers];
+    
+    const activeMaintiers = (typeof maintiers !== 'undefined') ? maintiers : [];
+    const allKits = [...activeMaintiers];
+    
     for (let i = 0; i < allKits.length; i++) {
         if (isKitRetired(player, allKits[i])) {
             const tier = getCleanTier(player, allKits[i]);
@@ -132,119 +100,156 @@ function hasAnyRetiredKit(player) {
     return false;
 }
 
-// Хелпер для получения чистого названия тира (без префикса R)
-function getCleanTier(player, kit) {
-    return parseTierInfo(player.tiers[kit]).tier;
-}
-
 // Расчет общих очков игрока по массиву китов (Main или Sub)
 function calcPoints(player, kits) {
+    if (!player || !kits) return 0;
     return kits.reduce((total, kit) => total + parseTierInfo(player.tiers[kit]).pts, 0);
 }
 
 // Генерация HTML-бейдж-тиров
 function getTierBadge(tier, appendR = false) {
-    const color = tierColors[tier] || '#fff';
+    const activeColors = (typeof tierColors !== 'undefined') ? tierColors : {};
+    const color = activeColors[tier] || '#fff';
     const displayLabel = appendR && tier !== "Unranked" ? `R${tier}` : tier;
     return `<span class="tier-badge" style="color: ${color}; border: 1px solid ${color}44; background: ${color}11;">${displayLabel}</span>`;
 }
 
+// ==========================================
+// 3. ОКНА ПРОФИЛЕЙ
+// ==========================================
+
 // Открытие детального профиля игрока в модальном окне
 function openProfile(idx, filteredPlayersJSON) {
-    const localFiltered = JSON.parse(decodeURIComponent(filteredPlayersJSON));
-    const player = localFiltered[idx];
-    
-    document.getElementById('modalPlayerName').innerHTML = player.name;
-    
-    let metaText = `${player.region} ${player.device}`;
-    if (hasAnyRetiredKit(player)) {
-        metaText += ` RETIRED`;
+    try {
+        const localFiltered = JSON.parse(decodeURIComponent(filteredPlayersJSON));
+        const player = localFiltered[idx];
+        if (!player) return;
+        
+        const modalName = document.getElementById('modalPlayerName');
+        if (modalName) modalName.innerHTML = player.name;
+        
+        let metaText = `${player.region || ''} ${player.device || ''}`;
+        if (hasAnyRetiredKit(player)) {
+            metaText += ` RETIRED`;
+        }
+        const modalMeta = document.getElementById('modalPlayerMeta');
+        if (modalMeta) modalMeta.innerText = metaText;
+        
+        const roleContainer = document.getElementById('modalRoleContainer');
+        if (roleContainer) {
+            if (player.name === "-999-" || player.name === "zor1kkqwix" || player.name === "Sneger") {
+                roleContainer.innerHTML = `<span class="custom-role-badge">Tier-Tester</span>`;
+            } else {
+                roleContainer.innerHTML = '';
+            }
+        }
+        
+        const activeMaintiers = (typeof maintiers !== 'undefined') ? maintiers : [];
+        const activeSubtiers = (typeof subtiers !== 'undefined') ? subtiers : [];
+        const activePts = (typeof tierPoints !== 'undefined') ? tierPoints : {};
+        const activeKitImages = (typeof kitImages !== 'undefined') ? kitImages : {};
+        
+        const mainRows = document.getElementById('modalMainRows');
+        if (mainRows) {
+            mainRows.innerHTML = activeMaintiers.map(kit => {
+                const t = getCleanTier(player, kit);
+                const iconSrc = activeKitImages[kit] || "";
+                const ret = isKitRetired(player, kit);
+                return `<div class="modal-row" style="${ret ? 'opacity:0.6;' : ''}">
+                    <div class="modal-kit-left">
+                        <img class="modal-kit-icon" src="${iconSrc}" onerror="this.style.opacity='0'" alt="">
+                        <span class="m-kit">${kit}</span>
+                    </div>
+                    <div class="m-right-side">
+                        ${getTierBadge(t, ret)} 
+                        <span class="m-pts-box">(${activePts[t] || 0} PTS)</span>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+        
+        const subRows = document.getElementById('modalSubRows');
+        if (subRows) {
+            subRows.innerHTML = activeSubtiers.map(kit => {
+                const t = getCleanTier(player, kit);
+                const iconSrc = activeKitImages[kit] || "";
+                const ret = isKitRetired(player, kit);
+                return `<div class="modal-row" style="${ret ? 'opacity:0.6;' : ''}">
+                    <div class="modal-kit-left">
+                        <img class="modal-kit-icon" src="${iconSrc}" onerror="this.style.opacity='0'" alt="">
+                        <span class="m-kit">${kit}</span>
+                    </div>
+                    <div class="m-right-side">
+                        ${getTierBadge(t, ret)} 
+                        <span class="m-pts-box">(${activePts[t] || 0} PTS)</span>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+        
+        const modalMainTotal = document.getElementById('modalMainTotal');
+        if (modalMainTotal) modalMainTotal.innerText = `Всего за Main: ${calcPoints(player, activeMaintiers)} PTS`;
+        
+        const modalSubTotal = document.getElementById('modalSubTotal');
+        if (modalSubTotal) modalSubTotal.innerText = `Всего за Sub: ${calcPoints(player, activeSubtiers)} PTS`;
+        
+        const profileModal = document.getElementById('profileModal');
+        if (profileModal) profileModal.classList.add('active');
+    } catch (e) {
+        console.error("Ошибка открытия профиля:", e);
     }
-    
-    // Добавление среднего ранга в мета-информацию модального окна
-    const avgTier = calcAverageTier(player);
-    if (avgTier !== "Unranked") {
-        metaText += ` | AVG TIER: ${avgTier}`;
-    }
-    
-    document.getElementById('modalPlayerMeta').innerText = metaText;
-    
-    const roleContainer = document.getElementById('modalRoleContainer');
-    if (player.name === "-999-" || player.name === "zor1kkqwix" || player.name === "Sneger") {
-        roleContainer.innerHTML = `<span class="custom-role-badge">Tier-Tester</span>`;
-    } else {
-        roleContainer.innerHTML = '';
-    }
-    
-    const mainRows = document.getElementById('modalMainRows');
-    const subRows = document.getElementById('modalSubRows');
-    
-    mainRows.innerHTML = maintiers.map(kit => {
-        const t = getCleanTier(player, kit);
-        const iconSrc = kitImages[kit] || "";
-        const ret = isKitRetired(player, kit);
-        return `<div class="modal-row" style="${ret ? 'opacity:0.6;' : ''}">
-            <div class="modal-kit-left">
-                <img class="modal-kit-icon" src="${iconSrc}" onerror="this.style.opacity='0'" alt="">
-                <span class="m-kit">${kit}</span>
-            </div>
-            <div class="m-right-side">
-                ${getTierBadge(t, ret)} 
-                <span class="m-pts-box">(${tierPoints[t]} PTS)</span>
-            </div>
-        </div>`;
-    }).join('');
-    
-    subRows.innerHTML = subtiers.map(kit => {
-        const t = getCleanTier(player, kit);
-        const iconSrc = kitImages[kit] || "";
-        const ret = isKitRetired(player, kit);
-        return `<div class="modal-row" style="${ret ? 'opacity:0.6;' : ''}">
-            <div class="modal-kit-left">
-                <img class="modal-kit-icon" src="${iconSrc}" onerror="this.style.opacity='0'" alt="">
-                <span class="m-kit">${kit}</span>
-            </div>
-            <div class="m-right-side">
-                ${getTierBadge(t, ret)} 
-                <span class="m-pts-box">(${tierPoints[t]} PTS)</span>
-            </div>
-        </div>`;
-    }).join('');
-    
-    document.getElementById('modalMainTotal').innerText = `Всего за Main: ${calcPoints(player, maintiers)} PTS`;
-    document.getElementById('modalSubTotal').innerText = `Всего за Sub: ${calcPoints(player, subtiers)} PTS`;
-    
-    document.getElementById('profileModal').classList.add('active');
 }
 
 // Закрытие модального окна профиля
 function closeModal() {
-    document.getElementById('profileModal').classList.remove('active');
+    const modal = document.getElementById('profileModal');
+    if (modal) modal.classList.remove('active');
 }
 
-// Главная функция рендеринга и фильтрации списка игроков
+// ==========================================
+// 4. ГЛАВНАЯ ФУНКЦИЯ РЕНДЕРИНГА ТАБЛИЦЫ
+// ==========================================
+
 function renderPlayers() {
     const list = document.getElementById('playersList');
     if (!list) return;
 
-    const search = document.getElementById('searchInput').value.toLowerCase();
-    const region = document.getElementById('regionFilter').value;
-    const device = document.getElementById('deviceFilter').value;
-    const targetKit = document.getElementById('kitFilter').value;
-    const showRetiredInPlace = document.getElementById('retiredToggle').checked;
+    // Безопасное получение значений элементов
+    const searchInput = document.getElementById('searchInput');
+    const search = searchInput ? searchInput.value.toLowerCase() : '';
+    
+    const regionFilter = document.getElementById('regionFilter');
+    const region = regionFilter ? regionFilter.value : 'all';
+    
+    const deviceFilter = document.getElementById('deviceFilter');
+    const device = deviceFilter ? deviceFilter.value : 'all';
+    
+    const kitFilter = document.getElementById('kitFilter');
+    const targetKit = kitFilter ? kitFilter.value : 'all';
+    
+    const retiredToggle = document.getElementById('retiredToggle');
+    const showRetiredInPlace = retiredToggle ? retiredToggle.checked : false;
 
     if (typeof players === 'undefined' || !Array.isArray(players)) {
         list.innerHTML = '<div style="text-align:center;color:#ffcc47;padding:40px;">Загрузка базы данных игроков...</div>';
         return;
     }
 
+    const titleEl = document.getElementById('leaderboardTitle');
+    const subtitleEl = document.getElementById('tableSubtitle');
+
     if (targetKit === 'all') {
-        document.getElementById('leaderboardTitle').innerText = 'OVERALL PVP TOP';
-        document.getElementById('tableSubtitle').innerText = 'OVERALL LEADERBOARD';
+        if (titleEl) titleEl.innerText = 'OVERALL PVP TOP';
+        if (subtitleEl) subtitleEl.innerText = 'OVERALL LEADERBOARD';
     } else {
-        document.getElementById('leaderboardTitle').innerText = `${targetKit.toUpperCase()} TOP`;
-        document.getElementById('tableSubtitle').innerText = `${targetKit.toUpperCase()} LEADERBOARD`;
+        if (titleEl) titleEl.innerText = `${targetKit.toUpperCase()} TOP`;
+        if (subtitleEl) subtitleEl.innerText = `${targetKit.toUpperCase()} LEADERBOARD`;
     }
+
+    const activeMaintiers = (typeof maintiers !== 'undefined') ? maintiers : [];
+    const activePts = (typeof tierPoints !== 'undefined') ? tierPoints : {};
+    const activeColors = (typeof tierColors !== 'undefined') ? tierColors : {};
+    const activeKitImages = (typeof kitImages !== 'undefined') ? kitImages : {};
 
     let filtered = players.filter(player => {
         const matchesSearch = player.name.toLowerCase().includes(search);
@@ -269,13 +274,13 @@ function renderPlayers() {
 
     if (targetKit === 'all') {
         filtered.sort((a, b) => {
-            return calcPoints(b, maintiers) - calcPoints(a, maintiers);
+            return calcPoints(b, activeMaintiers) - calcPoints(a, activeMaintiers);
         });
     } else {
         filtered.sort((a, b) => {
             const tierA = getCleanTier(a, targetKit);
             const tierB = getCleanTier(b, targetKit);
-            return (tierPoints[tierB] || 0) - (tierPoints[tierA] || 0);
+            return (activePts[tierB] || 0) - (activePts[tierA] || 0);
         });
     }
 
@@ -312,7 +317,7 @@ function renderPlayers() {
         }
         
         if (targetKit === 'all') {
-            const mainPts = calcPoints(player, maintiers);
+            const mainPts = calcPoints(player, activeMaintiers);
             rightColumnContent = `<span style="color: var(--accent); font-size:15px; white-space:nowrap;">${mainPts} PTS</span>`;
         } else {
             const currentTier = getCleanTier(player, targetKit);
@@ -322,13 +327,13 @@ function renderPlayers() {
 
         let quickTiersHTML = '';
         if (targetKit === 'all') {
-            let playerKitsObjects = maintiers.map(kit => {
+            let playerKitsObjects = activeMaintiers.map(kit => {
                 const tier = getCleanTier(player, kit);
                 const ret = isKitRetired(player, kit);
                 
                 let sortWeight = -1000;
                 if (tier !== "Unranked") {
-                    const pts = tierPoints[tier] || 0;
+                    const pts = activePts[tier] || 0;
                     if (!ret) {
                         sortWeight = pts;
                     } else {
@@ -348,8 +353,8 @@ function renderPlayers() {
                 const kit = item.kit;
                 const tier = item.tier;
                 const ret = item.ret;
-                const clr = tierColors[tier] || '#444b66';
-                const iconSrc = kitImages[kit] || "";
+                const clr = activeColors[tier] || '#444b66';
+                const iconSrc = activeKitImages[kit] || "";
                 const labelText = (ret && tier !== "Unranked") ? `R${tier}` : tier;
                 
                 if (tier !== "Unranked") {
@@ -384,12 +389,6 @@ function renderPlayers() {
         }
 
         let displayProfileRetiredTag = hasAnyRetiredKit(player);
-        
-        // Получаем и форматируем средний ранг игрока для топа
-        const avgTier = calcAverageTier(player);
-        const avgTierBadge = avgTier !== "Unranked" 
-            ? `<span class="player-meta-tag" style="color: ${tierColors[avgTier]}; border-color: ${tierColors[avgTier]}55; background: ${tierColors[avgTier]}11;">AVG: ${avgTier}</span>` 
-            : '';
 
         htmlFragment += `
         <div class="player-container ${topClass}">
@@ -402,9 +401,8 @@ function renderPlayers() {
 
                 <div class="player-center-block">
                     <div class="player-meta-box">
-                        <span class="player-meta-tag">${player.region}</span>
-                        <span class="player-meta-tag">${player.device}</span>
-                        ${avgTierBadge}
+                        <span class="player-meta-tag">${player.region || ''}</span>
+                        <span class="player-meta-tag">${player.device || ''}</span>
                         ${displayProfileRetiredTag ? `<span class="player-meta-tag retired-meta-tag">RETIRED</span>` : ''}
                     </div>
                     ${quickTiersHTML}
@@ -421,16 +419,23 @@ function renderPlayers() {
     list.innerHTML = htmlFragment;
 }
 
-// Автоматическая сборка таблицы начисления PTS внутри объединенного инфо-центра
+// ==========================================
+// 5. ИНФОРМАЦИОННЫЙ ЦЕНТР И FAQ
+// ==========================================
+
+// Автоматическая сборка таблицы начисления PTS
 function buildFaqTable() {
     const tbody = document.getElementById('faqTableBody');
     if (!tbody) return;
     const order = ['HT1', 'LT1', 'HT2', 'LT2', 'HT3', 'LT3', 'HT4', 'LT4', 'HT5', 'LT5', 'Unranked'];
+    const activeColors = (typeof tierColors !== 'undefined') ? tierColors : {};
+    const activePts = (typeof tierPoints !== 'undefined') ? tierPoints : {};
+    
     tbody.innerHTML = order.map(tier => {
-        const color = tierColors[tier];
+        const color = activeColors[tier] || '#fff';
         return `<tr>
             <td><span class="tier-badge" style="color: ${color}; border: 1px solid ${color}44; background:${color}11;">${tier}</span></td>
-            <td><span style="color: var(--accent); font-weight:bold;">${tierPoints[tier]} PTS</span></td>
+            <td><span style="color: var(--accent); font-weight:bold;">${activePts[tier] || 0} PTS</span></td>
         </tr>`;
     }).join('');
 }
@@ -438,8 +443,10 @@ function buildFaqTable() {
 // Навешивание кастомных цветов на тиры внутри FAQ текста
 function applyFaqTierColors() {
     const tiersToColor = ['HT1', 'HT2', 'LT1', 'LT2', 'LT3'];
+    const activeColors = (typeof tierColors !== 'undefined') ? tierColors : {};
+    
     tiersToColor.forEach(tier => {
-        const color = tierColors[tier] || 'var(--accent)';
+        const color = activeColors[tier] || 'var(--accent)';
         for (let i = 1; i <= 4; i++) {
             const element = document.getElementById(`faqColor${tier}_${i}`);
             if (element) {
@@ -475,7 +482,11 @@ function switchInfoSubTab(subTabId, btnElement) {
     }
 }
 
-// Переключение вкладок (Обновленный роутинг)
+// ==========================================
+// 6. НАВИГАЦИЯ И ИНИЦИАЛИЗАЦИЯ
+// ==========================================
+
+// Переключение вкладок
 function switchTab(tabId) {
     const sb = document.getElementById('sidebar');
     if (sb) sb.classList.remove('active');
@@ -523,16 +534,30 @@ if (menuBtn && sidebar) {
     });
 }
 
-// Инициализация обработчиков фильтров
-if (document.getElementById('searchInput')) {
-    document.getElementById('searchInput').addEventListener('input', renderPlayers);
-    document.getElementById('regionFilter').addEventListener('change', renderPlayers);
-    document.getElementById('deviceFilter').addEventListener('change', renderPlayers);
-    document.getElementById('kitFilter').addEventListener('change', renderPlayers);
-    document.getElementById('retiredToggle').addEventListener('change', renderPlayers);
+// Привязка обработчиков событий ввода
+document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('searchInput');
+    const regionFilter = document.getElementById('regionFilter');
+    const deviceFilter = document.getElementById('deviceFilter');
+    const kitFilter = document.getElementById('kitFilter');
+    const retiredToggle = document.getElementById('retiredToggle');
+
+    if (searchInput) searchInput.addEventListener('input', renderPlayers);
+    if (regionFilter) regionFilter.addEventListener('change', renderPlayers);
+    if (deviceFilter) deviceFilter.addEventListener('change', renderPlayers);
+    if (kitFilter) kitFilter.addEventListener('change', renderPlayers);
+    if (retiredToggle) retiredToggle.addEventListener('change', renderPlayers);
+
+    // Первичный запуск отрисовки
+    initSite();
+});
+
+// Дополнительная инициализация на случай, если DOM уже загружен
+if (document.readyState === "complete" || document.readyState === "interactive") {
+    initSite();
 }
 
-// Функция автоматического копирования инвайт-кода для кнопки
+// Функция автоматического копирования инвайт-кода
 function copyInviteCode() {
     const inviteCode = "UA75LL01";
     const btn = document.getElementById('inviteBtn');
@@ -546,3 +571,27 @@ function copyInviteCode() {
             setTimeout(() => {
                 btn.innerHTML = `${inviteCode}`;
                 btn.style.borderColor = "";
+                btn.style.color = "";
+            }, 1500);
+        }
+    }).catch(err => {
+        const el = document.createElement('textarea');
+        el.value = inviteCode;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        
+        if (btn) {
+            btn.innerHTML = "Скопировано!";
+            setTimeout(() => {
+                btn.innerHTML = `${inviteCode}`;
+            }, 1500);
+        }
+    });
+}
+
+// Запуск сайта
+function initSite() {
+    renderPlayers();
+}
