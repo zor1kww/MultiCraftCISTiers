@@ -528,7 +528,7 @@ const players = [
         }
     },
     {
-        name: "zerdolbaeb173",
+        name: "7STARS",
         region: "RU",
         device: "PH",
         tiers: {
