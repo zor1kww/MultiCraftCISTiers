@@ -719,7 +719,8 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            Hardcore: "LT3"
+            Hardcore: "LT3",
+            RVM: "LT3"
         }
     },
     {
