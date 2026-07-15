@@ -737,5 +737,13 @@ const players = [
         tiers: {
             "Emerald Pot": "LT3"
         }
+    },
+    {
+        name: "Prosto_oleg100-8",
+        region: "EU",
+        device: "PH",
+        tiers: {
+            Mace: "LT3"
+        }
     }
 ];
