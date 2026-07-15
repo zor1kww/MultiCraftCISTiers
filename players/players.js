@@ -729,5 +729,13 @@ const players = [
         tiers: {
             Hardcore: "HT4"
         }
+    },
+    {
+        name: "Karzer1",
+        region: "EU",
+        device: "PH",
+        tiers: {
+            "Emerald Pot": "LT3"
+        }
     }
 ];
