@@ -37,5 +37,5 @@ const tierColors = {
 };
 
 // Списки основных и дополнительных режимов
-const maintiers = ["Hardcore", "Manhunt", "Diamond", "Beast", "Emerald", "Emerald Pot", "RVM", "Dragonhide", "Pickaxe", "SMP"];
+const maintiers = ["Hardcore", "Manhunt", "Diamond", "Beast", "Emerald", "Emerald Pot", "RVM", "Dragonhide", "Pickaxe", "SMP", "Vanilla"];
 const subtiers = ["Combo", "Gapple", "Mace", "Crystal"];
