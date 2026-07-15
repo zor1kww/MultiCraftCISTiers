@@ -32,6 +32,60 @@ function toggleTheme() {
     }
 }
 
+// Карта соответствия тиров числовым значениям для расчета среднего ранга
+const tierValueMap = {
+    "HT1": 10,
+    "LT1": 9,
+    "HT2": 8,
+    "LT2": 7,
+    "HT3": 6,
+    "LT3": 5,
+    "HT4": 4,
+    "LT4": 3,
+    "HT5": 2,
+    "LT5": 1
+};
+
+// Обратная карта для получения названия тира из числа
+const valueTierMap = {
+    10: "HT1",
+    9: "LT1",
+    8: "HT2",
+    7: "LT2",
+    6: "HT3",
+    5: "LT3",
+    4: "HT4",
+    3: "LT4",
+    2: "HT5",
+    1: "LT5"
+};
+
+// Функция расчета общего среднего ранга игрока
+function calcAverageTier(player) {
+    let totalScore = 0;
+    let testCount = 0;
+    
+    // Объединяем main и sub для учета всех пройденных тестов
+    const allKits = [...maintiers, ...subtiers];
+    
+    allKits.forEach(kit => {
+        const cleanTier = getCleanTier(player, kit);
+        if (cleanTier !== "Unranked" && tierValueMap[cleanTier] !== undefined) {
+            totalScore += tierValueMap[cleanTier];
+            testCount++;
+        }
+    });
+    
+    if (testCount === 0) return "Unranked";
+    
+    // Округление: 3.50 идет в пользу игрока (то есть в сторону большего числа / лучшего тира)
+    // В JS стандартный Math.round(3.5) возвращает 4, что нам и нужно.
+    const averageValue = totalScore / testCount;
+    const roundedValue = Math.round(averageValue);
+    
+    return valueTierMap[roundedValue] || "Unranked";
+}
+
 // Универсальный парсер данных тира
 function parseTierInfo(tierData) {
     if (!tierData) return { tier: "Unranked", isRetired: false, pts: 0 };
@@ -106,6 +160,13 @@ function openProfile(idx, filteredPlayersJSON) {
     if (hasAnyRetiredKit(player)) {
         metaText += ` RETIRED`;
     }
+    
+    // Добавление среднего ранга в мета-информацию модального окна
+    const avgTier = calcAverageTier(player);
+    if (avgTier !== "Unranked") {
+        metaText += ` | AVG TIER: ${avgTier}`;
+    }
+    
     document.getElementById('modalPlayerMeta').innerText = metaText;
     
     const roleContainer = document.getElementById('modalRoleContainer');
@@ -323,6 +384,12 @@ function renderPlayers() {
         }
 
         let displayProfileRetiredTag = hasAnyRetiredKit(player);
+        
+        // Получаем и форматируем средний ранг игрока для топа
+        const avgTier = calcAverageTier(player);
+        const avgTierBadge = avgTier !== "Unranked" 
+            ? `<span class="player-meta-tag" style="color: ${tierColors[avgTier]}; border-color: ${tierColors[avgTier]}55; background: ${tierColors[avgTier]}11;">AVG: ${avgTier}</span>` 
+            : '';
 
         htmlFragment += `
         <div class="player-container ${topClass}">
@@ -337,6 +404,7 @@ function renderPlayers() {
                     <div class="player-meta-box">
                         <span class="player-meta-tag">${player.region}</span>
                         <span class="player-meta-tag">${player.device}</span>
+                        ${avgTierBadge}
                         ${displayProfileRetiredTag ? `<span class="player-meta-tag retired-meta-tag">RETIRED</span>` : ''}
                     </div>
                     ${quickTiersHTML}
@@ -478,27 +546,3 @@ function copyInviteCode() {
             setTimeout(() => {
                 btn.innerHTML = `${inviteCode}`;
                 btn.style.borderColor = "";
-                btn.style.color = "";
-            }, 1500);
-            
-        }
-    }).catch(err => {
-        const el = document.createElement('textarea');
-        el.value = inviteCode;
-        document.body.appendChild(el);
-        el.select();
-        document.execCommand('copy');
-        document.body.removeChild(el);
-        
-        if (btn) {
-            btn.innerHTML = "Скопировано!";
-            setTimeout(() => {
-                btn.innerHTML = `${inviteCode}`;
-            }, 1500);
-        }
-    });
-}
-
-function initSite() {
-    renderPlayers();
-}
