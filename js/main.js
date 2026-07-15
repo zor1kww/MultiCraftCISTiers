@@ -106,11 +106,17 @@ function calcPoints(player, kits) {
     return kits.reduce((total, kit) => total + parseTierInfo(player.tiers[kit]).pts, 0);
 }
 
-// Расчет среднего тира игрока по всем его Main китам (исключая Unranked)
+// Расчет среднего тира игрока по всем его Main и Sub китам (исключая Unranked)
 function calcAverageTier(player) {
     if (!player || !player.tiers) return "Unranked";
     
+    // Получаем оба массива китов (если subtiers не задан, используем пустой массив)
     const activeMaintiers = (typeof maintiers !== 'undefined') ? maintiers : [];
+    const activeSubtiers = (typeof subtiers !== 'undefined') ? subtiers : [];
+    
+    // Объединяем их в один общий список для расчёта
+    const allKits = [...activeMaintiers, ...activeSubtiers];
+    
     const tierWeights = {
         'HT1': 10, 'LT1': 9,
         'HT2': 8,  'LT2': 7,
@@ -130,7 +136,8 @@ function calcAverageTier(player) {
     let totalWeight = 0;
     let count = 0;
 
-    activeMaintiers.forEach(kit => {
+    // Пробегаемся по абсолютно всем китам (Main + Sub)
+    allKits.forEach(kit => {
         const tier = getCleanTier(player, kit);
         if (tier !== "Unranked" && tierWeights[tier] !== undefined) {
             totalWeight += tierWeights[tier];
