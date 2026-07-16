@@ -759,5 +759,13 @@ const players = [
         tiers: {
             Combo: "HT2"
         }
+    },
+    {
+        name: "Aura",
+        region: "RU",
+        device: "TB",
+        tiers: {
+            Hardcore: "LT3"
+        }
     }
 ];
