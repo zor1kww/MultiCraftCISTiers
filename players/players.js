@@ -696,7 +696,8 @@ const players = [
         device: "PH",
         tiers: {
             Hardcore: "HT3",
-            Beast: "LT3"
+            Beast: "LT3",
+            Diamond: "LT3"
         }
     },
     {
