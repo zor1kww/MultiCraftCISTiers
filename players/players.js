@@ -535,7 +535,7 @@ const players = [
             Dragonhide: "LT3",
             RVM: "LT4",
             Hardcore: "HT5",
-            SMP: "HT5",
+            SMP: "HT4",
             Mace: "LT4",
             Combo: "HT4",
             Beast: "LT4",
