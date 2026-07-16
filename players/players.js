@@ -157,7 +157,7 @@ const players = [
             Dragonhide: "LT3",
             Mace: "LT3",
             Beast: "LT3",
-            Diamond: "LT3",
+            Diamond: "HT3",
             Pickaxe: "LT3",
             Emerald: "HT4",
             SMP: "LT3",
