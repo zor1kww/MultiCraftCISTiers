@@ -739,5 +739,13 @@ const players = [
         tiers: {
             Beast: "LT4"
         }
+    },
+    {
+        name: "Larpmaster1k",
+        region: "EU",
+        device: "PH",
+        tiers: {
+            "Emerald Pot": "LT3"
+        }
     }
 ];
