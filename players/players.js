@@ -320,7 +320,8 @@ const players = [
             Dragonhide: "HT4",
             Beast: "HT4",
             Hardcore: "HT4",
-            RVM: "LT3"
+            RVM: "LT3",
+            Emerald: "LT3"
         }
     },
     {
