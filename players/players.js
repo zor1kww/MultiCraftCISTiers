@@ -772,7 +772,8 @@ const players = [
             Beast: "HT4",
             Diamond: "HT4",
             SMP: "HT4",
-            Dragonhide: "LT3"
+            Dragonhide: "LT3",
+            Crystal: "HT3"
         }
     }
 ];
