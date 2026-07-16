@@ -83,7 +83,7 @@ const players = [
             "Emerald Pot": "LT2",
             SMP: "LT2",
             Hardcore: "LT2",
-            Pickaxe: "HT2",
+            Pickaxe: "LT3",
             RVM: "LT2",
             Emerald: "LT1",
             Dragonhide: "LT2",
