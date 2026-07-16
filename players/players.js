@@ -697,7 +697,8 @@ const players = [
         tiers: {
             Hardcore: "HT3",
             Beast: "LT3",
-            Diamond: "LT3"
+            Diamond: "LT3",
+            RVM: "HT4"
         }
     },
     {
