@@ -770,7 +770,7 @@ const players = [
             Hardcore: "LT3",
             Emerald: "HT4",
             Beast: "HT4",
-            Diamond: "HT4",
+            Diamond: "LT3",
             SMP: "HT4",
             Dragonhide: "LT3",
             Crystal: "HT3"
