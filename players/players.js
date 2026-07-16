@@ -423,13 +423,13 @@ const players = [
         }
     },
     {
-        name: "Prosto_oleg100-7",
+        name: "Prosto_Oleg100-7",
         region: "RU",
         device: "PH",
         tiers: {
             Hardcore: "LT3",
             Crystal: "LT1",
-            Beast: "LT2",
+            Beast: "LT3",
             Mace: "LT3",
             RVM: "HT4",
             Diamond: "LT3",
