@@ -773,7 +773,8 @@ const players = [
             Diamond: "LT3",
             SMP: "LT3",
             Dragonhide: "LT3",
-            Crystal: "HT3"
+            Crystal: "HT3",
+            RVM: "LT4"
         }
     }
 ];
