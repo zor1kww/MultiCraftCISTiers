@@ -731,5 +731,13 @@ const players = [
         tiers: {
             "Emerald Pot": "LT3"
         }
+    },
+    {
+        name: "Michael_59k_YT",
+        region: "AM",
+        device: "PH",
+        tiers: {
+            Beast: "LT4"
+        }
     }
 ];
