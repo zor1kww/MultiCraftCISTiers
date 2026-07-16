@@ -751,5 +751,13 @@ const players = [
         tiers: {
             "Emerald Pot": "LT3"
         }
+    },
+    {
+        name: "_Χx_deras_xX",
+        region: "UA",
+        device: "PH",
+        tiers: {
+            Combo: "HT2"
+        }
     }
 ];
