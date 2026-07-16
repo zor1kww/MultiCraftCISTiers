@@ -39,7 +39,7 @@ const players = [
     },
     {
         name: "zor1kkqwix",
-        region: "UA",
+        region: "RU",
         device: "PH",
         tiers: {
             Hardcore: "LT1",
