@@ -39,7 +39,7 @@ const players = [
     },
     {
         name: "zor1kkqwix",
-        region: "RU",
+        region: "UA",
         device: "PH",
         tiers: {
             Hardcore: "LT1",
@@ -47,7 +47,7 @@ const players = [
             "Emerald Pot": "HT3",
             Combo: "HT4",
             RVM: "HT3",
-            Pickaxe: "HT2",
+            Pickaxe: "LT3",
             Emerald: "LT3",
             Diamond: "HT3",
             Dragonhide: "HT3",
