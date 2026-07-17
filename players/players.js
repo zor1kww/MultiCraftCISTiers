@@ -808,10 +808,10 @@ const players = [
     },
     {
         name: "AMORE",
-        region: "RU",
+        region: "UA",
         device: "PH",
         tiers: {
-            "Diamond Pot": "LT5"
+            "Hardcore": "LT5"
         }
     }
 ];
