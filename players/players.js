@@ -802,7 +802,8 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            "Emerald Pot": "LT1"
+            "Emerald Pot": "LT1",
+            "diamond Pot": "HT2"
         }
     }
 ];
