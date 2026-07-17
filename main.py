@@ -4,6 +4,7 @@ import json
 import base64
 import requests
 import telebot
+import time
 from threading import Thread
 from flask import Flask
 
@@ -15,7 +16,6 @@ def home():
     return "I am alive!"
 
 def run_web_server():
-    # Render автоматически передает нужный порт в переменную окружения PORT
     port = int(os.environ.get("PORT", 8080))
     app.run(host='0.0.0.0', port=port)
 
@@ -33,6 +33,35 @@ VALID_KITS = [
     "Hardcore", "Combo", "Emerald Pot", "RVM", "Emerald", "Beast", "Vanilla", 
     "Dragonhide", "Pickaxe", "Crystal", "Mace", "Gapple", "SMP", "Manhunt", "Diamond"
 ]
+
+# Система очков для расчета разницы
+TIER_POINTS = {
+    'HT1': 100, 'LT1': 90,
+    'HT2': 80,  'LT2': 70,
+    'HT3': 60,  'LT3': 50,
+    'HT4': 40,  'LT4': 30,
+    'HT5': 20,  'LT5': 10,
+    'UNRANKED': 0
+}
+
+# Порядок возрастания тиров для вычисления следующего ранга
+TIER_ORDER = ['UNRANKED', 'LT5', 'HT5', 'LT4', 'HT4', 'LT3', 'HT3', 'LT2', 'HT2', 'LT1', 'HT1']
+
+def get_next_tier_info(current_tier):
+    """Вычисляет следующий тир и сколько очков до него не хватает"""
+    clean_tier = current_tier.upper().strip()
+    if clean_tier not in TIER_ORDER:
+        return None, 0
+    
+    current_idx = TIER_ORDER.index(clean_tier)
+    
+    # Если это уже максимальный тир HT1
+    if current_idx == len(TIER_ORDER) - 1:
+        return None, 0
+        
+    next_tier = TIER_ORDER[current_idx + 1]
+    pts_needed = TIER_POINTS[next_tier] - TIER_POINTS[clean_tier]
+    return next_tier, pts_needed
 
 @bot.message_handler(func=lambda message: message.chat.id == TARGET_CHAT_ID and message.message_thread_id == TARGET_THREAD_ID)
 def handle_telegram_message(message):
@@ -52,19 +81,25 @@ def handle_telegram_message(message):
 
     matched_kit = next((k for k in VALID_KITS if k.lower() == kit_name.lower()), None)
     if not matched_kit:
-        bot.reply_to(message, f"⚠️ Предупреждение: Кит '{kit_name}' не найден в официальном списке, но я попробую внести как есть.")
         matched_kit = kit_name
+
+    # 1. ОТПРАВЛЯЕМ СООБЩЕНИЕ И ЗАПОМИНАЕМ ЕГО ССЫЛКУ В status_msg
+    # Используем bot.reply_to, чтобы сохранить твою логику ответа на конкретный шаблон тестера
+    status_msg = bot.reply_to(message, f"⏳ Обрабатываю результат для **{player_name}**...", parse_mode="Markdown")
 
     file_path = "players/players.js"
     url = f"https://api.github.com/repos/{GH_REPO}/contents/{file_path}"
     headers = {"Authorization": f"token {GH_TOKEN}"}
 
-    bot.reply_to(message, f"⏳ Обрабатываю результат для **{player_name}**...")
-
     try:
         response = requests.get(url, headers=headers)
         if response.status_code != 200:
-            bot.reply_to(message, f"❌ Ошибка GitHub при чтении файла: {response.status_code}")
+            # Если произошла ошибка, мы НЕ присылаем новое сообщение, а РЕДАКТИРУЕМ наше сообщение со статусом
+            bot.edit_message_text(
+                chat_id=message.chat.id,
+                message_id=status_msg.message_id,
+                text=f"❌ Ошибка GitHub при чтении файла: {response.status_code}"
+            )
             return
 
         file_data = response.json()
@@ -75,7 +110,11 @@ def handle_telegram_message(message):
         if not json_array_match:
             json_array_match = re.search(r"(\[.*\])", content, re.DOTALL)
             if not json_array_match:
-                bot.reply_to(message, "❌ Ошибка: Не удалось найти структуру массива в файле.")
+                bot.edit_message_text(
+                    chat_id=message.chat.id,
+                    message_id=status_msg.message_id,
+                    text="❌ Ошибка: Не удалось найти структуру массива в файле."
+                )
                 return
 
         raw_json_text = json_array_match.group(1)
@@ -84,7 +123,11 @@ def handle_telegram_message(message):
         try:
             players_list = json.loads(valid_json_text)
         except json.JSONDecodeError as je:
-            bot.reply_to(message, f"❌ Ошибка JSON после обработки: {str(je)}\nПроверьте структуру файла players.js.")
+            bot.edit_message_text(
+                chat_id=message.chat.id,
+                message_id=status_msg.message_id,
+                text=f"❌ Ошибка JSON после обработки: {str(je)}\nПроверьте структуру файла players.js."
+            )
             return
 
         player_found = False
@@ -126,16 +169,44 @@ def handle_telegram_message(message):
         put_response = requests.put(url, headers=headers, json=payload)
 
         if put_response.status_code in [200, 201]:
-            bot.reply_to(message, f"✅ Успешно! Результат игрока **{player_name}** добавлен в базу.\nКит: {matched_kit} | Ранг: {new_tier}")
+            # Рассчитываем оставшиеся очки до следующего тира
+            next_tier, pts_needed = get_next_tier_info(new_tier)
+            if next_tier:
+                progress_text = f"До следующего ранга (*{next_tier}*) осталось: *{pts_needed} PTS*"
+            else:
+                progress_text = "🎉 Достигнут максимальный ранг!"
+
+            # Формируем итоговый красивый текст
+            success_text = (
+                f" **Игрок {player_name} успешно внесен в базу данных!**\n\n"
+                f" **Регион:** {region} | 📱 **Устройство:** {device}\n"
+                f" **Кит:** {matched_kit} | **Ранг:** {new_tier}\n\n"
+                f" {progress_text}"
+            )
+
+            # 2. ИЗМЕНЯЕМ СООБЩЕНИЕ НА ШАБЛОН УСПЕХА
+            bot.edit_message_text(
+                chat_id=message.chat.id,
+                message_id=status_msg.message_id,
+                text=success_text,
+                parse_mode="Markdown"
+            )
         else:
-            bot.reply_to(message, f"❌ Ошибка записи на GitHub: {put_response.status_code}")
+            bot.edit_message_text(
+                chat_id=message.chat.id,
+                message_id=status_msg.message_id,
+                text=f"❌ Ошибка записи на GitHub: {put_response.status_code}"
+            )
 
     except Exception as e:
-        bot.reply_to(message, f"❌ Системная ошибка: {str(e)}")
+        bot.edit_message_text(
+            chat_id=message.chat.id,
+            message_id=status_msg.message_id,
+            text=f"❌ Системная ошибка: {str(e)}"
+        )
 
 if __name__ == '__main__':
     print("Запуск веб-сервера для Render...")
-    # Запускаем веб-сервер в отдельном потоке
     t = Thread(target=run_web_server)
     t.start()
     
