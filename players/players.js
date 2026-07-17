@@ -735,7 +735,8 @@ const players = [
         region: "EU",
         device: "PH",
         tiers: {
-            "Emerald Pot": "LT3"
+            "Emerald Pot": "LT3",
+            RVM: "HT4"
         }
     },
     {
@@ -754,14 +755,6 @@ const players = [
         device: "PH",
         tiers: {
             "Emerald Pot": "LT3"
-        }
-    },
-    {
-        name: "_Χx_deras_xX",
-        region: "UA",
-        device: "PH",
-        tiers: {
-            Combo: "HT2"
         }
     },
     {
@@ -785,17 +778,6 @@ const players = [
         }
     },
     {
-        name: "test",
-        region: "RU",
-        device: "TB",
-        tiers: {
-            Gapple: "LT3",
-            Combo: "HT2",
-            Mace: "HT4",
-            Hardcore: "LT5"
-        }
-    },
-    {
         name: "Topor",
         region: "RU",
         device: "PH",
@@ -807,11 +789,12 @@ const players = [
         }
     },
     {
-        name: "Combo",
-        region: "RU",
+        name: "MinatoBeast",
+        region: "EU",
         device: "PH",
         tiers: {
-            "Emerald Pot": "LT3"
+            RVM: "LT4",
+            Beast: "LT4"
         }
     }
 ];
