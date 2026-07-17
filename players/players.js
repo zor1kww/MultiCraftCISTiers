@@ -780,5 +780,13 @@ const players = [
             Pickaxe: "LT3",
             Combo: "LT3"
         }
+    },
+    {
+        name: "test",
+        region: "RU",
+        device: "TB",
+        tiers: {
+            Gapple: "LT3"
+        }
     }
 ];
