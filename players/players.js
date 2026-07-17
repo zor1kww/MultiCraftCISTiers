@@ -91,7 +91,7 @@ const players = [
             Combo: "LT3",
             Gapple: "LT2",
             Mace: "LT1",
-            Crystal: "LT3",
+            Crystal: "HT2",
             Diamond: "HT2"
         }
     },
