@@ -801,7 +801,8 @@ const players = [
         device: "PH",
         tiers: {
             "Emerald Pot": "LT3",
-            Combo: "LT3"
+            Combo: "LT3",
+            SMP: "LT3"
         }
     },
     {
