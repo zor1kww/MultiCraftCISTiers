@@ -4,7 +4,7 @@ import json
 import base64
 import requests
 import telebot
-import time
+import math
 from threading import Thread
 from flask import Flask
 
@@ -34,7 +34,25 @@ VALID_KITS = [
     "Dragonhide", "Pickaxe", "Crystal", "Mace", "Gapple", "SMP", "Manhunt", "Diamond"
 ]
 
-# Система очков для расчета разницы
+# Веса рангов для вычисления среднего тира (1 - 10)
+TIER_WEIGHTS = {
+    'HT1': 10, 'LT1': 9,
+    'HT2': 8,  'LT2': 7,
+    'HT3': 6,  'LT3': 5,
+    'HT4': 4,  'LT4': 3,
+    'HT5': 2,  'LT5': 1
+}
+
+# Обратный поиск названия ранга по его весу
+REVERSE_WEIGHTS = {
+    10: 'HT1', 9: 'LT1',
+    8: 'HT2',  7: 'LT2',
+    6: 'HT3',  5: 'LT3',
+    4: 'HT4',  3: 'LT4',
+    2: 'HT5',  1: 'LT5'
+}
+
+# Очки для расчета разницы (PTS) на конкретном ките
 TIER_POINTS = {
     'HT1': 100, 'LT1': 90,
     'HT2': 80,  'LT2': 70,
@@ -44,24 +62,63 @@ TIER_POINTS = {
     'UNRANKED': 0
 }
 
-# Порядок возрастания тиров для вычисления следующего ранга
+# Порядок возрастания тиров для вычисления следующего ранга на одном ките
 TIER_ORDER = ['UNRANKED', 'LT5', 'HT5', 'LT4', 'HT4', 'LT3', 'HT3', 'LT2', 'HT2', 'LT1', 'HT1']
 
 def get_next_tier_info(current_tier):
-    """Вычисляет следующий тир и сколько очков до него не хватает"""
+    """Вычисляет следующий тир для кита и сколько PTS до него не хватает"""
     clean_tier = current_tier.upper().strip()
     if clean_tier not in TIER_ORDER:
         return None, 0
     
     current_idx = TIER_ORDER.index(clean_tier)
-    
-    # Если это уже максимальный тир HT1
     if current_idx == len(TIER_ORDER) - 1:
         return None, 0
         
     next_tier = TIER_ORDER[current_idx + 1]
     pts_needed = TIER_POINTS[next_tier] - TIER_POINTS[clean_tier]
     return next_tier, pts_needed
+
+def calculate_overall_tier(player_tiers):
+    """
+    Рассчитывает средний ранг по всем пройденным тестам (Main + Sub)
+    и считает, сколько единиц веса не хватает до следующего общего ранга.
+    """
+    total_weight = 0
+    count = 0
+    
+    for kit_name, tier_val in player_tiers.items():
+        # Если тир записан как объект, достаем из него строку
+        if isinstance(tier_val, dict):
+            tier_str = tier_val.get('tier', 'UNRANKED').upper()
+        else:
+            tier_str = str(tier_val).upper()
+            
+        if tier_str.startswith('R') and len(tier_str) > 1:
+            tier_str = tier_str[1:] # Срезаем "R" для Retired рангов
+            
+        if tier_str in TIER_WEIGHTS:
+            total_weight += TIER_WEIGHTS[tier_str]
+            count += 1
+            
+    if count == 0:
+        return "Unranked", 0, "Нет сыгранных тестов"
+
+    # Текущий средний вес (с округлением Math.round)
+    avg_weight = int(round(total_weight / count))
+    current_overall = REVERSE_WEIGHTS.get(avg_weight, "Unranked")
+    
+    if avg_weight >= 10:
+        return current_overall, count, "🎉 Максимальный общий ранг!"
+        
+    # Считаем, сколько веса не хватает до следующего общего ранга.
+    # Для перехода на следующий уровень средний вес до округления должен стать >= (avg_weight + 0.5)
+    target_avg = avg_weight + 0.5
+    required_total_weight = math.ceil(target_avg * count)
+    needed_weight_diff = required_total_weight - total_weight
+    
+    progress_msg = f"До общего *{REVERSE_WEIGHTS[avg_weight + 1]}* осталось повысить любой кит на *{needed_weight_diff}* ур."
+    return current_overall, count, progress_msg
 
 @bot.message_handler(func=lambda message: message.chat.id == TARGET_CHAT_ID and message.message_thread_id == TARGET_THREAD_ID)
 def handle_telegram_message(message):
@@ -76,16 +133,15 @@ def handle_telegram_message(message):
         device = re.search(r"Устройство:\s*([^\n]+)", text).group(1).strip().upper()
         new_tier = re.search(r"Полученный ранг:\s*([^\n]+)", text).group(1).strip().upper()
     except AttributeError:
-        bot.reply_to(message, "❌ Ошибка! Не удалось распознать шаблон. Проверьте правильность заполнения полей.")
+        bot.reply_to(message, "❌ **Ошибка! Не удалось распознать шаблон. Проверьте правильность заполнения полей.**", parse_mode="Markdown")
         return
 
     matched_kit = next((k for k in VALID_KITS if k.lower() == kit_name.lower()), None)
     if not matched_kit:
         matched_kit = kit_name
 
-    # 1. ОТПРАВЛЯЕМ СООБЩЕНИЕ И ЗАПОМИНАЕМ ЕГО ССЫЛКУ В status_msg
-    # Используем bot.reply_to, чтобы сохранить твою логику ответа на конкретный шаблон тестера
-    status_msg = bot.reply_to(message, f"⏳ Обрабатываю результат для **{player_name}**...", parse_mode="Markdown")
+    # 1. ОТПРАВЛЯЕМ СООБЩЕНИЕ-ЗАГРУЗКУ (ЖИРНЫМ)
+    status_msg = bot.reply_to(message, f"⏳ **Обрабатываю результат для {player_name}...**", parse_mode="Markdown")
 
     file_path = "players/players.js"
     url = f"https://api.github.com/repos/{GH_REPO}/contents/{file_path}"
@@ -94,11 +150,11 @@ def handle_telegram_message(message):
     try:
         response = requests.get(url, headers=headers)
         if response.status_code != 200:
-            # Если произошла ошибка, мы НЕ присылаем новое сообщение, а РЕДАКТИРУЕМ наше сообщение со статусом
             bot.edit_message_text(
                 chat_id=message.chat.id,
                 message_id=status_msg.message_id,
-                text=f"❌ Ошибка GitHub при чтении файла: {response.status_code}"
+                text=f"❌ **Ошибка GitHub при чтении файла: {response.status_code}**",
+                parse_mode="Markdown"
             )
             return
 
@@ -113,7 +169,8 @@ def handle_telegram_message(message):
                 bot.edit_message_text(
                     chat_id=message.chat.id,
                     message_id=status_msg.message_id,
-                    text="❌ Ошибка: Не удалось найти структуру массива в файле."
+                    text="❌ **Ошибка: Не удалось найти структуру массива в файле.**",
+                    parse_mode="Markdown"
                 )
                 return
 
@@ -126,11 +183,14 @@ def handle_telegram_message(message):
             bot.edit_message_text(
                 chat_id=message.chat.id,
                 message_id=status_msg.message_id,
-                text=f"❌ Ошибка JSON после обработки: {str(je)}\nПроверьте структуру файла players.js."
+                text=f"❌ **Ошибка JSON после обработки: {str(je)}**",
+                parse_mode="Markdown"
             )
             return
 
         player_found = False
+        active_player_tiers = {}
+        
         for player in players_list:
             if player.get('name', '').lower() == player_name.lower():
                 player['name'] = player_name 
@@ -139,6 +199,7 @@ def handle_telegram_message(message):
                 if 'tiers' not in player:
                     player['tiers'] = {}
                 player['tiers'][matched_kit] = new_tier
+                active_player_tiers = player['tiers']
                 player_found = True
                 break
 
@@ -150,6 +211,7 @@ def handle_telegram_message(message):
                 "tiers": {matched_kit: new_tier}
             }
             players_list.append(new_player)
+            active_player_tiers = new_player['tiers']
 
         new_json_array = json.dumps(players_list, indent=4, ensure_ascii=False)
         new_js_array = re.sub(r'"(\w+)"\s*:', r'\1:', new_json_array)
@@ -169,22 +231,27 @@ def handle_telegram_message(message):
         put_response = requests.put(url, headers=headers, json=payload)
 
         if put_response.status_code in [200, 201]:
-            # Рассчитываем оставшиеся очки до следующего тира
+            # Расчет разницы на конкретном ките
             next_tier, pts_needed = get_next_tier_info(new_tier)
             if next_tier:
-                progress_text = f"До следующего ранга (*{next_tier}*) осталось: *{pts_needed} PTS*"
+                kit_progress_text = f"**До следующего ранга на {matched_kit} ({next_tier}) осталось: {pts_needed} PTS**"
             else:
-                progress_text = "🎉 Достигнут максимальный ранг!"
+                kit_progress_text = f"**На ките {matched_kit} достигнут максимальный ранг!**"
 
-            # Формируем итоговый красивый текст
+            # Расчет общего среднего ранга по ВСЕМ китам игрока
+            overall_tier, tests_count, overall_progress_text = calculate_overall_tier(active_player_tiers)
+
+            # Собираем полностью ЖИРНЫЙ текст ответа
             success_text = (
-                f" **Игрок {player_name} успешно внесен в базу данных!**\n\n"
-                f" **Регион:** {region} | 📱 **Устройство:** {device}\n"
-                f" **Кит:** {matched_kit} | **Ранг:** {new_tier}\n\n"
-                f" {progress_text}"
+                f"✅ **Игрок {player_name} внесен в базу данных!**\n\n"
+                f"🌍 **Регион: {region} | 📱 Устройство: {device}**\n"
+                f"⚔️ **Кит: {matched_kit} | 📊 Ранг: {new_tier}**\n\n"
+                f"🌟 **Текущий средний ранг: {overall_tier} (Тестов: {tests_count})**\n"
+                f"📈 **{overall_progress_text}**\n"
+                f"🎯 **{kit_progress_text}**"
             )
 
-            # 2. ИЗМЕНЯЕМ СООБЩЕНИЕ НА ШАБЛОН УСПЕХА
+            # 2. РЕДАКТИРУЕМ СООБЩЕНИЕ НА ШАБЛОН УСПЕХА
             bot.edit_message_text(
                 chat_id=message.chat.id,
                 message_id=status_msg.message_id,
@@ -195,14 +262,16 @@ def handle_telegram_message(message):
             bot.edit_message_text(
                 chat_id=message.chat.id,
                 message_id=status_msg.message_id,
-                text=f"❌ Ошибка записи на GitHub: {put_response.status_code}"
+                text=f"❌ **Ошибка записи на GitHub: {put_response.status_code}**",
+                parse_mode="Markdown"
             )
 
     except Exception as e:
         bot.edit_message_text(
             chat_id=message.chat.id,
             message_id=status_msg.message_id,
-            text=f"❌ Системная ошибка: {str(e)}"
+            text=f"❌ **Системная ошибка: {str(e)}**",
+            parse_mode="Markdown"
         )
 
 if __name__ == '__main__':
