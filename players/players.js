@@ -780,7 +780,7 @@ const players = [
     {
         name: "Topor",
         region: "RU",
-        device: "PH",
+        device: "TB",
         tiers: {
             "Emerald Pot": "LT3",
             Combo: "LT3",
