@@ -802,7 +802,8 @@ const players = [
         tiers: {
             "Emerald Pot": "LT3",
             Combo: "LT3",
-            SMP: "LT3"
+            SMP: "LT3",
+            Hardcore: "HT3"
         }
     },
     {
