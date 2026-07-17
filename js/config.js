@@ -2,7 +2,8 @@
 const kitImages = {
     "Hardcore": "assets/logos/hardcore.png",
     "Manhunt": "assets/logos/manhunt.png",
-    "Diamond": "assets/logos/diamond.png",
+    "Diamond Pot": "assets/logos/diamond.png",
+    "Vanilla": "assets/logos/vanilla.png",
     "Beast": "assets/logos/beast.png",
     "Emerald": "assets/logos/emerald.png",
     "Emerald Pot": "assets/logos/emerald_pot.png",
@@ -37,5 +38,5 @@ const tierColors = {
 };
 
 // Списки основных и дополнительных режимов
-const maintiers = ["Hardcore", "Manhunt", "Diamond", "Beast", "Emerald", "Emerald Pot", "RVM", "Dragonhide", "Pickaxe", "SMP", "Vanilla"];
+const maintiers = ["Hardcore", "Manhunt", "Diamond Pot", "Beast", "Emerald", "Emerald Pot", "RVM", "Dragonhide", "Pickaxe", "SMP", "Vanilla"];
 const subtiers = ["Combo", "Gapple", "Mace", "Crystal"];
