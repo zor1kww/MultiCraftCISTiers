@@ -803,7 +803,6 @@ const players = [
         device: "PH",
         tiers: {
             "Emerald Pot": "LT1",
-            "diamond Pot": "HT2",
             Diamond: "HT2"
         }
     }
