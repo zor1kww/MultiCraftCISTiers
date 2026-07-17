@@ -777,7 +777,8 @@ const players = [
             RVM: "LT4",
             "Emerald Pot": "LT3",
             Mace: "LT3",
-            Pickaxe: "LT3"
+            Pickaxe: "LT3",
+            Combo: "LT3"
         }
     }
 ];
