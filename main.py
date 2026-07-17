@@ -81,8 +81,7 @@ def get_next_tier_info(current_tier):
 
 def calculate_overall_tier(player_tiers):
     """
-    Рассчитывает средний ранг по всем пройденным тестам (Main + Sub)
-    и считает, сколько единиц веса не хватает до следующего общего ранга.
+    Рассчитывает средний ранг по всем пройденным тестам
     """
     total_weight = 0
     count = 0
@@ -102,23 +101,13 @@ def calculate_overall_tier(player_tiers):
             count += 1
             
     if count == 0:
-        return "Unranked", 0, "Нет сыгранных тестов"
+        return "Unranked", 0
 
     # Текущий средний вес (с округлением Math.round)
     avg_weight = int(round(total_weight / count))
     current_overall = REVERSE_WEIGHTS.get(avg_weight, "Unranked")
     
-    if avg_weight >= 10:
-        return current_overall, count, "🎉 Максимальный общий ранг!"
-        
-    # Считаем, сколько веса не хватает до следующего общего ранга.
-    # Для перехода на следующий уровень средний вес до округления должен стать >= (avg_weight + 0.5)
-    target_avg = avg_weight + 0.5
-    required_total_weight = math.ceil(target_avg * count)
-    needed_weight_diff = required_total_weight - total_weight
-    
-    progress_msg = f"До общего *{REVERSE_WEIGHTS[avg_weight + 1]}* осталось повысить любой кит на *{needed_weight_diff}* ур."
-    return current_overall, count, progress_msg
+    return current_overall, count
 
 @bot.message_handler(func=lambda message: message.chat.id == TARGET_CHAT_ID and message.message_thread_id == TARGET_THREAD_ID)
 def handle_telegram_message(message):
@@ -133,15 +122,15 @@ def handle_telegram_message(message):
         device = re.search(r"Устройство:\s*([^\n]+)", text).group(1).strip().upper()
         new_tier = re.search(r"Полученный ранг:\s*([^\n]+)", text).group(1).strip().upper()
     except AttributeError:
-        bot.reply_to(message, "❌ **Ошибка! Не удалось распознать шаблон. Проверьте правильность заполнения полей.**", parse_mode="Markdown")
+        bot.reply_to(message, "❌ **Ошибка. Не удалось распознать шаблон. Проверьте правильность заполнения полей.**", parse_mode="Markdown")
         return
 
     matched_kit = next((k for k in VALID_KITS if k.lower() == kit_name.lower()), None)
     if not matched_kit:
         matched_kit = kit_name
 
-    # 1. ОТПРАВЛЯЕМ СООБЩЕНИЕ-ЗАГРУЗКУ (ЖИРНЫМ)
-    status_msg = bot.reply_to(message, f"⏳ **Обрабатываю результат для {player_name}...**", parse_mode="Markdown")
+    # 1. ОТПРАВЛЯЕМ СООБЩЕНИЕ-ЗАГРУЗКУ (БЕЗ СМАЙЛИКОВ И ВОСКЛИЦАТЕЛЬНЫХ ЗНАКОВ)
+    status_msg = bot.reply_to(message, f"**Обрабатываю результат для {player_name}...**", parse_mode="Markdown")
 
     file_path = "players/players.js"
     url = f"https://api.github.com/repos/{GH_REPO}/contents/{file_path}"
@@ -234,20 +223,19 @@ def handle_telegram_message(message):
             # Расчет разницы на конкретном ките
             next_tier, pts_needed = get_next_tier_info(new_tier)
             if next_tier:
-                kit_progress_text = f"**До следующего ранга на {matched_kit} ({next_tier}) осталось: {pts_needed} PTS**"
+                kit_progress_text = f"**До следующего ранга на {matched_kit} [{next_tier}] осталось: {pts_needed} PTS**"
             else:
-                kit_progress_text = f"**На ките {matched_kit} достигнут максимальный ранг!**"
+                kit_progress_text = f"**На ките {matched_kit} достигнут максимальный ранг**"
 
             # Расчет общего среднего ранга по ВСЕМ китам игрока
-            overall_tier, tests_count, overall_progress_text = calculate_overall_tier(active_player_tiers)
+            overall_tier, tests_count = calculate_overall_tier(active_player_tiers)
 
-            # Собираем полностью ЖИРНЫЙ текст ответа
+            # Собираем полностью ЖИРНЫЙ текст ответа без смайликов, восклицательных знаков и строки main+sub прогресса
             success_text = (
-                f"**Игрок {player_name} внесен в базу данных!**\n\n"
+                f"**Игрок {player_name} внесен в базу данных**\n\n"
                 f"**Регион: {region} | Устройство: {device}**\n"
                 f"**Кит: {matched_kit} | Ранг: {new_tier}**\n\n"
-                f"**Текущий средний ранг: {overall_tier} (Тестов: {tests_count})**\n"
-                f"**{overall_progress_text}**\n"
+                f"**Текущий средний ранг: {overall_tier} [Тестов: {tests_count}]**\n"
                 f"**{kit_progress_text}**"
             )
 
