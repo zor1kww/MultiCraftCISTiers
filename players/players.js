@@ -786,7 +786,8 @@ const players = [
         region: "RU",
         device: "TB",
         tiers: {
-            Gapple: "LT3"
+            Gapple: "LT3",
+            Combo: "HT2"
         }
     }
 ];
