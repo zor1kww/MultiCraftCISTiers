@@ -87,7 +87,6 @@ def calculate_overall_tier(player_tiers):
     count = 0
     
     for kit_name, tier_val in player_tiers.items():
-        # Если тир записан как объект, достаем из него строку
         if isinstance(tier_val, dict):
             tier_str = tier_val.get('tier', 'UNRANKED').upper()
         else:
@@ -103,7 +102,6 @@ def calculate_overall_tier(player_tiers):
     if count == 0:
         return "Unranked", 0
 
-    # Текущий средний вес (с округлением Math.round)
     avg_weight = int(round(total_weight / count))
     current_overall = REVERSE_WEIGHTS.get(avg_weight, "Unranked")
     
@@ -122,15 +120,16 @@ def handle_telegram_message(message):
         device = re.search(r"Устройство:\s*([^\n]+)", text).group(1).strip().upper()
         new_tier = re.search(r"Полученный ранг:\s*([^\n]+)", text).group(1).strip().upper()
     except AttributeError:
-        bot.reply_to(message, "❌ **Ошибка. Не удалось распознать шаблон. Проверьте правильность заполнения полей.**", parse_mode="Markdown")
+        # Ошибки выводим обычным текстом без parse_mode, чтобы они никогда не ломались
+        bot.reply_to(message, "Ошибка. Не удалось распознать шаблон. Проверьте правильность заполнения полей.")
         return
 
     matched_kit = next((k for k in VALID_KITS if k.lower() == kit_name.lower()), None)
     if not matched_kit:
         matched_kit = kit_name
 
-    # 1. ОТПРАВЛЯЕМ СООБЩЕНИЕ-ЗАГРУЗКУ (БЕЗ СМАЙЛИКОВ И ВОСКЛИЦАТЕЛЬНЫХ ЗНАКОВ)
-    status_msg = bot.reply_to(message, f"**Обрабатываю результат для {player_name}...**", parse_mode="Markdown")
+    # Безопасный текст загрузки на HTML
+    status_msg = bot.reply_to(message, f"<b>Обрабатываю результат для {player_name}...</b>", parse_mode="HTML")
 
     file_path = "players/players.js"
     url = f"https://api.github.com/repos/{GH_REPO}/contents/{file_path}"
@@ -142,8 +141,7 @@ def handle_telegram_message(message):
             bot.edit_message_text(
                 chat_id=message.chat.id,
                 message_id=status_msg.message_id,
-                text=f"❌ **Ошибка GitHub при чтении файла: {response.status_code}**",
-                parse_mode="Markdown"
+                text=f"Ошибка GitHub при чтении файла: {response.status_code}"
             )
             return
 
@@ -158,8 +156,7 @@ def handle_telegram_message(message):
                 bot.edit_message_text(
                     chat_id=message.chat.id,
                     message_id=status_msg.message_id,
-                    text="❌ **Ошибка: Не удалось найти структуру массива в файле.**",
-                    parse_mode="Markdown"
+                    text="Ошибка: Не удалось найти структуру массива в файле."
                 )
                 return
 
@@ -172,8 +169,7 @@ def handle_telegram_message(message):
             bot.edit_message_text(
                 chat_id=message.chat.id,
                 message_id=status_msg.message_id,
-                text=f"❌ **Ошибка JSON после обработки: {str(je)}**",
-                parse_mode="Markdown"
+                text=f"Ошибка JSON после обработки: {str(je)}"
             )
             return
 
@@ -220,47 +216,41 @@ def handle_telegram_message(message):
         put_response = requests.put(url, headers=headers, json=payload)
 
         if put_response.status_code in [200, 201]:
-            # Расчет разницы на конкретном ките
             next_tier, pts_needed = get_next_tier_info(new_tier)
             if next_tier:
-                # Все круглые скобки заменяем на квадратные, убираем восклицательный знак в конце
-                kit_progress_text = f"**До следующего ранга на {matched_kit} [{next_tier}] осталось: {pts_needed} PTS**"
+                kit_progress_text = f"<b>До следующего ранга на {matched_kit} [{next_tier}] осталось: {pts_needed} PTS</b>"
             else:
-                kit_progress_text = f"**На ките {matched_kit} достигнут максимальный ранг**"
+                kit_progress_text = f"<b>На ките {matched_kit} достигнут максимальный ранг</b>"
 
-            # Расчет общего среднего ранга по ВСЕМ китам игрока
             overall_tier, tests_count = calculate_overall_tier(active_player_tiers)
 
-            # Собираем полностью ЖИРНЫЙ текст ответа без смайликов и восклицательных знаков
+            # Перевели полностью в HTML-разметку (теги <b> вместо звездочек)
             success_text = (
-                f"**Игрок {player_name} внесен в базу данных**\n\n"
-                f"**Регион: {region} | Устройство: {device}**\n"
-                f"**Кит: {matched_kit} | Ранг: {new_tier}**\n\n"
-                f"**Текущий средний ранг: {overall_tier} [Тестов: {tests_count}]**\n"
-                f"**{kit_progress_text}**"
+                f"<b>Игрок {player_name} внесен в базу данных</b>\n\n"
+                f"<b>Регион: {region} | Устройство: {device}</b>\n"
+                f"<b>Кит: {matched_kit} | Ранг: {new_tier}</b>\n\n"
+                f"<b>Текущий средний ранг: {overall_tier} [Тестов: {tests_count}]</b>\n"
+                f"<b>{kit_progress_text}</b>"
             )
 
-            # 2. РЕДАКТИРУЕМ СООБЩЕНИЕ НА ШАБЛОН УСПЕХА
             bot.edit_message_text(
                 chat_id=message.chat.id,
                 message_id=status_msg.message_id,
                 text=success_text,
-                parse_mode="Markdown"
+                parse_mode="HTML"
             )
         else:
             bot.edit_message_text(
                 chat_id=message.chat.id,
                 message_id=status_msg.message_id,
-                text=f"❌ **Ошибка записи на GitHub: {put_response.status_code}**",
-                parse_mode="Markdown"
+                text=f"Ошибка записи на GitHub: {put_response.status_code}"
             )
 
     except Exception as e:
         bot.edit_message_text(
             chat_id=message.chat.id,
             message_id=status_msg.message_id,
-            text=f"❌ **Системная ошибка: {str(e)}**",
-            parse_mode="Markdown"
+            text=f"Системная ошибка: {str(e)}"
         )
 
 if __name__ == '__main__':
