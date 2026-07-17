@@ -183,7 +183,7 @@ function getMetaTierTag(tier, isRetired = false) {
 function isTester(playerName) {
     if (!playerName) return false;
     const nameLower = playerName.toLowerCase();
-    const testers = ["-999-", "zor1kkqwix", "sneger", "_xx_deras_xx_"];
+    const testers = ["-999-", "zor1kkqwix", "_xx_deras_xx"];
     return testers.includes(nameLower);
 }
 
