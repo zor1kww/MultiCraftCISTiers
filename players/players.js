@@ -794,5 +794,13 @@ const players = [
             Mace: "HT4",
             Hardcore: "LT5"
         }
+    },
+    {
+        name: "Topor",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Emerald Pot": "LT3"
+        }
     }
 ];
