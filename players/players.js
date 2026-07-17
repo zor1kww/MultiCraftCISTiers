@@ -7,7 +7,7 @@ const players = [
         tiers: {
             Dragonhide: "RHT1",
             Emerald: "RLT1",
-            Diamond: "RHT1",
+            "Diamond Pot": "RHT1",
             RVM: "RHT1",
             Crystal: "RHT2",
             Combo: "RLT1",
@@ -25,7 +25,7 @@ const players = [
         tiers: {
             Dragonhide: "RLT1",
             Emerald: "RHT1",
-            Diamond: "RLT1",
+            "Diamond Pot": "RLT1",
             SMP: "RHT1",
             Crystal: "LT1",
             Combo: "RHT1",
@@ -49,7 +49,7 @@ const players = [
             RVM: "HT3",
             Pickaxe: "LT3",
             Emerald: "LT3",
-            Diamond: "HT3",
+            "Diamond Pot": "HT3",
             Dragonhide: "HT3",
             Beast: "LT2",
             Crystal: "HT1",
@@ -92,7 +92,7 @@ const players = [
             Gapple: "LT2",
             Mace: "LT1",
             Crystal: "HT2",
-            Diamond: "HT2"
+            "Diamond Pot": "HT2"
         }
     },
     {
@@ -106,7 +106,7 @@ const players = [
             Hardcore: "HT3",
             "Emerald Pot": "HT3",
             Beast: "LT1",
-            Diamond: "LT2",
+            "Diamond Pot": "LT2",
             Mace: "LT2",
             SMP: "HT4"
         }
@@ -122,7 +122,7 @@ const players = [
             RVM: "LT3",
             "Emerald Pot": "HT4",
             Pickaxe: "LT3",
-            Diamond: "LT3",
+            "Diamond Pot": "LT3",
             Dragonhide: "LT3",
             Beast: "LT3",
             Crystal: "HT5",
@@ -157,7 +157,7 @@ const players = [
             Dragonhide: "LT3",
             Mace: "LT3",
             Beast: "LT3",
-            Diamond: "HT3",
+            "Diamond Pot": "HT3",
             Pickaxe: "LT3",
             Emerald: "HT4",
             SMP: "LT3",
@@ -237,7 +237,7 @@ const players = [
             "Emerald Pot": "LT2",
             Mace: "HT3",
             Crystal: "LT4",
-            Diamond: "LT1",
+            "Diamond Pot": "LT1",
             Beast: "LT2",
             Pickaxe: "LT3",
             Hardcore: "HT3",
@@ -270,7 +270,7 @@ const players = [
             SMP: "HT4",
             Hardcore: "LT4",
             RVM: "HT4",
-            Diamond: "LT3",
+            "Diamond Pot": "LT3",
             Dragonhide: "LT3",
             Emerald: "HT4",
             Mace: "LT3",
@@ -374,7 +374,7 @@ const players = [
             "Emerald Pot": "LT3",
             RVM: "HT4",
             SMP: "HT4",
-            Diamond: "HT4"
+            "Diamond Pot": "HT4"
         }
     },
     {
@@ -432,7 +432,7 @@ const players = [
             Beast: "LT3",
             Mace: "LT3",
             RVM: "HT4",
-            Diamond: "LT3",
+            "Diamond Pot": "LT3",
             Emerald: "LT4",
             Pickaxe: "HT4",
             Gapple: "LT3",
@@ -540,7 +540,7 @@ const players = [
             Mace: "LT4",
             Combo: "HT4",
             Beast: "LT4",
-            Diamond: "LT4",
+            "Diamond Pot": "LT4",
             Emerald: "LT3",
             Gapple: "LT4",
             "Emerald Pot": "LT3"
@@ -698,7 +698,7 @@ const players = [
         tiers: {
             Hardcore: "HT3",
             Beast: "LT3",
-            Diamond: "LT3",
+            "Diamond Pot": "LT3",
             RVM: "HT4",
             Dragonhide: "HT4",
             Mace: "LT3"
@@ -765,7 +765,7 @@ const players = [
             Hardcore: "LT3",
             Emerald: "LT3",
             Beast: "LT3",
-            Diamond: "LT3",
+            "Diamond Pot": "LT3",
             SMP: "LT3",
             Dragonhide: "LT3",
             Crystal: "HT3",
@@ -803,7 +803,7 @@ const players = [
         device: "PH",
         tiers: {
             "Emerald Pot": "LT1",
-            Diamond: "HT2"
+            "Diamond Pot": "HT2"
         }
     },
     {
@@ -811,7 +811,7 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            "diamond Pot": "LT5"
+            "Diamond Pot": "LT5"
         }
     }
 ];
