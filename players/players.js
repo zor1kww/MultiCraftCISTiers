@@ -236,7 +236,7 @@ const players = [
             Dragonhide: "LT2",
             "Emerald Pot": "LT2",
             Mace: "HT3",
-            Crystal: "LT4",
+            Crystal: "HT4",
             "Diamond Pot": "LT1",
             Beast: "LT2",
             Pickaxe: "LT3",
@@ -811,7 +811,7 @@ const players = [
         region: "UA",
         device: "PH",
         tiers: {
-            "Hardcore": "LT5"
+            Hardcore: "LT5"
         }
     }
 ];
