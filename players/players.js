@@ -743,7 +743,8 @@ const players = [
         region: "AM",
         device: "PH",
         tiers: {
-            Beast: "LT4"
+            Beast: "LT4",
+            Mace: "LT4"
         }
     },
     {
