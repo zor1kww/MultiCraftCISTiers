@@ -243,12 +243,12 @@ def handle_telegram_message(message):
 
             # Собираем полностью ЖИРНЫЙ текст ответа
             success_text = (
-                f"✅ **Игрок {player_name} внесен в базу данных!**\n\n"
-                f"🌍 **Регион: {region} | 📱 Устройство: {device}**\n"
-                f"⚔️ **Кит: {matched_kit} | 📊 Ранг: {new_tier}**\n\n"
-                f"🌟 **Текущий средний ранг: {overall_tier} (Тестов: {tests_count})**\n"
-                f"📈 **{overall_progress_text}**\n"
-                f"🎯 **{kit_progress_text}**"
+                f"**Игрок {player_name} внесен в базу данных!**\n\n"
+                f"**Регион: {region} | Устройство: {device}**\n"
+                f"**Кит: {matched_kit} | Ранг: {new_tier}**\n\n"
+                f"**Текущий средний ранг: {overall_tier} (Тестов: {tests_count})**\n"
+                f"**{overall_progress_text}**\n"
+                f"**{kit_progress_text}**"
             )
 
             # 2. РЕДАКТИРУЕМ СООБЩЕНИЕ НА ШАБЛОН УСПЕХА
