@@ -787,7 +787,8 @@ const players = [
         device: "TB",
         tiers: {
             Gapple: "LT3",
-            Combo: "HT2"
+            Combo: "HT2",
+            Mace: "HT4"
         }
     }
 ];
