@@ -788,7 +788,8 @@ const players = [
         tiers: {
             Gapple: "LT3",
             Combo: "HT2",
-            Mace: "HT4"
+            Mace: "HT4",
+            Hardcore: "LT5"
         }
     }
 ];
