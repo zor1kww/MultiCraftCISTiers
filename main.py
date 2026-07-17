@@ -223,6 +223,7 @@ def handle_telegram_message(message):
             # Расчет разницы на конкретном ките
             next_tier, pts_needed = get_next_tier_info(new_tier)
             if next_tier:
+                # Все круглые скобки заменяем на квадратные, убираем восклицательный знак в конце
                 kit_progress_text = f"**До следующего ранга на {matched_kit} [{next_tier}] осталось: {pts_needed} PTS**"
             else:
                 kit_progress_text = f"**На ките {matched_kit} достигнут максимальный ранг**"
@@ -230,7 +231,7 @@ def handle_telegram_message(message):
             # Расчет общего среднего ранга по ВСЕМ китам игрока
             overall_tier, tests_count = calculate_overall_tier(active_player_tiers)
 
-            # Собираем полностью ЖИРНЫЙ текст ответа без смайликов, восклицательных знаков и строки main+sub прогресса
+            # Собираем полностью ЖИРНЫЙ текст ответа без смайликов и восклицательных знаков
             success_text = (
                 f"**Игрок {player_name} внесен в базу данных**\n\n"
                 f"**Регион: {region} | Устройство: {device}**\n"
