@@ -744,7 +744,8 @@ const players = [
         device: "PH",
         tiers: {
             Beast: "LT4",
-            Mace: "LT4"
+            Mace: "LT4",
+            Pickaxe: "LT3"
         }
     },
     {
