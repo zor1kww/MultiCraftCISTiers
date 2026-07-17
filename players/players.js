@@ -796,5 +796,13 @@ const players = [
             RVM: "LT4",
             Beast: "LT4"
         }
+    },
+    {
+        name: "DzIla_EDITSmob",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            "Emerald Pot": "LT1"
+        }
     }
 ];
