@@ -31,7 +31,7 @@ TARGET_THREAD_ID = 11
 
 VALID_KITS = [
     "Hardcore", "Combo", "Emerald Pot", "RVM", "Emerald", "Beast", "Vanilla", 
-    "Dragonhide", "Pickaxe", "Crystal", "Mace", "Gapple", "SMP", "Manhunt", "Diamond"
+    "Dragonhide", "Pickaxe", "Crystal", "Mace", "Gapple", "SMP", "Manhunt", "Diamond Pot"
 ]
 
 # Веса рангов для вычисления среднего тира (1 - 10)
@@ -126,7 +126,13 @@ def handle_telegram_message(message):
 
     matched_kit = next((k for k in VALID_KITS if k.lower() == kit_name.lower()), None)
     if not matched_kit:
-        matched_kit = kit_name
+        valid_kits_list = ", ".join(VALID_KITS)
+        bot.reply_to(
+            message,
+            f"Ошибка: кит \"{kit_name}\" не найден в списке разрешенных китов. "
+            f"Проверьте правильность написания. Доступные киты: {valid_kits_list}"
+        )
+        return
 
     # Безопасный текст загрузки на HTML
     status_msg = bot.reply_to(message, f"<b>Обрабатываю результат для {player_name}...</b>", parse_mode="HTML")
