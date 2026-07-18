@@ -125,7 +125,7 @@ const players = [
             "Diamond Pot": "LT3",
             Dragonhide: "LT3",
             Beast: "LT3",
-            Crystal: "HT5",
+            Crystal: "HT4",
             Mace: "HT4",
             Gapple: "LT3",
             Combo: "LT3"
