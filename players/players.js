@@ -11,7 +11,7 @@ const players = [
             RVM: "RHT1",
             Crystal: "LT1",
             Combo: "RLT1",
-            Mace: "RHT1",
+            Mace: "HT1",
             Hardcore: "RHT2",
             "Emerald Pot": "LT1",
             SMP: "RLT1",
