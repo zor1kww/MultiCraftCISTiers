@@ -187,6 +187,22 @@ function isTester(playerName) {
     return testers.includes(nameLower);
 }
 
+// Открытие профиля игрока по имени (используется в Доске почета и вкладке Тестеры,
+// где нет отфильтрованного списка карточек, а есть просто статичное имя)
+function openProfileByName(playerName) {
+    if (typeof players === 'undefined' || !Array.isArray(players)) {
+        console.warn('База игроков ещё не загружена.');
+        return;
+    }
+    const found = players.find(p => p.name && p.name.toLowerCase() === playerName.toLowerCase());
+    if (!found) {
+        console.warn(`Игрок "${playerName}" не найден в базе.`);
+        return;
+    }
+    const encoded = encodeURIComponent(JSON.stringify([found]));
+    openProfile(0, encoded);
+}
+
 // ==========================================
 // 3. ОКНА ПРОФИЛЕЙ (МОДАЛЬНЫЕ ОКНА)
 // ==========================================
