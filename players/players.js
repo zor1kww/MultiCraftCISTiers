@@ -538,7 +538,7 @@ const players = [
             Hardcore: "HT5",
             SMP: "HT4",
             Mace: "LT4",
-            Combo: "HT4",
+            Combo: "LT4",
             Beast: "LT4",
             "Diamond Pot": "LT4",
             Emerald: "LT3",
