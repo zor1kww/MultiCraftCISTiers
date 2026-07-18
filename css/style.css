@@ -732,6 +732,12 @@ body, html {
     border-radius: 12px;
     padding: 15px;
     text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.tester-card:hover {
+    border-color: rgba(255,204,71,0.6);
+    transform: translateY(-2px);
 }
 .tester-name {
     font-size: 18px;
@@ -745,6 +751,17 @@ body, html {
     padding: 2px 8px;
     border-radius: 4px;
     display: inline-block;
+}
+
+.hall-name-link {
+    color: var(--accent);
+    font-weight: bold;
+    cursor: pointer;
+    transition: text-shadow 0.2s ease;
+}
+.hall-name-link:hover {
+    text-shadow: 0 0 8px rgba(255,204,71,0.6);
+    text-decoration: underline;
 }
 
 .step-list {
@@ -801,42 +818,94 @@ body, html {
     align-items: center;
     gap: 10px;
     margin-bottom: 0;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .wiki-title-icon {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     object-fit: contain;
+    filter: drop-shadow(0 0 6px rgba(255, 204, 71, 0.35));
 }
 
-/* Красивый аккуратный заголовок кита */
+/* Заголовок кита — крупнее, с разрядкой под капс-стиль оружейной таблички */
 .wiki-card h3 {
-    color: var(--accent);
-    font-size: 16px;
-    font-weight: normal; 
-    margin-bottom: 4px;
-    letter-spacing: 0.5px;
+    color: var(--text-main);
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 0;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
 }
 
-/* Оптимизированный мелкий шрифт для описания */
+/* Блок статов оружия — оформлен как карточка спецификации, а не обычный текст */
+.wiki-stats {
+    background: rgba(0, 0, 0, 0.18);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 10px 12px;
+    font-size: 12px;
+    line-height: 1.9;
+    color: var(--text-muted);
+    letter-spacing: 0.2px;
+}
+
+.wiki-stats strong {
+    color: var(--accent);
+    font-weight: 700;
+}
+
+/* Описание/лор кита — курсив отделяет "атмосферу" от сухих статов выше */
 .wiki-card p {
-    font-size: 11px;
+    font-size: 13px;
     font-weight: normal;
+    font-style: italic;
     color: #b0bacd;
-    line-height: 1.6;
-    margin-bottom: 10px;
-    letter-spacing: 0.3px;
+    line-height: 1.65;
+    margin-bottom: 0;
+    letter-spacing: 0.2px;
 }
 
 .wiki-card p:last-of-type {
     margin-bottom: 0;
 }
 
-/* Подсветка важных слов ("Тренирует:", "Изумрудный Меч:") золотым */
-.wiki-card p b, 
-.wiki-card p strong {
+/* Блок "Тренирует" — ярлык + отдельные теги-пилюли под каждый навык */
+.wiki-trains {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.wiki-trains-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.skill-tag {
+    font-size: 11px;
     color: var(--accent);
-    font-weight: normal;
+    background: rgba(255, 204, 71, 0.08);
+    border: 1px solid rgba(255, 204, 71, 0.25);
+    border-radius: 20px;
+    padding: 3px 10px;
+    white-space: nowrap;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.skill-tag:hover {
+    background: rgba(255, 204, 71, 0.16);
+    border-color: rgba(255, 204, 71, 0.5);
 }
 
 /* Исправленный контейнер инвентаря — картинка больше не сжимается */
