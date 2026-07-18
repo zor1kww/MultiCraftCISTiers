@@ -804,7 +804,8 @@ const players = [
         tiers: {
             "Emerald Pot": "LT1",
             "Diamond Pot": "HT2",
-            Emerald: "LT1"
+            Emerald: "LT1",
+            Beast: "LT2"
         }
     },
     {
