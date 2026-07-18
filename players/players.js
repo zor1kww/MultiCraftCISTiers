@@ -807,7 +807,8 @@ const players = [
             Emerald: "LT1",
             Beast: "LT2",
             RVM: "LT1",
-            Hardcore: "LT2"
+            Hardcore: "LT2",
+            Dragonhide: "HT2"
         }
     },
     {
