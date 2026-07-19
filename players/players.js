@@ -827,5 +827,13 @@ const players = [
         tiers: {
             Mace: "LT2"
         }
+    },
+    {
+        name: "Straight",
+        region: "EU",
+        device: "PH",
+        tiers: {
+            Mace: "HT5"
+        }
     }
 ];
