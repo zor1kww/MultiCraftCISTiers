@@ -819,5 +819,13 @@ const players = [
         tiers: {
             Hardcore: "LT5"
         }
+    },
+    {
+        name: "h9nto",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            Mace: "LT2"
+        }
     }
 ];
