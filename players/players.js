@@ -837,5 +837,13 @@ const players = [
             Dragonhide: "HT4",
             "Diamond Pot": "HT5"
         }
+    },
+    {
+        name: "1645081O8",
+        region: "EU",
+        device: "PH",
+        tiers: {
+            "Emerald Pot": "LT3"
+        }
     }
 ];
