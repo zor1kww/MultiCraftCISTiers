@@ -840,7 +840,7 @@ const players = [
     },
     {
         name: "1645081O8",
-        region: "EU",
+        region: "RU",
         device: "PH",
         tiers: {
             "Emerald Pot": "LT3"
