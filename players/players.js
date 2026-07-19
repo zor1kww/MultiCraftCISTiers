@@ -834,7 +834,8 @@ const players = [
         device: "PH",
         tiers: {
             Mace: "HT5",
-            Dragonhide: "HT4"
+            Dragonhide: "HT4",
+            "Diamond Pot": "HT5"
         }
     }
 ];
