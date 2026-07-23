@@ -753,14 +753,6 @@ const players = [
         }
     },
     {
-        name: "Larpmaster1k",
-        region: "EU",
-        device: "PH",
-        tiers: {
-            "Emerald Pot": "LT3"
-        }
-    },
-    {
         name: "Aura",
         region: "RU",
         device: "TB",
