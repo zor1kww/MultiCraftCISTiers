@@ -315,7 +315,7 @@ const players = [
     {
         name: "-BaCk-",
         region: "KZ",
-        device: "PH",
+        device: "RU",
         tiers: {
             Mace: "LT3",
             Dragonhide: "HT4",
@@ -323,7 +323,8 @@ const players = [
             Hardcore: "HT4",
             RVM: "LT3",
             Emerald: "HT3",
-            "Diamond Pot": "LT3"
+            "Diamond Pot": "LT3",
+            SMP: "HT4"
         }
     },
     {
