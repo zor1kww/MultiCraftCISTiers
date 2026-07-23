@@ -831,7 +831,8 @@ const players = [
             Mace: "HT5",
             Dragonhide: "HT4",
             "Diamond Pot": "LT4",
-            SMP: "HT5"
+            SMP: "HT5",
+            Hardcore: "LT4"
         }
     },
     {
