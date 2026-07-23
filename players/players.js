@@ -737,7 +737,8 @@ const players = [
         device: "PH",
         tiers: {
             "Emerald Pot": "LT3",
-            RVM: "HT4"
+            RVM: "HT4",
+            Beast: "LT3"
         }
     },
     {
