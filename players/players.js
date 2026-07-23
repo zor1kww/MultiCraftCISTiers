@@ -759,7 +759,7 @@ const players = [
         device: "TB",
         tiers: {
             Hardcore: "LT3",
-            Emerald: "LT3",
+            Emerald: "LT2",
             Beast: "HT3",
             "Diamond Pot": "HT3",
             SMP: "LT3",
