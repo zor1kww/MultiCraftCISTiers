@@ -853,5 +853,13 @@ const players = [
         tiers: {
             "Diamond Pot": "LT4"
         }
+    },
+    {
+        name: "Top",
+        region: "UA",
+        device: "RU",
+        tiers: {
+            Hardcore: "LT4"
+        }
     }
 ];
