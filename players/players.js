@@ -874,5 +874,13 @@ const players = [
         tiers: {
             Pickaxe: "HT4"
         }
+    },
+    {
+        name: "Lpbe",
+        region: "EU",
+        device: "PH",
+        tiers: {
+            Emerald: "LT4"
+        }
     }
 ];
