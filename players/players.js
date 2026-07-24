@@ -829,13 +829,14 @@ const players = [
     {
         name: "Straight",
         region: "EU",
-        device: "PH",
+        device: "RU",
         tiers: {
             Mace: "HT5",
             Dragonhide: "HT4",
             "Diamond Pot": "LT4",
             SMP: "HT5",
-            Hardcore: "LT4"
+            Hardcore: "LT4",
+            Emerald: "LT3"
         }
     },
     {
