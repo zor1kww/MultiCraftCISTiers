@@ -862,5 +862,13 @@ const players = [
         tiers: {
             Hardcore: "LT4"
         }
+    },
+    {
+        name: "Crystal",
+        region: "KZ",
+        device: "RU",
+        tiers: {
+            Pickaxe: "HT4"
+        }
     }
 ];
