@@ -846,7 +846,8 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            "Emerald Pot": "LT2"
+            "Emerald Pot": "LT2",
+            Dragonhide: "LT3"
         }
     },
     {
