@@ -553,10 +553,11 @@ const players = [
     {
         name: "Kenny13",
         region: "RU",
-        device: "PH",
+        device: "RU",
         tiers: {
             Hardcore: "HT5",
-            Beast: "LT4"
+            Beast: "LT4",
+            Mace: "HT4"
         }
     },
     {
