@@ -823,7 +823,8 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            Mace: "LT2"
+            Mace: "LT2",
+            "Emerald Pot": "LT3"
         }
     },
     {
