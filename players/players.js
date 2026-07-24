@@ -837,7 +837,8 @@ const players = [
             "Diamond Pot": "LT4",
             SMP: "HT5",
             Hardcore: "LT4",
-            Emerald: "LT3"
+            Emerald: "LT3",
+            Crystal: "HT3"
         }
     },
     {
