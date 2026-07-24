@@ -830,7 +830,7 @@ const players = [
     {
         name: "Straight",
         region: "EU",
-        device: "RU",
+        device: "PH",
         tiers: {
             Mace: "HT5",
             Dragonhide: "HT4",
