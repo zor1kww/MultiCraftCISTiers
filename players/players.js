@@ -866,7 +866,8 @@ const players = [
         tiers: {
             Hardcore: "LT4",
             "Emerald Pot": "LT4",
-            Beast: "HT4"
+            Beast: "HT4",
+            Mace: "LT5"
         }
     },
     {
