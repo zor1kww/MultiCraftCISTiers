@@ -885,5 +885,13 @@ const players = [
         tiers: {
             Emerald: "LT4"
         }
+    },
+    {
+        name: "HAVCHIK",
+        region: "UA",
+        device: "PH",
+        tiers: {
+            "Emerald Pot": "LT3"
+        }
     }
 ];
