@@ -315,10 +315,10 @@ const players = [
     {
         name: "-BaCk-",
         region: "KZ",
-        device: "RU",
+        device: "PH",
         tiers: {
             Mace: "LT3",
-            Dragonhide: "HT4",
+            Dragonhide: "LT3",
             Beast: "LT3",
             Hardcore: "HT4",
             RVM: "LT3",
