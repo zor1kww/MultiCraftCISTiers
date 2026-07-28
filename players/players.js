@@ -841,7 +841,8 @@ const players = [
             Hardcore: "LT4",
             Emerald: "LT3",
             Crystal: "LT3",
-            Beast: "LT4"
+            Beast: "LT4",
+            RVM: "LT3"
         }
     },
     {
