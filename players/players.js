@@ -441,7 +441,7 @@ const players = [
             Emerald: "LT3",
             Pickaxe: "HT4",
             Gapple: "LT3",
-            SMP: "HT4",
+            SMP: "LT3",
             Dragonhide: "LT3",
             "Emerald Pot": "HT3",
             Combo: "LT2"
