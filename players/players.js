@@ -431,7 +431,7 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            Hardcore: "LT3",
+            Hardcore: "HT3",
             Crystal: "LT1",
             Beast: "LT3",
             Mace: "HT3",
