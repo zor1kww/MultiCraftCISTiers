@@ -443,7 +443,7 @@ const players = [
             Gapple: "LT3",
             SMP: "LT3",
             Dragonhide: "LT3",
-            "Emerald Pot": "HT3",
+            "Emerald Pot": "LT3",
             Combo: "LT2"
         }
     },
