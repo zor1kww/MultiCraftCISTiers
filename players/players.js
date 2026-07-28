@@ -840,7 +840,8 @@ const players = [
             SMP: "HT5",
             Hardcore: "LT4",
             Emerald: "LT3",
-            Crystal: "LT3"
+            Crystal: "LT3",
+            Beast: "LT4"
         }
     },
     {
