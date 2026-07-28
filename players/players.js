@@ -325,7 +325,8 @@ const players = [
             Emerald: "HT3",
             "Diamond Pot": "LT3",
             SMP: "HT4",
-            Pickaxe: "HT4"
+            Pickaxe: "HT4",
+            Crystal: "HT4"
         }
     },
     {
