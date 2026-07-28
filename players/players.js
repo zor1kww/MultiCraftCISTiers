@@ -438,7 +438,7 @@ const players = [
             Mace: "HT3",
             RVM: "HT4",
             "Diamond Pot": "LT3",
-            Emerald: "LT4",
+            Emerald: "LT3",
             Pickaxe: "HT4",
             Gapple: "LT3",
             SMP: "HT4",
