@@ -5,16 +5,10 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            Dragonhide: "RHT1",
-            Emerald: "RLT1",
-            "Diamond Pot": "RHT1",
-            RVM: "RHT1",
             Crystal: "LT1",
-            Combo: "RLT1",
             Mace: "HT1",
             Hardcore: "HT2",
             "Emerald Pot": "LT1",
-            SMP: "RLT1",
             Beast: "HT1",
             Pickaxe: "LT3"
         }
@@ -873,14 +867,6 @@ const players = [
             Mace: "LT5",
             Dragonhide: "HT5",
             Gapple: "LT4"
-        }
-    },
-    {
-        name: "Crystal",
-        region: "KZ",
-        device: "RU",
-        tiers: {
-            Pickaxe: "HT4"
         }
     },
     {
