@@ -759,7 +759,7 @@ const players = [
         tiers: {
             Hardcore: "LT3",
             Emerald: "LT2",
-            Beast: "LT2",
+            Beast: "HT2",
             "Diamond Pot": "HT3",
             SMP: "LT3",
             Dragonhide: "LT3",
