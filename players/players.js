@@ -10,7 +10,8 @@ const players = [
             Hardcore: "HT2",
             "Emerald Pot": "LT1",
             Beast: "HT1",
-            Pickaxe: "LT3"
+            Pickaxe: "LT3",
+            Emerald: "HT1"
         }
     },
     {
