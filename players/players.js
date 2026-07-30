@@ -908,7 +908,8 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            Mace: "HT4"
+            Mace: "HT4",
+            Hardcore: "LT3"
         }
     }
 ];
