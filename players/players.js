@@ -902,5 +902,13 @@ const players = [
             "Emerald Pot": "LT3",
             RVM: "HT4"
         }
+    },
+    {
+        name: "-Sorry-",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            Mace: "HT4"
+        }
     }
 ];
