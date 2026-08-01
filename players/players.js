@@ -731,7 +731,7 @@ const players = [
     },
     {
         name: "Karzer1",
-        region: "EU",
+        region: "FR",
         device: "PH",
         tiers: {
             "Emerald Pot": "LT3",
