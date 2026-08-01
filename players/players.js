@@ -427,19 +427,7 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            Hardcore: "LT2",
-            Crystal: "LT1",
-            Beast: "LT2",
-            Mace: "HT3",
-            RVM: "HT4",
-            "Diamond Pot": "LT3",
-            Emerald: "LT2",
-            Pickaxe: "LT3",
-            Gapple: "LT3",
-            SMP: "HT3",
-            Dragonhide: "LT2",
-            "Emerald Pot": "HT3",
-            Combo: "LT2"
+            Crystal: "LT1"
         }
     },
     {
