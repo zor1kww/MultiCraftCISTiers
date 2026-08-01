@@ -582,7 +582,8 @@ const players = [
         device: "PH",
         tiers: {
             Mace: "HT4",
-            Crystal: "LT4"
+            Crystal: "LT4",
+            SMP: "HT4"
         }
     },
     {
