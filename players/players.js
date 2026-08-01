@@ -818,7 +818,8 @@ const players = [
         tiers: {
             Mace: "LT2",
             "Emerald Pot": "LT3",
-            RVM: "HT3"
+            RVM: "HT3",
+            Beast: "LT2"
         }
     },
     {
