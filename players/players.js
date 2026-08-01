@@ -730,7 +730,8 @@ const players = [
             "Emerald Pot": "LT3",
             RVM: "HT4",
             Beast: "LT3",
-            Emerald: "LT3"
+            Emerald: "LT3",
+            Hardcore: "HT3"
         }
     },
     {
