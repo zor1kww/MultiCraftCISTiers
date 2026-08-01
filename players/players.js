@@ -823,7 +823,7 @@ const players = [
         region: "EU",
         device: "PH",
         tiers: {
-            Mace: "LT4",
+            Mace: "HT3",
             Dragonhide: "HT4",
             "Diamond Pot": "LT4",
             SMP: "HT5",
