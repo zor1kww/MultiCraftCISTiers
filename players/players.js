@@ -943,7 +943,8 @@ const players = [
         tiers: {
             RVM: "LT4",
             Dragonhide: "HT4",
-            Pickaxe: "LT3"
+            Pickaxe: "LT3",
+            Beast: "LT4"
         }
     }
 ];
