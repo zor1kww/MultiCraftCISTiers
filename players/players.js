@@ -907,5 +907,13 @@ const players = [
             Mace: "HT4",
             Hardcore: "LT3"
         }
+    },
+    {
+        name: "_MACKA_",
+        region: "RU",
+        device: "TB",
+        tiers: {
+            RVM: "HT4"
+        }
     }
 ];
