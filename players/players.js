@@ -935,5 +935,13 @@ const players = [
         tiers: {
             Hardcore: "LT4"
         }
+    },
+    {
+        name: "MinatoNamikaze",
+        region: "FR",
+        device: "PH",
+        tiers: {
+            RVM: "LT4"
+        }
     }
 ];
