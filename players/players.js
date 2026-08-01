@@ -428,7 +428,8 @@ const players = [
         device: "PH",
         tiers: {
             Crystal: "LT1",
-            RVM: "LT3"
+            RVM: "LT3",
+            SMP: "LT3"
         }
     },
     {
