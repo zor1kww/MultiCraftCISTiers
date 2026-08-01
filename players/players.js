@@ -942,7 +942,8 @@ const players = [
         device: "PH",
         tiers: {
             RVM: "LT4",
-            Dragonhide: "HT4"
+            Dragonhide: "HT4",
+            Pickaxe: "LT3"
         }
     }
 ];
