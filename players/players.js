@@ -836,7 +836,8 @@ const players = [
             Emerald: "LT3",
             Crystal: "HT4",
             Beast: "LT4",
-            RVM: "LT3"
+            RVM: "LT3",
+            Pickaxe: "LT3"
         }
     },
     {
