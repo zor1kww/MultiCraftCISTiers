@@ -918,5 +918,13 @@ const players = [
         tiers: {
             RVM: "HT4"
         }
+    },
+    {
+        name: "Adridri137",
+        region: "FR",
+        device: "PH",
+        tiers: {
+            Hardcore: "LT4"
+        }
     }
 ];
