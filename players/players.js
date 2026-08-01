@@ -941,7 +941,8 @@ const players = [
         region: "FR",
         device: "PH",
         tiers: {
-            RVM: "LT4"
+            RVM: "LT4",
+            Dragonhide: "HT4"
         }
     }
 ];
