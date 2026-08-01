@@ -435,7 +435,8 @@ const players = [
             Beast: "LT2",
             Emerald: "HT3",
             Dragonhide: "HT3",
-            Mace: "LT2"
+            Mace: "LT2",
+            "Emerald Pot": "LT3"
         }
     },
     {
