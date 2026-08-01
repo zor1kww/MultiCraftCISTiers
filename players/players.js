@@ -430,7 +430,8 @@ const players = [
         tiers: {
             Crystal: "LT1",
             RVM: "LT3",
-            SMP: "LT3"
+            SMP: "LT3",
+            "Diamond Pot": "HT3"
         }
     },
     {
