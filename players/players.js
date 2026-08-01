@@ -408,7 +408,7 @@ const players = [
         device: "PH",
         tiers: {
             Dragonhide: "LT4",
-            RVM: "HT4",
+            RVM: "LT3",
             Crystal: "LT3"
         }
     },
