@@ -742,7 +742,8 @@ const players = [
             Hardcore: "HT3",
             "Diamond Pot": "LT3",
             Crystal: "HT2",
-            SMP: "LT3"
+            SMP: "LT3",
+            Mace: "LT2"
         }
     },
     {
