@@ -236,7 +236,7 @@ const players = [
             "Diamond Pot": "LT1",
             Beast: "LT2",
             Pickaxe: "LT3",
-            Hardcore: "HT3",
+            Hardcore: "HT2",
             Gapple: "LT2",
             Combo: "LT2",
             SMP: "LT3",
