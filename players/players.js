@@ -821,7 +821,7 @@ const players = [
     },
     {
         name: "Straight",
-        region: "EU",
+        region: "FR",
         device: "PH",
         tiers: {
             Mace: "HT3",
