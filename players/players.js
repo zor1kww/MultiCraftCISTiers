@@ -431,7 +431,8 @@ const players = [
             Crystal: "LT1",
             RVM: "LT3",
             SMP: "LT3",
-            "Diamond Pot": "HT3"
+            "Diamond Pot": "HT3",
+            Beast: "LT2"
         }
     },
     {
