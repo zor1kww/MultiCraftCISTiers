@@ -817,7 +817,8 @@ const players = [
         device: "PH",
         tiers: {
             Mace: "LT2",
-            "Emerald Pot": "LT3"
+            "Emerald Pot": "LT3",
+            RVM: "HT3"
         }
     },
     {
