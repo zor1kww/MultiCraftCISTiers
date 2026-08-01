@@ -427,7 +427,8 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            Crystal: "LT1"
+            Crystal: "LT1",
+            RVM: "LT3"
         }
     },
     {
