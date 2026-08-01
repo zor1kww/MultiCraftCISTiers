@@ -409,7 +409,8 @@ const players = [
         tiers: {
             Dragonhide: "LT4",
             RVM: "LT3",
-            Crystal: "LT3"
+            Crystal: "LT3",
+            Mace: "LT3"
         }
     },
     {
