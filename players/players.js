@@ -769,7 +769,7 @@ const players = [
             Emerald: "LT2",
             Beast: "LT2",
             "Diamond Pot": "HT2",
-            SMP: "LT3",
+            SMP: "LT2",
             Dragonhide: "HT3",
             Crystal: "HT3",
             RVM: "HT4",
