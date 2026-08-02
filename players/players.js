@@ -955,5 +955,13 @@ const players = [
         tiers: {
             SMP: "HT4"
         }
+    },
+    {
+        name: "NOVENKIY1",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            RVM: "LT4"
+        }
     }
 ];
