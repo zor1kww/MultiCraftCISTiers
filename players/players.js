@@ -946,5 +946,13 @@ const players = [
             Pickaxe: "LT3",
             Beast: "LT4"
         }
+    },
+    {
+        name: "Fialka_",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            SMP: "HT4"
+        }
     }
 ];
