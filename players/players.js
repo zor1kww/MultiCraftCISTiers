@@ -963,5 +963,13 @@ const players = [
         tiers: {
             RVM: "LT4"
         }
+    },
+    {
+        name: "zaxvatchik6",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            RVM: "LT5"
+        }
     }
 ];
