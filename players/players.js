@@ -439,7 +439,8 @@ const players = [
             Mace: "LT2",
             "Emerald Pot": "LT3",
             Combo: "LT3",
-            Gapple: "LT3"
+            Gapple: "LT3",
+            Hardcore: "LT2"
         }
     },
     {
