@@ -407,7 +407,7 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            Dragonhide: "LT4",
+            Dragonhide: "HT4",
             RVM: "LT3",
             Crystal: "LT3",
             Mace: "LT3"
