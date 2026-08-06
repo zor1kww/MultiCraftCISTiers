@@ -1030,7 +1030,8 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            Crystal: "HT4"
+            Crystal: "HT4",
+            "Diamond Pot": "HT4"
         }
     }
 ];
