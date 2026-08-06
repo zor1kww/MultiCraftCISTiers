@@ -996,7 +996,8 @@ const players = [
         region: "UA",
         device: "PH",
         tiers: {
-            "Emerald Pot": "LT3"
+            "Emerald Pot": "LT3",
+            Mace: "HT4"
         }
     }
 ];
