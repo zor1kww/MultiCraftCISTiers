@@ -990,5 +990,13 @@ const players = [
         tiers: {
             Dragonhide: "HT4"
         }
+    },
+    {
+        name: "ofofoffo",
+        region: "UA",
+        device: "PH",
+        tiers: {
+            "Emerald Pot": "LT3"
+        }
     }
 ];
