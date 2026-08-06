@@ -982,5 +982,13 @@ const players = [
         tiers: {
             Dragonhide: "LT3"
         }
+    },
+    {
+        name: "Karabasik",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            Dragonhide: "HT4"
+        }
     }
 ];
