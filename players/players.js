@@ -1024,5 +1024,13 @@ const players = [
         tiers: {
             RVM: "LT3"
         }
+    },
+    {
+        name: "WezzikBigKlop",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            Crystal: "HT4"
+        }
     }
 ];
