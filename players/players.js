@@ -411,7 +411,8 @@ const players = [
             Dragonhide: "LT3",
             RVM: "LT3",
             Crystal: "LT3",
-            Mace: "LT3"
+            Mace: "LT3",
+            SMP: "LT3"
         }
     },
     {
