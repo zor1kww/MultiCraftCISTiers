@@ -1034,5 +1034,13 @@ const players = [
             Crystal: "HT4",
             "Diamond Pot": "HT4"
         }
+    },
+    {
+        name: "idk_man",
+        region: "EU",
+        device: "PH",
+        tiers: {
+            "Emerald Pot": "LT3"
+        }
     }
 ];
