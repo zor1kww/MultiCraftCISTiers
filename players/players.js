@@ -779,7 +779,7 @@ const players = [
             Mace: "LT2",
             Pickaxe: "LT3",
             Combo: "LT2",
-            Gapple: "LT3"
+            Gapple: "HT3"
         }
     },
     {
