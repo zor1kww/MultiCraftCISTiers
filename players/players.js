@@ -78,7 +78,7 @@ const players = [
         tiers: {
             "Emerald Pot": "LT2",
             SMP: "LT2",
-            Hardcore: "LT2",
+            Hardcore: "HT2",
             Pickaxe: "HT2",
             RVM: "LT2",
             Emerald: "LT1",
