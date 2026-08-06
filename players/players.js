@@ -985,9 +985,10 @@ const players = [
     {
         name: "-_MACKA_-",
         region: "RU",
-        device: "TB",
+        device: "PH",
         tiers: {
-            Dragonhide: "LT3"
+            Dragonhide: "LT3",
+            RVM: "HT4"
         }
     },
     {
