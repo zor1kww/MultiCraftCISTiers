@@ -155,7 +155,7 @@ const players = [
             Beast: "LT3",
             "Diamond Pot": "HT3",
             Pickaxe: "LT3",
-            Emerald: "HT4",
+            Emerald: "LT3",
             SMP: "LT3",
             "Emerald Pot": "LT3",
             Hardcore: "LT3",
