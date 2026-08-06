@@ -929,14 +929,6 @@ const players = [
         }
     },
     {
-        name: "_MACKA_",
-        region: "RU",
-        device: "TB",
-        tiers: {
-            RVM: "HT4"
-        }
-    },
-    {
         name: "Adridri137",
         region: "FR",
         device: "PH",
@@ -986,7 +978,7 @@ const players = [
     {
         name: "-_MACKA_-",
         region: "RU",
-        device: "PH",
+        device: "TB",
         tiers: {
             Dragonhide: "LT3",
             RVM: "HT4"
@@ -1024,15 +1016,6 @@ const players = [
         device: "PH",
         tiers: {
             RVM: "LT3"
-        }
-    },
-    {
-        name: "WezzikBigKlop",
-        region: "RU",
-        device: "PH",
-        tiers: {
-            Crystal: "HT4",
-            "Diamond Pot": "HT4"
         }
     },
     {
