@@ -767,7 +767,7 @@ const players = [
         region: "RU",
         device: "TB",
         tiers: {
-            Hardcore: "LT3",
+            Hardcore: "HT3",
             Emerald: "LT2",
             Beast: "LT2",
             "Diamond Pot": "HT2",
