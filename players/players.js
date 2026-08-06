@@ -885,10 +885,11 @@ const players = [
     },
     {
         name: "Lpbe",
-        region: "EU",
+        region: "FR",
         device: "PH",
         tiers: {
-            Emerald: "LT4"
+            Emerald: "LT4",
+            Beast: "LT3"
         }
     },
     {
