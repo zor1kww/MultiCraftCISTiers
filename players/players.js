@@ -777,7 +777,7 @@ const players = [
             RVM: "LT3",
             "Emerald Pot": "LT3",
             Mace: "LT2",
-            Pickaxe: "LT3",
+            Pickaxe: "LT2",
             Combo: "LT2",
             Gapple: "HT3"
         }
