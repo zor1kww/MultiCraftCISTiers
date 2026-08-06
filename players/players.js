@@ -1008,7 +1008,8 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            Hardcore: "LT4"
+            Hardcore: "LT4",
+            Dragonhide: "LT4"
         }
     }
 ];
