@@ -976,7 +976,8 @@ const players = [
             RVM: "LT5",
             Beast: "LT4",
             Mace: "LT4",
-            Crystal: "LT4"
+            Crystal: "LT4",
+            Hardcore: "LT4"
         }
     },
     {
