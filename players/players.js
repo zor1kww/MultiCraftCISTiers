@@ -441,7 +441,7 @@ const players = [
             "Emerald Pot": "LT3",
             Combo: "LT3",
             Gapple: "LT3",
-            Hardcore: "LT2"
+            Hardcore: "LT3"
         }
     },
     {
