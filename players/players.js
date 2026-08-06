@@ -255,7 +255,8 @@ const players = [
             SMP: "LT3",
             Dragonhide: "LT3",
             Pickaxe: "LT3",
-            Hardcore: "LT3"
+            Hardcore: "LT3",
+            "Diamond Pot": "HT4"
         }
     },
     {
