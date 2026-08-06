@@ -975,7 +975,8 @@ const players = [
         tiers: {
             RVM: "LT5",
             Beast: "LT4",
-            Mace: "LT4"
+            Mace: "LT4",
+            Crystal: "LT4"
         }
     },
     {
