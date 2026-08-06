@@ -999,5 +999,13 @@ const players = [
             "Emerald Pot": "LT3",
             Mace: "HT4"
         }
+    },
+    {
+        name: "sw3don",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            Hardcore: "LT4"
+        }
     }
 ];
