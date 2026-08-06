@@ -1014,5 +1014,13 @@ const players = [
             Hardcore: "LT4",
             Dragonhide: "LT4"
         }
+    },
+    {
+        name: "xivivideking",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            RVM: "LT3"
+        }
     }
 ];
