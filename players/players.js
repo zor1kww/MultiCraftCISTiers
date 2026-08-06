@@ -973,7 +973,8 @@ const players = [
         device: "PH",
         tiers: {
             RVM: "LT5",
-            Beast: "LT4"
+            Beast: "LT4",
+            Mace: "LT4"
         }
     },
     {
