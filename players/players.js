@@ -974,5 +974,13 @@ const players = [
         tiers: {
             RVM: "LT5"
         }
+    },
+    {
+        name: "-_MACKA_-",
+        region: "RU",
+        device: "TB",
+        tiers: {
+            Dragonhide: "LT3"
+        }
     }
 ];
