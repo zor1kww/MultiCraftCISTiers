@@ -284,7 +284,8 @@ const players = [
         tiers: {
             "Emerald Pot": "HT3",
             Crystal: "LT1",
-            Hardcore: "LT3"
+            Hardcore: "LT3",
+            Combo: "LT3"
         }
     },
     {
