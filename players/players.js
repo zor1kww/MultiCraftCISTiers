@@ -1031,7 +1031,8 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            RVM: "LT3"
+            RVM: "LT3",
+            Dragonhide: "LT3"
         }
     }
 ];
