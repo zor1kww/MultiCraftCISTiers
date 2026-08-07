@@ -777,7 +777,7 @@ const players = [
             "Diamond Pot": "HT2",
             SMP: "LT2",
             Dragonhide: "HT3",
-            Crystal: "HT3",
+            Crystal: "LT3",
             RVM: "LT3",
             "Emerald Pot": "LT3",
             Mace: "LT2",
