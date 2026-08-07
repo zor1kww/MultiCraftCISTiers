@@ -1033,7 +1033,8 @@ const players = [
         device: "PH",
         tiers: {
             RVM: "LT3",
-            Dragonhide: "LT3"
+            Dragonhide: "LT3",
+            Gapple: "LT3"
         }
     }
 ];
