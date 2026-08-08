@@ -1036,5 +1036,13 @@ const players = [
             Dragonhide: "LT3",
             Gapple: "LT3"
         }
+    },
+    {
+        name: "Fighteur",
+        region: "FR",
+        device: "PH",
+        tiers: {
+            Hardcore: "LT3"
+        }
     }
 ];
