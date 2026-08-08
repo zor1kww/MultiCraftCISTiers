@@ -1045,5 +1045,13 @@ const players = [
         tiers: {
             Hardcore: "LT3"
         }
+    },
+    {
+        name: "_Dan41k",
+        region: "RU",
+        device: "TB",
+        tiers: {
+            Hardcore: "HT5"
+        }
     }
 ];
