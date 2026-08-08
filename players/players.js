@@ -471,7 +471,8 @@ const players = [
         device: "TB",
         tiers: {
             Hardcore: "LT2",
-            "Emerald Pot": "LT1"
+            "Emerald Pot": "LT1",
+            Mace: "HT2"
         }
     },
     {
