@@ -905,10 +905,11 @@ const players = [
     },
     {
         name: "Devon",
-        region: "EU",
+        region: "FR",
         device: "PH",
         tiers: {
-            "Emerald Pot": "HT5"
+            "Emerald Pot": "HT5",
+            Dragonhide: "HT4"
         }
     },
     {
