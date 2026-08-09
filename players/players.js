@@ -837,7 +837,8 @@ const players = [
         device: "PH",
         tiers: {
             Beast: "LT5",
-            Emerald: "LT4"
+            Emerald: "LT4",
+            Crystal: "LT4"
         }
     }
 ];
