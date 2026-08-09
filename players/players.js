@@ -451,13 +451,6 @@ const players = [
         }
     },
     {
-        name: "767676_",
-        region: "UA",
-        tiers: {
-            Hardcore: "HT3"
-        }
-    },
-    {
         name: "YouTubePvPXelp_999",
         region: "RU",
         tiers: {
