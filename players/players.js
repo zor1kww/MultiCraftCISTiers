@@ -714,10 +714,12 @@ const players = [
     },
     {
         name: "AMORE",
-        region: "UA",
+        region: "RU",
         tiers: {
-            Hardcore: "LT5"
-        }
+            Hardcore: "LT5",
+            Beast: "HT5"
+        },
+        device: "PH"
     },
     {
         name: "h9nto",
