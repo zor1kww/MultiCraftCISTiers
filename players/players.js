@@ -860,7 +860,8 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            Beast: "LT5"
+            Beast: "LT5",
+            Emerald: "LT4"
         }
     }
 ];
