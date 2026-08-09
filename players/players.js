@@ -3,7 +3,6 @@ const players = [
     {
         name: "Sneger",
         region: "RU",
-        device: "PH",
         tiers: {
             Crystal: "LT1",
             Mace: "HT1",
@@ -18,7 +17,6 @@ const players = [
     {
         name: "-999-",
         region: "RU",
-        device: "TB",
         tiers: {
             Dragonhide: "RLT1",
             Emerald: "RHT1",
@@ -37,7 +35,6 @@ const players = [
     {
         name: "zor1kkqwix",
         region: "RU",
-        device: "PH",
         tiers: {
             Hardcore: "LT1",
             SMP: "HT3",
@@ -57,7 +54,6 @@ const players = [
     {
         name: "Itz-Fake",
         region: "RU",
-        device: "PH",
         tiers: {
             Hardcore: "RLT4"
         }
@@ -65,7 +61,6 @@ const players = [
     {
         name: "Dev1ce",
         region: "RU",
-        device: "PH",
         tiers: {
             Hardcore: "RLT4",
             Diamond: "RHT4",
@@ -75,7 +70,6 @@ const players = [
     {
         name: "_Xx_deras_xX",
         region: "UA",
-        device: "PH",
         tiers: {
             "Emerald Pot": "LT2",
             SMP: "LT2",
@@ -95,7 +89,6 @@ const players = [
     {
         name: "2b2tPE",
         region: "KG",
-        device: "PH",
         tiers: {
             Dragonhide: "HT2",
             RVM: "LT2",
@@ -111,7 +104,6 @@ const players = [
     {
         name: "The_FV4005",
         region: "RU",
-        device: "PH",
         tiers: {
             Emerald: "LT3",
             Hardcore: "HT4",
@@ -131,7 +123,6 @@ const players = [
     {
         name: "YouTube_ggs",
         region: "RU",
-        device: "TB",
         tiers: {
             Crystal: "RHT5",
             Mace: "RLT5"
@@ -140,7 +131,6 @@ const players = [
     {
         name: "iuqqkdkq",
         region: "RU",
-        device: "PH",
         tiers: {
             Crystal: "RLT3"
         }
@@ -148,7 +138,6 @@ const players = [
     {
         name: "Master",
         region: "RU",
-        device: "PH",
         tiers: {
             RVM: "LT3",
             Dragonhide: "LT3",
@@ -168,7 +157,6 @@ const players = [
     {
         name: "Fialka",
         region: "RU",
-        device: "PH",
         tiers: {
             RVM: "RLT4"
         }
@@ -176,7 +164,6 @@ const players = [
     {
         name: "Darius",
         region: "UA",
-        device: "PH",
         tiers: {
             RVM: "RHT4",
             Beast: "HT5"
@@ -185,7 +172,6 @@ const players = [
     {
         name: "komi_lotik",
         region: "RU",
-        device: "PH",
         tiers: {
             RVM: "RLT4"
         }
@@ -193,7 +179,6 @@ const players = [
     {
         name: "OcM_sila",
         region: "RU",
-        device: "TB",
         tiers: {
             SMP: "RHT4"
         }
@@ -201,7 +186,6 @@ const players = [
     {
         name: "wkqwd",
         region: "RU",
-        device: "PH",
         tiers: {
             "Emerald Pot": "RLT3"
         }
@@ -209,7 +193,6 @@ const players = [
     {
         name: "OcM",
         region: "UA",
-        device: "TB",
         tiers: {
             Hardcore: "RHT2",
             Mace: "LT2"
@@ -218,7 +201,6 @@ const players = [
     {
         name: "Say",
         region: "RU",
-        device: "PH",
         tiers: {
             RVM: "LT3",
             "Emerald Pot": "LT2"
@@ -227,7 +209,6 @@ const players = [
     {
         name: "ZirtMobile",
         region: "RU",
-        device: "TB",
         tiers: {
             RVM: "LT3",
             Dragonhide: "LT2",
@@ -247,7 +228,6 @@ const players = [
     {
         name: "WezzikBigClop",
         region: "RU",
-        device: "PH",
         tiers: {
             RVM: "HT4",
             "Emerald Pot": "HT4",
@@ -262,7 +242,6 @@ const players = [
     {
         name: "NeXoXoroshy2",
         region: "KG",
-        device: "PH",
         tiers: {
             "Emerald Pot": "HT4",
             SMP: "HT4",
@@ -280,7 +259,6 @@ const players = [
     {
         name: "LEGENDAMETRO",
         region: "RU",
-        device: "PH",
         tiers: {
             "Emerald Pot": "HT3",
             Crystal: "LT1",
@@ -291,7 +269,6 @@ const players = [
     {
         name: "Nikos",
         region: "RU",
-        device: "PH",
         tiers: {
             RVM: "HT5",
             "Emerald Pot": "LT4",
@@ -301,7 +278,6 @@ const players = [
     {
         name: "Y-Japan",
         region: "RU",
-        device: "TB",
         tiers: {
             Crystal: "LT4",
             Mace: "LT5",
@@ -313,7 +289,6 @@ const players = [
     {
         name: "-BaCk-",
         region: "KZ",
-        device: "PH",
         tiers: {
             Mace: "LT3",
             Dragonhide: "HT3",
@@ -331,7 +306,6 @@ const players = [
     {
         name: "Hayzi",
         region: "RU",
-        device: "PH",
         tiers: {
             Emerald: "LT5",
             Mace: "LT5",
@@ -342,7 +316,6 @@ const players = [
     {
         name: "Samaelka",
         region: "RU",
-        device: "PH",
         tiers: {
             Dragonhide: "HT4",
             RVM: "LT3",
@@ -357,7 +330,6 @@ const players = [
     {
         name: "DzIla_EDITS",
         region: "RU",
-        device: "TB",
         tiers: {
             Beast: "LT3",
             "Emerald Pot": "LT3",
@@ -367,7 +339,6 @@ const players = [
     {
         name: "boy",
         region: "UA",
-        device: "PH",
         tiers: {
             Hardcore: "HT4",
             Crystal: "LT3",
@@ -384,7 +355,6 @@ const players = [
     {
         name: "Mirops",
         region: "RU",
-        device: "PH",
         tiers: {
             Mace: "HT5",
             Beast: "HT4",
@@ -397,7 +367,6 @@ const players = [
     {
         name: "blablablublubluble",
         region: "RU",
-        device: "PH",
         tiers: {
             Beast: "LT3",
             "Emerald Pot": "LT3",
@@ -409,7 +378,6 @@ const players = [
     {
         name: "_-XKakTakX-_",
         region: "RU",
-        device: "PH",
         tiers: {
             Dragonhide: "LT3",
             RVM: "LT3",
@@ -421,7 +389,6 @@ const players = [
     {
         name: "Igrok355",
         region: "RU",
-        device: "PH",
         tiers: {
             Beast: "HT4",
             Emerald: "HT4",
@@ -431,7 +398,6 @@ const players = [
     {
         name: "Prosto_oleg100-7",
         region: "RU",
-        device: "PH",
         tiers: {
             Crystal: "LT1",
             RVM: "LT3",
@@ -451,7 +417,6 @@ const players = [
     {
         name: "BossKFC",
         region: "RU",
-        device: "PH",
         tiers: {
             Hardcore: "LT3"
         }
@@ -459,7 +424,6 @@ const players = [
     {
         name: "Lolotrack",
         region: "UA",
-        device: "PH",
         tiers: {
             Crystal: "HT5",
             Diamond: "HT5"
@@ -468,7 +432,6 @@ const players = [
     {
         name: "Cira",
         region: "RU",
-        device: "TB",
         tiers: {
             Hardcore: "LT2",
             "Emerald Pot": "LT1",
@@ -478,7 +441,6 @@ const players = [
     {
         name: "Gggg1029",
         region: "RU",
-        device: "PH",
         tiers: {
             Mace: "LT3",
             "Emerald Pot": "HT4",
@@ -491,7 +453,6 @@ const players = [
     {
         name: "767676_",
         region: "UA",
-        device: "PC",
         tiers: {
             Hardcore: "HT3"
         }
@@ -499,7 +460,6 @@ const players = [
     {
         name: "YouTubePvPXelp_999",
         region: "RU",
-        device: "PH",
         tiers: {
             SMP: "LT4",
             "Emerald Pot": "LT4"
@@ -508,7 +468,6 @@ const players = [
     {
         name: "Saxapok13373",
         region: "RU",
-        device: "PH",
         tiers: {
             SMP: "HT4",
             Mace: "HT4"
@@ -517,7 +476,6 @@ const players = [
     {
         name: "Dzhambulat1322",
         region: "RU",
-        device: "PH",
         tiers: {
             RVM: "HT5",
             Mace: "HT5",
@@ -527,7 +485,6 @@ const players = [
     {
         name: "D4rK_S1lA",
         region: "RU",
-        device: "PH",
         tiers: {
             Beast: "LT3",
             RVM: "LT3",
@@ -539,7 +496,6 @@ const players = [
     {
         name: "7STARS",
         region: "RU",
-        device: "PH",
         tiers: {
             Dragonhide: "LT3",
             RVM: "LT4",
@@ -557,7 +513,6 @@ const players = [
     {
         name: "Kenny13",
         region: "RU",
-        device: "PH",
         tiers: {
             Hardcore: "HT5",
             Beast: "LT4",
@@ -567,7 +522,6 @@ const players = [
     {
         name: "Exponat",
         region: "RU",
-        device: "PH",
         tiers: {
             "Emerald Pot": "HT4",
             Gapple: "LT3",
@@ -579,7 +533,6 @@ const players = [
     {
         name: "Noch",
         region: "RU",
-        device: "PH",
         tiers: {
             RVM: "LT3"
         }
@@ -587,7 +540,6 @@ const players = [
     {
         name: "-_-nyschka-_-",
         region: "RU",
-        device: "PH",
         tiers: {
             Mace: "LT3"
         }
@@ -595,7 +547,6 @@ const players = [
     {
         name: "Susla",
         region: "RU",
-        device: "PH",
         tiers: {
             Mace: "HT4",
             Crystal: "LT4",
@@ -605,7 +556,6 @@ const players = [
     {
         name: "rrrr11",
         region: "RU",
-        device: "PH",
         tiers: {
             Mace: "LT4",
             Crystal: "LT4"
@@ -614,7 +564,6 @@ const players = [
     {
         name: "hohNagiBator",
         region: "RU",
-        device: "PH",
         tiers: {
             Emerald: "LT3"
         }
@@ -622,7 +571,6 @@ const players = [
     {
         name: "Legenda_loytaba",
         region: "RU",
-        device: "PH",
         tiers: {
             Hardcore: "LT4",
             Mace: "HT4",
@@ -632,7 +580,6 @@ const players = [
     {
         name: "MAXTY",
         region: "RU",
-        device: "PH",
         tiers: {
             RVM: "LT5",
             Emerald: "LT4",
@@ -642,7 +589,6 @@ const players = [
     {
         name: "saimon",
         region: "RU",
-        device: "PH",
         tiers: {
             Mace: "HT5",
             Hardcore: "LT4"
@@ -651,7 +597,6 @@ const players = [
     {
         name: "Grisha",
         region: "RU",
-        device: "PH",
         tiers: {
             Mace: "LT4",
             Crystal: "HT5"
@@ -660,7 +605,6 @@ const players = [
     {
         name: "Meteor",
         region: "UA",
-        device: "PH",
         tiers: {
             RVM: "HT4"
         }
@@ -668,7 +612,6 @@ const players = [
     {
         name: "killdoIbaeb4455",
         region: "RU",
-        device: "PH",
         tiers: {
             Hardcore: "LT2"
         }
@@ -676,7 +619,6 @@ const players = [
     {
         name: "Sneszok123",
         region: "RU",
-        device: "PH",
         tiers: {
             Beast: "HT3",
             Mace: "LT3"
@@ -685,7 +627,6 @@ const players = [
     {
         name: "Aliazo",
         region: "RU",
-        device: "PH",
         tiers: {
             Hardcore: "HT5",
             SMP: "HT5"
@@ -694,7 +635,6 @@ const players = [
     {
         name: "gftun",
         region: "RU",
-        device: "PH",
         tiers: {
             Dragonhide: "LT4",
             "Emerald Pot": "HT5",
@@ -704,7 +644,6 @@ const players = [
     {
         name: "Vex",
         region: "RU",
-        device: "PH",
         tiers: {
             Hardcore: "LT2",
             Beast: "LT3",
@@ -717,7 +656,6 @@ const players = [
     {
         name: "M_E_G_A",
         region: "RU",
-        device: "PH",
         tiers: {
             RVM: "LT5"
         }
@@ -725,42 +663,14 @@ const players = [
     {
         name: "JANDELL",
         region: "RU",
-        device: "PH",
         tiers: {
             Hardcore: "LT3",
             RVM: "LT3"
         }
     },
     {
-        name: "JEAN",
-        region: "FR",
-        device: "PH",
-        tiers: {
-            Hardcore: "HT4",
-            Beast: "HT5",
-            RVM: "LT5"
-        }
-    },
-    {
-        name: "Karzer1",
-        region: "FR",
-        device: "PH",
-        tiers: {
-            "Emerald Pot": "LT3",
-            RVM: "HT4",
-            Beast: "LT3",
-            Emerald: "LT3",
-            Hardcore: "HT3",
-            "Diamond Pot": "LT3",
-            Crystal: "HT2",
-            SMP: "LT3",
-            Mace: "LT2"
-        }
-    },
-    {
         name: "Michael_59k_YT",
         region: "AM",
-        device: "PH",
         tiers: {
             Beast: "LT4",
             Mace: "LT4",
@@ -770,7 +680,6 @@ const players = [
     {
         name: "Aura",
         region: "RU",
-        device: "TB",
         tiers: {
             Hardcore: "HT3",
             Emerald: "LT2",
@@ -790,7 +699,6 @@ const players = [
     {
         name: "Topor",
         region: "RU",
-        device: "TB",
         tiers: {
             "Emerald Pot": "LT3",
             Combo: "LT3",
@@ -799,18 +707,8 @@ const players = [
         }
     },
     {
-        name: "MinatoBeast",
-        region: "EU",
-        device: "PH",
-        tiers: {
-            RVM: "LT4",
-            Beast: "LT4"
-        }
-    },
-    {
         name: "DzIla_EDITSmob",
         region: "RU",
-        device: "PH",
         tiers: {
             "Emerald Pot": "LT1",
             "Diamond Pot": "HT2",
@@ -824,7 +722,6 @@ const players = [
     {
         name: "AMORE",
         region: "UA",
-        device: "PH",
         tiers: {
             Hardcore: "LT5"
         }
@@ -832,7 +729,6 @@ const players = [
     {
         name: "h9nto",
         region: "RU",
-        device: "PH",
         tiers: {
             Mace: "LT2",
             "Emerald Pot": "LT3",
@@ -841,43 +737,16 @@ const players = [
         }
     },
     {
-        name: "Straight",
-        region: "FR",
-        device: "PH",
-        tiers: {
-            Mace: "HT3",
-            Dragonhide: "LT3",
-            "Diamond Pot": "HT4",
-            SMP: "HT5",
-            Hardcore: "LT2",
-            Emerald: "HT4",
-            Crystal: "HT4",
-            Beast: "LT4",
-            RVM: "LT3",
-            Pickaxe: "LT3"
-        }
-    },
-    {
         name: "1641085O8",
         region: "RU",
-        device: "PH",
         tiers: {
             "Emerald Pot": "LT2",
             Dragonhide: "LT3"
         }
     },
     {
-        name: "heytem_",
-        region: "EU",
-        device: "PH",
-        tiers: {
-            "Diamond Pot": "LT4"
-        }
-    },
-    {
         name: "Top",
         region: "UA",
-        device: "PH",
         tiers: {
             Hardcore: "LT4",
             "Emerald Pot": "LT4",
@@ -888,35 +757,15 @@ const players = [
         }
     },
     {
-        name: "Lpbe",
-        region: "FR",
-        device: "PH",
-        tiers: {
-            Emerald: "LT4",
-            Beast: "LT3"
-        }
-    },
-    {
         name: "HAVCHIK",
         region: "UA",
-        device: "PH",
         tiers: {
             "Emerald Pot": "LT3"
         }
     },
     {
-        name: "Devon",
-        region: "FR",
-        device: "PH",
-        tiers: {
-            "Emerald Pot": "HT5",
-            Dragonhide: "HT4"
-        }
-    },
-    {
         name: "Mirage",
         region: "RU",
-        device: "PH",
         tiers: {
             "Emerald Pot": "LT3",
             RVM: "HT4"
@@ -925,35 +774,14 @@ const players = [
     {
         name: "-Sorry-",
         region: "RU",
-        device: "PH",
         tiers: {
             Mace: "HT4",
             Hardcore: "LT3"
         }
     },
     {
-        name: "Adridri137",
-        region: "FR",
-        device: "PH",
-        tiers: {
-            Hardcore: "LT4"
-        }
-    },
-    {
-        name: "MinatoNamikaze",
-        region: "FR",
-        device: "PH",
-        tiers: {
-            RVM: "LT4",
-            Dragonhide: "HT4",
-            Pickaxe: "LT3",
-            Beast: "LT4"
-        }
-    },
-    {
         name: "Fialka_",
         region: "RU",
-        device: "PH",
         tiers: {
             SMP: "HT4"
         }
@@ -961,7 +789,6 @@ const players = [
     {
         name: "NOVENKIY1",
         region: "RU",
-        device: "PH",
         tiers: {
             RVM: "LT4"
         }
@@ -969,7 +796,6 @@ const players = [
     {
         name: "zaxvatchik6",
         region: "RU",
-        device: "PH",
         tiers: {
             RVM: "LT5",
             Beast: "LT4",
@@ -981,7 +807,6 @@ const players = [
     {
         name: "-_MACKA_-",
         region: "RU",
-        device: "TB",
         tiers: {
             Dragonhide: "LT3",
             RVM: "HT4"
@@ -990,7 +815,6 @@ const players = [
     {
         name: "Karabasik",
         region: "RU",
-        device: "PH",
         tiers: {
             Dragonhide: "HT4",
             Emerald: "LT3"
@@ -999,7 +823,6 @@ const players = [
     {
         name: "ofofoffo",
         region: "UA",
-        device: "PH",
         tiers: {
             "Emerald Pot": "LT3",
             Mace: "HT4"
@@ -1008,7 +831,6 @@ const players = [
     {
         name: "sw3don",
         region: "RU",
-        device: "PH",
         tiers: {
             Hardcore: "LT4",
             Dragonhide: "LT4"
@@ -1017,24 +839,14 @@ const players = [
     {
         name: "xivivideking",
         region: "RU",
-        device: "PH",
         tiers: {
             RVM: "LT3",
             Beast: "LT2"
         }
     },
     {
-        name: "idk_man",
-        region: "FR",
-        device: "PH",
-        tiers: {
-            "Emerald Pot": "LT3"
-        }
-    },
-    {
         name: "Yakov",
         region: "RU",
-        device: "PH",
         tiers: {
             RVM: "LT3",
             Dragonhide: "LT3",
@@ -1042,17 +854,8 @@ const players = [
         }
     },
     {
-        name: "Fighteur",
-        region: "FR",
-        device: "PH",
-        tiers: {
-            Hardcore: "LT3"
-        }
-    },
-    {
         name: "_Dan41k",
         region: "RU",
-        device: "TB",
         tiers: {
             Hardcore: "HT5"
         }
