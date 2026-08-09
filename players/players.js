@@ -992,7 +992,8 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            Dragonhide: "HT4"
+            Dragonhide: "HT4",
+            Emerald: "LT3"
         }
     },
     {
