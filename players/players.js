@@ -838,7 +838,8 @@ const players = [
         tiers: {
             Beast: "LT5",
             Emerald: "LT4",
-            Crystal: "LT4"
+            Crystal: "LT4",
+            Dragonhide: "HT5"
         }
     }
 ];
