@@ -130,13 +130,6 @@ const players = [
         }
     },
     {
-        name: "iuqqkdkq",
-        region: "RU",
-        tiers: {
-            Crystal: "RLT3"
-        }
-    },
-    {
         name: "Master",
         region: "RU",
         tiers: {
@@ -156,13 +149,6 @@ const players = [
         }
     },
     {
-        name: "Fialka",
-        region: "RU",
-        tiers: {
-            RVM: "RLT4"
-        }
-    },
-    {
         name: "Darius",
         region: "UA",
         tiers: {
@@ -171,24 +157,10 @@ const players = [
         }
     },
     {
-        name: "komi_lotik",
-        region: "RU",
-        tiers: {
-            RVM: "RLT4"
-        }
-    },
-    {
         name: "OcM_sila",
         region: "RU",
         tiers: {
             SMP: "RHT4"
-        }
-    },
-    {
-        name: "wkqwd",
-        region: "RU",
-        tiers: {
-            "Emerald Pot": "RLT3"
         }
     },
     {
