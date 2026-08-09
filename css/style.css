@@ -252,9 +252,7 @@ body, html {
 }
 
 .filters-row-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    display: block;
     margin-top: 12px;
 }
 
