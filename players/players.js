@@ -528,7 +528,8 @@ const players = [
         region: "RU",
         tiers: {
             RVM: "LT3",
-            Crystal: "RLT3"
+            Crystal: "RLT3",
+            "Emerald Pot": "RLT3"
         }
     },
     {
