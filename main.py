@@ -117,7 +117,6 @@ def handle_telegram_message(message):
         player_name = re.search(r"Игрок:\s*([^\n]+)", text).group(1).strip()
         kit_name = re.search(r"Кит:\s*([^\n]+)", text).group(1).strip()
         region = re.search(r"Регион:\s*([^\n]+)", text).group(1).strip().upper()
-        device = re.search(r"Устройство:\s*([^\n]+)", text).group(1).strip().upper()
         new_tier = re.search(r"Полученный ранг:\s*([^\n]+)", text).group(1).strip().upper()
     except AttributeError:
         # Ошибки выводим обычным текстом без parse_mode, чтобы они никогда не ломались
@@ -186,7 +185,6 @@ def handle_telegram_message(message):
             if player.get('name', '').lower() == player_name.lower():
                 player['name'] = player_name 
                 player['region'] = region
-                player['device'] = device
                 if 'tiers' not in player:
                     player['tiers'] = {}
                 player['tiers'][matched_kit] = new_tier
@@ -198,7 +196,6 @@ def handle_telegram_message(message):
             new_player = {
                 "name": player_name,
                 "region": region,
-                "device": device,
                 "tiers": {matched_kit: new_tier}
             }
             players_list.append(new_player)
@@ -233,7 +230,7 @@ def handle_telegram_message(message):
             # Перевели полностью в HTML-разметку (теги <b> вместо звездочек)
             success_text = (
                 f"<b>Игрок {player_name} внесен в базу данных</b>\n\n"
-                f"<b>Регион: {region} | Устройство: {device}</b>\n"
+                f"<b>Регион: {region}</b>\n"
                 f"<b>Кит: {matched_kit} | Ранг: {new_tier}</b>\n\n"
                 f"<b>Текущий средний ранг: {overall_tier} [Тестов: {tests_count}]</b>\n"
                 f"<b>{kit_progress_text}</b>"
