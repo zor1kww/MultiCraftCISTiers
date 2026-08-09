@@ -55,7 +55,8 @@ const players = [
         name: "Itz-Fake",
         region: "RU",
         tiers: {
-            Hardcore: "RLT4"
+            Hardcore: "RLT4",
+            RVM: "RLT4"
         }
     },
     {
