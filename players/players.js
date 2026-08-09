@@ -780,7 +780,8 @@ const players = [
         name: "Fialka_",
         region: "RU",
         tiers: {
-            SMP: "HT4"
+            SMP: "HT4",
+            RVM: "RLT4"
         }
     },
     {
