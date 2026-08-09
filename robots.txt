@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+Allow: /MultiCraftCISTiers/
+Allow: /MultiCraftCISTiers/index.html
+Allow: /MultiCraftCISTiers/players/
+Allow: /MultiCraftCISTiers/css/
+Allow: /MultiCraftCISTiers/js/
+Allow: /MultiCraftCISTiers/assets/
+
+Disallow: /private/
+Disallow: /.git/
+
+Sitemap: https://zor1kww.github.io/MultiCraftCISTiers/sitemap.xml
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+Crawl-delay: 1
