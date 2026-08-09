@@ -852,5 +852,13 @@ const players = [
         tiers: {
             Hardcore: "HT5"
         }
+    },
+    {
+        name: "YTdrumv",
+        region: "RU",
+        device: "PH",
+        tiers: {
+            Beast: "LT5"
+        }
     }
 ];
