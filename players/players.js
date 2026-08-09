@@ -527,7 +527,8 @@ const players = [
         name: "Noch",
         region: "RU",
         tiers: {
-            RVM: "LT3"
+            RVM: "LT3",
+            Crystal: "RLT3"
         }
     },
     {
