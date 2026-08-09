@@ -66,8 +66,18 @@ TIER_POINTS = {
 TIER_ORDER = ['UNRANKED', 'LT5', 'HT5', 'LT4', 'HT4', 'LT3', 'HT3', 'LT2', 'HT2', 'LT1', 'HT1']
 
 def get_next_tier_info(current_tier):
-    """Вычисляет следующий тир для кита и сколько PTS до него не хватает"""
+    """
+    Вычисляет следующий тир для кита и сколько PTS до него не хватает
+    Правильно обрабатывает Retired тиры (с префиксом R)
+    """
     clean_tier = current_tier.upper().strip()
+    
+    # Срезаем префикс R если есть (Retired тиры)
+    is_retired = False
+    if clean_tier.startswith('R') and len(clean_tier) > 1:
+        is_retired = True
+        clean_tier = clean_tier[1:]
+    
     if clean_tier not in TIER_ORDER:
         return None, 0
     
