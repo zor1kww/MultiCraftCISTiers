@@ -204,7 +204,7 @@ const players = [
         tiers: {
             RVM: "HT4",
             "Emerald Pot": "HT4",
-            Crystal: "HT4",
+            Crystal: "LT3",
             SMP: "LT3",
             Dragonhide: "LT3",
             Pickaxe: "LT3",
