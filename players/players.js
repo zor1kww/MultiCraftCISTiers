@@ -761,7 +761,8 @@ const players = [
         name: "NOVENKIY1",
         region: "RU",
         tiers: {
-            RVM: "LT4"
+            RVM: "LT4",
+            Dragonhide: "LT4"
         }
     },
     {
