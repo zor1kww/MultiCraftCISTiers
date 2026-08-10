@@ -847,5 +847,12 @@ const players = [
             SMP: "LT4",
             Gapple: "LT4"
         }
+    },
+    {
+        name: "Zock",
+        region: "RU",
+        tiers: {
+            RVM: "LT4"
+        }
     }
 ];
