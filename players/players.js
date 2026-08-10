@@ -843,7 +843,8 @@ const players = [
             "Diamond Pot": "HT5",
             Hardcore: "LT5",
             Pickaxe: "HT4",
-            Mace: "LT4"
+            Mace: "LT4",
+            SMP: "LT4"
         }
     }
 ];
