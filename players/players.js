@@ -842,7 +842,8 @@ const players = [
             Dragonhide: "HT5",
             "Diamond Pot": "HT5",
             Hardcore: "LT5",
-            Pickaxe: "HT4"
+            Pickaxe: "HT4",
+            Mace: "LT4"
         }
     }
 ];
