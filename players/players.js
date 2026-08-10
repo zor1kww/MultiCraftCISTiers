@@ -205,7 +205,7 @@ const players = [
             RVM: "HT4",
             "Emerald Pot": "HT4",
             Crystal: "LT3",
-            SMP: "LT3",
+            SMP: "LT4",
             Dragonhide: "LT3",
             Pickaxe: "LT3",
             Hardcore: "LT3",
