@@ -840,7 +840,8 @@ const players = [
             Emerald: "LT4",
             Crystal: "LT4",
             Dragonhide: "HT5",
-            "Diamond Pot": "HT5"
+            "Diamond Pot": "HT5",
+            Hardcore: "LT5"
         }
     }
 ];
