@@ -844,7 +844,8 @@ const players = [
             Hardcore: "LT5",
             Pickaxe: "HT4",
             Mace: "LT4",
-            SMP: "LT4"
+            SMP: "LT4",
+            Gapple: "LT4"
         }
     }
 ];
