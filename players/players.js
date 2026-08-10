@@ -856,5 +856,12 @@ const players = [
         tiers: {
             RVM: "LT4"
         }
+    },
+    {
+        name: "-Dan41k",
+        region: "RU",
+        tiers: {
+            Mace: "HT4"
+        }
     }
 ];
