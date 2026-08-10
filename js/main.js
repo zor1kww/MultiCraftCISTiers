@@ -224,11 +224,10 @@ function openProfile(idx, filteredPlayersJSON) {
         }
 
         // Сбор и отображение объединенного тира в модальном окне
-        const kitFilter = document.getElementById('kitFilter');
-        const targetKit = kitFilter ? kitFilter.value : 'all';
+        const targetKit = window.currentKitFilter || 'all';
         const displayProfileRetiredTag = hasAnyRetiredKit(player);
         
-        if (targetKit === 'all') {
+        if (targetKit === 'all' || targetKit === 'sub-all') {
             const avgTier = calcAverageTier(player);
             if (avgTier !== "Unranked") {
                 metaHTML += getMetaTierTag(avgTier, displayProfileRetiredTag);
@@ -329,11 +328,9 @@ function renderPlayers() {
     const searchInput = document.getElementById('searchInput');
     const search = searchInput ? searchInput.value.toLowerCase() : '';
     
-    const regionFilter = document.getElementById('regionFilter');
-    const region = regionFilter ? regionFilter.value : 'all';
+    const region = window.currentRegionFilter || 'all';
     
-    const kitFilter = document.getElementById('kitFilter');
-    const targetKit = kitFilter ? kitFilter.value : 'all';
+    const targetKit = window.currentKitFilter || 'all';
     
     const retiredToggle = document.getElementById('retiredToggle');
     const showRetiredInPlace = retiredToggle ? retiredToggle.checked : false;
@@ -343,16 +340,17 @@ function renderPlayers() {
         return;
     }
 
-    const titleEl = document.getElementById('leaderboardTitle');
     const subtitleEl = document.getElementById('tableSubtitle');
 
     if (targetKit === 'all') {
-        if (titleEl) titleEl.innerText = 'OVERALL PVP TOP';
-        if (subtitleEl) subtitleEl.innerText = 'OVERALL LEADERBOARD';
+        if (subtitleEl) subtitleEl.innerText = 'MAIN OVERALL LEADERBOARD';
+    } else if (targetKit === 'sub-all') {
+        if (subtitleEl) subtitleEl.innerText = 'SUB OVERALL LEADERBOARD';
     } else {
-        if (titleEl) titleEl.innerText = `${targetKit.toUpperCase()} TOP`;
         if (subtitleEl) subtitleEl.innerText = `${targetKit.toUpperCase()} LEADERBOARD`;
     }
+
+    const activeSubtiers = (typeof subtiers !== 'undefined') ? subtiers : [];
 
     const activeMaintiers = (typeof maintiers !== 'undefined') ? maintiers : [];
     const activePts = (typeof tierPoints !== 'undefined') ? tierPoints : {};
@@ -363,7 +361,7 @@ function renderPlayers() {
         const matchesSearch = player.name.toLowerCase().includes(search);
         const matchesRegion = (region === 'all' || player.region === region);
         
-        if (targetKit !== 'all') {
+        if (targetKit !== 'all' && targetKit !== 'sub-all') {
             const tier = getCleanTier(player, targetKit);
             const ret = isKitRetired(player, targetKit);
             if (!showRetiredInPlace && ret) {
@@ -382,6 +380,10 @@ function renderPlayers() {
     if (targetKit === 'all') {
         filtered.sort((a, b) => {
             return calcPoints(b, activeMaintiers) - calcPoints(a, activeMaintiers);
+        });
+    } else if (targetKit === 'sub-all') {
+        filtered.sort((a, b) => {
+            return calcPoints(b, activeSubtiers) - calcPoints(a, activeSubtiers);
         });
     } else {
         filtered.sort((a, b) => {
@@ -413,9 +415,9 @@ function renderPlayers() {
         else if (index === 4) topClass = 'top-rank-5';
         
         let isRet = false;
-        if (targetKit !== 'all' && isKitRetired(player, targetKit)) {
+        if (targetKit !== 'all' && targetKit !== 'sub-all' && isKitRetired(player, targetKit)) {
             isRet = true;
-        } else if (targetKit === 'all' && hasAnyRetiredKit(player)) {
+        } else if ((targetKit === 'all' || targetKit === 'sub-all') && hasAnyRetiredKit(player)) {
             isRet = true;
         }
         
@@ -426,6 +428,9 @@ function renderPlayers() {
         if (targetKit === 'all') {
             const mainPts = calcPoints(player, activeMaintiers);
             rightColumnContent = `<span style="color: var(--accent); font-size:15px; white-space:nowrap;">${mainPts} PTS</span>`;
+        } else if (targetKit === 'sub-all') {
+            const subPts = calcPoints(player, activeSubtiers);
+            rightColumnContent = `<span style="color: var(--accent); font-size:15px; white-space:nowrap;">${subPts} PTS</span>`;
         } else {
             const currentTier = getCleanTier(player, targetKit);
             const ret = isKitRetired(player, targetKit);
@@ -433,8 +438,9 @@ function renderPlayers() {
         }
 
         let quickTiersHTML = '';
-        if (targetKit === 'all') {
-            let playerKitsObjects = activeMaintiers.map(kit => {
+        if (targetKit === 'all' || targetKit === 'sub-all') {
+            const kitsForRow = (targetKit === 'sub-all') ? activeSubtiers : activeMaintiers;
+            let playerKitsObjects = kitsForRow.map(kit => {
                 const tier = getCleanTier(player, kit);
                 const ret = isKitRetired(player, kit);
                 
@@ -504,7 +510,7 @@ function renderPlayers() {
         }
         
         // ВЫВОДИМ ТИР СРАЗУ ПОСЛЕ УСТРОЙСТВА:
-        if (targetKit !== 'all') {
+        if (targetKit !== 'all' && targetKit !== 'sub-all') {
             const currentTier = getCleanTier(player, targetKit);
             const ret = isKitRetired(player, targetKit);
             if (currentTier !== "Unranked") {
@@ -662,14 +668,56 @@ if (menuBtn && sidebar) {
 // Привязка обработчиков событий ввода
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('searchInput');
-    const regionFilter = document.getElementById('regionFilter');
-    const kitFilter = document.getElementById('kitFilter');
     const retiredToggle = document.getElementById('retiredToggle');
 
     if (searchInput) searchInput.addEventListener('input', renderPlayers);
-    if (regionFilter) regionFilter.addEventListener('change', renderPlayers);
-    if (kitFilter) kitFilter.addEventListener('change', renderPlayers);
     if (retiredToggle) retiredToggle.addEventListener('change', renderPlayers);
+
+    // Универсальная инициализация кастомного выпадающего списка
+    function initCustomDropdown(prefix, stateKey, defaultValue) {
+        window[stateKey] = defaultValue;
+
+        const customEl = document.getElementById(prefix + 'Custom');
+        const triggerEl = document.getElementById(prefix + 'Trigger');
+        const panelEl = document.getElementById(prefix + 'Panel');
+        const labelEl = document.getElementById(prefix + 'Label');
+
+        if (!customEl || !triggerEl || !panelEl || !labelEl) return;
+
+        triggerEl.addEventListener('click', (e) => {
+            e.stopPropagation();
+            customEl.classList.toggle('open');
+        });
+
+        const options = panelEl.querySelectorAll('.custom-select-option');
+        options.forEach(opt => {
+            opt.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const value = opt.getAttribute('data-value');
+                window[stateKey] = value;
+
+                options.forEach(o => o.classList.remove('selected'));
+                opt.classList.add('selected');
+
+                labelEl.textContent = opt.textContent;
+                customEl.classList.remove('open');
+
+                renderPlayers();
+            });
+        });
+
+        window.addEventListener('click', (e) => {
+            if (!customEl.contains(e.target)) {
+                customEl.classList.remove('open');
+            }
+        });
+    }
+
+    // Фильтр китов (Main/Sub Overall)
+    initCustomDropdown('kitFilter', 'currentKitFilter', 'all');
+
+    // Фильтр региона
+    initCustomDropdown('regionFilter', 'currentRegionFilter', 'all');
 
     // Первичный запуск отрисовки
     initSite();
@@ -718,3 +766,8 @@ function copyInviteCode() {
 function initSite() {
     renderPlayers();
 }
+
+// Хук: вызывается из index.html, когда players.js загрузился (асинхронно, после этого файла)
+window.onPlayersLoaded = function() {
+    renderPlayers();
+};
