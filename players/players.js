@@ -849,7 +849,8 @@ const players = [
             Mace: "LT4",
             SMP: "LT4",
             Gapple: "LT4",
-            Combo: "HT4"
+            Combo: "HT4",
+            "Emerald Pot": "HT4"
         }
     },
     {
