@@ -693,7 +693,7 @@ const players = [
         name: "AMORE",
         region: "RU",
         tiers: {
-            Hardcore: "LT5",
+            Hardcore: "LT4",
             Beast: "HT5"
         },
         device: "PH"
