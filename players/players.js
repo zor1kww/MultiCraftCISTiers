@@ -848,7 +848,8 @@ const players = [
             Pickaxe: "HT4",
             Mace: "LT4",
             SMP: "LT4",
-            Gapple: "LT4"
+            Gapple: "LT4",
+            Combo: "HT4"
         }
     },
     {
