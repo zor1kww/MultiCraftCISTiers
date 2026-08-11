@@ -694,7 +694,8 @@ const players = [
         region: "RU",
         tiers: {
             Hardcore: "LT4",
-            Beast: "HT5"
+            Beast: "HT5",
+            "Emerald Pot": "LT5"
         },
         device: "PH"
     },
