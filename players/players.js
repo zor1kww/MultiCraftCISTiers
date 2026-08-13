@@ -851,7 +851,7 @@ const players = [
             SMP: "LT4",
             Gapple: "LT4",
             Combo: "HT4",
-            "Emerald Pot": "HT4"
+            "Emerald Pot": "LT4"
         }
     },
     {
