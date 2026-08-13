@@ -386,7 +386,7 @@ const players = [
             Combo: "LT3",
             Gapple: "LT3",
             Hardcore: "LT3",
-            Pickaxe: "LT3"
+            Pickaxe: "HT4"
         }
     },
     {
