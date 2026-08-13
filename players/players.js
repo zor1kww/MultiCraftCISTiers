@@ -11,7 +11,8 @@ const players = [
             Beast: "HT1",
             Pickaxe: "LT1",
             Emerald: "HT1",
-            "Diamond Pot": "LT1"
+            "Diamond Pot": "LT1",
+            Combo: "LT1"
         }
     },
     {
