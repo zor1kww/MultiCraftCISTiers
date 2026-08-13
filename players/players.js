@@ -43,7 +43,7 @@ const players = [
             "Emerald Pot": "HT3",
             Combo: "HT4",
             RVM: "HT3",
-            Pickaxe: "LT3",
+            Pickaxe: "LT2",
             Emerald: "LT3",
             "Diamond Pot": "HT3",
             Dragonhide: "HT3",
