@@ -351,7 +351,7 @@ const players = [
         }
     },
     {
-        name: "_-xkaktakx-_",
+        name: "_-XKakTakX-_",
         region: "RU",
         tiers: {
             Dragonhide: "LT3",
