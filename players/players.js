@@ -351,13 +351,13 @@ const players = [
         }
     },
     {
-        name: "_-XKakTakX-_",
+        name: "_-xkaktakx-_",
         region: "RU",
         tiers: {
             Dragonhide: "LT3",
             RVM: "LT3",
             Crystal: "LT3",
-            Mace: "LT3",
+            Mace: "LT2",
             SMP: "LT3"
         }
     },
