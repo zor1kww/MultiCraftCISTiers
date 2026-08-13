@@ -867,5 +867,12 @@ const players = [
         tiers: {
             Mace: "HT4"
         }
+    },
+    {
+        name: "vov4ikusss",
+        region: "RU",
+        tiers: {
+            Beast: "HT5"
+        }
     }
 ];
