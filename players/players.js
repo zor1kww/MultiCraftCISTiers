@@ -810,7 +810,7 @@ const players = [
         region: "RU",
         tiers: {
             Hardcore: "LT4",
-            Dragonhide: "LT4"
+            Dragonhide: "LT3"
         }
     },
     {
