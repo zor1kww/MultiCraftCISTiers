@@ -70,7 +70,7 @@ const players = [
     },
     {
         name: "_Xx_deras_xX",
-        region: "UA",
+        region: "RU",
         tiers: {
             "Emerald Pot": "LT2",
             SMP: "LT2",
