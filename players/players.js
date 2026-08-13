@@ -867,7 +867,8 @@ const players = [
         name: "-Dan41k",
         region: "RU",
         tiers: {
-            Mace: "HT4"
+            Mace: "HT4",
+            Hardcore: "HT5"
         }
     },
     {
