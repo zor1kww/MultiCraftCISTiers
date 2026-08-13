@@ -878,5 +878,12 @@ const players = [
             Beast: "HT5",
             RVM: "LT5"
         }
+    },
+    {
+        name: "firary67",
+        region: "RU",
+        tiers: {
+            Hardcore: "LT3"
+        }
     }
 ];
