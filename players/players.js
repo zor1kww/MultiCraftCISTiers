@@ -6,7 +6,7 @@ const players = [
         tiers: {
             Crystal: "LT1",
             Mace: "HT1",
-            Hardcore: "HT2",
+            Hardcore: "LT1",
             "Emerald Pot": "LT1",
             Beast: "HT1",
             Pickaxe: "LT1",
