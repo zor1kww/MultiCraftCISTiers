@@ -71,11 +71,11 @@ const players = [
     },
     {
         name: "_Xx_deras_xX",
-        region: "RU",
+        region: "UA",
         tiers: {
             "Emerald Pot": "LT2",
             SMP: "LT2",
-            Hardcore: "HT2",
+            Hardcore: "LT1",
             Pickaxe: "HT2",
             RVM: "LT2",
             Emerald: "LT1",
