@@ -872,7 +872,8 @@ const players = [
         name: "vov4ikusss",
         region: "RU",
         tiers: {
-            Beast: "HT5"
+            Beast: "HT5",
+            RVM: "LT5"
         }
     }
 ];
