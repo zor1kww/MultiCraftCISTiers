@@ -13,7 +13,8 @@ const players = [
             Emerald: "HT1",
             "Diamond Pot": "LT1",
             Combo: "LT1",
-            SMP: "LT1"
+            SMP: "LT1",
+            Gapple: "LT2"
         }
     },
     {
