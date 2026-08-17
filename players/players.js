@@ -654,7 +654,7 @@ const players = [
         name: "Aura",
         region: "RU",
         tiers: {
-            Hardcore: "HT3",
+            Hardcore: "LT2",
             Emerald: "LT2",
             Beast: "LT2",
             "Diamond Pot": "HT2",
