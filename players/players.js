@@ -44,7 +44,7 @@ const players = [
             SMP: "HT3",
             "Emerald Pot": "HT3",
             Combo: "HT4",
-            RVM: "HT3",
+            RVM: "LT2",
             Pickaxe: "LT2",
             Emerald: "LT3",
             "Diamond Pot": "HT3",
