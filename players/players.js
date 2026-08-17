@@ -23,7 +23,7 @@ const players = [
         region: "RU",
         tiers: {
             Dragonhide: "RLT1",
-            Emerald: "RHT1",
+            Emerald: "LT1",
             "Diamond Pot": "RLT1",
             SMP: "RHT1",
             Crystal: "LT1",
