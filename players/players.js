@@ -14,7 +14,8 @@ const players = [
             "Diamond Pot": "LT1",
             Combo: "LT1",
             SMP: "LT1",
-            Gapple: "LT2"
+            Gapple: "LT2",
+            RVM: "LT1"
         }
     },
     {
