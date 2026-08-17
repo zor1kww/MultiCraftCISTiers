@@ -384,7 +384,7 @@ const players = [
             Dragonhide: "HT3",
             Mace: "LT2",
             "Emerald Pot": "LT3",
-            Combo: "LT3",
+            Combo: "HT3",
             Gapple: "LT3",
             Hardcore: "LT3",
             Pickaxe: "HT4"
