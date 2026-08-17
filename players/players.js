@@ -888,5 +888,12 @@ const players = [
             Hardcore: "LT3",
             Emerald: "LT1"
         }
+    },
+    {
+        name: "bob_ara_1029",
+        region: "RU",
+        tiers: {
+            Mace: "HT4"
+        }
     }
 ];
