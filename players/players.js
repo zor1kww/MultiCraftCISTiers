@@ -883,7 +883,8 @@ const players = [
         name: "firary67",
         region: "RU",
         tiers: {
-            Hardcore: "LT3"
+            Hardcore: "LT3",
+            Emerald: "LT1"
         }
     }
 ];
