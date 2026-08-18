@@ -829,7 +829,8 @@ const players = [
         tiers: {
             RVM: "LT3",
             Dragonhide: "LT3",
-            Gapple: "LT3"
+            Gapple: "LT3",
+            Mace: "HT4"
         }
     },
     {
