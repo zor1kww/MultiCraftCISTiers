@@ -830,7 +830,8 @@ const players = [
             RVM: "LT3",
             Dragonhide: "LT3",
             Gapple: "LT3",
-            Mace: "HT4"
+            Mace: "HT4",
+            "Emerald Pot": "LT3"
         }
     },
     {
