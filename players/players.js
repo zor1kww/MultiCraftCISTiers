@@ -358,7 +358,7 @@ const players = [
         tiers: {
             Dragonhide: "LT3",
             RVM: "LT3",
-            Crystal: "LT3",
+            Crystal: "HT2",
             Mace: "LT2",
             SMP: "LT3",
             Hardcore: "LT3"
