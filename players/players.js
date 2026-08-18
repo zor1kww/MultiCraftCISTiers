@@ -360,7 +360,8 @@ const players = [
             RVM: "LT3",
             Crystal: "LT3",
             Mace: "LT2",
-            SMP: "LT3"
+            SMP: "LT3",
+            Hardcore: "LT3"
         }
     },
     {
