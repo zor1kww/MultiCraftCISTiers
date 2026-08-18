@@ -648,7 +648,8 @@ const players = [
         tiers: {
             Beast: "LT4",
             Mace: "LT4",
-            Pickaxe: "LT3"
+            Pickaxe: "LT3",
+            Hardcore: "HT4"
         }
     },
     {
