@@ -908,5 +908,12 @@ const players = [
         tiers: {
             Hardcore: "HT3"
         }
+    },
+    {
+        name: "Domchikr",
+        region: "RU",
+        tiers: {
+            Hardcore: "LT5"
+        }
     }
 ];
