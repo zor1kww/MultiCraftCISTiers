@@ -920,7 +920,8 @@ const players = [
         name: "SoLoGeMs",
         region: "RU",
         tiers: {
-            RVM: "LT5"
+            RVM: "LT5",
+            Emerald: "HT5"
         }
     }
 ];
