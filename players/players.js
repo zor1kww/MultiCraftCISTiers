@@ -897,7 +897,8 @@ const players = [
         name: "bob_ara_1029",
         region: "RU",
         tiers: {
-            Mace: "HT4"
+            Mace: "HT4",
+            Pickaxe: "LT3"
         }
     },
     {
