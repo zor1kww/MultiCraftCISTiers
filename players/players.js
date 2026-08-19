@@ -362,7 +362,8 @@ const players = [
             Crystal: "HT2",
             Mace: "LT2",
             SMP: "LT3",
-            Hardcore: "LT3"
+            Hardcore: "LT3",
+            Pickaxe: "LT3"
         }
     },
     {
