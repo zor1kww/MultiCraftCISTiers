@@ -33,7 +33,8 @@ const players = [
             "Emerald Pot": "HT1",
             RVM: "HT1",
             Beast: "LT1",
-            Pickaxe: "HT1"
+            Pickaxe: "HT1",
+            Gapple: "HT1"
         }
     },
     {
