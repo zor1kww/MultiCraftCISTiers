@@ -648,7 +648,7 @@ const players = [
         name: "Michael_59k_YT",
         region: "AM",
         tiers: {
-            Beast: "LT4",
+            Beast: "LT3",
             Mace: "LT4",
             Pickaxe: "LT3",
             Hardcore: "HT4"
