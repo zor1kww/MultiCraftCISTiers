@@ -792,7 +792,8 @@ const players = [
         region: "RU",
         tiers: {
             Dragonhide: "LT3",
-            RVM: "HT4"
+            RVM: "HT4",
+            "Emerald Pot": "LT3"
         }
     },
     {
