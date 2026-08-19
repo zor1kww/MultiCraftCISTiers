@@ -41,30 +41,65 @@ function toggleTheme() {
 // 2. ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ И ПАРСИНГ ТИРОВ
 // ==========================================
 
-// Универсальный парсер данных тира
+// Порядок тиров от старшего к младшему. Единый источник правды для
+// сравнений тиров и для определения, какие тиры вообще могут быть Retired.
+const TIER_ORDER = ['HT1', 'LT1', 'HT2', 'LT2', 'HT3', 'LT3', 'HT4', 'LT4', 'HT5', 'LT5'];
+
+// Retired-статус (ручной или автоматический по сроку) возможен только
+// начиная с HT3 и выше: HT1, LT1, HT2, LT2, HT3.
+const RETIRED_ELIGIBLE_TIERS = TIER_ORDER.slice(0, TIER_ORDER.indexOf('HT3') + 1);
+
+// Через сколько дней без пересдачи кит автоматически считается Retired
+const RETIRED_AUTO_DAYS = 60;
+
+// Проверка: истёк ли срок с даты последнего теста по киту (>60 дней)
+function isDateExpired(dateStr) {
+    if (!dateStr) return false;
+    const testDate = new Date(dateStr);
+    if (isNaN(testDate.getTime())) return false;
+
+    const diffMs = Date.now() - testDate.getTime();
+    const diffDays = diffMs / (1000 * 60 * 60 * 24);
+    return diffDays > RETIRED_AUTO_DAYS;
+}
+
+// Универсальный парсер данных тира.
+// Поддерживает новый формат { tier, date, retired } и, для обратной
+// совместимости, старый формат в виде строки ("HT3" / "RHT3").
 function parseTierInfo(tierData) {
     if (!tierData) return { tier: "Unranked", isRetired: false, pts: 0 };
-    
+
     let tier = "Unranked";
-    let isRetired = false;
+    let manualRetired = false;
+    let testDate = null;
 
     if (typeof tierData === 'string') {
+        // Старый формат-строка (данные до миграции) - поддерживаем на всякий случай
         if (tierData.startsWith('R') && tierData.length > 1) {
-            isRetired = true;
+            manualRetired = true;
             tier = tierData.substring(1);
         } else {
             tier = tierData;
         }
     } else if (typeof tierData === 'object') {
         tier = tierData.tier || "Unranked";
-        isRetired = tierData.retired === true;
+        manualRetired = tierData.retired === true;
+        testDate = tierData.date || null;
     }
+
+    // Retired ниже HT3 невозможен в принципе, независимо от того, что
+    // записано в базе (защита от рассинхрона/старых данных)
+    const eligibleForRetired = RETIRED_ELIGIBLE_TIERS.includes(tier);
+
+    const autoRetiredByDate = eligibleForRetired && isDateExpired(testDate);
+    const isRetired = eligibleForRetired && (manualRetired || autoRetiredByDate);
 
     // Безопасное получение очков
     const activePts = (typeof tierPoints !== 'undefined') ? tierPoints : {};
     return {
         tier: tier,
         isRetired: isRetired,
+        date: testDate,
         pts: activePts[tier] || 0
     };
 }
