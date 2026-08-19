@@ -4,707 +4,1998 @@ const players = [
         name: "Sneger",
         region: "RU",
         tiers: {
-            Crystal: "LT1",
-            Mace: "HT1",
-            Hardcore: "LT1",
-            "Emerald Pot": "LT1",
-            Beast: "HT1",
-            Pickaxe: "LT1",
-            Emerald: "HT1",
-            "Diamond Pot": "LT1",
-            Combo: "LT1",
-            SMP: "LT1",
-            Gapple: "LT1",
-            RVM: "LT1"
+            Crystal: {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "HT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: "HT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            Pickaxe: {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            Emerald: {
+                tier: "HT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Diamond Pot": {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            Combo: {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            SMP: {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            Gapple: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "-999-",
         region: "RU",
         tiers: {
-            Dragonhide: "RLT1",
-            Emerald: "LT1",
-            "Diamond Pot": "RLT1",
-            SMP: "RHT1",
-            Crystal: "LT1",
-            Combo: "HT1",
-            Mace: "LT1",
-            Hardcore: "HT1",
-            "Emerald Pot": "HT1",
-            RVM: "HT1",
-            Beast: "LT1",
-            Pickaxe: "HT1",
-            Gapple: "HT1"
+            Dragonhide: {
+                tier: "LT1",
+                date: "2026-06-18",
+                retired: true
+            },
+            Emerald: {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Diamond Pot": {
+                tier: "LT1",
+                date: "2026-06-18",
+                retired: true
+            },
+            SMP: {
+                tier: "HT1",
+                date: "2026-06-18",
+                retired: true
+            },
+            Crystal: {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            Combo: {
+                tier: "HT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: "HT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "HT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "HT1",
+                date: "2026-06-18",
+                retired: true
+            },
+            Beast: {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            Pickaxe: {
+                tier: "HT1",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "zor1kkqwix",
         region: "RU",
         tiers: {
-            Hardcore: "LT1",
-            SMP: "HT3",
-            "Emerald Pot": "HT3",
-            Combo: "HT4",
-            RVM: "LT2",
-            Pickaxe: "LT2",
-            Emerald: "LT3",
-            "Diamond Pot": "HT3",
-            Dragonhide: "HT3",
-            Beast: "LT2",
-            Crystal: "HT1",
-            Mace: "LT1",
-            Gapple: "LT3"
+            Hardcore: {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            SMP: {
+                tier: "HT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "HT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Combo: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            Pickaxe: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            Emerald: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Diamond Pot": {
+                tier: "HT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: "HT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: "HT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            Gapple: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Itz-Fake",
         region: "RU",
         tiers: {
-            Hardcore: "RLT4",
-            RVM: "RLT4"
+            Hardcore: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Dev1ce",
         region: "RU",
         tiers: {
-            Hardcore: "RLT4",
-            Diamond: "RHT4",
-            RVM: "RHT4"
+            Hardcore: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Diamond Pot": {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "_Xx_deras_xX",
         region: "UA",
         tiers: {
-            "Emerald Pot": "LT2",
-            SMP: "LT2",
-            Hardcore: "LT1",
-            Pickaxe: "HT2",
-            RVM: "LT2",
-            Emerald: "LT1",
-            Dragonhide: "LT2",
-            Beast: "LT1",
-            Combo: "HT2",
-            Gapple: "LT2",
-            Mace: "LT1",
-            Crystal: "HT2",
-            "Diamond Pot": "HT2"
+            "Emerald Pot": {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            SMP: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            Pickaxe: {
+                tier: "HT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            Emerald: {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            Combo: {
+                tier: "HT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            Gapple: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: "HT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Diamond Pot": {
+                tier: "HT2",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "2b2tPE",
         region: "KG",
         tiers: {
-            Dragonhide: "HT2",
-            RVM: "LT2",
-            Emerald: "LT3",
-            Hardcore: "HT3",
-            "Emerald Pot": "HT3",
-            Beast: "LT1",
-            "Diamond Pot": "LT2",
-            Mace: "LT2",
-            SMP: "HT4"
+            Dragonhide: {
+                tier: "HT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            Emerald: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: "HT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "HT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Diamond Pot": {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            SMP: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "The_FV4005",
         region: "RU",
         tiers: {
-            Emerald: "LT3",
-            Hardcore: "HT4",
-            SMP: "LT4",
-            RVM: "LT3",
-            "Emerald Pot": "HT4",
-            Pickaxe: "LT3",
-            "Diamond Pot": "LT3",
-            Dragonhide: "LT3",
-            Beast: "LT3",
-            Crystal: "HT4",
-            Mace: "HT4",
-            Gapple: "LT3",
-            Combo: "LT3"
+            Emerald: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            SMP: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Pickaxe: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Diamond Pot": {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Gapple: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Combo: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "YouTube_ggs",
         region: "RU",
         tiers: {
-            Crystal: "RHT5",
-            Mace: "RLT5"
+            Crystal: {
+                tier: "HT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "LT5",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Master",
         region: "RU",
         tiers: {
-            RVM: "LT3",
-            Dragonhide: "LT3",
-            Mace: "LT3",
-            Beast: "LT3",
-            "Diamond Pot": "HT3",
-            Pickaxe: "LT3",
-            Emerald: "LT3",
-            SMP: "LT3",
-            "Emerald Pot": "LT3",
-            Hardcore: "LT3",
-            Crystal: "LT3",
-            Combo: "LT4",
-            Gapple: "HT4"
+            RVM: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Diamond Pot": {
+                tier: "HT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Pickaxe: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Emerald: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            SMP: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Combo: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Gapple: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Darius",
         region: "UA",
         tiers: {
-            RVM: "RHT4",
-            Beast: "HT5"
+            RVM: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: "HT5",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "OcM_sila",
         region: "RU",
         tiers: {
-            SMP: "RHT4"
+            SMP: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "OcM",
         region: "UA",
         tiers: {
-            Hardcore: "RHT2",
-            Mace: "LT2"
+            Hardcore: {
+                tier: "HT2",
+                date: "2026-06-18",
+                retired: true
+            },
+            Mace: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Say",
         region: "RU",
         tiers: {
-            RVM: "LT3",
-            "Emerald Pot": "LT2"
+            RVM: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "ZirtMobile",
         region: "RU",
         tiers: {
-            RVM: "LT3",
-            Dragonhide: "LT2",
-            "Emerald Pot": "LT1",
-            Mace: "HT3",
-            Crystal: "HT4",
-            "Diamond Pot": "LT1",
-            Beast: "HT2",
-            Pickaxe: "LT3",
-            Hardcore: "HT2",
-            Gapple: "LT2",
-            Combo: "LT2",
-            SMP: "LT3",
-            Emerald: "HT2"
+            RVM: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "HT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Diamond Pot": {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: "HT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            Pickaxe: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: "HT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            Gapple: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            Combo: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            SMP: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Emerald: {
+                tier: "HT2",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "WezzikBigClop",
         region: "RU",
         tiers: {
-            RVM: "HT4",
-            "Emerald Pot": "HT4",
-            Crystal: "LT3",
-            SMP: "LT4",
-            Dragonhide: "LT3",
-            Pickaxe: "LT3",
-            Hardcore: "LT3",
-            "Diamond Pot": "HT4"
+            RVM: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            SMP: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Pickaxe: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Diamond Pot": {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "NeXoXoroshy2",
         region: "KG",
         tiers: {
-            "Emerald Pot": "HT4",
-            SMP: "HT4",
-            Hardcore: "LT4",
-            RVM: "HT4",
-            "Diamond Pot": "LT3",
-            Dragonhide: "LT3",
-            Emerald: "HT4",
-            Mace: "LT3",
-            Crystal: "LT3",
-            Combo: "HT4",
-            Gapple: "LT4"
+            "Emerald Pot": {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            SMP: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Diamond Pot": {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Emerald: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Combo: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Gapple: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "LEGENDAMETRO",
         region: "RU",
         tiers: {
-            "Emerald Pot": "HT3",
-            Crystal: "LT1",
-            Hardcore: "LT3",
-            Combo: "LT3",
-            RVM: "LT3"
+            "Emerald Pot": {
+                tier: "HT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Combo: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Nikos",
         region: "RU",
         tiers: {
-            RVM: "HT5",
-            "Emerald Pot": "LT4",
-            Crystal: "HT5"
+            RVM: {
+                tier: "HT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: "HT5",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Y-Japan",
         region: "RU",
         tiers: {
-            Crystal: "LT4",
-            Mace: "LT5",
-            SMP: "HT5",
-            Hardcore: "LT5",
-            Beast: "LT4"
+            Crystal: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "LT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            SMP: {
+                tier: "HT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: "LT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "-BaCk-",
         region: "KZ",
         tiers: {
-            Mace: "LT3",
-            Dragonhide: "HT3",
-            Beast: "HT3",
-            Hardcore: "HT3",
-            RVM: "LT3",
-            Emerald: "HT3",
-            "Diamond Pot": "LT3",
-            SMP: "LT3",
-            Pickaxe: "HT3",
-            Crystal: "HT4",
-            Gapple: "LT3"
+            Mace: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: "HT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: "HT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: "HT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Emerald: {
+                tier: "HT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Diamond Pot": {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            SMP: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Pickaxe: {
+                tier: "HT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Gapple: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Hayzi",
         region: "RU",
         tiers: {
-            Emerald: "LT5",
-            Mace: "LT5",
-            Combo: "LT5",
-            RVM: "LT5"
+            Emerald: {
+                tier: "LT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "LT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            Combo: {
+                tier: "LT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "LT5",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Samaelka",
         region: "RU",
         tiers: {
-            Dragonhide: "HT4",
-            RVM: "LT3",
-            Beast: "HT4",
-            SMP: "LT3",
-            Hardcore: "LT3",
-            Mace: "LT3",
-            Pickaxe: "HT4",
-            "Emerald Pot": "LT3"
+            Dragonhide: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            SMP: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Pickaxe: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "DzIla_EDITS",
         region: "RU",
         tiers: {
-            Beast: "LT3",
-            "Emerald Pot": "LT3",
-            SMP: "LT3"
+            Beast: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            SMP: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "boy",
         region: "UA",
         tiers: {
-            Hardcore: "HT4",
-            Crystal: "LT3",
-            Pickaxe: "LT3",
-            Emerald: "HT4",
-            Beast: "HT3",
-            Dragonhide: "LT3",
-            "Emerald Pot": "LT3",
-            RVM: "HT4",
-            SMP: "HT4",
-            "Diamond Pot": "HT4"
+            Hardcore: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Pickaxe: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Emerald: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: "HT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            SMP: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Diamond Pot": {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Mirops",
         region: "RU",
         tiers: {
-            Mace: "HT5",
-            Beast: "HT4",
-            Emerald: "LT4",
-            RVM: "LT5",
-            Crystal: "LT4",
-            Dragonhide: "HT4"
+            Mace: {
+                tier: "HT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Emerald: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "LT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "blablablublubluble",
         region: "RU",
         tiers: {
-            Beast: "LT3",
-            "Emerald Pot": "LT3",
-            Crystal: "LT4",
-            Dragonhide: "HT4",
-            Diamond: "LT4"
+            Beast: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Diamond Pot": {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "_-XKakTakX-_",
         region: "RU",
         tiers: {
-            Dragonhide: "LT3",
-            RVM: "LT3",
-            Crystal: "HT2",
-            Mace: "LT2",
-            SMP: "LT3",
-            Hardcore: "LT3",
-            Pickaxe: "LT3"
+            Dragonhide: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            SMP: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Igrok355",
         region: "RU",
         tiers: {
-            Beast: "HT4",
-            Emerald: "HT4",
-            Dragonhide: "LT3"
+            Beast: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Emerald: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Prosto_oleg100-7",
         region: "RU",
         tiers: {
-            Crystal: "LT1",
-            RVM: "LT3",
-            SMP: "LT3",
-            "Diamond Pot": "HT3",
-            Beast: "LT2",
-            Emerald: "LT2",
-            Dragonhide: "HT3",
-            Mace: "LT2",
-            "Emerald Pot": "LT3",
-            Combo: "HT3",
-            Gapple: "LT3",
-            Hardcore: "LT3",
-            Pickaxe: "HT3"
+            Crystal: {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            SMP: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Diamond Pot": {
+                tier: "HT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            Emerald: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: "HT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Combo: {
+                tier: "HT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Gapple: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Pickaxe: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "BossKFC",
         region: "RU",
         tiers: {
-            Hardcore: "LT3"
+            Hardcore: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Lolotrack",
         region: "UA",
         tiers: {
-            Crystal: "HT5",
-            Diamond: "HT5"
+            Crystal: {
+                tier: "HT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Diamond Pot": {
+                tier: "HT5",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Cira",
         region: "RU",
         tiers: {
-            Hardcore: "LT2",
-            "Emerald Pot": "LT1",
-            Mace: "HT2",
-            Crystal: "HT3",
-            Pickaxe: "LT3"
+            Hardcore: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "HT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: "HT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Pickaxe: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Gggg1029",
         region: "RU",
         tiers: {
-            Mace: "LT3",
-            "Emerald Pot": "HT4",
-            Hardcore: "LT3",
-            Combo: "HT4",
-            RVM: "LT3",
-            SMP: "HT4"
+            Mace: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Combo: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            SMP: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "YouTubePvPXelp_999",
         region: "RU",
         tiers: {
-            SMP: "LT4",
-            "Emerald Pot": "LT4"
+            SMP: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Saxapok13373",
         region: "RU",
         tiers: {
-            SMP: "HT4",
-            Mace: "HT4"
+            SMP: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Dzhambulat1322",
         region: "RU",
         tiers: {
-            RVM: "HT5",
-            Mace: "HT5",
-            Crystal: "LT4"
+            RVM: {
+                tier: "HT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "HT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "D4rK_S1lA",
         region: "RU",
         tiers: {
-            Beast: "LT3",
-            RVM: "LT3",
-            Hardcore: "LT3",
-            Mace: "LT3",
-            Gapple: "HT4"
+            Beast: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Gapple: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "7STARS",
         region: "RU",
         tiers: {
-            Dragonhide: "LT3",
-            RVM: "LT4",
-            Hardcore: "HT5",
-            SMP: "HT4",
-            Mace: "LT4",
-            Combo: "LT4",
-            Beast: "LT4",
-            "Diamond Pot": "LT4",
-            Emerald: "LT3",
-            Gapple: "LT4",
-            "Emerald Pot": "LT3"
+            Dragonhide: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: "HT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            SMP: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Combo: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Diamond Pot": {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Emerald: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Gapple: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Kenny13",
         region: "RU",
         tiers: {
-            Hardcore: "HT5",
-            Beast: "LT4",
-            Mace: "HT4"
+            Hardcore: {
+                tier: "HT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Exponat",
         region: "RU",
         tiers: {
-            "Emerald Pot": "HT4",
-            Gapple: "LT3",
-            Crystal: "HT4",
-            RVM: "HT4",
-            Mace: "LT3"
+            "Emerald Pot": {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Gapple: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Noch",
         region: "RU",
         tiers: {
-            RVM: "LT3",
-            Crystal: "RLT3",
-            "Emerald Pot": "RLT3"
+            RVM: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "-_-nyschka-_-",
         region: "RU",
         tiers: {
-            Mace: "LT3"
+            Mace: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Susla",
         region: "RU",
         tiers: {
-            Mace: "HT4",
-            Crystal: "LT4",
-            SMP: "HT4"
+            Mace: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            SMP: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "rrrr11",
         region: "RU",
         tiers: {
-            Mace: "LT4",
-            Crystal: "LT4"
+            Mace: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "hohNagiBator",
         region: "RU",
         tiers: {
-            Emerald: "LT3"
+            Emerald: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Legenda_loytaba",
         region: "RU",
         tiers: {
-            Hardcore: "LT4",
-            Mace: "HT4",
-            Crystal: "HT4"
+            Hardcore: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "MAXTY",
         region: "RU",
         tiers: {
-            RVM: "LT5",
-            Emerald: "LT4",
-            Beast: "LT4"
+            RVM: {
+                tier: "LT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            Emerald: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "saimon",
         region: "RU",
         tiers: {
-            Mace: "HT5",
-            Hardcore: "LT4"
+            Mace: {
+                tier: "HT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Grisha",
         region: "RU",
         tiers: {
-            Mace: "LT4",
-            Crystal: "HT5"
+            Mace: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: "HT5",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Meteor",
         region: "UA",
         tiers: {
-            RVM: "HT4"
+            RVM: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "killdoIbaeb4455",
         region: "RU",
         tiers: {
-            Hardcore: "LT2"
+            Hardcore: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Sneszok123",
         region: "RU",
         tiers: {
-            Beast: "HT3",
-            Mace: "LT3"
+            Beast: {
+                tier: "HT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Aliazo",
         region: "RU",
         tiers: {
-            Hardcore: "HT5",
-            SMP: "HT5"
+            Hardcore: {
+                tier: "HT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            SMP: {
+                tier: "HT5",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "gftun",
         region: "RU",
         tiers: {
-            Dragonhide: "LT4",
-            "Emerald Pot": "HT5",
-            RVM: "HT5"
+            Dragonhide: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "HT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "HT5",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Vex",
         region: "RU",
         tiers: {
-            Hardcore: "LT2",
-            Beast: "LT3",
-            "Diamond Pot": "LT3",
-            RVM: "HT4",
-            Dragonhide: "HT4",
-            Mace: "LT3"
+            Hardcore: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Diamond Pot": {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "M_E_G_A",
         region: "RU",
         tiers: {
-            RVM: "LT5"
+            RVM: {
+                tier: "LT5",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "JANDELL",
         region: "RU",
         tiers: {
-            Hardcore: "LT3",
-            RVM: "LT3"
+            Hardcore: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Michael_59k_YT",
         region: "AM",
         tiers: {
-            Beast: "LT3",
-            Mace: "LT4",
-            Pickaxe: "LT3",
-            Hardcore: "HT4"
+            Beast: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Pickaxe: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Aura",
         region: "RU",
         tiers: {
-            Hardcore: "LT2",
-            Emerald: "LT2",
-            Beast: "LT2",
-            "Diamond Pot": "HT2",
-            SMP: "LT2",
-            Dragonhide: "HT3",
-            Crystal: "LT3",
-            RVM: "LT3",
-            "Emerald Pot": "LT3",
-            Mace: "LT2",
-            Pickaxe: "LT2",
-            Combo: "LT2",
-            Gapple: "HT3"
+            Hardcore: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            Emerald: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Diamond Pot": {
+                tier: "HT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            SMP: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: "HT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            Pickaxe: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            Combo: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            Gapple: {
+                tier: "HT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Topor",
         region: "RU",
         tiers: {
-            "Emerald Pot": "LT3",
-            Combo: "LT3",
-            SMP: "LT3",
-            Hardcore: "HT3"
+            "Emerald Pot": {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Combo: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            SMP: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: "HT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "DzIla_EDITSmob",
         region: "RU",
         tiers: {
-            "Emerald Pot": "LT1",
-            "Diamond Pot": "HT2",
-            Emerald: "LT1",
-            Beast: "LT2",
-            RVM: "LT1",
-            Hardcore: "LT2",
-            Dragonhide: "HT2"
+            "Emerald Pot": {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Diamond Pot": {
+                tier: "HT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            Emerald: {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: "HT2",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "AMORE",
         region: "RU",
         tiers: {
-            Hardcore: "LT4",
-            Beast: "HT5",
-            "Emerald Pot": "LT5"
+            Hardcore: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: "HT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "LT5",
+                date: "2026-08-18",
+                retired: false
+            }
         },
         device: "PH"
     },
@@ -712,139 +2003,296 @@ const players = [
         name: "h9nto",
         region: "RU",
         tiers: {
-            Mace: "LT2",
-            "Emerald Pot": "LT3",
-            RVM: "HT3",
-            Beast: "LT2"
+            Mace: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "HT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "1641085O8",
         region: "RU",
         tiers: {
-            "Emerald Pot": "LT2",
-            Dragonhide: "LT3"
+            "Emerald Pot": {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Top",
         region: "UA",
         tiers: {
-            Hardcore: "LT4",
-            "Emerald Pot": "LT4",
-            Beast: "HT4",
-            Mace: "LT5",
-            Dragonhide: "HT5",
-            Gapple: "LT4"
+            Hardcore: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "LT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: "HT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            Gapple: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "HAVCHIK",
         region: "UA",
         tiers: {
-            "Emerald Pot": "LT3"
+            "Emerald Pot": {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Mirage",
         region: "RU",
         tiers: {
-            "Emerald Pot": "LT3",
-            RVM: "HT4"
+            "Emerald Pot": {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "-Sorry-",
         region: "RU",
         tiers: {
-            Mace: "HT4",
-            Hardcore: "LT3"
+            Mace: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Fialka_",
         region: "RU",
         tiers: {
-            SMP: "HT4",
-            RVM: "RLT4"
+            SMP: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "NOVENKIY1",
         region: "RU",
         tiers: {
-            RVM: "LT4",
-            Dragonhide: "LT4"
+            RVM: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "zaxvatchik6",
         region: "RU",
         tiers: {
-            RVM: "LT5",
-            Beast: "LT4",
-            Mace: "LT4",
-            Crystal: "LT4",
-            Hardcore: "LT4"
+            RVM: {
+                tier: "LT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "-_MACKA_-",
         region: "RU",
         tiers: {
-            Dragonhide: "LT3",
-            RVM: "HT4",
-            "Emerald Pot": "LT3"
+            Dragonhide: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Karabasik",
         region: "RU",
         tiers: {
-            Dragonhide: "HT4",
-            Emerald: "LT3"
+            Dragonhide: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Emerald: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "ofofoffo",
         region: "UA",
         tiers: {
-            "Emerald Pot": "LT3",
-            Mace: "HT4"
+            "Emerald Pot": {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "sw3don",
         region: "RU",
         tiers: {
-            Hardcore: "LT4",
-            Dragonhide: "LT3"
+            Hardcore: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "xivivideking",
         region: "RU",
         tiers: {
-            RVM: "LT3",
-            Beast: "LT2"
+            RVM: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: "LT2",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Yakov",
         region: "RU",
         tiers: {
-            RVM: "LT3",
-            Dragonhide: "LT3",
-            Gapple: "LT3",
-            Mace: "HT4",
-            "Emerald Pot": "LT3"
+            RVM: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Gapple: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "_Dan41k",
         region: "RU",
         tiers: {
-            Hardcore: "HT5"
+            Hardcore: {
+                tier: "HT5",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
@@ -852,79 +2300,136 @@ const players = [
         region: "RU",
         device: "PH",
         tiers: {
-            Beast: "LT5",
-            Emerald: "LT4",
-            Crystal: "LT4",
-            Dragonhide: "HT5",
-            "Diamond Pot": "HT5",
-            Hardcore: "LT5",
-            Pickaxe: "HT4",
-            Mace: "LT4",
-            SMP: "LT4",
-            Gapple: "LT4",
-            Combo: "HT4",
-            "Emerald Pot": "LT4"
+            Beast: {
+                tier: "LT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            Emerald: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: "HT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Diamond Pot": {
+                tier: "HT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: "LT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            Pickaxe: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            SMP: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Gapple: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Combo: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "Zock",
         region: "RU",
         tiers: {
-            RVM: "LT4"
+            RVM: {
+                tier: "LT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "-Dan41k",
         region: "RU",
         tiers: {
-            Mace: "HT4",
-            Hardcore: "HT5"
+            Mace: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: "HT5",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "vov4ikusss",
         region: "RU",
         tiers: {
-            Beast: "HT5",
-            RVM: "LT5"
+            Beast: {
+                tier: "HT5",
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "LT5",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "firary67",
         region: "RU",
         tiers: {
-            Hardcore: "LT3",
-            Emerald: "LT1"
+            Hardcore: {
+                tier: "LT3",
+                date: "2026-08-18",
+                retired: false
+            },
+            Emerald: {
+                tier: "LT1",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     },
     {
         name: "bob_ara_1029",
         region: "RU",
         tiers: {
-            Mace: "HT4",
-            Pickaxe: "LT3"
-        }
-    },
-    {
-        name: "FASTER-cq-q",
-        region: "RU",
-        tiers: {
-            Hardcore: "HT3"
-        }
-    },
-    {
-        name: "Domchikr",
-        region: "RU",
-        tiers: {
-            Hardcore: "LT5"
-        }
-    },
-    {
-        name: "SoLoGeMs",
-        region: "RU",
-        tiers: {
-            RVM: "LT5",
-            Emerald: "HT5"
+            Mace: {
+                tier: "HT4",
+                date: "2026-08-18",
+                retired: false
+            }
         }
     }
 ];
