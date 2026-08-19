@@ -200,6 +200,11 @@ const players = [
                 tier: "LT3",
                 date: "2026-08-18",
                 retired: false
+            },
+            Manhunt: {
+                tier: "LT5",
+                date: "2026-08-19",
+                retired: false
             }
         }
     },
