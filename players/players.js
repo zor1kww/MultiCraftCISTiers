@@ -2431,5 +2431,16 @@ const players = [
                 retired: false
             }
         }
+    },
+    {
+        name: "test",
+        region: "RU",
+        tiers: {
+            "Emerald Pot": {
+                tier: "HT1",
+                date: "2026-08-19",
+                retired: true
+            }
+        }
     }
 ];
