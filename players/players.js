@@ -899,5 +899,12 @@ const players = [
         tiers: {
             Mace: "HT4"
         }
+    },
+    {
+        name: "FASTER-cq-q",
+        region: "RU",
+        tiers: {
+            Hardcore: "HT3"
+        }
     }
 ];
