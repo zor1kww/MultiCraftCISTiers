@@ -915,5 +915,12 @@ const players = [
         tiers: {
             Hardcore: "LT5"
         }
+    },
+    {
+        name: "SoLoGeMs",
+        region: "RU",
+        tiers: {
+            RVM: "LT5"
+        }
     }
 ];
