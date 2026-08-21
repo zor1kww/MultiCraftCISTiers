@@ -1176,11 +1176,7 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             },
-            SMP: {
-                tier: "LT3",
-                date: "2026-08-18",
-                retired: false
-            },
+            SMP: "LT2",
             "Diamond Pot": {
                 tier: "HT3",
                 date: "2026-08-18",
