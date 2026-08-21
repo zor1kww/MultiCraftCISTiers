@@ -2420,5 +2420,12 @@ const players = [
         tiers: {
             RVM: "LT4"
         }
+    },
+    {
+        name: "Domchikr",
+        region: "RU",
+        tiers: {
+            Hardcore: "LT5"
+        }
     }
 ];
