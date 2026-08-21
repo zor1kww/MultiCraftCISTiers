@@ -1128,6 +1128,149 @@ body, html {
 }
 
 /* ==========================================================================
+   РАЗДЕЛЫ-ХАБЫ "ТЕСТИРОВАНИЕ" И "ДРУГАЯ ИНФОРМАЦИЯ"
+   Пронумерованные карточки-обложки с раскрытием контента по клику
+   ========================================================================== */
+.hub-intro {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 4px 0 20px;
+}
+
+.hub-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.hub-card {
+    position: relative;
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--card-bg);
+    cursor: pointer;
+    min-height: 150px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.hub-card-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-color: #0a1020;
+}
+
+.hub-card-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(5,8,22,.35) 0%, rgba(5,8,22,.75) 65%, rgba(5,8,22,.92) 100%);
+}
+
+.hub-card-num {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(0,0,0,.55);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    z-index: 2;
+}
+
+.hub-card-heading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    z-index: 1;
+}
+
+.hub-card-heading span {
+    font-size: 26px;
+    line-height: 1.15;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,.14);
+    text-shadow: 0 1px 0 rgba(255,255,255,.06);
+}
+
+.hub-card-footer {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.hub-card-title {
+    color: var(--text-main);
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.hub-card-link {
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.hub-card:hover {
+    border-color: rgba(255,204,71,.5);
+}
+
+.hub-card:hover .hub-card-link {
+    text-shadow: 0 0 8px rgba(255,204,71,.6);
+}
+
+/* Кастомизация фона под конкретную карточку через data-атрибут в HTML:
+   <div class="hub-card" data-bg="assets/hub/tiertest.jpg"> — если картинки ещё
+   нет, фон просто остаётся тёмным (background-color из .hub-card-bg). */
+
+.hub-detail {
+    display: none;
+    animation: fadeInSubTab 0.2s ease;
+}
+
+.hub-detail.active {
+    display: block;
+}
+
+.hub-detail-back {
+    background: var(--sidebar-item);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    margin-bottom: 18px;
+}
+
+.hub-detail-back:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* ==========================================================================
    АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ ЭКРАНОВ (max-width: 768px)
    ========================================================================== */
 @media(max-width: 768px) {
