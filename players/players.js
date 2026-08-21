@@ -24,11 +24,7 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             },
-            Beast: {
-                tier: "HT1",
-                date: "2026-08-18",
-                retired: false
-            },
+            Beast: "LT1",
             Pickaxe: {
                 tier: "LT1",
                 date: "2026-08-18",
