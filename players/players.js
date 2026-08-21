@@ -2457,5 +2457,12 @@ const players = [
         tiers: {
             Emerald: "HT1"
         }
+    },
+    {
+        name: "SoLoGeMs",
+        region: "RU",
+        tiers: {
+            Crystal: "LT4"
+        }
     }
 ];
