@@ -608,11 +608,7 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             },
-            Pickaxe: {
-                tier: "LT3",
-                date: "2026-08-18",
-                retired: false
-            },
+            Pickaxe: "HT2",
             Hardcore: {
                 tier: "HT2",
                 date: "2026-08-18",
