@@ -2412,7 +2412,8 @@ const players = [
         region: "RU",
         tiers: {
             Crystal: "LT4",
-            RVM: "LT5"
+            RVM: "LT5",
+            Pickaxe: "LT5"
         }
     },
     {
