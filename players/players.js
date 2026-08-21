@@ -2454,5 +2454,12 @@ const players = [
         tiers: {
             Emerald: "HT1"
         }
+    },
+    {
+        name: "firary",
+        region: "RU",
+        tiers: {
+            Emerald: "HT1"
+        }
     }
 ];
