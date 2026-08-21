@@ -2402,7 +2402,8 @@ const players = [
             Crystal: "LT4",
             RVM: "LT5",
             Pickaxe: "LT5",
-            Beast: "LT4"
+            Beast: "LT4",
+            Dragonhide: "LT4"
         }
     },
     {
