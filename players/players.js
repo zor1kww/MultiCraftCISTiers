@@ -1790,11 +1790,7 @@ const players = [
         name: "Michael_59k_YT",
         region: "AM",
         tiers: {
-            Beast: {
-                tier: "LT4",
-                date: "2026-08-18",
-                retired: false
-            },
+            Beast: "LT3",
             Mace: {
                 tier: "LT4",
                 date: "2026-08-18",
