@@ -2163,7 +2163,8 @@ const players = [
                 tier: "HT4",
                 date: "2026-08-18",
                 retired: false
-            }
+            },
+            "Emerald Pot": "LT3"
         }
     },
     {
