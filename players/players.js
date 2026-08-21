@@ -2390,7 +2390,8 @@ const players = [
                 tier: "HT4",
                 date: "2026-08-18",
                 retired: false
-            }
+            },
+            Pickaxe: "LT3"
         }
     },
     {
