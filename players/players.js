@@ -2464,5 +2464,12 @@ const players = [
         tiers: {
             Crystal: "LT4"
         }
+    },
+    {
+        name: "meker_pvp",
+        region: "UA",
+        tiers: {
+            RVM: "LT4"
+        }
     }
 ];
