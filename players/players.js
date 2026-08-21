@@ -2399,36 +2399,11 @@ const players = [
         }
     },
     {
-        name: "test",
-        region: "RU",
-        tiers: {
-            "Emerald Pot": {
-                tier: "HT1",
-                date: "2026-08-19",
-                retired: true
-            }
-        }
-    },
-    {
         name: "Egoiste",
         region: "UA",
         tiers: {
             RVM: "HT5",
             Mace: "HT4"
-        }
-    },
-    {
-        name: "friary",
-        region: "RU",
-        tiers: {
-            Emerald: "HT1"
-        }
-    },
-    {
-        name: "firary",
-        region: "RU",
-        tiers: {
-            Emerald: "HT1"
         }
     },
     {
