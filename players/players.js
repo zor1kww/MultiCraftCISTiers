@@ -2451,5 +2451,12 @@ const players = [
             RVM: "HT5",
             Mace: "HT4"
         }
+    },
+    {
+        name: "friary",
+        region: "RU",
+        tiers: {
+            Emerald: "HT1"
+        }
     }
 ];
