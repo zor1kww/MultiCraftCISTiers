@@ -2036,13 +2036,14 @@ const players = [
     },
     {
         name: "HAVCHIK",
-        region: "UA",
+        region: "RU",
         tiers: {
             "Emerald Pot": {
                 tier: "LT3",
                 date: "2026-08-18",
                 retired: false
-            }
+            },
+            RVM: "HT3"
         }
     },
     {
