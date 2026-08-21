@@ -2448,7 +2448,8 @@ const players = [
         name: "Egoiste",
         region: "UA",
         tiers: {
-            RVM: "HT5"
+            RVM: "HT5",
+            Mace: "HT4"
         }
     }
 ];
