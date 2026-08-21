@@ -1137,7 +1137,8 @@ const players = [
                 tier: "LT3",
                 date: "2026-08-18",
                 retired: false
-            }
+            },
+            Pickaxe: "HT3"
         }
     },
     {
