@@ -2073,11 +2073,7 @@ const players = [
         name: "-Sorry-",
         region: "RU",
         tiers: {
-            Mace: {
-                tier: "HT4",
-                date: "2026-08-18",
-                retired: false
-            },
+            Mace: "HT4",
             Hardcore: {
                 tier: "LT3",
                 date: "2026-08-18",
