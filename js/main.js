@@ -606,48 +606,6 @@ function buildFaqTable() {
     }).join('');
 }
 
-// Навешивание кастомных цветов на тиры внутри FAQ текста
-function applyFaqTierColors() {
-    const tiersToColor = ['HT1', 'HT2', 'LT1', 'LT2', 'LT3'];
-    const activeColors = (typeof tierColors !== 'undefined') ? tierColors : {};
-    
-    tiersToColor.forEach(tier => {
-        const color = activeColors[tier] || 'var(--accent)';
-        for (let i = 1; i <= 4; i++) {
-            const element = document.getElementById(`faqColor${tier}_${i}`);
-            if (element) {
-                element.style.color = color;
-                element.style.fontWeight = 'bold';
-            }
-        }
-    });
-}
-
-// Навигация по под-вкладкам внутри Информации
-function switchInfoSubTab(subTabId, btnElement) {
-    document.querySelectorAll('.info-sub-tab-content').forEach(subTab => {
-        subTab.style.display = 'none';
-    });
-    document.querySelectorAll('.info-nav-btn').forEach(btn => {
-        btn.classList.remove('active');
-    });
-    
-    const targetSubTab = document.getElementById(subTabId);
-    if (targetSubTab) {
-        targetSubTab.style.display = 'block';
-    }
-    if (btnElement) {
-        btnElement.classList.add('active');
-    }
-    
-    if (subTabId === 'ptsSubTab') {
-        buildFaqTable();
-    }
-    if (subTabId === 'faqSubTab') {
-        applyFaqTierColors();
-    }
-}
-
 // ==========================================
 // 6. НАВИГАЦИЯ И ИНИЦИАЛИЗАЦИЯ
 // ==========================================
@@ -670,11 +628,11 @@ function switchTab(tabId) {
     } else {
         const target = document.getElementById(tabId);
         if (target) target.style.display = 'block';
-        
-        if (tabId === 'infoCenterTab') {
-            const firstNavBtn = document.querySelector('.info-nav-btn');
-            switchInfoSubTab('tierTestSubTab', firstNavBtn);
-        }
+
+        // При входе в "Тестирование" / "Другую информацию" всегда
+        // показываем сетку карточек, а не ранее открытую деталь
+        if (tabId === 'testingTab') resetHubGrid('testingHubGrid');
+        if (tabId === 'otherInfoTab') resetHubGrid('otherInfoHubGrid');
     }
     window.scrollTo(0, 0);
 }
@@ -682,6 +640,65 @@ function switchTab(tabId) {
 function backHome() {
     switchTab('mainPage');
 }
+
+// ==========================================
+// ХАБ-КАРТОЧКИ ("Тестирование" / "Другая информация")
+// ==========================================
+
+// Скрывает все открытые hub-detail внутри вкладки и возвращает сетку карточек
+function resetHubGrid(gridId) {
+    const grid = document.getElementById(gridId);
+    if (grid) grid.style.display = 'flex';
+
+    const tab = grid ? grid.closest('.tab-content') : null;
+    if (!tab) return;
+
+    tab.querySelectorAll('.hub-detail').forEach(detail => {
+        detail.classList.remove('active');
+    });
+}
+
+// Открывает конкретную карточку (по data-target), пряча сетку
+function openHubDetail(gridId, detailId) {
+    const grid = document.getElementById(gridId);
+    if (grid) grid.style.display = 'none';
+
+    const tab = grid ? grid.closest('.tab-content') : null;
+    if (tab) {
+        tab.querySelectorAll('.hub-detail').forEach(d => d.classList.remove('active'));
+    }
+
+    const detail = document.getElementById(detailId);
+    if (detail) detail.classList.add('active');
+
+    // PTS-таблица собирается динамически — на случай если карточку открыли впервые
+    if (detailId === 'hubPoints' && typeof buildFaqTable === 'function') {
+        buildFaqTable();
+    }
+
+    window.scrollTo(0, 0);
+}
+
+// Возврат из детали к сетке карточек внутри той же вкладки
+function closeHubDetail(gridId, detailId) {
+    const detail = document.getElementById(detailId);
+    if (detail) detail.classList.remove('active');
+
+    const grid = document.getElementById(gridId);
+    if (grid) grid.style.display = 'flex';
+
+    window.scrollTo(0, 0);
+}
+
+// Клик по самой карточке (делегирование на весь .hub-grid)
+document.querySelectorAll('.hub-grid').forEach(grid => {
+    grid.addEventListener('click', (e) => {
+        const card = e.target.closest('.hub-card');
+        if (!card) return;
+        const targetId = card.getAttribute('data-target');
+        if (targetId) openHubDetail(grid.id, targetId);
+    });
+});
 
 // Работа с боковым меню (Sidebar)
 const menuBtn = document.getElementById('menuBtn');
