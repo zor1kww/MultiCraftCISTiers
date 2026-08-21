@@ -2405,7 +2405,8 @@ const players = [
         tiers: {
             Crystal: "LT4",
             RVM: "LT5",
-            Pickaxe: "LT5"
+            Pickaxe: "LT5",
+            Beast: "LT4"
         }
     },
     {
