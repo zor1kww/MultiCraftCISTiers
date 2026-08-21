@@ -2423,5 +2423,12 @@ const players = [
         tiers: {
             Hardcore: "LT5"
         }
+    },
+    {
+        name: "FASTER-cq-q",
+        region: "RU",
+        tiers: {
+            Hardcore: "HT3"
+        }
     }
 ];
