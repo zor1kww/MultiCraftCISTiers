@@ -1171,11 +1171,7 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             },
-            RVM: {
-                tier: "LT3",
-                date: "2026-08-18",
-                retired: false
-            },
+            RVM: "HT3",
             SMP: "LT2",
             "Diamond Pot": {
                 tier: "HT3",
