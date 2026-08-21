@@ -72,9 +72,8 @@
 <div class="sidebar" id="sidebar">
     <h3>Навигация</h3>
     <a href="#" onclick="switchTab('mainPage')">Главная</a>
-    <a href="#" onclick="switchTab('infoCenterTab')">Информация</a>
-    <a href="#" onclick="switchTab('wikiTab')">Вики</a>
-    <a href="#" onclick="switchTab('hallTab')">Доска почета</a>
+    <a href="#" onclick="switchTab('testingTab')">Тестирование</a>
+    <a href="#" onclick="switchTab('otherInfoTab')">Другая информация</a>
     <a href="https://t.me/MultiCraftCISTiers" target="_blank">Telegram</a>
     
     <div class="theme-toggle-container">
@@ -162,11 +161,352 @@
     </div>
 </div>
 
-<div class="tab-content" id="wikiTab" style="display: none;">
+<!-- ============================================================
+     ВКЛАДКА "ТЕСТИРОВАНИЕ" — 5 карточек-обложек
+     ============================================================ -->
+<div class="tab-content" id="testingTab" style="display: none;">
     <button class="back-btn" onclick="backHome()">Назад на Главную</button>
-    <h2 class="section-title">Вики — Гайды по режимам</h2>
-    
-    <div class="wiki-grid">
+    <h2 class="section-title">Тестирование</h2>
+    <p class="hub-intro">Выберите раздел, чтобы узнать подробности о прохождении тестов.</p>
+
+    <div class="hub-grid" id="testingHubGrid">
+        <div class="hub-card" data-target="hubHowToTest">
+            <div class="hub-card-bg"></div>
+            <div class="hub-card-num">01</div>
+            <div class="hub-card-heading"><span>КАК ПРОЙТИ<br>ТИРТЕСТ?</span></div>
+            <div class="hub-card-footer">
+                <span class="hub-card-title">Как пройти тиртест?</span>
+                <span class="hub-card-link">Читать →</span>
+            </div>
+        </div>
+
+        <div class="hub-card" data-target="hubQualTest">
+            <div class="hub-card-bg"></div>
+            <div class="hub-card-num">02</div>
+            <div class="hub-card-heading"><span>КВАЛИФИКАЦИОННЫЙ<br>ТЕСТ</span></div>
+            <div class="hub-card-footer">
+                <span class="hub-card-title">Квалификационный тест</span>
+                <span class="hub-card-link">Читать →</span>
+            </div>
+        </div>
+
+        <div class="hub-card" data-target="hubHighTest">
+            <div class="hub-card-bg"></div>
+            <div class="hub-card-num">03</div>
+            <div class="hub-card-heading"><span>HT3+ ТЕСТЫ</span></div>
+            <div class="hub-card-footer">
+                <span class="hub-card-title">Высокий HT3+ тест</span>
+                <span class="hub-card-link">Читать →</span>
+            </div>
+        </div>
+
+        <div class="hub-card" data-target="hubRules">
+            <div class="hub-card-bg"></div>
+            <div class="hub-card-num">04</div>
+            <div class="hub-card-heading"><span>ПРАВИЛА<br>ПРОВЕДЕНИЯ<br>ТЕСТОВ</span></div>
+            <div class="hub-card-footer">
+                <span class="hub-card-title">Правила проведения тестов</span>
+                <span class="hub-card-link">Читать →</span>
+            </div>
+        </div>
+
+        <div class="hub-card" data-target="hubTesters">
+            <div class="hub-card-bg"></div>
+            <div class="hub-card-num">05</div>
+            <div class="hub-card-heading"><span>ТЕСТЕРЫ</span></div>
+            <div class="hub-card-footer">
+                <span class="hub-card-title">Тестеры</span>
+                <span class="hub-card-link">Читать →</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 01: Как пройти тиртест -->
+    <div class="hub-detail" id="hubHowToTest">
+        <button class="hub-detail-back" onclick="closeHubDetail('testingHubGrid', 'hubHowToTest')">← Ко всем разделам</button>
+        <div class="info-section">
+            <div class="info-section-title">Как пройти тиртест?</div>
+
+            <p style="font-size: 14px; color: var(--text-main); line-height: 1.7; margin-bottom: 15px;"><strong style="color: var(--accent);">Подача заявки</strong><br>
+            Игрок переходит в нашу Telegram-группу, находит раздел с интересующим его китом и отправляет заявку боту, используя предложенный шаблон.<br>
+            Также можно пройти тест напрямую на сервере, договорившись с тиртестером лично, когда он находится в сети.<br>
+            По итогам успешного прохождения ваш результат фиксируется на сайте, а ранг обновляется.</p>
+
+            <p style="font-size: 14px; color: var(--text-main); line-height: 1.7;"><strong style="color: var(--accent);">Выбор типа теста</strong><br>
+            В зависимости от того, есть ли у вас уже ранг и какой именно, вы можете попасть на один из двух типов тестирования:</p>
+            <ul style="margin: 10px 0 0 20px; font-size: 13px; color: var(--text-muted); line-height: 1.8;">
+                <li>Если вы новичок и ещё не проходили тест, вы направляетесь на <strong>квалификационный тест</strong>, где получите свой первый ранг.</li>
+                <li>Если у вас уже есть ранг LT3, вы можете продолжить путь через систему <strong>высокого теста</strong>, чтобы подниматься выше.</li>
+            </ul>
+            <p style="font-size: 13px; color: var(--text-muted); margin-top: 12px;">Подробнее о каждом из них — в соответствующих разделах ниже.</p>
+        </div>
+    </div>
+
+    <!-- 02: Квалификационный тест -->
+    <div class="hub-detail" id="hubQualTest">
+        <button class="hub-detail-back" onclick="closeHubDetail('testingHubGrid', 'hubQualTest')">← Ко всем разделам</button>
+        <div class="info-section">
+            <div class="info-section-title">Квалификационный тест</div>
+            <p style="font-size: 14px; color: var(--text-main); line-height: 1.7; margin-bottom: 12px;">
+                Квалификационный тест предназначен для игроков, которые ещё не имеют ранга или хотят получить его с нуля. По результатам теста игроку может быть присвоен ранг от <strong>LT5 до LT3</strong> в зависимости от продемонстрированного скилла.
+            </p>
+            <div class="info-accent-box">
+                Тестирование могут проводить любые тестеры — для этого не требуется наличие специального ранга.<br>
+                Максимальный тир, который можно получить на квалификации — <strong>LT3</strong>.
+            </div>
+            <ul style="margin: 15px 0 0 20px; font-size: 13px; color: var(--text-muted); line-height: 1.9;">
+                <li>До ранга HT3 испытуемый оценивается по <strong>скиллу</strong>, а не по счёту. Тестер оценивает механику, принятие решений, контроль и другие аспекты игры.</li>
+                <li>Тесты можно проходить <strong>раз в 7 дней</strong>.</li>
+                <li>Тест проходит в формате <strong>до четырёх побед</strong>. Тестер может по своему усмотрению сократить или увеличить количество раундов для более точной оценки.</li>
+                <li>Как только бой заканчивается, тестер присваивает заслуженный тир.</li>
+            </ul>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.7; margin-top: 15px;">
+                После получения ранга LT3 игрок может подавать заявки на высокий тест (HT3+) и двигаться дальше по цепочке: <strong style="color: var(--accent);">LT3 → HT3 → LT2 → HT2 → LT1 → HT1</strong>.
+            </p>
+        </div>
+    </div>
+
+    <!-- 03: Высокий HT3+ тест -->
+    <div class="hub-detail" id="hubHighTest">
+        <button class="hub-detail-back" onclick="closeHubDetail('testingHubGrid', 'hubHighTest')">← Ко всем разделам</button>
+
+        <div class="info-section">
+            <div class="info-section-title">Процесс высокого теста HT3+</div>
+            <div class="tier-hierarchy">
+                <div class="hierarchy-item"><span class="hierarchy-rank">LT3 → HT3</span><span class="hierarchy-desc">Обыграть одного LT3 оппонента с минимальным счётом 4:2 в свою пользу.</span></div>
+                <div class="hierarchy-item"><span class="hierarchy-rank">HT3 → LT2</span><span class="hierarchy-desc">Обыграть одного HT3 оппонента с минимальным счётом 4:2 в свою пользу.</span></div>
+                <div class="hierarchy-item"><span class="hierarchy-rank">LT2 → HT2</span><span class="hierarchy-desc">Обыграть одного LT2 оппонента с минимальным счётом 4:2 в свою пользу.</span></div>
+                <div class="hierarchy-item"><span class="hierarchy-rank">HT2 → LT1</span><span class="hierarchy-desc">Обыграть одного HT2 оппонента с минимальным счётом 4:2 в свою пользу.</span></div>
+            </div>
+
+            <div class="info-accent-box" style="margin-top: 18px;">
+                <strong>LT1 → HT1 (переход в чемпионы)</strong><br><br>
+                Претендент обязан обыграть <strong>всех действующих LT1</strong> с минимальным счётом 4:2 в свою пользу, а также действующего HT1, если таковой имеется.<br><br>
+                HT1 сохраняет свой статус, если проигрывает со счётом 4:3 — в этом случае претендент не получает ранг.<br>
+                Если претендент побеждает чемпиона со счётом 4:2, 4:1 или 4:0, он становится новым HT1, а проигравший чемпион понижается до LT1.
+            </div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-section-title">Замена оппонента при отсутствии нужного ранга</div>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.7; margin-bottom: 12px;">
+                Если на сервере нет игрока с требуемым рангом, тестируемый может сразиться с оппонентом на один ранг ниже, на один ранг выше или на два ранга выше. Условия зачёта при этом меняются:
+            </p>
+            <table class="faq-table">
+                <thead><tr><th>Ранг оппонента</th><th>Условие зачёта</th></tr></thead>
+                <tbody>
+                    <tr><td>Тот же ранг</td><td>Победа 4:2 или крупнее</td></tr>
+                    <tr><td>На 1 ранг ниже</td><td>Победа 4:1 или крупнее (4:2 не засчитывается)</td></tr>
+                    <tr><td>На 1 ранг выше</td><td>Достаточно проиграть 4:3</td></tr>
+                    <tr><td>На 2 ранга выше</td><td>Достаточно проиграть 4:2</td></tr>
+                </tbody>
+            </table>
+            <p style="font-size: 12px; color: var(--text-muted); line-height: 1.7; margin-top: 12px;">
+                <strong>Пример для LT3 → HT3:</strong> нет LT3 — можно сыграть против HT4 (нужна победа 4:1 или 4:0), против HT3 (достаточно проиграть 4:3) или против LT2 (достаточно проиграть 4:2). Правило работает одинаково для всех ступеней цепочки.
+            </p>
+        </div>
+
+        <div class="info-section">
+            <div class="info-section-title">Исключение по решению администрации</div>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.7;">
+                По решению администрации игрок может пропустить одну или несколько ступеней цепочки и сразу сразиться с оппонентом более высокого ранга, если его уровень игры очевидно выше текущего тира. Решение принимается на основе оценки скилла игрока.
+            </p>
+        </div>
+
+        <div class="info-section">
+            <div class="info-section-title">Система штрафных очков</div>
+            <p style="font-size: 13px; color: var(--text-main); line-height: 1.7; margin-bottom: 12px;">
+                Штрафные очки получают оба участника тиртеста в зависимости от исхода матча.
+            </p>
+            <ul style="margin: 0 0 12px 20px; font-size: 13px; color: var(--text-muted); line-height: 1.8;">
+                <li><strong>Оппонент</strong> (тот, кто проиграл тестируемому) получает очки, только если он имеет одинаковый или более высокий ранг, чем тестируемый. Если оппонент ниже рангом и проиграл — очки не начисляются.</li>
+                <li><strong>Тестируемый</strong> тоже получает очки за проваленный тиртест — по той же шкале в зависимости от счёта поражения.</li>
+            </ul>
+            <table class="faq-table">
+                <thead><tr><th>Счёт поражения</th><th>Штраф</th></tr></thead>
+                <tbody>
+                    <tr><td>4:3</td><td>0 очков</td></tr>
+                    <tr><td>4:2</td><td>1 очко</td></tr>
+                    <tr><td>4:1</td><td>1.5 очка</td></tr>
+                    <tr><td>4:0</td><td>2 очка</td></tr>
+                </tbody>
+            </table>
+            <div class="info-accent-box" style="margin-top: 15px;">
+                При накоплении <strong>3 очков</strong> игрок понижается в ранге на одну ступень, а очки сбрасываются до нуля.<br>
+                Все штрафные очки полностью обнуляются <strong>раз в месяц</strong> — независимо от того, сколько их накопилось.<br>
+                Количество очков отображается в профиле игрока и в топе по конкретным китам.
+            </div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-section-title">Форматы дуэлей по китам</div>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.7; margin-bottom: 12px;">
+                Формат матча (количество побед, до которого идёт игра) зависит от кита:
+            </p>
+            <table class="faq-table">
+                <thead><tr><th>Киты</th><th>Формат</th></tr></thead>
+                <tbody>
+                    <tr><td>Combo, SMP, Gapple</td><td>FT2 (до двух побед)</td></tr>
+                    <tr><td>Dragonhide, Beast, Emerald</td><td>FT6 (до шести побед)</td></tr>
+                    <tr><td>Остальные киты</td><td>FT4 (до четырёх побед)</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 04: Правила проведения тестов (бывший rulesSubTab) -->
+    <div class="hub-detail" id="hubRules">
+        <button class="hub-detail-back" onclick="closeHubDetail('testingHubGrid', 'hubRules')">← Ко всем разделам</button>
+        <div class="info-section">
+            <div class="info-section-title">Правила проведения тестов</div>
+            <ul style="margin-left: 20px; margin-top: 15px; font-size: 14px; color: var(--text-main); line-height: 1.8; list-style-type: decimal; padding-left: 0;">
+                <li style="margin-bottom: 10px;">Если вы хотите пройти тиртест с другого устройства, вам необходимо создать второй (отдельный) аккаунт.</li>
+                <li style="margin-bottom: 10px;">Запрещено использование любых сторонних модификаций, читов или макросов, дающих преимущество в бою.</li>
+                <li style="margin-bottom: 10px;">Запрещено умышленно затягивать процесс тиртеста или проявлять токсичность/неуважение к тиртестерам.</li>
+                <li style="margin-bottom: 10px;">Запрещена передача своего верифицированного аккаунта третьим лицам.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 05: Тестеры (бывший testersSubTab) -->
+    <div class="hub-detail" id="hubTesters">
+        <button class="hub-detail-back" onclick="closeHubDetail('testingHubGrid', 'hubTesters')">← Ко всем разделам</button>
+        <div class="info-section">
+            <div class="info-section-title">Тестеры</div>
+            <p style="font-size: 14px; color: var(--text-main); line-height: 1.6; margin-bottom: 20px;">
+                Тестеры — это опытные игроки, которые проводят проверку навыков и помогают определить ваш уровень мастерства на платформе.
+            </p>
+            <div class="testers-grid">
+                <div class="tester-card" onclick="openProfileByName('-999-')">
+                    <div class="tester-name">-999-</div>
+                    <div class="tester-status">Старший Тестер</div>
+                </div>
+                <div class="tester-card" onclick="openProfileByName('zor1kkqwix')">
+                    <div class="tester-name">zor1kkqwix</div>
+                    <div class="tester-status">Квалификационный Тестер</div>
+                </div>
+                <div class="tester-card" onclick="openProfileByName('_Xx_deras_xX')">
+                    <div class="tester-name">_Xx_deras_xX</div>
+                    <div class="tester-status">Квалификационный Тестер</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================
+     ВКЛАДКА "ДРУГАЯ ИНФОРМАЦИЯ" — 4 карточки-обложки
+     ============================================================ -->
+<div class="tab-content" id="otherInfoTab" style="display: none;">
+    <button class="back-btn" onclick="backHome()">Назад на Главную</button>
+    <h2 class="section-title">Другая информация</h2>
+    <p class="hub-intro">Выберите раздел, чтобы узнать подробности.</p>
+
+    <div class="hub-grid" id="otherInfoHubGrid">
+        <div class="hub-card" data-target="hubPoints">
+            <div class="hub-card-bg"></div>
+            <div class="hub-card-num">01</div>
+            <div class="hub-card-heading"><span>РАСПРЕДЕЛЕНИЕ<br>ОЧКОВ</span></div>
+            <div class="hub-card-footer">
+                <span class="hub-card-title">Распределение очков</span>
+                <span class="hub-card-link">Читать →</span>
+            </div>
+        </div>
+
+        <div class="hub-card" data-target="hubRetired">
+            <div class="hub-card-bg"></div>
+            <div class="hub-card-num">02</div>
+            <div class="hub-card-heading"><span>СИСТЕМА<br>RETIRED</span></div>
+            <div class="hub-card-footer">
+                <span class="hub-card-title">Система Retired</span>
+                <span class="hub-card-link">Читать →</span>
+            </div>
+        </div>
+
+        <div class="hub-card" data-target="hubModes">
+            <div class="hub-card-bg"></div>
+            <div class="hub-card-num">03</div>
+            <div class="hub-card-heading"><span>ТЕСТИРУЕМЫЕ<br>РЕЖИМЫ</span></div>
+            <div class="hub-card-footer">
+                <span class="hub-card-title">Тестируемые режимы</span>
+                <span class="hub-card-link">Читать →</span>
+            </div>
+        </div>
+
+        <div class="hub-card" data-target="hubHall">
+            <div class="hub-card-bg"></div>
+            <div class="hub-card-num">04</div>
+            <div class="hub-card-heading"><span>ДОСКА<br>ПОЧЕТА</span></div>
+            <div class="hub-card-footer">
+                <span class="hub-card-title">Доска почета</span>
+                <span class="hub-card-link">Читать →</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 01: Распределение очков (бывший ptsSubTab) -->
+    <div class="hub-detail" id="hubPoints">
+        <button class="hub-detail-back" onclick="closeHubDetail('otherInfoHubGrid', 'hubPoints')">← Ко всем разделам</button>
+        <div class="info-section">
+            <div class="info-section-title">Распределение очков PTS</div>
+            <p style="font-size: 13px; color: var(--text-main); line-height: 1.6; margin-bottom: 15px;">
+                Рейтинг игрока формируется путём суммирования очков PTS, полученных только за основные (main) киты. Очки, набранные за дополнительные (sub) киты, в общий рейтинг не учитываются.
+            </p>
+            <table class="faq-table">
+                <thead><tr><th>Тир</th><th>PTS</th></tr></thead>
+                <tbody id="faqTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 02: Система Retired -->
+    <div class="hub-detail" id="hubRetired">
+        <button class="hub-detail-back" onclick="closeHubDetail('otherInfoHubGrid', 'hubRetired')">← Ко всем разделам</button>
+        <div class="info-section">
+            <div class="info-section-title">Статус Retired</div>
+            <p style="font-size: 14px; color: var(--text-main); line-height: 1.7; margin-bottom: 12px;">
+                Статус Retired предназначен для игроков, которые хотят временно выйти из активной системы тиртестов и PvP-соревнований. Это позволяет избежать штрафных очков и понижений в периоды неактивности.
+            </p>
+            <div class="info-accent-box">
+                Начиная с ранга <strong>HT3</strong>, любой игрок имеет право добровольно уйти в Retired. Игроки с более низкими рангами не могут получить этот статус, так как они ещё находятся на этапе квалификации.
+            </div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-section-title">Основания для получения статуса</div>
+            <ul style="margin-left: 20px; font-size: 13px; color: var(--text-muted); line-height: 1.9;">
+                <li><strong style="color: var(--text-main);">Добровольное желание игрока.</strong> Игрок может в любой момент подать заявку на уход в Retired через администрацию или соответствующую систему.</li>
+                <li><strong style="color: var(--text-main);">Автоматически.</strong> Если игрок не проходил тиртест по конкретному киту более двух месяцев, система автоматически присваивает ему статус Retired по этому киту — чтобы неактивные игроки не занимали места в топе и не создавали иллюзию активности.</li>
+            </ul>
+        </div>
+
+        <div class="info-section">
+            <div class="info-section-title">Обозначение и влияние на рейтинг</div>
+            <p style="font-size: 13px; color: var(--text-main); line-height: 1.7; margin-bottom: 10px;">
+                При уходе в Retired по конкретному киту к его названию добавляется буква <strong style="color:#ff4747;">R</strong>, например <strong style="color:#ff4747;">R</strong>HT1 — это позволяет сразу видеть, что игрок временно неактивен.
+            </p>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.7;">
+                Игроки со статусом Retired исключаются из общего топа, чтобы в рейтинге отображались только активные игроки, которые действительно участвуют в PvP и тиртестах.
+            </p>
+        </div>
+
+        <div class="info-section">
+            <div class="info-section-title">Возврат в активный режим</div>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.7;">
+                Чтобы снова стать активным, игроку достаточно пройти тиртест по соответствующему киту. Как только тиртест успешно завершён, статус Retired снимается, и игрок снова отображается в топе и может участвовать в PvP на общих основаниях.
+            </p>
+            <div class="info-accent-box" style="margin-top: 15px;">
+                Статус Retired применяется <strong>индивидуально к каждому киту</strong>. Игрок может быть активным на одном ките и находиться в Retired на другом — например, иметь ранг HT1 на Hardcore и одновременно статус RHT1 на Emerald Pot, если давно не играл на нём.
+            </div>
+        </div>
+    </div>
+
+    <!-- 03: Тестируемые режимы (бывший wikiTab) -->
+    <div class="hub-detail" id="hubModes">
+        <button class="hub-detail-back" onclick="closeHubDetail('otherInfoHubGrid', 'hubModes')">← Ко всем разделам</button>
+        <h2 class="section-title">Тестируемые режимы</h2>
+
+        <div class="wiki-grid">
         <div class="wiki-card">
             <div class="wiki-title-wrapper">
                 <img class="wiki-title-icon" src="assets/logos/hardcore.png" alt="">
@@ -446,130 +786,18 @@
                 <img src="assets/wiki/crystal_inv.png" onerror="this.style.display='none';">
             </div>
         </div>
-    </div>
-</div>
-
-<div class="tab-content" id="hallTab" style="display: none;">
-    <button class="back-btn" onclick="backHome()">Назад на Главную</button>
-    <h2 class="section-title">Доска почета</h2>
-    <div class="info-box">
-        <p style="margin-bottom: 12px; font-size: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; color: var(--accent); ">Руководство платформы:</p>
-        <span class="hall-name-link" onclick="openProfileByName('-999-')">-999-</span> — Создатель, Владелец сервера, Со-автор системы MultiCraftCISTiers.<br><br>
-        <span class="hall-name-link" onclick="openProfileByName('zor1kkqwix')">zor1kkqwix</span> — Главный Администратор сервера, Создатель и технический разработчик системы MultiCraftCISTiers.<br><br>
-        <span class="hall-name-link" onclick="openProfileByName('AMORE')">AMORE</span> — Администратор и главный строитель сервера.
-    </div>
-</div>
-
-<div class="tab-content" id="infoCenterTab" style="display: none;">
-    <button class="back-btn" onclick="backHome()">Назад на Главную</button>
-    <h2 class="section-title">Информация</h2>
-    
-    <div class="info-nav-buttons">
-        <button class="info-nav-btn active" onclick="switchInfoSubTab('tierTestSubTab', this)">Как пройти тиртест?</button>
-        <button class="info-nav-btn" onclick="switchInfoSubTab('ptsSubTab', this)">Распределение очков</button>
-        <button class="info-nav-btn" onclick="switchInfoSubTab('testersSubTab', this)">Тестеры</button>
-        <button class="info-nav-btn" onclick="switchInfoSubTab('rulesSubTab', this)">Правила</button>
-        <button class="info-nav-btn" onclick="switchInfoSubTab('faqSubTab', this)">FAQ</button>
+        </div>
     </div>
 
-    <div class="info-box">
-        <div id="tierTestSubTab" class="info-sub-tab-content" style="display: block;">
-            <div class="info-section">
-                <div class="info-section-title">Как пройти тиртест?</div>
-                <div class="step-list">
-                    <div class="step-card">
-                        <div class="step-num">1. Подача заявки</div>
-                        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">Игрок переходит в нашу Telegram-группу, находит раздел с интересующим его китом и отправляет заявку боту.</p>
-                    </div>
-                    <div class="step-card">
-                        <div class="step-num">2. Шаблон заявки</div>
-                        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">Для подачи заявки используйте предложенный ботом шаблон, кратко заполнив необходимую информацию.</p>
-                    </div>
-                    <div class="step-card">
-                        <div class="step-num">3. Проведение матча</div>
-                        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">После подачи заявки тестер свяжется с вами, чтобы договориться о времени проведения теста. Пройти тиртест можно также напрямую на сервере, договорившись с тиртестером лично, когда он находится в сети (без обязательного использования Telegram). Результат будет опубликован на сайте.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="ptsSubTab" class="info-sub-tab-content" style="display: none;">
-            <div class="info-section">
-                <div class="info-section-title">Распределение очков PTS</div>
-                <p style="font-size: 13px; color: var(--text-main); line-height: 1.6; margin-bottom: 15px;">
-                    Рейтинг игрока формируется путём суммирования очков PTS, полученных только за основные (main) киты. Очки, набранные за дополнительные (sub) киты, в общий рейтинг не учитываются.
-                </p>
-                <table class="faq-table">
-                    <thead>
-                        <tr>
-                            <th>Тир</th>
-                            <th>PTS</th>
-                        </tr>
-                    </thead>
-                    <tbody id="faqTableBody"></tbody>
-                </table>
-            </div>
-        </div>
-
-        <div id="testersSubTab" class="info-sub-tab-content" style="display: none;">
-            <div class="info-section">
-                <div class="info-section-title">Тестеры</div>
-                <p style="font-size: 14px; color: var(--text-main); line-height: 1.6; margin-bottom: 20px;">
-                    Тестеры — это опытные игроки, которые проводят проверку навыков и помогают определить ваш уровень мастерства на платформе.
-                </p>
-                <div class="testers-grid">
-                    <div class="tester-card" onclick="openProfileByName('-999-')">
-                        <div class="tester-name">-999-</div>
-                        <div class="tester-status">Старший Тестер</div>
-                    </div>
-                    <div class="tester-card" onclick="openProfileByName('zor1kkqwix')">
-                        <div class="tester-name">zor1kkqwix</div>
-                        <div class="tester-status">Квалификационный Тестер</div>
-                    </div>
-                    <div class="tester-card" onclick="openProfileByName('_Xx_deras_xX')">
-                        <div class="tester-name">_Xx_deras_xX</div>
-                        <div class="tester-status">Квалификационный Тестер</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="rulesSubTab" class="info-sub-tab-content" style="display: none;">
-            <div class="info-section">
-                <div class="info-section-title">Правила платформы</div>
-                <ul class="rules-list-container" style="margin-left: 20px; margin-top: 15px; font-size: 14px; color: var(--text-main); line-height: 1.8; list-style-type: decimal; padding-left: 0;">
-                    <li style="margin-bottom: 10px;">Если вы хотите пройти тиртест с другого устройства, вам необходимо создать второй (отдельный) аккаунт.</li>
-                    <li style="margin-bottom: 10px;">Запрещено использование любых сторонних модификаций, читов или макросов, дающих преимущество в бою.</li>
-                    <li style="margin-bottom: 10px;">Запрещено умышленно затягивать процесс тиртеста или проявлять токсичность/неуважение к тиртестерам.</li>
-                    <li style="margin-bottom: 10px;">Запрещена передача своего верифицированного аккаунта третьим лицам.</li>
-                </ul>
-            </div>
-        </div>
-
-        <div id="faqSubTab" class="info-sub-tab-content" style="display: none;">
-            <div class="info-section">
-                <div class="info-section-title">Часто задаваемые вопросы</div>
-                <div class="faq-block-item" style="margin-top: 0;">
-                    <h3>Типы тестеров:</h3>
-                    <p>На нашей платформе есть два типа тестеров: квалификационный и старший.</p>
-                    <ul style="margin-left: 20px; margin-top: 8px; font-size: 13px; color: var(--text-muted); line-height: 1.6; list-style-type: none; padding-left: 0;">
-                        <li style="margin-bottom: 6px;"><strong>Квалификационный тестер:</strong> Это игроки уровня от <span id="faqColorLT3_1">LT3</span> до <span id="faqColorLT2_1">LT2</span>. Максимальный уровень, который вы можете получить за этот тест, — <span id="faqColorLT3_2">LT3</span>.</li>
-                        <li><strong>Старший тестер:</strong> Это опытные игроки уровня от <span id="faqColorHT2_1">HT2</span> до <span id="faqColorHT1_1">HT1</span>.</li>
-                    </ul>
-                </div>
-                <div class="faq-block-item">
-                    <h3>Процесс повышения уровня:</h3>
-                    <p style="margin-bottom: 8px;">Если вы достигли уровня <span id="faqColorLT3_3">LT3</span>, вы можете пройти второй тест со старшим тестером. Каждый тест состоит из дуэлей до первых четырех побед. Минимальный уровень, который вы можете получить за этот тест, — <span id="faqColorLT3_4">LT3</span>, а максимальный — <span id="faqColorLT1_1">LT1</span>.</p>
-                    <p style="margin-bottom: 8px;">Для получения наивысшего ранга <span id="faqColorHT1_2">HT1</span> претенденту необходимо одолеть всех действующих игроков с рангом <span id="faqColorLT1_2">LT1</span>. Если на платформе уже имеются действующие игроки уровня <span id="faqColorHT1_3">HT1</span>, претендент обязан сразиться с ними. Действующий чемпион сохраняет свой статус, если матч завершается с минимальным счетом 3/4 в его пользу; в противном случае ранг переходит к победителю, а проигравшему присваивается <span id="faqColorLT1_3">LT1</span>.</p>
-                    
-                    <p><strong>Кулдаун на пересдачу:</strong> После прохождения тиртеста по конкретному киту, повторная попытка для этого же режима становится доступной ровно через 7 дней. Исключение: если в ходе теста вы успешно повысили свой ранг до <span id="faqColorLT3_5">LT3</span>, вы имеете право мгновенно и без ожидания подать заявку на прохождение тиртеста со Старшим Тестером.</p>
-                </div>
-                <div class="faq-block-item">
-                    <h3>Статус Retired:</h3>
-                    <p style="margin-bottom: 8px;">Если игрок не проходил тиртест по конкретному киту более двух месяцев, рядом с названием этого кита появляется приписка R, например, <span style="font-weight: bold; color: #ff4747;">R</span><span id="faqColorHT1_4">HT1</span>.</p>
-                    <p>Игроки со статусом Retired не отображаются в общем топе. Чтобы снова стать активным, достаточно пройти тиртест по соответствующему киту.</p>
-                </div>
-            </div>
+    <!-- 04: Доска почета (бывший hallTab) -->
+    <div class="hub-detail" id="hubHall">
+        <button class="hub-detail-back" onclick="closeHubDetail('otherInfoHubGrid', 'hubHall')">← Ко всем разделам</button>
+        <h2 class="section-title">Доска почета</h2>
+        <div class="info-box">
+            <p style="margin-bottom: 12px; font-size: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; color: var(--accent); ">Руководство платформы:</p>
+            <span class="hall-name-link" onclick="openProfileByName('-999-')">-999-</span> — Создатель, Владелец сервера, Со-автор системы MultiCraftCISTiers.<br><br>
+            <span class="hall-name-link" onclick="openProfileByName('zor1kkqwix')">zor1kkqwix</span> — Главный Администратор сервера, Создатель и технический разработчик системы MultiCraftCISTiers.<br><br>
+            <span class="hall-name-link" onclick="openProfileByName('AMORE')">AMORE</span> — Администратор и главный строитель сервера.
         </div>
     </div>
 </div>
