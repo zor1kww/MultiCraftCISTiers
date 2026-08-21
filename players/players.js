@@ -117,7 +117,8 @@ const players = [
                 tier: "HT1",
                 date: "2026-08-18",
                 retired: false
-            }
+            },
+            Gapple: "HT1"
         }
     },
     {
