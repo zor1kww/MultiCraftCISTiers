@@ -2411,7 +2411,8 @@ const players = [
         name: "SoLoGeMs",
         region: "RU",
         tiers: {
-            Crystal: "LT4"
+            Crystal: "LT4",
+            RVM: "LT5"
         }
     },
     {
