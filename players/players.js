@@ -1952,11 +1952,7 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             },
-            Beast: {
-                tier: "LT2",
-                date: "2026-08-18",
-                retired: false
-            },
+            Beast: "LT1",
             RVM: {
                 tier: "LT1",
                 date: "2026-08-18",
