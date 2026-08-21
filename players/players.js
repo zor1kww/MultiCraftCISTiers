@@ -2447,5 +2447,12 @@ const players = [
                 retired: true
             }
         }
+    },
+    {
+        name: "Egoiste",
+        region: "UA",
+        tiers: {
+            RVM: "HT5"
+        }
     }
 ];
