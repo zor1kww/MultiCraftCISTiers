@@ -1662,11 +1662,7 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             },
-            Hardcore: {
-                tier: "LT4",
-                date: "2026-08-18",
-                retired: false
-            }
+            Hardcore: "HT5"
         }
     },
     {
