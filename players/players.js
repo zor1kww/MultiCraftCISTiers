@@ -1173,11 +1173,7 @@ const players = [
             },
             RVM: "HT3",
             SMP: "LT2",
-            "Diamond Pot": {
-                tier: "HT3",
-                date: "2026-08-18",
-                retired: false
-            },
+            "Diamond Pot": "HT3",
             Beast: {
                 tier: "LT2",
                 date: "2026-08-18",
