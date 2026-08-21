@@ -1134,7 +1134,7 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             },
-            Pickaxe: "HT3"
+            Pickaxe: "LT3"
         }
     },
     {
