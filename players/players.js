@@ -2426,5 +2426,12 @@ const players = [
         tiers: {
             Hardcore: "HT3"
         }
+    },
+    {
+        name: "_UnU_",
+        region: "RU",
+        tiers: {
+            Mace: "LT4"
+        }
     }
 ];
