@@ -1834,8 +1834,25 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             },
-            Hardcore: "HT4"
-        }
+            Hardcore: {
+                tier: "LT3",
+                date: "2026-08-22",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-22",
+                kit: "Hardcore",
+                tester: "zor1kkqwix",
+                tierBefore: "HT4",
+                tierAfter: "LT3",
+                scoreTester: 4,
+                scorePlayer: 0,
+                winner: "tester",
+                comment: null
+            }
+        ]
     },
     {
         name: "Aura",
