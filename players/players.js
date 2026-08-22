@@ -823,7 +823,7 @@ const players = [
         tiers: {
             Mace: {
                 tier: "LT3",
-                date: "2026-08-18",
+                date: "2026-08-22",
                 retired: false
             },
             Dragonhide: {
@@ -876,7 +876,20 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             }
-        }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-22",
+                kit: "Mace",
+                tester: "_Xx_deras_xX",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scoreTester: 10,
+                scorePlayer: 0,
+                winner: "tester",
+                comment: null
+            }
+        ]
     },
     {
         name: "Hayzi",
