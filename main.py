@@ -1,14 +1,65 @@
+# -*- coding: utf-8 -*-
+"""
+Telegram-бот тир-тестера MultiCraftCISTiers (v3 - текстовый шаблон).
+
+Архитектура:
+  - Тестеры пишут результаты текстовым шаблоном в закрытой группе,
+    топик "Результаты" (SOURCE_CHAT_ID/SOURCE_THREAD_ID из bot_config.py).
+  - Бот - обычный участник-админ этой группы, слушает сообщения через
+    polling. Так как бот добавлен АДМИНОМ, privacy mode Telegram не
+    ограничивает видимость сообщений - бот видит все сообщения в группе.
+  - Каждое сообщение в целевом топике пропускается через text_parser:
+      * не похоже на результат (нет меток полей) -> молча игнорируется
+      * похоже, но с ошибкой (не хватает полей/неверные значения) ->
+        бот отвечает в тот же топик с описанием ошибки
+      * распознано полностью -> ставится в очередь (result_queue.py)
+  - Очередь обрабатывает результаты СТРОГО последовательно с паузой
+    5-10 секунд между записями в GitHub - защита от пачек сообщений,
+    накопившихся, пока бот был выключен/спал.
+  - Каждый результат: запись в players.js (тир + matchHistory),
+    публикация карточки в один из двух ПУБЛИЧНЫХ топиков
+    (RESULTS_THREAD_ID / HIGH_RESULTS_THREAD_ID) по правилу:
+    tier_after в {LT5,LT4,HT5,LT3} -> "Результаты",
+    tier_after в {HT3,LT2,HT2,LT1,HT1} -> "Высокие результаты".
+
+Модули с бизнес-логикой (протестированы отдельно от Telegram):
+  - text_parser.py    - разбор шаблонного сообщения
+  - tier_logic.py      - математика тиров, тексты карточек, matchHistory
+  - github_storage.py  - чтение/запись players.js с retry на sha-конфликт
+  - result_queue.py    - последовательная очередь с задержкой
+  - bot_config.py      - справочники и ID чатов/топиков
+
+ВАЖНО: этот файл писался БЕЗ доступа к реальному Telegram API и без
+установленного pyTelegramBotAPI (нет сети в среде разработки) - перед
+боевым использованием стоит понаблюдать за первыми результатами
+в логах Render и в самих топиках.
+"""
+
 import os
-import re
-import json
-import base64
-import requests
-import telebot
-import math
+import traceback
 from threading import Thread
+
+import telebot
 from flask import Flask
 
-# Крошечный веб-сервер для обмана Render
+from bot_config import (
+    SOURCE_CHAT_ID, SOURCE_THREAD_ID,
+    RESULTS_CHAT_ID, RESULTS_THREAD_ID, HIGH_RESULTS_THREAD_ID,
+)
+from text_parser import parse_result_message, ParseError
+from tier_logic import (
+    calculate_overall_tier, determine_topic, tester_display_name,
+    build_high_test_card, build_normal_result_card, build_match_history_entry,
+    build_tier_object, today_str,
+)
+from result_queue import ResultQueue
+import github_storage
+
+
+# ==========================================
+# НАСТРОЙКА
+# ==========================================
+
 app = Flask('')
 
 @app.route('/')
@@ -19,257 +70,189 @@ def run_web_server():
     port = int(os.environ.get("PORT", 8080))
     app.run(host='0.0.0.0', port=port)
 
-# Считываем настройки из секретных переменных Render
+
 TG_TOKEN = os.environ.get('TG_TOKEN')
 GH_TOKEN = os.environ.get('GH_TOKEN')
 GH_REPO = os.environ.get('GH_REPO')
 
 bot = telebot.TeleBot(TG_TOKEN)
 
-TARGET_CHAT_ID = -1003257860755
-TARGET_THREAD_ID = 11
+result_queue = ResultQueue()
 
-VALID_KITS = [
-    "Hardcore", "Combo", "Emerald Pot", "RVM", "Emerald", "Beast", "Vanilla", 
-    "Dragonhide", "Pickaxe", "Crystal", "Mace", "Gapple", "SMP", "Manhunt", "Diamond Pot"
-]
 
-# Веса рангов для вычисления среднего тира (1 - 10)
-TIER_WEIGHTS = {
-    'HT1': 10, 'LT1': 9,
-    'HT2': 8,  'LT2': 7,
-    'HT3': 6,  'LT3': 5,
-    'HT4': 4,  'LT4': 3,
-    'HT5': 2,  'LT5': 1
-}
+# ==========================================
+# ПРИМЕНЕНИЕ РЕЗУЛЬТАТА К БАЗЕ ИГРОКОВ
+# ==========================================
 
-# Обратный поиск названия ранга по его весу
-REVERSE_WEIGHTS = {
-    10: 'HT1', 9: 'LT1',
-    8: 'HT2',  7: 'LT2',
-    6: 'HT3',  5: 'LT3',
-    4: 'HT4',  3: 'LT4',
-    2: 'HT5',  1: 'LT5'
-}
+def find_player(players_list, name: str):
+    name_lower = name.lower()
+    for p in players_list:
+        if p.get('name', '').lower() == name_lower:
+            return p
+    return None
 
-# Очки для расчета разницы (PTS) на конкретном ките
-TIER_POINTS = {
-    'HT1': 100, 'LT1': 90,
-    'HT2': 80,  'LT2': 70,
-    'HT3': 60,  'LT3': 50,
-    'HT4': 40,  'LT4': 30,
-    'HT5': 20,  'LT5': 10,
-    'UNRANKED': 0
-}
 
-# Порядок возрастания тиров для вычисления следующего ранга на одном ките
-TIER_ORDER = ['UNRANKED', 'LT5', 'HT5', 'LT4', 'HT4', 'LT3', 'HT3', 'LT2', 'HT2', 'LT1', 'HT1']
-
-def get_next_tier_info(current_tier):
+def apply_result_to_players_list(players_list, parsed):
     """
-    Вычисляет следующий тир для кита и сколько PTS до него не хватает
-    Правильно обрабатывает Retired тиры (с префиксом R)
+    Мутирует players_list: обновляет тир игрока (или создаёт нового
+    игрока, если его ещё нет в базе) и добавляет запись в matchHistory.
+    Возвращает (players_list, overall_tier, tests_count, is_new_player).
     """
-    clean_tier = current_tier.upper().strip()
-    
-    # Срезаем префикс R если есть (Retired тиры)
-    is_retired = False
-    if clean_tier.startswith('R') and len(clean_tier) > 1:
-        is_retired = True
-        clean_tier = clean_tier[1:]
-    
-    if clean_tier not in TIER_ORDER:
-        return None, 0
-    
-    current_idx = TIER_ORDER.index(clean_tier)
-    if current_idx == len(TIER_ORDER) - 1:
-        return None, 0
-        
-    next_tier = TIER_ORDER[current_idx + 1]
-    pts_needed = TIER_POINTS[next_tier] - TIER_POINTS[clean_tier]
-    return next_tier, pts_needed
+    player = find_player(players_list, parsed.player_name)
 
-def calculate_overall_tier(player_tiers):
-    """
-    Рассчитывает средний ранг по всем пройденным тестам
-    """
-    total_weight = 0
-    count = 0
-    
-    for kit_name, tier_val in player_tiers.items():
-        if isinstance(tier_val, dict):
-            tier_str = tier_val.get('tier', 'UNRANKED').upper()
-        else:
-            tier_str = str(tier_val).upper()
-            
-        if tier_str.startswith('R') and len(tier_str) > 1:
-            tier_str = tier_str[1:] # Срезаем "R" для Retired рангов
-            
-        if tier_str in TIER_WEIGHTS:
-            total_weight += TIER_WEIGHTS[tier_str]
-            count += 1
-            
-    if count == 0:
-        return "Unranked", 0
+    tier_obj = build_tier_object(parsed.tier_after, retired=False, test_date=today_str())
+    history_entry = build_match_history_entry(
+        kit=parsed.kit,
+        tester_name=parsed.tester_name,
+        player_name=parsed.player_name,
+        tier_before=parsed.tier_before,
+        tier_after=parsed.tier_after,
+        score_tester=parsed.score_tester,
+        score_player=parsed.score_player,
+        winner=parsed.winner,
+        comment=parsed.comment,
+    )
 
-    avg_weight = int(round(total_weight / count))
-    current_overall = REVERSE_WEIGHTS.get(avg_weight, "Unranked")
-    
-    return current_overall, count
+    is_new_player = player is None
 
-@bot.message_handler(func=lambda message: message.chat.id == TARGET_CHAT_ID and message.message_thread_id == TARGET_THREAD_ID)
-def handle_telegram_message(message):
-    if "Игрок:" not in message.text or "Кит:" not in message.text or "Полученный ранг:" not in message.text:
-        return
-
-    text = message.text
-    try:
-        player_name = re.search(r"Игрок:\s*([^\n]+)", text).group(1).strip()
-        kit_name = re.search(r"Кит:\s*([^\n]+)", text).group(1).strip()
-        region = re.search(r"Регион:\s*([^\n]+)", text).group(1).strip().upper()
-        new_tier = re.search(r"Полученный ранг:\s*([^\n]+)", text).group(1).strip().upper()
-    except AttributeError:
-        # Ошибки выводим обычным текстом без parse_mode, чтобы они никогда не ломались
-        bot.reply_to(message, "Ошибка. Не удалось распознать шаблон. Проверьте правильность заполнения полей.")
-        return
-
-    matched_kit = next((k for k in VALID_KITS if k.lower() == kit_name.lower()), None)
-    if not matched_kit:
-        valid_kits_list = ", ".join(VALID_KITS)
-        bot.reply_to(
-            message,
-            f"Ошибка: кит \"{kit_name}\" не найден в списке разрешенных китов. "
-            f"Проверьте правильность написания. Доступные киты: {valid_kits_list}"
-        )
-        return
-
-    # Безопасный текст загрузки на HTML
-    status_msg = bot.reply_to(message, f"<b>Обрабатываю результат для {player_name}...</b>", parse_mode="HTML")
-
-    file_path = "players/players.js"
-    url = f"https://api.github.com/repos/{GH_REPO}/contents/{file_path}"
-    headers = {"Authorization": f"token {GH_TOKEN}"}
-
-    try:
-        response = requests.get(url, headers=headers)
-        if response.status_code != 200:
-            bot.edit_message_text(
-                chat_id=message.chat.id,
-                message_id=status_msg.message_id,
-                text=f"Ошибка GitHub при чтении файла: {response.status_code}"
-            )
-            return
-
-        file_data = response.json()
-        sha = file_data['sha']
-        content = base64.b64decode(file_data['content']).decode('utf-8')
-
-        json_array_match = re.search(r"=\s*(\[.*\]);?\s*$", content, re.DOTALL)
-        if not json_array_match:
-            json_array_match = re.search(r"(\[.*\])", content, re.DOTALL)
-            if not json_array_match:
-                bot.edit_message_text(
-                    chat_id=message.chat.id,
-                    message_id=status_msg.message_id,
-                    text="Ошибка: Не удалось найти структуру массива в файле."
-                )
-                return
-
-        raw_json_text = json_array_match.group(1)
-        valid_json_text = re.sub(r'(\s*)(\w+)(\s*):', r'\1"\2"\3:', raw_json_text)
-        
-        try:
-            players_list = json.loads(valid_json_text)
-        except json.JSONDecodeError as je:
-            bot.edit_message_text(
-                chat_id=message.chat.id,
-                message_id=status_msg.message_id,
-                text=f"Ошибка JSON после обработки: {str(je)}"
-            )
-            return
-
-        player_found = False
-        active_player_tiers = {}
-        
-        for player in players_list:
-            if player.get('name', '').lower() == player_name.lower():
-                player['name'] = player_name 
-                player['region'] = region
-                if 'tiers' not in player:
-                    player['tiers'] = {}
-                player['tiers'][matched_kit] = new_tier
-                active_player_tiers = player['tiers']
-                player_found = True
-                break
-
-        if not player_found:
-            new_player = {
-                "name": player_name,
-                "region": region,
-                "tiers": {matched_kit: new_tier}
-            }
-            players_list.append(new_player)
-            active_player_tiers = new_player['tiers']
-
-        new_json_array = json.dumps(players_list, indent=4, ensure_ascii=False)
-        new_js_array = re.sub(r'"(\w+)"\s*:', r'\1:', new_json_array)
-        
-        prefix = content.split('[')[0]
-        suffix = ";" if content.strip().endswith(';') else ""
-        
-        new_file_content = f"{prefix}{new_js_array}{suffix}"
-        new_content_encoded = base64.b64encode(new_file_content.encode('utf-8')).decode('utf-8')
-
-        payload = {
-            "message": f"auto update tier: {player_name} -> {matched_kit} ({new_tier})",
-            "content": new_content_encoded,
-            "sha": sha
+    if is_new_player:
+        player = {
+            "name": parsed.player_name,
+            "region": parsed.region,
+            "tiers": {parsed.kit: tier_obj},
+            "matchHistory": [history_entry],
         }
+        players_list.append(player)
+    else:
+        player['region'] = parsed.region
+        if 'tiers' not in player:
+            player['tiers'] = {}
+        player['tiers'][parsed.kit] = tier_obj
+        if 'matchHistory' not in player:
+            player['matchHistory'] = []
+        player['matchHistory'].append(history_entry)
 
-        put_response = requests.put(url, headers=headers, json=payload)
+    overall_tier, tests_count = calculate_overall_tier(player['tiers'])
+    return players_list, overall_tier, tests_count, is_new_player
 
-        if put_response.status_code in [200, 201]:
-            next_tier, pts_needed = get_next_tier_info(new_tier)
-            if next_tier:
-                kit_progress_text = f"<b>До следующего ранга на {matched_kit} [{next_tier}] осталось: {pts_needed} PTS</b>"
-            else:
-                kit_progress_text = f"<b>На ките {matched_kit} достигнут максимальный ранг</b>"
 
-            overall_tier, tests_count = calculate_overall_tier(active_player_tiers)
+# ==========================================
+# ОБРАБОТКА ОДНОГО РЕЗУЛЬТАТА (задача очереди)
+# ==========================================
 
-            # Перевели полностью в HTML-разметку (теги <b> вместо звездочек)
-            success_text = (
-                f"<b>Игрок {player_name} внесен в базу данных</b>\n\n"
-                f"<b>Регион: {region}</b>\n"
-                f"<b>Кит: {matched_kit} | Ранг: {new_tier}</b>\n\n"
-                f"<b>Текущий средний ранг: {overall_tier} [Тестов: {tests_count}]</b>\n"
-                f"<b>{kit_progress_text}</b>"
-            )
+def process_result(parsed, source_message_id):
+    """
+    Выполняется в очереди (result_queue), последовательно, с паузой
+    перед каждым вызовом (кроме первого). Делает запись в GitHub и
+    публикует карточку в нужный публичный топик.
+    """
+    result_holder = {}
 
-            bot.edit_message_text(
-                chat_id=message.chat.id,
-                message_id=status_msg.message_id,
-                text=success_text,
-                parse_mode="HTML"
-            )
-        else:
-            bot.edit_message_text(
-                chat_id=message.chat.id,
-                message_id=status_msg.message_id,
-                text=f"Ошибка записи на GitHub: {put_response.status_code}"
-            )
+    def mutate(players_list):
+        updated_list, overall_tier, tests_count, is_new_player = apply_result_to_players_list(players_list, parsed)
+        result_holder['overall_tier'] = overall_tier
+        result_holder['tests_count'] = tests_count
+        result_holder['is_new_player'] = is_new_player
+        return updated_list
 
-    except Exception as e:
-        bot.edit_message_text(
-            chat_id=message.chat.id,
-            message_id=status_msg.message_id,
-            text=f"Системная ошибка: {str(e)}"
+    commit_message = f"result: {parsed.player_name} -> {parsed.kit} ({parsed.tier_after})"
+    github_storage.update_players_file(GH_REPO, GH_TOKEN, mutate, commit_message)
+
+    overall_tier = result_holder['overall_tier']
+    tests_count = result_holder['tests_count']
+    is_new_player = result_holder['is_new_player']
+    tester_display = tester_display_name(parsed.tester_name)
+
+    topic = determine_topic(parsed.tier_after)
+
+    if topic == 'high':
+        card_text = build_high_test_card(
+            player_name=parsed.player_name,
+            region=parsed.region,
+            kit=parsed.kit,
+            tier_before=parsed.tier_before,
+            tier_after=parsed.tier_after,
+            score_tester=parsed.score_tester,
+            score_player=parsed.score_player,
+            winner=parsed.winner,
+            tester_display=tester_display,
+            comment=parsed.comment,
+            overall_tier=overall_tier,
+            tests_count=tests_count,
         )
+        thread_id = HIGH_RESULTS_THREAD_ID
+    else:
+        card_text = build_normal_result_card(
+            player_name=parsed.player_name,
+            region=parsed.region,
+            kit=parsed.kit,
+            tier_before=parsed.tier_before,
+            tier_after=parsed.tier_after,
+            is_new_player_kit=is_new_player or parsed.tier_before == "Unranked",
+            tester_display=tester_display,
+            comment=parsed.comment,
+            overall_tier=overall_tier,
+            tests_count=tests_count,
+        )
+        thread_id = RESULTS_THREAD_ID
+
+    send_kwargs = {"chat_id": RESULTS_CHAT_ID, "text": card_text}
+    if thread_id is not None:
+        send_kwargs["message_thread_id"] = thread_id
+
+    bot.send_message(**send_kwargs)
+
+
+def handle_processing_error(exc):
+    """Вызывается очередью, если process_result упал с исключением.
+    Не можем надёжно сослаться на исходное сообщение отсюда (очередь
+    уже оторвана от контекста конкретного апдейта) - просто логируем,
+    ошибка уже напечатана в traceback самой очередью."""
+    print(f"[result_queue] Ошибка обработки результата: {exc}")
+
+
+# ==========================================
+# TELEGRAM: приём сообщений из группы тестеров
+# ==========================================
+
+def is_in_source_topic(message) -> bool:
+    if message.chat.id != SOURCE_CHAT_ID:
+        return False
+    # message_thread_id отсутствует у сообщений вне топиков (в основном чате
+    # форума) - если SOURCE_THREAD_ID задан, требуем точного совпадения
+    return getattr(message, 'message_thread_id', None) == SOURCE_THREAD_ID
+
+
+@bot.message_handler(func=is_in_source_topic, content_types=['text'])
+def handle_source_message(message):
+    text = message.text
+
+    try:
+        parsed = parse_result_message(text)
+    except ParseError as e:
+        bot.reply_to(message, f"⚠️ Не удалось разобрать результат: {e}")
+        return
+
+    if parsed is None:
+        return  # обычное обсуждение в топике, молча игнорируем
+
+    # Ставим в очередь - фактическая запись в GitHub и отправка карточки
+    # произойдёт последовательно, с паузой относительно других задач в очереди
+    result_queue.submit(lambda: process_result(parsed, message.message_id))
+
+
+# ==========================================
+# ЗАПУСК
+# ==========================================
 
 if __name__ == '__main__':
     print("Запуск веб-сервера для Render...")
     t = Thread(target=run_web_server)
     t.start()
-    
-    print("Бот успешно запущен и защищен. Ожидаю результаты...")
+
+    print("Запуск очереди обработки результатов...")
+    result_queue._on_task_error = handle_processing_error
+    result_queue.start()
+
+    print("Бот успешно запущен. Слушаю группу тестеров...")
     bot.infinity_polling()
