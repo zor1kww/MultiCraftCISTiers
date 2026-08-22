@@ -1170,8 +1170,8 @@ const players = [
                 retired: false
             },
             Dragonhide: {
-                tier: "HT3",
-                date: "2026-08-18",
+                tier: "LT3",
+                date: "2026-08-22",
                 retired: false
             },
             Mace: {
@@ -1207,6 +1207,17 @@ const players = [
                 scoreTester: 3,
                 scorePlayer: 6,
                 winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-22",
+                kit: "Dragonhide",
+                tester: "zor1kkqwix",
+                tierBefore: "HT3",
+                tierAfter: "LT3",
+                scoreTester: 6,
+                scorePlayer: 0,
+                winner: "tester",
                 comment: null
             }
         ]
