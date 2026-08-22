@@ -104,7 +104,7 @@ body, html {
 }
 
 .menu-btn {
-    background: #121d35;
+    background: var(--sidebar-item);
     border: 1px solid rgba(255,204,71,.3);
     color: var(--accent);
     padding: 10px 14px;
@@ -672,9 +672,9 @@ body, html {
 }
 
 .close-modal-btn {
-    background: #16223f;
-    border: 1px solid rgba(255,255,255,0.1);
-    color: #fff;
+    background: var(--sidebar-item);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
     font-size: 16px;
     padding: 8px 14px;
     border-radius: 8px;
@@ -897,7 +897,7 @@ body, html {
 .wiki-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
+    gap: 18px;
     margin-top: 15px;
 }
 
@@ -905,25 +905,30 @@ body, html {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 14px;
-    padding: 18px;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 12px;
     min-width: 0;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+}
+
+.wiki-card:hover {
+    border-color: rgba(255, 204, 71, 0.35);
 }
 
 .wiki-title-wrapper {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 0;
-    padding-bottom: 12px;
+    gap: 12px;
+    padding: 16px 18px;
+    background: rgba(255, 204, 71, 0.05);
     border-bottom: 1px solid var(--border-color);
 }
 
 .wiki-title-icon {
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     object-fit: contain;
     filter: drop-shadow(0 0 6px rgba(255, 204, 71, 0.35));
     flex-shrink: 0;
@@ -932,11 +937,19 @@ body, html {
 /* Заголовок кита — крупнее, с разрядкой под капс-стиль оружейной таблички */
 .wiki-card h3 {
     color: var(--text-main);
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 700;
     margin-bottom: 0;
     letter-spacing: 1.2px;
     text-transform: uppercase;
+}
+
+.wiki-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 18px;
+    min-width: 0;
 }
 
 /* Блок статов оружия — оформлен как карточка спецификации, а не обычный текст */
@@ -958,12 +971,11 @@ body, html {
     font-weight: 700;
 }
 
-/* Описание/лор кита — курсив отделяет "атмосферу" от сухих статов выше */
+/* Описание/лор кита */
 .wiki-card p {
     font-size: 13px;
     font-weight: normal;
-    font-style: italic;
-    color: #b0bacd;
+    color: var(--text-muted);
     line-height: 1.65;
     margin-bottom: 0;
     letter-spacing: 0.2px;
@@ -975,8 +987,7 @@ body, html {
     margin-bottom: 0;
 }
 
-/* Блок "Тренирует" — ярлык + компактный список навыков построчно.
-   Заменяет прежние nowrap-пилюли, которые распирали карточку на мобильных. */
+/* Блок "Тренирует" — ярлык + компактный список навыков построчно */
 .wiki-trains {
     display: flex;
     flex-direction: column;
@@ -1153,8 +1164,8 @@ body, html {
 
 .honor-card {
     display: flex;
-    align-items: center;
-    gap: 16px;
+    flex-direction: column;
+    gap: 4px;
     padding: 18px;
     border-radius: 14px;
     border: 1px solid var(--border-color);
@@ -1165,54 +1176,20 @@ body, html {
 
 .honor-card:hover,
 .honor-card:active {
+    border-color: rgba(255, 204, 71, 0.5);
     transform: translateX(2px);
-}
-
-.honor-rank {
-    font-size: 32px;
-    flex-shrink: 0;
-    line-height: 1;
 }
 
 .honor-name {
     font-size: 17px;
     font-weight: 700;
     color: var(--text-main);
-    margin-bottom: 4px;
 }
 
 .honor-role {
     font-size: 12px;
     color: var(--text-muted);
     line-height: 1.5;
-}
-
-.honor-card-1 {
-    border-color: rgba(255, 204, 71, 0.4);
-    background: linear-gradient(135deg, rgba(255, 204, 71, 0.08), var(--card-bg) 60%);
-}
-
-.honor-card-1:hover,
-.honor-card-1:active {
-    border-color: rgba(255, 204, 71, 0.7);
-}
-
-.honor-card-2 {
-    border-color: rgba(192, 192, 192, 0.35);
-}
-
-.honor-card-2:hover,
-.honor-card-2:active {
-    border-color: rgba(192, 192, 192, 0.6);
-}
-
-.honor-card-3 {
-    border-color: rgba(205, 127, 50, 0.35);
-}
-
-.honor-card-3:hover,
-.honor-card-3:active {
-    border-color: rgba(205, 127, 50, 0.6);
 }
 
 /* ==========================================================================
@@ -1227,9 +1204,6 @@ body, html {
 }
 
 .rules-block-title {
-    display: flex;
-    align-items: center;
-    gap: 10px;
     padding: 14px 16px;
     font-size: 15px;
     font-weight: 700;
@@ -1238,46 +1212,45 @@ body, html {
     background: rgba(255,204,71,.05);
 }
 
-.rules-block-icon {
-    font-size: 18px;
-}
-
-.rule-row {
+.rule-num-row {
     display: flex;
     align-items: flex-start;
-    gap: 12px;
-    padding: 12px 16px;
-    font-size: 13px;
-    line-height: 1.55;
-    color: var(--text-muted);
+    gap: 14px;
+    padding: 14px 16px;
     border-bottom: 1px solid var(--border-color);
 }
 
-.rule-row:last-child {
+.rule-num-row:last-child {
     border-bottom: none;
 }
 
-.rule-mark {
+.rule-num {
     flex-shrink: 0;
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 12px;
     font-weight: 700;
+    color: var(--accent);
+    background: rgba(255,204,71,.1);
+    border: 1px solid rgba(255,204,71,.3);
     margin-top: 1px;
 }
 
-.rule-row-deny .rule-mark {
-    background: rgba(255,71,71,.15);
-    color: #ff4747;
+.rule-num-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 3px;
 }
 
-.rule-row-allow .rule-mark {
-    background: rgba(80,200,120,.15);
-    color: #4ade80;
+.rule-num-text {
+    font-size: 12px;
+    line-height: 1.55;
+    color: var(--text-muted);
 }
 
 /* ==========================================================================
@@ -1371,6 +1344,14 @@ body, html {
     align-items: center;
     justify-content: space-between;
     gap: 10px;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.hub-card:hover .hub-card-footer,
+.hub-card:focus-visible .hub-card-footer,
+.hub-card.hub-card-pressed .hub-card-footer {
+    opacity: 1;
 }
 
 .hub-card-title {
@@ -1413,14 +1394,18 @@ body, html {
 }
 
 .hub-detail-back {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
     background: var(--sidebar-item);
     border: 1px solid var(--border-color);
     color: var(--text-main);
-    padding: 8px 16px;
+    padding: 10px 16px;
     border-radius: 6px;
     cursor: pointer;
     font-size: 13px;
     margin-bottom: 18px;
+    vertical-align: middle;
 }
 
 .hub-detail-back:hover {
