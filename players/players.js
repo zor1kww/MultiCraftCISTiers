@@ -1843,8 +1843,8 @@ const players = [
                 retired: false
             },
             Pickaxe: {
-                tier: "LT3",
-                date: "2026-08-18",
+                tier: "LT2",
+                date: "2026-08-22",
                 retired: false
             },
             Hardcore: {
@@ -1864,6 +1864,17 @@ const players = [
                 scorePlayer: 0,
                 winner: "tester",
                 comment: null
+            },
+            {
+                date: "2026-08-22",
+                kit: "Pickaxe",
+                tester: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "LT2",
+                scoreTester: 4,
+                scorePlayer: 3,
+                winner: "tester",
+                comment: "проходит бридж лт2"
             }
         ]
     },
