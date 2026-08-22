@@ -1160,8 +1160,8 @@ const players = [
             SMP: "LT2",
             "Diamond Pot": "HT3",
             Beast: {
-                tier: "LT2",
-                date: "2026-08-18",
+                tier: "HT2",
+                date: "2026-08-22",
                 retired: false
             },
             Emerald: {
@@ -1196,7 +1196,20 @@ const players = [
                 retired: false
             },
             Pickaxe: "LT3"
-        }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-22",
+                kit: "Beast",
+                tester: "zor1kkqwix",
+                tierBefore: "LT2",
+                tierAfter: "HT2",
+                scoreTester: 3,
+                scorePlayer: 6,
+                winner: "player",
+                comment: null
+            }
+        ]
     },
     {
         name: "BossKFC",
