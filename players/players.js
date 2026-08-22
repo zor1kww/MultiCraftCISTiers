@@ -1912,7 +1912,11 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             },
-            Beast: "LT1",
+            Beast: {
+                tier: "LT1",
+                date: "2026-08-22",
+                retired: false
+            },
             RVM: {
                 tier: "LT1",
                 date: "2026-08-18",
@@ -1928,7 +1932,20 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             }
-        }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-22",
+                kit: "Beast",
+                tester: "Sneger",
+                tierBefore: "LT2",
+                tierAfter: "LT1",
+                scoreTester: 5,
+                scorePlayer: 6,
+                winner: "tester",
+                comment: null
+            }
+        ]
     },
     {
         name: "AMORE",
