@@ -1759,8 +1759,25 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             },
-            Beast: "HT5"
-        }
+            Beast: {
+                tier: "HT5",
+                date: "2026-08-22",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-22",
+                kit: "Beast",
+                tester: "-BaCk-",
+                tierBefore: "LT5",
+                tierAfter: "HT5",
+                scoreTester: 4,
+                scorePlayer: 0,
+                winner: "tester",
+                comment: null
+            }
+        ]
     },
     {
         name: "JANDELL",
