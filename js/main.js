@@ -645,10 +645,20 @@ function backHome() {
 // ХАБ-КАРТОЧКИ ("Тестирование" / "Другая информация")
 // ==========================================
 
+// Соответствие id сетки → id вводного текста над ней ("Выберите раздел...")
+const HUB_INTRO_IDS = {
+    testingHubGrid: 'testingHubIntro',
+    otherInfoHubGrid: 'otherInfoHubIntro'
+};
+
 // Скрывает все открытые hub-detail внутри вкладки и возвращает сетку карточек
 function resetHubGrid(gridId) {
     const grid = document.getElementById(gridId);
     if (grid) grid.style.display = 'flex';
+
+    const introId = HUB_INTRO_IDS[gridId];
+    const intro = introId ? document.getElementById(introId) : null;
+    if (intro) intro.style.display = 'block';
 
     const tab = grid ? grid.closest('.tab-content') : null;
     if (!tab) return;
@@ -662,6 +672,10 @@ function resetHubGrid(gridId) {
 function openHubDetail(gridId, detailId) {
     const grid = document.getElementById(gridId);
     if (grid) grid.style.display = 'none';
+
+    const introId = HUB_INTRO_IDS[gridId];
+    const intro = introId ? document.getElementById(introId) : null;
+    if (intro) intro.style.display = 'none';
 
     const tab = grid ? grid.closest('.tab-content') : null;
     if (tab) {
@@ -686,6 +700,10 @@ function closeHubDetail(gridId, detailId) {
 
     const grid = document.getElementById(gridId);
     if (grid) grid.style.display = 'flex';
+
+    const introId = HUB_INTRO_IDS[gridId];
+    const intro = introId ? document.getElementById(introId) : null;
+    if (intro) intro.style.display = 'block';
 
     window.scrollTo(0, 0);
 }
