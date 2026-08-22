@@ -33,7 +33,7 @@ function toggleTheme() {
     document.documentElement.setAttribute('data-theme', targetTheme);
     const btn = document.getElementById('themeToggleBtn');
     if (btn) {
-        btn.innerHTML = targetTheme === 'light' ? '🌙 Темная тема' : '☀️ Светлая тема';
+        btn.innerHTML = targetTheme === 'light' ? 'Темная тема' : 'Светлая тема';
     }
 }
 
@@ -218,7 +218,7 @@ function getMetaTierTag(tier, isRetired = false) {
 function isTester(playerName) {
     if (!playerName) return false;
     const nameLower = playerName.toLowerCase();
-    const testers = ["-999-", "zor1kkqwix", "_xx_deras_xx"];
+    const testers = ["-999-", "zor1kkqwix", "_xx_deras_xx", "-back-"];
     return testers.includes(nameLower);
 }
 
@@ -645,10 +645,11 @@ function backHome() {
 // ХАБ-КАРТОЧКИ ("Тестирование" / "Другая информация")
 // ==========================================
 
-// Соответствие id сетки → id вводного текста над ней ("Выберите раздел...")
-const HUB_INTRO_IDS = {
-    testingHubGrid: 'testingHubIntro',
-    otherInfoHubGrid: 'otherInfoHubIntro'
+// Соответствие id сетки → id заголовка и вводного текста над ней,
+// которые нужно прятать при открытии конкретной карточки
+const HUB_HEADER_IDS = {
+    testingHubGrid: ['testingHubTitle', 'testingHubIntro'],
+    otherInfoHubGrid: ['otherInfoHubTitle', 'otherInfoHubIntro']
 };
 
 // Скрывает все открытые hub-detail внутри вкладки и возвращает сетку карточек
@@ -656,9 +657,10 @@ function resetHubGrid(gridId) {
     const grid = document.getElementById(gridId);
     if (grid) grid.style.display = 'flex';
 
-    const introId = HUB_INTRO_IDS[gridId];
-    const intro = introId ? document.getElementById(introId) : null;
-    if (intro) intro.style.display = 'block';
+    (HUB_HEADER_IDS[gridId] || []).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = '';
+    });
 
     const tab = grid ? grid.closest('.tab-content') : null;
     if (!tab) return;
@@ -673,9 +675,10 @@ function openHubDetail(gridId, detailId) {
     const grid = document.getElementById(gridId);
     if (grid) grid.style.display = 'none';
 
-    const introId = HUB_INTRO_IDS[gridId];
-    const intro = introId ? document.getElementById(introId) : null;
-    if (intro) intro.style.display = 'none';
+    (HUB_HEADER_IDS[gridId] || []).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+    });
 
     const tab = grid ? grid.closest('.tab-content') : null;
     if (tab) {
@@ -701,9 +704,10 @@ function closeHubDetail(gridId, detailId) {
     const grid = document.getElementById(gridId);
     if (grid) grid.style.display = 'flex';
 
-    const introId = HUB_INTRO_IDS[gridId];
-    const intro = introId ? document.getElementById(introId) : null;
-    if (intro) intro.style.display = 'block';
+    (HUB_HEADER_IDS[gridId] || []).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = '';
+    });
 
     window.scrollTo(0, 0);
 }
@@ -716,6 +720,29 @@ document.querySelectorAll('.hub-grid').forEach(grid => {
         const targetId = card.getAttribute('data-target');
         if (targetId) openHubDetail(grid.id, targetId);
     });
+
+    // Долгое нажатие (удержание) на touch-устройствах показывает подпись
+    // карточки ("Читать →"), не открывая раздел — как на десктопном hover.
+    let pressTimer = null;
+    const LONG_PRESS_MS = 250;
+
+    grid.addEventListener('touchstart', (e) => {
+        const card = e.target.closest('.hub-card');
+        if (!card) return;
+        pressTimer = setTimeout(() => {
+            card.classList.add('hub-card-pressed');
+        }, LONG_PRESS_MS);
+    }, { passive: true });
+
+    grid.addEventListener('touchend', () => {
+        clearTimeout(pressTimer);
+        grid.querySelectorAll('.hub-card-pressed').forEach(c => c.classList.remove('hub-card-pressed'));
+    });
+
+    grid.addEventListener('touchmove', () => {
+        clearTimeout(pressTimer);
+        grid.querySelectorAll('.hub-card-pressed').forEach(c => c.classList.remove('hub-card-pressed'));
+    }, { passive: true });
 });
 
 // Работа с боковым меню (Sidebar)
