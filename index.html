@@ -165,9 +165,8 @@
      ВКЛАДКА "ТЕСТИРОВАНИЕ" — 5 карточек-обложек
      ============================================================ -->
 <div class="tab-content" id="testingTab" style="display: none;">
-    <button class="back-btn" onclick="backHome()">Назад на Главную</button>
-    <h2 class="section-title">Тестирование</h2>
-    <p class="hub-intro">Выберите раздел, чтобы узнать подробности о прохождении тестов.</p>
+        <h2 class="section-title">Тестирование</h2>
+    <p class="hub-intro" id="testingHubIntro">Выберите раздел, чтобы узнать подробности о прохождении тестов.</p>
 
     <div class="hub-grid" id="testingHubGrid">
         <div class="hub-card" data-target="hubHowToTest">
@@ -354,17 +353,102 @@
         </div>
     </div>
 
-    <!-- 04: Правила проведения тестов (бывший rulesSubTab) -->
+    <!-- 04: Правила проведения тестов -->
     <div class="hub-detail" id="hubRules">
         <button class="hub-detail-back" onclick="closeHubDetail('testingHubGrid', 'hubRules')">← Ко всем разделам</button>
-        <div class="info-section">
-            <div class="info-section-title">Правила проведения тестов</div>
-            <ul style="margin-left: 20px; margin-top: 15px; font-size: 14px; color: var(--text-main); line-height: 1.8; list-style-type: decimal; padding-left: 0;">
-                <li style="margin-bottom: 10px;">Если вы хотите пройти тиртест с другого устройства, вам необходимо создать второй (отдельный) аккаунт.</li>
-                <li style="margin-bottom: 10px;">Запрещено использование любых сторонних модификаций, читов или макросов, дающих преимущество в бою.</li>
-                <li style="margin-bottom: 10px;">Запрещено умышленно затягивать процесс тиртеста или проявлять токсичность/неуважение к тиртестерам.</li>
-                <li style="margin-bottom: 10px;">Запрещена передача своего верифицированного аккаунта третьим лицам.</li>
-            </ul>
+
+        <div class="rules-block">
+            <div class="rules-block-title">
+                <span class="rules-block-icon">⚔️</span>
+                Правила во время теста
+            </div>
+            <div class="rule-row rule-row-deny">
+                <span class="rule-mark">✕</span>
+                <span>Читы, модификации, макросы и скрипты, дающие преимущество в бою (X-Ray, Fullbright, автоклик, килаура и т.д.)</span>
+            </div>
+            <div class="rule-row rule-row-deny">
+                <span class="rule-mark">✕</span>
+                <span>Предметы с недопустимыми зачарованиями сверх установленных ограничений</span>
+            </div>
+            <div class="rule-row rule-row-deny">
+                <span class="rule-mark">✕</span>
+                <span>Намеренное затягивание боя — кампинг вне зоны, побег по карте, пряталово</span>
+            </div>
+            <div class="rule-row rule-row-deny">
+                <span class="rule-mark">✕</span>
+                <span>Токсичность, оскорбления и угрозы в адрес тестера или оппонента</span>
+            </div>
+            <div class="rule-row rule-row-deny">
+                <span class="rule-mark">✕</span>
+                <span>Отказ от боя без уважительной причины, подмена игрока другим человеком</span>
+            </div>
+            <div class="rule-row rule-row-deny">
+                <span class="rule-mark">✕</span>
+                <span>Помощь со стороны — подсказки в чате, координация с зрителями</span>
+            </div>
+            <div class="rule-row rule-row-deny">
+                <span class="rule-mark">✕</span>
+                <span>Смена инвентаря или брони между раундами (кроме стартового набора)</span>
+            </div>
+            <div class="rule-row rule-row-allow">
+                <span class="rule-mark">✓</span>
+                <span>Явка на тест точно в оговоренное время — опоздание более 10 минут считается неявкой</span>
+            </div>
+            <div class="rule-row rule-row-allow">
+                <span class="rule-mark">✓</span>
+                <span>Тестер вправе остановить тест и признать его недействительным при подозрении на читы</span>
+            </div>
+            <div class="rule-row rule-row-allow">
+                <span class="rule-mark">✓</span>
+                <span>При техническом сбое сервера участники могут запросить переигровку раунда</span>
+            </div>
+            <div class="rule-row rule-row-allow">
+                <span class="rule-mark">✓</span>
+                <span>Уважительное поведение к тестеру и оппоненту — независимо от результата боя</span>
+            </div>
+        </div>
+
+        <div class="rules-block">
+            <div class="rules-block-title">
+                <span class="rules-block-icon">📋</span>
+                Общие правила платформы
+            </div>
+            <div class="rule-row rule-row-deny">
+                <span class="rule-mark">✕</span>
+                <span>Передача верифицированного аккаунта третьим лицам</span>
+            </div>
+            <div class="rule-row rule-row-deny">
+                <span class="rule-mark">✕</span>
+                <span>Буст — платное прохождение тестов или договорные поддачи для завышения ранга</span>
+            </div>
+            <div class="rule-row rule-row-deny">
+                <span class="rule-mark">✕</span>
+                <span>VPN/прокси для обхода блокировок и ограничений платформы</span>
+            </div>
+            <div class="rule-row rule-row-deny">
+                <span class="rule-mark">✕</span>
+                <span>Оскорбительный контент про игроков, тестеров или администрацию</span>
+            </div>
+            <div class="rule-row rule-row-deny">
+                <span class="rule-mark">✕</span>
+                <span>Распространение слухов о "заказных" результатах без доказательств</span>
+            </div>
+            <div class="rule-row rule-row-allow">
+                <span class="rule-mark">✓</span>
+                <span>Если нужен тест с другого устройства — создаётся отдельный второй аккаунт</span>
+            </div>
+            <div class="rule-row rule-row-allow">
+                <span class="rule-mark">✓</span>
+                <span>Апелляция на результат теста подаётся администрации в течение 24 часов</span>
+            </div>
+            <div class="rule-row rule-row-allow">
+                <span class="rule-mark">✓</span>
+                <span>Видео/скриншоты чужих тестов публикуются только с согласия всех участников</span>
+            </div>
+        </div>
+
+        <div class="info-accent-box">
+            <strong>Санкции за нарушение:</strong> временный бан → перепроверка рангов → аннулирование рангов, полученных нечестным путём → перманентный бан при повторных нарушениях.
         </div>
     </div>
 
@@ -387,6 +471,10 @@
                 </div>
                 <div class="tester-card" onclick="openProfileByName('_Xx_deras_xX')">
                     <div class="tester-name">_Xx_deras_xX</div>
+                    <div class="tester-status">Старший Тестер</div>
+                </div>
+                <div class="tester-card" onclick="openProfileByName('-BaCk-')">
+                    <div class="tester-name">-BaCk-</div>
                     <div class="tester-status">Квалификационный Тестер</div>
                 </div>
             </div>
@@ -398,9 +486,8 @@
      ВКЛАДКА "ДРУГАЯ ИНФОРМАЦИЯ" — 4 карточки-обложки
      ============================================================ -->
 <div class="tab-content" id="otherInfoTab" style="display: none;">
-    <button class="back-btn" onclick="backHome()">Назад на Главную</button>
-    <h2 class="section-title">Другая информация</h2>
-    <p class="hub-intro">Выберите раздел, чтобы узнать подробности.</p>
+        <h2 class="section-title">Другая информация</h2>
+    <p class="hub-intro" id="otherInfoHubIntro">Выберите раздел, чтобы узнать подробности.</p>
 
     <div class="hub-grid" id="otherInfoHubGrid">
         <div class="hub-card" data-target="hubPoints">
@@ -786,6 +873,21 @@
                 <img src="assets/wiki/crystal_inv.png" onerror="this.style.display='none';">
             </div>
         </div>
+
+        <div class="wiki-card">
+            <div class="wiki-title-wrapper">
+                <img class="wiki-title-icon" src="assets/logos/vanilla.png" alt="">
+                <h3>Vanilla</h3>
+            </div>
+            <p>Универсальный набор, где игроки не получают готовую экипировку, а собирают собственный кит с нуля, самостоятельно выбирая любые доступные ресурсы, оружие, броню, зелья и блоки для PvP. Благодаря этому каждый бой проходит с уникальной сборкой, а сам процесс учит грамотно планировать инвентарь ещё до старта схватки, что делает тренировки максимально приближенными к реальным игровым ситуациям.</p>
+            <div class="wiki-trains">
+                <span class="wiki-trains-label">Тренирует</span>
+                <div class="skill-tags"><span class="skill-tag">Aim</span><span class="skill-tag">CPS</span><span class="skill-tag">Movement</span><span class="skill-tag">Clutch</span><span class="skill-tag">Свап предметов</span><span class="skill-tag">Контроль здоровья</span><span class="skill-tag">Базовое PvP</span><span class="skill-tag">Концентрацию</span><span class="skill-tag">Понимание таймингов</span><span class="skill-tag">Ситуационное мышление и принятие решений в критических условиях</span><span class="skill-tag">Умение работать с разными предметами в бою</span></div>
+            </div>
+            <div class="inv-preview-box">
+                <img src="assets/wiki/vanilla_inv.png" onerror="this.style.display='none';">
+            </div>
+        </div>
         </div>
     </div>
 
@@ -793,11 +895,26 @@
     <div class="hub-detail" id="hubHall">
         <button class="hub-detail-back" onclick="closeHubDetail('otherInfoHubGrid', 'hubHall')">← Ко всем разделам</button>
         <h2 class="section-title">Доска почета</h2>
-        <div class="info-box">
-            <p style="margin-bottom: 12px; font-size: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; color: var(--accent); ">Руководство платформы:</p>
-            <span class="hall-name-link" onclick="openProfileByName('-999-')">-999-</span> — Создатель, Владелец сервера, Со-автор системы MultiCraftCISTiers.<br><br>
-            <span class="hall-name-link" onclick="openProfileByName('zor1kkqwix')">zor1kkqwix</span> — Главный Администратор сервера, Создатель и технический разработчик системы MultiCraftCISTiers.<br><br>
-            <span class="hall-name-link" onclick="openProfileByName('AMORE')">AMORE</span> — Администратор и главный строитель сервера.
+        <p class="hub-intro">Люди, которые создали и развивают платформу MultiCraftCISTiers.</p>
+
+        <div class="honor-grid">
+            <div class="honor-card honor-card-1" onclick="openProfileByName('-999-')">
+                <div class="honor-rank">🥇</div>
+                <div class="honor-name">-999-</div>
+                <div class="honor-role">Создатель · Владелец сервера · Со-автор системы MultiCraftCISTiers</div>
+            </div>
+
+            <div class="honor-card honor-card-2" onclick="openProfileByName('zor1kkqwix')">
+                <div class="honor-rank">🥈</div>
+                <div class="honor-name">zor1kkqwix</div>
+                <div class="honor-role">Главный Администратор · Создатель и технический разработчик системы MultiCraftCISTiers</div>
+            </div>
+
+            <div class="honor-card honor-card-3" onclick="openProfileByName('AMORE')">
+                <div class="honor-rank">🥉</div>
+                <div class="honor-name">AMORE</div>
+                <div class="honor-role">Администратор · Главный строитель сервера</div>
+            </div>
         </div>
     </div>
 </div>
