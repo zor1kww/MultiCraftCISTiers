@@ -1758,7 +1758,8 @@ const players = [
                 tier: "LT5",
                 date: "2026-08-18",
                 retired: false
-            }
+            },
+            Beast: "HT5"
         }
     },
     {
