@@ -8,7 +8,7 @@
 from datetime import date, datetime, timedelta
 from bot_config import (
     TIER_ORDER, RETIRED_ELIGIBLE_TIERS, TIER_WEIGHTS, REVERSE_WEIGHTS,
-    HIGH_RESULT_TIERS, RETIRED_AUTO_DAYS, TESTERS
+    HIGH_RESULT_TIERS, RETIRED_AUTO_DAYS
 )
 
 
@@ -132,56 +132,44 @@ def verb_for_change(tier_before: str, tier_after: str, is_new_player_kit: bool) 
         return "закрепляется на"
 
 
-def tester_mention(tester_id: int, tester_username: str = None) -> str:
+def tester_display_name(tester_name: str) -> str:
     """
-    Формирует упоминание тестера для карточки.
-    Приоритет: реальный @username из Telegram, иначе имя из TESTERS,
-    иначе просто ID.
+    Формирует отображаемое имя тестера для карточки. В новой архитектуре
+    тестер identифицируется просто по имени из шаблонного сообщения
+    (поле "Тестер:"), а не по Telegram user_id - никакого маппинга
+    на реальный @username не требуется.
     """
-    if tester_username:
-        return f"@{tester_username}"
-    display_name = TESTERS.get(tester_id)
-    if display_name:
-        return display_name
-    return f"tester #{tester_id}"
+    return tester_name
 
 
 def build_high_test_card(player_name, region, kit, tier_before, tier_after,
-                          tier_tested, passed, duels, tester_mention_str, comment,
-                          overall_tier, tests_count):
+                          score_tester, score_player, winner, tester_display,
+                          comment, overall_tier, tests_count):
     """
-    Карточка для топика "Высокие результаты".
+    Карточка для топика "Высокие результаты" (полученный тир HT3-HT1).
 
-    tier_tested - тир, который игрок пытался сдать (например "HT3"),
-                  всегда указывается явно тестером на шаге ввода -
-                  НЕ вычисляется из tier_before/tier_after, т.к.
-                  провал теста не обязательно означает tier_after == tier_before
-                  (нужно на случай, если механика позволяет провалиться
-                  не на прежнем тире).
-    passed      - булево, сдал ли игрок tier_tested. Указывается тестером
-                  явно (шаг диалога "Тест сдан?" Да/Нет), не вычисляется
-                  из сравнения тиров.
-    duels - список dict {"opponent": str, "score": str}
+    Топик определяется исключительно по tier_after (см. determine_topic) -
+    если тест провален и тир не изменился, результат попадает в топик
+    "Результаты" через build_normal_result_card, а не сюда. Поэтому
+    здесь ВСЕГДА действие "проходит" - формулировки "проваливает" не
+    существует в этой карточке в принципе.
     """
-    action_word = "проходит" if passed else "проваливает"
-    full_tier_name = format_full_tier_name(tier_tested)
+    full_tier_name = format_full_tier_name(tier_after)
 
     lines = []
-    lines.append(f"{player_name} [{region}] {action_word} {kit} {full_tier_name} тест")
+    lines.append(f"{player_name} [{region}] проходит {kit} {full_tier_name} тест")
     lines.append("")
 
-    if passed and tier_before and tier_before != "Unranked" and tier_before != tier_after:
+    if tier_before and tier_before != "Unranked" and tier_before != tier_after:
         lines.append(f"Предыдущий ранг: {format_full_tier_name(tier_before)}")
         lines.append("")
 
-    if duels:
-        lines.append("Поединки:")
-        lines.append(f"▸ Против {full_tier_name}")
-        for duel in duels:
-            lines.append(f"{player_name}   {duel['score']}   {duel['opponent']}")
-        lines.append("")
+    lines.append("Поединки:")
+    lines.append(f"▸ Против {tester_display}")
+    lines.append(f"{player_name}   {score_player}:{score_tester}   {tester_display}")
+    lines.append("")
 
-    lines.append(f"Тир-тестер: {tester_mention_str}")
+    lines.append(f"Тир-тестер: {tester_display}")
     lines.append(f"Комментарий: {comment if comment else '—'}")
     lines.append("")
     lines.append("━━━━━━━━━━━━━━")
@@ -192,38 +180,46 @@ def build_high_test_card(player_name, region, kit, tier_before, tier_after,
 
 
 def build_normal_result_card(player_name, region, kit, tier_before, tier_after,
-                              is_new_player_kit, tester_mention_str, comment,
-                              overall_tier, tests_count, no_test_reason=None):
+                              is_new_player_kit, tester_display, comment,
+                              overall_tier, tests_count):
     """
-    Карточка для топика "Результаты" (обычные результаты, LT5-LT3,
-    а также любое изменение "без теста" вне зависимости от тира).
+    Карточка для топика "Результаты" (обычные результаты, LT5-LT3).
     """
+    verb = verb_for_change(tier_before, tier_after, is_new_player_kit)
+    full_tier_name = format_full_tier_name(tier_after)
+
     lines = []
-
-    if no_test_reason is not None:
-        # Изменение без теста (административное решение)
-        lines.append(f"{player_name} [{region}] — изменение ранга (без теста)")
-        lines.append("")
-        lines.append(f"Причина: {no_test_reason}")
-        lines.append("")
-        tier_change = (f"{format_full_tier_name(tier_before)} → {format_full_tier_name(tier_after)}"
-                       if tier_before and tier_before != tier_after
-                       else format_full_tier_name(tier_after))
-        lines.append(f"Кит: {kit} | Ранг: {tier_change}")
-        lines.append("")
-    else:
-        verb = verb_for_change(tier_before, tier_after, is_new_player_kit)
-        full_tier_name = format_full_tier_name(tier_after)
-        lines.append(f"{player_name} [{region}] {verb} {kit} {full_tier_name}")
-        lines.append("")
-
-    lines.append(f"Тир-тестер: {tester_mention_str}")
+    lines.append(f"{player_name} [{region}] {verb} {kit} {full_tier_name}")
+    lines.append("")
+    lines.append(f"Тир-тестер: {tester_display}")
+    if comment:
+        lines.append(f"Комментарий: {comment}")
     lines.append("")
     lines.append("━━━━━━━━━━━━━━━━")
     lines.append("")
     lines.append(f"Текущий средний ранг: {overall_tier} [Тестов: {tests_count}]")
 
     return "\n".join(lines)
+
+
+def build_match_history_entry(kit, tester_name, player_name, tier_before, tier_after,
+                               score_tester, score_player, winner, comment, test_date=None):
+    """
+    Собирает запись для matchHistory игрока (лог дуэлей на сайте).
+    Хранится в самом объекте игрока, каждый обработанный результат
+    (включая обычные LT5-LT3) добавляет сюда одну запись.
+    """
+    return {
+        "date": test_date or today_str(),
+        "kit": kit,
+        "tester": tester_name,
+        "tierBefore": tier_before,
+        "tierAfter": tier_after,
+        "scoreTester": score_tester,
+        "scorePlayer": score_player,
+        "winner": winner,       # "tester" или "player"
+        "comment": comment,     # может быть None
+    }
 
 
 def build_tier_object(tier: str, retired: bool = False, test_date: str = None) -> dict:
