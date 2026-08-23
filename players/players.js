@@ -1259,8 +1259,8 @@ const players = [
                 retired: false
             },
             Gapple: {
-                tier: "LT3",
-                date: "2026-08-18",
+                tier: "HT4",
+                date: "2026-08-23",
                 retired: false
             },
             Hardcore: {
@@ -1303,6 +1303,17 @@ const players = [
                 scorePlayer: 0,
                 winner: "tester",
                 comment: "тест"
+            },
+            {
+                date: "2026-08-23",
+                kit: "Gapple",
+                tester: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "HT4",
+                scoreTester: 2,
+                scorePlayer: 0,
+                winner: "tester",
+                comment: null
             }
         ],
         penaltyByKit: {}
