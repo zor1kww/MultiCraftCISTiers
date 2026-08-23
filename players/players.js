@@ -191,6 +191,10 @@ const players = [
             Dragonhide: {
                 points: 0.0,
                 firstPenaltyDate: "2026-08-23"
+            },
+            "Diamond Pot": {
+                points: 1.0,
+                firstPenaltyDate: "2026-08-23"
             }
         },
         matchHistory: [
@@ -2578,6 +2582,11 @@ const players = [
                 tier: "HT3",
                 date: "2026-08-23",
                 retired: false
+            },
+            "Diamond Pot": {
+                tier: "HT3",
+                date: "2026-08-23",
+                retired: false
             }
         },
         matchHistory: [
@@ -2589,6 +2598,17 @@ const players = [
                 tierAfter: "HT3",
                 scoreTester: 0,
                 scorePlayer: 6,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-23",
+                kit: "Diamond Pot",
+                tester: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "HT3",
+                scoreTester: 2,
+                scorePlayer: 4,
                 winner: "player",
                 comment: null
             }
