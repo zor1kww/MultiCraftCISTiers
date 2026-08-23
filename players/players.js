@@ -132,8 +132,8 @@ const players = [
                 retired: false
             },
             "Emerald Pot": {
-                tier: "HT3",
-                date: "2026-08-18",
+                tier: "LT3",
+                date: "2026-08-23",
                 retired: false
             },
             Combo: {
@@ -195,6 +195,10 @@ const players = [
             "Diamond Pot": {
                 points: 0.0,
                 firstPenaltyDate: "2026-08-23"
+            },
+            "Emerald Pot": {
+                points: 0.0,
+                firstPenaltyDate: "2026-08-23"
             }
         },
         matchHistory: [
@@ -230,6 +234,17 @@ const players = [
                 scorePlayer: 4,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-08-23",
+                kit: "Emerald Pot",
+                tester: "система",
+                tierBefore: "HT3",
+                tierAfter: "LT3",
+                scoreTester: 0,
+                scorePlayer: 0,
+                winner: "tester",
+                comment: "Автопонижение: накоплено 2 штрафных очка"
             }
         ]
     },
@@ -1996,8 +2011,8 @@ const players = [
                 retired: false
             },
             "Emerald Pot": {
-                tier: "LT3",
-                date: "2026-08-18",
+                tier: "LT2",
+                date: "2026-08-23",
                 retired: false
             },
             Mace: {
@@ -2020,7 +2035,21 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             }
-        }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-23",
+                kit: "Emerald Pot",
+                tester: "zor1kkqwix",
+                tierBefore: "HT3",
+                tierAfter: "LT2",
+                scoreTester: 0,
+                scorePlayer: 4,
+                winner: "player",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
     },
     {
         name: "Topor",
