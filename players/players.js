@@ -1184,7 +1184,7 @@ const players = [
             },
             Dragonhide: {
                 tier: "LT3",
-                date: "2026-08-22",
+                date: "2026-08-23",
                 retired: false
             },
             Mace: {
@@ -1232,8 +1232,20 @@ const players = [
                 scorePlayer: 0,
                 winner: "tester",
                 comment: null
+            },
+            {
+                date: "2026-08-23",
+                kit: "Dragonhide",
+                tester: "zor1kkqwix",
+                tierBefore: "HT3",
+                tierAfter: "LT3",
+                scoreTester: 6,
+                scorePlayer: 0,
+                winner: "tester",
+                comment: "тест"
             }
-        ]
+        ],
+        penaltyByKit: {}
     },
     {
         name: "BossKFC",
