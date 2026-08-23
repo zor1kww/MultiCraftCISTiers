@@ -63,6 +63,54 @@ function isDateExpired(dateStr) {
     return diffDays > RETIRED_AUTO_DAYS;
 }
 
+// ==========================================
+// ШТРАФНЫЕ ОЧКИ (только для HT3+ тестов, см. penalty_logic.py на боте)
+// ==========================================
+
+// Через сколько дней с даты ПЕРВОГО начисления в текущем цикле весь
+// накопленный штраф по киту истекает целиком (обнуляется). Должно совпадать
+// с PENALTY_EXPIRY_DAYS в bot_config.py.
+const PENALTY_EXPIRY_DAYS = 30;
+
+// Порог автопонижения - должен совпадать с PENALTY_DEMOTION_THRESHOLD в bot_config.py
+const PENALTY_DEMOTION_THRESHOLD = 2.0;
+
+// Та же проверка истечения цикла штрафов, что и isDateExpired, но со своим
+// порогом (30 дней вместо 60) - вынесена отдельно для ясности читаемого кода
+function isPenaltyCycleExpired(dateStr) {
+    if (!dateStr) return false;
+    const startDate = new Date(dateStr);
+    if (isNaN(startDate.getTime())) return false;
+
+    const diffMs = Date.now() - startDate.getTime();
+    const diffDays = diffMs / (1000 * 60 * 60 * 24);
+    return diffDays > PENALTY_EXPIRY_DAYS;
+}
+
+// Возвращает актуальные (не истёкшие) штрафные очки игрока по одному киту.
+// penaltyEntry - { points, firstPenaltyDate } или undefined/null.
+// Порт effective_penalty_points() из penalty_logic.py - истёкший цикл
+// показывает 0, даже если бот ещё не записал это явно в players.js
+// (обнуление на боте происходит лениво, только при следующем начислении).
+function getEffectivePenalty(player, kit) {
+    if (!player || !player.penaltyByKit) return 0;
+    const entry = player.penaltyByKit[kit];
+    if (!entry) return 0;
+    if (isPenaltyCycleExpired(entry.firstPenaltyDate)) return 0;
+    return entry.points || 0;
+}
+
+// Суммарные актуальные штрафные очки игрока по ВСЕМ китам сразу
+// (для отображения общего числа в шапке профиля)
+function getTotalEffectivePenalty(player) {
+    if (!player || !player.penaltyByKit) return 0;
+    let total = 0;
+    for (const kit in player.penaltyByKit) {
+        total += getEffectivePenalty(player, kit);
+    }
+    return total;
+}
+
 // Универсальный парсер данных тира.
 // Поддерживает новый формат { tier, date, retired } и, для обратной
 // совместимости, старый формат в виде строки ("HT3" / "RHT3").
@@ -288,7 +336,19 @@ function openProfile(idx, filteredPlayersJSON) {
                 roleContainer.innerHTML = '';
             }
         }
-        
+
+        // Общие штрафные очки игрока (сумма по всем китам, только актуальные/не истёкшие)
+        const totalPenalty = getTotalEffectivePenalty(player);
+        const modalPenaltyTotal = document.getElementById('modalPenaltyTotal');
+        if (modalPenaltyTotal) {
+            if (totalPenalty > 0) {
+                modalPenaltyTotal.innerText = `Штрафные очки: ${totalPenalty}`;
+                modalPenaltyTotal.style.display = '';
+            } else {
+                modalPenaltyTotal.style.display = 'none';
+            }
+        }
+
         const activeMaintiers = (typeof maintiers !== 'undefined') ? maintiers : [];
         const activeSubtiers = (typeof subtiers !== 'undefined') ? subtiers : [];
         const activePts = (typeof tierPoints !== 'undefined') ? tierPoints : {};
@@ -300,6 +360,10 @@ function openProfile(idx, filteredPlayersJSON) {
                 const t = getCleanTier(player, kit);
                 const iconSrc = activeKitImages[kit] || "";
                 const ret = isKitRetired(player, kit);
+                const kitPenalty = getEffectivePenalty(player, kit);
+                const penaltyHTML = kitPenalty > 0
+                    ? `<span class="m-penalty-box" title="Штрафные очки по этому киту (сброс через ${PENALTY_EXPIRY_DAYS} дней с первого начисления, понижение при ${PENALTY_DEMOTION_THRESHOLD})">⚠ ${kitPenalty}</span>`
+                    : '';
                 return `<div class="modal-row" style="${ret ? 'opacity:0.6;' : ''}">
                     <div class="modal-kit-left">
                         <img class="modal-kit-icon" src="${iconSrc}" onerror="this.style.opacity='0'" alt="">
@@ -308,6 +372,7 @@ function openProfile(idx, filteredPlayersJSON) {
                     <div class="m-right-side">
                         ${getTierBadge(t, ret)} 
                         <span class="m-pts-box">(${activePts[t] || 0} PTS)</span>
+                        ${penaltyHTML}
                     </div>
                 </div>`;
             }).join('');
@@ -319,6 +384,10 @@ function openProfile(idx, filteredPlayersJSON) {
                 const t = getCleanTier(player, kit);
                 const iconSrc = activeKitImages[kit] || "";
                 const ret = isKitRetired(player, kit);
+                const kitPenalty = getEffectivePenalty(player, kit);
+                const penaltyHTML = kitPenalty > 0
+                    ? `<span class="m-penalty-box" title="Штрафные очки по этому киту (сброс через ${PENALTY_EXPIRY_DAYS} дней с первого начисления, понижение при ${PENALTY_DEMOTION_THRESHOLD})">⚠ ${kitPenalty}</span>`
+                    : '';
                 return `<div class="modal-row" style="${ret ? 'opacity:0.6;' : ''}">
                     <div class="modal-kit-left">
                         <img class="modal-kit-icon" src="${iconSrc}" onerror="this.style.opacity='0'" alt="">
@@ -327,6 +396,7 @@ function openProfile(idx, filteredPlayersJSON) {
                     <div class="m-right-side">
                         ${getTierBadge(t, ret)} 
                         <span class="m-pts-box">(${activePts[t] || 0} PTS)</span>
+                        ${penaltyHTML}
                     </div>
                 </div>`;
             }).join('');
@@ -469,7 +539,11 @@ function renderPlayers() {
         } else {
             const currentTier = getCleanTier(player, targetKit);
             const ret = isKitRetired(player, targetKit);
-            rightColumnContent = getTierBadge(currentTier, ret);
+            const kitPenalty = getEffectivePenalty(player, targetKit);
+            const penaltyBadge = kitPenalty > 0
+                ? `<span class="m-penalty-box" title="Штрафные очки по этому киту">⚠ ${kitPenalty}</span>`
+                : '';
+            rightColumnContent = getTierBadge(currentTier, ret) + penaltyBadge;
         }
 
         let quickTiersHTML = '';
