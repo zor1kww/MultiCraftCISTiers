@@ -162,7 +162,7 @@ const players = [
                 retired: false
             },
             Dragonhide: {
-                tier: "LT3",
+                tier: "HT3",
                 date: "2026-08-23",
                 retired: false
             },
@@ -219,6 +219,17 @@ const players = [
                 scorePlayer: 0,
                 winner: "tester",
                 comment: "Автопонижение: накоплено 2 штрафных очка"
+            },
+            {
+                date: "2026-08-23",
+                kit: "Dragonhide",
+                tester: "test",
+                tierBefore: "LT3",
+                tierAfter: "HT3",
+                scoreTester: 0,
+                scorePlayer: 4,
+                winner: "player",
+                comment: null
             }
         ]
     },
@@ -2590,7 +2601,7 @@ const players = [
         region: "RU",
         tiers: {
             Dragonhide: {
-                tier: "HT3",
+                tier: "LT3",
                 date: "2026-08-23",
                 retired: false
             },
@@ -2633,8 +2644,24 @@ const players = [
                 scorePlayer: 4,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-08-23",
+                kit: "Dragonhide",
+                tester: "система",
+                tierBefore: "HT3",
+                tierAfter: "LT3",
+                scoreTester: 0,
+                scorePlayer: 0,
+                winner: "tester",
+                comment: "Автопонижение: накоплено 2 штрафных очка"
             }
         ],
-        penaltyByKit: {}
+        penaltyByKit: {
+            Dragonhide: {
+                points: 0.0,
+                firstPenaltyDate: "2026-08-23"
+            }
+        }
     }
 ];
