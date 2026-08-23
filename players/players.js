@@ -1919,7 +1919,11 @@ const players = [
         name: "Michael_59k_YT",
         region: "AM",
         tiers: {
-            Beast: "LT3",
+            Beast: {
+                tier: "HT3",
+                date: "2026-08-23",
+                retired: false
+            },
             Mace: {
                 tier: "LT4",
                 date: "2026-08-18",
@@ -1974,8 +1978,25 @@ const players = [
                 scorePlayer: 0,
                 winner: "tester",
                 comment: null
+            },
+            {
+                date: "2026-08-23",
+                kit: "Beast",
+                tester: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "HT3",
+                scoreTester: 6,
+                scorePlayer: 3,
+                winner: "tester",
+                comment: null
             }
-        ]
+        ],
+        penaltyByKit: {
+            Beast: {
+                points: 0.8,
+                firstPenaltyDate: "2026-08-23"
+            }
+        }
     },
     {
         name: "Aura",
