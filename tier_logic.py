@@ -8,7 +8,7 @@
 from datetime import date, datetime, timedelta
 from bot_config import (
     TIER_ORDER, RETIRED_ELIGIBLE_TIERS, TIER_WEIGHTS, REVERSE_WEIGHTS,
-    HIGH_RESULT_TIERS, RETIRED_AUTO_DAYS
+    HIGH_RESULT_TIERS, RETIRED_AUTO_DAYS, PENALTY_DEMOTION_THRESHOLD
 )
 
 
@@ -229,3 +229,27 @@ def build_tier_object(tier: str, retired: bool = False, test_date: str = None) -
         "date": test_date or today_str(),
         "retired": bool(retired)
     }
+
+
+def build_penalty_demotion_card(player_name, region, kit, old_tier, new_tier,
+                                 overall_tier, tests_count):
+    """
+    Карточка автоматического понижения из-за накопленных штрафных очков
+    (см. penalty_logic.py). Публикуется по тому же правилу топика, что
+    и обычные результаты (determine_topic(new_tier)), но с явным
+    указанием причины, чтобы не выглядело как обычный проваленный тест.
+    """
+    full_old = format_full_tier_name(old_tier)
+    full_new = format_full_tier_name(new_tier)
+
+    lines = []
+    lines.append(f"{player_name} [{region}] понижается до {kit} {full_new}")
+    lines.append("")
+    lines.append(f"Причина: накоплено {PENALTY_DEMOTION_THRESHOLD:g} штрафных очка по этому киту")
+    lines.append(f"Было: {full_old} → Стало: {full_new}")
+    lines.append("")
+    lines.append("━━━━━━━━━━━━━━━━")
+    lines.append("")
+    lines.append(f"Текущий средний ранг: {overall_tier} [Тестов: {tests_count}]")
+
+    return "\n".join(lines)
