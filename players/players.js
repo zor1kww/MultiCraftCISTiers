@@ -162,8 +162,8 @@ const players = [
                 retired: false
             },
             Dragonhide: {
-                tier: "HT3",
-                date: "2026-08-18",
+                tier: "LT3",
+                date: "2026-08-23",
                 retired: false
             },
             Beast: {
@@ -186,7 +186,26 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             }
-        }
+        },
+        penaltyByKit: {
+            Dragonhide: {
+                points: 0.0,
+                firstPenaltyDate: "2026-08-23"
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-23",
+                kit: "Dragonhide",
+                tester: "система",
+                tierBefore: "HT3",
+                tierAfter: "LT3",
+                scoreTester: 0,
+                scorePlayer: 0,
+                winner: "tester",
+                comment: "Автопонижение: накоплено 2 штрафных очка"
+            }
+        ]
     },
     {
         name: "Itz-Fake",
@@ -2550,5 +2569,30 @@ const players = [
         tiers: {
             RVM: "HT5"
         }
+    },
+    {
+        name: "test",
+        region: "RU",
+        tiers: {
+            Dragonhide: {
+                tier: "HT3",
+                date: "2026-08-23",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-23",
+                kit: "Dragonhide",
+                tester: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "HT3",
+                scoreTester: 0,
+                scorePlayer: 6,
+                winner: "player",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
     }
 ];
