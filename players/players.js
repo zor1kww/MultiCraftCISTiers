@@ -157,8 +157,8 @@ const players = [
                 retired: false
             },
             "Diamond Pot": {
-                tier: "HT3",
-                date: "2026-08-18",
+                tier: "LT3",
+                date: "2026-08-23",
                 retired: false
             },
             Dragonhide: {
@@ -193,7 +193,7 @@ const players = [
                 firstPenaltyDate: "2026-08-23"
             },
             "Diamond Pot": {
-                points: 1.0,
+                points: 0.0,
                 firstPenaltyDate: "2026-08-23"
             }
         },
@@ -201,6 +201,17 @@ const players = [
             {
                 date: "2026-08-23",
                 kit: "Dragonhide",
+                tester: "система",
+                tierBefore: "HT3",
+                tierAfter: "LT3",
+                scoreTester: 0,
+                scorePlayer: 0,
+                winner: "tester",
+                comment: "Автопонижение: накоплено 2 штрафных очка"
+            },
+            {
+                date: "2026-08-23",
+                kit: "Diamond Pot",
                 tester: "система",
                 tierBefore: "HT3",
                 tierAfter: "LT3",
@@ -2598,6 +2609,17 @@ const players = [
                 tierAfter: "HT3",
                 scoreTester: 0,
                 scorePlayer: 6,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-23",
+                kit: "Diamond Pot",
+                tester: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "HT3",
+                scoreTester: 2,
+                scorePlayer: 4,
                 winner: "player",
                 comment: null
             },
