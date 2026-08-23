@@ -1851,6 +1851,11 @@ const players = [
                 tier: "LT3",
                 date: "2026-08-22",
                 retired: false
+            },
+            Emerald: {
+                tier: "HT4",
+                date: "2026-08-23",
+                retired: false
             }
         },
         matchHistory: [
@@ -1875,6 +1880,17 @@ const players = [
                 scorePlayer: 3,
                 winner: "tester",
                 comment: "проходит бридж лт2"
+            },
+            {
+                date: "2026-08-23",
+                kit: "Emerald",
+                tester: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "HT4",
+                scoreTester: 4,
+                scorePlayer: 0,
+                winner: "tester",
+                comment: null
             }
         ]
     },
