@@ -1341,8 +1341,27 @@ const players = [
                 tier: "LT3",
                 date: "2026-08-18",
                 retired: false
+            },
+            "Emerald Pot": {
+                tier: "LT3",
+                date: "2026-08-24",
+                retired: false
             }
-        }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-24",
+                kit: "Emerald Pot",
+                tester: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "LT3",
+                scoreTester: 0,
+                scorePlayer: 4,
+                winner: "player",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
     },
     {
         name: "Lolotrack",
