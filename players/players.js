@@ -1252,7 +1252,11 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             },
-            "Emerald Pot": "LT3",
+            "Emerald Pot": {
+                tier: "HT4",
+                date: "2026-08-24",
+                retired: false
+            },
             Combo: {
                 tier: "HT3",
                 date: "2026-08-18",
@@ -1311,6 +1315,17 @@ const players = [
                 tierBefore: "LT3",
                 tierAfter: "HT4",
                 scoreTester: 2,
+                scorePlayer: 0,
+                winner: "tester",
+                comment: null
+            },
+            {
+                date: "2026-08-24",
+                kit: "Emerald Pot",
+                tester: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "HT4",
+                scoreTester: 5,
                 scorePlayer: 0,
                 winner: "tester",
                 comment: null
