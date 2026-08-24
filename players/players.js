@@ -1238,8 +1238,8 @@ const players = [
                 retired: false
             },
             Emerald: {
-                tier: "LT2",
-                date: "2026-08-18",
+                tier: "LT3",
+                date: "2026-08-24",
                 retired: false
             },
             Dragonhide: {
@@ -1329,9 +1329,36 @@ const players = [
                 scorePlayer: 0,
                 winner: "tester",
                 comment: null
+            },
+            {
+                date: "2026-08-24",
+                kit: "Emerald",
+                tester: "_Xx_deras_xX",
+                tierBefore: "LT2",
+                tierAfter: "HT3",
+                scoreTester: 4,
+                scorePlayer: 0,
+                winner: "tester",
+                comment: null
+            },
+            {
+                date: "2026-08-24",
+                kit: "Emerald",
+                tester: "система",
+                tierBefore: "HT3",
+                tierAfter: "LT3",
+                scoreTester: 0,
+                scorePlayer: 0,
+                winner: "tester",
+                comment: "Автопонижение: накоплено 2 штрафных очка"
             }
         ],
-        penaltyByKit: {}
+        penaltyByKit: {
+            Emerald: {
+                points: 0.0,
+                firstPenaltyDate: "2026-08-24"
+            }
+        }
     },
     {
         name: "BossKFC",
