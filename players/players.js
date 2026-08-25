@@ -949,7 +949,13 @@ const players = [
                 winner: "tester",
                 comment: null
             }
-        ]
+        ],
+        penaltyByKit: {
+            Hardcore: {
+                points: 1.5,
+                firstPenaltyDate: "2026-08-25"
+            }
+        }
     },
     {
         name: "Hayzi",
@@ -1268,8 +1274,8 @@ const players = [
                 retired: false
             },
             Hardcore: {
-                tier: "LT3",
-                date: "2026-08-18",
+                tier: "LT2",
+                date: "2026-08-25",
                 retired: false
             },
             Pickaxe: "LT3"
@@ -1351,6 +1357,17 @@ const players = [
                 scorePlayer: 0,
                 winner: "tester",
                 comment: "Автопонижение: накоплено 2 штрафных очка"
+            },
+            {
+                date: "2026-08-25",
+                kit: "Hardcore",
+                tester: "-BaCk-",
+                tierBefore: "LT3",
+                tierAfter: "LT2",
+                scoreTester: 1,
+                scorePlayer: 4,
+                winner: "player",
+                comment: null
             }
         ],
         penaltyByKit: {
