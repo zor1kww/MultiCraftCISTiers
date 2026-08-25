@@ -733,6 +733,12 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             }
+        },
+        penaltyByKit: {
+            Emerald: {
+                points: 0.4,
+                firstPenaltyDate: "2026-08-25"
+            }
         }
     },
     {
@@ -1341,8 +1347,8 @@ const players = [
                 retired: false
             },
             Emerald: {
-                tier: "LT3",
-                date: "2026-08-24",
+                tier: "LT2",
+                date: "2026-08-25",
                 retired: false
             },
             Dragonhide: {
@@ -1474,6 +1480,17 @@ const players = [
                 tierAfter: "LT2",
                 scoreTester: 2,
                 scorePlayer: 4,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-25",
+                kit: "Emerald",
+                tester: "ZirtMobile",
+                tierBefore: "HT3",
+                tierAfter: "LT2",
+                scoreTester: 4,
+                scorePlayer: 6,
                 winner: "player",
                 comment: null
             }
