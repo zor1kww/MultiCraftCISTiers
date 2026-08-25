@@ -224,6 +224,10 @@ const players = [
             "Emerald Pot": {
                 points: 0.0,
                 firstPenaltyDate: "2026-08-23"
+            },
+            Beast: {
+                points: 1.6,
+                firstPenaltyDate: "2026-08-25"
             }
         },
         matchHistory: [
@@ -1257,6 +1261,11 @@ const players = [
                 tier: "LT2",
                 date: "2026-08-25",
                 retired: false
+            },
+            Beast: {
+                tier: "HT2",
+                date: "2026-08-25",
+                retired: false
             }
         },
         matchHistory: [
@@ -1268,6 +1277,17 @@ const players = [
                 tierAfter: "LT2",
                 scoreTester: 0,
                 scorePlayer: 4,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-25",
+                kit: "Beast",
+                tester: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "HT2",
+                scoreTester: 1,
+                scorePlayer: 6,
                 winner: "player",
                 comment: null
             }
