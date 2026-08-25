@@ -2068,7 +2068,7 @@ const players = [
         tiers: {
             Beast: {
                 tier: "HT3",
-                date: "2026-08-23",
+                date: "2026-08-25",
                 retired: false
             },
             Mace: {
@@ -2136,11 +2136,22 @@ const players = [
                 scorePlayer: 3,
                 winner: "tester",
                 comment: null
+            },
+            {
+                date: "2026-08-25",
+                kit: "Beast",
+                tester: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "HT3",
+                scoreTester: 6,
+                scorePlayer: 3,
+                winner: "tester",
+                comment: null
             }
         ],
         penaltyByKit: {
             Beast: {
-                points: 0.8,
+                points: 1.6,
                 firstPenaltyDate: "2026-08-23"
             }
         }
