@@ -59,9 +59,9 @@ const players = [
         region: "RU",
         tiers: {
             Dragonhide: {
-                tier: "LT1",
-                date: "2026-06-18",
-                retired: true
+                tier: "HT1",
+                date: "2026-08-25",
+                retired: false
             },
             Emerald: {
                 tier: "LT1",
@@ -115,7 +115,21 @@ const players = [
                 retired: false
             },
             Gapple: "HT1"
-        }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-25",
+                kit: "Dragonhide",
+                tester: "Sneger",
+                tierBefore: "LT1",
+                tierAfter: "HT1",
+                scoreTester: 2,
+                scorePlayer: 4,
+                winner: "player",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
     },
     {
         name: "zor1kkqwix",
