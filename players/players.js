@@ -2841,5 +2841,30 @@ const players = [
                 firstPenaltyDate: "2026-08-23"
             }
         }
+    },
+    {
+        name: "aetherelegantius",
+        region: "RU",
+        tiers: {
+            RVM: {
+                tier: "LT3",
+                date: "2026-08-25",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-25",
+                kit: "RVM",
+                tester: "-BaCk-",
+                tierBefore: "Unranked",
+                tierAfter: "LT3",
+                scoreTester: 0,
+                scorePlayer: 4,
+                winner: "player",
+                comment: "квалификационный тест пройден"
+            }
+        ],
+        penaltyByKit: {}
     }
 ];
