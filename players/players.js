@@ -182,8 +182,8 @@ const players = [
                 retired: false
             },
             "Diamond Pot": {
-                tier: "LT3",
-                date: "2026-08-23",
+                tier: "HT4",
+                date: "2026-08-25",
                 retired: false
             },
             Dragonhide: {
@@ -219,7 +219,7 @@ const players = [
             },
             "Diamond Pot": {
                 points: 0.0,
-                firstPenaltyDate: "2026-08-23"
+                firstPenaltyDate: "2026-08-25"
             },
             "Emerald Pot": {
                 points: 0.0,
@@ -266,6 +266,17 @@ const players = [
                 tester: "система",
                 tierBefore: "HT3",
                 tierAfter: "LT3",
+                scoreTester: 0,
+                scorePlayer: 0,
+                winner: "tester",
+                comment: "Автопонижение: накоплено 2 штрафных очка"
+            },
+            {
+                date: "2026-08-25",
+                kit: "Diamond Pot",
+                tester: "система",
+                tierBefore: "LT3",
+                tierAfter: "HT4",
                 scoreTester: 0,
                 scorePlayer: 0,
                 winner: "tester",
@@ -1241,8 +1252,27 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             },
-            Pickaxe: "LT3"
-        }
+            Pickaxe: "LT3",
+            "Diamond Pot": {
+                tier: "LT2",
+                date: "2026-08-25",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-25",
+                kit: "Diamond Pot",
+                tester: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "LT2",
+                scoreTester: 0,
+                scorePlayer: 4,
+                winner: "player",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
     },
     {
         name: "Igrok355",
