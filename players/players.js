@@ -2114,6 +2114,11 @@ const players = [
                 tier: "HT4",
                 date: "2026-08-23",
                 retired: false
+            },
+            "Diamond Pot": {
+                tier: "LT3",
+                date: "2026-08-25",
+                retired: false
             }
         },
         matchHistory: [
@@ -2169,6 +2174,17 @@ const players = [
                 tierAfter: "HT3",
                 scoreTester: 6,
                 scorePlayer: 3,
+                winner: "tester",
+                comment: null
+            },
+            {
+                date: "2026-08-25",
+                kit: "Diamond Pot",
+                tester: "_Xx_deras_xX",
+                tierBefore: "Unranked",
+                tierAfter: "LT3",
+                scoreTester: 4,
+                scorePlayer: 0,
                 winner: "tester",
                 comment: null
             }
