@@ -1328,7 +1328,11 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             },
-            RVM: "HT3",
+            RVM: {
+                tier: "LT2",
+                date: "2026-08-25",
+                retired: false
+            },
             SMP: "LT2",
             "Diamond Pot": "HT3",
             Beast: {
@@ -1458,6 +1462,17 @@ const players = [
                 tierBefore: "LT3",
                 tierAfter: "LT2",
                 scoreTester: 1,
+                scorePlayer: 4,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-25",
+                kit: "RVM",
+                tester: "HAVCHIK",
+                tierBefore: "HT3",
+                tierAfter: "LT2",
+                scoreTester: 2,
                 scorePlayer: 4,
                 winner: "player",
                 comment: null
@@ -2488,6 +2503,12 @@ const players = [
                 retired: false
             },
             RVM: "HT3"
+        },
+        penaltyByKit: {
+            RVM: {
+                points: 1.0,
+                firstPenaltyDate: "2026-08-25"
+            }
         }
     },
     {
