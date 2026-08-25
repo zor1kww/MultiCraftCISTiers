@@ -75,8 +75,8 @@ const players = [
             },
             SMP: {
                 tier: "HT1",
-                date: "2026-06-18",
-                retired: true
+                date: "2026-08-25",
+                retired: false
             },
             Crystal: {
                 tier: "LT1",
@@ -120,6 +120,17 @@ const players = [
             {
                 date: "2026-08-25",
                 kit: "Dragonhide",
+                tester: "Sneger",
+                tierBefore: "LT1",
+                tierAfter: "HT1",
+                scoreTester: 2,
+                scorePlayer: 4,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-25",
+                kit: "SMP",
                 tester: "Sneger",
                 tierBefore: "LT1",
                 tierAfter: "HT1",
