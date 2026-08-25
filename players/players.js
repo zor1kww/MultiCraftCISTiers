@@ -696,8 +696,8 @@ const players = [
         region: "RU",
         tiers: {
             RVM: {
-                tier: "HT4",
-                date: "2026-08-18",
+                tier: "LT3",
+                date: "2026-08-25",
                 retired: false
             },
             "Emerald Pot": {
@@ -735,7 +735,21 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             }
-        }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-25",
+                kit: "RVM",
+                tester: "-999-",
+                tierBefore: "HT4",
+                tierAfter: "LT3",
+                scoreTester: 4,
+                scorePlayer: 0,
+                winner: "tester",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
     },
     {
         name: "NeXoXoroshy2",
