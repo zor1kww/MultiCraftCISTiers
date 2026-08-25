@@ -228,6 +228,10 @@ const players = [
             Beast: {
                 points: 1.6,
                 firstPenaltyDate: "2026-08-25"
+            },
+            Pickaxe: {
+                points: 1.5,
+                firstPenaltyDate: "2026-08-25"
             }
         },
         matchHistory: [
@@ -2325,6 +2329,11 @@ const players = [
                 tier: "HT2",
                 date: "2026-08-18",
                 retired: false
+            },
+            Pickaxe: {
+                tier: "HT2",
+                date: "2026-08-25",
+                retired: false
             }
         },
         matchHistory: [
@@ -2338,8 +2347,20 @@ const players = [
                 scorePlayer: 6,
                 winner: "tester",
                 comment: null
+            },
+            {
+                date: "2026-08-25",
+                kit: "Pickaxe",
+                tester: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "HT2",
+                scoreTester: 1,
+                scorePlayer: 4,
+                winner: "player",
+                comment: null
             }
-        ]
+        ],
+        penaltyByKit: {}
     },
     {
         name: "AMORE",
