@@ -2417,6 +2417,11 @@ const players = [
                 tier: "HT2",
                 date: "2026-08-25",
                 retired: false
+            },
+            SMP: {
+                tier: "LT1",
+                date: "2026-08-27",
+                retired: false
             }
         },
         matchHistory: [
@@ -2440,6 +2445,17 @@ const players = [
                 scoreTester: 1,
                 scorePlayer: 4,
                 winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-27",
+                kit: "SMP",
+                tester: "-999-",
+                tierBefore: "Unranked",
+                tierAfter: "LT1",
+                scoreTester: 4,
+                scorePlayer: 2,
+                winner: "tester",
                 comment: null
             }
         ],
