@@ -2895,8 +2895,27 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             },
-            Emerald: "HT1"
-        }
+            Emerald: "HT1",
+            Beast: {
+                tier: "LT1",
+                date: "2026-08-27",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-27",
+                kit: "Beast",
+                tester: "DzIla_EDITSmob",
+                tierBefore: "Unranked",
+                tierAfter: "LT1",
+                scoreTester: 6,
+                scorePlayer: 5,
+                winner: "tester",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
     },
     {
         name: "bob_ara_1029",
