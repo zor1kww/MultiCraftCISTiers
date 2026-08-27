@@ -3075,5 +3075,30 @@ const players = [
             }
         ],
         penaltyByKit: {}
+    },
+    {
+        name: "_-XKakTak-_",
+        region: "RU",
+        tiers: {
+            Hardcore: {
+                tier: "LT3",
+                date: "2026-08-27",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-27",
+                kit: "Hardcore",
+                tester: "-BaCk-",
+                tierBefore: "Unranked",
+                tierAfter: "LT3",
+                scoreTester: 1,
+                scorePlayer: 4,
+                winner: "player",
+                comment: "Квалификационный тест пройден"
+            }
+        ],
+        penaltyByKit: {}
     }
 ];
