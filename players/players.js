@@ -342,7 +342,7 @@ const players = [
     },
     {
         name: "_Xx_deras_xX",
-        region: "UA",
+        region: "RU",
         tiers: {
             "Emerald Pot": {
                 tier: "LT2",
@@ -380,8 +380,8 @@ const players = [
                 retired: false
             },
             Beast: {
-                tier: "LT1",
-                date: "2026-08-18",
+                tier: "HT1",
+                date: "2026-08-27",
                 retired: false
             },
             Combo: {
@@ -409,7 +409,21 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             }
-        }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-27",
+                kit: "Beast",
+                tester: "firary67",
+                tierBefore: "LT1",
+                tierAfter: "HT1",
+                scoreTester: 3,
+                scorePlayer: 6,
+                winner: "player",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
     },
     {
         name: "2b2tPE",
@@ -2953,7 +2967,12 @@ const players = [
                 comment: null
             }
         ],
-        penaltyByKit: {}
+        penaltyByKit: {
+            Beast: {
+                points: 0.8,
+                firstPenaltyDate: "2026-08-27"
+            }
+        }
     },
     {
         name: "bob_ara_1029",
