@@ -2405,8 +2405,8 @@ const players = [
                 retired: false
             },
             Beast: {
-                tier: "LT1",
-                date: "2026-08-22",
+                tier: "HT2",
+                date: "2026-08-27",
                 retired: false
             },
             RVM: {
@@ -2466,6 +2466,17 @@ const players = [
                 tierAfter: "LT1",
                 scoreTester: 4,
                 scorePlayer: 2,
+                winner: "tester",
+                comment: null
+            },
+            {
+                date: "2026-08-27",
+                kit: "Beast",
+                tester: "-999-",
+                tierBefore: "LT1",
+                tierAfter: "HT2",
+                scoreTester: 3,
+                scorePlayer: 6,
                 winner: "tester",
                 comment: null
             }
