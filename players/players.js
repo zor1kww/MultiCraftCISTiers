@@ -2753,8 +2753,27 @@ const players = [
                 tier: "LT3",
                 date: "2026-08-18",
                 retired: false
+            },
+            Beast: {
+                tier: "LT3",
+                date: "2026-08-27",
+                retired: false
             }
-        }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-27",
+                kit: "Beast",
+                tester: "DzIla_EDITSmob",
+                tierBefore: "Unranked",
+                tierAfter: "LT3",
+                scoreTester: 5,
+                scorePlayer: 0,
+                winner: "tester",
+                comment: "слаба но урон наносил может дойти до хт3. Квалификационный тест пройден"
+            }
+        ],
+        penaltyByKit: {}
     },
     {
         name: "YTdrumv",
