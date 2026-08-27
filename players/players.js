@@ -70,8 +70,8 @@ const players = [
             },
             "Diamond Pot": {
                 tier: "LT1",
-                date: "2026-06-18",
-                retired: true
+                date: "2026-08-27",
+                retired: false
             },
             SMP: {
                 tier: "HT1",
@@ -137,6 +137,17 @@ const players = [
                 scoreTester: 2,
                 scorePlayer: 4,
                 winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-27",
+                kit: "Diamond Pot",
+                tester: "Sneger",
+                tierBefore: "LT1",
+                tierAfter: "LT1",
+                scoreTester: 4,
+                scorePlayer: 3,
+                winner: "tester",
                 comment: null
             }
         ],
