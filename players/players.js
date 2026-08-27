@@ -1247,8 +1247,8 @@ const players = [
                 retired: false
             },
             RVM: {
-                tier: "LT3",
-                date: "2026-08-18",
+                tier: "LT2",
+                date: "2026-08-27",
                 retired: false
             },
             Crystal: {
@@ -1300,9 +1300,25 @@ const players = [
                 scorePlayer: 6,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-08-27",
+                kit: "RVM",
+                tester: "DzIla_EDITSmob",
+                tierBefore: "LT3",
+                tierAfter: "LT2",
+                scoreTester: 4,
+                scorePlayer: 2,
+                winner: "tester",
+                comment: null
             }
         ],
-        penaltyByKit: {}
+        penaltyByKit: {
+            RVM: {
+                points: 1.0,
+                firstPenaltyDate: "2026-08-27"
+            }
+        }
     },
     {
         name: "Igrok355",
