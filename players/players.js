@@ -2424,8 +2424,8 @@ const players = [
                 retired: false
             },
             RVM: {
-                tier: "LT1",
-                date: "2026-08-18",
+                tier: "LT2",
+                date: "2026-08-27",
                 retired: false
             },
             Hardcore: {
@@ -2492,6 +2492,17 @@ const players = [
                 scoreTester: 3,
                 scorePlayer: 6,
                 winner: "tester",
+                comment: null
+            },
+            {
+                date: "2026-08-27",
+                kit: "RVM",
+                tester: "zor1kkqwix",
+                tierBefore: "LT1",
+                tierAfter: "LT2",
+                scoreTester: 3,
+                scorePlayer: 4,
+                winner: "player",
                 comment: null
             }
         ],
