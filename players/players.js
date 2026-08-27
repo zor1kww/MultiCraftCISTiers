@@ -1356,7 +1356,11 @@ const players = [
                 retired: false
             },
             SMP: "LT2",
-            "Diamond Pot": "HT3",
+            "Diamond Pot": {
+                tier: "LT2",
+                date: "2026-08-27",
+                retired: false
+            },
             Beast: {
                 tier: "HT2",
                 date: "2026-08-22",
@@ -1509,12 +1513,27 @@ const players = [
                 scorePlayer: 6,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-08-27",
+                kit: "Diamond Pot",
+                tester: "DzIla_EDITSmob",
+                tierBefore: "LT2",
+                tierAfter: "LT2",
+                scoreTester: 4,
+                scorePlayer: 2,
+                winner: "tester",
+                comment: "анрил играть на даймонт кб после отдачи новой"
             }
         ],
         penaltyByKit: {
             Emerald: {
                 points: 0.0,
                 firstPenaltyDate: "2026-08-24"
+            },
+            "Diamond Pot": {
+                points: 1.0,
+                firstPenaltyDate: "2026-08-27"
             }
         }
     },
