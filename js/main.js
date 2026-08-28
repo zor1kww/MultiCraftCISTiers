@@ -954,11 +954,26 @@ function copyInviteCode() {
 // вкладке "Дуэли" (глобальный список по всем игрокам)
 // ==========================================
 
+// Приводит запись matchHistory к единому виду, независимо от того, какой
+// версией бота она была записана: старые записи используют поля
+// tester/scoreTester (реликт до перехода на терминологию "Оппонент",
+// когда соперником всегда был тестер), новые - opponent/scoreOpponent.
+// Аналогично winner: старое значение "tester" равнозначно "opponent".
+function normalizeDuelEntry(entry) {
+    const opponent = entry.opponent !== undefined ? entry.opponent : entry.tester;
+    const scoreOpponent = entry.scoreOpponent !== undefined ? entry.scoreOpponent : entry.scoreTester;
+    const winner = entry.winner === 'tester' ? 'opponent' : entry.winner;
+    return { ...entry, opponent, scoreOpponent, winner };
+}
+
 // Собирает уникальный список дуэлей со всех игроков. Каждая дуэль хранится
 // СИММЕТРИЧНО в matchHistory обоих участников (см. main.py на боте) -
 // поэтому здесь дедуплицируем по ключу (кит+дата+счёт+пара имён без учёта
 // порядка), оставляя одну запись на дуэль, показанную "от лица" игрока,
-// чьё имя раньше встретилось при обходе (порядок players.js).
+// чьё имя раньше встретилось при обходе (порядок players.js). Старые
+// записи (до перехода на симметричную запись) есть только у одной
+// стороны - для них дедупликация просто не найдёт пары, и они всё равно
+// покажутся один раз, что корректно.
 function collectGlobalDuels() {
     if (typeof players === 'undefined' || !Array.isArray(players)) return [];
 
@@ -967,8 +982,10 @@ function collectGlobalDuels() {
 
     players.forEach(player => {
         const history = Array.isArray(player.matchHistory) ? player.matchHistory : [];
-        history.forEach(entry => {
-            if (!entry || entry.opponent === 'система') return;
+        history.forEach(raw => {
+            if (!raw || raw.opponent === 'система' || raw.tester === 'система') return;
+            const entry = normalizeDuelEntry(raw);
+            if (!entry.opponent) return;
 
             const namesKey = [player.name, entry.opponent].sort().join('|');
             const key = `${entry.kit}|${entry.date}|${namesKey}|${[entry.scorePlayer, entry.scoreOpponent].sort().join('-')}`;
@@ -980,6 +997,25 @@ function collectGlobalDuels() {
     });
 
     return result;
+}
+
+// Строит HTML-блок с рангами дуэли (предыдущий → полученный), если они
+// зафиксированы в записи. Показывается только когда тир реально менялся
+// в контексте этого результата (в самой дуэли, а не когда tierBefore
+// просто равен tierAfter - тогда это не несёт информации).
+function buildDuelTierChangeHTML(entry) {
+    if (!entry.tierBefore || !entry.tierAfter) return '';
+    if (entry.tierBefore === entry.tierAfter) return '';
+
+    const activeColors = (typeof tierColors !== 'undefined') ? tierColors : {};
+    const colorBefore = activeColors[entry.tierBefore] || 'var(--text-muted)';
+    const colorAfter = activeColors[entry.tierAfter] || 'var(--accent)';
+
+    return `<div class="duel-tier-change">
+        <span style="color:${colorBefore};">${entry.tierBefore}</span>
+        <span class="duel-tier-arrow">→</span>
+        <span style="color:${colorAfter}; font-weight:700;">${entry.tierAfter}</span>
+    </div>`;
 }
 
 // Рендер вкладки "Дуэли" — применяет поиск (по игроку/оппоненту) и фильтр
@@ -1017,6 +1053,7 @@ function renderGlobalDuels() {
         const won = entry.winner === 'player';
         const resultClass = won ? 'duel-win' : 'duel-loss';
         const commentHTML = entry.comment ? `<div class="duel-comment">${entry.comment}</div>` : '';
+        const tierChangeHTML = buildDuelTierChangeHTML(entry);
         const playerSafe = String(entry.playerName).replace(/'/g, "\\'");
         const opponentSafe = String(entry.opponent).replace(/'/g, "\\'");
 
@@ -1033,6 +1070,7 @@ function renderGlobalDuels() {
                 <span class="duel-score">${entry.scorePlayer}:${entry.scoreOpponent}</span>
                 <span class="duel-opponent-name" onclick="openProfileByName('${opponentSafe}')">${entry.opponent}</span>
             </div>
+            ${tierChangeHTML}
             ${commentHTML}
         </div>`;
     }).join('');
@@ -1042,7 +1080,8 @@ function renderGlobalDuels() {
 // кита (нужно во вкладке "Дуэли", где записи вперемешку по разным китам;
 // в профиле игрока кит и так виден из контекста блока Main/Sub Tiers выше,
 // но параметр всё равно поддерживается на будущее).
-function renderDuelRow(entry, showKit) {
+function renderDuelRow(rawEntry, showKit) {
+    const entry = normalizeDuelEntry(rawEntry);
     const activeKitImages = (typeof kitImages !== 'undefined') ? kitImages : {};
     const won = entry.winner === 'player';
     const resultClass = won ? 'duel-win' : 'duel-loss';
@@ -1059,6 +1098,7 @@ function renderDuelRow(entry, showKit) {
         ? `<div class="duel-comment">${entry.comment}</div>`
         : '';
 
+    const tierChangeHTML = buildDuelTierChangeHTML(entry);
     const opponentSafe = String(entry.opponent).replace(/'/g, "\\'");
 
     return `<div class="duel-row ${resultClass}">
@@ -1072,17 +1112,18 @@ function renderDuelRow(entry, showKit) {
             <span class="duel-score">${entry.scorePlayer}:${entry.scoreOpponent}</span>
             <span class="duel-result-badge">${resultLabel}</span>
         </div>
+        ${tierChangeHTML}
         ${commentHTML}
     </div>`;
 }
 
 // Список дуэлей игрока (используется в профиле). Системные записи
-// автопонижения (opponent === "система") сюда не относятся - это не
-// дуэль, а служебное событие, поэтому исключаются из списка.
+// автопонижения (opponent/tester === "система") сюда не относятся - это
+// не дуэль, а служебное событие, поэтому исключаются из списка.
 function renderDuelsList(matchHistory, opts = {}) {
     const showKit = !!opts.showKit;
     const list = Array.isArray(matchHistory) ? matchHistory : [];
-    const duels = list.filter(e => e && e.opponent !== 'система');
+    const duels = list.filter(e => e && e.opponent !== 'система' && e.tester !== 'система');
 
     if (duels.length === 0) {
         return `<p class="duels-empty">Дуэлей пока нет.</p>`;
