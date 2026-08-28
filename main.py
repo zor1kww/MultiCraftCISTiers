@@ -1,30 +1,34 @@
 # -*- coding: utf-8 -*-
 """
-Telegram-бот тир-тестера MultiCraftCISTiers (v3 - текстовый шаблон).
+Telegram-бот тир-тестера MultiCraftCISTiers (v4 - Оппонент/Игрок, симметричные штрафы).
 
 Архитектура:
   - Тестеры пишут результаты текстовым шаблоном в закрытой группе,
     топик "Результаты" (SOURCE_CHAT_ID/SOURCE_THREAD_ID из bot_config.py).
   - Бот - обычный участник-админ этой группы, слушает сообщения через
     polling. Так как бот добавлен АДМИНОМ, privacy mode Telegram не
-    ограничивает видимость сообщений - бот видит все сообщения в группе.
+    ограничивает видимость сообщений.
+  - Шаблон теперь без роли "Тестер" - только "Оппонент:" (один или
+    несколько через запятую) и "Игрок:" (тот, кто тестируется на новый
+    ранг - может быть как раньше "тестируемым", так и выигравшим
+    оппонентом, тестеры сами решают, кого писать в это поле).
   - Каждое сообщение в целевом топике пропускается через text_parser:
       * не похоже на результат (нет меток полей) -> молча игнорируется
-      * похоже, но с ошибкой (не хватает полей/неверные значения) ->
-        бот отвечает в тот же топик с описанием ошибки
+      * похоже, но с ошибкой -> бот отвечает в тот же топик с описанием
       * распознано полностью -> ставится в очередь (result_queue.py)
   - Очередь обрабатывает результаты СТРОГО последовательно с паузой
-    5-10 секунд между записями в GitHub - защита от пачек сообщений,
-    накопившихся, пока бот был выключен/спал.
-  - Каждый результат: запись в players.js (тир + matchHistory),
-    публикация карточки в один из двух ПУБЛИЧНЫХ топиков
-    (RESULTS_THREAD_ID / HIGH_RESULTS_THREAD_ID) по правилу:
-    tier_after в {LT5,LT4,HT5,LT3} -> "Результаты",
-    tier_after в {HT3,LT2,HT2,LT1,HT1} -> "Высокие результаты".
+    5-10 секунд между записями в GitHub.
+  - Штрафные очки (только для HT3+ результатов) считаются СИММЕТРИЧНО
+    и ПОДУЭЛЬНО: для каждой дуэли отдельно проверяется, кто проиграл и
+    был ли он равного/выше ранга - см. penalty_logic.apply_penalty_for_duel.
+  - Каждый результат: запись в players.js (тир игрока + matchHistory -
+    по одной записи на КАЖДУЮ дуэль), публикация карточки в один из
+    двух публичных топиков по правилу determine_topic(tier_after).
 
 Модули с бизнес-логикой (протестированы отдельно от Telegram):
-  - text_parser.py    - разбор шаблонного сообщения
-  - tier_logic.py      - математика тиров, тексты карточек, matchHistory
+  - text_parser.py    - разбор шаблонного сообщения (Оппонент/Счёт)
+  - tier_logic.py      - математика тиров, единая карточка, matchHistory
+  - penalty_logic.py   - симметричные штрафы подуэльно, автопонижение
   - github_storage.py  - чтение/запись players.js с retry на sha-конфликт
   - result_queue.py    - последовательная очередь с задержкой
   - bot_config.py      - справочники и ID чатов/топиков
@@ -49,11 +53,11 @@ from bot_config import (
 )
 from text_parser import parse_result_message, ParseError
 from tier_logic import (
-    calculate_overall_tier, determine_topic, tester_display_name,
-    build_high_test_card, build_normal_result_card, build_match_history_entry,
+    calculate_overall_tier, determine_topic,
+    build_result_card, build_match_history_entry,
     build_tier_object, build_penalty_demotion_card, today_str,
 )
-from penalty_logic import apply_penalties_for_result, next_tier_down, add_penalty_to_entry, effective_penalty_points
+from penalty_logic import apply_penalty_for_duel, next_tier_down, add_penalty_to_entry
 from result_queue import ResultQueue
 import github_storage
 
@@ -94,67 +98,6 @@ def find_player(players_list, name: str):
     return None
 
 
-def apply_result_to_players_list(players_list, parsed):
-    """
-    Мутирует players_list: обновляет тир игрока (или создаёт нового
-    игрока, если его ещё нет в базе), добавляет запись в matchHistory,
-    и если результат относится к HT3+ тесту - применяет штрафные очки
-    (см. penalty_logic.py) с возможным автоматическим понижением.
-
-    Возвращает (players_list, overall_tier, tests_count, is_new_player, demotions).
-    demotions - список dict {"player_name", "kit", "old_tier", "new_tier",
-    "region", "overall_tier", "tests_count"} для игроков, автоматически
-    понизившихся из-за накопленных штрафов в РЕЗУЛЬТАТЕ этого вызова -
-    для каждого нужно опубликовать отдельную карточку понижения.
-    """
-    player = find_player(players_list, parsed.player_name)
-
-    tier_obj = build_tier_object(parsed.tier_after, retired=False, test_date=today_str())
-    history_entry = build_match_history_entry(
-        kit=parsed.kit,
-        tester_name=parsed.tester_name,
-        player_name=parsed.player_name,
-        tier_before=parsed.tier_before,
-        tier_after=parsed.tier_after,
-        score_tester=parsed.score_tester,
-        score_player=parsed.score_player,
-        winner=parsed.winner,
-        comment=parsed.comment,
-    )
-
-    is_new_player = player is None
-
-    if is_new_player:
-        player = {
-            "name": parsed.player_name,
-            "region": parsed.region,
-            "tiers": {parsed.kit: tier_obj},
-            "matchHistory": [history_entry],
-            "penaltyByKit": {},
-        }
-        players_list.append(player)
-    else:
-        player['region'] = parsed.region
-        if 'tiers' not in player:
-            player['tiers'] = {}
-        player['tiers'][parsed.kit] = tier_obj
-        if 'matchHistory' not in player:
-            player['matchHistory'] = []
-        player['matchHistory'].append(history_entry)
-        if 'penaltyByKit' not in player:
-            player['penaltyByKit'] = {}
-
-    overall_tier, tests_count = calculate_overall_tier(player['tiers'])
-
-    demotions = []
-
-    # Штрафные очки применяются только к HT3+ результатам (топик "Высокие результаты")
-    if determine_topic(parsed.tier_after) == 'high':
-        demotions = apply_penalties_and_check_demotion(players_list, parsed)
-
-    return players_list, overall_tier, tests_count, is_new_player, demotions
-
-
 def get_player_tier_on_kit(players_list, player_name: str, kit: str):
     """Возвращает строку тира игрока на данном ките, или None если игрока
     нет в базе или у него нет записи по этому киту."""
@@ -167,26 +110,95 @@ def get_player_tier_on_kit(players_list, player_name: str, kit: str):
     return tier_obj.get('tier') if isinstance(tier_obj, dict) else tier_obj
 
 
-def apply_penalties_and_check_demotion(players_list, parsed):
-    """
-    Вычисляет и применяет штрафные очки за дуэль (tier_logic/penalty_logic),
-    мутирует penaltyByKit нужных игроков в players_list, и если у кого-то
-    порог достигнут - выполняет автопонижение тира (мутирует tiers,
-    добавляет запись в matchHistory, сбрасывает penaltyByKit[kit] в 0).
+def ensure_player_exists(players_list, name, region):
+    """Возвращает существующего игрока по имени или создаёт нового с
+    пустыми tiers/matchHistory/penaltyByKit, добавляя его в players_list."""
+    player = find_player(players_list, name)
+    if player is None:
+        player = {
+            "name": name,
+            "region": region,
+            "tiers": {},
+            "matchHistory": [],
+            "penaltyByKit": {},
+        }
+        players_list.append(player)
+        return player, True
 
-    Возвращает список демоций, которые произошли (для публикации карточек).
+    if 'tiers' not in player:
+        player['tiers'] = {}
+    if 'matchHistory' not in player:
+        player['matchHistory'] = []
+    if 'penaltyByKit' not in player:
+        player['penaltyByKit'] = {}
+    return player, False
+
+
+def apply_result_to_players_list(players_list, parsed):
+    """
+    Мутирует players_list:
+      1. Обновляет тир ИГРОКА (parsed.player_name) на parsed.tier_after,
+         создаёт его в базе, если ещё нет.
+      2. Добавляет в matchHistory игрока ПО ОДНОЙ записи на каждую дуэль
+         из parsed.duels (для многодуэльного HT1-теста это несколько
+         записей за один результат).
+      3. Если результат относится к HT3+ (determine_topic == 'high') -
+         для каждой дуэли отдельно вычисляет и применяет штраф
+         (см. penalty_logic.apply_penalty_for_duel), с возможным
+         автопонижением как игрока, так и любого из оппонентов.
+
+    Возвращает (players_list, overall_tier, demotions).
+    demotions - список dict для карточек автопонижения.
+    """
+    player, _ = ensure_player_exists(players_list, parsed.player_name, parsed.region)
+    player['region'] = parsed.region
+
+    tier_obj = build_tier_object(parsed.tier_after, retired=False, test_date=today_str())
+    player['tiers'][parsed.kit] = tier_obj
+
+    for duel in parsed.duels:
+        player['matchHistory'].append(build_match_history_entry(
+            kit=parsed.kit,
+            opponent_name=duel.opponent,
+            player_name=parsed.player_name,
+            tier_before=parsed.tier_before,
+            tier_after=parsed.tier_after,
+            score_player=duel.score_player,
+            score_opponent=duel.score_opponent,
+            winner=duel.winner,
+            comment=parsed.comment,
+        ))
+
+    overall_tier, _ = calculate_overall_tier(player['tiers'])
+
+    demotions = []
+    if determine_topic(parsed.tier_after) == 'high':
+        for duel in parsed.duels:
+            demotions.extend(apply_penalty_and_check_demotion(players_list, parsed, duel))
+
+    return players_list, overall_tier, demotions
+
+
+def apply_penalty_and_check_demotion(players_list, parsed, duel):
+    """
+    Вычисляет и применяет штраф ЗА ОДНУ дуэль (симметрично: может
+    оштрафовать либо игрока, либо конкретного оппонента этой дуэли), с
+    возможным автопонижением, если порог достигнут.
+
+    Возвращает список демоций (0 или 1 элемент), произошедших в
+    результате обработки этой конкретной дуэли.
     """
     def get_tier_fn(name, kit):
         return get_player_tier_on_kit(players_list, name, kit)
 
-    penalty_result = apply_penalties_for_result(
+    penalty_result = apply_penalty_for_duel(
         kit=parsed.kit,
-        tester_name=parsed.tester_name,
         player_name=parsed.player_name,
+        opponent_name=duel.opponent,
         tier_before_player=parsed.tier_before,
-        score_tester=parsed.score_tester,
-        score_player=parsed.score_player,
-        winner=parsed.winner,
+        score_player=duel.score_player,
+        score_opponent=duel.score_opponent,
+        winner=duel.winner,
         get_player_tier_fn=get_tier_fn,
     )
 
@@ -197,15 +209,7 @@ def apply_penalties_and_check_demotion(players_list, parsed):
         kit = entry["kit"]
         added = entry["penalty_added"]
 
-        target_player = find_player(players_list, target_name)
-        if target_player is None:
-            # Штраф начислен человеку, которого нет в базе игроков
-            # (например тестер без собственной карточки) - штрафовать некого,
-            # пропускаем без ошибки.
-            continue
-
-        if 'penaltyByKit' not in target_player:
-            target_player['penaltyByKit'] = {}
+        target_player, _ = ensure_player_exists(players_list, target_name, "")
 
         current_entry = target_player['penaltyByKit'].get(kit)
         new_entry = add_penalty_to_entry(current_entry, added, today_str())
@@ -216,34 +220,26 @@ def apply_penalties_and_check_demotion(players_list, parsed):
             new_tier = next_tier_down(current_tier) if current_tier else None
 
             if new_tier is not None:
-                # Автопонижение: пишем новый тир, обнуляем штраф по этому киту
-                # (обнуление = начало нового пустого цикла с сегодняшней датой)
                 target_player['tiers'][kit] = build_tier_object(new_tier, retired=False)
                 target_player['penaltyByKit'][kit] = {"points": 0.0, "firstPenaltyDate": today_str()}
 
-                if 'matchHistory' not in target_player:
-                    target_player['matchHistory'] = []
                 target_player['matchHistory'].append(build_match_history_entry(
-                    kit=kit, tester_name="система", player_name=target_name,
+                    kit=kit, opponent_name="система", player_name=target_name,
                     tier_before=current_tier, tier_after=new_tier,
-                    score_tester=0, score_player=0, winner="tester",
+                    score_player=0, score_opponent=0, winner="opponent",
                     comment=f"Автопонижение: накоплено {PENALTY_DEMOTION_THRESHOLD:g} штрафных очка",
                 ))
 
-                overall_tier, tests_count = calculate_overall_tier(target_player['tiers'])
+                overall_tier, _ = calculate_overall_tier(target_player['tiers'])
 
                 demotions.append({
                     "player_name": target_name,
                     "kit": kit,
                     "old_tier": current_tier,
                     "new_tier": new_tier,
-                    "region": target_player.get('region', ''),
                     "overall_tier": overall_tier,
-                    "tests_count": tests_count,
                 })
             else:
-                # Уже на самой низкой ступени (LT5) или тир неизвестен -
-                # некуда понижать, просто фиксируем штраф без демоции
                 target_player['penaltyByKit'][kit] = new_entry
         else:
             target_player['penaltyByKit'][kit] = new_entry
@@ -260,16 +256,14 @@ def process_result(parsed, source_message_id):
     Выполняется в очереди (result_queue), последовательно, с паузой
     перед каждым вызовом (кроме первого). Делает запись в GitHub и
     публикует карточку в нужный публичный топик. Если результат вызвал
-    штрафное автопонижение (см. penalty_logic.py) - публикует также
-    отдельную карточку понижения для каждого затронутого игрока.
+    штрафное автопонижение - публикует также отдельную карточку
+    понижения для каждого затронутого игрока/оппонента.
     """
     result_holder = {}
 
     def mutate(players_list):
-        updated_list, overall_tier, tests_count, is_new_player, demotions = apply_result_to_players_list(players_list, parsed)
+        updated_list, overall_tier, demotions = apply_result_to_players_list(players_list, parsed)
         result_holder['overall_tier'] = overall_tier
-        result_holder['tests_count'] = tests_count
-        result_holder['is_new_player'] = is_new_player
         result_holder['demotions'] = demotions
         return updated_list
 
@@ -277,43 +271,21 @@ def process_result(parsed, source_message_id):
     github_storage.update_players_file(GH_REPO, GH_TOKEN, mutate, commit_message)
 
     overall_tier = result_holder['overall_tier']
-    tests_count = result_holder['tests_count']
-    is_new_player = result_holder['is_new_player']
     demotions = result_holder['demotions']
-    tester_display = tester_display_name(parsed.tester_name)
 
     topic = determine_topic(parsed.tier_after)
 
-    if topic == 'high':
-        card_text = build_high_test_card(
-            player_name=parsed.player_name,
-            region=parsed.region,
-            kit=parsed.kit,
-            tier_before=parsed.tier_before,
-            tier_after=parsed.tier_after,
-            score_tester=parsed.score_tester,
-            score_player=parsed.score_player,
-            winner=parsed.winner,
-            tester_display=tester_display,
-            comment=parsed.comment,
-            overall_tier=overall_tier,
-            tests_count=tests_count,
-        )
-        thread_id = HIGH_RESULTS_THREAD_ID
-    else:
-        card_text = build_normal_result_card(
-            player_name=parsed.player_name,
-            region=parsed.region,
-            kit=parsed.kit,
-            tier_before=parsed.tier_before,
-            tier_after=parsed.tier_after,
-            is_new_player_kit=is_new_player or parsed.tier_before == "Unranked",
-            tester_display=tester_display,
-            comment=parsed.comment,
-            overall_tier=overall_tier,
-            tests_count=tests_count,
-        )
-        thread_id = RESULTS_THREAD_ID
+    card_text = build_result_card(
+        player_name=parsed.player_name,
+        kit=parsed.kit,
+        tier_before=parsed.tier_before,
+        tier_after=parsed.tier_after,
+        duels=parsed.duels,
+        comment=parsed.comment,
+        overall_tier=overall_tier,
+        is_high_topic=(topic == 'high'),
+    )
+    thread_id = HIGH_RESULTS_THREAD_ID if topic == 'high' else RESULTS_THREAD_ID
 
     send_kwargs = {"chat_id": RESULTS_CHAT_ID, "text": card_text}
     if thread_id is not None:
@@ -322,17 +294,16 @@ def process_result(parsed, source_message_id):
     bot.send_message(**send_kwargs)
 
     # Публикуем отдельную карточку для каждого штрафного автопонижения,
-    # произошедшего в результате этой дуэли (может быть 0, 1 или 2 -
-    # теоретически могут одновременно понизиться и тестируемый, и тестер)
+    # произошедшего в результате этого сообщения (может быть 0 или
+    # несколько - в многодуэльном тесте может понизиться и игрок, и
+    # несколько разных оппонентов одновременно)
     for demotion in demotions:
         demotion_card = build_penalty_demotion_card(
             player_name=demotion['player_name'],
-            region=demotion['region'],
             kit=demotion['kit'],
             old_tier=demotion['old_tier'],
             new_tier=demotion['new_tier'],
             overall_tier=demotion['overall_tier'],
-            tests_count=demotion['tests_count'],
         )
         demotion_topic = determine_topic(demotion['new_tier'])
         demotion_thread_id = HIGH_RESULTS_THREAD_ID if demotion_topic == 'high' else RESULTS_THREAD_ID
@@ -345,10 +316,7 @@ def process_result(parsed, source_message_id):
 
 
 def handle_processing_error(exc):
-    """Вызывается очередью, если process_result упал с исключением.
-    Не можем надёжно сослаться на исходное сообщение отсюда (очередь
-    уже оторвана от контекста конкретного апдейта) - просто логируем,
-    ошибка уже напечатана в traceback самой очередью."""
+    """Вызывается очередью, если process_result упал с исключением."""
     print(f"[result_queue] Ошибка обработки результата: {exc}")
 
 
@@ -359,8 +327,6 @@ def handle_processing_error(exc):
 def is_in_source_topic(message) -> bool:
     if message.chat.id != SOURCE_CHAT_ID:
         return False
-    # message_thread_id отсутствует у сообщений вне топиков (в основном чате
-    # форума) - если SOURCE_THREAD_ID задан, требуем точного совпадения
     return getattr(message, 'message_thread_id', None) == SOURCE_THREAD_ID
 
 
@@ -377,8 +343,6 @@ def handle_source_message(message):
     if parsed is None:
         return  # обычное обсуждение в топике, молча игнорируем
 
-    # Ставим в очередь - фактическая запись в GitHub и отправка карточки
-    # произойдёт последовательно, с паузой относительно других задач в очереди
     result_queue.submit(lambda: process_result(parsed, message.message_id))
 
 
