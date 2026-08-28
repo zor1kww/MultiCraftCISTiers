@@ -66,6 +66,11 @@
                     <div class="modal-block-footer" id="modalSubTotal">Всего за Sub: 0 PTS</div>
                 </div>
             </div>
+
+            <div class="modal-block modal-duels-block">
+                <h4>Дуэли</h4>
+                <div id="modalDuelsRows" class="duels-list"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -73,6 +78,7 @@
 <div class="sidebar" id="sidebar">
     <h3>Навигация</h3>
     <a href="#" onclick="switchTab('mainPage')">Главная</a>
+    <a href="#" onclick="switchTab('duelsTab')">Дуэли</a>
     <a href="#" onclick="switchTab('testingTab')">Тестирование</a>
     <a href="#" onclick="switchTab('otherInfoTab')">Другая информация</a>
     <a href="https://t.me/MultiCraftCISTiers" target="_blank">Telegram</a>
@@ -160,6 +166,47 @@
         <h2 class="section-title" id="tableSubtitle">OVERALL LEADERBOARD</h2>
         <div class="players-list" id="playersList"></div>
     </div>
+</div>
+
+<!-- ============================================================
+     ВКЛАДКА "ДУЭЛИ" — глобальный лог всех дуэлей по всем игрокам
+     ============================================================ -->
+<div class="tab-content" id="duelsTab" style="display: none;">
+    <h2 class="section-title">Дуэли</h2>
+    <p class="hub-intro" id="duelsHubIntro">Все зафиксированные поединки на платформе.</p>
+
+    <div class="filters">
+        <input type="text" id="duelsSearchInput" placeholder="Поиск по игроку или оппоненту...">
+
+        <div class="custom-select" id="duelsKitFilterCustom">
+            <button type="button" class="custom-select-trigger" id="duelsKitFilterTrigger">
+                <span id="duelsKitFilterLabel">Все киты</span>
+                <svg class="custom-select-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="custom-select-panel" id="duelsKitFilterPanel">
+                <div class="custom-select-option selected" data-value="all">Все киты</div>
+                <div class="custom-select-group-label" data-value="main-label">Main Kits</div>
+                <div class="custom-select-option" data-value="Hardcore">Hardcore</div>
+                <div class="custom-select-option" data-value="Manhunt">Manhunt</div>
+                <div class="custom-select-option" data-value="Diamond Pot">Diamond Pot</div>
+                <div class="custom-select-option" data-value="Beast">Beast</div>
+                <div class="custom-select-option" data-value="Emerald">Emerald</div>
+                <div class="custom-select-option" data-value="Emerald Pot">Emerald Pot</div>
+                <div class="custom-select-option" data-value="RVM">RVM</div>
+                <div class="custom-select-option" data-value="Dragonhide">Dragonhide</div>
+                <div class="custom-select-option" data-value="Pickaxe">Pickaxe</div>
+                <div class="custom-select-option" data-value="SMP">SMP</div>
+                <div class="custom-select-option" data-value="Vanilla">Vanilla</div>
+                <div class="custom-select-group-label" data-value="sub-label">Sub Kits</div>
+                <div class="custom-select-option" data-value="Combo">Combo</div>
+                <div class="custom-select-option" data-value="Gapple">Gapple</div>
+                <div class="custom-select-option" data-value="Mace">Mace</div>
+                <div class="custom-select-option" data-value="Crystal">Crystal</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="duels-list duels-list-global" id="globalDuelsList"></div>
 </div>
 
 <!-- ============================================================
