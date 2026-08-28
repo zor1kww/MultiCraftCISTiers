@@ -1438,7 +1438,7 @@ const players = [
             },
             "Emerald Pot": {
                 tier: "HT4",
-                date: "2026-08-24",
+                date: "2026-08-28",
                 retired: false
             },
             Combo: {
@@ -1583,6 +1583,17 @@ const players = [
             {
                 date: "2026-08-28",
                 kit: "Gapple",
+                opponent: "zor1kkqwix",
+                tierBefore: "HT4",
+                tierAfter: "HT4",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-08-28",
+                kit: "Emerald Pot",
                 opponent: "zor1kkqwix",
                 tierBefore: "HT4",
                 tierAfter: "HT4",
