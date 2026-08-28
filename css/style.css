@@ -901,6 +901,22 @@ body, html {
     font-style: italic;
 }
 
+/* Блок изменения ранга внутри строки дуэли (предыдущий → полученный) */
+.duel-tier-change {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: monospace;
+}
+
+.duel-tier-arrow {
+    color: var(--text-muted);
+    font-weight: normal;
+}
+
 /* Вкладка "Дуэли" — тот же список, но без ограничения по высоте */
 .duels-list-global {
     margin-top: 15px;
