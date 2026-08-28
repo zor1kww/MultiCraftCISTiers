@@ -2339,7 +2339,7 @@ const players = [
                 retired: false
             },
             Pickaxe: {
-                tier: "LT3",
+                tier: "HT3",
                 date: "2026-08-21",
                 retired: false
             }
