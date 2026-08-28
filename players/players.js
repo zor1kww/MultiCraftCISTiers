@@ -330,6 +330,17 @@ const players = [
                 scorePlayer: 0,
                 winner: "tester",
                 comment: "Автопонижение: накоплено 2 штрафных очка"
+            },
+            {
+                date: "2026-08-28",
+                kit: "Hardcore",
+                opponent: "keik1029",
+                tierBefore: "LT1",
+                tierAfter: "LT1",
+                scorePlayer: 2,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null
             }
         ]
     },
@@ -3231,6 +3242,31 @@ const players = [
                 scorePlayer: 4,
                 winner: "player",
                 comment: "Квалификационный тест пройден"
+            }
+        ],
+        penaltyByKit: {}
+    },
+    {
+        name: "keik1029",
+        region: "BY",
+        tiers: {
+            Hardcore: {
+                tier: "LT5",
+                date: "2026-08-28",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-28",
+                kit: "Hardcore",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "LT5",
+                scorePlayer: 0,
+                scoreOpponent: 2,
+                winner: "opponent",
+                comment: null
             }
         ],
         penaltyByKit: {}
