@@ -2,25 +2,34 @@
 """
 Система штрафных очков (только для HT3+ тестов, топик "Высокие результаты").
 
-Правила (см. документ с правилами высокого теста):
-  - Штраф получает ТОЛЬКО проигравший.
-  - Тестируемый игрок получает штраф всегда, когда проигрывает
-    (winner == "tester") - штраф пишется на его тир ДО теста
-    (Предыдущий ранг), на этом же ките.
-  - Тестер получает штраф, только если он проигрывает
-    (winner == "player") И его собственный тир на этом ките
-    равен или выше тира игрока до теста. Если тестера нет в базе
-    или он Unranked на этом ките - считается ниже любого ранга,
-    штраф не даётся (безопасный дефолт при недостатке данных).
+Правила (см. документ с правилами высокого теста, обновлено под v4 -
+терминология "Оппонент" вместо "Тестер", симметричный штраф):
+  - Штраф получает ТОЛЬКО проигравший СВОЮ дуэль, и только если он
+    равного/выше ранга, чем противоположная сторона ДО теста.
+    Правило симметрично: игрок и оппонент штрафуются по одному и тому
+    же принципу, никакой особой роли "тестер" больше нет.
+  - Штраф пишется на тир проигравшего НА МОМЕНТ ДО этого результата
+    (тир оппонента - его текущий тир в базе; тир игрока - его
+    "Предыдущий ранг" из шаблона).
+  - Если проигравшего нет в базе или он Unranked на этом ките -
+    считается ниже любого валидного тира, штраф не даётся (безопасный
+    дефолт при недостатке данных).
   - Размер штрафа зависит от ФОРМАТА МАТЧА (FT2/FT4/FT6 - см.
-    bot_config.FT2_KITS/FT6_KITS) и от точного счёта проигравшего.
+    bot_config.FT2_KITS/FT6_KITS) и от точного счёта проигравшего в
+    конкретной дуэли (не агрегата - штраф считается ПО КАЖДОЙ дуэли
+    отдельно, это важно для многодуэльного HT1-теста).
   - При достижении суммарных штрафных очков по киту >= 2.0 - игрок
-    (тестируемый ИЛИ тестер, в зависимости от того, кто накопил)
     автоматически понижается на 1 ступень по TIER_ORDER на этом ките,
     очки по этому киту сбрасываются в 0.
-  - Раз в месяц ВСЕ штрафные очки всех игроков обнуляются полностью
-    (см. reset_all_penalties ниже - вызывается по расписанию, не
-    привязано к конкретному результату).
+  - Раз в месяц (точнее - через 30 дней с даты первого начисления в
+    текущем цикле) все штрафные очки по этому циклу истекают - см.
+    is_penalty_cycle_expired/effective_penalty_points.
+
+Отдельно от штрафов: оппонент теперь тоже может ПОВЫШАТЬСЯ, если он
+выиграл дуэль - но это не штрафной механизм, это обрабатывается в
+main.py напрямую (оппонент, который выиграл и претендует на новый ранг,
+просто указывается в поле "Игрок:" следующего результата - тестеры сами
+решают, кто в каком сообщении является "игроком, тестируемым на ранг").
 """
 
 from datetime import date, datetime
@@ -144,62 +153,57 @@ class PenaltyResult:
     (в main.py), этот модуль только вычисляет, что должно произойти."""
 
     def __init__(self):
-        # Каждый элемент: {"player_name": str, "kit": str, "penalty_added": float,
-        #                   "demoted": bool, "old_tier": str|None, "new_tier": str|None}
+        # Каждый элемент: {"player_name": str, "kit": str, "penalty_added": float}
         self.entries = []
 
-    def add(self, player_name, kit, penalty_added, demoted=False, old_tier=None, new_tier=None):
+    def add(self, player_name, kit, penalty_added):
         self.entries.append({
             "player_name": player_name,
             "kit": kit,
             "penalty_added": penalty_added,
-            "demoted": demoted,
-            "old_tier": old_tier,
-            "new_tier": new_tier,
         })
 
     def has_any_penalty(self) -> bool:
         return len(self.entries) > 0
 
-    def demotions(self):
-        return [e for e in self.entries if e["demoted"]]
 
-
-def apply_penalties_for_result(kit, tester_name, player_name, tier_before_player,
-                                score_tester, score_player, winner,
-                                get_player_tier_fn):
+def apply_penalty_for_duel(kit, player_name, opponent_name, tier_before_player,
+                            score_player, score_opponent, winner, get_player_tier_fn):
     """
-    Вычисляет штрафы для одной дуэли (не мутирует базу - только считает).
+    Вычисляет штраф для ОДНОЙ дуэли (не мутирует базу - только считает).
+    Симметрично: штрафуется тот, кто проиграл ЭТУ дуэль, если он
+    равного/выше ранга, чем противоположная сторона.
 
     get_player_tier_fn(player_name, kit) -> str|None - функция для получения
-    текущего тира игрока (тестера) на данном ките из базы. Передаётся
-    снаружи, чтобы этот модуль не был завязан на формат players_list.
+    текущего тира игрока из базы (для оппонента - его текущий тир;
+    для игрока используется tier_before_player напрямую, т.к. это его
+    тир ДО результата, а не текущий в базе, который может быть уже
+    обновлён к моменту вызова).
 
-    Возвращает PenaltyResult с записями ТОЛЬКО для тех, кто реально
-    получает штраф в этой дуэли (проигравший, и только если условия
-    штрафа выполнены).
-
-    ВАЖНО: возвращённые penalty_added - это штраф ЗА ЭТУ дуэль. Порог
-    демоции (>=2.0) проверяется снаружи, после того как этот штраф
-    суммирован с уже накопленными очками игрока по этому киту - эта
-    функция не знает текущей суммы, только вычисляет прирост.
+    Возвращает PenaltyResult с записью ТОЛЬКО для того, кто реально
+    получает штраф (может быть 0 или 1 запись за одну дуэль).
     """
     result = PenaltyResult()
 
-    loser_score = score_tester if winner == "player" else score_player
+    loser_score = score_player if winner == "opponent" else score_opponent
     penalty = calculate_penalty(kit, loser_score)
 
     if penalty <= 0:
         return result
 
-    if winner == "tester":
-        # Тестируемый игрок проиграл - штраф всегда
-        result.add(player_name, kit, penalty)
-    else:
-        # winner == "player" - тестер проиграл, штраф только если тестер
+    if winner == "opponent":
+        # Игрок проиграл эту дуэль - штрафуется, если оппонент был
         # равного/выше ранга, чем игрок ДО теста
-        tester_tier = get_player_tier_fn(tester_name, kit)
-        if tester_tier and is_equal_or_higher_rank(tester_tier, tier_before_player):
-            result.add(tester_name, kit, penalty)
+        opponent_tier = get_player_tier_fn(opponent_name, kit)
+        if opponent_tier and is_equal_or_higher_rank(opponent_tier, tier_before_player):
+            result.add(player_name, kit, penalty)
+    else:
+        # winner == "player" - оппонент проиграл эту дуэль - штрафуется,
+        # если ОН был равного/выше ранга, чем игрок ДО теста (тот же
+        # критерий силы соперника, симметрично)
+        opponent_tier = get_player_tier_fn(opponent_name, kit)
+        if opponent_tier and is_equal_or_higher_rank(opponent_tier, tier_before_player):
+            result.add(opponent_name, kit, penalty)
 
     return result
+
