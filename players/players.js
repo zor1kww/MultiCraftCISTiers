@@ -185,7 +185,7 @@ const players = [
             },
             Hardcore: {
                 tier: {
-                    tier: "LT1",
+                    tier: "HT1",
                     date: "2026-08-21",
                     retired: false
                 },
@@ -566,7 +566,7 @@ const players = [
     },
     {
         name: "_Xx_deras_xX",
-        region: "RU",
+        region: "UA",
         tiers: {
             "Emerald Pot": {
                 tier: {
