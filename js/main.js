@@ -114,8 +114,15 @@ function getTotalEffectivePenalty(player) {
 // Универсальный парсер данных тира.
 // Поддерживает новый формат { tier, date, retired } и, для обратной
 // совместимости, старый формат в виде строки ("HT3" / "RHT3").
-function parseTierInfo(tierData) {
+// Также защищается от испорченных данных с ДВОЙНОЙ вложенностью
+// ({ tier: { tier, date, retired }, date, retired } - баг старой
+// версии базы/миграции) - в этом случае разворачивает объект рекурсивно,
+// а не печатает "[object Object]" в интерфейсе.
+function parseTierInfo(tierData, _depth = 0) {
     if (!tierData) return { tier: "Unranked", isRetired: false, pts: 0 };
+
+    // Защита от бесконечной рекурсии на совсем битых данных
+    if (_depth > 5) return { tier: "Unranked", isRetired: false, pts: 0 };
 
     let tier = "Unranked";
     let manualRetired = false;
@@ -130,9 +137,19 @@ function parseTierInfo(tierData) {
             tier = tierData;
         }
     } else if (typeof tierData === 'object') {
-        tier = tierData.tier || "Unranked";
-        manualRetired = tierData.retired === true;
-        testDate = tierData.date || null;
+        if (tierData.tier && typeof tierData.tier === 'object') {
+            // Двойная вложенность: внутренний объект содержит настоящий
+            // tier/date/retired - разворачиваем его рекурсивно и берём
+            // date/retired снаружи как fallback, если внутри их нет.
+            const inner = parseTierInfo(tierData.tier, _depth + 1);
+            tier = inner.tier;
+            testDate = inner.date || tierData.date || null;
+            manualRetired = inner.isRetired || tierData.retired === true;
+        } else {
+            tier = tierData.tier || "Unranked";
+            manualRetired = tierData.retired === true;
+            testDate = tierData.date || null;
+        }
     }
 
     // Retired ниже HT3 невозможен в принципе, независимо от того, что
