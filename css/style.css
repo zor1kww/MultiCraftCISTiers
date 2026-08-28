@@ -783,6 +783,130 @@ body, html {
     font-weight: bold;
 }
 
+/* Блок "Дуэли" в профиле игрока — на всю ширину, под Main/Sub Tiers */
+.modal-duels-block {
+    margin-top: 15px;
+    max-height: 340px;
+    overflow-y: auto;
+}
+
+.duels-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.duels-empty {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 12px 0;
+}
+
+.duel-row {
+    border: 1px solid var(--border-color);
+    border-left: 3px solid var(--border-color);
+    border-radius: 8px;
+    padding: 8px 12px;
+    background: var(--card-bg);
+}
+
+.duel-row.duel-win {
+    border-left-color: #4ade80;
+}
+
+.duel-row.duel-loss {
+    border-left-color: #ff4747;
+}
+
+.duel-row-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+}
+
+.duel-kit {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.duel-kit-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+.duel-date {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.duel-row-main {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 13px;
+}
+
+.duel-opponent-label {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.duel-opponent-name {
+    color: var(--text-main);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.duel-opponent-name:hover {
+    color: var(--accent);
+}
+
+.duel-score {
+    color: var(--text-main);
+    font-weight: 700;
+    font-family: monospace;
+}
+
+.duel-result-badge {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+}
+
+.duel-win .duel-result-badge {
+    color: #4ade80;
+    background: rgba(74, 222, 128, 0.12);
+}
+
+.duel-loss .duel-result-badge {
+    color: #ff4747;
+    background: rgba(255, 71, 71, 0.12);
+}
+
+.duel-comment {
+    margin-top: 4px;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* Вкладка "Дуэли" — тот же список, но без ограничения по высоте */
+.duels-list-global {
+    margin-top: 15px;
+    max-width: 720px;
+}
+
 /* ==========================================================================
    ИНФО-ЦЕНТР И ТАБЛИЦЫ FAQ
    ========================================================================== */
