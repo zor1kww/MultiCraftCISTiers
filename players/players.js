@@ -108,8 +108,8 @@ const players = [
                 retired: false
             },
             Hardcore: {
-                tier: "HT1",
-                date: "2026-08-18",
+                tier: "LT1",
+                date: "2026-08-28",
                 retired: false
             },
             "Emerald Pot": {
@@ -163,9 +163,25 @@ const players = [
                 scorePlayer: 3,
                 winner: "tester",
                 comment: null
+            },
+            {
+                date: "2026-08-28",
+                kit: "Hardcore",
+                tester: "DzIla_EDITmob",
+                tierBefore: "Unranked",
+                tierAfter: "LT1",
+                scoreTester: 7,
+                scorePlayer: 2,
+                winner: "tester",
+                comment: null
             }
         ],
-        penaltyByKit: {}
+        penaltyByKit: {
+            Hardcore: {
+                points: 1.0,
+                firstPenaltyDate: "2026-08-28"
+            }
+        }
     },
     {
         name: "zor1kkqwix",
