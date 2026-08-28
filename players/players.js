@@ -2602,7 +2602,7 @@ const players = [
             },
             Beast: {
                 tier: "HT4",
-                date: "2026-08-18",
+                date: "2026-08-28",
                 retired: false
             },
             Mace: {
@@ -2620,7 +2620,21 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             }
-        }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-28",
+                kit: "Beast",
+                tester: "zor1kkqwix",
+                tierBefore: "HT4",
+                tierAfter: "HT4",
+                scoreTester: 5,
+                scorePlayer: 0,
+                winner: "tester",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
     },
     {
         name: "HAVCHIK",
