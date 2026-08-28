@@ -1448,7 +1448,7 @@ const players = [
             },
             Gapple: {
                 tier: "HT4",
-                date: "2026-08-23",
+                date: "2026-08-28",
                 retired: false
             },
             Hardcore: {
@@ -1579,6 +1579,17 @@ const players = [
                 scorePlayer: 2,
                 winner: "tester",
                 comment: "анрил играть на даймонт кб после отдачи новой"
+            },
+            {
+                date: "2026-08-28",
+                kit: "Gapple",
+                opponent: "zor1kkqwix",
+                tierBefore: "HT4",
+                tierAfter: "HT4",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
             }
         ],
         penaltyByKit: {
