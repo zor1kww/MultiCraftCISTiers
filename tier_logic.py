@@ -115,13 +115,16 @@ def format_full_tier_name(tier: str) -> str:
     return f"{prefix} {number}"
 
 
-def verb_for_change(tier_before: str, tier_after: str, is_new_player_kit: bool) -> str:
+def verb_for_change(tier_before: str, tier_after: str) -> str:
     """
-    Подбирает глагол для заголовка обычного результата (не высокого теста).
-    Высокие тесты используют отдельную фразу "проходит"/"проваливает" -
-    эта функция для топика "Результаты".
+    Подбирает глагол для заголовка обычного результата (топик "Результаты").
+    Определяется ИСКЛЮЧИТЕЛЬНО сравнением tier_before/tier_after из
+    шаблона ("Предыдущий ранг:") - "получает" срабатывает, только если
+    tier_before явно указан как Unranked. Для топика "Высокие результаты"
+    используется verb_for_high_test (тот же принцип, но "повышается до"
+    заменяется на "проходит").
     """
-    if is_new_player_kit or tier_before is None or tier_before == "Unranked":
+    if tier_before is None or tier_before == "Unranked":
         return "получает"
     diff = compare_tiers(tier_after, tier_before)
     if diff > 0:
@@ -132,92 +135,104 @@ def verb_for_change(tier_before: str, tier_after: str, is_new_player_kit: bool) 
         return "закрепляется на"
 
 
-def tester_display_name(tester_name: str) -> str:
+def verb_for_high_test(tier_before: str, tier_after: str) -> str:
     """
-    Формирует отображаемое имя тестера для карточки. В новой архитектуре
-    тестер identифицируется просто по имени из шаблонного сообщения
-    (поле "Тестер:"), а не по Telegram user_id - никакого маппинга
-    на реальный @username не требуется.
+    Подбирает глагол для карточки высокого теста (топик "Высокие
+    результаты", HT3-HT1). Отличается от verb_for_change только тем,
+    что при повышении используется "проходит" вместо "повышается до" -
+    остальные случаи (понижение, тот же ранг, Unranked->X) идентичны обычным.
     """
-    return tester_name
+    if tier_before is None or tier_before == "Unranked":
+        return "получает"
+    diff = compare_tiers(tier_after, tier_before)
+    if diff > 0:
+        return "проходит"
+    elif diff < 0:
+        return "понижается до"
+    else:
+        return "закрепляется на"
 
 
-def build_high_test_card(player_name, region, kit, tier_before, tier_after,
-                          score_tester, score_player, winner, tester_display,
-                          comment, overall_tier, tests_count):
+def build_duel_lines(player_name, duels):
     """
-    Карточка для топика "Высокие результаты" (полученный тир HT3-HT1).
+    Строит строки поединков для карточки. duels - список объектов Duel
+    (из text_parser.py) или dict-эквивалентов с полями opponent,
+    score_player, score_opponent. Единый формат для обоих топиков:
+    один поединок -> "Поединок:" + одна строка "▸ Игрок  X:Y  Оппонент";
+    несколько поединков -> "Поединки:" + построчный список тех же строк.
+    """
+    def _get(d, key):
+        return getattr(d, key) if hasattr(d, key) else d[key]
 
-    Топик определяется исключительно по tier_after (см. determine_topic) -
-    если тест провален и тир не изменился, результат попадает в топик
-    "Результаты" через build_normal_result_card, а не сюда. Поэтому
-    здесь ВСЕГДА действие "проходит" - формулировки "проваливает" не
-    существует в этой карточке в принципе.
+    header = "Поединок:" if len(duels) == 1 else "Поединки:"
+    lines = [header]
+    for d in duels:
+        lines.append(f"▸ {player_name}  {_get(d, 'score_player')}:{_get(d, 'score_opponent')}  {_get(d, 'opponent')}")
+    return lines
+
+
+def build_result_card(player_name, kit, tier_before, tier_after, duels,
+                       comment, overall_tier, is_high_topic=False):
     """
+    Единая функция сборки карточки результата - используется и для
+    топика "Результаты" (LT5-LT3), и для "Высокие результаты" (HT3-HT1).
+    Формат идентичен в обоих случаях, разница только в глаголе
+    ("проходит" вместо "повышается до" при is_high_topic=True) - см.
+    verb_for_high_test/verb_for_change.
+
+    Глагол определяется ИСКЛЮЧИТЕЛЬНО сравнением tier_before/tier_after,
+    как указано в шаблоне ("Предыдущий ранг:"/"Полученный ранг:") - то,
+    был ли этот кит у игрока в базе раньше, не имеет значения.
+
+    Без региона, без отдельного поля тестера/оппонента-заголовка (имя
+    оппонента видно прямо в строке поединка) и без "[Тестов: N]" -
+    компактный формат по прямому запросу.
+
+    duels - список Duel (из text_parser.py); один элемент для
+    однодуэльных переходов, несколько - для HT1-теста.
+    """
+    verb = (verb_for_high_test(tier_before, tier_after) if is_high_topic
+            else verb_for_change(tier_before, tier_after))
     full_tier_name = format_full_tier_name(tier_after)
 
     lines = []
-    lines.append(f"{player_name} [{region}] проходит {kit} {full_tier_name} тест")
+    lines.append(f"{player_name} {verb} {kit} {full_tier_name}")
     lines.append("")
 
     if tier_before and tier_before != "Unranked" and tier_before != tier_after:
         lines.append(f"Предыдущий ранг: {format_full_tier_name(tier_before)}")
         lines.append("")
 
-    lines.append("Поединки:")
-    lines.append(f"▸ Против {tester_display}")
-    lines.append(f"{player_name}   {score_player}:{score_tester}   {tester_display}")
+    lines.extend(build_duel_lines(player_name, duels))
     lines.append("")
 
-    lines.append(f"Тир-тестер: {tester_display}")
     lines.append(f"Комментарий: {comment if comment else '—'}")
-    lines.append("")
     lines.append("━━━━━━━━━━━━━━")
-    lines.append("")
-    lines.append(f"Текущий средний ранг: {overall_tier} [Тестов: {tests_count}]")
+    lines.append(f"Текущий средний ранг: {overall_tier}")
 
     return "\n".join(lines)
 
 
-def build_normal_result_card(player_name, region, kit, tier_before, tier_after,
-                              is_new_player_kit, tester_display, comment,
-                              overall_tier, tests_count):
-    """
-    Карточка для топика "Результаты" (обычные результаты, LT5-LT3).
-    """
-    verb = verb_for_change(tier_before, tier_after, is_new_player_kit)
-    full_tier_name = format_full_tier_name(tier_after)
-
-    lines = []
-    lines.append(f"{player_name} [{region}] {verb} {kit} {full_tier_name}")
-    lines.append("")
-    lines.append(f"Тир-тестер: {tester_display}")
-    if comment:
-        lines.append(f"Комментарий: {comment}")
-    lines.append("")
-    lines.append("━━━━━━━━━━━━━━━━")
-    lines.append("")
-    lines.append(f"Текущий средний ранг: {overall_tier} [Тестов: {tests_count}]")
-
-    return "\n".join(lines)
-
-
-def build_match_history_entry(kit, tester_name, player_name, tier_before, tier_after,
-                               score_tester, score_player, winner, comment, test_date=None):
+def build_match_history_entry(kit, opponent_name, player_name, tier_before, tier_after,
+                               score_player, score_opponent, winner, comment, test_date=None):
     """
     Собирает запись для matchHistory игрока (лог дуэлей на сайте).
     Хранится в самом объекте игрока, каждый обработанный результат
-    (включая обычные LT5-LT3) добавляет сюда одну запись.
+    (включая обычные LT5-LT3) добавляет сюда одну запись НА КАЖДУЮ
+    дуэль (в многодуэльном HT1-тесте это несколько записей, по одной
+    на оппонента - см. main.py).
+
+    winner - "player" или "opponent": кто выиграл именно эту дуэль.
     """
     return {
         "date": test_date or today_str(),
         "kit": kit,
-        "tester": tester_name,
+        "opponent": opponent_name,
         "tierBefore": tier_before,
         "tierAfter": tier_after,
-        "scoreTester": score_tester,
         "scorePlayer": score_player,
-        "winner": winner,       # "tester" или "player"
+        "scoreOpponent": score_opponent,
+        "winner": winner,       # "player" или "opponent"
         "comment": comment,     # может быть None
     }
 
@@ -231,25 +246,24 @@ def build_tier_object(tier: str, retired: bool = False, test_date: str = None) -
     }
 
 
-def build_penalty_demotion_card(player_name, region, kit, old_tier, new_tier,
-                                 overall_tier, tests_count):
+def build_penalty_demotion_card(player_name, kit, old_tier, new_tier, overall_tier):
     """
     Карточка автоматического понижения из-за накопленных штрафных очков
     (см. penalty_logic.py). Публикуется по тому же правилу топика, что
     и обычные результаты (determine_topic(new_tier)), но с явным
     указанием причины, чтобы не выглядело как обычный проваленный тест.
+    Компактный формат - без региона, без счётчика тестов.
     """
     full_old = format_full_tier_name(old_tier)
     full_new = format_full_tier_name(new_tier)
 
     lines = []
-    lines.append(f"{player_name} [{region}] понижается до {kit} {full_new}")
+    lines.append(f"{player_name} понижается до {kit} {full_new}")
     lines.append("")
     lines.append(f"Причина: накоплено {PENALTY_DEMOTION_THRESHOLD:g} штрафных очка по этому киту")
     lines.append(f"Было: {full_old} → Стало: {full_new}")
     lines.append("")
-    lines.append("━━━━━━━━━━━━━━━━")
-    lines.append("")
-    lines.append(f"Текущий средний ранг: {overall_tier} [Тестов: {tests_count}]")
+    lines.append("━━━━━━━━━━━━━━")
+    lines.append(f"Текущий средний ранг: {overall_tier}")
 
     return "\n".join(lines)
