@@ -2339,7 +2339,7 @@ const players = [
                 retired: false
             },
             Pickaxe: {
-                tier: "HT3",
+                tier: "LT3",
                 date: "2026-08-21",
                 retired: false
             }
@@ -3670,3 +3670,1306 @@ const players = [
                 tier: {
                     tier: "LT2",
                     date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-23",
+                retired: false
+            },
+            Mace: {
+                tier: {
+                    tier: "LT2",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Pickaxe: {
+                tier: {
+                    tier: "LT2",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Combo: {
+                tier: {
+                    tier: "LT2",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Gapple: {
+                tier: {
+                    tier: "HT3",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-23",
+                kit: "Emerald Pot",
+                tester: "zor1kkqwix",
+                tierBefore: "HT3",
+                tierAfter: "LT2",
+                scoreTester: 0,
+                scorePlayer: 4,
+                winner: "player",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
+    },
+    {
+        name: "Topor",
+        region: "RU",
+        tiers: {
+            "Emerald Pot": {
+                tier: {
+                    tier: "LT3",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Combo: {
+                tier: {
+                    tier: "LT3",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            SMP: {
+                tier: {
+                    tier: "LT3",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: {
+                    tier: "HT3",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            }
+        }
+    },
+    {
+        name: "DzIla_EDITSmob",
+        region: "RU",
+        tiers: {
+            "Emerald Pot": {
+                tier: {
+                    tier: "LT1",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            "Diamond Pot": {
+                tier: {
+                    tier: "HT2",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Emerald: {
+                tier: {
+                    tier: "LT1",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: {
+                    tier: "HT2",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-27",
+                retired: false
+            },
+            RVM: {
+                tier: {
+                    tier: "LT2",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-27",
+                retired: false
+            },
+            Hardcore: {
+                tier: {
+                    tier: "LT2",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: {
+                    tier: "HT2",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Pickaxe: {
+                tier: {
+                    tier: "HT2",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-25",
+                retired: false
+            },
+            SMP: {
+                tier: {
+                    tier: "LT1",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-27",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-22",
+                kit: "Beast",
+                tester: "Sneger",
+                tierBefore: "LT2",
+                tierAfter: "LT1",
+                scoreTester: 5,
+                scorePlayer: 6,
+                winner: "tester",
+                comment: null
+            },
+            {
+                date: "2026-08-25",
+                kit: "Pickaxe",
+                tester: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "HT2",
+                scoreTester: 1,
+                scorePlayer: 4,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-27",
+                kit: "SMP",
+                tester: "-999-",
+                tierBefore: "Unranked",
+                tierAfter: "LT1",
+                scoreTester: 4,
+                scorePlayer: 2,
+                winner: "tester",
+                comment: null
+            },
+            {
+                date: "2026-08-27",
+                kit: "Beast",
+                tester: "-999-",
+                tierBefore: "LT1",
+                tierAfter: "HT2",
+                scoreTester: 3,
+                scorePlayer: 6,
+                winner: "tester",
+                comment: null
+            },
+            {
+                date: "2026-08-27",
+                kit: "RVM",
+                tester: "zor1kkqwix",
+                tierBefore: "LT1",
+                tierAfter: "LT2",
+                scoreTester: 3,
+                scorePlayer: 4,
+                winner: "player",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
+    },
+    {
+        name: "AMORE",
+        region: "RU",
+        tiers: {
+            Hardcore: {
+                tier: {
+                    tier: "LT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: {
+                    tier: "HT5",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: {
+                    tier: "LT5",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            }
+        },
+    },
+    {
+        name: "h9nto",
+        region: "RU",
+        tiers: {
+            Mace: {
+                tier: {
+                    tier: "LT2",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: {
+                    tier: "LT3",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: {
+                    tier: "HT3",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: {
+                    tier: "LT2",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            }
+        }
+    },
+    {
+        name: "1641085O8",
+        region: "RU",
+        tiers: {
+            "Emerald Pot": {
+                tier: {
+                    tier: "LT2",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: {
+                    tier: "LT3",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            }
+        }
+    },
+    {
+        name: "Top",
+        region: "UA",
+        tiers: {
+            Hardcore: {
+                tier: {
+                    tier: "LT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: {
+                    tier: "LT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: {
+                    tier: "HT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-28",
+                retired: false
+            },
+            Mace: {
+                tier: {
+                    tier: "LT5",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: {
+                    tier: "HT5",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Gapple: {
+                tier: {
+                    tier: "LT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-28",
+                kit: "Beast",
+                tester: "zor1kkqwix",
+                tierBefore: "HT4",
+                tierAfter: "HT4",
+                scoreTester: 5,
+                scorePlayer: 0,
+                winner: "tester",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
+    },
+    {
+        name: "HAVCHIK",
+        region: "RU",
+        tiers: {
+            "Emerald Pot": {
+                tier: {
+                    tier: "LT3",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: "HT3",
+                date: "2026-08-21",
+                retired: false
+            }
+        },
+        penaltyByKit: {
+            RVM: {
+                points: 1.0,
+                firstPenaltyDate: "2026-08-25"
+            }
+        }
+    },
+    {
+        name: "Mirage",
+        region: "RU",
+        tiers: {
+            "Emerald Pot": {
+                tier: {
+                    tier: "LT3",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: {
+                    tier: "HT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            }
+        }
+    },
+    {
+        name: "-Sorry-",
+        region: "RU",
+        tiers: {
+            Mace: {
+                tier: "HT4",
+                date: "2026-08-21",
+                retired: false
+            },
+            Hardcore: {
+                tier: {
+                    tier: "HT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            }
+        }
+    },
+    {
+        name: "Fialka_",
+        region: "RU",
+        tiers: {
+            SMP: {
+                tier: {
+                    tier: "HT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: {
+                    tier: "LT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            }
+        }
+    },
+    {
+        name: "NOVENKIY1",
+        region: "RU",
+        tiers: {
+            RVM: {
+                tier: {
+                    tier: "LT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: {
+                    tier: "LT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            }
+        }
+    },
+    {
+        name: "zaxvatchik6",
+        region: "RU",
+        tiers: {
+            RVM: {
+                tier: {
+                    tier: "LT5",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: {
+                    tier: "LT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: {
+                    tier: "LT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: {
+                    tier: "LT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: {
+                    tier: "LT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            }
+        }
+    },
+    {
+        name: "-_MACKA_-",
+        region: "RU",
+        tiers: {
+            Dragonhide: {
+                tier: {
+                    tier: "LT3",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: {
+                    tier: "HT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "LT3",
+                date: "2026-08-21",
+                retired: false
+            }
+        }
+    },
+    {
+        name: "Karabasik",
+        region: "RU",
+        tiers: {
+            Dragonhide: {
+                tier: {
+                    tier: "HT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Emerald: {
+                tier: {
+                    tier: "LT3",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            }
+        }
+    },
+    {
+        name: "ofofoffo",
+        region: "UA",
+        tiers: {
+            "Emerald Pot": {
+                tier: {
+                    tier: "LT3",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: {
+                    tier: "HT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            }
+        }
+    },
+    {
+        name: "sw3don",
+        region: "RU",
+        tiers: {
+            Hardcore: {
+                tier: {
+                    tier: "LT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: {
+                    tier: "LT3",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            }
+        }
+    },
+    {
+        name: "xivivideking",
+        region: "RU",
+        tiers: {
+            RVM: {
+                tier: {
+                    tier: "LT3",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: {
+                    tier: "LT2",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            }
+        }
+    },
+    {
+        name: "qak1ow",
+        region: "RU",
+        tiers: {
+            RVM: {
+                tier: {
+                    tier: "LT3",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: {
+                    tier: "LT3",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Gapple: {
+                tier: {
+                    tier: "LT3",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Beast: {
+                tier: {
+                    tier: "LT3",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-27",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-27",
+                kit: "Beast",
+                tester: "DzIla_EDITSmob",
+                tierBefore: "Unranked",
+                tierAfter: "LT3",
+                scoreTester: 5,
+                scorePlayer: 0,
+                winner: "tester",
+                comment: "слаба но урон наносил может дойти до хт3. Квалификационный тест пройден"
+            }
+        ],
+        penaltyByKit: {}
+    },
+    {
+        name: "YTdrumv",
+        region: "RU",
+        tiers: {
+            Beast: {
+                tier: {
+                    tier: "LT5",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Emerald: {
+                tier: {
+                    tier: "LT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Crystal: {
+                tier: {
+                    tier: "LT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Dragonhide: {
+                tier: {
+                    tier: "HT5",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            "Diamond Pot": {
+                tier: {
+                    tier: "HT5",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: {
+                    tier: "LT5",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Pickaxe: {
+                tier: {
+                    tier: "HT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Mace: {
+                tier: {
+                    tier: "LT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            SMP: {
+                tier: {
+                    tier: "LT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Gapple: {
+                tier: {
+                    tier: "LT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Combo: {
+                tier: {
+                    tier: "HT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: {
+                    tier: "LT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            }
+        }
+    },
+    {
+        name: "Zock",
+        region: "RU",
+        tiers: {
+            RVM: {
+                tier: {
+                    tier: "LT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            "Emerald Pot": {
+                tier: "HT4",
+                date: "2026-08-21",
+                retired: false
+            }
+        }
+    },
+    {
+        name: "-Dan41k",
+        region: "RU",
+        tiers: {
+            Mace: {
+                tier: {
+                    tier: "HT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Hardcore: {
+                tier: {
+                    tier: "HT5",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            }
+        }
+    },
+    {
+        name: "vov4ikusss",
+        region: "RU",
+        tiers: {
+            Beast: {
+                tier: {
+                    tier: "HT5",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            RVM: {
+                tier: {
+                    tier: "LT5",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            }
+        }
+    },
+    {
+        name: "firary67",
+        region: "RU",
+        tiers: {
+            Hardcore: {
+                tier: {
+                    tier: "LT3",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Emerald: {
+                tier: "HT1",
+                date: "2026-08-21",
+                retired: false
+            },
+            Beast: {
+                tier: {
+                    tier: "LT1",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-27",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-27",
+                kit: "Beast",
+                tester: "DzIla_EDITSmob",
+                tierBefore: "Unranked",
+                tierAfter: "LT1",
+                scoreTester: 6,
+                scorePlayer: 5,
+                winner: "tester",
+                comment: null
+            }
+        ],
+        penaltyByKit: {
+            Beast: {
+                points: 0.8,
+                firstPenaltyDate: "2026-08-27"
+            }
+        }
+    },
+    {
+        name: "bob_ara_1029",
+        region: "RU",
+        tiers: {
+            Mace: {
+                tier: {
+                    tier: "HT4",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-18",
+                retired: false
+            },
+            Pickaxe: {
+                tier: "LT3",
+                date: "2026-08-21",
+                retired: false
+            }
+        }
+    },
+    {
+        name: "Egoiste",
+        region: "UA",
+        tiers: {
+            RVM: {
+                tier: "HT5",
+                date: "2026-08-21",
+                retired: false
+            },
+            Mace: {
+                tier: "HT4",
+                date: "2026-08-21",
+                retired: false
+            }
+        }
+    },
+    {
+        name: "SoLoGeMs",
+        region: "RU",
+        tiers: {
+            Crystal: {
+                tier: "LT4",
+                date: "2026-08-21",
+                retired: false
+            },
+            RVM: {
+                tier: "LT5",
+                date: "2026-08-21",
+                retired: false
+            },
+            Pickaxe: {
+                tier: "LT5",
+                date: "2026-08-21",
+                retired: false
+            },
+            Beast: {
+                tier: "LT4",
+                date: "2026-08-21",
+                retired: false
+            },
+            Dragonhide: {
+                tier: "LT4",
+                date: "2026-08-21",
+                retired: false
+            }
+        }
+    },
+    {
+        name: "meker_pvp",
+        region: "UA",
+        tiers: {
+            RVM: {
+                tier: "LT4",
+                date: "2026-08-21",
+                retired: false
+            }
+        }
+    },
+    {
+        name: "Domchikr",
+        region: "RU",
+        tiers: {
+            Hardcore: {
+                tier: "LT5",
+                date: "2026-08-21",
+                retired: false
+            }
+        }
+    },
+    {
+        name: "FASTER-cq-q",
+        region: "RU",
+        tiers: {
+            Hardcore: {
+                tier: "HT3",
+                date: "2026-08-21",
+                retired: false
+            }
+        }
+    },
+    {
+        name: "_UnU_",
+        region: "RU",
+        tiers: {
+            Mace: {
+                tier: "LT4",
+                date: "2026-08-21",
+                retired: false
+            }
+        }
+    },
+    {
+        name: "BBBOOOSSS",
+        region: "RU",
+        tiers: {
+            RVM: {
+                tier: "HT5",
+                date: "2026-08-21",
+                retired: false
+            }
+        }
+    },
+    {
+        name: "test",
+        region: "RU",
+        tiers: {
+            Dragonhide: {
+                tier: {
+                    tier: "LT3",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-23",
+                retired: false
+            },
+            "Diamond Pot": {
+                tier: {
+                    tier: "HT3",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-23",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-23",
+                kit: "Dragonhide",
+                tester: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "HT3",
+                scoreTester: 0,
+                scorePlayer: 6,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-23",
+                kit: "Diamond Pot",
+                tester: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "HT3",
+                scoreTester: 2,
+                scorePlayer: 4,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-23",
+                kit: "Diamond Pot",
+                tester: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "HT3",
+                scoreTester: 2,
+                scorePlayer: 4,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-23",
+                kit: "Dragonhide",
+                tester: "система",
+                tierBefore: "HT3",
+                tierAfter: "LT3",
+                scoreTester: 0,
+                scorePlayer: 0,
+                winner: "tester",
+                comment: "Автопонижение: накоплено 2 штрафных очка"
+            }
+        ],
+        penaltyByKit: {
+            Dragonhide: {
+                points: 0.0,
+                firstPenaltyDate: "2026-08-23"
+            }
+        }
+    },
+    {
+        name: "aetherelegantius",
+        region: "RU",
+        tiers: {
+            RVM: {
+                tier: {
+                    tier: "LT3",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-25",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-25",
+                kit: "RVM",
+                tester: "-BaCk-",
+                tierBefore: "Unranked",
+                tierAfter: "LT3",
+                scoreTester: 0,
+                scorePlayer: 4,
+                winner: "player",
+                comment: "квалификационный тест пройден"
+            }
+        ],
+        penaltyByKit: {}
+    },
+    {
+        name: "_-XKakTak-_",
+        region: "RU",
+        tiers: {
+            Hardcore: {
+                tier: {
+                    tier: "LT3",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-27",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-27",
+                kit: "Hardcore",
+                tester: "-BaCk-",
+                tierBefore: "Unranked",
+                tierAfter: "LT3",
+                scoreTester: 1,
+                scorePlayer: 4,
+                winner: "player",
+                comment: "Квалификационный тест пройден"
+            }
+        ],
+        penaltyByKit: {}
+    },
+    {
+        name: "keik1029",
+        region: "BY",
+        tiers: {
+            Hardcore: {
+                tier: {
+                    tier: "LT5",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-28",
+                retired: false
+            },
+            Emerald: {
+                tier: {
+                    tier: "LT5",
+                    date: "2026-08-21",
+                    retired: false
+                },
+                date: "2026-08-28",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-28",
+                kit: "Hardcore",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "LT5",
+                scorePlayer: 0,
+                scoreOpponent: 2,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-08-28",
+                kit: "Emerald",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "LT5",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
+    }
+];
