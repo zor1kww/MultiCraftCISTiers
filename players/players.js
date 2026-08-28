@@ -32,8 +32,8 @@ const players = [
             },
             Emerald: "LT1",
             "Diamond Pot": {
-                tier: "LT1",
-                date: "2026-08-18",
+                tier: "HT1",
+                date: "2026-08-28",
                 retired: false
             },
             Combo: {
@@ -52,7 +52,21 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             }
-        }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-28",
+                kit: "Diamond Pot",
+                tester: "-999-",
+                tierBefore: "LT1",
+                tierAfter: "HT1",
+                scoreTester: 6,
+                scorePlayer: 16,
+                winner: "player",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
     },
     {
         name: "-999-",
