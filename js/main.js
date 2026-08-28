@@ -407,6 +407,11 @@ function openProfile(idx, filteredPlayersJSON) {
         
         const modalSubTotal = document.getElementById('modalSubTotal');
         if (modalSubTotal) modalSubTotal.innerText = `Всего за Sub: ${calcPoints(player, activeSubtiers)} PTS`;
+
+        const modalDuelsRows = document.getElementById('modalDuelsRows');
+        if (modalDuelsRows) {
+            modalDuelsRows.innerHTML = renderDuelsList(player.matchHistory, { showKit: true });
+        }
         
         const profileModal = document.getElementById('profileModal');
         if (profileModal) profileModal.classList.add('active');
@@ -707,6 +712,7 @@ function switchTab(tabId) {
         // показываем сетку карточек, а не ранее открытую деталь
         if (tabId === 'testingTab') resetHubGrid('testingHubGrid');
         if (tabId === 'otherInfoTab') resetHubGrid('otherInfoHubGrid');
+        if (tabId === 'duelsTab') renderGlobalDuels();
     }
     window.scrollTo(0, 0);
 }
@@ -844,9 +850,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (searchInput) searchInput.addEventListener('input', renderPlayers);
     if (retiredToggle) retiredToggle.addEventListener('change', renderPlayers);
 
-    // Универсальная инициализация кастомного выпадающего списка
-    function initCustomDropdown(prefix, stateKey, defaultValue) {
+    // Универсальная инициализация кастомного выпадающего списка.
+    // onChangeCallback по умолчанию renderPlayers (главная страница);
+    // передаётся отдельно для фильтров на других вкладках (напр. "Дуэли").
+    function initCustomDropdown(prefix, stateKey, defaultValue, onChangeCallback) {
         window[stateKey] = defaultValue;
+        const callback = onChangeCallback || renderPlayers;
 
         const customEl = document.getElementById(prefix + 'Custom');
         const triggerEl = document.getElementById(prefix + 'Trigger');
@@ -873,7 +882,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 labelEl.textContent = opt.textContent;
                 customEl.classList.remove('open');
 
-                renderPlayers();
+                callback();
             });
         });
 
@@ -889,6 +898,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Фильтр региона
     initCustomDropdown('regionFilter', 'currentRegionFilter', 'all');
+
+    // Фильтр китов во вкладке "Дуэли"
+    initCustomDropdown('duelsKitFilter', 'currentDuelsKitFilter', 'all', renderGlobalDuels);
+
+    // Поиск во вкладке "Дуэли"
+    const duelsSearchInput = document.getElementById('duelsSearchInput');
+    if (duelsSearchInput) duelsSearchInput.addEventListener('input', renderGlobalDuels);
 
     // Первичный запуск отрисовки
     initSite();
@@ -931,6 +947,149 @@ function copyInviteCode() {
             }, 1500);
         }
     });
+}
+
+// ==========================================
+// ДУЭЛИ (matchHistory) - используется и в профиле игрока, и во
+// вкладке "Дуэли" (глобальный список по всем игрокам)
+// ==========================================
+
+// Собирает уникальный список дуэлей со всех игроков. Каждая дуэль хранится
+// СИММЕТРИЧНО в matchHistory обоих участников (см. main.py на боте) -
+// поэтому здесь дедуплицируем по ключу (кит+дата+счёт+пара имён без учёта
+// порядка), оставляя одну запись на дуэль, показанную "от лица" игрока,
+// чьё имя раньше встретилось при обходе (порядок players.js).
+function collectGlobalDuels() {
+    if (typeof players === 'undefined' || !Array.isArray(players)) return [];
+
+    const seen = new Set();
+    const result = [];
+
+    players.forEach(player => {
+        const history = Array.isArray(player.matchHistory) ? player.matchHistory : [];
+        history.forEach(entry => {
+            if (!entry || entry.opponent === 'система') return;
+
+            const namesKey = [player.name, entry.opponent].sort().join('|');
+            const key = `${entry.kit}|${entry.date}|${namesKey}|${[entry.scorePlayer, entry.scoreOpponent].sort().join('-')}`;
+            if (seen.has(key)) return;
+            seen.add(key);
+
+            result.push({ ...entry, playerName: player.name });
+        });
+    });
+
+    return result;
+}
+
+// Рендер вкладки "Дуэли" — применяет поиск (по игроку/оппоненту) и фильтр
+// по киту, показывает имя ОБОИХ участников в строке (в отличие от профиля,
+// где "я" подразумевается контекстом модалки).
+function renderGlobalDuels() {
+    const container = document.getElementById('globalDuelsList');
+    if (!container) return;
+
+    const searchInput = document.getElementById('duelsSearchInput');
+    const search = (searchInput ? searchInput.value : '').trim().toLowerCase();
+    const kitFilter = window.currentDuelsKitFilter || 'all';
+
+    let duels = collectGlobalDuels();
+
+    if (kitFilter !== 'all') {
+        duels = duels.filter(d => d.kit === kitFilter);
+    }
+    if (search) {
+        duels = duels.filter(d =>
+            d.playerName.toLowerCase().includes(search) ||
+            String(d.opponent).toLowerCase().includes(search)
+        );
+    }
+
+    duels.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+    if (duels.length === 0) {
+        container.innerHTML = `<p class="duels-empty">Дуэли не найдены.</p>`;
+        return;
+    }
+
+    const activeKitImages = (typeof kitImages !== 'undefined') ? kitImages : {};
+    container.innerHTML = duels.map(entry => {
+        const won = entry.winner === 'player';
+        const resultClass = won ? 'duel-win' : 'duel-loss';
+        const commentHTML = entry.comment ? `<div class="duel-comment">${entry.comment}</div>` : '';
+        const playerSafe = String(entry.playerName).replace(/'/g, "\\'");
+        const opponentSafe = String(entry.opponent).replace(/'/g, "\\'");
+
+        return `<div class="duel-row ${resultClass}">
+            <div class="duel-row-top">
+                <div class="duel-kit">
+                    <img class="duel-kit-icon" src="${activeKitImages[entry.kit] || ''}" onerror="this.style.display='none';" alt="">
+                    <span>${entry.kit}</span>
+                </div>
+                <span class="duel-date">${entry.date || ''}</span>
+            </div>
+            <div class="duel-row-main">
+                <span class="duel-opponent-name" onclick="openProfileByName('${playerSafe}')">${entry.playerName}</span>
+                <span class="duel-score">${entry.scorePlayer}:${entry.scoreOpponent}</span>
+                <span class="duel-opponent-name" onclick="openProfileByName('${opponentSafe}')">${entry.opponent}</span>
+            </div>
+            ${commentHTML}
+        </div>`;
+    }).join('');
+}
+
+// Одна запись дуэли -> HTML-строка. showKit=true добавляет иконку/название
+// кита (нужно во вкладке "Дуэли", где записи вперемешку по разным китам;
+// в профиле игрока кит и так виден из контекста блока Main/Sub Tiers выше,
+// но параметр всё равно поддерживается на будущее).
+function renderDuelRow(entry, showKit) {
+    const activeKitImages = (typeof kitImages !== 'undefined') ? kitImages : {};
+    const won = entry.winner === 'player';
+    const resultClass = won ? 'duel-win' : 'duel-loss';
+    const resultLabel = won ? 'Победа' : 'Поражение';
+
+    const kitHTML = showKit
+        ? `<div class="duel-kit">
+                <img class="duel-kit-icon" src="${activeKitImages[entry.kit] || ''}" onerror="this.style.display='none';" alt="">
+                <span>${entry.kit}</span>
+           </div>`
+        : '';
+
+    const commentHTML = entry.comment
+        ? `<div class="duel-comment">${entry.comment}</div>`
+        : '';
+
+    const opponentSafe = String(entry.opponent).replace(/'/g, "\\'");
+
+    return `<div class="duel-row ${resultClass}">
+        <div class="duel-row-top">
+            ${kitHTML}
+            <span class="duel-date">${entry.date || ''}</span>
+        </div>
+        <div class="duel-row-main">
+            <span class="duel-opponent-label">против</span>
+            <span class="duel-opponent-name" onclick="openProfileByName('${opponentSafe}')">${entry.opponent}</span>
+            <span class="duel-score">${entry.scorePlayer}:${entry.scoreOpponent}</span>
+            <span class="duel-result-badge">${resultLabel}</span>
+        </div>
+        ${commentHTML}
+    </div>`;
+}
+
+// Список дуэлей игрока (используется в профиле). Системные записи
+// автопонижения (opponent === "система") сюда не относятся - это не
+// дуэль, а служебное событие, поэтому исключаются из списка.
+function renderDuelsList(matchHistory, opts = {}) {
+    const showKit = !!opts.showKit;
+    const list = Array.isArray(matchHistory) ? matchHistory : [];
+    const duels = list.filter(e => e && e.opponent !== 'система');
+
+    if (duels.length === 0) {
+        return `<p class="duels-empty">Дуэлей пока нет.</p>`;
+    }
+
+    const sorted = [...duels].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+    return sorted.map(entry => renderDuelRow(entry, showKit)).join('');
 }
 
 // Запуск сайта
