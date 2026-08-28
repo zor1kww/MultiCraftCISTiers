@@ -142,6 +142,14 @@ def apply_result_to_players_list(players_list, parsed):
       2. Добавляет в matchHistory игрока ПО ОДНОЙ записи на каждую дуэль
          из parsed.duels (для многодуэльного HT1-теста это несколько
          записей за один результат).
+      2b. Симметрично добавляет запись об этой же дуэли и В MATCHHISTORY
+          ОППОНЕНТА (duel.opponent), создавая его в базе, если его там ещё
+          нет. Со стороны оппонента tierBefore/tierAfter - это ЕГО
+          собственный тир на этом ките (matchHistory хранит тир владельца
+          записи, а не игрока-инициатора результата) - у оппонента он не
+          меняется этим результатом, только в apply_penalty_and_check_demotion
+          при штрафном автопонижении. Счёт и сторона победителя зеркально
+          инвертированы, чтобы запись читалась корректно "от лица" оппонента.
       3. Если результат относится к HT3+ (determine_topic == 'high') -
          для каждой дуэли отдельно вычисляет и применяет штраф
          (см. penalty_logic.apply_penalty_for_duel), с возможным
@@ -166,6 +174,25 @@ def apply_result_to_players_list(players_list, parsed):
             score_player=duel.score_player,
             score_opponent=duel.score_opponent,
             winner=duel.winner,
+            comment=parsed.comment,
+        ))
+
+        # Симметричная запись у оппонента - "" вместо региона: если оппонент
+        # заводится в базе впервые, его настоящий регион неизвестен из этого
+        # шаблона (в нём указан только регион parsed.player_name); при
+        # следующем результате, где уже сам оппонент - player_name, регион
+        # проставится корректно через ensure_player_exists/player['region'].
+        opponent_player, _ = ensure_player_exists(players_list, duel.opponent, "")
+        opponent_tier_now = get_player_tier_on_kit(players_list, duel.opponent, parsed.kit)
+        opponent_player['matchHistory'].append(build_match_history_entry(
+            kit=parsed.kit,
+            opponent_name=parsed.player_name,
+            player_name=duel.opponent,
+            tier_before=opponent_tier_now,
+            tier_after=opponent_tier_now,
+            score_player=duel.score_opponent,
+            score_opponent=duel.score_player,
+            winner=("player" if duel.winner == "opponent" else "opponent"),
             comment=parsed.comment,
         ))
 
