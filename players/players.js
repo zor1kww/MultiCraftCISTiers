@@ -287,7 +287,7 @@ const players = [
                 firstPenaltyDate: "2026-08-23"
             },
             Beast: {
-                points: 0.0,
+                points: 0.8,
                 firstPenaltyDate: "2026-08-29"
             },
             Pickaxe: {
@@ -431,6 +431,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "opponent",
                 comment: "Автопонижение: накоплено 2 штрафных очка"
+            },
+            {
+                date: "2026-08-29",
+                kit: "Beast",
+                opponent: "Master",
+                tierBefore: "HT3",
+                tierAfter: "HT3",
+                scorePlayer: 3,
+                scoreOpponent: 6,
+                winner: "opponent",
+                comment: null
             }
         ]
     },
@@ -795,6 +806,17 @@ const players = [
                 tierAfter: "HT3",
                 scorePlayer: 4,
                 scoreOpponent: 2,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "Beast",
+                opponent: "zor1kkqwix",
+                tierBefore: "HT3",
+                tierAfter: "HT2",
+                scorePlayer: 6,
+                scoreOpponent: 3,
                 winner: "player",
                 comment: null
             },
