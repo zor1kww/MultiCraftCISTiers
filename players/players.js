@@ -197,8 +197,8 @@ const players = [
                 retired: false
             },
             SMP: {
-                tier: "HT3",
-                date: "2026-08-18",
+                tier: "LT3",
+                date: "2026-08-29",
                 retired: false
             },
             "Emerald Pot": {
@@ -277,6 +277,10 @@ const players = [
             Pickaxe: {
                 points: 1.5,
                 firstPenaltyDate: "2026-08-25"
+            },
+            SMP: {
+                points: 0.0,
+                firstPenaltyDate: "2026-08-29"
             }
         },
         matchHistory: [
@@ -433,6 +437,28 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "SMP",
+                opponent: "ZirtMobile",
+                tierBefore: "HT3",
+                tierAfter: "HT3",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "SMP",
+                opponent: "система",
+                tierBefore: "HT3",
+                tierAfter: "LT3",
+                scorePlayer: 0,
+                scoreOpponent: 0,
+                winner: "opponent",
+                comment: "Автопонижение: накоплено 2 штрафных очка"
             }
         ]
     },
@@ -963,8 +989,8 @@ const players = [
                 retired: false
             },
             SMP: {
-                tier: "LT3",
-                date: "2026-08-18",
+                tier: "LT2",
+                date: "2026-08-29",
                 retired: false
             },
             Emerald: {
@@ -978,7 +1004,20 @@ const players = [
                 points: 0.4,
                 firstPenaltyDate: "2026-08-25"
             }
-        }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-29",
+                kit: "SMP",
+                opponent: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "LT2",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null
+            }
+        ]
     },
     {
         name: "WezzikBigClop",
