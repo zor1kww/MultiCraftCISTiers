@@ -591,6 +591,17 @@ const players = [
                 scorePlayer: 6,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "Dragonhide",
+                opponent: "ZirtMobile",
+                tierBefore: "LT2",
+                tierAfter: "LT2",
+                scorePlayer: 6,
+                scoreOpponent: 5,
+                winner: "player",
+                comment: null
             }
         ],
         penaltyByKit: {}
@@ -942,7 +953,7 @@ const players = [
     },
     {
         name: "ZirtMobile",
-        region: "RU",
+        region: "UA",
         tiers: {
             RVM: {
                 tier: "LT2",
@@ -950,8 +961,8 @@ const players = [
                 retired: false
             },
             Dragonhide: {
-                tier: "LT2",
-                date: "2026-08-18",
+                tier: "HT2",
+                date: "2026-08-29",
                 retired: false
             },
             "Emerald Pot": {
@@ -1036,6 +1047,17 @@ const players = [
                 tierAfter: "LT2",
                 scorePlayer: 3,
                 scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "Dragonhide",
+                opponent: "_Xx_deras_xX",
+                tierBefore: "HT2",
+                tierAfter: "HT2",
+                scorePlayer: 5,
+                scoreOpponent: 6,
                 winner: "opponent",
                 comment: null
             }
