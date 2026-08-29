@@ -5,38 +5,22 @@ const players = [
         region: "RU",
         tiers: {
             Crystal: {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "HT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT1",
                 date: "2026-08-18",
                 retired: false
             },
             Hardcore: {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-18",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-18",
                 retired: false
             },
@@ -46,11 +30,7 @@ const players = [
                 retired: false
             },
             Pickaxe: {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-18",
                 retired: false
             },
@@ -60,29 +40,17 @@ const players = [
                 retired: false
             },
             "Diamond Pot": {
-                tier: {
-                    tier: "HT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT1",
                 date: "2026-08-28",
                 retired: false
             },
             Combo: {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-18",
                 retired: false
             },
             SMP: {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-18",
                 retired: false
             },
@@ -92,11 +60,7 @@ const players = [
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-18",
                 retired: false
             }
@@ -121,83 +85,47 @@ const players = [
         region: "RU",
         tiers: {
             Dragonhide: {
-                tier: {
-                    tier: "HT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT1",
                 date: "2026-08-25",
                 retired: false
             },
             Emerald: {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-18",
                 retired: false
             },
             "Diamond Pot": {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-27",
                 retired: false
             },
             SMP: {
-                tier: {
-                    tier: "HT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT1",
                 date: "2026-08-25",
                 retired: false
             },
             Crystal: {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-18",
                 retired: false
             },
             Combo: {
-                tier: {
-                    tier: "HT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT1",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-18",
                 retired: false
             },
             Hardcore: {
-                tier: {
-                    tier: "HT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT1",
                 date: "2026-08-28",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "HT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT1",
                 date: "2026-08-18",
                 retired: false
             },
@@ -207,20 +135,12 @@ const players = [
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-18",
                 retired: false
             },
             Pickaxe: {
-                tier: {
-                    tier: "HT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT1",
                 date: "2026-08-18",
                 retired: false
             },
@@ -288,119 +208,67 @@ const players = [
         region: "RU",
         tiers: {
             Hardcore: {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-18",
                 retired: false
             },
             SMP: {
-                tier: {
-                    tier: "HT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT3",
                 date: "2026-08-18",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-23",
                 retired: false
             },
             Combo: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             Pickaxe: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             Emerald: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             "Diamond Pot": {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-25",
                 retired: false
             },
             Dragonhide: {
-                tier: {
-                    tier: "HT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT3",
                 date: "2026-08-23",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             Crystal: {
-                tier: {
-                    tier: "HT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT1",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-18",
                 retired: false
             },
             Gapple: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             }
@@ -512,20 +380,12 @@ const players = [
         region: "RU",
         tiers: {
             Hardcore: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -536,29 +396,17 @@ const players = [
         region: "RU",
         tiers: {
             Hardcore: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             "Diamond Pot": {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -569,119 +417,67 @@ const players = [
         region: "UA",
         tiers: {
             "Emerald Pot": {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             SMP: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             Hardcore: {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-18",
                 retired: false
             },
             Pickaxe: {
-                tier: {
-                    tier: "HT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT2",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             Emerald: {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-18",
                 retired: false
             },
             Dragonhide: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "HT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT1",
                 date: "2026-08-27",
                 retired: false
             },
             Combo: {
-                tier: {
-                    tier: "HT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT2",
                 date: "2026-08-18",
                 retired: false
             },
             Gapple: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-18",
                 retired: false
             },
             Crystal: {
-                tier: {
-                    tier: "HT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT2",
                 date: "2026-08-18",
                 retired: false
             },
             "Diamond Pot": {
-                tier: {
-                    tier: "HT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT2",
                 date: "2026-08-18",
                 retired: false
             }
@@ -706,83 +502,47 @@ const players = [
         region: "KG",
         tiers: {
             Dragonhide: {
-                tier: {
-                    tier: "HT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT2",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             Emerald: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Hardcore: {
-                tier: {
-                    tier: "HT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT3",
                 date: "2026-08-18",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "HT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT3",
                 date: "2026-08-18",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-18",
                 retired: false
             },
             "Diamond Pot": {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             SMP: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -793,119 +553,67 @@ const players = [
         region: "RU",
         tiers: {
             Emerald: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Hardcore: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             SMP: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             Pickaxe: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             "Diamond Pot": {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Dragonhide: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Crystal: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             Gapple: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Combo: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             }
@@ -916,20 +624,12 @@ const players = [
         region: "RU",
         tiers: {
             Crystal: {
-                tier: {
-                    tier: "HT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT5",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "LT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT5",
                 date: "2026-08-18",
                 retired: false
             }
@@ -940,119 +640,67 @@ const players = [
         region: "RU",
         tiers: {
             RVM: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Dragonhide: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             "Diamond Pot": {
-                tier: {
-                    tier: "HT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT3",
                 date: "2026-08-18",
                 retired: false
             },
             Pickaxe: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Emerald: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             SMP: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Hardcore: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Crystal: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Combo: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Gapple: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -1063,20 +711,12 @@ const players = [
         region: "UA",
         tiers: {
             RVM: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "HT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT5",
                 date: "2026-08-18",
                 retired: false
             }
@@ -1087,11 +727,7 @@ const players = [
         region: "RU",
         tiers: {
             SMP: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -1102,20 +738,12 @@ const players = [
         region: "UA",
         tiers: {
             Hardcore: {
-                tier: {
-                    tier: "HT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT2",
                 date: "2026-06-18",
                 retired: true
             },
             Mace: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             }
@@ -1126,20 +754,12 @@ const players = [
         region: "RU",
         tiers: {
             RVM: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             }
@@ -1150,65 +770,37 @@ const players = [
         region: "RU",
         tiers: {
             RVM: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Dragonhide: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "HT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT3",
                 date: "2026-08-18",
                 retired: false
             },
             Crystal: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             "Diamond Pot": {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-18",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "HT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT2",
                 date: "2026-08-18",
                 retired: false
             },
@@ -1218,47 +810,27 @@ const players = [
                 retired: false
             },
             Hardcore: {
-                tier: {
-                    tier: "HT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT2",
                 date: "2026-08-18",
                 retired: false
             },
             Gapple: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             Combo: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             SMP: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Emerald: {
-                tier: {
-                    tier: "HT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT2",
                 date: "2026-08-18",
                 retired: false
             }
@@ -1275,74 +847,42 @@ const players = [
         region: "RU",
         tiers: {
             RVM: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-25",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             Crystal: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             SMP: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Dragonhide: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Pickaxe: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Hardcore: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             "Diamond Pot": {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -1367,101 +907,57 @@ const players = [
         region: "KG",
         tiers: {
             "Emerald Pot": {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             SMP: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             Hardcore: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             "Diamond Pot": {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Dragonhide: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Emerald: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Crystal: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Combo: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             Gapple: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -1472,38 +968,22 @@ const players = [
         region: "RU",
         tiers: {
             "Emerald Pot": {
-                tier: {
-                    tier: "HT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT3",
                 date: "2026-08-18",
                 retired: false
             },
             Crystal: {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-18",
                 retired: false
             },
             Hardcore: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Combo: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
@@ -1519,29 +999,17 @@ const players = [
         region: "RU",
         tiers: {
             RVM: {
-                tier: {
-                    tier: "HT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT5",
                 date: "2026-08-18",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Crystal: {
-                tier: {
-                    tier: "HT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT5",
                 date: "2026-08-18",
                 retired: false
             }
@@ -1552,47 +1020,27 @@ const players = [
         region: "RU",
         tiers: {
             Crystal: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "LT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT5",
                 date: "2026-08-18",
                 retired: false
             },
             SMP: {
-                tier: {
-                    tier: "HT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT5",
                 date: "2026-08-18",
                 retired: false
             },
             Hardcore: {
-                tier: {
-                    tier: "LT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT5",
                 date: "2026-08-18",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -1603,101 +1051,57 @@ const players = [
         region: "KZ",
         tiers: {
             Mace: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-22",
                 retired: false
             },
             Dragonhide: {
-                tier: {
-                    tier: "HT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT3",
                 date: "2026-08-18",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "HT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT3",
                 date: "2026-08-18",
                 retired: false
             },
             Hardcore: {
-                tier: {
-                    tier: "HT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT3",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Emerald: {
-                tier: {
-                    tier: "HT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT3",
                 date: "2026-08-18",
                 retired: false
             },
             "Diamond Pot": {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             SMP: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Pickaxe: {
-                tier: {
-                    tier: "HT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT3",
                 date: "2026-08-18",
                 retired: false
             },
             Crystal: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             Gapple: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             }
@@ -1727,38 +1131,22 @@ const players = [
         region: "RU",
         tiers: {
             Emerald: {
-                tier: {
-                    tier: "LT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT5",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "LT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT5",
                 date: "2026-08-18",
                 retired: false
             },
             Combo: {
-                tier: {
-                    tier: "LT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT5",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "LT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT5",
                 date: "2026-08-18",
                 retired: false
             }
@@ -1769,74 +1157,42 @@ const players = [
         region: "RU",
         tiers: {
             Dragonhide: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             SMP: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Hardcore: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Pickaxe: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             }
@@ -1847,29 +1203,17 @@ const players = [
         region: "RU",
         tiers: {
             Beast: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             SMP: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             }
@@ -1880,92 +1224,52 @@ const players = [
         region: "UA",
         tiers: {
             Hardcore: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             Crystal: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Pickaxe: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Emerald: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "HT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT3",
                 date: "2026-08-18",
                 retired: false
             },
             Dragonhide: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             SMP: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             "Diamond Pot": {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -1976,56 +1280,32 @@ const players = [
         region: "RU",
         tiers: {
             Mace: {
-                tier: {
-                    tier: "HT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT5",
                 date: "2026-08-18",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             Emerald: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "LT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT5",
                 date: "2026-08-18",
                 retired: false
             },
             Crystal: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Dragonhide: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -2036,47 +1316,27 @@ const players = [
         region: "RU",
         tiers: {
             Beast: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Crystal: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Dragonhide: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             "Diamond Pot": {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -2087,47 +1347,27 @@ const players = [
         region: "RU",
         tiers: {
             Dragonhide: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-27",
                 retired: false
             },
             Crystal: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             SMP: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
@@ -2137,20 +1377,12 @@ const players = [
                 retired: false
             },
             "Diamond Pot": {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-25",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "HT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT2",
                 date: "2026-08-25",
                 retired: false
             }
@@ -2202,29 +1434,17 @@ const players = [
         region: "RU",
         tiers: {
             Beast: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             Emerald: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             Dragonhide: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             }
@@ -2235,20 +1455,12 @@ const players = [
         region: "RU",
         tiers: {
             Crystal: {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-25",
                 retired: false
             },
@@ -2258,83 +1470,47 @@ const players = [
                 retired: false
             },
             "Diamond Pot": {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-27",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "HT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT2",
                 date: "2026-08-22",
                 retired: false
             },
             Emerald: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-25",
                 retired: false
             },
             Dragonhide: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-23",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-28",
                 retired: false
             },
             Combo: {
-                tier: {
-                    tier: "HT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT3",
                 date: "2026-08-18",
                 retired: false
             },
             Gapple: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-28",
                 retired: false
             },
             Hardcore: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-25",
                 retired: false
             },
@@ -2505,20 +1681,12 @@ const players = [
         region: "RU",
         tiers: {
             Hardcore: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-24",
                 retired: false
             }
@@ -2543,20 +1711,12 @@ const players = [
         region: "UA",
         tiers: {
             Crystal: {
-                tier: {
-                    tier: "HT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT5",
                 date: "2026-08-18",
                 retired: false
             },
             "Diamond Pot": {
-                tier: {
-                    tier: "HT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT5",
                 date: "2026-08-18",
                 retired: false
             }
@@ -2567,47 +1727,27 @@ const players = [
         region: "RU",
         tiers: {
             Hardcore: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "HT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT2",
                 date: "2026-08-18",
                 retired: false
             },
             Crystal: {
-                tier: {
-                    tier: "HT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT3",
                 date: "2026-08-18",
                 retired: false
             },
             Pickaxe: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             }
@@ -2618,56 +1758,32 @@ const players = [
         region: "RU",
         tiers: {
             Mace: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             Hardcore: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Combo: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             SMP: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -2678,20 +1794,12 @@ const players = [
         region: "RU",
         tiers: {
             SMP: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -2702,20 +1810,12 @@ const players = [
         region: "RU",
         tiers: {
             SMP: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -2726,29 +1826,17 @@ const players = [
         region: "RU",
         tiers: {
             RVM: {
-                tier: {
-                    tier: "HT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT5",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "HT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT5",
                 date: "2026-08-18",
                 retired: false
             },
             Crystal: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -2759,47 +1847,27 @@ const players = [
         region: "RU",
         tiers: {
             Beast: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Hardcore: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Gapple: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -2810,101 +1878,57 @@ const players = [
         region: "RU",
         tiers: {
             Dragonhide: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Hardcore: {
-                tier: {
-                    tier: "HT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT5",
                 date: "2026-08-18",
                 retired: false
             },
             SMP: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Combo: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             "Diamond Pot": {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Emerald: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Gapple: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             }
@@ -2915,29 +1939,17 @@ const players = [
         region: "RU",
         tiers: {
             Hardcore: {
-                tier: {
-                    tier: "HT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT5",
                 date: "2026-08-18",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -2948,47 +1960,27 @@ const players = [
         region: "RU",
         tiers: {
             "Emerald Pot": {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             Gapple: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Crystal: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             }
@@ -2999,29 +1991,17 @@ const players = [
         region: "RU",
         tiers: {
             RVM: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Crystal: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             }
@@ -3032,11 +2012,7 @@ const players = [
         region: "RU",
         tiers: {
             Mace: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             }
@@ -3047,29 +2023,17 @@ const players = [
         region: "RU",
         tiers: {
             Mace: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             Crystal: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             SMP: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -3080,20 +2044,12 @@ const players = [
         region: "RU",
         tiers: {
             Mace: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Crystal: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -3104,11 +2060,7 @@ const players = [
         region: "RU",
         tiers: {
             Emerald: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             }
@@ -3119,29 +2071,17 @@ const players = [
         region: "RU",
         tiers: {
             Hardcore: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             Crystal: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -3152,29 +2092,17 @@ const players = [
         region: "RU",
         tiers: {
             RVM: {
-                tier: {
-                    tier: "LT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT5",
                 date: "2026-08-18",
                 retired: false
             },
             Emerald: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -3185,11 +2113,7 @@ const players = [
         region: "RU",
         tiers: {
             Mace: {
-                tier: {
-                    tier: "HT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT5",
                 date: "2026-08-18",
                 retired: false
             },
@@ -3205,20 +2129,12 @@ const players = [
         region: "RU",
         tiers: {
             Mace: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Crystal: {
-                tier: {
-                    tier: "HT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT5",
                 date: "2026-08-18",
                 retired: false
             }
@@ -3229,11 +2145,7 @@ const players = [
         region: "UA",
         tiers: {
             RVM: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -3244,11 +2156,7 @@ const players = [
         region: "RU",
         tiers: {
             Hardcore: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             }
@@ -3259,20 +2167,12 @@ const players = [
         region: "RU",
         tiers: {
             Beast: {
-                tier: {
-                    tier: "HT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT3",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             }
@@ -3283,20 +2183,12 @@ const players = [
         region: "RU",
         tiers: {
             Hardcore: {
-                tier: {
-                    tier: "HT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT5",
                 date: "2026-08-18",
                 retired: false
             },
             SMP: {
-                tier: {
-                    tier: "HT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT5",
                 date: "2026-08-18",
                 retired: false
             }
@@ -3307,29 +2199,17 @@ const players = [
         region: "RU",
         tiers: {
             Dragonhide: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "HT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT5",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "HT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT5",
                 date: "2026-08-18",
                 retired: false
             }
@@ -3340,56 +2220,32 @@ const players = [
         region: "RU",
         tiers: {
             Hardcore: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             "Diamond Pot": {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             Dragonhide: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             }
@@ -3400,20 +2256,12 @@ const players = [
         region: "RU",
         tiers: {
             RVM: {
-                tier: {
-                    tier: "LT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT5",
                 date: "2026-08-18",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "HT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT5",
                 date: "2026-08-22",
                 retired: false
             }
@@ -3437,20 +2285,12 @@ const players = [
         region: "RU",
         tiers: {
             Hardcore: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             }
@@ -3461,56 +2301,32 @@ const players = [
         region: "AM",
         tiers: {
             Beast: {
-                tier: {
-                    tier: "HT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT3",
                 date: "2026-08-25",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Pickaxe: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-22",
                 retired: false
             },
             Hardcore: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-22",
                 retired: false
             },
             Emerald: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-23",
                 retired: false
             },
             "Diamond Pot": {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-25",
                 retired: false
             }
@@ -3595,119 +2411,67 @@ const players = [
         region: "RU",
         tiers: {
             Hardcore: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             Emerald: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             "Diamond Pot": {
-                tier: {
-                    tier: "HT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT2",
                 date: "2026-08-18",
                 retired: false
             },
             SMP: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             Dragonhide: {
-                tier: {
-                    tier: "HT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT3",
                 date: "2026-08-18",
                 retired: false
             },
             Crystal: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-23",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             Pickaxe: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             Combo: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             Gapple: {
-                tier: {
-                    tier: "HT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT3",
                 date: "2026-08-18",
                 retired: false
             }
@@ -3732,38 +2496,22 @@ const players = [
         region: "RU",
         tiers: {
             "Emerald Pot": {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Combo: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             SMP: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Hardcore: {
-                tier: {
-                    tier: "HT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT3",
                 date: "2026-08-18",
                 retired: false
             }
@@ -3774,83 +2522,47 @@ const players = [
         region: "RU",
         tiers: {
             "Emerald Pot": {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-18",
                 retired: false
             },
             "Diamond Pot": {
-                tier: {
-                    tier: "HT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT2",
                 date: "2026-08-18",
                 retired: false
             },
             Emerald: {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-18",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "HT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT2",
                 date: "2026-08-27",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-27",
                 retired: false
             },
             Hardcore: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             Dragonhide: {
-                tier: {
-                    tier: "HT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT2",
                 date: "2026-08-18",
                 retired: false
             },
             Pickaxe: {
-                tier: {
-                    tier: "HT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT2",
                 date: "2026-08-25",
                 retired: false
             },
             SMP: {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-27",
                 retired: false
             }
@@ -3919,29 +2631,17 @@ const players = [
         region: "RU",
         tiers: {
             Hardcore: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "HT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT5",
                 date: "2026-08-18",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "LT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT5",
                 date: "2026-08-18",
                 retired: false
             }
@@ -3952,38 +2652,22 @@ const players = [
         region: "RU",
         tiers: {
             Mace: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "HT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT3",
                 date: "2026-08-18",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             }
@@ -3994,20 +2678,12 @@ const players = [
         region: "RU",
         tiers: {
             "Emerald Pot": {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             },
             Dragonhide: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             }
@@ -4018,56 +2694,32 @@ const players = [
         region: "UA",
         tiers: {
             Hardcore: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-28",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "LT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT5",
                 date: "2026-08-18",
                 retired: false
             },
             Dragonhide: {
-                tier: {
-                    tier: "HT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT5",
                 date: "2026-08-18",
                 retired: false
             },
             Gapple: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -4092,11 +2744,7 @@ const players = [
         region: "RU",
         tiers: {
             "Emerald Pot": {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
@@ -4118,20 +2766,12 @@ const players = [
         region: "RU",
         tiers: {
             "Emerald Pot": {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -4147,11 +2787,7 @@ const players = [
                 retired: false
             },
             Hardcore: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -4162,20 +2798,12 @@ const players = [
         region: "RU",
         tiers: {
             SMP: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -4186,20 +2814,12 @@ const players = [
         region: "RU",
         tiers: {
             RVM: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Dragonhide: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -4210,47 +2830,27 @@ const players = [
         region: "RU",
         tiers: {
             RVM: {
-                tier: {
-                    tier: "LT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT5",
                 date: "2026-08-18",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Crystal: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Hardcore: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -4261,20 +2861,12 @@ const players = [
         region: "RU",
         tiers: {
             Dragonhide: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
@@ -4290,20 +2882,12 @@ const players = [
         region: "RU",
         tiers: {
             Dragonhide: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             Emerald: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             }
@@ -4314,20 +2898,12 @@ const players = [
         region: "UA",
         tiers: {
             "Emerald Pot": {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -4338,20 +2914,12 @@ const players = [
         region: "RU",
         tiers: {
             Hardcore: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Dragonhide: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             }
@@ -4362,20 +2930,12 @@ const players = [
         region: "RU",
         tiers: {
             RVM: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "LT2",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT2",
                 date: "2026-08-18",
                 retired: false
             }
@@ -4386,38 +2946,22 @@ const players = [
         region: "RU",
         tiers: {
             RVM: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Dragonhide: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Gapple: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-27",
                 retired: false
             }
@@ -4442,110 +2986,62 @@ const players = [
         region: "RU",
         tiers: {
             Beast: {
-                tier: {
-                    tier: "LT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT5",
                 date: "2026-08-18",
                 retired: false
             },
             Emerald: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Crystal: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Dragonhide: {
-                tier: {
-                    tier: "HT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT5",
                 date: "2026-08-18",
                 retired: false
             },
             "Diamond Pot": {
-                tier: {
-                    tier: "HT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT5",
                 date: "2026-08-18",
                 retired: false
             },
             Hardcore: {
-                tier: {
-                    tier: "LT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT5",
                 date: "2026-08-18",
                 retired: false
             },
             Pickaxe: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             Mace: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             SMP: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Gapple: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
             Combo: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             "Emerald Pot": {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             }
@@ -4556,11 +3052,7 @@ const players = [
         region: "RU",
         tiers: {
             RVM: {
-                tier: {
-                    tier: "LT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT4",
                 date: "2026-08-18",
                 retired: false
             },
@@ -4576,20 +3068,12 @@ const players = [
         region: "RU",
         tiers: {
             Mace: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
             Hardcore: {
-                tier: {
-                    tier: "HT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT5",
                 date: "2026-08-18",
                 retired: false
             }
@@ -4600,20 +3084,12 @@ const players = [
         region: "RU",
         tiers: {
             Beast: {
-                tier: {
-                    tier: "HT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT5",
                 date: "2026-08-18",
                 retired: false
             },
             RVM: {
-                tier: {
-                    tier: "LT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT5",
                 date: "2026-08-18",
                 retired: false
             }
@@ -4624,11 +3100,7 @@ const players = [
         region: "RU",
         tiers: {
             Hardcore: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-18",
                 retired: false
             },
@@ -4638,11 +3110,7 @@ const players = [
                 retired: false
             },
             Beast: {
-                tier: {
-                    tier: "LT1",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT1",
                 date: "2026-08-27",
                 retired: false
             }
@@ -4672,11 +3140,7 @@ const players = [
         region: "RU",
         tiers: {
             Mace: {
-                tier: {
-                    tier: "HT4",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT4",
                 date: "2026-08-18",
                 retired: false
             },
@@ -4794,20 +3258,12 @@ const players = [
         region: "RU",
         tiers: {
             Dragonhide: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-23",
                 retired: false
             },
             "Diamond Pot": {
-                tier: {
-                    tier: "HT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "HT3",
                 date: "2026-08-23",
                 retired: false
             }
@@ -4870,11 +3326,7 @@ const players = [
         region: "RU",
         tiers: {
             RVM: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-25",
                 retired: false
             }
@@ -4899,11 +3351,7 @@ const players = [
         region: "RU",
         tiers: {
             Hardcore: {
-                tier: {
-                    tier: "LT3",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT3",
                 date: "2026-08-27",
                 retired: false
             }
@@ -4928,20 +3376,12 @@ const players = [
         region: "BY",
         tiers: {
             Hardcore: {
-                tier: {
-                    tier: "LT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT5",
                 date: "2026-08-28",
                 retired: false
             },
             Emerald: {
-                tier: {
-                    tier: "LT5",
-                    date: "2026-08-21",
-                    retired: false
-                },
+                tier: "LT5",
                 date: "2026-08-28",
                 retired: false
             }
