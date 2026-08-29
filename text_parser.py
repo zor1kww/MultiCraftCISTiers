@@ -51,7 +51,7 @@ from bot_config import VALID_KITS, REGIONS, TIER_ORDER
 
 
 REQUIRED_FIELD_LABELS = {
-    "opponent": ["оппонент"],
+    "opponent": ["оппонент", "тестер"],
     "player": ["игрок"],
     "kit": ["кит"],
     "region": ["регион"],
@@ -71,9 +71,11 @@ _TIER_LOOKUP["UNRANKED"] = "Unranked"
 _KIT_LOOKUP = {k.lower(): k for k in VALID_KITS}
 _REGION_LOOKUP = {r.lower(): r for r in REGIONS}
 
-# Однодуэльный счёт: "4:2 в пользу оппонента" / "4:2 в пользу игрока"
+# Однодуэльный счёт: "4:2 в пользу оппонента" / "4:2 в пользу игрока".
+# "тестера" принимается как устаревший синоним "оппонента" - часть
+# тестеров ещё пишет по старому шаблону, привыкать заново не обязаны.
 SINGLE_SCORE_PATTERN = re.compile(
-    r"^\s*(\d{1,2})\s*[:\-]\s*(\d{1,2})\s+в\s+пользу\s+(оппонента|игрока)\s*$",
+    r"^\s*(\d{1,2})\s*[:\-]\s*(\d{1,2})\s+в\s+пользу\s+(оппонента|тестера|игрока)\s*$",
     re.IGNORECASE
 )
 # Многодуэльный счёт (одна пара из списка через запятую): "4:2" без "в пользу"
@@ -213,7 +215,7 @@ def parse_result_message(text: str) -> Optional[ParsedResult]:
             )
         num1, num2, winner_word = single_match.groups()
         num1, num2 = int(num1), int(num2)
-        winner_side = "opponent" if winner_word.lower() == "оппонента" else "player"
+        winner_side = "opponent" if winner_word.lower() in ("оппонента", "тестера") else "player"
 
         if winner_side == "opponent":
             score_opponent_val, score_player_val = num1, num2
