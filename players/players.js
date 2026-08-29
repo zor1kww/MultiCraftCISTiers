@@ -1117,12 +1117,27 @@ const players = [
                 scorePlayer: 0,
                 winner: "tester",
                 comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "RVM",
+                opponent: "Aura",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 1,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
             }
         ],
         penaltyByKit: {
             Hardcore: {
                 points: 1.5,
                 firstPenaltyDate: "2026-08-25"
+            },
+            RVM: {
+                points: 1.5,
+                firstPenaltyDate: "2026-08-29"
             }
         }
     },
@@ -2446,8 +2461,8 @@ const players = [
                 retired: false
             },
             RVM: {
-                tier: "LT3",
-                date: "2026-08-18",
+                tier: "HT3",
+                date: "2026-08-29",
                 retired: false
             },
             "Emerald Pot": {
@@ -2485,6 +2500,17 @@ const players = [
                 tierAfter: "LT2",
                 scoreTester: 0,
                 scorePlayer: 4,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "RVM",
+                opponent: "-BaCk-",
+                tierBefore: "LT3",
+                tierAfter: "HT3",
+                scorePlayer: 4,
+                scoreOpponent: 1,
                 winner: "player",
                 comment: null
             }
