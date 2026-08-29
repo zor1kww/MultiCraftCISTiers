@@ -372,6 +372,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "RVM",
+                opponent: "Say",
+                tierBefore: "LT2",
+                tierAfter: "LT2",
+                scorePlayer: 4,
+                scoreOpponent: 2,
+                winner: "player",
+                comment: null
             }
         ]
     },
@@ -754,14 +765,33 @@ const players = [
         region: "RU",
         tiers: {
             RVM: {
-                tier: "LT3",
-                date: "2026-08-18",
+                tier: "HT3",
+                date: "2026-08-29",
                 retired: false
             },
             "Emerald Pot": {
                 tier: "LT2",
                 date: "2026-08-18",
                 retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-29",
+                kit: "RVM",
+                opponent: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "HT3",
+                scorePlayer: 2,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
+            }
+        ],
+        penaltyByKit: {
+            RVM: {
+                points: 1.0,
+                firstPenaltyDate: "2026-08-29"
             }
         }
     },
