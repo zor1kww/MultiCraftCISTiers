@@ -375,6 +375,7 @@ body, html {
 }
 
 .custom-select-group-label {
+    padding: 10px 12px 6px;
     font-weight: 700;
     color: var(--accent);
     text-transform: uppercase;
@@ -382,10 +383,13 @@ body, html {
     letter-spacing: 0.05em;
     margin-top: 4px;
     border-top: 1px solid var(--border-color);
+    cursor: default;
+    user-select: none;
 }
 
 .custom-select-group-label:first-child {
     margin-top: 0;
+    padding-top: 10px;
     border-top: none;
 }
 
@@ -868,6 +872,15 @@ body, html {
 
 .duel-opponent-name:hover {
     color: var(--accent);
+}
+
+.duel-winner-name {
+    color: #4ade80 !important;
+}
+
+.duel-winner-name:hover {
+    color: #4ade80 !important;
+    opacity: 0.8;
 }
 
 .duel-score {
