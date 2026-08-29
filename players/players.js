@@ -1371,6 +1371,17 @@ const players = [
                 scoreOpponent: 6,
                 winner: "opponent",
                 comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "Dragonhide",
+                opponent: "Prosto_oleg100-7",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 3,
+                scoreOpponent: 6,
+                winner: "opponent",
+                comment: null
             }
         ],
         penaltyByKit: {
@@ -1383,7 +1394,7 @@ const players = [
                 firstPenaltyDate: "2026-08-29"
             },
             Dragonhide: {
-                points: 0.8,
+                points: 1.6,
                 firstPenaltyDate: "2026-08-29"
             }
         }
@@ -1924,6 +1935,17 @@ const players = [
                 scorePlayer: 0,
                 scoreOpponent: 4,
                 winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "Dragonhide",
+                opponent: "-BaCk-",
+                tierBefore: "LT3",
+                tierAfter: "LT2",
+                scorePlayer: 6,
+                scoreOpponent: 3,
+                winner: "player",
                 comment: null
             },
             {
