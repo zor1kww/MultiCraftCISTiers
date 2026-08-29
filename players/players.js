@@ -1183,8 +1183,8 @@ const players = [
                 retired: false
             },
             Dragonhide: {
-                tier: "HT3",
-                date: "2026-08-18",
+                tier: "LT3",
+                date: "2026-08-29",
                 retired: false
             },
             Beast: {
@@ -1255,6 +1255,28 @@ const players = [
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "Dragonhide",
+                opponent: "Aura",
+                tierBefore: "HT3",
+                tierAfter: "HT3",
+                scorePlayer: 0,
+                scoreOpponent: 6,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "Dragonhide",
+                opponent: "система",
+                tierBefore: "HT3",
+                tierAfter: "LT3",
+                scorePlayer: 0,
+                scoreOpponent: 0,
+                winner: "opponent",
+                comment: "Автопонижение: накоплено 2 штрафных очка"
             }
         ],
         penaltyByKit: {
@@ -1264,6 +1286,10 @@ const players = [
             },
             RVM: {
                 points: 1.5,
+                firstPenaltyDate: "2026-08-29"
+            },
+            Dragonhide: {
+                points: 0.0,
                 firstPenaltyDate: "2026-08-29"
             }
         }
@@ -2597,8 +2623,8 @@ const players = [
                 retired: false
             },
             Dragonhide: {
-                tier: "HT3",
-                date: "2026-08-18",
+                tier: "LT2",
+                date: "2026-08-29",
                 retired: false
             },
             Crystal: {
@@ -2657,6 +2683,17 @@ const players = [
                 tierAfter: "HT3",
                 scorePlayer: 4,
                 scoreOpponent: 1,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "Dragonhide",
+                opponent: "-BaCk-",
+                tierBefore: "HT3",
+                tierAfter: "LT2",
+                scorePlayer: 6,
+                scoreOpponent: 0,
                 winner: "player",
                 comment: null
             }
