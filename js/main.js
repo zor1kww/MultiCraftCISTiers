@@ -1032,18 +1032,28 @@ function collectGlobalDuels() {
 // зафиксированы в записи. Показывается только когда тир реально менялся
 // в контексте этого результата (в самой дуэли, а не когда tierBefore
 // просто равен tierAfter - тогда это не несёт информации).
+// Строит HTML-блок с рангами дуэли. Всегда показывает актуальный
+// ранг игрока на этом ките - если он изменился в рамках дуэли (обычно
+// у тестируемого), показывает "было → стало"; если нет (обычная дуэль
+// без теста, ранг уже был таким), показывает его одним значением, без
+// стрелки - но никогда не оставляет блок пустым.
 function buildDuelTierChangeHTML(entry) {
-    if (!entry.tierBefore || !entry.tierAfter) return '';
-    if (entry.tierBefore === entry.tierAfter) return '';
-
     const activeColors = (typeof tierColors !== 'undefined') ? tierColors : {};
-    const colorBefore = activeColors[entry.tierBefore] || 'var(--text-muted)';
-    const colorAfter = activeColors[entry.tierAfter] || 'var(--accent)';
+    const before = entry.tierBefore || 'Unranked';
+    const after = entry.tierAfter || before;
+    const colorAfter = activeColors[after] || 'var(--accent)';
 
+    if (before === after) {
+        return `<div class="duel-tier-change">
+            <span style="color:${colorAfter}; font-weight:700;">${after}</span>
+        </div>`;
+    }
+
+    const colorBefore = activeColors[before] || 'var(--text-muted)';
     return `<div class="duel-tier-change">
-        <span style="color:${colorBefore};">${entry.tierBefore}</span>
+        <span style="color:${colorBefore};">${before}</span>
         <span class="duel-tier-arrow">→</span>
-        <span style="color:${colorAfter}; font-weight:700;">${entry.tierAfter}</span>
+        <span style="color:${colorAfter}; font-weight:700;">${after}</span>
     </div>`;
 }
 
@@ -1095,9 +1105,9 @@ function renderGlobalDuels() {
                 <span class="duel-date">${entry.date || ''}</span>
             </div>
             <div class="duel-row-main">
-                <span class="duel-opponent-name${won ? ' duel-winner-name' : ''}" onclick="openProfileByName('${playerSafe}')">${entry.playerName}</span>
+                <span class="duel-opponent-name" onclick="openProfileByName('${playerSafe}')">${entry.playerName}</span>
                 <span class="duel-score">${entry.scorePlayer}:${entry.scoreOpponent}</span>
-                <span class="duel-opponent-name${won ? '' : ' duel-winner-name'}" onclick="openProfileByName('${opponentSafe}')">${entry.opponent}</span>
+                <span class="duel-opponent-name" onclick="openProfileByName('${opponentSafe}')">${entry.opponent}</span>
             </div>
             ${tierChangeHTML}
             ${commentHTML}
