@@ -492,6 +492,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "Emerald Pot",
+                opponent: "The_FV4005",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 4,
+                scoreOpponent: 2,
+                winner: "player",
+                comment: null
             }
         ]
     },
@@ -704,8 +715,8 @@ const players = [
                 retired: false
             },
             "Emerald Pot": {
-                tier: "HT4",
-                date: "2026-08-18",
+                tier: "LT3",
+                date: "2026-08-29",
                 retired: false
             },
             Pickaxe: {
@@ -748,7 +759,21 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             }
-        }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-29",
+                kit: "Emerald Pot",
+                opponent: "zor1kkqwix",
+                tierBefore: "HT4",
+                tierAfter: "LT3",
+                scorePlayer: 2,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
     },
     {
         name: "YouTube_ggs",
