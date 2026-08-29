@@ -662,8 +662,8 @@ const players = [
         region: "RU",
         tiers: {
             RVM: {
-                tier: "LT3",
-                date: "2026-08-18",
+                tier: "HT3",
+                date: "2026-08-29",
                 retired: false
             },
             Dragonhide: {
@@ -738,6 +738,17 @@ const players = [
                 scoreOpponent: 2,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "RVM",
+                opponent: "D4rK_S1lA",
+                tierBefore: "LT3",
+                tierAfter: "HT3",
+                scorePlayer: 2,
+                scoreOpponent: 1,
+                winner: "player",
+                comment: "техническое поражение оппоненту за выход во время пвп"
             }
         ],
         penaltyByKit: {}
@@ -1940,6 +1951,25 @@ const players = [
                 tier: "HT4",
                 date: "2026-08-18",
                 retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-29",
+                kit: "RVM",
+                opponent: "Master",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 1,
+                scoreOpponent: 2,
+                winner: "opponent",
+                comment: "техническое поражение оппоненту за выход во время пвп"
+            }
+        ],
+        penaltyByKit: {
+            RVM: {
+                points: 1.5,
+                firstPenaltyDate: "2026-08-29"
             }
         }
     },
