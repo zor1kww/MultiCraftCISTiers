@@ -227,8 +227,8 @@ const players = [
                 retired: false
             },
             "Diamond Pot": {
-                tier: "HT4",
-                date: "2026-08-25",
+                tier: "LT3",
+                date: "2026-08-29",
                 retired: false
             },
             Dragonhide: {
@@ -420,6 +420,17 @@ const players = [
                 tierAfter: "LT3",
                 scorePlayer: 6,
                 scoreOpponent: 4,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "Diamond Pot",
+                opponent: "-BaCk-",
+                tierBefore: "HT4",
+                tierAfter: "LT3",
+                scorePlayer: 4,
+                scoreOpponent: 0,
                 winner: "player",
                 comment: null
             }
@@ -1277,6 +1288,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "opponent",
                 comment: "Автопонижение: накоплено 2 штрафных очка"
+            },
+            {
+                date: "2026-08-29",
+                kit: "Diamond Pot",
+                opponent: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
             }
         ],
         penaltyByKit: {
