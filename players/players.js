@@ -202,8 +202,8 @@ const players = [
                 retired: false
             },
             "Emerald Pot": {
-                tier: "LT3",
-                date: "2026-08-23",
+                tier: "HT3",
+                date: "2026-08-29",
                 retired: false
             },
             Combo: {
@@ -501,6 +501,17 @@ const players = [
                 tierAfter: "LT3",
                 scorePlayer: 4,
                 scoreOpponent: 2,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "Emerald Pot",
+                opponent: "WezzikBigClop",
+                tierBefore: "LT3",
+                tierAfter: "HT3",
+                scorePlayer: 4,
+                scoreOpponent: 0,
                 winner: "player",
                 comment: null
             }
@@ -1173,6 +1184,17 @@ const players = [
                 opponent: "zor1kkqwix",
                 tierBefore: "LT4",
                 tierAfter: "LT4",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "Emerald Pot",
+                opponent: "zor1kkqwix",
+                tierBefore: "HT4",
+                tierAfter: "HT4",
                 scorePlayer: 0,
                 scoreOpponent: 4,
                 winner: "opponent",
