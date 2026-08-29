@@ -283,7 +283,7 @@ const players = [
                 firstPenaltyDate: "2026-08-25"
             },
             "Emerald Pot": {
-                points: 0.0,
+                points: 1.0,
                 firstPenaltyDate: "2026-08-23"
             },
             Beast: {
@@ -382,6 +382,17 @@ const players = [
                 scorePlayer: 4,
                 scoreOpponent: 2,
                 winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "Emerald Pot",
+                opponent: "Master",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 2,
+                scoreOpponent: 4,
+                winner: "opponent",
                 comment: null
             }
         ]
@@ -691,8 +702,8 @@ const players = [
                 retired: false
             },
             "Emerald Pot": {
-                tier: "LT3",
-                date: "2026-08-18",
+                tier: "HT3",
+                date: "2026-08-29",
                 retired: false
             },
             Hardcore: {
@@ -715,7 +726,21 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             }
-        }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-29",
+                kit: "Emerald Pot",
+                opponent: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "HT3",
+                scorePlayer: 4,
+                scoreOpponent: 2,
+                winner: "player",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
     },
     {
         name: "Darius",
