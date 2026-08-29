@@ -183,25 +183,9 @@ const players = [
                 scorePlayer: 3,
                 winner: "tester",
                 comment: null
-            },
-            {
-                date: "2026-08-28",
-                kit: "Hardcore",
-                tester: "DzIla_EDITmob",
-                tierBefore: "Unranked",
-                tierAfter: "LT1",
-                scoreTester: 7,
-                scorePlayer: 2,
-                winner: "tester",
-                comment: null
             }
         ],
-        penaltyByKit: {
-            Hardcore: {
-                points: 1.0,
-                firstPenaltyDate: "2026-08-28"
-            }
-        }
+        penaltyByKit: {}
     },
     {
         name: "zor1kkqwix",
@@ -293,10 +277,6 @@ const players = [
             Pickaxe: {
                 points: 1.5,
                 firstPenaltyDate: "2026-08-25"
-            },
-            Emerald: {
-                points: 1.2,
-                firstPenaltyDate: "2026-08-29"
             }
         },
         matchHistory: [
@@ -391,17 +371,6 @@ const players = [
             {
                 date: "2026-08-29",
                 kit: "Emerald Pot",
-                opponent: "Master",
-                tierBefore: "LT3",
-                tierAfter: "LT3",
-                scorePlayer: 2,
-                scoreOpponent: 4,
-                winner: "opponent",
-                comment: null
-            },
-            {
-                date: "2026-08-29",
-                kit: "Emerald",
                 opponent: "Master",
                 tierBefore: "LT3",
                 tierAfter: "LT3",
@@ -808,17 +777,6 @@ const players = [
                 scoreOpponent: 1,
                 winner: "player",
                 comment: "техническое поражение оппоненту за выход во время пвп"
-            },
-            {
-                date: "2026-08-29",
-                kit: "Emerald",
-                opponent: "zor1kkqwix",
-                tierBefore: "LT3",
-                tierAfter: "HT3",
-                scorePlayer: 4,
-                scoreOpponent: 2,
-                winner: "player",
-                comment: null
             },
             {
                 date: "2026-08-29",
