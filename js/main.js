@@ -984,18 +984,19 @@ function normalizeDuelEntry(entry) {
 }
 
 // Собирает уникальный список дуэлей со всех игроков. Каждая дуэль хранится
-// СИММЕТРИЧНО в matchHistory обоих участников (см. main.py на боте) -
-// поэтому здесь дедуплицируем по ключу (кит+дата+счёт+пара имён без учёта
-// порядка), оставляя одну запись на дуэль, показанную "от лица" игрока,
-// чьё имя раньше встретилось при обходе (порядок players.js). Старые
-// записи (до перехода на симметричную запись) есть только у одной
-// стороны - для них дедупликация просто не найдёт пары, и они всё равно
-// покажутся один раз, что корректно.
+// СИММЕТРИЧНО в matchHistory обоих участников (см. main.py на боте), но
+// с ПРОТИВОПОЛОЖНЫМ tierBefore/tierAfter - у тестируемого (того, кто
+// реально сдавал тест на этой дуэли) ранг меняется, у соперника обычно
+// нет. Поэтому среди двух симметричных записей выбираем ту, где
+// tierBefore !== tierAfter - её "playerName" и есть тестируемый, что
+// сохраняет порядок "игрок, затем оппонент" из исходного шаблона
+// результата. Если обе записи имеют tierBefore === tierAfter (обычная
+// дуэль без изменения ранга ни у кого) - порядок не принципиален, берём
+// первую попавшуюся по порядку players.js.
 function collectGlobalDuels() {
     if (typeof players === 'undefined' || !Array.isArray(players)) return [];
 
-    const seen = new Set();
-    const result = [];
+    const groups = new Map();
 
     players.forEach(player => {
         const history = Array.isArray(player.matchHistory) ? player.matchHistory : [];
@@ -1006,14 +1007,25 @@ function collectGlobalDuels() {
 
             const namesKey = [player.name, entry.opponent].sort().join('|');
             const key = `${entry.kit}|${entry.date}|${namesKey}|${[entry.scorePlayer, entry.scoreOpponent].sort().join('-')}`;
-            if (seen.has(key)) return;
-            seen.add(key);
 
-            result.push({ ...entry, playerName: player.name });
+            const candidate = { ...entry, playerName: player.name };
+            const existing = groups.get(key);
+
+            if (!existing) {
+                groups.set(key, candidate);
+                return;
+            }
+
+            // Предпочитаем запись тестируемого (у кого ранг реально менялся)
+            const candidateIsTested = candidate.tierBefore !== candidate.tierAfter;
+            const existingIsTested = existing.tierBefore !== existing.tierAfter;
+            if (candidateIsTested && !existingIsTested) {
+                groups.set(key, candidate);
+            }
         });
     });
 
-    return result;
+    return Array.from(groups.values());
 }
 
 // Строит HTML-блок с рангами дуэли (предыдущий → полученный), если они
@@ -1083,9 +1095,9 @@ function renderGlobalDuels() {
                 <span class="duel-date">${entry.date || ''}</span>
             </div>
             <div class="duel-row-main">
-                <span class="duel-opponent-name" onclick="openProfileByName('${playerSafe}')">${entry.playerName}</span>
+                <span class="duel-opponent-name${won ? ' duel-winner-name' : ''}" onclick="openProfileByName('${playerSafe}')">${entry.playerName}</span>
                 <span class="duel-score">${entry.scorePlayer}:${entry.scoreOpponent}</span>
-                <span class="duel-opponent-name" onclick="openProfileByName('${opponentSafe}')">${entry.opponent}</span>
+                <span class="duel-opponent-name${won ? '' : ' duel-winner-name'}" onclick="openProfileByName('${opponentSafe}')">${entry.opponent}</span>
             </div>
             ${tierChangeHTML}
             ${commentHTML}
