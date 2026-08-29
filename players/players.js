@@ -197,7 +197,7 @@ const players = [
                 retired: false
             },
             SMP: {
-                tier: "LT3",
+                tier: "HT3",
                 date: "2026-08-29",
                 retired: false
             },
@@ -479,6 +479,17 @@ const players = [
                 tierAfter: "LT2",
                 scorePlayer: 4,
                 scoreOpponent: 3,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "SMP",
+                opponent: "WezzikBigClop",
+                tierBefore: "LT3",
+                tierAfter: "HT3",
+                scorePlayer: 4,
+                scoreOpponent: 0,
                 winner: "player",
                 comment: null
             }
@@ -1129,6 +1140,17 @@ const players = [
                 scoreTester: 4,
                 scorePlayer: 0,
                 winner: "tester",
+                comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "SMP",
+                opponent: "zor1kkqwix",
+                tierBefore: "LT4",
+                tierAfter: "LT4",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
                 comment: null
             }
         ],
