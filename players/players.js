@@ -3100,8 +3100,8 @@ const players = [
         region: "RU",
         tiers: {
             Hardcore: {
-                tier: "LT3",
-                date: "2026-08-18",
+                tier: "LT2",
+                date: "2026-08-29",
                 retired: false
             },
             Emerald: {
@@ -3125,6 +3125,17 @@ const players = [
                 scoreTester: 6,
                 scorePlayer: 5,
                 winner: "tester",
+                comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "Hardcore",
+                opponent: "DzIla_EDITmob",
+                tierBefore: "LT3",
+                tierAfter: "LT2",
+                scorePlayer: 3,
+                scoreOpponent: 4,
+                winner: "opponent",
                 comment: null
             }
         ],
@@ -3407,6 +3418,25 @@ const players = [
                 scorePlayer: 0,
                 scoreOpponent: 4,
                 winner: "opponent",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
+    },
+    {
+        name: "DzIla_EDITmob",
+        region: "",
+        tiers: {},
+        matchHistory: [
+            {
+                date: "2026-08-29",
+                kit: "Hardcore",
+                opponent: "firary67",
+                tierBefore: null,
+                tierAfter: null,
+                scorePlayer: 4,
+                scoreOpponent: 3,
+                winner: "player",
                 comment: null
             }
         ],
