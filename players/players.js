@@ -442,6 +442,17 @@ const players = [
                 scoreOpponent: 6,
                 winner: "opponent",
                 comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "Emerald",
+                opponent: "Master",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 6,
+                scoreOpponent: 4,
+                winner: "player",
+                comment: null
             }
         ]
     },
@@ -740,7 +751,7 @@ const players = [
                 retired: false
             },
             Emerald: {
-                tier: "HT3",
+                tier: "LT3",
                 date: "2026-08-29",
                 retired: false
             },
@@ -829,6 +840,17 @@ const players = [
                 scorePlayer: 6,
                 scoreOpponent: 3,
                 winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "Emerald",
+                opponent: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 4,
+                scoreOpponent: 6,
+                winner: "opponent",
                 comment: null
             }
         ],
