@@ -945,8 +945,8 @@ const players = [
         region: "RU",
         tiers: {
             RVM: {
-                tier: "LT3",
-                date: "2026-08-18",
+                tier: "LT2",
+                date: "2026-08-29",
                 retired: false
             },
             Dragonhide: {
@@ -1026,6 +1026,17 @@ const players = [
                 scorePlayer: 4,
                 scoreOpponent: 0,
                 winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "RVM",
+                opponent: "DzIla_EDITSmob",
+                tierBefore: "LT3",
+                tierAfter: "LT2",
+                scorePlayer: 3,
+                scoreOpponent: 4,
+                winner: "opponent",
                 comment: null
             }
         ]
@@ -2923,6 +2934,17 @@ const players = [
                 tierAfter: "LT2",
                 scoreTester: 3,
                 scorePlayer: 4,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "RVM",
+                opponent: "ZirtMobile",
+                tierBefore: "LT2",
+                tierAfter: "LT2",
+                scorePlayer: 4,
+                scoreOpponent: 3,
                 winner: "player",
                 comment: null
             }
