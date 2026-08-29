@@ -470,6 +470,17 @@ const players = [
                 scoreOpponent: 1,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "RVM",
+                opponent: "Aura",
+                tierBefore: "LT2",
+                tierAfter: "LT2",
+                scorePlayer: 4,
+                scoreOpponent: 3,
+                winner: "player",
+                comment: null
             }
         ]
     },
@@ -2782,7 +2793,7 @@ const players = [
                 retired: false
             },
             RVM: {
-                tier: "HT3",
+                tier: "LT2",
                 date: "2026-08-29",
                 retired: false
             },
@@ -2844,6 +2855,17 @@ const players = [
                 scorePlayer: 6,
                 scoreOpponent: 0,
                 winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-29",
+                kit: "RVM",
+                opponent: "zor1kkqwix",
+                tierBefore: "LT2",
+                tierAfter: "LT2",
+                scorePlayer: 3,
+                scoreOpponent: 4,
+                winner: "opponent",
                 comment: null
             }
         ],
