@@ -459,6 +459,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "opponent",
                 comment: "Автопонижение: накоплено 2 штрафных очка"
+            },
+            {
+                date: "2026-08-29",
+                kit: "Emerald Pot",
+                opponent: "heliN193",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 4,
+                scoreOpponent: 1,
+                winner: "player",
+                comment: null
             }
         ]
     },
@@ -3707,6 +3718,31 @@ const players = [
                 scorePlayer: 4,
                 scoreOpponent: 3,
                 winner: "player",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
+    },
+    {
+        name: "heliN193",
+        region: "BY",
+        tiers: {
+            "Emerald Pot": {
+                tier: "HT4",
+                date: "2026-08-29",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-29",
+                kit: "Emerald Pot",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "HT4",
+                scorePlayer: 1,
+                scoreOpponent: 4,
+                winner: "opponent",
                 comment: null
             }
         ],
