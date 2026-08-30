@@ -514,6 +514,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-08-30",
+                kit: "SMP",
+                opponent: "heliN193",
+                tierBefore: "HT3",
+                tierAfter: "HT3",
+                scorePlayer: 3,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
             }
         ]
     },
@@ -3910,6 +3921,11 @@ const players = [
                 tier: "HT4",
                 date: "2026-08-29",
                 retired: false
+            },
+            SMP: {
+                tier: "HT3",
+                date: "2026-08-30",
+                retired: false
             }
         },
         matchHistory: [
@@ -3922,6 +3938,17 @@ const players = [
                 scorePlayer: 1,
                 scoreOpponent: 4,
                 winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-08-30",
+                kit: "SMP",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "HT3",
+                scorePlayer: 4,
+                scoreOpponent: 3,
+                winner: "player",
                 comment: null
             }
         ],
