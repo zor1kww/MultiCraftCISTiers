@@ -525,6 +525,17 @@ const players = [
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
+            },
+            {
+                date: "2026-08-30",
+                kit: "Dragonhide",
+                opponent: "heliN193",
+                tierBefore: "HT3",
+                tierAfter: "HT3",
+                scorePlayer: 5,
+                scoreOpponent: 6,
+                winner: "opponent",
+                comment: null
             }
         ]
     },
@@ -3926,6 +3937,11 @@ const players = [
                 tier: "HT3",
                 date: "2026-08-30",
                 retired: false
+            },
+            Dragonhide: {
+                tier: "HT3",
+                date: "2026-08-30",
+                retired: false
             }
         },
         matchHistory: [
@@ -3948,6 +3964,17 @@ const players = [
                 tierAfter: "HT3",
                 scorePlayer: 4,
                 scoreOpponent: 3,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-30",
+                kit: "Dragonhide",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "HT3",
+                scorePlayer: 6,
+                scoreOpponent: 5,
                 winner: "player",
                 comment: null
             }
