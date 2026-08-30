@@ -591,6 +591,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: "по одному хп оставляет"
+            },
+            {
+                date: "2026-08-30",
+                kit: "Beast",
+                opponent: "YTdrumv",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 3,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null
             }
         ]
     },
@@ -3597,8 +3608,8 @@ const players = [
         region: "RU",
         tiers: {
             Beast: {
-                tier: "LT5",
-                date: "2026-08-18",
+                tier: "LT4",
+                date: "2026-08-30",
                 retired: false
             },
             Emerald: {
@@ -3656,7 +3667,21 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             }
-        }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-30",
+                kit: "Beast",
+                opponent: "zor1kkqwix",
+                tierBefore: "LT5",
+                tierAfter: "LT4",
+                scorePlayer: 0,
+                scoreOpponent: 3,
+                winner: "opponent",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
     },
     {
         name: "Zock",
