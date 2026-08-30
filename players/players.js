@@ -237,8 +237,8 @@ const players = [
                 retired: false
             },
             Beast: {
-                tier: "HT3",
-                date: "2026-08-29",
+                tier: "LT3",
+                date: "2026-08-30",
                 retired: false
             },
             Crystal: {
@@ -271,8 +271,8 @@ const players = [
                 firstPenaltyDate: "2026-08-23"
             },
             Beast: {
-                points: 0.8,
-                firstPenaltyDate: "2026-08-29"
+                points: 0.0,
+                firstPenaltyDate: "2026-08-30"
             },
             Pickaxe: {
                 points: 1.5,
@@ -536,6 +536,28 @@ const players = [
                 scoreOpponent: 6,
                 winner: "opponent",
                 comment: null
+            },
+            {
+                date: "2026-08-30",
+                kit: "Beast",
+                opponent: "heliN193",
+                tierBefore: "HT3",
+                tierAfter: "HT3",
+                scorePlayer: 2,
+                scoreOpponent: 6,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-08-30",
+                kit: "Beast",
+                opponent: "система",
+                tierBefore: "HT3",
+                tierAfter: "LT3",
+                scorePlayer: 0,
+                scoreOpponent: 0,
+                winner: "opponent",
+                comment: "Автопонижение: накоплено 2 штрафных очка"
             }
         ]
     },
@@ -3942,6 +3964,11 @@ const players = [
                 tier: "HT3",
                 date: "2026-08-30",
                 retired: false
+            },
+            Beast: {
+                tier: "LT2",
+                date: "2026-08-30",
+                retired: false
             }
         },
         matchHistory: [
@@ -3975,6 +4002,17 @@ const players = [
                 tierAfter: "HT3",
                 scorePlayer: 6,
                 scoreOpponent: 5,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-30",
+                kit: "Beast",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "LT2",
+                scorePlayer: 6,
+                scoreOpponent: 2,
                 winner: "player",
                 comment: null
             }
