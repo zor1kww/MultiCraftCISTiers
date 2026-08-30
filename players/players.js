@@ -558,6 +558,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "opponent",
                 comment: "Автопонижение: накоплено 2 штрафных очка"
+            },
+            {
+                date: "2026-08-30",
+                kit: "Emerald",
+                opponent: "-BaCk-",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 4,
+                scoreOpponent: 6,
+                winner: "opponent",
+                comment: null
             }
         ]
     },
@@ -1422,7 +1433,7 @@ const players = [
             },
             Emerald: {
                 tier: "HT3",
-                date: "2026-08-18",
+                date: "2026-08-30",
                 retired: false
             },
             "Diamond Pot": {
@@ -1554,6 +1565,17 @@ const players = [
                 scorePlayer: 2,
                 scoreOpponent: 3,
                 winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-08-30",
+                kit: "Emerald",
+                opponent: "zor1kkqwix",
+                tierBefore: "HT3",
+                tierAfter: "HT3",
+                scorePlayer: 6,
+                scoreOpponent: 4,
+                winner: "player",
                 comment: null
             }
         ],
