@@ -1544,6 +1544,17 @@ const players = [
                 scoreOpponent: 3,
                 winner: "opponent",
                 comment: null
+            },
+            {
+                date: "2026-08-30",
+                kit: "Emerald Pot",
+                opponent: "Zock",
+                tierBefore: "HT4",
+                tierAfter: "HT4",
+                scorePlayer: 2,
+                scoreOpponent: 3,
+                winner: "opponent",
+                comment: null
             }
         ],
         penaltyByKit: {
@@ -3602,8 +3613,8 @@ const players = [
                 retired: false
             },
             "Emerald Pot": {
-                tier: "HT4",
-                date: "2026-08-21",
+                tier: "LT3",
+                date: "2026-08-30",
                 retired: false
             }
         },
@@ -3614,6 +3625,17 @@ const players = [
                 opponent: "-BaCk-",
                 tierBefore: "HT4",
                 tierAfter: "HT4",
+                scorePlayer: 3,
+                scoreOpponent: 2,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-30",
+                kit: "Emerald Pot",
+                opponent: "-BaCk-",
+                tierBefore: "HT4",
+                tierAfter: "LT3",
                 scorePlayer: 3,
                 scoreOpponent: 2,
                 winner: "player",
