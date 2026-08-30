@@ -569,6 +569,17 @@ const players = [
                 scoreOpponent: 6,
                 winner: "opponent",
                 comment: null
+            },
+            {
+                date: "2026-08-30",
+                kit: "Diamond Pot",
+                opponent: "-BaCk-",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 4,
+                scoreOpponent: 1,
+                winner: "player",
+                comment: null
             }
         ]
     },
@@ -1437,8 +1448,8 @@ const players = [
                 retired: false
             },
             "Diamond Pot": {
-                tier: "LT3",
-                date: "2026-08-18",
+                tier: "HT4",
+                date: "2026-08-30",
                 retired: false
             },
             SMP: {
@@ -1576,6 +1587,17 @@ const players = [
                 scorePlayer: 6,
                 scoreOpponent: 4,
                 winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-30",
+                kit: "Diamond Pot",
+                opponent: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "HT4",
+                scorePlayer: 1,
+                scoreOpponent: 4,
+                winner: "opponent",
                 comment: null
             }
         ],
