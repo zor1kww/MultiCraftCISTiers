@@ -2324,6 +2324,17 @@ const players = [
                 scoreOpponent: 2,
                 winner: "opponent",
                 comment: "техническое поражение оппоненту за выход во время пвп"
+            },
+            {
+                date: "2026-08-30",
+                kit: "Beast",
+                opponent: "Vex",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 5,
+                scoreOpponent: 6,
+                winner: "opponent",
+                comment: null
             }
         ],
         penaltyByKit: {
@@ -2686,7 +2697,7 @@ const players = [
             },
             Beast: {
                 tier: "LT3",
-                date: "2026-08-18",
+                date: "2026-08-30",
                 retired: false
             },
             "Diamond Pot": {
@@ -2709,7 +2720,21 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             }
-        }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-30",
+                kit: "Beast",
+                opponent: "D4rK_S1lA",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 6,
+                scoreOpponent: 5,
+                winner: "player",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
     },
     {
         name: "M_E_G_A",
