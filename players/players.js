@@ -1449,6 +1449,11 @@ const players = [
                 tier: "LT3",
                 date: "2026-08-18",
                 retired: false
+            },
+            "Emerald Pot": {
+                tier: "HT4",
+                date: "2026-08-30",
+                retired: false
             }
         },
         matchHistory: [
@@ -1526,6 +1531,17 @@ const players = [
                 tierAfter: "LT3",
                 scorePlayer: 3,
                 scoreOpponent: 6,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-08-30",
+                kit: "Emerald Pot",
+                opponent: "Zock",
+                tierBefore: "Unranked",
+                tierAfter: "HT4",
+                scorePlayer: 2,
+                scoreOpponent: 3,
                 winner: "opponent",
                 comment: null
             }
@@ -3590,7 +3606,21 @@ const players = [
                 date: "2026-08-21",
                 retired: false
             }
-        }
+        },
+        matchHistory: [
+            {
+                date: "2026-08-30",
+                kit: "Emerald Pot",
+                opponent: "-BaCk-",
+                tierBefore: "HT4",
+                tierAfter: "HT4",
+                scorePlayer: 3,
+                scoreOpponent: 2,
+                winner: "player",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
     },
     {
         name: "-Dan41k",
