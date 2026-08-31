@@ -114,15 +114,8 @@ function getTotalEffectivePenalty(player) {
 // Универсальный парсер данных тира.
 // Поддерживает новый формат { tier, date, retired } и, для обратной
 // совместимости, старый формат в виде строки ("HT3" / "RHT3").
-// Также защищается от испорченных данных с ДВОЙНОЙ вложенностью
-// ({ tier: { tier, date, retired }, date, retired } - баг старой
-// версии базы/миграции) - в этом случае разворачивает объект рекурсивно,
-// а не печатает "[object Object]" в интерфейсе.
-function parseTierInfo(tierData, _depth = 0) {
+function parseTierInfo(tierData) {
     if (!tierData) return { tier: "Unranked", isRetired: false, pts: 0 };
-
-    // Защита от бесконечной рекурсии на совсем битых данных
-    if (_depth > 5) return { tier: "Unranked", isRetired: false, pts: 0 };
 
     let tier = "Unranked";
     let manualRetired = false;
@@ -137,19 +130,9 @@ function parseTierInfo(tierData, _depth = 0) {
             tier = tierData;
         }
     } else if (typeof tierData === 'object') {
-        if (tierData.tier && typeof tierData.tier === 'object') {
-            // Двойная вложенность: внутренний объект содержит настоящий
-            // tier/date/retired - разворачиваем его рекурсивно и берём
-            // date/retired снаружи как fallback, если внутри их нет.
-            const inner = parseTierInfo(tierData.tier, _depth + 1);
-            tier = inner.tier;
-            testDate = inner.date || tierData.date || null;
-            manualRetired = inner.isRetired || tierData.retired === true;
-        } else {
-            tier = tierData.tier || "Unranked";
-            manualRetired = tierData.retired === true;
-            testDate = tierData.date || null;
-        }
+        tier = tierData.tier || "Unranked";
+        manualRetired = tierData.retired === true;
+        testDate = tierData.date || null;
     }
 
     // Retired ниже HT3 невозможен в принципе, независимо от того, что
@@ -527,6 +510,10 @@ function renderPlayers() {
         return;
     }
 
+    // Хайлайт: подсвечиваем карточку, если поиск сузил список до ровно
+    // одного игрока (значит, пользователь, скорее всего, нашёл того, кого искал)
+    const shouldHighlightSearchMatch = search.length >= 2 && filtered.length === 1;
+
     const filteredJSON = encodeURIComponent(JSON.stringify(filtered));
     let htmlFragment = '';
 
@@ -655,7 +642,7 @@ function renderPlayers() {
         }
 
         htmlFragment += `
-        <div class="player-container ${topClass}">
+        <div class="player-container ${topClass}${shouldHighlightSearchMatch ? ' search-match-highlight' : ''}">
             <div class="player-card-row" onclick="openProfile(${index}, '${filteredJSON}')">
                 
                 <div class="player-name-block">
@@ -859,6 +846,38 @@ if (menuBtn && sidebar) {
     });
 }
 
+// ==========================================
+// КНОПКА "НАВЕРХ"
+// Появляется после прокрутки вниз, плавно скроллит страницу к началу
+// ==========================================
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+(function initBackToTopButton() {
+    const btn = document.getElementById('backToTopBtn');
+    if (!btn) return;
+
+    const SHOW_AFTER_PX = 400;
+    let ticking = false;
+
+    function updateVisibility() {
+        if (window.scrollY > SHOW_AFTER_PX) {
+            btn.classList.add('visible');
+        } else {
+            btn.classList.remove('visible');
+        }
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(updateVisibility);
+            ticking = true;
+        }
+    }, { passive: true });
+})();
+
 // Привязка обработчиков событий ввода
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('searchInput');
@@ -984,19 +1003,18 @@ function normalizeDuelEntry(entry) {
 }
 
 // Собирает уникальный список дуэлей со всех игроков. Каждая дуэль хранится
-// СИММЕТРИЧНО в matchHistory обоих участников (см. main.py на боте), но
-// с ПРОТИВОПОЛОЖНЫМ tierBefore/tierAfter - у тестируемого (того, кто
-// реально сдавал тест на этой дуэли) ранг меняется, у соперника обычно
-// нет. Поэтому среди двух симметричных записей выбираем ту, где
-// tierBefore !== tierAfter - её "playerName" и есть тестируемый, что
-// сохраняет порядок "игрок, затем оппонент" из исходного шаблона
-// результата. Если обе записи имеют tierBefore === tierAfter (обычная
-// дуэль без изменения ранга ни у кого) - порядок не принципиален, берём
-// первую попавшуюся по порядку players.js.
+// СИММЕТРИЧНО в matchHistory обоих участников (см. main.py на боте) -
+// поэтому здесь дедуплицируем по ключу (кит+дата+счёт+пара имён без учёта
+// порядка), оставляя одну запись на дуэль, показанную "от лица" игрока,
+// чьё имя раньше встретилось при обходе (порядок players.js). Старые
+// записи (до перехода на симметричную запись) есть только у одной
+// стороны - для них дедупликация просто не найдёт пары, и они всё равно
+// покажутся один раз, что корректно.
 function collectGlobalDuels() {
     if (typeof players === 'undefined' || !Array.isArray(players)) return [];
 
-    const groups = new Map();
+    const seen = new Set();
+    const result = [];
 
     players.forEach(player => {
         const history = Array.isArray(player.matchHistory) ? player.matchHistory : [];
@@ -1007,53 +1025,32 @@ function collectGlobalDuels() {
 
             const namesKey = [player.name, entry.opponent].sort().join('|');
             const key = `${entry.kit}|${entry.date}|${namesKey}|${[entry.scorePlayer, entry.scoreOpponent].sort().join('-')}`;
+            if (seen.has(key)) return;
+            seen.add(key);
 
-            const candidate = { ...entry, playerName: player.name };
-            const existing = groups.get(key);
-
-            if (!existing) {
-                groups.set(key, candidate);
-                return;
-            }
-
-            // Предпочитаем запись тестируемого (у кого ранг реально менялся)
-            const candidateIsTested = candidate.tierBefore !== candidate.tierAfter;
-            const existingIsTested = existing.tierBefore !== existing.tierAfter;
-            if (candidateIsTested && !existingIsTested) {
-                groups.set(key, candidate);
-            }
+            result.push({ ...entry, playerName: player.name });
         });
     });
 
-    return Array.from(groups.values());
+    return result;
 }
 
 // Строит HTML-блок с рангами дуэли (предыдущий → полученный), если они
 // зафиксированы в записи. Показывается только когда тир реально менялся
 // в контексте этого результата (в самой дуэли, а не когда tierBefore
 // просто равен tierAfter - тогда это не несёт информации).
-// Строит HTML-блок с рангами дуэли. Всегда показывает актуальный
-// ранг игрока на этом ките - если он изменился в рамках дуэли (обычно
-// у тестируемого), показывает "было → стало"; если нет (обычная дуэль
-// без теста, ранг уже был таким), показывает его одним значением, без
-// стрелки - но никогда не оставляет блок пустым.
 function buildDuelTierChangeHTML(entry) {
+    if (!entry.tierBefore || !entry.tierAfter) return '';
+    if (entry.tierBefore === entry.tierAfter) return '';
+
     const activeColors = (typeof tierColors !== 'undefined') ? tierColors : {};
-    const before = entry.tierBefore || 'Unranked';
-    const after = entry.tierAfter || before;
-    const colorAfter = activeColors[after] || 'var(--accent)';
+    const colorBefore = activeColors[entry.tierBefore] || 'var(--text-muted)';
+    const colorAfter = activeColors[entry.tierAfter] || 'var(--accent)';
 
-    if (before === after) {
-        return `<div class="duel-tier-change">
-            <span style="color:${colorAfter}; font-weight:700;">${after}</span>
-        </div>`;
-    }
-
-    const colorBefore = activeColors[before] || 'var(--text-muted)';
     return `<div class="duel-tier-change">
-        <span style="color:${colorBefore};">${before}</span>
+        <span style="color:${colorBefore};">${entry.tierBefore}</span>
         <span class="duel-tier-arrow">→</span>
-        <span style="color:${colorAfter}; font-weight:700;">${after}</span>
+        <span style="color:${colorAfter}; font-weight:700;">${entry.tierAfter}</span>
     </div>`;
 }
 
