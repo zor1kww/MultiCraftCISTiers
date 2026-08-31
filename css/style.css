@@ -127,7 +127,7 @@ body, html {
     padding: 20px;
     z-index: 2000;
     overflow-y: auto;
-    transition: transform .3s ease;
+    transition: transform .3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .sidebar.active {
@@ -375,7 +375,6 @@ body, html {
 }
 
 .custom-select-group-label {
-    padding: 10px 12px 6px;
     font-weight: 700;
     color: var(--accent);
     text-transform: uppercase;
@@ -383,13 +382,10 @@ body, html {
     letter-spacing: 0.05em;
     margin-top: 4px;
     border-top: 1px solid var(--border-color);
-    cursor: default;
-    user-select: none;
 }
 
 .custom-select-group-label:first-child {
     margin-top: 0;
-    padding-top: 10px;
     border-top: none;
 }
 
@@ -415,11 +411,33 @@ body, html {
     border: 1px solid var(--border-color);
     border-radius: 14px;
     overflow: hidden;
+    animation: cardFadeIn 0.35s ease backwards;
+}
+
+/* Лёгкий "каскад" появления карточек по списку - только для первых N,
+   чтобы при очень длинных списках анимация не растягивалась надолго */
+.players-list .player-container:nth-child(1) { animation-delay: 0.02s; }
+.players-list .player-container:nth-child(2) { animation-delay: 0.05s; }
+.players-list .player-container:nth-child(3) { animation-delay: 0.08s; }
+.players-list .player-container:nth-child(4) { animation-delay: 0.11s; }
+.players-list .player-container:nth-child(5) { animation-delay: 0.14s; }
+.players-list .player-container:nth-child(6) { animation-delay: 0.17s; }
+.players-list .player-container:nth-child(7) { animation-delay: 0.20s; }
+.players-list .player-container:nth-child(8) { animation-delay: 0.23s; }
+
+@keyframes cardFadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.player-container {
+    transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
 }
 
 .player-container:hover {
     border-color: var(--accent);
     background: var(--card-hover);
+    transform: translateY(-2px);
 }
 
 /* ==========================================================================
@@ -533,6 +551,12 @@ body, html {
     box-sizing: border-box;
     white-space: nowrap;
     margin-top: 0; /* Убран кривой сдвиг */
+    animation: retiredPulse 3s ease-in-out infinite;
+}
+
+@keyframes retiredPulse {
+    0%, 100% { box-shadow: 0 0 0 rgba(255, 71, 71, 0); }
+    50% { box-shadow: 0 0 8px rgba(255, 71, 71, 0.35); }
 }
 
 .player-tiers-row {
@@ -561,6 +585,12 @@ body, html {
     justify-content: center;
     padding: 4px;
     overflow: hidden;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.tier-item-box:hover .tier-icon-circle {
+    transform: scale(1.12);
+    border-color: rgba(255, 204, 71, 0.5);
 }
 
 /* Стили для сабтиров ветеранов */
@@ -625,10 +655,13 @@ body, html {
     align-items: center;
     z-index: 3000;
     padding: 15px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
 }
 
 .modal-overlay.active {
     display: flex;
+    opacity: 1;
 }
 
 .modal-card {
@@ -640,6 +673,12 @@ body, html {
     max-width: 700px;
     max-height: 85vh;
     overflow-y: auto;
+    transform: scale(0.96) translateY(8px);
+    transition: transform 0.2s ease;
+}
+
+.modal-overlay.active .modal-card {
+    transform: scale(1) translateY(0);
 }
 
 .modal-header {
@@ -1625,5 +1664,20 @@ body, html {
     .info-nav-btn {
         width: 100%;
         text-align: center;
+    }
+}
+
+/* ==========================================================================
+   УВАЖЕНИЕ К prefers-reduced-motion
+   Для пользователей/устройств, которым лишние анимации мешают или
+   нагружают слабое железо - отключаем декоративные эффекты, оставляя
+   только мгновенные состояния.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
     }
 }
