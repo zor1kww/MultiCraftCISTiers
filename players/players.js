@@ -644,7 +644,7 @@ const players = [
     },
     {
         name: "_Xx_deras_xX",
-        region: "UA",
+        region: "RU",
         tiers: {
             "Emerald Pot": {
                 tier: "LT2",
@@ -667,8 +667,8 @@ const players = [
                 retired: false
             },
             RVM: {
-                tier: "LT2",
-                date: "2026-08-18",
+                tier: "HT3",
+                date: "2026-08-31",
                 retired: false
             },
             Emerald: {
@@ -734,9 +734,25 @@ const players = [
                 scoreOpponent: 5,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-08-31",
+                kit: "RVM",
+                opponent: "DzIla_EDITSmob",
+                tierBefore: "LT2",
+                tierAfter: "HT3",
+                scorePlayer: 2,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
             }
         ],
-        penaltyByKit: {}
+        penaltyByKit: {
+            RVM: {
+                points: 1.0,
+                firstPenaltyDate: "2026-08-31"
+            }
+        }
     },
     {
         name: "2b2tPE",
@@ -3242,6 +3258,17 @@ const players = [
                 tierAfter: "LT2",
                 scorePlayer: 4,
                 scoreOpponent: 3,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-31",
+                kit: "RVM",
+                opponent: "_Xx_deras_xX",
+                tierBefore: "LT2",
+                tierAfter: "LT2",
+                scorePlayer: 4,
+                scoreOpponent: 2,
                 winner: "player",
                 comment: null
             }
