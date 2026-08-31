@@ -815,8 +815,8 @@ const players = [
                 retired: false
             },
             Hardcore: {
-                tier: "HT4",
-                date: "2026-08-18",
+                tier: "LT2",
+                date: "2026-08-31",
                 retired: false
             },
             SMP: {
@@ -883,6 +883,17 @@ const players = [
                 tierBefore: "HT4",
                 tierAfter: "LT3",
                 scorePlayer: 2,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-08-31",
+                kit: "Hardcore",
+                opponent: "DzIla_EDITSmob",
+                tierBefore: "HT4",
+                tierAfter: "LT2",
+                scorePlayer: 3,
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
@@ -3269,6 +3280,17 @@ const players = [
                 tierAfter: "LT2",
                 scorePlayer: 4,
                 scoreOpponent: 2,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-31",
+                kit: "Hardcore",
+                opponent: "The_FV4005",
+                tierBefore: "LT2",
+                tierAfter: "LT2",
+                scorePlayer: 4,
+                scoreOpponent: 3,
                 winner: "player",
                 comment: null
             }
