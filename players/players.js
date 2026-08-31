@@ -76,6 +76,17 @@ const players = [
                 scorePlayer: 16,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-08-31",
+                kit: "Diamond Pot",
+                opponent: "DzIla_EDITSmob",
+                tierBefore: "HT1",
+                tierAfter: "HT1",
+                scorePlayer: 11,
+                scoreOpponent: 7,
+                winner: "player",
+                comment: null
             }
         ],
         penaltyByKit: {}
@@ -3165,8 +3176,8 @@ const players = [
                 retired: false
             },
             "Diamond Pot": {
-                tier: "HT2",
-                date: "2026-08-18",
+                tier: "LT1",
+                date: "2026-08-31",
                 retired: false
             },
             Emerald: {
@@ -3292,6 +3303,17 @@ const players = [
                 scorePlayer: 4,
                 scoreOpponent: 3,
                 winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-08-31",
+                kit: "Diamond Pot",
+                opponent: "Sneger",
+                tierBefore: "HT2",
+                tierAfter: "LT1",
+                scorePlayer: 7,
+                scoreOpponent: 11,
+                winner: "opponent",
                 comment: null
             }
         ],
