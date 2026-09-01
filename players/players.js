@@ -655,7 +655,7 @@ const players = [
     },
     {
         name: "_Xx_deras_xX",
-        region: "RU",
+        region: "UA",
         tiers: {
             "Emerald Pot": {
                 tier: "LT2",
@@ -1137,7 +1137,7 @@ const players = [
     },
     {
         name: "ZirtMobile",
-        region: "UA",
+        region: "RU",
         tiers: {
             RVM: {
                 tier: "LT2",
@@ -3321,7 +3321,7 @@ const players = [
     },
     {
         name: "AMORE",
-        region: "RU",
+        region: "UA",
         tiers: {
             Hardcore: {
                 tier: "LT4",
