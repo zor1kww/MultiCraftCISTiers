@@ -266,7 +266,7 @@ function getMetaTierTag(tier, isRetired = false) {
 function isTester(playerName) {
     if (!playerName) return false;
     const nameLower = playerName.toLowerCase();
-    const testers = ["-999-", "zor1kkqwix", "_xx_deras_xx", "-back-"];
+    const testers = ["-999-", "zor1kkqwix", "dzila_editsmob", "-back-"];
     return testers.includes(nameLower);
 }
 
@@ -510,10 +510,6 @@ function renderPlayers() {
         return;
     }
 
-    // Хайлайт: подсвечиваем карточку, если поиск сузил список до ровно
-    // одного игрока (значит, пользователь, скорее всего, нашёл того, кого искал)
-    const shouldHighlightSearchMatch = search.length >= 2 && filtered.length === 1;
-
     const filteredJSON = encodeURIComponent(JSON.stringify(filtered));
     let htmlFragment = '';
 
@@ -642,7 +638,7 @@ function renderPlayers() {
         }
 
         htmlFragment += `
-        <div class="player-container ${topClass}${shouldHighlightSearchMatch ? ' search-match-highlight' : ''}">
+        <div class="player-container ${topClass}">
             <div class="player-card-row" onclick="openProfile(${index}, '${filteredJSON}')">
                 
                 <div class="player-name-block">
@@ -845,38 +841,6 @@ if (menuBtn && sidebar) {
         }
     });
 }
-
-// ==========================================
-// КНОПКА "НАВЕРХ"
-// Появляется после прокрутки вниз, плавно скроллит страницу к началу
-// ==========================================
-function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-(function initBackToTopButton() {
-    const btn = document.getElementById('backToTopBtn');
-    if (!btn) return;
-
-    const SHOW_AFTER_PX = 400;
-    let ticking = false;
-
-    function updateVisibility() {
-        if (window.scrollY > SHOW_AFTER_PX) {
-            btn.classList.add('visible');
-        } else {
-            btn.classList.remove('visible');
-        }
-        ticking = false;
-    }
-
-    window.addEventListener('scroll', () => {
-        if (!ticking) {
-            window.requestAnimationFrame(updateVisibility);
-            ticking = true;
-        }
-    }, { passive: true });
-})();
 
 // Привязка обработчиков событий ввода
 document.addEventListener('DOMContentLoaded', () => {
