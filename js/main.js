@@ -266,7 +266,7 @@ function getMetaTierTag(tier, isRetired = false) {
 function isTester(playerName) {
     if (!playerName) return false;
     const nameLower = playerName.toLowerCase();
-    const testers = ["-999-", "zor1kkqwix", "dzila_editsmob", "-back-"];
+    const testers = ["-999-", "zor1kkqwix", "_xx_deras_xx", "-back-"];
     return testers.includes(nameLower);
 }
 
@@ -977,8 +977,12 @@ function normalizeDuelEntry(entry) {
 function collectGlobalDuels() {
     if (typeof players === 'undefined' || !Array.isArray(players)) return [];
 
-    const seen = new Set();
-    const result = [];
+    // Собираем ВСЕ стороны всех дуэлей (обе копии - и "Игрока", и
+    // "Оппонента" из шаблона бота), группируя по уникальному ключу
+    // дуэли. Затем для каждой дуэли выбираем ОДНУ сторону для показа -
+    // ту, что соответствует "Игроку" (тестируемому), а не первую
+    // попавшуюся при переборе списка players.
+    const byKey = new Map();
 
     players.forEach(player => {
         const history = Array.isArray(player.matchHistory) ? player.matchHistory : [];
@@ -989,14 +993,34 @@ function collectGlobalDuels() {
 
             const namesKey = [player.name, entry.opponent].sort().join('|');
             const key = `${entry.kit}|${entry.date}|${namesKey}|${[entry.scorePlayer, entry.scoreOpponent].sort().join('-')}`;
-            if (seen.has(key)) return;
-            seen.add(key);
 
-            result.push({ ...entry, playerName: player.name });
+            const candidate = { ...entry, playerName: player.name };
+
+            if (!byKey.has(key)) {
+                byKey.set(key, candidate);
+                return;
+            }
+
+            // Уже есть одна сторона этой дуэли - решаем, какую из двух
+            // копий оставить. Сторона "Игрока" - та, где тир реально
+            // менялся (tierBefore !== tierAfter), включая
+            // квалификационные тесты (tierBefore пуст/Unranked, но
+            // tierAfter заполнен). Сторона "Оппонента" тир не меняет
+            // (tierBefore === tierAfter) - её предпочитаем не показывать,
+            // если есть более информативная альтернатива.
+            const existing = byKey.get(key);
+            const candidateIsTested = candidate.tierBefore !== candidate.tierAfter && !!candidate.tierAfter;
+            const existingIsTested = existing.tierBefore !== existing.tierAfter && !!existing.tierAfter;
+
+            if (candidateIsTested && !existingIsTested) {
+                byKey.set(key, candidate);
+            }
+            // Если обе или ни одна сторона не показывают смену тира -
+            // оставляем ту, что уже есть (первая встреченная), менять смысла нет.
         });
     });
 
-    return result;
+    return Array.from(byKey.values());
 }
 
 // Строит HTML-блок с рангами дуэли (предыдущий → полученный), если они
