@@ -60,6 +60,7 @@ from tier_logic import (
 from penalty_logic import apply_penalty_for_duel, next_tier_down, add_penalty_to_entry
 from result_queue import ResultQueue
 import github_storage
+import admin_panel
 
 
 # ==========================================
@@ -385,6 +386,9 @@ if __name__ == '__main__':
     print("Запуск очереди обработки результатов...")
     result_queue._on_task_error = handle_processing_error
     result_queue.start()
+
+    print("Регистрация панели администратора...")
+    admin_panel.register(bot, GH_REPO, GH_TOKEN)
 
     print("Бот успешно запущен. Слушаю группу тестеров...")
     bot.infinity_polling()
