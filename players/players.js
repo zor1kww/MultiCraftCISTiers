@@ -2359,6 +2359,17 @@ const players = [
                 scoreOpponent: 3,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-12",
+                kit: "Beast",
+                opponent: "Aura",
+                tierBefore: "HT2",
+                tierAfter: "HT2",
+                scorePlayer: 1,
+                scoreOpponent: 6,
+                winner: "opponent",
+                comment: null
             }
         ],
         penaltyByKit: {
@@ -2369,6 +2380,10 @@ const players = [
             "Diamond Pot": {
                 points: 1,
                 firstPenaltyDate: "2026-08-27"
+            },
+            Beast: {
+                points: 1.6,
+                firstPenaltyDate: "2026-09-12"
             }
         }
     },
@@ -3161,8 +3176,8 @@ const players = [
                 retired: false
             },
             Beast: {
-                tier: "LT2",
-                date: "2026-08-18",
+                tier: "LT1",
+                date: "2026-09-12",
                 retired: false
             },
             "Diamond Pot": {
@@ -3282,6 +3297,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "opponent",
                 comment: "Автопонижение: накоплено 2 штрафных очка"
+            },
+            {
+                date: "2026-09-12",
+                kit: "Beast",
+                opponent: "Prosto_oleg100-7",
+                tierBefore: "HT2",
+                tierAfter: "LT1",
+                scorePlayer: 6,
+                scoreOpponent: 1,
+                winner: "player",
+                comment: null
             }
         ],
         penaltyByKit: {
