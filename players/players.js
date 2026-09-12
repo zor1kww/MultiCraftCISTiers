@@ -26,7 +26,7 @@ const players = [
             Beast: {
                 tier: "LT1",
                 date: "2026-08-21",
-                retired: false
+                retired: true
             },
             Pickaxe: {
                 tier: "LT1",
