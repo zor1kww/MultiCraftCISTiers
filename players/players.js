@@ -2144,8 +2144,8 @@ const players = [
                 retired: false
             },
             "Diamond Pot": {
-                tier: "LT2",
-                date: "2026-08-27",
+                tier: "LT1",
+                date: "2026-09-12",
                 retired: false
             },
             Beast: {
@@ -2369,6 +2369,17 @@ const players = [
                 scorePlayer: 1,
                 scoreOpponent: 6,
                 winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-12",
+                kit: "Diamond Pot",
+                opponent: "Aura",
+                tierBefore: "HT2",
+                tierAfter: "LT1",
+                scorePlayer: 4,
+                scoreOpponent: 2,
+                winner: "player",
                 comment: null
             }
         ],
@@ -3307,6 +3318,17 @@ const players = [
                 scorePlayer: 6,
                 scoreOpponent: 1,
                 winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-09-12",
+                kit: "Diamond Pot",
+                opponent: "Prosto_oleg100-7",
+                tierBefore: "LT2",
+                tierAfter: "LT2",
+                scorePlayer: 2,
+                scoreOpponent: 4,
+                winner: "opponent",
                 comment: null
             }
         ],
