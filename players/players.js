@@ -1836,27 +1836,6 @@ const players = [
         }
     },
     {
-        name: "DzIla_EDITS",
-        region: "RU",
-        tiers: {
-            Beast: {
-                tier: "LT3",
-                date: "2026-08-18",
-                retired: false
-            },
-            "Emerald Pot": {
-                tier: "LT3",
-                date: "2026-08-18",
-                retired: false
-            },
-            SMP: {
-                tier: "LT3",
-                date: "2026-08-18",
-                retired: false
-            }
-        }
-    },
-    {
         name: "boy",
         region: "UA",
         tiers: {
