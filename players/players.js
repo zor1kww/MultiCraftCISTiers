@@ -1670,6 +1670,17 @@ const players = [
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
+            },
+            {
+                date: "2026-09-12",
+                kit: "RVM",
+                opponent: "YTdrumv",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 4,
+                scoreOpponent: 1,
+                winner: "player",
+                comment: null
             }
         ],
         penaltyByKit: {
@@ -3748,6 +3759,11 @@ const players = [
                 tier: "LT4",
                 date: "2026-08-18",
                 retired: false
+            },
+            RVM: {
+                tier: "LT4",
+                date: "2026-09-12",
+                retired: false
             }
         },
         matchHistory: [
@@ -3770,6 +3786,17 @@ const players = [
                 tierAfter: "HT4",
                 scorePlayer: 0,
                 scoreOpponent: 3,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-12",
+                kit: "RVM",
+                opponent: "-BaCk-",
+                tierBefore: "Unranked",
+                tierAfter: "LT4",
+                scorePlayer: 1,
+                scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
             }
