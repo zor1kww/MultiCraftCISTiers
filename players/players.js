@@ -51,7 +51,7 @@ const players = [
             SMP: {
                 tier: "LT1",
                 date: "2026-08-18",
-                retired: true
+                retired: false
             },
             Gapple: {
                 tier: "LT1",
