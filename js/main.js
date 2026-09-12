@@ -266,7 +266,7 @@ function getMetaTierTag(tier, isRetired = false) {
 function isTester(playerName) {
     if (!playerName) return false;
     const nameLower = playerName.toLowerCase();
-    const testers = ["-999-", "_xx_deras_xx", "-back-"];
+    const testers = ["-999-", "dzila_editsmob", "-back-"];
     return testers.includes(nameLower);
 }
 
