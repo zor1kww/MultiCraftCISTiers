@@ -1681,6 +1681,17 @@ const players = [
                 scoreOpponent: 1,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-12",
+                kit: "Dragonhide",
+                opponent: "YTdrumv",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 5,
+                scoreOpponent: 6,
+                winner: "opponent",
+                comment: null
             }
         ],
         penaltyByKit: {
@@ -3716,8 +3727,8 @@ const players = [
                 retired: false
             },
             Dragonhide: {
-                tier: "HT5",
-                date: "2026-08-18",
+                tier: "LT3",
+                date: "2026-09-12",
                 retired: false
             },
             "Diamond Pot": {
@@ -3798,6 +3809,17 @@ const players = [
                 scorePlayer: 1,
                 scoreOpponent: 4,
                 winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-12",
+                kit: "Dragonhide",
+                opponent: "-BaCk-",
+                tierBefore: "HT5",
+                tierAfter: "LT3",
+                scorePlayer: 6,
+                scoreOpponent: 5,
+                winner: "player",
                 comment: null
             }
         ],
