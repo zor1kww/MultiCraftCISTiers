@@ -624,6 +624,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-12",
+                kit: "Diamond Pot",
+                opponent: "YTdrumv",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 2,
+                scoreOpponent: 2,
+                winner: "player",
+                comment: null
             }
         ]
     },
@@ -3732,8 +3743,8 @@ const players = [
                 retired: false
             },
             "Diamond Pot": {
-                tier: "HT5",
-                date: "2026-08-18",
+                tier: "HT4",
+                date: "2026-09-12",
                 retired: false
             },
             Hardcore: {
@@ -3820,6 +3831,17 @@ const players = [
                 scorePlayer: 6,
                 scoreOpponent: 5,
                 winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-09-12",
+                kit: "Diamond Pot",
+                opponent: "zor1kkqwix",
+                tierBefore: "HT5",
+                tierAfter: "HT4",
+                scorePlayer: 2,
+                scoreOpponent: 2,
+                winner: "opponent",
                 comment: null
             }
         ],
