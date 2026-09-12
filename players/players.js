@@ -4420,25 +4420,6 @@ const players = [
         penaltyByKit: {}
     },
     {
-        name: "DzIla_EDITmob",
-        region: "",
-        tiers: {},
-        matchHistory: [
-            {
-                date: "2026-08-29",
-                kit: "Hardcore",
-                opponent: "firary67",
-                tierBefore: null,
-                tierAfter: null,
-                scorePlayer: 4,
-                scoreOpponent: 3,
-                winner: "player",
-                comment: null
-            }
-        ],
-        penaltyByKit: {}
-    },
-    {
         name: "heliN193",
         region: "BY",
         tiers: {
