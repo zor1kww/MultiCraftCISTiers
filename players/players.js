@@ -36,7 +36,7 @@ const players = [
             Emerald: {
                 tier: "LT1",
                 date: "2026-08-21",
-                retired: false
+                retired: true
             },
             "Diamond Pot": {
                 tier: "HT1",
