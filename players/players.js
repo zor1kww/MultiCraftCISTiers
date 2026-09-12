@@ -740,8 +740,8 @@ const players = [
                 retired: false
             },
             "Diamond Pot": {
-                tier: "HT2",
-                date: "2026-08-18",
+                tier: "LT1",
+                date: "2026-09-12",
                 retired: false
             }
         },
@@ -777,6 +777,17 @@ const players = [
                 scorePlayer: 2,
                 scoreOpponent: 4,
                 winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-12",
+                kit: "Diamond Pot",
+                opponent: "Aura",
+                tierBefore: "HT2",
+                tierAfter: "LT1",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
                 comment: null
             }
         ],
@@ -3086,8 +3097,8 @@ const players = [
                 retired: false
             },
             "Diamond Pot": {
-                tier: "HT2",
-                date: "2026-08-18",
+                tier: "LT2",
+                date: "2026-09-12",
                 retired: false
             },
             SMP: {
@@ -3180,9 +3191,36 @@ const players = [
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
+            },
+            {
+                date: "2026-09-12",
+                kit: "Diamond Pot",
+                opponent: "_Xx_deras_xX",
+                tierBefore: "HT2",
+                tierAfter: "HT2",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-12",
+                kit: "Diamond Pot",
+                opponent: "система",
+                tierBefore: "HT2",
+                tierAfter: "LT2",
+                scorePlayer: 0,
+                scoreOpponent: 0,
+                winner: "opponent",
+                comment: "Автопонижение: накоплено 2 штрафных очка"
             }
         ],
-        penaltyByKit: {}
+        penaltyByKit: {
+            "Diamond Pot": {
+                points: 0.0,
+                firstPenaltyDate: "2026-09-12"
+            }
+        }
     },
     {
         name: "Topor",
