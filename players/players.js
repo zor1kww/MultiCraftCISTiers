@@ -16,7 +16,7 @@ const players = [
             Hardcore: {
                 tier: "LT1",
                 date: "2026-08-18",
-                retired: false
+                retired: true
             },
             "Emerald Pot": {
                 tier: "LT1",
