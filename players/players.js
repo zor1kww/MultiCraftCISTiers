@@ -1735,6 +1735,17 @@ const players = [
                 scoreOpponent: 6,
                 winner: "opponent",
                 comment: null
+            },
+            {
+                date: "2026-09-12",
+                kit: "RVM",
+                opponent: "SoLoGeMs",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null
             }
         ],
         penaltyByKit: {
@@ -4185,7 +4196,7 @@ const players = [
             },
             RVM: {
                 tier: "LT5",
-                date: "2026-08-21",
+                date: "2026-09-12",
                 retired: false
             },
             Pickaxe: {
@@ -4203,7 +4214,21 @@ const players = [
                 date: "2026-08-21",
                 retired: false
             }
-        }
+        },
+        matchHistory: [
+            {
+                date: "2026-09-12",
+                kit: "RVM",
+                opponent: "-BaCk-",
+                tierBefore: "Unranked",
+                tierAfter: "LT5",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
     },
     {
         name: "meker_pvp",
