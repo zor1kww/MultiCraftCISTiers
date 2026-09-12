@@ -645,6 +645,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-12",
+                kit: "Crystal",
+                opponent: "_-XKakTakX-_",
+                tierBefore: "HT1",
+                tierAfter: "HT1",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null
             }
         ]
     },
@@ -2035,6 +2046,28 @@ const players = [
                 scorePlayer: 2,
                 winner: "tester",
                 comment: null
+            },
+            {
+                date: "2026-09-12",
+                kit: "Crystal",
+                opponent: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "HT2",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-12",
+                kit: "Crystal",
+                opponent: "система",
+                tierBefore: "HT2",
+                tierAfter: "LT2",
+                scorePlayer: 0,
+                scoreOpponent: 0,
+                winner: "opponent",
+                comment: "Автопонижение: накоплено 2 штрафных очка"
             },
             {
                 date: "2026-09-12",
