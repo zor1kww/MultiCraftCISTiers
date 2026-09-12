@@ -6,7 +6,7 @@ const players = [
             Crystal: {
                 tier: "LT1",
                 date: "2026-08-18",
-                retired: false
+                retired: true
             },
             Mace: {
                 tier: "HT1",
