@@ -194,6 +194,17 @@ const players = [
                 scorePlayer: 3,
                 winner: "tester",
                 comment: null
+            },
+            {
+                date: "2026-09-12",
+                kit: "Hardcore",
+                opponent: "YTdrumv",
+                tierBefore: "HT1",
+                tierAfter: "HT1",
+                scorePlayer: 3,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null
             }
         ],
         penaltyByKit: {}
@@ -3704,8 +3715,8 @@ const players = [
                 retired: false
             },
             Hardcore: {
-                tier: "LT5",
-                date: "2026-08-18",
+                tier: "HT4",
+                date: "2026-09-12",
                 retired: false
             },
             Pickaxe: {
@@ -3746,6 +3757,17 @@ const players = [
                 opponent: "zor1kkqwix",
                 tierBefore: "LT5",
                 tierAfter: "LT4",
+                scorePlayer: 0,
+                scoreOpponent: 3,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-12",
+                kit: "Hardcore",
+                opponent: "-999-",
+                tierBefore: "LT5",
+                tierAfter: "HT4",
                 scorePlayer: 0,
                 scoreOpponent: 3,
                 winner: "opponent",
