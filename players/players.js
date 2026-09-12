@@ -46,7 +46,7 @@ const players = [
             Combo: {
                 tier: "LT1",
                 date: "2026-08-18",
-                retired: false
+                retired: true
             },
             SMP: {
                 tier: "LT1",
