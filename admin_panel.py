@@ -7,12 +7,19 @@
 другой пользователь, даже если напишет боту в ЛС, получит отказ.
 
 Поддерживаемые действия (все - через кнопки, без ввода текстовых команд,
-кроме случаев, где текст неизбежен - новое имя, новый регион):
+кроме случаев, где текст неизбежен - новое имя, новый регион, точное
+число штрафных очков):
   - Изменить тир игрока на ките
   - Переименовать игрока
   - Удалить игрока
   - Сменить регион
   - Поставить/снять Retired на ките
+  - Заморозить/разморозить ВСЕ HT1-HT3 киты игрока разом (одной кнопкой)
+  - Штрафные очки на ките: +0.5 / -0.5 или точное число, с тем же
+    авто-понижением при достижении PENALTY_DEMOTION_THRESHOLD, что и при
+    обычном начислении штрафа за тест
+  - Просмотр/редактирование/удаление конкретной записи в логе дуэлей
+    игрока (поиск по киту и дате из его собственной matchHistory)
 
 Архитектура:
   - Всё состояние диалога (кто, на каком шаге, что уже выбрано) живёт в
@@ -27,6 +34,10 @@
   - Список игроков для выбора берётся заново с GitHub при каждом входе в
     /admin (не кэшируется), чтобы админ всегда видел актуальное состояние
     базы, даже если бот только что обработал чей-то результат.
+  - Штрафная логика переиспользует penalty_logic.add_penalty_to_entry и
+    penalty_logic.next_tier_down - те же функции, что использует основной
+    поток бота при обычном начислении штрафа за тест, чтобы поведение не
+    расходилось между "штраф за тест" и "штраф вручную через панель".
 
 Подключение в main.py:
     import admin_panel
@@ -37,7 +48,9 @@ import telebot
 from telebot import types
 
 import github_storage
-from bot_config import TIER_ORDER, RETIRED_ELIGIBLE_TIERS
+from bot_config import TIER_ORDER, RETIRED_ELIGIBLE_TIERS, PENALTY_DEMOTION_THRESHOLD
+from penalty_logic import add_penalty_to_entry, next_tier_down
+from tier_logic import today_str
 
 
 # ==========================================
@@ -129,6 +142,21 @@ def _find_player(players_list, name):
     return None
 
 
+def _eligible_kits_for_freeze(player):
+    """
+    Возвращает список (kit, tier) для китов игрока, чей тир входит в
+    RETIRED_ELIGIBLE_TIERS (HT1-HT3) - именно эти киты можно
+    заморозить/разморозить массово одной кнопкой. Киты ниже HT3 не
+    поддерживают Retired на сайте (см. parseTierInfo во фронтенде) и
+    сюда не попадают.
+    """
+    result = []
+    for kit, data in player.get('tiers', {}).items():
+        if data.get('tier') in RETIRED_ELIGIBLE_TIERS:
+            result.append((kit, data.get('tier')))
+    return result
+
+
 # ==========================================
 # ПОСТРОЕНИЕ КЛАВИАТУР
 # ==========================================
@@ -140,6 +168,10 @@ def _main_menu_keyboard():
         types.InlineKeyboardButton("✏️ Переименовать игрока", callback_data="admin:action:rename"),
         types.InlineKeyboardButton("🌍 Сменить регион", callback_data="admin:action:set_region"),
         types.InlineKeyboardButton("🧊 Retired (вкл/выкл)", callback_data="admin:action:toggle_retired"),
+        types.InlineKeyboardButton("❄️ Заморозить все HT1-HT3", callback_data="admin:action:freeze_all"),
+        types.InlineKeyboardButton("🔥 Разморозить все HT1-HT3", callback_data="admin:action:unfreeze_all"),
+        types.InlineKeyboardButton("⚠️ Штрафные очки", callback_data="admin:action:penalty"),
+        types.InlineKeyboardButton("📜 Лог дуэлей", callback_data="admin:action:duel_log"),
         types.InlineKeyboardButton("🗑 Удалить игрока", callback_data="admin:action:delete"),
     )
     return kb
@@ -202,6 +234,75 @@ def _confirm_keyboard(yes_callback, no_callback="admin:menu"):
     kb.add(
         types.InlineKeyboardButton("✅ Подтвердить", callback_data=yes_callback),
         types.InlineKeyboardButton("❌ Отмена", callback_data=no_callback),
+    )
+    return kb
+
+
+def _penalty_keyboard(player_name, kit):
+    kb = types.InlineKeyboardMarkup(row_width=2)
+    kb.add(
+        types.InlineKeyboardButton("+0.5", callback_data=_safe_callback(f"admin:penaltyadj:{player_name}:{kit}:0.5")),
+        types.InlineKeyboardButton("-0.5", callback_data=_safe_callback(f"admin:penaltyadj:{player_name}:{kit}:-0.5")),
+    )
+    kb.add(types.InlineKeyboardButton("✏️ Ввести точное число", callback_data=_safe_callback(f"admin:penaltyexact:{player_name}:{kit}")))
+    kb.add(types.InlineKeyboardButton("« Назад", callback_data="admin:menu"))
+    return kb
+
+
+def _distinct_dates_for_kit(player, kit):
+    """Уникальные даты записей matchHistory игрока по конкретному киту,
+    отсортированные по убыванию (сначала самые свежие)."""
+    dates = sorted({
+        entry.get('date') for entry in player.get('matchHistory', [])
+        if entry.get('kit') == kit and entry.get('date')
+    }, reverse=True)
+    return dates
+
+
+def _dates_keyboard(player_name, kit, dates):
+    kb = types.InlineKeyboardMarkup(row_width=2)
+    for d in dates[:20]:  # ограничиваем на случай очень длинной истории по киту
+        kb.add(types.InlineKeyboardButton(d, callback_data=_safe_callback(f"admin:duelddate:{player_name}:{kit}:{d}")))
+    kb.add(types.InlineKeyboardButton("« Назад", callback_data="admin:menu"))
+    return kb
+
+
+def _entries_for_kit_and_date(player, kit, date_str):
+    """Список (index, entry) записей matchHistory игрока, совпадающих по
+    киту и дате - для случаев, когда в один день было несколько дуэлей
+    по одному киту (например многодуэльный HT1-тест)."""
+    return [
+        (i, e) for i, e in enumerate(player.get('matchHistory', []))
+        if e.get('kit') == kit and e.get('date') == date_str
+    ]
+
+
+def _duel_entry_summary(entry):
+    """Короткое читаемое описание одной записи лога дуэлей для кнопки/сообщения."""
+    opponent = entry.get('opponent') or entry.get('tester') or '?'
+    score_player = entry.get('scorePlayer', '?')
+    score_opponent = entry.get('scoreOpponent', entry.get('scoreTester', '?'))
+    return f"vs {opponent} ({score_player}:{score_opponent})"
+
+
+def _entries_keyboard(player_name, kit, date_str, entries):
+    kb = types.InlineKeyboardMarkup(row_width=1)
+    for idx, entry in entries:
+        kb.add(types.InlineKeyboardButton(
+            _duel_entry_summary(entry),
+            callback_data=_safe_callback(f"admin:duelpick:{player_name}:{kit}:{date_str}:{idx}"),
+        ))
+    kb.add(types.InlineKeyboardButton("« Назад", callback_data="admin:menu"))
+    return kb
+
+
+def _duel_edit_keyboard(player_name, kit, date_str, idx):
+    kb = types.InlineKeyboardMarkup(row_width=1)
+    kb.add(
+        types.InlineKeyboardButton("✏️ Изменить счёт", callback_data=_safe_callback(f"admin:dueleditscore:{player_name}:{kit}:{date_str}:{idx}")),
+        types.InlineKeyboardButton("✏️ Изменить тир до/после", callback_data=_safe_callback(f"admin:dueledittier:{player_name}:{kit}:{date_str}:{idx}")),
+        types.InlineKeyboardButton("🗑 Удалить запись", callback_data=_safe_callback(f"admin:dueldelete:{player_name}:{kit}:{date_str}:{idx}")),
+        types.InlineKeyboardButton("« Назад", callback_data="admin:menu"),
     )
     return kb
 
@@ -277,6 +378,10 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
                 'rename': "Переименовать — выберите игрока:",
                 'set_region': "Сменить регион — выберите игрока:",
                 'toggle_retired': "Retired — выберите игрока:",
+                'freeze_all': "Заморозить все HT1-HT3 — выберите игрока:",
+                'unfreeze_all': "Разморозить все HT1-HT3 — выберите игрока:",
+                'penalty': "Штрафные очки — выберите игрока:",
+                'duel_log': "Лог дуэлей — выберите игрока:",
                 'delete': "Удалить — выберите игрока:",
             }.get(action, "Выберите игрока:")
 
@@ -355,6 +460,45 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
                     reply_markup=_confirm_keyboard(f"admin:confirm_delete:{player_name}"),
                     parse_mode='HTML',
                 )
+
+            elif action in ('freeze_all', 'unfreeze_all'):
+                players_list = _fetch_players(gh_repo, gh_token)
+                player = _find_player(players_list, player_name)
+                eligible_kits = _eligible_kits_for_freeze(player) if player else []
+
+                if not eligible_kits:
+                    bot.edit_message_text(
+                        f"⚠️ У игрока {player_name} нет китов в диапазоне "
+                        f"{', '.join(RETIRED_ELIGIBLE_TIERS)} - нечего "
+                        f"{'замораживать' if action == 'freeze_all' else 'размораживать'}.",
+                        call.message.chat.id, call.message.message_id,
+                        reply_markup=_main_menu_keyboard(),
+                    )
+                    return
+
+                verb = "заморозить" if action == 'freeze_all' else "разморозить"
+                kits_list = ", ".join(f"{kit} ({tier})" for kit, tier in eligible_kits)
+                bot.edit_message_text(
+                    f"{'❄️' if action == 'freeze_all' else '🔥'} {verb.capitalize()} у <b>{player_name}</b> "
+                    f"следующие киты: {kits_list}?",
+                    call.message.chat.id, call.message.message_id,
+                    reply_markup=_confirm_keyboard(f"admin:confirm_{action}:{player_name}"),
+                    parse_mode='HTML',
+                )
+
+            elif action == 'penalty':
+                bot.edit_message_text(
+                    f"Игрок: <b>{player_name}</b>\nВыберите кит:",
+                    call.message.chat.id, call.message.message_id,
+                    reply_markup=_kits_keyboard('penalty', player_name), parse_mode='HTML',
+                )
+
+            elif action == 'duel_log':
+                bot.edit_message_text(
+                    f"Игрок: <b>{player_name}</b>\nВыберите кит:",
+                    call.message.chat.id, call.message.message_id,
+                    reply_markup=_kits_keyboard('duel_log', player_name), parse_mode='HTML',
+                )
             return
 
         # ---- Выбор кита (для set_tier / toggle_retired) ----
@@ -416,6 +560,39 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
                     f"Готово. {player_name} / {kit} {status}.",
                     call.message.chat.id, call.message.message_id,
                     reply_markup=_main_menu_keyboard(),
+                )
+
+            elif action == 'penalty':
+                players_list = _fetch_players(gh_repo, gh_token)
+                player = _find_player(players_list, player_name)
+                current_points = 0.0
+                if player:
+                    current_points = player.get('penaltyByKit', {}).get(kit, {}).get('points', 0.0)
+                bot.edit_message_text(
+                    f"Игрок: <b>{player_name}</b>\nКит: <b>{kit}</b>\n"
+                    f"Текущие штрафные очки: <b>{current_points}</b>\n\n"
+                    f"Выберите действие:",
+                    call.message.chat.id, call.message.message_id,
+                    reply_markup=_penalty_keyboard(player_name, kit), parse_mode='HTML',
+                )
+
+            elif action == 'duel_log':
+                players_list = _fetch_players(gh_repo, gh_token)
+                player = _find_player(players_list, player_name)
+                dates = _distinct_dates_for_kit(player, kit) if player else []
+
+                if not dates:
+                    bot.edit_message_text(
+                        f"⚠️ У игрока {player_name} нет записей в логе дуэлей по киту {kit}.",
+                        call.message.chat.id, call.message.message_id,
+                        reply_markup=_main_menu_keyboard(),
+                    )
+                    return
+
+                bot.edit_message_text(
+                    f"Игрок: <b>{player_name}</b>\nКит: <b>{kit}</b>\nВыберите дату записи:",
+                    call.message.chat.id, call.message.message_id,
+                    reply_markup=_dates_keyboard(player_name, kit, dates), parse_mode='HTML',
                 )
             return
 
@@ -551,6 +728,279 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
             reply_markup=_main_menu_keyboard(),
         )
 
+    # -------------------- Заморозка/разморозка всех HT1-HT3 китов разом --------------------
+
+    @bot.callback_query_handler(func=lambda c: c.data.startswith('admin:confirm_freeze_all:'))
+    def handle_confirm_freeze_all(call):
+        if not is_admin(call.from_user.id):
+            bot.answer_callback_query(call.id, "⛔ Нет доступа", show_alert=True)
+            return
+        bot.answer_callback_query(call.id)
+        player_name = call.data.split(':', 2)[2]
+        ok = _apply_mutation(
+            gh_repo, gh_token,
+            lambda players_list, pn=player_name: _mutate_freeze_all(players_list, pn, True),
+            f"Админ-панель: заморожены все HT1-HT3 киты у {player_name}",
+            bot=bot, chat_id=call.message.chat.id, message_id=call.message.message_id,
+        )
+        if not ok:
+            return
+        bot.edit_message_text(
+            f"❄️ Готово. У {player_name} заморожены все киты в диапазоне {', '.join(RETIRED_ELIGIBLE_TIERS)}.",
+            call.message.chat.id, call.message.message_id,
+            reply_markup=_main_menu_keyboard(),
+        )
+
+    @bot.callback_query_handler(func=lambda c: c.data.startswith('admin:confirm_unfreeze_all:'))
+    def handle_confirm_unfreeze_all(call):
+        if not is_admin(call.from_user.id):
+            bot.answer_callback_query(call.id, "⛔ Нет доступа", show_alert=True)
+            return
+        bot.answer_callback_query(call.id)
+        player_name = call.data.split(':', 2)[2]
+        ok = _apply_mutation(
+            gh_repo, gh_token,
+            lambda players_list, pn=player_name: _mutate_freeze_all(players_list, pn, False),
+            f"Админ-панель: разморожены все HT1-HT3 киты у {player_name}",
+            bot=bot, chat_id=call.message.chat.id, message_id=call.message.message_id,
+        )
+        if not ok:
+            return
+        bot.edit_message_text(
+            f"🔥 Готово. У {player_name} сняты Retired со всех китов в диапазоне {', '.join(RETIRED_ELIGIBLE_TIERS)}.",
+            call.message.chat.id, call.message.message_id,
+            reply_markup=_main_menu_keyboard(),
+        )
+
+    # -------------------- Штрафные очки --------------------
+
+    @bot.callback_query_handler(func=lambda c: c.data.startswith('admin:penaltyadj:'))
+    def handle_penalty_adjust(call):
+        if not is_admin(call.from_user.id):
+            bot.answer_callback_query(call.id, "⛔ Нет доступа", show_alert=True)
+            return
+        bot.answer_callback_query(call.id)
+        _, _, player_name, kit, delta_str = call.data.split(':', 4)
+        delta = float(delta_str)
+        _apply_penalty_change(bot, gh_repo, gh_token, call.message.chat.id, call.message.message_id, player_name, kit, delta)
+
+    @bot.callback_query_handler(func=lambda c: c.data.startswith('admin:penaltyexact:'))
+    def handle_penalty_exact_request(call):
+        if not is_admin(call.from_user.id):
+            bot.answer_callback_query(call.id, "⛔ Нет доступа", show_alert=True)
+            return
+        bot.answer_callback_query(call.id)
+        _, _, player_name, kit = call.data.split(':', 3)
+        msg = bot.edit_message_text(
+            f"Игрок: <b>{player_name}</b>\nКит: <b>{kit}</b>\n"
+            f"Отправьте новое значение штрафных очков (например 1.5):",
+            call.message.chat.id, call.message.message_id, parse_mode='HTML',
+        )
+        bot.register_next_step_handler(msg, _handle_penalty_exact_input, gh_repo, gh_token, player_name, kit)
+
+    def _handle_penalty_exact_input(message, gh_repo, gh_token, player_name, kit):
+        if not is_admin(message.from_user.id):
+            return
+        try:
+            new_value = float(message.text.strip().replace(',', '.'))
+        except ValueError:
+            bot.send_message(message.chat.id, "⚠️ Не удалось распознать число. Повторите /admin.")
+            return
+        _apply_penalty_set(bot, gh_repo, gh_token, message.chat.id, None, player_name, kit, new_value)
+
+    # -------------------- Лог дуэлей: выбор даты / записи --------------------
+
+    @bot.callback_query_handler(func=lambda c: c.data.startswith('admin:duelddate:'))
+    def handle_duel_date(call):
+        if not is_admin(call.from_user.id):
+            bot.answer_callback_query(call.id, "⛔ Нет доступа", show_alert=True)
+            return
+        bot.answer_callback_query(call.id)
+        _, _, player_name, kit, date_str = call.data.split(':', 4)
+
+        players_list = _fetch_players(gh_repo, gh_token)
+        player = _find_player(players_list, player_name)
+        entries = _entries_for_kit_and_date(player, kit, date_str) if player else []
+
+        if not entries:
+            bot.edit_message_text(
+                "⚠️ Записи не найдены (возможно, база изменилась). Начните заново через /admin.",
+                call.message.chat.id, call.message.message_id,
+                reply_markup=_main_menu_keyboard(),
+            )
+            return
+
+        if len(entries) == 1:
+            idx, entry = entries[0]
+            bot.edit_message_text(
+                _format_duel_entry(player_name, kit, date_str, entry),
+                call.message.chat.id, call.message.message_id,
+                reply_markup=_duel_edit_keyboard(player_name, kit, date_str, idx), parse_mode='HTML',
+            )
+        else:
+            bot.edit_message_text(
+                f"Найдено {len(entries)} записей за {date_str}. Выберите нужную:",
+                call.message.chat.id, call.message.message_id,
+                reply_markup=_entries_keyboard(player_name, kit, date_str, entries),
+            )
+
+    @bot.callback_query_handler(func=lambda c: c.data.startswith('admin:duelpick:'))
+    def handle_duel_pick(call):
+        if not is_admin(call.from_user.id):
+            bot.answer_callback_query(call.id, "⛔ Нет доступа", show_alert=True)
+            return
+        bot.answer_callback_query(call.id)
+        _, _, player_name, kit, date_str, idx_str = call.data.split(':', 5)
+        idx = int(idx_str)
+
+        players_list = _fetch_players(gh_repo, gh_token)
+        player = _find_player(players_list, player_name)
+        entry = player['matchHistory'][idx] if player and idx < len(player.get('matchHistory', [])) else None
+
+        if not entry:
+            bot.edit_message_text(
+                "⚠️ Запись не найдена (возможно, база изменилась). Начните заново через /admin.",
+                call.message.chat.id, call.message.message_id,
+                reply_markup=_main_menu_keyboard(),
+            )
+            return
+
+        bot.edit_message_text(
+            _format_duel_entry(player_name, kit, date_str, entry),
+            call.message.chat.id, call.message.message_id,
+            reply_markup=_duel_edit_keyboard(player_name, kit, date_str, idx), parse_mode='HTML',
+        )
+
+    # -------------------- Лог дуэлей: удаление записи --------------------
+
+    @bot.callback_query_handler(func=lambda c: c.data.startswith('admin:dueldelete:'))
+    def handle_duel_delete(call):
+        if not is_admin(call.from_user.id):
+            bot.answer_callback_query(call.id, "⛔ Нет доступа", show_alert=True)
+            return
+        bot.answer_callback_query(call.id)
+        _, _, player_name, kit, date_str, idx_str = call.data.split(':', 5)
+        try:
+            confirm_data = _safe_callback(f"admin:confirm_dueldelete:{player_name}:{kit}:{date_str}:{idx_str}")
+        except ValueError:
+            bot.edit_message_text(
+                "⚠️ Слишком длинное имя игрока/кита для этого меню. Обратитесь к разработчику.",
+                call.message.chat.id, call.message.message_id,
+                reply_markup=_main_menu_keyboard(),
+            )
+            return
+        bot.edit_message_text(
+            f"⚠️ Удалить эту запись из лога дуэлей {player_name} безвозвратно?",
+            call.message.chat.id, call.message.message_id,
+            reply_markup=_confirm_keyboard(confirm_data),
+        )
+
+    @bot.callback_query_handler(func=lambda c: c.data.startswith('admin:confirm_dueldelete:'))
+    def handle_confirm_duel_delete(call):
+        if not is_admin(call.from_user.id):
+            bot.answer_callback_query(call.id, "⛔ Нет доступа", show_alert=True)
+            return
+        bot.answer_callback_query(call.id)
+        _, _, player_name, kit, date_str, idx_str = call.data.split(':', 5)
+        idx = int(idx_str)
+        ok = _apply_mutation(
+            gh_repo, gh_token,
+            lambda players_list, pn=player_name, i=idx: _mutate_delete_duel_entry(players_list, pn, i),
+            f"Админ-панель: удалена запись лога дуэлей у {player_name} ({kit}, {date_str})",
+            bot=bot, chat_id=call.message.chat.id, message_id=call.message.message_id,
+        )
+        if not ok:
+            return
+        bot.edit_message_text(
+            f"🗑 Запись удалена из лога дуэлей {player_name}.",
+            call.message.chat.id, call.message.message_id,
+            reply_markup=_main_menu_keyboard(),
+        )
+
+    # -------------------- Лог дуэлей: изменение счёта --------------------
+
+    @bot.callback_query_handler(func=lambda c: c.data.startswith('admin:dueleditscore:'))
+    def handle_duel_edit_score_request(call):
+        if not is_admin(call.from_user.id):
+            bot.answer_callback_query(call.id, "⛔ Нет доступа", show_alert=True)
+            return
+        bot.answer_callback_query(call.id)
+        _, _, player_name, kit, date_str, idx_str = call.data.split(':', 5)
+        msg = bot.edit_message_text(
+            f"Игрок: <b>{player_name}</b>\nОтправьте новый счёт в формате <code>4:2</code> "
+            f"(сначала счёт {player_name}, потом счёт оппонента):",
+            call.message.chat.id, call.message.message_id, parse_mode='HTML',
+        )
+        bot.register_next_step_handler(msg, _handle_duel_score_input, gh_repo, gh_token, player_name, kit, date_str, int(idx_str))
+
+    def _handle_duel_score_input(message, gh_repo, gh_token, player_name, kit, date_str, idx):
+        if not is_admin(message.from_user.id):
+            return
+        text = message.text.strip()
+        if ':' not in text:
+            bot.send_message(message.chat.id, "⚠️ Формат должен быть «4:2». Повторите /admin.")
+            return
+        left, right = text.split(':', 1)
+        try:
+            score_player, score_opponent = int(left.strip()), int(right.strip())
+        except ValueError:
+            bot.send_message(message.chat.id, "⚠️ Не удалось распознать числа. Повторите /admin.")
+            return
+
+        ok = _apply_mutation(
+            gh_repo, gh_token,
+            lambda players_list, pn=player_name, i=idx, sp=score_player, so=score_opponent: _mutate_edit_duel_score(players_list, pn, i, sp, so),
+            f"Админ-панель: изменён счёт в записи лога дуэлей {player_name} ({kit}, {date_str})",
+            bot=bot, chat_id=message.chat.id, message_id=None,
+        )
+        if not ok:
+            bot.send_message(message.chat.id, "⚠️ Не удалось сохранить изменение.")
+            return
+        bot.send_message(message.chat.id, f"✅ Счёт обновлён: {score_player}:{score_opponent}.")
+
+    # -------------------- Лог дуэлей: изменение тира до/после --------------------
+
+    @bot.callback_query_handler(func=lambda c: c.data.startswith('admin:dueledittier:'))
+    def handle_duel_edit_tier_request(call):
+        if not is_admin(call.from_user.id):
+            bot.answer_callback_query(call.id, "⛔ Нет доступа", show_alert=True)
+            return
+        bot.answer_callback_query(call.id)
+        _, _, player_name, kit, date_str, idx_str = call.data.split(':', 5)
+        msg = bot.edit_message_text(
+            f"Игрок: <b>{player_name}</b>\nОтправьте новые тиры в формате <code>LT2 HT3</code> "
+            f"(сначала «предыдущий», потом «полученный», через пробел; Unranked допустим):",
+            call.message.chat.id, call.message.message_id, parse_mode='HTML',
+        )
+        bot.register_next_step_handler(msg, _handle_duel_tier_input, gh_repo, gh_token, player_name, kit, date_str, int(idx_str))
+
+    def _handle_duel_tier_input(message, gh_repo, gh_token, player_name, kit, date_str, idx):
+        if not is_admin(message.from_user.id):
+            return
+        parts_text = message.text.strip().split()
+        if len(parts_text) != 2:
+            bot.send_message(message.chat.id, "⚠️ Нужно ровно два значения через пробел, например «LT2 HT3». Повторите /admin.")
+            return
+        tier_before, tier_after = parts_text[0], parts_text[1]
+        valid_values = set(ALL_TIERS) | {"Unranked"}
+        if tier_before not in valid_values or tier_after not in valid_values:
+            bot.send_message(
+                message.chat.id,
+                f"⚠️ Неизвестный тир. Допустимые значения: {', '.join(ALL_TIERS)}, Unranked. Повторите /admin.",
+            )
+            return
+
+        ok = _apply_mutation(
+            gh_repo, gh_token,
+            lambda players_list, pn=player_name, i=idx, tb=tier_before, ta=tier_after: _mutate_edit_duel_tiers(players_list, pn, i, tb, ta),
+            f"Админ-панель: изменены тиры в записи лога дуэлей {player_name} ({kit}, {date_str})",
+            bot=bot, chat_id=message.chat.id, message_id=None,
+        )
+        if not ok:
+            bot.send_message(message.chat.id, "⚠️ Не удалось сохранить изменение.")
+            return
+        bot.send_message(message.chat.id, f"✅ Тиры обновлены: {tier_before} → {tier_after}.")
+
 
 # ==========================================
 # ФУНКЦИИ-МУТАТОРЫ (передаются в github_storage.update_players_file)
@@ -627,3 +1077,208 @@ def _mutate_set_region(players_list, player_name, region):
 
 def _mutate_delete_player(players_list, player_name):
     return [p for p in players_list if p.get('name') != player_name]
+
+
+def _mutate_freeze_all(players_list, player_name, retired_value: bool):
+    """
+    Массово ставит/снимает retired на ВСЕХ китах игрока, чей тир входит в
+    RETIRED_ELIGIBLE_TIERS (HT1-HT3). Киты ниже HT3 не трогает - сайт не
+    поддерживает для них статус Retired (см. parseTierInfo во фронтенде).
+    """
+    player = _find_player(players_list, player_name)
+    if not player:
+        raise RuntimeError(f"Игрок {player_name} не найден")
+    changed_any = False
+    for kit, data in player.get('tiers', {}).items():
+        if data.get('tier') in RETIRED_ELIGIBLE_TIERS:
+            data['retired'] = retired_value
+            changed_any = True
+    if not changed_any:
+        raise RuntimeError(f"У {player_name} нет китов в диапазоне {', '.join(RETIRED_ELIGIBLE_TIERS)}")
+    return players_list
+
+
+def _mutate_delete_duel_entry(players_list, player_name, idx):
+    player = _find_player(players_list, player_name)
+    if not player:
+        raise RuntimeError(f"Игрок {player_name} не найден")
+    history = player.get('matchHistory', [])
+    if idx < 0 or idx >= len(history):
+        raise RuntimeError("Запись не найдена (индекс вне диапазона - возможно, база изменилась)")
+    history.pop(idx)
+    return players_list
+
+
+def _mutate_edit_duel_score(players_list, player_name, idx, score_player, score_opponent):
+    player = _find_player(players_list, player_name)
+    if not player:
+        raise RuntimeError(f"Игрок {player_name} не найден")
+    history = player.get('matchHistory', [])
+    if idx < 0 or idx >= len(history):
+        raise RuntimeError("Запись не найдена (индекс вне диапазона - возможно, база изменилась)")
+    entry = history[idx]
+    entry['scorePlayer'] = score_player
+    # Пишем в оба возможных поля - новое (scoreOpponent) и старое
+    # (scoreTester), в зависимости от того, какое уже использовалось в
+    # этой записи, чтобы не создавать дублирующее поле вперемешку со старым.
+    if 'scoreTester' in entry and 'scoreOpponent' not in entry:
+        entry['scoreTester'] = score_opponent
+    else:
+        entry['scoreOpponent'] = score_opponent
+    # Пересчитываем победителя по новому счёту, раз счёт меняется вручную -
+    # иначе останется рассинхрон между winner и реальными цифрами.
+    entry['winner'] = 'player' if score_player > score_opponent else 'opponent'
+    return players_list
+
+
+def _mutate_edit_duel_tiers(players_list, player_name, idx, tier_before, tier_after):
+    player = _find_player(players_list, player_name)
+    if not player:
+        raise RuntimeError(f"Игрок {player_name} не найден")
+    history = player.get('matchHistory', [])
+    if idx < 0 or idx >= len(history):
+        raise RuntimeError("Запись не найдена (индекс вне диапазона - возможно, база изменилась)")
+    entry = history[idx]
+    entry['tierBefore'] = None if tier_before == "Unranked" else tier_before
+    entry['tierAfter'] = None if tier_after == "Unranked" else tier_after
+    return players_list
+
+
+def _mutate_apply_penalty_with_demotion(players_list, player_name, kit, new_points, first_penalty_date, demote: bool):
+    """
+    То же самое, что _mutate_apply_penalty, но если demote=True - также
+    понижает тир на кит на одну ступень (next_tier_down) и обнуляет
+    штрафные очки, ТОЧНО повторяя поведение обычного авто-понижения при
+    штрафе за тест (см. main.py apply_penalty_and_check_demotion).
+    """
+    player = _find_player(players_list, player_name)
+    if not player:
+        raise RuntimeError(f"Игрок {player_name} не найден")
+
+    if not demote:
+        player.setdefault('penaltyByKit', {})[kit] = {
+            "points": new_points,
+            "firstPenaltyDate": first_penalty_date,
+        }
+        return players_list
+
+    current_tier = player.get('tiers', {}).get(kit, {}).get('tier')
+    lower_tier = next_tier_down(current_tier) if current_tier else None
+
+    if lower_tier:
+        player.setdefault('tiers', {})[kit] = {
+            "tier": lower_tier,
+            "date": today_str(),
+            "retired": False,
+        }
+        player.setdefault('matchHistory', []).append({
+            "date": today_str(),
+            "kit": kit,
+            "opponent": "система",
+            "tierBefore": current_tier,
+            "tierAfter": lower_tier,
+            "scorePlayer": None,
+            "scoreOpponent": None,
+            "winner": None,
+            "comment": "Автопонижение за штрафные очки (админ-панель)",
+        })
+
+    # Очки штрафа обнуляются независимо от того, было ли фактическое
+    # понижение (например tier уже LT5, понижать некуда) - таково же
+    # поведение обычного авто-понижения в penalty_logic/main.py.
+    player.setdefault('penaltyByKit', {})[kit] = {"points": 0.0, "firstPenaltyDate": today_str()}
+    return players_list
+
+
+def _format_duel_entry(player_name, kit, date_str, entry):
+    opponent = entry.get('opponent') or entry.get('tester') or '?'
+    score_player = entry.get('scorePlayer', '?')
+    score_opponent = entry.get('scoreOpponent', entry.get('scoreTester', '?'))
+    tier_before = entry.get('tierBefore') or 'Unranked'
+    tier_after = entry.get('tierAfter') or 'Unranked'
+    comment = entry.get('comment')
+    lines = [
+        f"Игрок: <b>{player_name}</b>",
+        f"Кит: <b>{kit}</b>",
+        f"Дата: {date_str}",
+        f"Оппонент: {opponent}",
+        f"Счёт: {score_player}:{score_opponent}",
+        f"Тир: {tier_before} → {tier_after}",
+    ]
+    if comment:
+        lines.append(f"Комментарий: <i>{comment}</i>")
+    lines.append("\nВыберите действие:")
+    return "\n".join(lines)
+
+
+def _apply_penalty_change(bot, gh_repo, gh_token, chat_id, message_id, player_name, kit, delta):
+    """Применяет +delta к текущим штрафным очкам (используется кнопками +0.5/-0.5)."""
+    players_list = _fetch_players(gh_repo, gh_token)
+    player = _find_player(players_list, player_name)
+    if not player:
+        bot.edit_message_text(f"⚠️ Игрок {player_name} не найден.", chat_id, message_id, reply_markup=_main_menu_keyboard())
+        return
+
+    current_entry = player.get('penaltyByKit', {}).get(kit)
+    current_points = current_entry.get('points', 0.0) if current_entry else 0.0
+    new_points = max(0.0, current_points + delta)  # штраф не уходит в минус
+    first_date = current_entry.get('firstPenaltyDate') if current_entry else today_str()
+
+    _finalize_penalty_change(bot, gh_repo, gh_token, chat_id, message_id, player_name, kit, new_points, first_date)
+
+
+def _apply_penalty_set(bot, gh_repo, gh_token, chat_id, message_id, player_name, kit, new_points):
+    """Устанавливает точное значение штрафных очков (используется вводом текста)."""
+    if new_points < 0:
+        bot.send_message(chat_id, "⚠️ Штрафные очки не могут быть отрицательными.")
+        return
+
+    players_list = _fetch_players(gh_repo, gh_token)
+    player = _find_player(players_list, player_name)
+    if not player:
+        bot.send_message(chat_id, f"⚠️ Игрок {player_name} не найден.")
+        return
+
+    current_entry = player.get('penaltyByKit', {}).get(kit)
+    first_date = current_entry.get('firstPenaltyDate') if current_entry else today_str()
+
+    _finalize_penalty_change(bot, gh_repo, gh_token, chat_id, message_id, player_name, kit, new_points, first_date)
+
+
+def _finalize_penalty_change(bot, gh_repo, gh_token, chat_id, message_id, player_name, kit, new_points, first_date):
+    """
+    Общий финальный шаг для +0.5/-0.5 и "точное число": решает, нужно ли
+    авто-понижение (new_points >= PENALTY_DEMOTION_THRESHOLD), и
+    применяет изменение через update_players_file. Если message_id
+    отсутствует (значит, вызов пришёл из текстового ввода, а не из
+    callback), результат отправляется новым сообщением.
+    """
+    demote = new_points >= PENALTY_DEMOTION_THRESHOLD
+
+    ok = _apply_mutation(
+        gh_repo, gh_token,
+        lambda players_list, pn=player_name, k=kit, np=new_points, fd=first_date, d=demote:
+            _mutate_apply_penalty_with_demotion(players_list, pn, k, np, fd, d),
+        f"Админ-панель: штрафные очки {player_name} / {kit} -> {new_points}"
+        + (" (авто-понижение)" if demote else ""),
+        bot=(bot if message_id is not None else None),
+        chat_id=chat_id, message_id=message_id,
+    )
+
+    if not ok:
+        if message_id is None:
+            bot.send_message(chat_id, "⚠️ Не удалось сохранить изменение штрафных очков.")
+        return
+
+    if demote:
+        text = (
+            f"⚠️ Штрафные очки {player_name} / {kit} достигли {new_points} (порог {PENALTY_DEMOTION_THRESHOLD}) - "
+            f"тир автоматически понижен, штраф обнулён."
+        )
+    else:
+        text = f"✅ Готово. Штрафные очки {player_name} / {kit}: {new_points}."
+
+    if message_id is not None:
+        bot.edit_message_text(text, chat_id, message_id, reply_markup=_main_menu_keyboard())
+    else:
+        bot.send_message(chat_id, text)
