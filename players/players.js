@@ -2001,6 +2001,11 @@ const players = [
                 tier: "HT2",
                 date: "2026-08-25",
                 retired: false
+            },
+            Hardcore: {
+                tier: "LT3",
+                date: "2026-09-13",
+                retired: false
             }
         },
         matchHistory: [
