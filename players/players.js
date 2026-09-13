@@ -1973,8 +1973,8 @@ const players = [
                 retired: false
             },
             Crystal: {
-                tier: "LT2",
-                date: "2026-09-12",
+                tier: "HT2",
+                date: "2026-09-13",
                 retired: false
             },
             Mace: {
