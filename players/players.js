@@ -761,8 +761,8 @@ const players = [
                 retired: false
             },
             "Diamond Pot": {
-                tier: "LT1",
-                date: "2026-09-12",
+                tier: "HT2",
+                date: "2026-09-13",
                 retired: false
             }
         },
