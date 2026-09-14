@@ -2164,8 +2164,8 @@ const players = [
                 retired: false
             },
             "Emerald Pot": {
-                tier: "HT4",
-                date: "2026-08-28",
+                tier: "HT2",
+                date: "2026-09-14",
                 retired: false
             },
             Combo: {
@@ -2431,6 +2431,17 @@ const players = [
                 scoreOpponent: 4,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-14",
+                kit: "Emerald Pot",
+                opponent: "DzIla_EDITSmob",
+                tierBefore: "HT4",
+                tierAfter: "HT2",
+                scorePlayer: 2,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
             }
         ],
         penaltyByKit: {
@@ -2445,6 +2456,10 @@ const players = [
             Beast: {
                 points: 1.6,
                 firstPenaltyDate: "2026-09-12"
+            },
+            "Emerald Pot": {
+                points: 1.0,
+                firstPenaltyDate: "2026-09-14"
             }
         }
     },
@@ -3440,6 +3455,17 @@ const players = [
                 scorePlayer: 4,
                 scoreOpponent: 6,
                 winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-14",
+                kit: "Emerald Pot",
+                opponent: "Prosto_oleg100-7",
+                tierBefore: "LT1",
+                tierAfter: "LT1",
+                scorePlayer: 4,
+                scoreOpponent: 2,
+                winner: "player",
                 comment: null
             }
         ],
