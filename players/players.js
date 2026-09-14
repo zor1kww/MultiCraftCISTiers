@@ -2387,6 +2387,17 @@ const players = [
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
+            },
+            {
+                date: "2026-09-14",
+                kit: "Diamond Pot",
+                opponent: "Aura",
+                tierBefore: "HT2",
+                tierAfter: "LT1",
+                scorePlayer: 4,
+                scoreOpponent: 2,
+                winner: "player",
+                comment: null
             }
         ],
         penaltyByKit: {
@@ -4258,6 +4269,25 @@ const players = [
                 scorePlayer: 6,
                 scoreOpponent: 2,
                 winner: "player",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
+    },
+    {
+        name: "Aura",
+        region: "",
+        tiers: {},
+        matchHistory: [
+            {
+                date: "2026-09-14",
+                kit: "Diamond Pot",
+                opponent: "Prosto_oleg100-7",
+                tierBefore: null,
+                tierAfter: null,
+                scorePlayer: 2,
+                scoreOpponent: 4,
+                winner: "opponent",
                 comment: null
             }
         ],
