@@ -2134,8 +2134,8 @@ const players = [
                 retired: false
             },
             SMP: {
-                tier: "LT2",
-                date: "2026-08-21",
+                tier: "LT1",
+                date: "2026-09-14",
                 retired: false
             },
             "Diamond Pot": {
@@ -2408,6 +2408,17 @@ const players = [
                 scorePlayer: 1,
                 scoreOpponent: 4,
                 winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-09-14",
+                kit: "SMP",
+                opponent: "DzIla_EDITSmob",
+                tierBefore: "LT2",
+                tierAfter: "LT1",
+                scorePlayer: 3,
+                scoreOpponent: 4,
+                winner: "opponent",
                 comment: null
             }
         ],
@@ -3396,6 +3407,17 @@ const players = [
                 scorePlayer: 4,
                 scoreOpponent: 1,
                 winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-14",
+                kit: "SMP",
+                opponent: "Prosto_oleg100-7",
+                tierBefore: "LT1",
+                tierAfter: "LT1",
+                scorePlayer: 4,
+                scoreOpponent: 3,
+                winner: "player",
                 comment: null
             }
         ],
