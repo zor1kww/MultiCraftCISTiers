@@ -2154,8 +2154,8 @@ const players = [
                 retired: false
             },
             Dragonhide: {
-                tier: "LT2",
-                date: "2026-08-29",
+                tier: "HT2",
+                date: "2026-09-14",
                 retired: false
             },
             Mace: {
@@ -2419,6 +2419,17 @@ const players = [
                 scorePlayer: 3,
                 scoreOpponent: 4,
                 winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-14",
+                kit: "Dragonhide",
+                opponent: "DzIla_EDITSmob",
+                tierBefore: "LT2",
+                tierAfter: "HT2",
+                scorePlayer: 6,
+                scoreOpponent: 4,
+                winner: "player",
                 comment: null
             }
         ],
@@ -3419,9 +3430,25 @@ const players = [
                 scoreOpponent: 3,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-14",
+                kit: "Dragonhide",
+                opponent: "Prosto_oleg100-7",
+                tierBefore: "HT2",
+                tierAfter: "HT2",
+                scorePlayer: 4,
+                scoreOpponent: 6,
+                winner: "opponent",
+                comment: null
             }
         ],
-        penaltyByKit: {}
+        penaltyByKit: {
+            Dragonhide: {
+                points: 0.4,
+                firstPenaltyDate: "2026-09-14"
+            }
+        }
     },
     {
         name: "AMORE",
