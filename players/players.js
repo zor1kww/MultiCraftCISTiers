@@ -2184,8 +2184,8 @@ const players = [
                 retired: false
             },
             Pickaxe: {
-                tier: "LT3",
-                date: "2026-08-21",
+                tier: "LT1",
+                date: "2026-09-14",
                 retired: false
             }
         },
@@ -2396,6 +2396,17 @@ const players = [
                 tierAfter: "LT1",
                 scorePlayer: 4,
                 scoreOpponent: 2,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-09-14",
+                kit: "Pickaxe",
+                opponent: "DzIla_EDITSmob",
+                tierBefore: "LT3",
+                tierAfter: "LT1",
+                scorePlayer: 1,
+                scoreOpponent: 4,
                 winner: "player",
                 comment: null
             }
@@ -3374,6 +3385,17 @@ const players = [
                 scorePlayer: 4,
                 scoreOpponent: 3,
                 winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-09-14",
+                kit: "Pickaxe",
+                opponent: "Prosto_oleg100-7",
+                tierBefore: "HT2",
+                tierAfter: "HT2",
+                scorePlayer: 4,
+                scoreOpponent: 1,
+                winner: "opponent",
                 comment: null
             }
         ],
