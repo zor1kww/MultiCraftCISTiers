@@ -1801,6 +1801,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-16",
+                kit: "SMP",
+                opponent: "Karabasik",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 0,
+                scoreOpponent: 2,
+                winner: "opponent",
+                comment: null
             }
         ],
         penaltyByKit: {
@@ -3822,6 +3833,11 @@ const players = [
                 tier: "HT4",
                 date: "2026-09-16",
                 retired: false
+            },
+            SMP: {
+                tier: "LT3",
+                date: "2026-09-16",
+                retired: false
             }
         },
         matchHistory: [
@@ -3834,6 +3850,17 @@ const players = [
                 scorePlayer: 1,
                 scoreOpponent: 3,
                 winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-16",
+                kit: "SMP",
+                opponent: "-BaCk-",
+                tierBefore: "Unranked",
+                tierAfter: "LT3",
+                scorePlayer: 2,
+                scoreOpponent: 0,
+                winner: "player",
                 comment: null
             }
         ],
