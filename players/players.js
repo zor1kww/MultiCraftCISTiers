@@ -1768,6 +1768,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-16",
+                kit: "Emerald Pot",
+                opponent: "xopechek",
+                tierBefore: "HT4",
+                tierAfter: "HT4",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null
             }
         ],
         penaltyByKit: {
@@ -4470,6 +4481,31 @@ const players = [
                 opponent: "-BaCk-",
                 tierBefore: "Unranked",
                 tierAfter: "LT5",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
+    },
+    {
+        name: "xopechek",
+        region: "RU",
+        tiers: {
+            "Emerald Pot": {
+                tier: "HT4",
+                date: "2026-09-16",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-09-16",
+                kit: "Emerald Pot",
+                opponent: "-BaCk-",
+                tierBefore: "Unranked",
+                tierAfter: "HT4",
                 scorePlayer: 0,
                 scoreOpponent: 4,
                 winner: "opponent",
