@@ -667,6 +667,17 @@ const players = [
                 scoreOpponent: 1,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-16",
+                kit: "RVM",
+                opponent: "PASIK66666",
+                tierBefore: "LT2",
+                tierAfter: "LT2",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null
             }
         ]
     },
@@ -4534,6 +4545,31 @@ const players = [
                 tierBefore: "Unranked",
                 tierAfter: "LT3",
                 scorePlayer: 1,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
+    },
+    {
+        name: "PASIK66666",
+        region: "RU",
+        tiers: {
+            RVM: {
+                tier: "LT5",
+                date: "2026-09-16",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-09-16",
+                kit: "RVM",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "LT5",
+                scorePlayer: 0,
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
