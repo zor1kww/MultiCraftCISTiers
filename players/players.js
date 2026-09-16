@@ -656,6 +656,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-16",
+                kit: "Hardcore",
+                opponent: "xopechek",
+                tierBefore: "LT1",
+                tierAfter: "LT1",
+                scorePlayer: 4,
+                scoreOpponent: 1,
+                winner: "player",
+                comment: null
             }
         ]
     },
@@ -4497,6 +4508,11 @@ const players = [
                 tier: "HT4",
                 date: "2026-09-16",
                 retired: false
+            },
+            Hardcore: {
+                tier: "LT3",
+                date: "2026-09-16",
+                retired: false
             }
         },
         matchHistory: [
@@ -4507,6 +4523,17 @@ const players = [
                 tierBefore: "Unranked",
                 tierAfter: "HT4",
                 scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-16",
+                kit: "Hardcore",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "LT3",
+                scorePlayer: 1,
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
