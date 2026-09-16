@@ -1757,6 +1757,17 @@ const players = [
                 scoreOpponent: 1,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-16",
+                kit: "Mace",
+                opponent: "123amd",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null
             }
         ],
         penaltyByKit: {
@@ -4435,6 +4446,31 @@ const players = [
                 tierBefore: null,
                 tierAfter: null,
                 scorePlayer: 2,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
+    },
+    {
+        name: "123amd",
+        region: "RU",
+        tiers: {
+            Mace: {
+                tier: "LT5",
+                date: "2026-09-16",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-09-16",
+                kit: "Mace",
+                opponent: "-BaCk-",
+                tierBefore: "Unranked",
+                tierAfter: "LT5",
+                scorePlayer: 0,
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
