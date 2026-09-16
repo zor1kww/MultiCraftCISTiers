@@ -1746,6 +1746,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-16",
+                kit: "RVM",
+                opponent: "Karabasik",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 3,
+                scoreOpponent: 1,
+                winner: "player",
+                comment: null
             }
         ],
         penaltyByKit: {
@@ -3762,8 +3773,27 @@ const players = [
                 tier: "LT3",
                 date: "2026-08-18",
                 retired: false
+            },
+            RVM: {
+                tier: "HT4",
+                date: "2026-09-16",
+                retired: false
             }
-        }
+        },
+        matchHistory: [
+            {
+                date: "2026-09-16",
+                kit: "RVM",
+                opponent: "-BaCk-",
+                tierBefore: "Unranked",
+                tierAfter: "HT4",
+                scorePlayer: 1,
+                scoreOpponent: 3,
+                winner: "opponent",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
     },
     {
         name: "ofofoffo",
