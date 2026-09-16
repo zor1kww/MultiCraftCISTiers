@@ -1564,8 +1564,8 @@ const players = [
                 retired: false
             },
             Beast: {
-                tier: "HT3",
-                date: "2026-08-18",
+                tier: "LT2",
+                date: "2026-09-16",
                 retired: false
             },
             Hardcore: {
@@ -1811,6 +1811,17 @@ const players = [
                 scorePlayer: 0,
                 scoreOpponent: 2,
                 winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-16",
+                kit: "Beast",
+                opponent: "Michael_59k_YT",
+                tierBefore: "HT3",
+                tierAfter: "LT2",
+                scorePlayer: 6,
+                scoreOpponent: 2,
+                winner: "player",
                 comment: null
             }
         ],
@@ -3209,8 +3220,8 @@ const players = [
         region: "AM",
         tiers: {
             Beast: {
-                tier: "HT3",
-                date: "2026-08-25",
+                tier: "LT3",
+                date: "2026-09-16",
                 retired: false
             },
             Mace: {
@@ -3305,12 +3316,34 @@ const players = [
                 scorePlayer: 0,
                 winner: "tester",
                 comment: null
+            },
+            {
+                date: "2026-09-16",
+                kit: "Beast",
+                opponent: "-BaCk-",
+                tierBefore: "HT3",
+                tierAfter: "HT3",
+                scorePlayer: 2,
+                scoreOpponent: 6,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-16",
+                kit: "Beast",
+                opponent: "система",
+                tierBefore: "HT3",
+                tierAfter: "LT3",
+                scorePlayer: 0,
+                scoreOpponent: 0,
+                winner: "opponent",
+                comment: "Автопонижение: накоплено 2 штрафных очка"
             }
         ],
         penaltyByKit: {
             Beast: {
-                points: 1.6,
-                firstPenaltyDate: "2026-08-23"
+                points: 0.0,
+                firstPenaltyDate: "2026-09-16"
             }
         }
     },
