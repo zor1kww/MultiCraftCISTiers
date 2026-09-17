@@ -56,7 +56,7 @@ const players = [
             Gapple: {
                 tier: "LT1",
                 date: "2026-08-21",
-                retired: true
+                retired: false
             },
             RVM: {
                 tier: "LT1",
@@ -494,17 +494,6 @@ const players = [
             },
             {
                 date: "2026-08-29",
-                kit: "RVM",
-                opponent: "Aura",
-                tierBefore: "LT2",
-                tierAfter: "LT2",
-                scorePlayer: 4,
-                scoreOpponent: 3,
-                winner: "player",
-                comment: null
-            },
-            {
-                date: "2026-08-29",
                 kit: "SMP",
                 opponent: "WezzikBigClop",
                 tierBefore: "LT3",
@@ -820,17 +809,6 @@ const players = [
                 scorePlayer: 2,
                 scoreOpponent: 4,
                 winner: "opponent",
-                comment: null
-            },
-            {
-                date: "2026-09-12",
-                kit: "Diamond Pot",
-                opponent: "Aura",
-                tierBefore: "HT2",
-                tierAfter: "LT1",
-                scorePlayer: 4,
-                scoreOpponent: 0,
-                winner: "player",
                 comment: null
             }
         ],
@@ -1628,28 +1606,6 @@ const players = [
             },
             {
                 date: "2026-08-29",
-                kit: "RVM",
-                opponent: "Aura",
-                tierBefore: "LT3",
-                tierAfter: "LT3",
-                scorePlayer: 1,
-                scoreOpponent: 4,
-                winner: "opponent",
-                comment: null
-            },
-            {
-                date: "2026-08-29",
-                kit: "Dragonhide",
-                opponent: "Aura",
-                tierBefore: "HT3",
-                tierAfter: "HT3",
-                scorePlayer: 0,
-                scoreOpponent: 6,
-                winner: "opponent",
-                comment: null
-            },
-            {
-                date: "2026-08-29",
                 kit: "Dragonhide",
                 opponent: "система",
                 tierBefore: "HT3",
@@ -2170,7 +2126,7 @@ const players = [
                 firstPenaltyDate: "2026-08-27"
             },
             Crystal: {
-                points: 0.0,
+                points: 0,
                 firstPenaltyDate: "2026-09-12"
             }
         }
@@ -2433,28 +2389,6 @@ const players = [
                 comment: null
             },
             {
-                date: "2026-09-12",
-                kit: "Beast",
-                opponent: "Aura",
-                tierBefore: "HT2",
-                tierAfter: "HT2",
-                scorePlayer: 1,
-                scoreOpponent: 6,
-                winner: "opponent",
-                comment: null
-            },
-            {
-                date: "2026-09-12",
-                kit: "Diamond Pot",
-                opponent: "Aura",
-                tierBefore: "HT2",
-                tierAfter: "LT1",
-                scorePlayer: 4,
-                scoreOpponent: 2,
-                winner: "player",
-                comment: null
-            },
-            {
                 date: "2026-09-14",
                 kit: "Diamond Pot",
                 opponent: "DzIla_EDITSmob",
@@ -2463,17 +2397,6 @@ const players = [
                 scorePlayer: 3,
                 scoreOpponent: 4,
                 winner: "opponent",
-                comment: null
-            },
-            {
-                date: "2026-09-14",
-                kit: "Diamond Pot",
-                opponent: "Aura",
-                tierBefore: "HT2",
-                tierAfter: "LT1",
-                scorePlayer: 4,
-                scoreOpponent: 2,
-                winner: "player",
                 comment: null
             },
             {
@@ -2546,7 +2469,7 @@ const players = [
                 firstPenaltyDate: "2026-09-12"
             },
             "Emerald Pot": {
-                points: 1.0,
+                points: 1,
                 firstPenaltyDate: "2026-09-14"
             }
         }
@@ -3342,7 +3265,7 @@ const players = [
         ],
         penaltyByKit: {
             Beast: {
-                points: 0.0,
+                points: 0,
                 firstPenaltyDate: "2026-09-16"
             }
         }
@@ -4522,25 +4445,6 @@ const players = [
                 scorePlayer: 6,
                 scoreOpponent: 2,
                 winner: "player",
-                comment: null
-            }
-        ],
-        penaltyByKit: {}
-    },
-    {
-        name: "Aura",
-        region: "",
-        tiers: {},
-        matchHistory: [
-            {
-                date: "2026-09-14",
-                kit: "Diamond Pot",
-                opponent: "Prosto_oleg100-7",
-                tierBefore: null,
-                tierAfter: null,
-                scorePlayer: 2,
-                scoreOpponent: 4,
-                winner: "opponent",
                 comment: null
             }
         ],
