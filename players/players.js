@@ -56,7 +56,7 @@ const players = [
             Gapple: {
                 tier: "LT1",
                 date: "2026-08-21",
-                retired: false
+                retired: true
             },
             RVM: {
                 tier: "LT1",
