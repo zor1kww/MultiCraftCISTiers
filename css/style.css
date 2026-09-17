@@ -615,6 +615,40 @@ body, html {
 }
 
 /* ==========================================================================
+   ТОП ПО КОНКРЕТНОМУ КИТУ — иконка кита + тир + PTS в правой колонке
+   ========================================================================== */
+.kit-top-badge-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.kit-top-icon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 3px;
+    flex-shrink: 0;
+}
+
+.kit-top-badge-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+}
+
+.kit-top-pts {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* ==========================================================================
    МОДАЛЬНЫЕ ОКНА И ДИАЛОГИ
    ========================================================================== */
 .modal-overlay {
