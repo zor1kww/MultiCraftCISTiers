@@ -648,6 +648,16 @@
                 <span class="hub-card-link">Читать →</span>
             </div>
         </div>
+
+        <div class="hub-card" data-target="hubAvgTier">
+            <div class="hub-card-bg"></div>
+            <div class="hub-card-num">05</div>
+            <div class="hub-card-heading"><span>СРЕДНИЙ<br>ОБЩИЙ РАНГ</span></div>
+            <div class="hub-card-footer">
+                <span class="hub-card-title">Средний общий ранг</span>
+                <span class="hub-card-link">Читать →</span>
+            </div>
+        </div>
     </div>
 
     <!-- 01: Распределение очков (бывший ptsSubTab) -->
@@ -1042,6 +1052,28 @@
                 <div class="honor-name">AMORE</div>
                 <div class="honor-role">Администратор · Главный строитель сервера</div>
             </div>
+        </div>
+    </div>
+
+    <!-- 05: Средний общий ранг -->
+    <div class="hub-detail" id="hubAvgTier">
+        <button class="hub-detail-back" onclick="closeHubDetail('otherInfoHubGrid', 'hubAvgTier')">← Ко всем разделам</button>
+        <div class="info-section">
+            <div class="info-section-title">Что такое средний общий ранг</div>
+            <p style="font-size: 14px; color: var(--text-main); line-height: 1.7; margin-bottom: 12px;">
+                Средний общий ранг показывает общий уровень игрока по всем китам сразу — и основным (main), и дополнительным (sub). Он считается автоматически как усреднённое значение всех ваших тиров, поэтому обновляется каждый раз, когда меняется хотя бы один из них.
+            </p>
+            <div class="info-accent-box">
+                Пересчёт происходит без вашего участия — сдавать отдельный тест на средний ранг не нужно, он всегда отражает актуальное состояние вашего профиля.
+            </div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-section-title">Где он используется</div>
+            <ul style="margin-left: 20px; font-size: 13px; color: var(--text-muted); line-height: 1.9;">
+                <li><strong style="color: var(--text-main);">Тег на сервере.</strong> Средний общий ранг отображается в вашем тег на игровом сервере, показывая остальным ваш примерный уровень с первого взгляда.</li>
+                <li><strong style="color: var(--text-main);">Карточка профиля на сайте.</strong> Это же значение видно в вашей карточке в общем рейтинге — так проще сравнивать общий уровень игроков, а не только результаты по отдельным китам.</li>
+            </ul>
         </div>
     </div>
 </div>
