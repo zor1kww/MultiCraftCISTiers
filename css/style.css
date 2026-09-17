@@ -615,37 +615,79 @@ body, html {
 }
 
 /* ==========================================================================
-   ТОП ПО КОНКРЕТНОМУ КИТУ — иконка кита + тир + PTS в правой колонке
+   ТОП ПО КОНКРЕТНОМУ КИТУ — карточка со скином игрока (bust-портрет)
+   Пока используется один дефолтный скин для всех - индивидуальные скины
+   планируются позже отдельной системой загрузки/модерации.
    ========================================================================== */
-.kit-top-badge-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 8px;
+.player-card-row-bust {
+    padding: 0;
+    align-items: stretch;
+    gap: 16px;
 }
 
-.kit-top-icon {
-    width: 28px;
-    height: 28px;
-    object-fit: contain;
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.04);
-    padding: 3px;
+.bust-card-skin {
+    width: 84px;
+    min-height: 84px;
+    align-self: stretch;
+    object-fit: cover;
+    object-position: center top;
     flex-shrink: 0;
+    display: block;
+    border-radius: 14px 0 0 14px;
+    /* Скин рисуется впритык к левому краю и растягивается на всю высоту
+       карточки (align-self: stretch), повторяя компоновку с референса -
+       портрет как часть рамки, а не элемент с отступами внутри неё.
+       border-radius дублирует скругление .player-container на случай,
+       если overflow:hidden не сработает в каком-то браузере. */
 }
 
-.kit-top-badge-stack {
+.bust-card-info {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    gap: 2px;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 16px 14px 0;
+    min-width: 0; /* чтобы длинные ники корректно переносились/обрезались */
+    flex-grow: 1;
 }
 
-.kit-top-pts {
-    font-size: 11px;
-    color: var(--text-muted);
-    font-weight: 600;
+.bust-card-top {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.bust-card-bottom {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.bust-penalty-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: rgba(255, 107, 53, 0.15);
+    border: 1px solid rgba(255, 107, 53, 0.35);
+    color: #ff6b35;
+    font-size: 12px;
+    font-weight: 700;
     white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+    .bust-card-skin {
+        width: 68px;
+        min-height: 68px;
+    }
+    .bust-card-info {
+        padding: 10px 12px 10px 0;
+        gap: 6px;
+    }
 }
 
 /* ==========================================================================
