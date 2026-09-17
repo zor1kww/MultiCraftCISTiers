@@ -521,6 +521,8 @@ function renderPlayers() {
             topClass = topClass ? topClass + ' retired-status' : 'retired-status';
         }
         
+        let bustCardData = null; // Заполняется только для карточки топа по конкретному киту (новый макет со скином)
+
         if (targetKit === 'all') {
             const mainPts = calcPoints(player, activeMaintiers);
             rightColumnContent = `<span style="color: var(--accent); font-size:15px; white-space:nowrap;">${mainPts} PTS</span>`;
@@ -531,27 +533,13 @@ function renderPlayers() {
             const currentTier = getCleanTier(player, targetKit);
             const ret = isKitRetired(player, targetKit);
             const kitPenalty = getEffectivePenalty(player, targetKit);
-            const penaltyBadge = kitPenalty > 0
-                ? `<span class="m-penalty-box" title="Штрафные очки по этому киту">⚠ ${kitPenalty}</span>`
-                : '';
-            const kitIconSrc = activeKitImages[targetKit] || '';
-            const kitIconHTML = kitIconSrc
-                ? `<img class="kit-top-icon" src="${kitIconSrc}" onerror="this.style.display='none';" alt="">`
-                : '';
-            const kitPtsValue = currentTier !== "Unranked" ? (activePts[currentTier] || 0) : 0;
-            const kitPtsHTML = currentTier !== "Unranked"
-                ? `<span class="kit-top-pts">${kitPtsValue} PTS</span>`
-                : '';
-            rightColumnContent = `
-                <div class="kit-top-badge-wrap">
-                    ${kitIconHTML}
-                    <div class="kit-top-badge-stack">
-                        ${getTierBadge(currentTier, ret)}
-                        ${kitPtsHTML}
-                    </div>
-                    ${penaltyBadge}
-                </div>`;
+            // Иконка кита и PTS убраны из этого вида по требованию - тир
+            // уже понятен по цвету и подписи badge, а PTS дублировал
+            // информацию, доступную в профиле. Штрафные очки теперь
+            // выводятся отдельным элементом рядом с рангом (см. bustCardData).
+            bustCardData = { currentTier, ret, kitPenalty };
         }
+
 
         let quickTiersHTML = '';
         if (targetKit === 'all' || targetKit === 'sub-all') {
@@ -635,28 +623,62 @@ function renderPlayers() {
             }
         }
 
-        htmlFragment += `
-        <div class="player-container ${topClass}">
-            <div class="player-card-row" onclick="openProfile(${index}, '${filteredJSON}')">
-                
-                <div class="player-name-block">
-                    <span class="player-rank">${rankPrefix}</span>
-                    <span class="player-name">${player.name}</span>
-                </div>
+        if (bustCardData) {
+            // Новый макет карточки для топа по конкретному киту: скин
+            // игрока (голова + плечи) слева на всю высоту карточки,
+            // справа сверху ранг в топе + ник, ниже одной строкой -
+            // регион, тир по этому киту и штрафные очки (если есть).
+            // Пока у всех игроков один и тот же дефолтный скин-заглушка -
+            // индивидуальные скины планируются позже отдельной системой.
+            const penaltyHTML = bustCardData.kitPenalty > 0
+                ? `<span class="bust-penalty-badge" title="Штрафные очки по этому киту">⚠ ${bustCardData.kitPenalty}</span>`
+                : '';
+            const regionHTML = player.region
+                ? `<span class="player-meta-tag">${player.region}</span>`
+                : '';
 
-                <div class="player-center-block">
-                    <div class="player-meta-box">
-                        ${metaTagsHTML}
+            htmlFragment += `
+            <div class="player-container player-container-bust ${topClass}">
+                <div class="player-card-row player-card-row-bust" onclick="openProfile(${index}, '${filteredJSON}')">
+                    <img class="bust-card-skin" src="assets/skins/default_bust.png" alt="" onerror="this.style.display='none';">
+
+                    <div class="bust-card-info">
+                        <div class="bust-card-top">
+                            <span class="player-rank">${rankPrefix}</span>
+                            <span class="player-name">${player.name}</span>
+                        </div>
+                        <div class="bust-card-bottom">
+                            ${regionHTML}
+                            ${getTierBadge(bustCardData.currentTier, bustCardData.ret)}
+                            ${penaltyHTML}
+                        </div>
                     </div>
-                    ${quickTiersHTML}
                 </div>
+            </div>`;
+        } else {
+            htmlFragment += `
+            <div class="player-container ${topClass}">
+                <div class="player-card-row" onclick="openProfile(${index}, '${filteredJSON}')">
+                    
+                    <div class="player-name-block">
+                        <span class="player-rank">${rankPrefix}</span>
+                        <span class="player-name">${player.name}</span>
+                    </div>
 
-                <div class="player-right">
-                    ${rightColumnContent}
+                    <div class="player-center-block">
+                        <div class="player-meta-box">
+                            ${metaTagsHTML}
+                        </div>
+                        ${quickTiersHTML}
+                    </div>
+
+                    <div class="player-right">
+                        ${rightColumnContent}
+                    </div>
+
                 </div>
-
-            </div>
-        </div>`;
+            </div>`;
+        }
     });
     
     list.innerHTML = htmlFragment;
