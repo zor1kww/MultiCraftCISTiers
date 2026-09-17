@@ -26,7 +26,7 @@ VALID_KITS = MAIN_KITS + SUB_KITS
 
 # Формат дуэли (до скольких побед идёт матч) зависит от кита - влияет
 # на таблицу штрафных очков в penalty_logic.py
-FT2_KITS = {"Combo", "SMP", "Gapple"}
+FT2_KITS = {"Combo", "Gapple"}
 FT6_KITS = {"Dragonhide", "Beast", "Emerald"}
 # Все остальные киты - формат FT4 (по умолчанию)
 
