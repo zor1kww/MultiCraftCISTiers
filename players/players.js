@@ -1779,6 +1779,17 @@ const players = [
                 scoreOpponent: 2,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-17",
+                kit: "Diamond Pot",
+                opponent: "mrtrollface",
+                tierBefore: "HT4",
+                tierAfter: "HT4",
+                scorePlayer: 3,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
             }
         ],
         penaltyByKit: {
@@ -4536,6 +4547,31 @@ const players = [
                 scorePlayer: 0,
                 scoreOpponent: 4,
                 winner: "opponent",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
+    },
+    {
+        name: "mrtrollface",
+        region: "RU",
+        tiers: {
+            "Diamond Pot": {
+                tier: "LT3",
+                date: "2026-09-17",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-09-17",
+                kit: "Diamond Pot",
+                opponent: "-BaCk-",
+                tierBefore: "Unranked",
+                tierAfter: "LT3",
+                scorePlayer: 4,
+                scoreOpponent: 3,
+                winner: "player",
                 comment: null
             }
         ],
