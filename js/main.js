@@ -337,16 +337,12 @@ function openProfile(idx, filteredPlayersJSON) {
             }
         }
 
-        // Общие штрафные очки игрока (сумма по всем китам, только актуальные/не истёкшие)
-        const totalPenalty = getTotalEffectivePenalty(player);
+        // Штрафные очки убраны из профиля игрока по требованию: теперь
+        // они видны только в топе, отфильтрованном по конкретному киту
+        // (см. renderPlayers, ветка targetKit !== 'all'/'sub-all').
         const modalPenaltyTotal = document.getElementById('modalPenaltyTotal');
         if (modalPenaltyTotal) {
-            if (totalPenalty > 0) {
-                modalPenaltyTotal.innerText = `Штрафные очки: ${totalPenalty}`;
-                modalPenaltyTotal.style.display = '';
-            } else {
-                modalPenaltyTotal.style.display = 'none';
-            }
+            modalPenaltyTotal.style.display = 'none';
         }
 
         const activeMaintiers = (typeof maintiers !== 'undefined') ? maintiers : [];
@@ -360,10 +356,6 @@ function openProfile(idx, filteredPlayersJSON) {
                 const t = getCleanTier(player, kit);
                 const iconSrc = activeKitImages[kit] || "";
                 const ret = isKitRetired(player, kit);
-                const kitPenalty = getEffectivePenalty(player, kit);
-                const penaltyHTML = kitPenalty > 0
-                    ? `<span class="m-penalty-box" title="Штрафные очки по этому киту (сброс через ${PENALTY_EXPIRY_DAYS} дней с первого начисления, понижение при ${PENALTY_DEMOTION_THRESHOLD})">⚠ ${kitPenalty}</span>`
-                    : '';
                 return `<div class="modal-row" style="${ret ? 'opacity:0.6;' : ''}">
                     <div class="modal-kit-left">
                         <img class="modal-kit-icon" src="${iconSrc}" onerror="this.style.opacity='0'" alt="">
@@ -372,7 +364,6 @@ function openProfile(idx, filteredPlayersJSON) {
                     <div class="m-right-side">
                         ${getTierBadge(t, ret)} 
                         <span class="m-pts-box">(${activePts[t] || 0} PTS)</span>
-                        ${penaltyHTML}
                     </div>
                 </div>`;
             }).join('');
@@ -384,10 +375,6 @@ function openProfile(idx, filteredPlayersJSON) {
                 const t = getCleanTier(player, kit);
                 const iconSrc = activeKitImages[kit] || "";
                 const ret = isKitRetired(player, kit);
-                const kitPenalty = getEffectivePenalty(player, kit);
-                const penaltyHTML = kitPenalty > 0
-                    ? `<span class="m-penalty-box" title="Штрафные очки по этому киту (сброс через ${PENALTY_EXPIRY_DAYS} дней с первого начисления, понижение при ${PENALTY_DEMOTION_THRESHOLD})">⚠ ${kitPenalty}</span>`
-                    : '';
                 return `<div class="modal-row" style="${ret ? 'opacity:0.6;' : ''}">
                     <div class="modal-kit-left">
                         <img class="modal-kit-icon" src="${iconSrc}" onerror="this.style.opacity='0'" alt="">
@@ -396,7 +383,6 @@ function openProfile(idx, filteredPlayersJSON) {
                     <div class="m-right-side">
                         ${getTierBadge(t, ret)} 
                         <span class="m-pts-box">(${activePts[t] || 0} PTS)</span>
-                        ${penaltyHTML}
                     </div>
                 </div>`;
             }).join('');
@@ -977,15 +963,8 @@ function normalizeDuelEntry(entry) {
 function collectGlobalDuels() {
     if (typeof players === 'undefined' || !Array.isArray(players)) return [];
 
-    // Собираем ВСЕ стороны всех дуэлей (обе копии - и "Игрока", и
-    // "Оппонента" из шаблона бота), группируя по уникальному ключу
-    // дуэли. Затем для каждой дуэли выбираем ОДНУ сторону для показа -
-    // ту, что соответствует "Игроку" (тестируемому, у которого реально
-    // менялся или мог измениться тир), а не первую попавшуюся при
-    // переборе списка players. Это чинит пустые "Предыдущий -> Полученный
-    // ранг" на карточках, где в дедупликации случайно побеждала копия
-    // оппонента (у которого тир в этой дуэли не менялся).
-    const byKey = new Map();
+    const seen = new Set();
+    const result = [];
 
     players.forEach(player => {
         const history = Array.isArray(player.matchHistory) ? player.matchHistory : [];
@@ -996,34 +975,14 @@ function collectGlobalDuels() {
 
             const namesKey = [player.name, entry.opponent].sort().join('|');
             const key = `${entry.kit}|${entry.date}|${namesKey}|${[entry.scorePlayer, entry.scoreOpponent].sort().join('-')}`;
+            if (seen.has(key)) return;
+            seen.add(key);
 
-            const candidate = { ...entry, playerName: player.name };
-
-            if (!byKey.has(key)) {
-                byKey.set(key, candidate);
-                return;
-            }
-
-            // Уже есть одна сторона этой дуэли - решаем, какую из двух
-            // копий оставить. Сторона "Игрока" - та, где тир реально
-            // менялся (tierBefore !== tierAfter), включая
-            // квалификационные тесты (tierBefore пуст/Unranked, но
-            // tierAfter заполнен). Сторона "Оппонента" тир не меняет
-            // (tierBefore === tierAfter) - её предпочитаем не показывать,
-            // если есть более информативная альтернатива.
-            const existing = byKey.get(key);
-            const candidateIsTested = candidate.tierBefore !== candidate.tierAfter && !!candidate.tierAfter;
-            const existingIsTested = existing.tierBefore !== existing.tierAfter && !!existing.tierAfter;
-
-            if (candidateIsTested && !existingIsTested) {
-                byKey.set(key, candidate);
-            }
-            // Если обе или ни одна сторона не показывают смену тира -
-            // оставляем ту, что уже есть (первая встреченная), менять смысла нет.
+            result.push({ ...entry, playerName: player.name });
         });
     });
 
-    return Array.from(byKey.values());
+    return result;
 }
 
 // Строит HTML-блок с рангами дуэли (предыдущий → полученный), если они
