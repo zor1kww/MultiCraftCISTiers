@@ -534,7 +534,23 @@ function renderPlayers() {
             const penaltyBadge = kitPenalty > 0
                 ? `<span class="m-penalty-box" title="Штрафные очки по этому киту">⚠ ${kitPenalty}</span>`
                 : '';
-            rightColumnContent = getTierBadge(currentTier, ret) + penaltyBadge;
+            const kitIconSrc = activeKitImages[targetKit] || '';
+            const kitIconHTML = kitIconSrc
+                ? `<img class="kit-top-icon" src="${kitIconSrc}" onerror="this.style.display='none';" alt="">`
+                : '';
+            const kitPtsValue = currentTier !== "Unranked" ? (activePts[currentTier] || 0) : 0;
+            const kitPtsHTML = currentTier !== "Unranked"
+                ? `<span class="kit-top-pts">${kitPtsValue} PTS</span>`
+                : '';
+            rightColumnContent = `
+                <div class="kit-top-badge-wrap">
+                    ${kitIconHTML}
+                    <div class="kit-top-badge-stack">
+                        ${getTierBadge(currentTier, ret)}
+                        ${kitPtsHTML}
+                    </div>
+                    ${penaltyBadge}
+                </div>`;
         }
 
         let quickTiersHTML = '';
@@ -609,14 +625,10 @@ function renderPlayers() {
             metaTagsHTML += `<span class="player-meta-tag">${player.region}</span>`;
         }
         
-        // ВЫВОДИМ ТИР СРАЗУ ПОСЛЕ УСТРОЙСТВА:
-        if (targetKit !== 'all' && targetKit !== 'sub-all') {
-            const currentTier = getCleanTier(player, targetKit);
-            const ret = isKitRetired(player, targetKit);
-            if (currentTier !== "Unranked") {
-                metaTagsHTML += getMetaTierTag(currentTier, ret);
-            }
-        } else {
+        // В топе по конкретному киту тир уже показан крупным badge справа
+        // (см. rightColumnContent выше) - здесь его не дублируем, чтобы
+        // не показывать один и тот же тир дважды на одной карточке.
+        if (targetKit === 'all' || targetKit === 'sub-all') {
             const avgTier = calcAverageTier(player);
             if (avgTier !== "Unranked") {
                 metaTagsHTML += getMetaTierTag(avgTier, displayProfileRetiredTag);
