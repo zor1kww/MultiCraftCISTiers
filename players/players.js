@@ -1790,6 +1790,17 @@ const players = [
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
+            },
+            {
+                date: "2026-09-17",
+                kit: "Emerald Pot",
+                opponent: "mrtrollface",
+                tierBefore: "HT4",
+                tierAfter: "HT4",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null
             }
         ],
         penaltyByKit: {
@@ -4560,6 +4571,11 @@ const players = [
                 tier: "LT3",
                 date: "2026-09-17",
                 retired: false
+            },
+            "Emerald Pot": {
+                tier: "HT4",
+                date: "2026-09-17",
+                retired: false
             }
         },
         matchHistory: [
@@ -4572,6 +4588,17 @@ const players = [
                 scorePlayer: 4,
                 scoreOpponent: 3,
                 winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-09-17",
+                kit: "Emerald Pot",
+                opponent: "-BaCk-",
+                tierBefore: "Unranked",
+                tierAfter: "HT4",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
                 comment: null
             }
         ],
