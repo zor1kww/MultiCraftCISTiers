@@ -683,6 +683,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-18",
+                kit: "Hardcore",
+                opponent: "D4rK_S1lA",
+                tierBefore: "LT1",
+                tierAfter: "LT1",
+                scorePlayer: 3,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
             }
         ]
     },
@@ -2704,8 +2715,8 @@ const players = [
                 retired: false
             },
             Hardcore: {
-                tier: "LT3",
-                date: "2026-08-18",
+                tier: "LT1",
+                date: "2026-09-18",
                 retired: false
             },
             Mace: {
@@ -2740,6 +2751,17 @@ const players = [
                 scorePlayer: 5,
                 scoreOpponent: 6,
                 winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-18",
+                kit: "Hardcore",
+                opponent: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "LT1",
+                scorePlayer: 4,
+                scoreOpponent: 3,
+                winner: "player",
                 comment: null
             }
         ],
