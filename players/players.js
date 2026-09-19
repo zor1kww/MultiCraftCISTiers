@@ -2547,6 +2547,11 @@ const players = [
                 tier: "LT3",
                 date: "2026-08-24",
                 retired: false
+            },
+            Beast: {
+                tier: "HT3",
+                date: "2026-09-19",
+                retired: false
             }
         },
         matchHistory: [
@@ -2558,6 +2563,17 @@ const players = [
                 tierAfter: "LT3",
                 scoreTester: 0,
                 scorePlayer: 4,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-09-19",
+                kit: "Beast",
+                opponent: "D4rK_S1lA",
+                tierBefore: "LT3",
+                tierAfter: "HT3",
+                scorePlayer: 6,
+                scoreOpponent: 2,
                 winner: "player",
                 comment: null
             }
@@ -2763,12 +2779,27 @@ const players = [
                 scoreOpponent: 3,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-19",
+                kit: "Beast",
+                opponent: "BossKFC",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 2,
+                scoreOpponent: 6,
+                winner: "opponent",
+                comment: null
             }
         ],
         penaltyByKit: {
             RVM: {
                 points: 1.5,
                 firstPenaltyDate: "2026-08-29"
+            },
+            Beast: {
+                points: 1.2,
+                firstPenaltyDate: "2026-09-19"
             }
         }
     },
