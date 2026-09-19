@@ -318,6 +318,10 @@ const players = [
             SMP: {
                 points: 0,
                 firstPenaltyDate: "2026-08-29"
+            },
+            RVM: {
+                points: 1.0,
+                firstPenaltyDate: "2026-09-19"
             }
         },
         matchHistory: [
@@ -691,6 +695,17 @@ const players = [
                 tierBefore: "LT1",
                 tierAfter: "LT1",
                 scorePlayer: 3,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-19",
+                kit: "RVM",
+                opponent: "Prosto_oleg100-7",
+                tierBefore: "LT2",
+                tierAfter: "LT2",
+                scorePlayer: 2,
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
@@ -2222,8 +2237,8 @@ const players = [
                 retired: false
             },
             RVM: {
-                tier: "LT2",
-                date: "2026-08-25",
+                tier: "HT2",
+                date: "2026-09-19",
                 retired: false
             },
             SMP: {
@@ -2511,6 +2526,17 @@ const players = [
                 tierAfter: "LT1",
                 scorePlayer: 6,
                 scoreOpponent: 4,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-09-19",
+                kit: "RVM",
+                opponent: "zor1kkqwix",
+                tierBefore: "LT2",
+                tierAfter: "HT2",
+                scorePlayer: 4,
+                scoreOpponent: 2,
                 winner: "player",
                 comment: null
             }
