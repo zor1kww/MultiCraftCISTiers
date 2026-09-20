@@ -1896,7 +1896,7 @@ const players = [
             {
                 date: "2026-09-20",
                 kit: "Beast",
-                opponent: "BossKFC",
+                opponent: "Rost_aura",
                 tierBefore: "LT2",
                 tierAfter: "LT2",
                 scorePlayer: 2,
@@ -2643,7 +2643,7 @@ const players = [
         }
     },
     {
-        name: "BossKFC",
+        name: "Rost_aura",
         region: "RU",
         tiers: {
             Hardcore: {
@@ -2891,7 +2891,7 @@ const players = [
             {
                 date: "2026-09-19",
                 kit: "Beast",
-                opponent: "BossKFC",
+                opponent: "Rost_aura",
                 tierBefore: "LT3",
                 tierAfter: "LT3",
                 scorePlayer: 2,
