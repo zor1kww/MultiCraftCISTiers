@@ -720,6 +720,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-20",
+                kit: "RVM",
+                opponent: "Xx_KILBIT_xX",
+                tierBefore: "LT2",
+                tierAfter: "LT2",
+                scorePlayer: 5,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null
             }
         ]
     },
@@ -5063,6 +5074,31 @@ const players = [
                 tierAfter: "HT5",
                 scorePlayer: 0,
                 scoreOpponent: 3,
+                winner: "opponent",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
+    },
+    {
+        name: "Xx_KILBIT_xX",
+        region: "RU",
+        tiers: {
+            RVM: {
+                tier: "HT4",
+                date: "2026-09-20",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-09-20",
+                kit: "RVM",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "HT4",
+                scorePlayer: 0,
+                scoreOpponent: 5,
                 winner: "opponent",
                 comment: null
             }
