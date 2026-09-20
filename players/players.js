@@ -2302,7 +2302,7 @@ const players = [
             },
             Beast: {
                 tier: "HT2",
-                date: "2026-08-22",
+                date: "2026-09-20",
                 retired: false
             },
             Emerald: {
@@ -2620,6 +2620,17 @@ const players = [
                 scorePlayer: 2,
                 scoreOpponent: 4,
                 winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-20",
+                kit: "Beast",
+                opponent: "DzIla_EDITSmob",
+                tierBefore: "Unranked",
+                tierAfter: "HT2",
+                scorePlayer: 6,
+                scoreOpponent: 3,
+                winner: "player",
                 comment: null
             }
         ],
@@ -3758,12 +3769,27 @@ const players = [
                 scoreOpponent: 2,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-20",
+                kit: "Beast",
+                opponent: "Prosto_oleg100-7",
+                tierBefore: "HT2",
+                tierAfter: "HT2",
+                scorePlayer: 3,
+                scoreOpponent: 6,
+                winner: "opponent",
+                comment: null
             }
         ],
         penaltyByKit: {
             Dragonhide: {
                 points: 0.8,
                 firstPenaltyDate: "2026-09-14"
+            },
+            Beast: {
+                points: 0.8,
+                firstPenaltyDate: "2026-09-20"
             }
         }
     },
