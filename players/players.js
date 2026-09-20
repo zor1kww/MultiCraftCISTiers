@@ -709,6 +709,17 @@ const players = [
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
+            },
+            {
+                date: "2026-09-20",
+                kit: "Crystal",
+                opponent: "gg_Yt_tt",
+                tierBefore: "HT1",
+                tierAfter: "HT1",
+                scorePlayer: 3,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null
             }
         ]
     },
@@ -4758,5 +4769,30 @@ const players = [
                 firstPenaltyDate: "2026-09-20"
             }
         }
+    },
+    {
+        name: "gg_Yt_tt",
+        region: "RU",
+        tiers: {
+            Crystal: {
+                tier: "HT5",
+                date: "2026-09-20",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-09-20",
+                kit: "Crystal",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "HT5",
+                scorePlayer: 0,
+                scoreOpponent: 3,
+                winner: "opponent",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
     }
 ];
