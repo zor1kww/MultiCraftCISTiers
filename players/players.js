@@ -2610,6 +2610,17 @@ const players = [
                 scoreOpponent: 6,
                 winner: "opponent",
                 comment: null
+            },
+            {
+                date: "2026-09-20",
+                kit: "RVM",
+                opponent: "DzIla_EDITSmob",
+                tierBefore: "HT2",
+                tierAfter: "HT2",
+                scorePlayer: 2,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
             }
         ],
         penaltyByKit: {
@@ -2628,6 +2639,10 @@ const players = [
             "Emerald Pot": {
                 points: 1,
                 firstPenaltyDate: "2026-09-14"
+            },
+            RVM: {
+                points: 1.0,
+                firstPenaltyDate: "2026-09-20"
             }
         }
     },
@@ -3520,8 +3535,8 @@ const players = [
                 retired: false
             },
             RVM: {
-                tier: "LT2",
-                date: "2026-08-27",
+                tier: "LT1",
+                date: "2026-09-20",
                 retired: false
             },
             Hardcore: {
@@ -3730,6 +3745,17 @@ const players = [
                 tierAfter: "LT1",
                 scorePlayer: 6,
                 scoreOpponent: 3,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-09-20",
+                kit: "RVM",
+                opponent: "Prosto_oleg100-7",
+                tierBefore: "LT2",
+                tierAfter: "LT1",
+                scorePlayer: 4,
+                scoreOpponent: 2,
                 winner: "player",
                 comment: null
             }
