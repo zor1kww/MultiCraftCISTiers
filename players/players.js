@@ -1895,17 +1895,6 @@ const players = [
             },
             {
                 date: "2026-09-20",
-                kit: "Beast",
-                opponent: "Rost_aura",
-                tierBefore: "LT2",
-                tierAfter: "LT2",
-                scorePlayer: 2,
-                scoreOpponent: 6,
-                winner: "opponent",
-                comment: "квалифицированный тест пройден"
-            },
-            {
-                date: "2026-09-20",
                 kit: "Crystal",
                 opponent: "-Sorry-",
                 tierBefore: "HT4",
