@@ -69,7 +69,12 @@ import html as _html
 
 _NAME_TOKENS = {}   # token -> real name
 _TOKEN_RE = re.compile(r'^~[0-9a-f]{8}$')
-_INLINE_NAME_MAX_BYTES = 14
+# Бюджет самой длинной callback_data (лог дуэлей):
+#   'admin:confirm_dueldelete:' (25) + имя + ':' + кит (до 11) + ':' + дата (10)
+#   + ':' + индекс (до 4 цифр) = 53 + имя  ->  при имени <= 9 байт это 62 <= 64.
+# Токен ~xxxxxxxx = 9 байт, поэтому имя длиннее 9 байт всегда заменяется токеном
+# (это не длиннее самого имени, а лимит не превышается ни при каких индексах).
+_INLINE_NAME_MAX_BYTES = 9
 
 
 def _enc(name: str) -> str:
