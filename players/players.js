@@ -2224,17 +2224,6 @@ const players = [
             {
                 date: "2026-09-12",
                 kit: "Crystal",
-                opponent: "система",
-                tierBefore: "HT2",
-                tierAfter: "LT2",
-                scorePlayer: 0,
-                scoreOpponent: 0,
-                winner: "opponent",
-                comment: "Автопонижение: накоплено 2 штрафных очка"
-            },
-            {
-                date: "2026-09-12",
-                kit: "Crystal",
                 opponent: "zor1kkqwix",
                 tierBefore: "LT3",
                 tierAfter: "HT2",
