@@ -926,6 +926,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const duelsSearchInput = document.getElementById('duelsSearchInput');
     if (duelsSearchInput) duelsSearchInput.addEventListener('input', renderGlobalDuels);
 
+    // Чекбоксы "Только квалификации" / "Только высокие результаты".
+    // Взаимоисключающие: квалификация даёт максимум LT3, поэтому вместе
+    // они всегда дали бы пустой список.
+    const duelsQualToggle = document.getElementById('duelsQualToggle');
+    const duelsHighToggle = document.getElementById('duelsHighToggle');
+    if (duelsQualToggle && duelsHighToggle) {
+        duelsQualToggle.addEventListener('change', () => {
+            if (duelsQualToggle.checked) duelsHighToggle.checked = false;
+            renderGlobalDuels();
+        });
+        duelsHighToggle.addEventListener('change', () => {
+            if (duelsHighToggle.checked) duelsQualToggle.checked = false;
+            renderGlobalDuels();
+        });
+    }
+
     // Первичный запуск отрисовки
     initSite();
 });
@@ -1050,11 +1066,9 @@ function collectGlobalDuels() {
 // зафиксированы в записи. Показывается только когда тир реально менялся
 // в контексте этого результата (в самой дуэли, а не когда tierBefore
 // просто равен tierAfter - тогда это не несёт информации).
-function buildDuelTierChangeHTML(entry, opts = {}) {
+function buildDuelTierChangeHTML(entry) {
     if (!entry.tierBefore || !entry.tierAfter) return '';
-    // В профиле игрока неизменившийся тир (HT4 → HT4) не показываем;
-    // во вкладке "Дуэли" показываем всегда (opts.showUnchanged).
-    if (!opts.showUnchanged && entry.tierBefore === entry.tierAfter) return '';
+    if (entry.tierBefore === entry.tierAfter) return '';
 
     const activeColors = (typeof tierColors !== 'undefined') ? tierColors : {};
     const colorBefore = activeColors[entry.tierBefore] || 'var(--text-muted)';
@@ -1065,6 +1079,26 @@ function buildDuelTierChangeHTML(entry, opts = {}) {
         <span class="duel-tier-arrow">→</span>
         <span style="color:${colorAfter}; font-weight:700;">${entry.tierAfter}</span>
     </div>`;
+}
+
+// Тир из записи дуэли без возможного префикса R (Retired) и без пробелов.
+function cleanDuelTier(t) {
+    if (!t) return '';
+    return String(t).trim().replace(/^R(?=[HL]T)/, '');
+}
+
+// Квалификация: у игрока до дуэли не было ранга, после - первый ранг получен
+// (та же логика, что в collectGlobalDuels для "стороны Игрока").
+function isQualificationDuel(d) {
+    const before = cleanDuelTier(d.tierBefore);
+    const after = cleanDuelTier(d.tierAfter);
+    return (!before || before === 'Unranked') && !!after && after !== 'Unranked';
+}
+
+// Высокий результат: полученный тир HT3 и выше (HT3, LT2, HT2, LT1, HT1) -
+// тот же порог, что RETIRED_ELIGIBLE_TIERS.
+function isHighResultDuel(d) {
+    return RETIRED_ELIGIBLE_TIERS.includes(cleanDuelTier(d.tierAfter));
 }
 
 // Рендер вкладки "Дуэли" — применяет поиск (по игроку/оппоненту) и фильтр
@@ -1080,8 +1114,22 @@ function renderGlobalDuels() {
 
     let duels = collectGlobalDuels();
 
-    if (kitFilter !== 'all') {
+    if (kitFilter === 'main-all') {
+        const mainKits = (typeof maintiers !== 'undefined') ? maintiers : [];
+        duels = duels.filter(d => mainKits.includes(d.kit));
+    } else if (kitFilter === 'sub-all') {
+        const subKits = (typeof subtiers !== 'undefined') ? subtiers : [];
+        duels = duels.filter(d => subKits.includes(d.kit));
+    } else if (kitFilter !== 'all') {
         duels = duels.filter(d => d.kit === kitFilter);
+    }
+    const qualToggle = document.getElementById('duelsQualToggle');
+    const highToggle = document.getElementById('duelsHighToggle');
+    if (qualToggle && qualToggle.checked) {
+        duels = duels.filter(isQualificationDuel);
+    }
+    if (highToggle && highToggle.checked) {
+        duels = duels.filter(isHighResultDuel);
     }
     if (search) {
         duels = duels.filter(d =>
@@ -1102,7 +1150,7 @@ function renderGlobalDuels() {
         const won = entry.winner === 'player';
         const resultClass = won ? 'duel-win' : 'duel-loss';
         const commentHTML = entry.comment ? `<div class="duel-comment">${entry.comment}</div>` : '';
-        const tierChangeHTML = buildDuelTierChangeHTML(entry, { showUnchanged: true });
+        const tierChangeHTML = buildDuelTierChangeHTML(entry);
         const playerSafe = String(entry.playerName).replace(/'/g, "\\'");
         const opponentSafe = String(entry.opponent).replace(/'/g, "\\'");
 
