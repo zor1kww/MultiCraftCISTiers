@@ -3688,17 +3688,6 @@ const players = [
                 scoreOpponent: 6,
                 winner: "opponent",
                 comment: null
-            },
-            {
-                date: "2026-09-20",
-                kit: "Emerald Pot",
-                opponent: "mrtrollface",
-                tierBefore: "LT1",
-                tierAfter: "LT1",
-                scorePlayer: 4,
-                scoreOpponent: 1,
-                winner: "player",
-                comment: null
             }
         ],
         penaltyByKit: {
