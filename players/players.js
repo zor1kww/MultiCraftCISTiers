@@ -1898,6 +1898,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-20",
+                kit: "Hardcore",
+                opponent: "-Sorry-",
+                tierBefore: "HT3",
+                tierAfter: "HT3",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null
             }
         ],
         penaltyByKit: {
@@ -3876,7 +3887,7 @@ const players = [
             },
             Hardcore: {
                 tier: "HT4",
-                date: "2026-08-18",
+                date: "2026-09-20",
                 retired: false
             },
             Crystal: {
@@ -3905,6 +3916,17 @@ const players = [
                 tierAfter: "HT4",
                 scorePlayer: 0,
                 scoreOpponent: 5,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-20",
+                kit: "Hardcore",
+                opponent: "-BaCk-",
+                tierBefore: "HT4",
+                tierAfter: "HT4",
+                scorePlayer: 0,
+                scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
             }
