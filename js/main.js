@@ -1050,9 +1050,11 @@ function collectGlobalDuels() {
 // зафиксированы в записи. Показывается только когда тир реально менялся
 // в контексте этого результата (в самой дуэли, а не когда tierBefore
 // просто равен tierAfter - тогда это не несёт информации).
-function buildDuelTierChangeHTML(entry) {
+function buildDuelTierChangeHTML(entry, opts = {}) {
     if (!entry.tierBefore || !entry.tierAfter) return '';
-    if (entry.tierBefore === entry.tierAfter) return '';
+    // В профиле игрока неизменившийся тир (HT4 → HT4) не показываем;
+    // во вкладке "Дуэли" показываем всегда (opts.showUnchanged).
+    if (!opts.showUnchanged && entry.tierBefore === entry.tierAfter) return '';
 
     const activeColors = (typeof tierColors !== 'undefined') ? tierColors : {};
     const colorBefore = activeColors[entry.tierBefore] || 'var(--text-muted)';
@@ -1100,7 +1102,7 @@ function renderGlobalDuels() {
         const won = entry.winner === 'player';
         const resultClass = won ? 'duel-win' : 'duel-loss';
         const commentHTML = entry.comment ? `<div class="duel-comment">${entry.comment}</div>` : '';
-        const tierChangeHTML = buildDuelTierChangeHTML(entry);
+        const tierChangeHTML = buildDuelTierChangeHTML(entry, { showUnchanged: true });
         const playerSafe = String(entry.playerName).replace(/'/g, "\\'");
         const opponentSafe = String(entry.opponent).replace(/'/g, "\\'");
 
