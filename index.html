@@ -113,7 +113,7 @@
                     <svg class="custom-select-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
                 <div class="custom-select-panel" id="kitFilterPanel">
-                    <div class="custom-select-group-label custom-select-option selected" data-value="all">Main Kits</div>
+                    <div class="custom-select-group-label custom-select-option selected" data-value="all" style="pointer-events:auto;cursor:pointer;">Main Kits</div>
                     <div class="custom-select-option" data-value="Hardcore">Hardcore</div>
                     <div class="custom-select-option" data-value="Manhunt">Manhunt</div>
                     <div class="custom-select-option" data-value="Diamond Pot">Diamond Pot</div>
@@ -125,7 +125,7 @@
                     <div class="custom-select-option" data-value="Pickaxe">Pickaxe</div>
                     <div class="custom-select-option" data-value="SMP">SMP</div>
                     <div class="custom-select-option" data-value="Vanilla">Vanilla</div>
-                    <div class="custom-select-group-label custom-select-option" data-value="sub-all">Sub Kits</div>
+                    <div class="custom-select-group-label custom-select-option" data-value="sub-all" style="pointer-events:auto;cursor:pointer;">Sub Kits</div>
                     <div class="custom-select-option" data-value="Combo">Combo</div>
                     <div class="custom-select-option" data-value="Gapple">Gapple</div>
                     <div class="custom-select-option" data-value="Mace">Mace</div>
@@ -185,7 +185,7 @@
             </button>
             <div class="custom-select-panel" id="duelsKitFilterPanel">
                 <div class="custom-select-option selected" data-value="all">Все киты</div>
-                <div class="custom-select-group-label" data-value="main-label">Main Kits</div>
+                <div class="custom-select-group-label custom-select-option" data-value="main-all" style="pointer-events:auto;cursor:pointer;">Main Kits</div>
                 <div class="custom-select-option" data-value="Hardcore">Hardcore</div>
                 <div class="custom-select-option" data-value="Manhunt">Manhunt</div>
                 <div class="custom-select-option" data-value="Diamond Pot">Diamond Pot</div>
@@ -197,13 +197,24 @@
                 <div class="custom-select-option" data-value="Pickaxe">Pickaxe</div>
                 <div class="custom-select-option" data-value="SMP">SMP</div>
                 <div class="custom-select-option" data-value="Vanilla">Vanilla</div>
-                <div class="custom-select-group-label" data-value="sub-label">Sub Kits</div>
+                <div class="custom-select-group-label custom-select-option" data-value="sub-all" style="pointer-events:auto;cursor:pointer;">Sub Kits</div>
                 <div class="custom-select-option" data-value="Combo">Combo</div>
                 <div class="custom-select-option" data-value="Gapple">Gapple</div>
                 <div class="custom-select-option" data-value="Mace">Mace</div>
                 <div class="custom-select-option" data-value="Crystal">Crystal</div>
             </div>
         </div>
+    </div>
+
+    <div class="filters-row-3">
+        <label class="checkbox-label">
+            <input type="checkbox" id="duelsQualToggle">
+            Только квалификации
+        </label>
+        <label class="checkbox-label">
+            <input type="checkbox" id="duelsHighToggle">
+            Только высокие результаты (HT3+)
+        </label>
     </div>
 
     <div class="duels-list duels-list-global" id="globalDuelsList"></div>
