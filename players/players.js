@@ -2665,6 +2665,28 @@ const players = [
                 scoreOpponent: 0,
                 winner: "opponent",
                 comment: "Автопонижение: накоплено 2 штрафных очка"
+            },
+            {
+                date: "2026-09-20",
+                kit: "Beast",
+                opponent: "DzIla_EDITSmob",
+                tierBefore: "HT2",
+                tierAfter: "LT1",
+                scorePlayer: 3,
+                scoreOpponent: 6,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-20",
+                kit: "Beast",
+                opponent: "система",
+                tierBefore: "LT1",
+                tierAfter: "HT2",
+                scorePlayer: 0,
+                scoreOpponent: 0,
+                winner: "opponent",
+                comment: "Автопонижение: накоплено 2 штрафных очка"
             }
         ],
         penaltyByKit: {
@@ -2677,8 +2699,8 @@ const players = [
                 firstPenaltyDate: "2026-08-27"
             },
             Beast: {
-                points: 1.6,
-                firstPenaltyDate: "2026-09-12"
+                points: 0.0,
+                firstPenaltyDate: "2026-09-20"
             },
             "Emerald Pot": {
                 points: 1,
@@ -3831,6 +3853,17 @@ const players = [
                 opponent: "Prosto_oleg100-7",
                 tierBefore: "LT1",
                 tierAfter: "LT1",
+                scorePlayer: 6,
+                scoreOpponent: 3,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-09-20",
+                kit: "Beast",
+                opponent: "Prosto_oleg100-7",
+                tierBefore: "HT2",
+                tierAfter: "HT2",
                 scorePlayer: 6,
                 scoreOpponent: 3,
                 winner: "player",
