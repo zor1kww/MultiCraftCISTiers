@@ -984,8 +984,10 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
             return
         bot.answer_callback_query(call.id)
         _, _, player_name, kit, date_str, idx_str = _split(call.data, 5)
+        idx = int(idx_str)
         try:
-            confirm_data = _safe_callback(f"admin:confirm_dueldelete:{_enc(player_name)}:{kit}:{date_str}:{idx_str}")
+            both_data = _safe_callback(f"admin:confirm_dueldelete:{_enc(player_name)}:{kit}:{date_str}:{idx_str}")
+            one_data = _safe_callback(f"admin:confirm_duelone:{_enc(player_name)}:{kit}:{date_str}:{idx_str}")
         except ValueError:
             bot.edit_message_text(
                 "⚠️ Слишком длинное имя игрока/кита для этого меню. Обратитесь к разработчику.",
@@ -993,33 +995,72 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
                 reply_markup=_main_menu_keyboard(),
             )
             return
+
+        players_list = _fetch_players(gh_repo, gh_token)
+        player = _find_player(players_list, player_name)
+        history = player.get('matchHistory', []) if player else []
+        entry = history[idx] if 0 <= idx < len(history) else None
+        mirror = _find_mirror_entry(players_list, player_name, entry) if entry else None
+
+        if not mirror:
+            bot.edit_message_text(
+                f"⚠️ Удалить эту запись из лога дуэлей {player_name} безвозвратно?",
+                call.message.chat.id, call.message.message_id,
+                reply_markup=_confirm_keyboard(one_data),
+            )
+            return
+
+        opp, mi = mirror
+        m = opp['matchHistory'][mi]
+        kb = types.InlineKeyboardMarkup(row_width=1)
+        kb.add(
+            types.InlineKeyboardButton("✅ Удалить обе записи", callback_data=both_data),
+            types.InlineKeyboardButton("☝️ Только эту запись", callback_data=one_data),
+            types.InlineKeyboardButton("❌ Отмена", callback_data="admin:menu"),
+        )
         bot.edit_message_text(
-            f"⚠️ Удалить эту запись из лога дуэлей {player_name} безвозвратно?",
+            f"⚠️ Удалить запись из лога {player_name} безвозвратно?\n\n"
+            f"У оппонента есть парная запись этой дуэли:\n"
+            f"{opp.get('name')} {m.get('scorePlayer')}:{_entry_score_opponent(m)} {player_name} "
+            f"({m.get('tierBefore') or 'Unranked'} → {m.get('tierAfter') or 'Unranked'})\n\n"
+            f"Если оставить её, она останется строкой в общем логе на сайте.",
             call.message.chat.id, call.message.message_id,
-            reply_markup=_confirm_keyboard(confirm_data),
+            reply_markup=kb,
         )
 
-    @_cbh(lambda c: (c.data or '').startswith('admin:confirm_dueldelete:'))
-    def handle_confirm_duel_delete(call):
+    def _do_duel_delete(call, with_mirror):
         if not is_admin(call.from_user.id):
             bot.answer_callback_query(call.id, "⛔ Нет доступа", show_alert=True)
             return
         bot.answer_callback_query(call.id)
         _, _, player_name, kit, date_str, idx_str = _split(call.data, 5)
         idx = int(idx_str)
+        report = {}
         ok = _apply_mutation(
             gh_repo, gh_token,
-            lambda players_list, pn=player_name, i=idx: _mutate_delete_duel_entry(players_list, pn, i),
-            f"Админ-панель: удалена запись лога дуэлей у {player_name} ({kit}, {date_str})",
+            lambda players_list, pn=player_name, i=idx, wm=with_mirror:
+                _mutate_delete_duel_entry(players_list, pn, i, wm, report),
+            f"Админ-панель: удалена запись лога дуэлей у {player_name} ({kit}, {date_str})"
+            + (" + парная запись оппонента" if with_mirror else ""),
             bot=bot, chat_id=call.message.chat.id, message_id=call.message.message_id,
         )
         if not ok:
             return
+        text = f"🗑 Запись удалена из лога дуэлей {player_name}."
+        if report.get('mirror_player'):
+            text += f"\nПарная запись удалена и у {report['mirror_player']}."
         bot.edit_message_text(
-            f"🗑 Запись удалена из лога дуэлей {player_name}.",
-            call.message.chat.id, call.message.message_id,
+            text, call.message.chat.id, call.message.message_id,
             reply_markup=_main_menu_keyboard(),
         )
+
+    @_cbh(lambda c: (c.data or '').startswith('admin:confirm_dueldelete:'))
+    def handle_confirm_duel_delete(call):
+        _do_duel_delete(call, True)
+
+    @_cbh(lambda c: (c.data or '').startswith('admin:confirm_duelone:'))
+    def handle_confirm_duel_delete_one(call):
+        _do_duel_delete(call, False)
 
     # -------------------- Лог дуэлей: изменение счёта --------------------
 
@@ -1053,16 +1094,18 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
             bot.send_message(message.chat.id, "⚠️ Не удалось распознать числа. Повторите /admin.")
             return
 
+        report = {}
         ok = _apply_mutation(
             gh_repo, gh_token,
-            lambda players_list, pn=player_name, i=idx, sp=score_player, so=score_opponent: _mutate_edit_duel_score(players_list, pn, i, sp, so),
+            lambda players_list, pn=player_name, i=idx, sp=score_player, so=score_opponent: _mutate_edit_duel_score(players_list, pn, i, sp, so, report),
             f"Админ-панель: изменён счёт в записи лога дуэлей {player_name} ({kit}, {date_str})",
             bot=bot, chat_id=message.chat.id, message_id=None,
         )
         if not ok:
             bot.send_message(message.chat.id, "⚠️ Не удалось сохранить изменение.")
             return
-        bot.send_message(message.chat.id, f"✅ Счёт обновлён: {score_player}:{score_opponent}.")
+        extra = f"\nПарная запись у {report['mirror_player']} обновлена тоже." if report.get('mirror_player') else ""
+        bot.send_message(message.chat.id, f"✅ Счёт обновлён: {score_player}:{score_opponent}.{extra}")
 
     # -------------------- Лог дуэлей: изменение тира до/после --------------------
 
@@ -1207,18 +1250,48 @@ def _mutate_freeze_all(players_list, player_name, retired_value: bool):
     return players_list
 
 
-def _mutate_delete_duel_entry(players_list, player_name, idx):
-    player = _find_player(players_list, player_name)
-    if not player:
-        raise RuntimeError(f"Игрок {player_name} не найден")
-    history = player.get('matchHistory', [])
-    if idx < 0 or idx >= len(history):
-        raise RuntimeError("Запись не найдена (индекс вне диапазона - возможно, база изменилась)")
-    history.pop(idx)
-    return players_list
+def _entry_opponent(entry):
+    return entry.get('opponent') or entry.get('tester')
 
 
-def _mutate_edit_duel_score(players_list, player_name, idx, score_player, score_opponent):
+def _entry_score_opponent(entry):
+    return entry.get('scoreOpponent', entry.get('scoreTester'))
+
+
+def _find_mirror_entry(players_list, player_name, entry):
+    """
+    Одна дуэль хранится в matchHistory ОБОИХ участников (у оппонента - как
+    «зеркальная» запись: он в роли Игрока, счёт перевёрнут, тиры его собственные).
+    Возвращает (opp_player, index) парной записи или None.
+    Ищем СТРОГО: тот же кит и дата, оппонент = этот игрок, счёт зеркальный.
+    Нестрогие совпадения не берём - лучше оставить сироту (админ увидит её
+    и удалит), чем случайно снести чужую независимую запись.
+    """
+    opp_name = _entry_opponent(entry)
+    if not opp_name or opp_name == player_name:
+        return None
+    opp = _find_player(players_list, opp_name)
+    if not opp:
+        return None
+    sp = entry.get('scorePlayer')
+    so = _entry_score_opponent(entry)
+    for i, e in enumerate(opp.get('matchHistory', [])):
+        if (e.get('kit') == entry.get('kit')
+                and e.get('date') == entry.get('date')
+                and _entry_opponent(e) == player_name
+                and e.get('scorePlayer') == so
+                and _entry_score_opponent(e) == sp):
+            return opp, i
+    return None
+
+
+def _mutate_delete_duel_entry(players_list, player_name, idx, with_mirror=True, report=None):
+    """
+    Удаляет запись idx из matchHistory игрока. При with_mirror=True вместе с
+    ней удаляется парная запись у оппонента (см. _find_mirror_entry) - иначе
+    в общем логе дуэлей на сайте остаётся «сиротская» строка второй стороны.
+    report (dict, опционально) получает 'mirror_player', если парная удалена.
+    """
     player = _find_player(players_list, player_name)
     if not player:
         raise RuntimeError(f"Игрок {player_name} не найден")
@@ -1226,6 +1299,29 @@ def _mutate_edit_duel_score(players_list, player_name, idx, score_player, score_
     if idx < 0 or idx >= len(history):
         raise RuntimeError("Запись не найдена (индекс вне диапазона - возможно, база изменилась)")
     entry = history[idx]
+    mirror = _find_mirror_entry(players_list, player_name, entry) if with_mirror else None
+    history.pop(idx)
+    if report is not None:
+        report.pop('mirror_player', None)
+    if mirror:
+        opp, mi = mirror
+        opp['matchHistory'].pop(mi)
+        if report is not None:
+            report['mirror_player'] = opp.get('name')
+    return players_list
+
+
+def _mutate_edit_duel_score(players_list, player_name, idx, score_player, score_opponent, report=None):
+    player = _find_player(players_list, player_name)
+    if not player:
+        raise RuntimeError(f"Игрок {player_name} не найден")
+    history = player.get('matchHistory', [])
+    if idx < 0 or idx >= len(history):
+        raise RuntimeError("Запись не найдена (индекс вне диапазона - возможно, база изменилась)")
+    entry = history[idx]
+    # Парную запись у оппонента ищем ДО изменения (по старому счёту) и
+    # синхронизируем после - иначе стороны одной дуэли разойдутся.
+    mirror = _find_mirror_entry(players_list, player_name, entry)
     entry['scorePlayer'] = score_player
     # Пишем в оба возможных поля - новое (scoreOpponent) и старое
     # (scoreTester), в зависимости от того, какое уже использовалось в
@@ -1237,6 +1333,19 @@ def _mutate_edit_duel_score(players_list, player_name, idx, score_player, score_
     # Пересчитываем победителя по новому счёту, раз счёт меняется вручную -
     # иначе останется рассинхрон между winner и реальными цифрами.
     entry['winner'] = 'player' if score_player > score_opponent else 'opponent'
+    if report is not None:
+        report.pop('mirror_player', None)
+    if mirror:
+        opp, mi = mirror
+        m = opp['matchHistory'][mi]
+        m['scorePlayer'] = score_opponent
+        if 'scoreTester' in m and 'scoreOpponent' not in m:
+            m['scoreTester'] = score_player
+        else:
+            m['scoreOpponent'] = score_player
+        m['winner'] = 'player' if score_opponent > score_player else 'opponent'
+        if report is not None:
+            report['mirror_player'] = opp.get('name')
     return players_list
 
 
