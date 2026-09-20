@@ -2306,7 +2306,7 @@ const players = [
                 retired: false
             },
             Emerald: {
-                tier: "LT1",
+                tier: "LT2",
                 date: "2026-09-20",
                 retired: false
             },
@@ -2643,12 +2643,34 @@ const players = [
                 scoreOpponent: 6,
                 winner: "opponent",
                 comment: null
+            },
+            {
+                date: "2026-09-20",
+                kit: "Emerald",
+                opponent: "DzIla_EDITSmob",
+                tierBefore: "Unranked",
+                tierAfter: "HT2",
+                scorePlayer: 3,
+                scoreOpponent: 6,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-20",
+                kit: "Emerald",
+                opponent: "система",
+                tierBefore: "HT2",
+                tierAfter: "LT2",
+                scorePlayer: 0,
+                scoreOpponent: 0,
+                winner: "opponent",
+                comment: "Автопонижение: накоплено 2 штрафных очка"
             }
         ],
         penaltyByKit: {
             Emerald: {
-                points: 1.6,
-                firstPenaltyDate: "2026-08-24"
+                points: 0.0,
+                firstPenaltyDate: "2026-09-20"
             },
             "Diamond Pot": {
                 points: 1,
@@ -3790,6 +3812,17 @@ const players = [
                 scorePlayer: 3,
                 scoreOpponent: 6,
                 winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-20",
+                kit: "Emerald",
+                opponent: "Prosto_oleg100-7",
+                tierBefore: "LT1",
+                tierAfter: "LT1",
+                scorePlayer: 6,
+                scoreOpponent: 3,
+                winner: "player",
                 comment: null
             },
             {
