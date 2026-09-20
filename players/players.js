@@ -1887,6 +1887,17 @@ const players = [
                 scoreOpponent: 1,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-20",
+                kit: "Mace",
+                opponent: "-Sorry-",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 5,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null
             }
         ],
         penaltyByKit: {
@@ -3860,7 +3871,7 @@ const players = [
         tiers: {
             Mace: {
                 tier: "HT4",
-                date: "2026-08-21",
+                date: "2026-09-20",
                 retired: false
             },
             Hardcore: {
@@ -3883,6 +3894,17 @@ const players = [
                 tierAfter: "LT4",
                 scorePlayer: 1,
                 scoreOpponent: 3,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-20",
+                kit: "Mace",
+                opponent: "-BaCk-",
+                tierBefore: "HT4",
+                tierAfter: "HT4",
+                scorePlayer: 0,
+                scoreOpponent: 5,
                 winner: "opponent",
                 comment: null
             }
