@@ -4851,17 +4851,6 @@ const players = [
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
-            },
-            {
-                date: "2026-09-20",
-                kit: "Emerald Pot",
-                opponent: "DzIla_EDITSmob",
-                tierBefore: "Unranked",
-                tierAfter: "LT2",
-                scorePlayer: 1,
-                scoreOpponent: 4,
-                winner: "opponent",
-                comment: null
             }
         ],
         penaltyByKit: {
