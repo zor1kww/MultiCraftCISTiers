@@ -4824,7 +4824,7 @@ const players = [
                 retired: false
             },
             "Emerald Pot": {
-                tier: "LT2",
+                tier: "HT4",
                 date: "2026-09-20",
                 retired: false
             }
