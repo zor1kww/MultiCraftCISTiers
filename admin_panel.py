@@ -44,6 +44,9 @@
     admin_panel.register(bot, GH_REPO, GH_TOKEN)
 """
 
+import functools
+import re
+
 import telebot
 from telebot import types
 
@@ -51,6 +54,65 @@ import github_storage
 from bot_config import TIER_ORDER, RETIRED_ELIGIBLE_TIERS, PENALTY_DEMOTION_THRESHOLD
 from penalty_logic import add_penalty_to_entry, next_tier_down
 from tier_logic import today_str
+
+
+
+# ------------------------------------------------------------------
+# Кодирование имён в callback_data.
+# Лимит Telegram - 64 БАЙТА, а кириллица весит 2 байта/символ, плюс
+# двоеточие в нике ломает разбор по ':'. Поэтому длинные/«опасные» имена
+# заменяются коротким токеном ~xxxxxxxx (хранится в памяти процесса),
+# а при разборе callback_data токены раскрываются обратно в имена.
+# ------------------------------------------------------------------
+import hashlib
+import html as _html
+
+_NAME_TOKENS = {}   # token -> real name
+_TOKEN_RE = re.compile(r'^~[0-9a-f]{8}$')
+_INLINE_NAME_MAX_BYTES = 14
+
+
+def _enc(name: str) -> str:
+    name = str(name)
+    if (':' not in name and '~' not in name
+            and len(name.encode('utf-8')) <= _INLINE_NAME_MAX_BYTES):
+        return name
+    token = '~' + hashlib.sha1(name.encode('utf-8')).hexdigest()[:8]
+    _NAME_TOKENS[token] = name
+    return token
+
+
+class _StaleToken(Exception):
+    pass
+
+
+def _dec(part: str) -> str:
+    if _TOKEN_RE.match(part):
+        if part not in _NAME_TOKENS:
+            raise _StaleToken(part)
+        return _NAME_TOKENS[part]
+    return part
+
+
+def _split(data: str, maxsplit: int = -1):
+    """split(':') + раскрытие токенов имён. Токены не содержат ':', поэтому
+    разбор безопасен даже для ников с двоеточием."""
+    return [_dec(p) for p in data.split(':', maxsplit)]
+
+
+def _esc(text) -> str:
+    """Экранирование для parse_mode='HTML' (ники/комментарии могут содержать < > &)."""
+    return _html.escape(str(text), quote=False)
+
+
+def _input_text(bot, message):
+    """Текст шага ввода или None. Команды (/admin) и нетекстовые сообщения
+    отменяют шаг, а не принимаются как имя/регион/число."""
+    text = getattr(message, 'text', None)
+    if not text or text.strip().startswith('/'):
+        bot.send_message(message.chat.id, "Ввод отменён. Откройте /admin, чтобы начать заново.")
+        return None
+    return text.strip()
 
 
 # ==========================================
@@ -194,7 +256,7 @@ def _players_keyboard(players_list, page, action, search=None):
 
     kb = types.InlineKeyboardMarkup(row_width=2)
     for name in page_names:
-        kb.add(types.InlineKeyboardButton(name, callback_data=f"admin:player:{action}:{name}"))
+        kb.add(types.InlineKeyboardButton(name, callback_data=f"admin:player:{action}:{_enc(name)}"))
 
     nav_row = []
     if page > 0:
@@ -212,7 +274,7 @@ def _players_keyboard(players_list, page, action, search=None):
 def _kits_keyboard(action, player_name):
     kb = types.InlineKeyboardMarkup(row_width=2)
     for kit in KNOWN_KITS:
-        kb.add(types.InlineKeyboardButton(kit, callback_data=f"admin:kit:{action}:{player_name}:{kit}"))
+        kb.add(types.InlineKeyboardButton(kit, callback_data=_safe_callback(f"admin:kit:{action}:{_enc(player_name)}:{kit}")))
     kb.add(types.InlineKeyboardButton("« Назад", callback_data="admin:menu"))
     return kb
 
@@ -220,11 +282,11 @@ def _kits_keyboard(action, player_name):
 def _tiers_keyboard(player_name, kit):
     kb = types.InlineKeyboardMarkup(row_width=3)
     buttons = [
-        types.InlineKeyboardButton(tier, callback_data=_safe_callback(f"admin:tier:{player_name}:{kit}:{tier}"))
+        types.InlineKeyboardButton(tier, callback_data=_safe_callback(f"admin:tier:{_enc(player_name)}:{kit}:{tier}"))
         for tier in ALL_TIERS
     ]
     kb.add(*buttons)
-    kb.add(types.InlineKeyboardButton("Unranked (убрать тир)", callback_data=_safe_callback(f"admin:tier:{player_name}:{kit}:Unranked")))
+    kb.add(types.InlineKeyboardButton("Unranked (убрать тир)", callback_data=_safe_callback(f"admin:tier:{_enc(player_name)}:{kit}:Unranked")))
     kb.add(types.InlineKeyboardButton("« Назад", callback_data="admin:menu"))
     return kb
 
@@ -241,10 +303,10 @@ def _confirm_keyboard(yes_callback, no_callback="admin:menu"):
 def _penalty_keyboard(player_name, kit):
     kb = types.InlineKeyboardMarkup(row_width=2)
     kb.add(
-        types.InlineKeyboardButton("+0.5", callback_data=_safe_callback(f"admin:penaltyadj:{player_name}:{kit}:0.5")),
-        types.InlineKeyboardButton("-0.5", callback_data=_safe_callback(f"admin:penaltyadj:{player_name}:{kit}:-0.5")),
+        types.InlineKeyboardButton("+0.5", callback_data=_safe_callback(f"admin:penaltyadj:{_enc(player_name)}:{kit}:0.5")),
+        types.InlineKeyboardButton("-0.5", callback_data=_safe_callback(f"admin:penaltyadj:{_enc(player_name)}:{kit}:-0.5")),
     )
-    kb.add(types.InlineKeyboardButton("✏️ Ввести точное число", callback_data=_safe_callback(f"admin:penaltyexact:{player_name}:{kit}")))
+    kb.add(types.InlineKeyboardButton("✏️ Ввести точное число", callback_data=_safe_callback(f"admin:penaltyexact:{_enc(player_name)}:{kit}")))
     kb.add(types.InlineKeyboardButton("« Назад", callback_data="admin:menu"))
     return kb
 
@@ -262,7 +324,7 @@ def _distinct_dates_for_kit(player, kit):
 def _dates_keyboard(player_name, kit, dates):
     kb = types.InlineKeyboardMarkup(row_width=2)
     for d in dates[:20]:  # ограничиваем на случай очень длинной истории по киту
-        kb.add(types.InlineKeyboardButton(d, callback_data=_safe_callback(f"admin:duelddate:{player_name}:{kit}:{d}")))
+        kb.add(types.InlineKeyboardButton(d, callback_data=_safe_callback(f"admin:duelddate:{_enc(player_name)}:{kit}:{d}")))
     kb.add(types.InlineKeyboardButton("« Назад", callback_data="admin:menu"))
     return kb
 
@@ -290,7 +352,7 @@ def _entries_keyboard(player_name, kit, date_str, entries):
     for idx, entry in entries:
         kb.add(types.InlineKeyboardButton(
             _duel_entry_summary(entry),
-            callback_data=_safe_callback(f"admin:duelpick:{player_name}:{kit}:{date_str}:{idx}"),
+            callback_data=_safe_callback(f"admin:duelpick:{_enc(player_name)}:{kit}:{date_str}:{idx}"),
         ))
     kb.add(types.InlineKeyboardButton("« Назад", callback_data="admin:menu"))
     return kb
@@ -299,9 +361,9 @@ def _entries_keyboard(player_name, kit, date_str, entries):
 def _duel_edit_keyboard(player_name, kit, date_str, idx):
     kb = types.InlineKeyboardMarkup(row_width=1)
     kb.add(
-        types.InlineKeyboardButton("✏️ Изменить счёт", callback_data=_safe_callback(f"admin:dueleditscore:{player_name}:{kit}:{date_str}:{idx}")),
-        types.InlineKeyboardButton("✏️ Изменить тир до/после", callback_data=_safe_callback(f"admin:dueledittier:{player_name}:{kit}:{date_str}:{idx}")),
-        types.InlineKeyboardButton("🗑 Удалить запись", callback_data=_safe_callback(f"admin:dueldelete:{player_name}:{kit}:{date_str}:{idx}")),
+        types.InlineKeyboardButton("✏️ Изменить счёт", callback_data=_safe_callback(f"admin:dueleditscore:{_enc(player_name)}:{kit}:{date_str}:{idx}")),
+        types.InlineKeyboardButton("✏️ Изменить тир до/после", callback_data=_safe_callback(f"admin:dueledittier:{_enc(player_name)}:{kit}:{date_str}:{idx}")),
+        types.InlineKeyboardButton("🗑 Удалить запись", callback_data=_safe_callback(f"admin:dueldelete:{_enc(player_name)}:{kit}:{date_str}:{idx}")),
         types.InlineKeyboardButton("« Назад", callback_data="admin:menu"),
     )
     return kb
@@ -319,6 +381,38 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
         import admin_panel
         admin_panel.register(bot, GH_REPO, GH_TOKEN)
     """
+
+
+    # ВАЖНО про маршрутизацию: pyTelegramBotAPI вызывает ТОЛЬКО ПЕРВЫЙ handler,
+    # чей filter вернул True. Раньше общий handler с filter startswith('admin:')
+    # перехватывал ВСЕ кнопки, и специализированные handler'ы ниже (rename,
+    # region, freeze, штрафы, лог дуэлей) были недостижимы - кнопки молчали.
+    # Теперь общий handler берёт только свои виды callback-ов, а остальные
+    # фильтры не пересекаются по префиксу.
+    _MAIN_KINDS = {'menu', 'noop', 'action', 'page', 'search', 'player', 'kit',
+                   'tier', 'confirm_tier', 'confirm_delete'}
+
+    def _kind(c):
+        d = c.data or ''
+        if not d.startswith('admin:'):
+            return None
+        return d.split(':', 2)[1]
+
+    def _cbh(flt):
+        """callback_query_handler + перехват устаревших кнопок (токен имени
+        пропал после рестарта бота) - вместо тихого молчания просим /admin."""
+        def deco(fn):
+            @functools.wraps(fn)
+            def wrapper(call):
+                try:
+                    return fn(call)
+                except _StaleToken:
+                    try:
+                        bot.answer_callback_query(call.id, "Кнопка устарела - откройте /admin заново", show_alert=True)
+                    except Exception:
+                        pass
+            return bot.callback_query_handler(func=flt)(wrapper)
+        return deco
 
     def _is_private_admin_message(message):
         return message.chat.type == 'private' and is_admin(message.from_user.id)
@@ -340,7 +434,7 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
 
     # -------------------- Обработка нажатий на inline-кнопки --------------------
 
-    @bot.callback_query_handler(func=lambda c: c.data.startswith('admin:'))
+    @_cbh(lambda c: _kind(c) in _MAIN_KINDS)
     def handle_admin_callback(call):
         user_id = call.from_user.id
         if not is_admin(user_id):
@@ -348,7 +442,7 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
             return
 
         bot.answer_callback_query(call.id)
-        parts = call.data.split(':')
+        parts = _split(call.data)
         # parts[0] == 'admin'
 
         if call.data == 'admin:menu':
@@ -427,37 +521,37 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
 
             if action == 'set_tier':
                 bot.edit_message_text(
-                    f"Игрок: <b>{player_name}</b>\nВыберите кит:",
+                    f"Игрок: <b>{_esc(player_name)}</b>\nВыберите кит:",
                     call.message.chat.id, call.message.message_id,
                     reply_markup=_kits_keyboard('set_tier', player_name), parse_mode='HTML',
                 )
 
             elif action == 'toggle_retired':
                 bot.edit_message_text(
-                    f"Игрок: <b>{player_name}</b>\nВыберите кит:",
+                    f"Игрок: <b>{_esc(player_name)}</b>\nВыберите кит:",
                     call.message.chat.id, call.message.message_id,
                     reply_markup=_kits_keyboard('toggle_retired', player_name), parse_mode='HTML',
                 )
 
             elif action == 'rename':
                 msg = bot.edit_message_text(
-                    f"Игрок: <b>{player_name}</b>\nОтправьте новое имя:",
+                    f"Игрок: <b>{_esc(player_name)}</b>\nОтправьте новое имя:",
                     call.message.chat.id, call.message.message_id, parse_mode='HTML',
                 )
                 bot.register_next_step_handler(msg, _handle_rename_input, gh_repo, gh_token, player_name)
 
             elif action == 'set_region':
                 msg = bot.edit_message_text(
-                    f"Игрок: <b>{player_name}</b>\nОтправьте новый регион (например RU, UA, BY, KZ):",
+                    f"Игрок: <b>{_esc(player_name)}</b>\nОтправьте новый регион (например RU, UA, BY, KZ):",
                     call.message.chat.id, call.message.message_id, parse_mode='HTML',
                 )
                 bot.register_next_step_handler(msg, _handle_region_input, gh_repo, gh_token, player_name)
 
             elif action == 'delete':
                 bot.edit_message_text(
-                    f"⚠️ Удалить игрока <b>{player_name}</b> полностью, вместе со всей историей дуэлей?\nЭто необратимо.",
+                    f"⚠️ Удалить игрока <b>{_esc(player_name)}</b> полностью, вместе со всей историей дуэлей?\nЭто необратимо.",
                     call.message.chat.id, call.message.message_id,
-                    reply_markup=_confirm_keyboard(f"admin:confirm_delete:{player_name}"),
+                    reply_markup=_confirm_keyboard(f"admin:confirm_delete:{_enc(player_name)}"),
                     parse_mode='HTML',
                 )
 
@@ -479,23 +573,23 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
                 verb = "заморозить" if action == 'freeze_all' else "разморозить"
                 kits_list = ", ".join(f"{kit} ({tier})" for kit, tier in eligible_kits)
                 bot.edit_message_text(
-                    f"{'❄️' if action == 'freeze_all' else '🔥'} {verb.capitalize()} у <b>{player_name}</b> "
+                    f"{'❄️' if action == 'freeze_all' else '🔥'} {verb.capitalize()} у <b>{_esc(player_name)}</b> "
                     f"следующие киты: {kits_list}?",
                     call.message.chat.id, call.message.message_id,
-                    reply_markup=_confirm_keyboard(f"admin:confirm_{action}:{player_name}"),
+                    reply_markup=_confirm_keyboard(f"admin:confirm_{action}:{_enc(player_name)}"),
                     parse_mode='HTML',
                 )
 
             elif action == 'penalty':
                 bot.edit_message_text(
-                    f"Игрок: <b>{player_name}</b>\nВыберите кит:",
+                    f"Игрок: <b>{_esc(player_name)}</b>\nВыберите кит:",
                     call.message.chat.id, call.message.message_id,
                     reply_markup=_kits_keyboard('penalty', player_name), parse_mode='HTML',
                 )
 
             elif action == 'duel_log':
                 bot.edit_message_text(
-                    f"Игрок: <b>{player_name}</b>\nВыберите кит:",
+                    f"Игрок: <b>{_esc(player_name)}</b>\nВыберите кит:",
                     call.message.chat.id, call.message.message_id,
                     reply_markup=_kits_keyboard('duel_log', player_name), parse_mode='HTML',
                 )
@@ -517,7 +611,7 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
                     )
                     return
                 bot.edit_message_text(
-                    f"Игрок: <b>{player_name}</b>\nКит: <b>{kit}</b>\nВыберите новый тир:",
+                    f"Игрок: <b>{_esc(player_name)}</b>\nКит: <b>{_esc(kit)}</b>\nВыберите новый тир:",
                     call.message.chat.id, call.message.message_id,
                     reply_markup=kb, parse_mode='HTML',
                 )
@@ -569,7 +663,7 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
                 if player:
                     current_points = player.get('penaltyByKit', {}).get(kit, {}).get('points', 0.0)
                 bot.edit_message_text(
-                    f"Игрок: <b>{player_name}</b>\nКит: <b>{kit}</b>\n"
+                    f"Игрок: <b>{_esc(player_name)}</b>\nКит: <b>{_esc(kit)}</b>\n"
                     f"Текущие штрафные очки: <b>{current_points}</b>\n\n"
                     f"Выберите действие:",
                     call.message.chat.id, call.message.message_id,
@@ -590,7 +684,7 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
                     return
 
                 bot.edit_message_text(
-                    f"Игрок: <b>{player_name}</b>\nКит: <b>{kit}</b>\nВыберите дату записи:",
+                    f"Игрок: <b>{_esc(player_name)}</b>\nКит: <b>{_esc(kit)}</b>\nВыберите дату записи:",
                     call.message.chat.id, call.message.message_id,
                     reply_markup=_dates_keyboard(player_name, kit, dates), parse_mode='HTML',
                 )
@@ -600,9 +694,9 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
         if action_kind == 'tier':
             player_name, kit, tier = parts[2], parts[3], ':'.join(parts[4:])
             bot.edit_message_text(
-                f"Установить <b>{player_name}</b> / <b>{kit}</b> → <b>{tier}</b>?",
+                f"Установить <b>{_esc(player_name)}</b> / <b>{_esc(kit)}</b> → <b>{_esc(tier)}</b>?",
                 call.message.chat.id, call.message.message_id,
-                reply_markup=_confirm_keyboard(f"admin:confirm_tier:{player_name}:{kit}:{tier}"),
+                reply_markup=_confirm_keyboard(f"admin:confirm_tier:{_enc(player_name)}:{kit}:{tier}"),
                 parse_mode='HTML',
             )
             return
@@ -648,7 +742,9 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
     def _handle_search_input(message, gh_repo, gh_token, action):
         if not is_admin(message.from_user.id):
             return
-        search = message.text.strip()
+        search = _input_text(bot, message)
+        if search is None:
+            return
         players_list = _fetch_players(gh_repo, gh_token)
         bot.send_message(
             message.chat.id,
@@ -659,25 +755,30 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
     def _handle_rename_input(message, gh_repo, gh_token, old_name):
         if not is_admin(message.from_user.id):
             return
-        new_name = message.text.strip()
+        new_name = _input_text(bot, message)
+        if new_name is None:
+            return
         if not new_name:
             bot.send_message(message.chat.id, "⚠️ Имя не может быть пустым. Повторите /admin.")
             return
         bot.send_message(
             message.chat.id,
-            f"Переименовать <b>{old_name}</b> → <b>{new_name}</b>?",
-            reply_markup=_confirm_keyboard(f"admin:confirm_rename:{old_name}:{new_name}"),
+            f"Переименовать <b>{_esc(old_name)}</b> → <b>{_esc(new_name)}</b>?",
+            reply_markup=_confirm_keyboard(_safe_callback(f"admin:confirm_rename:{_enc(old_name)}:{_enc(new_name)}")),
             parse_mode='HTML',
         )
 
     def _handle_region_input(message, gh_repo, gh_token, player_name):
         if not is_admin(message.from_user.id):
             return
-        new_region = message.text.strip().upper()
+        new_region = _input_text(bot, message)
+        if new_region is None:
+            return
+        new_region = new_region.upper()
         bot.send_message(
             message.chat.id,
-            f"Установить регион <b>{player_name}</b> → <b>{new_region}</b>?",
-            reply_markup=_confirm_keyboard(f"admin:confirm_region:{player_name}:{new_region}"),
+            f"Установить регион <b>{_esc(player_name)}</b> → <b>{_esc(new_region)}</b>?",
+            reply_markup=_confirm_keyboard(_safe_callback(f"admin:confirm_region:{_enc(player_name)}:{_enc(new_region)}")),
             parse_mode='HTML',
         )
 
@@ -686,13 +787,13 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
     # поддерживает несколько callback_query_handler, срабатывает первый
     # подходящий по filter'у, поэтому здесь сужаем через startswith).
 
-    @bot.callback_query_handler(func=lambda c: c.data.startswith('admin:confirm_rename:'))
+    @_cbh(lambda c: (c.data or '').startswith('admin:confirm_rename:'))
     def handle_confirm_rename(call):
         if not is_admin(call.from_user.id):
             bot.answer_callback_query(call.id, "⛔ Нет доступа", show_alert=True)
             return
         bot.answer_callback_query(call.id)
-        _, _, old_name, new_name = call.data.split(':', 3)
+        _, _, old_name, new_name = _split(call.data, 3)
         ok = _apply_mutation(
             gh_repo, gh_token,
             lambda players_list, o=old_name, n=new_name: _mutate_rename_player(players_list, o, n),
@@ -707,13 +808,13 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
             reply_markup=_main_menu_keyboard(),
         )
 
-    @bot.callback_query_handler(func=lambda c: c.data.startswith('admin:confirm_region:'))
+    @_cbh(lambda c: (c.data or '').startswith('admin:confirm_region:'))
     def handle_confirm_region(call):
         if not is_admin(call.from_user.id):
             bot.answer_callback_query(call.id, "⛔ Нет доступа", show_alert=True)
             return
         bot.answer_callback_query(call.id)
-        _, _, player_name, new_region = call.data.split(':', 3)
+        _, _, player_name, new_region = _split(call.data, 3)
         ok = _apply_mutation(
             gh_repo, gh_token,
             lambda players_list, pn=player_name, r=new_region: _mutate_set_region(players_list, pn, r),
@@ -730,13 +831,13 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
 
     # -------------------- Заморозка/разморозка всех HT1-HT3 китов разом --------------------
 
-    @bot.callback_query_handler(func=lambda c: c.data.startswith('admin:confirm_freeze_all:'))
+    @_cbh(lambda c: (c.data or '').startswith('admin:confirm_freeze_all:'))
     def handle_confirm_freeze_all(call):
         if not is_admin(call.from_user.id):
             bot.answer_callback_query(call.id, "⛔ Нет доступа", show_alert=True)
             return
         bot.answer_callback_query(call.id)
-        player_name = call.data.split(':', 2)[2]
+        player_name = _split(call.data, 2)[2]
         ok = _apply_mutation(
             gh_repo, gh_token,
             lambda players_list, pn=player_name: _mutate_freeze_all(players_list, pn, True),
@@ -751,13 +852,13 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
             reply_markup=_main_menu_keyboard(),
         )
 
-    @bot.callback_query_handler(func=lambda c: c.data.startswith('admin:confirm_unfreeze_all:'))
+    @_cbh(lambda c: (c.data or '').startswith('admin:confirm_unfreeze_all:'))
     def handle_confirm_unfreeze_all(call):
         if not is_admin(call.from_user.id):
             bot.answer_callback_query(call.id, "⛔ Нет доступа", show_alert=True)
             return
         bot.answer_callback_query(call.id)
-        player_name = call.data.split(':', 2)[2]
+        player_name = _split(call.data, 2)[2]
         ok = _apply_mutation(
             gh_repo, gh_token,
             lambda players_list, pn=player_name: _mutate_freeze_all(players_list, pn, False),
@@ -774,25 +875,25 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
 
     # -------------------- Штрафные очки --------------------
 
-    @bot.callback_query_handler(func=lambda c: c.data.startswith('admin:penaltyadj:'))
+    @_cbh(lambda c: (c.data or '').startswith('admin:penaltyadj:'))
     def handle_penalty_adjust(call):
         if not is_admin(call.from_user.id):
             bot.answer_callback_query(call.id, "⛔ Нет доступа", show_alert=True)
             return
         bot.answer_callback_query(call.id)
-        _, _, player_name, kit, delta_str = call.data.split(':', 4)
+        _, _, player_name, kit, delta_str = _split(call.data, 4)
         delta = float(delta_str)
         _apply_penalty_change(bot, gh_repo, gh_token, call.message.chat.id, call.message.message_id, player_name, kit, delta)
 
-    @bot.callback_query_handler(func=lambda c: c.data.startswith('admin:penaltyexact:'))
+    @_cbh(lambda c: (c.data or '').startswith('admin:penaltyexact:'))
     def handle_penalty_exact_request(call):
         if not is_admin(call.from_user.id):
             bot.answer_callback_query(call.id, "⛔ Нет доступа", show_alert=True)
             return
         bot.answer_callback_query(call.id)
-        _, _, player_name, kit = call.data.split(':', 3)
+        _, _, player_name, kit = _split(call.data, 3)
         msg = bot.edit_message_text(
-            f"Игрок: <b>{player_name}</b>\nКит: <b>{kit}</b>\n"
+            f"Игрок: <b>{_esc(player_name)}</b>\nКит: <b>{_esc(kit)}</b>\n"
             f"Отправьте новое значение штрафных очков (например 1.5):",
             call.message.chat.id, call.message.message_id, parse_mode='HTML',
         )
@@ -801,8 +902,11 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
     def _handle_penalty_exact_input(message, gh_repo, gh_token, player_name, kit):
         if not is_admin(message.from_user.id):
             return
+        raw = _input_text(bot, message)
+        if raw is None:
+            return
         try:
-            new_value = float(message.text.strip().replace(',', '.'))
+            new_value = float(raw.replace(',', '.'))
         except ValueError:
             bot.send_message(message.chat.id, "⚠️ Не удалось распознать число. Повторите /admin.")
             return
@@ -810,13 +914,13 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
 
     # -------------------- Лог дуэлей: выбор даты / записи --------------------
 
-    @bot.callback_query_handler(func=lambda c: c.data.startswith('admin:duelddate:'))
+    @_cbh(lambda c: (c.data or '').startswith('admin:duelddate:'))
     def handle_duel_date(call):
         if not is_admin(call.from_user.id):
             bot.answer_callback_query(call.id, "⛔ Нет доступа", show_alert=True)
             return
         bot.answer_callback_query(call.id)
-        _, _, player_name, kit, date_str = call.data.split(':', 4)
+        _, _, player_name, kit, date_str = _split(call.data, 4)
 
         players_list = _fetch_players(gh_repo, gh_token)
         player = _find_player(players_list, player_name)
@@ -844,13 +948,13 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
                 reply_markup=_entries_keyboard(player_name, kit, date_str, entries),
             )
 
-    @bot.callback_query_handler(func=lambda c: c.data.startswith('admin:duelpick:'))
+    @_cbh(lambda c: (c.data or '').startswith('admin:duelpick:'))
     def handle_duel_pick(call):
         if not is_admin(call.from_user.id):
             bot.answer_callback_query(call.id, "⛔ Нет доступа", show_alert=True)
             return
         bot.answer_callback_query(call.id)
-        _, _, player_name, kit, date_str, idx_str = call.data.split(':', 5)
+        _, _, player_name, kit, date_str, idx_str = _split(call.data, 5)
         idx = int(idx_str)
 
         players_list = _fetch_players(gh_repo, gh_token)
@@ -873,15 +977,15 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
 
     # -------------------- Лог дуэлей: удаление записи --------------------
 
-    @bot.callback_query_handler(func=lambda c: c.data.startswith('admin:dueldelete:'))
+    @_cbh(lambda c: (c.data or '').startswith('admin:dueldelete:'))
     def handle_duel_delete(call):
         if not is_admin(call.from_user.id):
             bot.answer_callback_query(call.id, "⛔ Нет доступа", show_alert=True)
             return
         bot.answer_callback_query(call.id)
-        _, _, player_name, kit, date_str, idx_str = call.data.split(':', 5)
+        _, _, player_name, kit, date_str, idx_str = _split(call.data, 5)
         try:
-            confirm_data = _safe_callback(f"admin:confirm_dueldelete:{player_name}:{kit}:{date_str}:{idx_str}")
+            confirm_data = _safe_callback(f"admin:confirm_dueldelete:{_enc(player_name)}:{kit}:{date_str}:{idx_str}")
         except ValueError:
             bot.edit_message_text(
                 "⚠️ Слишком длинное имя игрока/кита для этого меню. Обратитесь к разработчику.",
@@ -895,13 +999,13 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
             reply_markup=_confirm_keyboard(confirm_data),
         )
 
-    @bot.callback_query_handler(func=lambda c: c.data.startswith('admin:confirm_dueldelete:'))
+    @_cbh(lambda c: (c.data or '').startswith('admin:confirm_dueldelete:'))
     def handle_confirm_duel_delete(call):
         if not is_admin(call.from_user.id):
             bot.answer_callback_query(call.id, "⛔ Нет доступа", show_alert=True)
             return
         bot.answer_callback_query(call.id)
-        _, _, player_name, kit, date_str, idx_str = call.data.split(':', 5)
+        _, _, player_name, kit, date_str, idx_str = _split(call.data, 5)
         idx = int(idx_str)
         ok = _apply_mutation(
             gh_repo, gh_token,
@@ -919,16 +1023,16 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
 
     # -------------------- Лог дуэлей: изменение счёта --------------------
 
-    @bot.callback_query_handler(func=lambda c: c.data.startswith('admin:dueleditscore:'))
+    @_cbh(lambda c: (c.data or '').startswith('admin:dueleditscore:'))
     def handle_duel_edit_score_request(call):
         if not is_admin(call.from_user.id):
             bot.answer_callback_query(call.id, "⛔ Нет доступа", show_alert=True)
             return
         bot.answer_callback_query(call.id)
-        _, _, player_name, kit, date_str, idx_str = call.data.split(':', 5)
+        _, _, player_name, kit, date_str, idx_str = _split(call.data, 5)
         msg = bot.edit_message_text(
-            f"Игрок: <b>{player_name}</b>\nОтправьте новый счёт в формате <code>4:2</code> "
-            f"(сначала счёт {player_name}, потом счёт оппонента):",
+            f"Игрок: <b>{_esc(player_name)}</b>\nОтправьте новый счёт в формате <code>4:2</code> "
+            f"(сначала счёт {_esc(player_name)}, потом счёт оппонента):",
             call.message.chat.id, call.message.message_id, parse_mode='HTML',
         )
         bot.register_next_step_handler(msg, _handle_duel_score_input, gh_repo, gh_token, player_name, kit, date_str, int(idx_str))
@@ -936,7 +1040,9 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
     def _handle_duel_score_input(message, gh_repo, gh_token, player_name, kit, date_str, idx):
         if not is_admin(message.from_user.id):
             return
-        text = message.text.strip()
+        text = _input_text(bot, message)
+        if text is None:
+            return
         if ':' not in text:
             bot.send_message(message.chat.id, "⚠️ Формат должен быть «4:2». Повторите /admin.")
             return
@@ -960,15 +1066,15 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
 
     # -------------------- Лог дуэлей: изменение тира до/после --------------------
 
-    @bot.callback_query_handler(func=lambda c: c.data.startswith('admin:dueledittier:'))
+    @_cbh(lambda c: (c.data or '').startswith('admin:dueledittier:'))
     def handle_duel_edit_tier_request(call):
         if not is_admin(call.from_user.id):
             bot.answer_callback_query(call.id, "⛔ Нет доступа", show_alert=True)
             return
         bot.answer_callback_query(call.id)
-        _, _, player_name, kit, date_str, idx_str = call.data.split(':', 5)
+        _, _, player_name, kit, date_str, idx_str = _split(call.data, 5)
         msg = bot.edit_message_text(
-            f"Игрок: <b>{player_name}</b>\nОтправьте новые тиры в формате <code>LT2 HT3</code> "
+            f"Игрок: <b>{_esc(player_name)}</b>\nОтправьте новые тиры в формате <code>LT2 HT3</code> "
             f"(сначала «предыдущий», потом «полученный», через пробел; Unranked допустим):",
             call.message.chat.id, call.message.message_id, parse_mode='HTML',
         )
@@ -977,7 +1083,10 @@ def register(bot: telebot.TeleBot, gh_repo: str, gh_token: str):
     def _handle_duel_tier_input(message, gh_repo, gh_token, player_name, kit, date_str, idx):
         if not is_admin(message.from_user.id):
             return
-        parts_text = message.text.strip().split()
+        raw = _input_text(bot, message)
+        if raw is None:
+            return
+        parts_text = raw.split()
         if len(parts_text) != 2:
             bot.send_message(message.chat.id, "⚠️ Нужно ровно два значения через пробел, например «LT2 HT3». Повторите /admin.")
             return
@@ -1198,15 +1307,15 @@ def _format_duel_entry(player_name, kit, date_str, entry):
     tier_after = entry.get('tierAfter') or 'Unranked'
     comment = entry.get('comment')
     lines = [
-        f"Игрок: <b>{player_name}</b>",
-        f"Кит: <b>{kit}</b>",
+        f"Игрок: <b>{_esc(player_name)}</b>",
+        f"Кит: <b>{_esc(kit)}</b>",
         f"Дата: {date_str}",
-        f"Оппонент: {opponent}",
+        f"Оппонент: {_esc(opponent)}",
         f"Счёт: {score_player}:{score_opponent}",
         f"Тир: {tier_before} → {tier_after}",
     ]
     if comment:
-        lines.append(f"Комментарий: <i>{comment}</i>")
+        lines.append(f"Комментарий: <i>{_esc(comment)}</i>")
     lines.append("\nВыберите действие:")
     return "\n".join(lines)
 
