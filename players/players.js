@@ -2588,6 +2588,17 @@ const players = [
                 scoreOpponent: 2,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-20",
+                kit: "Pickaxe",
+                opponent: "DzIla_EDITSmob",
+                tierBefore: "LT1",
+                tierAfter: "LT1",
+                scorePlayer: 4,
+                scoreOpponent: 3,
+                winner: "player",
+                comment: null
             }
         ],
         penaltyByKit: {
@@ -3513,8 +3524,8 @@ const players = [
                 retired: false
             },
             Pickaxe: {
-                tier: "HT2",
-                date: "2026-08-25",
+                tier: "LT1",
+                date: "2026-09-20",
                 retired: false
             },
             SMP: {
@@ -3686,6 +3697,17 @@ const players = [
                 tierAfter: "HT2",
                 scorePlayer: 4,
                 scoreOpponent: 6,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-20",
+                kit: "Pickaxe",
+                opponent: "Prosto_oleg100-7",
+                tierBefore: "HT2",
+                tierAfter: "LT1",
+                scorePlayer: 3,
+                scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
             }
