@@ -2684,17 +2684,6 @@ const players = [
                 scoreOpponent: 2,
                 winner: "player",
                 comment: null
-            },
-            {
-                date: "2026-09-20",
-                kit: "Beast",
-                opponent: "-BaCk-",
-                tierBefore: "Unranked",
-                tierAfter: "LT3",
-                scorePlayer: 6,
-                scoreOpponent: 2,
-                winner: "player",
-                comment: "квалифицированный тест пройден"
             }
         ],
         penaltyByKit: {}
