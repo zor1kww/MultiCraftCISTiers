@@ -3808,7 +3808,7 @@ const players = [
                 kit: "Beast",
                 opponent: "Prosto_oleg100-7",
                 tierBefore: "HT2",
-                tierAfter: "HT2",
+                tierAfter: "LT1",
                 scorePlayer: 6,
                 scoreOpponent: 3,
                 winner: "player",
