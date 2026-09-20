@@ -1854,6 +1854,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-20",
+                kit: "Beast",
+                opponent: "BossKFC",
+                tierBefore: "LT2",
+                tierAfter: "LT2",
+                scorePlayer: 2,
+                scoreOpponent: 6,
+                winner: "opponent",
+                comment: "квалифицированный тест пройден"
             }
         ],
         penaltyByKit: {
@@ -2575,8 +2586,8 @@ const players = [
                 retired: false
             },
             Beast: {
-                tier: "HT3",
-                date: "2026-09-19",
+                tier: "LT3",
+                date: "2026-09-20",
                 retired: false
             }
         },
@@ -2602,6 +2613,17 @@ const players = [
                 scoreOpponent: 2,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-20",
+                kit: "Beast",
+                opponent: "-BaCk-",
+                tierBefore: "Unranked",
+                tierAfter: "LT3",
+                scorePlayer: 6,
+                scoreOpponent: 2,
+                winner: "player",
+                comment: "квалифицированный тест пройден"
             }
         ],
         penaltyByKit: {}
