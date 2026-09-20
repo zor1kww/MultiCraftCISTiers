@@ -5005,30 +5005,5 @@ const players = [
             }
         ],
         penaltyByKit: {}
-    },
-    {
-        name: "test",
-        region: "RU",
-        tiers: {
-            RVM: {
-                tier: "LT5",
-                date: "2026-09-20",
-                retired: false
-            }
-        },
-        matchHistory: [
-            {
-                date: "2026-09-20",
-                kit: "RVM",
-                opponent: "zor1kkqwix",
-                tierBefore: "Unranked",
-                tierAfter: "LT5",
-                scorePlayer: 0,
-                scoreOpponent: 4,
-                winner: "opponent",
-                comment: null
-            }
-        ],
-        penaltyByKit: {}
     }
 ];
