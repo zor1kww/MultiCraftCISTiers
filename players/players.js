@@ -943,8 +943,8 @@ const players = [
                 retired: false
             },
             RVM: {
-                tier: "LT3",
-                date: "2026-08-18",
+                tier: "HT4",
+                date: "2026-09-20",
                 retired: false
             },
             "Emerald Pot": {
@@ -1015,9 +1015,36 @@ const players = [
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
+            },
+            {
+                date: "2026-09-20",
+                kit: "RVM",
+                opponent: "aetherelegantius",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-20",
+                kit: "RVM",
+                opponent: "система",
+                tierBefore: "LT3",
+                tierAfter: "HT4",
+                scorePlayer: 0,
+                scoreOpponent: 0,
+                winner: "opponent",
+                comment: "Автопонижение: накоплено 2 штрафных очка"
             }
         ],
-        penaltyByKit: {}
+        penaltyByKit: {
+            RVM: {
+                points: 0.0,
+                firstPenaltyDate: "2026-09-20"
+            }
+        }
     },
     {
         name: "YouTube_ggs",
@@ -4562,8 +4589,8 @@ const players = [
         region: "RU",
         tiers: {
             RVM: {
-                tier: "LT3",
-                date: "2026-08-25",
+                tier: "HT3",
+                date: "2026-09-20",
                 retired: false
             }
         },
@@ -4578,6 +4605,17 @@ const players = [
                 scorePlayer: 4,
                 winner: "player",
                 comment: "квалификационный тест пройден"
+            },
+            {
+                date: "2026-09-20",
+                kit: "RVM",
+                opponent: "The_FV4005",
+                tierBefore: "LT3",
+                tierAfter: "HT3",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null
             }
         ],
         penaltyByKit: {}
