@@ -1876,6 +1876,17 @@ const players = [
                 scoreOpponent: 6,
                 winner: "opponent",
                 comment: "квалифицированный тест пройден"
+            },
+            {
+                date: "2026-09-20",
+                kit: "Crystal",
+                opponent: "-Sorry-",
+                tierBefore: "HT4",
+                tierAfter: "HT4",
+                scorePlayer: 3,
+                scoreOpponent: 1,
+                winner: "player",
+                comment: null
             }
         ],
         penaltyByKit: {
@@ -3856,8 +3867,27 @@ const players = [
                 tier: "HT4",
                 date: "2026-08-18",
                 retired: false
+            },
+            Crystal: {
+                tier: "LT4",
+                date: "2026-09-20",
+                retired: false
             }
-        }
+        },
+        matchHistory: [
+            {
+                date: "2026-09-20",
+                kit: "Crystal",
+                opponent: "-BaCk-",
+                tierBefore: "Unranked",
+                tierAfter: "LT4",
+                scorePlayer: 1,
+                scoreOpponent: 3,
+                winner: "opponent",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
     },
     {
         name: "Fialka_",
