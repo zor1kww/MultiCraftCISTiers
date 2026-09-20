@@ -886,6 +886,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         triggerEl.addEventListener('click', (e) => {
             e.stopPropagation();
+            // Закрываем все остальные выпадающие списки, чтобы два списка
+            // (например, киты и регион) не могли быть открыты одновременно
+            document.querySelectorAll('.custom-select.open').forEach(el => {
+                if (el !== customEl) el.classList.remove('open');
+            });
             customEl.classList.toggle('open');
         });
 
