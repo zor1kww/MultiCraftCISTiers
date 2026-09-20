@@ -2647,17 +2647,6 @@ const players = [
             {
                 date: "2026-09-20",
                 kit: "Beast",
-                opponent: "DzIla_EDITSmob",
-                tierBefore: "HT2",
-                tierAfter: "LT1",
-                scorePlayer: 3,
-                scoreOpponent: 6,
-                winner: "opponent",
-                comment: null
-            },
-            {
-                date: "2026-09-20",
-                kit: "Beast",
                 opponent: "система",
                 tierBefore: "LT1",
                 tierAfter: "HT2",
@@ -3811,17 +3800,6 @@ const players = [
                 tierAfter: "LT1",
                 scorePlayer: 4,
                 scoreOpponent: 2,
-                winner: "player",
-                comment: null
-            },
-            {
-                date: "2026-09-20",
-                kit: "Beast",
-                opponent: "Prosto_oleg100-7",
-                tierBefore: "HT2",
-                tierAfter: "HT2",
-                scorePlayer: 6,
-                scoreOpponent: 3,
                 winner: "player",
                 comment: null
             },
