@@ -32,6 +32,7 @@ Telegram-бот тир-тестера MultiCraftCISTiers (v4 - Оппонент/
   - github_storage.py  - чтение/запись players.js с retry на sha-конфликт
   - result_queue.py    - последовательная очередь с задержкой
   - bot_config.py      - справочники и ID чатов/топиков
+  - undo_manager.py    - кнопка отмены результата в группе тестеров
 
 ВАЖНО: этот файл писался БЕЗ доступа к реальному Telegram API и без
 установленного pyTelegramBotAPI (нет сети в среде разработки) - перед
@@ -39,6 +40,7 @@ Telegram-бот тир-тестера MultiCraftCISTiers (v4 - Оппонент/
 в логах Render и в самих топиках.
 """
 
+import copy
 import os
 import traceback
 from threading import Thread
@@ -61,6 +63,7 @@ from penalty_logic import apply_penalty_for_duel, next_tier_down, add_penalty_to
 from result_queue import ResultQueue
 import github_storage
 import admin_panel
+import undo_manager
 
 
 # ==========================================
@@ -290,9 +293,13 @@ def process_result(parsed, source_message_id):
     result_holder = {}
 
     def mutate(players_list):
+        # Снимок "до" для отмены результата (см. undo_manager). mutate может
+        # вызываться повторно при sha-конфликте, поэтому всё пишем заново.
+        before_list = copy.deepcopy(players_list)
         updated_list, overall_tier, demotions = apply_result_to_players_list(players_list, parsed)
         result_holder['overall_tier'] = overall_tier
         result_holder['demotions'] = demotions
+        result_holder['undo_changes'] = undo_manager.diff_players(before_list, updated_list)
         return updated_list
 
     commit_message = f"result: {parsed.player_name} -> {parsed.kit} ({parsed.tier_after})"
@@ -319,7 +326,9 @@ def process_result(parsed, source_message_id):
     if thread_id is not None:
         send_kwargs["message_thread_id"] = thread_id
 
-    bot.send_message(**send_kwargs)
+    card_refs = []
+    sent_card = bot.send_message(**send_kwargs)
+    card_refs.append({"chat_id": sent_card.chat.id, "message_id": sent_card.message_id})
 
     # Публикуем отдельную карточку для каждого штрафного автопонижения,
     # произошедшего в результате этого сообщения (может быть 0 или
@@ -340,7 +349,17 @@ def process_result(parsed, source_message_id):
         if demotion_thread_id is not None:
             demotion_kwargs["message_thread_id"] = demotion_thread_id
 
-        bot.send_message(**demotion_kwargs)
+        sent_demotion = bot.send_message(**demotion_kwargs)
+        card_refs.append({"chat_id": sent_demotion.chat.id, "message_id": sent_demotion.message_id})
+
+    # Кнопка отмены в топике тестеров (сбой отмены не ломает запись результата)
+    undo_manager.offer_undo(
+        bot, GH_REPO, GH_TOKEN,
+        label=f"{parsed.player_name} - {parsed.kit}: {parsed.tier_before or 'Unranked'} -> {parsed.tier_after}",
+        changes=result_holder.get('undo_changes', []),
+        card_refs=card_refs,
+        source_message_id=source_message_id,
+    )
 
 
 def handle_processing_error(exc):
@@ -389,6 +408,9 @@ if __name__ == '__main__':
 
     print("Регистрация панели администратора...")
     admin_panel.register(bot, GH_REPO, GH_TOKEN)
+
+    print("Регистрация кнопки отмены результата...")
+    undo_manager.register(bot, GH_REPO, GH_TOKEN)
 
     print("Бот успешно запущен. Слушаю группу тестеров...")
     bot.infinity_polling()
