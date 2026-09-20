@@ -231,7 +231,7 @@ const players = [
             Hardcore: {
                 tier: "LT1",
                 date: "2026-08-18",
-                retired: false
+                retired: true
             },
             SMP: {
                 tier: "HT3",
@@ -251,12 +251,12 @@ const players = [
             RVM: {
                 tier: "LT2",
                 date: "2026-08-18",
-                retired: false
+                retired: true
             },
             Pickaxe: {
                 tier: "LT2",
                 date: "2026-08-18",
-                retired: false
+                retired: true
             },
             Emerald: {
                 tier: "LT3",
@@ -286,7 +286,7 @@ const players = [
             Mace: {
                 tier: "LT1",
                 date: "2026-08-18",
-                retired: false
+                retired: true
             },
             Gapple: {
                 tier: "LT3",
