@@ -3661,6 +3661,17 @@ const players = [
                 scoreOpponent: 6,
                 winner: "opponent",
                 comment: null
+            },
+            {
+                date: "2026-09-20",
+                kit: "Emerald Pot",
+                opponent: "mrtrollface",
+                tierBefore: "LT1",
+                tierAfter: "LT1",
+                scorePlayer: 4,
+                scoreOpponent: 1,
+                winner: "player",
+                comment: null
             }
         ],
         penaltyByKit: {
@@ -4701,8 +4712,8 @@ const players = [
                 retired: false
             },
             "Emerald Pot": {
-                tier: "HT4",
-                date: "2026-09-17",
+                tier: "LT2",
+                date: "2026-09-20",
                 retired: false
             }
         },
@@ -4728,8 +4739,24 @@ const players = [
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
+            },
+            {
+                date: "2026-09-20",
+                kit: "Emerald Pot",
+                opponent: "DzIla_EDITSmob",
+                tierBefore: "Unranked",
+                tierAfter: "LT2",
+                scorePlayer: 1,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
             }
         ],
-        penaltyByKit: {}
+        penaltyByKit: {
+            "Emerald Pot": {
+                points: 1.5,
+                firstPenaltyDate: "2026-09-20"
+            }
+        }
     }
 ];
