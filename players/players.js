@@ -2604,7 +2604,7 @@ const players = [
                 date: "2026-09-20",
                 kit: "Emerald",
                 opponent: "DzIla_EDITSmob",
-                tierBefore: "Unranked",
+                tierBefore: "LT2",
                 tierAfter: "HT2",
                 scorePlayer: 3,
                 scoreOpponent: 6,
