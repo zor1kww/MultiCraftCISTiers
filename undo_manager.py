@@ -44,6 +44,7 @@ import requests
 from telebot import types
 
 import github_storage
+import reactions
 from bot_config import SOURCE_CHAT_ID, SOURCE_THREAD_ID
 
 
@@ -495,3 +496,4 @@ def _perform_undo(bot, gh_repo, gh_token, record_id, user, chat_id, message_id):
 
     for ref in rec.get("cards", []):
         _safe_edit_text(bot, ref["chat_id"], ref["message_id"], f"❌ Результат отменён: {rec['label']}")
+        reactions.set_reaction(bot, ref["chat_id"], ref["message_id"], None)  # снимаем реакцию
