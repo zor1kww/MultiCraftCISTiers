@@ -33,6 +33,7 @@ Telegram-бот тир-тестера MultiCraftCISTiers (v4 - Оппонент/
   - result_queue.py    - последовательная очередь с задержкой
   - bot_config.py      - справочники и ID чатов/топиков
   - undo_manager.py    - кнопка отмены результата в группе тестеров
+  - reactions.py       - реакции бота на карточки результатов
 
 ВАЖНО: этот файл писался БЕЗ доступа к реальному Telegram API и без
 установленного pyTelegramBotAPI (нет сети в среде разработки) - перед
@@ -64,6 +65,7 @@ from result_queue import ResultQueue
 import github_storage
 import admin_panel
 import undo_manager
+import reactions
 
 
 # ==========================================
@@ -329,6 +331,8 @@ def process_result(parsed, source_message_id):
     card_refs = []
     sent_card = bot.send_message(**send_kwargs)
     card_refs.append({"chat_id": sent_card.chat.id, "message_id": sent_card.message_id})
+    reactions.react_to_tier_change(bot, sent_card.chat.id, sent_card.message_id,
+                                   parsed.tier_before, parsed.tier_after)
 
     # Публикуем отдельную карточку для каждого штрафного автопонижения,
     # произошедшего в результате этого сообщения (может быть 0 или
@@ -351,6 +355,8 @@ def process_result(parsed, source_message_id):
 
         sent_demotion = bot.send_message(**demotion_kwargs)
         card_refs.append({"chat_id": sent_demotion.chat.id, "message_id": sent_demotion.message_id})
+        reactions.react_to_tier_change(bot, sent_demotion.chat.id, sent_demotion.message_id,
+                                       demotion['old_tier'], demotion['new_tier'])
 
     # Кнопка отмены в топике тестеров (сбой отмены не ломает запись результата)
     undo_manager.offer_undo(
