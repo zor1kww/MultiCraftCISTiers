@@ -860,6 +860,89 @@
           "message_id": 16050
         }
       ]
+    },
+    "10f763384f": {
+      "id": "10f763384f",
+      "created_at": "2026-09-21T18:10:44.436652+00:00",
+      "label": "Grey - Emerald Pot: Unranked -> HT3",
+      "status": "active",
+      "changes": [
+        {
+          "name": "DzIla_EDITSmob",
+          "created": false,
+          "kits": {},
+          "added_history": [
+            {
+              "date": "2026-09-21",
+              "kit": "Emerald Pot",
+              "opponent": "Grey",
+              "tierBefore": "LT1",
+              "tierAfter": "LT1",
+              "scorePlayer": 4,
+              "scoreOpponent": 0,
+              "winner": "player",
+              "comment": "Хз едтте Сами решайте оставить или нед"
+            }
+          ]
+        },
+        {
+          "name": "Grey",
+          "created": true,
+          "kits": {
+            "Emerald Pot": {
+              "tier_before": null,
+              "tier_after": {
+                "tier": "LT3",
+                "date": "2026-09-21",
+                "retired": false
+              },
+              "pen_before": null,
+              "pen_after": {
+                "points": 0.0,
+                "firstPenaltyDate": "2026-09-21"
+              }
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-09-21",
+              "kit": "Emerald Pot",
+              "opponent": "DzIla_EDITSmob",
+              "tierBefore": "Unranked",
+              "tierAfter": "HT3",
+              "scorePlayer": 0,
+              "scoreOpponent": 4,
+              "winner": "opponent",
+              "comment": "Хз едтте Сами решайте оставить или нед"
+            },
+            {
+              "date": "2026-09-21",
+              "kit": "Emerald Pot",
+              "opponent": "система",
+              "tierBefore": "HT3",
+              "tierAfter": "LT3",
+              "scorePlayer": 0,
+              "scoreOpponent": 0,
+              "winner": "opponent",
+              "comment": "Автопонижение: накоплено 2 штрафных очка"
+            }
+          ],
+          "region": {
+            "before": null,
+            "after": "RU"
+          }
+        }
+      ],
+      "cards": [
+        {
+          "chat_id": -1003257860755,
+          "message_id": 16052
+        },
+        {
+          "chat_id": -1003257860755,
+          "message_id": 16053
+        }
+      ]
     }
   }
 }
