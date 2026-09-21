@@ -274,8 +274,8 @@ const players = [
                 retired: true
             },
             Beast: {
-                tier: "LT3",
-                date: "2026-08-30",
+                tier: "HT3",
+                date: "2026-09-21",
                 retired: false
             },
             Crystal: {
@@ -729,6 +729,17 @@ const players = [
                 tierAfter: "LT2",
                 scorePlayer: 5,
                 scoreOpponent: 0,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-09-21",
+                kit: "Beast",
+                opponent: "Michael_59k_YT",
+                tierBefore: "LT3",
+                tierAfter: "HT3",
+                scorePlayer: 6,
+                scoreOpponent: 4,
                 winner: "player",
                 comment: null
             }
@@ -3541,11 +3552,22 @@ const players = [
                 scoreOpponent: 0,
                 winner: "opponent",
                 comment: "Автопонижение: накоплено 2 штрафных очка"
+            },
+            {
+                date: "2026-09-21",
+                kit: "Beast",
+                opponent: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 4,
+                scoreOpponent: 6,
+                winner: "opponent",
+                comment: null
             }
         ],
         penaltyByKit: {
             Beast: {
-                points: 0,
+                points: 0.4,
                 firstPenaltyDate: "2026-09-16"
             }
         }
