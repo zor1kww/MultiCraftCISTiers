@@ -1,0 +1,75 @@
+{
+  "records": {
+    "d15c23b505": {
+      "id": "d15c23b505",
+      "created_at": "2026-09-21T02:32:51.852923+00:00",
+      "label": "DzIla_EDITSmob - Dragonhide: HT2 -> LT1",
+      "status": "active",
+      "changes": [
+        {
+          "name": "Prosto_oleg100-7",
+          "created": false,
+          "kits": {},
+          "added_history": [
+            {
+              "date": "2026-09-21",
+              "kit": "Dragonhide",
+              "opponent": "DzIla_EDITSmob",
+              "tierBefore": "LT1",
+              "tierAfter": "LT1",
+              "scorePlayer": 6,
+              "scoreOpponent": 5,
+              "winner": "player",
+              "comment": null
+            }
+          ]
+        },
+        {
+          "name": "DzIla_EDITSmob",
+          "created": false,
+          "kits": {
+            "Dragonhide": {
+              "tier_before": {
+                "tier": "HT2",
+                "date": "2026-08-18",
+                "retired": false
+              },
+              "tier_after": {
+                "tier": "LT1",
+                "date": "2026-09-21",
+                "retired": false
+              },
+              "pen_before": {
+                "points": 0.8,
+                "firstPenaltyDate": "2026-09-14"
+              },
+              "pen_after": {
+                "points": 0.8,
+                "firstPenaltyDate": "2026-09-14"
+              }
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-09-21",
+              "kit": "Dragonhide",
+              "opponent": "Prosto_oleg100-7",
+              "tierBefore": "HT2",
+              "tierAfter": "LT1",
+              "scorePlayer": 5,
+              "scoreOpponent": 6,
+              "winner": "opponent",
+              "comment": null
+            }
+          ]
+        }
+      ],
+      "cards": [
+        {
+          "chat_id": -1003257860755,
+          "message_id": 15926
+        }
+      ]
+    }
+  }
+}
