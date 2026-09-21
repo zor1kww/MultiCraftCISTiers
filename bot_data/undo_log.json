@@ -394,6 +394,67 @@
           "message_id": 15953
         }
       ]
+    },
+    "fdba6fb4b5": {
+      "id": "fdba6fb4b5",
+      "created_at": "2026-09-21T12:51:35.981341+00:00",
+      "label": "DzIla_EDITSmob - Mace: Unranked -> HT5",
+      "status": "active",
+      "changes": [
+        {
+          "name": "-BaCk-",
+          "created": false,
+          "kits": {},
+          "added_history": [
+            {
+              "date": "2026-09-21",
+              "kit": "Mace",
+              "opponent": "DzIla_EDITSmob",
+              "tierBefore": "LT3",
+              "tierAfter": "LT3",
+              "scorePlayer": 4,
+              "scoreOpponent": 2,
+              "winner": "player",
+              "comment": null
+            }
+          ]
+        },
+        {
+          "name": "DzIla_EDITSmob",
+          "created": false,
+          "kits": {
+            "Mace": {
+              "tier_before": null,
+              "tier_after": {
+                "tier": "HT5",
+                "date": "2026-09-21",
+                "retired": false
+              },
+              "pen_before": null,
+              "pen_after": null
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-09-21",
+              "kit": "Mace",
+              "opponent": "-BaCk-",
+              "tierBefore": "Unranked",
+              "tierAfter": "HT5",
+              "scorePlayer": 2,
+              "scoreOpponent": 4,
+              "winner": "opponent",
+              "comment": null
+            }
+          ]
+        }
+      ],
+      "cards": [
+        {
+          "chat_id": -1003257860755,
+          "message_id": 15971
+        }
+      ]
     }
   }
 }
