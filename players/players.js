@@ -5083,7 +5083,7 @@ const players = [
                 date: "2026-09-21",
                 kit: "Mace",
                 opponent: "xopechek",
-                tierBefore: "LT5",
+                tierBefore: "HT4",
                 tierAfter: "LT3",
                 scorePlayer: 4,
                 scoreOpponent: 2,
