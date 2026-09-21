@@ -2659,7 +2659,7 @@ const players = [
                 date: "2026-09-21",
                 kit: "Dragonhide",
                 opponent: "DzIla_EDITSmob",
-                tierBefore: "LT1",
+                tierBefore: "HT2",
                 tierAfter: "LT1",
                 scorePlayer: 6,
                 scoreOpponent: 5,
