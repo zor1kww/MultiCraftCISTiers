@@ -943,6 +943,71 @@
           "message_id": 16053
         }
       ]
+    },
+    "2e0c6592a8": {
+      "id": "2e0c6592a8",
+      "created_at": "2026-09-21T18:12:01.366545+00:00",
+      "label": "Grey - Emerald Pot: Unranked -> HT3",
+      "status": "active",
+      "changes": [
+        {
+          "name": "DzIla_EDITSmob",
+          "created": false,
+          "kits": {},
+          "added_history": [
+            {
+              "date": "2026-09-21",
+              "kit": "Emerald Pot",
+              "opponent": "Grey",
+              "tierBefore": "LT1",
+              "tierAfter": "LT1",
+              "scorePlayer": 4,
+              "scoreOpponent": 0,
+              "winner": "player",
+              "comment": "Хз едтте Сами решайте оставить или нед"
+            }
+          ]
+        },
+        {
+          "name": "Grey",
+          "created": false,
+          "kits": {},
+          "added_history": [
+            {
+              "date": "2026-09-21",
+              "kit": "Emerald Pot",
+              "opponent": "DzIla_EDITSmob",
+              "tierBefore": "Unranked",
+              "tierAfter": "HT3",
+              "scorePlayer": 0,
+              "scoreOpponent": 4,
+              "winner": "opponent",
+              "comment": "Хз едтте Сами решайте оставить или нед"
+            },
+            {
+              "date": "2026-09-21",
+              "kit": "Emerald Pot",
+              "opponent": "система",
+              "tierBefore": "HT3",
+              "tierAfter": "LT3",
+              "scorePlayer": 0,
+              "scoreOpponent": 0,
+              "winner": "opponent",
+              "comment": "Автопонижение: накоплено 2 штрафных очка"
+            }
+          ]
+        }
+      ],
+      "cards": [
+        {
+          "chat_id": -1003257860755,
+          "message_id": 16056
+        },
+        {
+          "chat_id": -1003257860755,
+          "message_id": 16057
+        }
+      ]
     }
   }
 }
