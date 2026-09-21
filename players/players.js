@@ -2624,17 +2624,6 @@ const players = [
             },
             {
                 date: "2026-09-20",
-                kit: "Emerald",
-                opponent: "система",
-                tierBefore: "HT2",
-                tierAfter: "LT2",
-                scorePlayer: 0,
-                scoreOpponent: 0,
-                winner: "opponent",
-                comment: "Автопонижение: накоплено 2 штрафных очка"
-            },
-            {
-                date: "2026-09-20",
                 kit: "Beast",
                 opponent: "система",
                 tierBefore: "LT1",
