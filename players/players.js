@@ -3906,6 +3906,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-21",
+                kit: "Mace",
+                opponent: "mrtrollface",
+                tierBefore: "HT5",
+                tierAfter: "HT5",
+                scorePlayer: 4,
+                scoreOpponent: 1,
+                winner: "player",
+                comment: null
             }
         ],
         penaltyByKit: {
@@ -5032,6 +5043,11 @@ const players = [
                 tier: "HT4",
                 date: "2026-09-20",
                 retired: false
+            },
+            Mace: {
+                tier: "LT5",
+                date: "2026-09-21",
+                retired: false
             }
         },
         matchHistory: [
@@ -5053,6 +5069,17 @@ const players = [
                 tierBefore: "Unranked",
                 tierAfter: "HT4",
                 scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-21",
+                kit: "Mace",
+                opponent: "DzIla_EDITSmob",
+                tierBefore: "Unranked",
+                tierAfter: "LT5",
+                scorePlayer: 1,
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
