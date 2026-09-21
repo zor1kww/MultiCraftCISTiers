@@ -4848,6 +4848,17 @@ const players = [
                 scoreOpponent: 2,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-21",
+                kit: "Emerald Pot",
+                opponent: "JHkyu",
+                tierBefore: "HT4",
+                tierAfter: "HT4",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null
             }
         ],
         penaltyByKit: {}
@@ -5058,6 +5069,31 @@ const players = [
                 tierAfter: "HT4",
                 scorePlayer: 0,
                 scoreOpponent: 6,
+                winner: "opponent",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
+    },
+    {
+        name: "JHkyu",
+        region: "RU",
+        tiers: {
+            "Emerald Pot": {
+                tier: "HT5",
+                date: "2026-09-21",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-09-21",
+                kit: "Emerald Pot",
+                opponent: "heliN193",
+                tierBefore: "Unranked",
+                tierAfter: "HT5",
+                scorePlayer: 0,
+                scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
             }
