@@ -2317,8 +2317,8 @@ const players = [
                 retired: false
             },
             Emerald: {
-                tier: "LT1",
-                date: "2026-09-20",
+                tier: "HT2",
+                date: "2026-09-21",
                 retired: false
             },
             Dragonhide: {
