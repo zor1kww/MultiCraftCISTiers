@@ -1017,7 +1017,7 @@
       "id": "d68599397c",
       "created_at": "2026-09-21T18:12:57.494971+00:00",
       "label": "Grey - Emerald Pot: Unranked -> HT3",
-      "status": "active",
+      "status": "undone",
       "changes": [
         {
           "name": "DzIla_EDITSmob",
@@ -1094,7 +1094,9 @@
           "chat_id": -1003257860755,
           "message_id": 16059
         }
-      ]
+      ],
+      "undone_by": "@wannaexecution",
+      "undone_at": "2026-09-21T23:59:21.143858+00:00"
     }
   }
 }
