@@ -3912,6 +3912,17 @@ const players = [
                 scoreOpponent: 1,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-21",
+                kit: "Emerald Pot",
+                opponent: "Grey",
+                tierBefore: "LT1",
+                tierAfter: "LT1",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: "Хз едтте Сами решайте оставить или нед"
             }
         ],
         penaltyByKit: {
@@ -5224,5 +5235,46 @@ const players = [
             }
         ],
         penaltyByKit: {}
+    },
+    {
+        name: "Grey",
+        region: "RU",
+        tiers: {
+            "Emerald Pot": {
+                tier: "LT3",
+                date: "2026-09-21",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-09-21",
+                kit: "Emerald Pot",
+                opponent: "DzIla_EDITSmob",
+                tierBefore: "Unranked",
+                tierAfter: "HT3",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: "Хз едтте Сами решайте оставить или нед"
+            },
+            {
+                date: "2026-09-21",
+                kit: "Emerald Pot",
+                opponent: "система",
+                tierBefore: "HT3",
+                tierAfter: "LT3",
+                scorePlayer: 0,
+                scoreOpponent: 0,
+                winner: "opponent",
+                comment: "Автопонижение: накоплено 2 штрафных очка"
+            }
+        ],
+        penaltyByKit: {
+            "Emerald Pot": {
+                points: 0.0,
+                firstPenaltyDate: "2026-09-21"
+            }
+        }
     }
 ];
