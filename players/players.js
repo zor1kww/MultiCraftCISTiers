@@ -2738,8 +2738,8 @@ const players = [
                 retired: false
             },
             Beast: {
-                tier: "LT3",
-                date: "2026-09-20",
+                tier: "HT3",
+                date: "2026-09-21",
                 retired: false
             }
         },
