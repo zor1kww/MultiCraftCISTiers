@@ -3838,17 +3838,6 @@ const players = [
             },
             {
                 date: "2026-09-21",
-                kit: "Beast",
-                opponent: "Yakov",
-                tierBefore: "HT2",
-                tierAfter: "HT2",
-                scorePlayer: 6,
-                scoreOpponent: 0,
-                winner: "player",
-                comment: null
-            },
-            {
-                date: "2026-09-21",
                 kit: "Emerald Pot",
                 opponent: "Prosto_oleg100-7",
                 tierBefore: "LT1",
