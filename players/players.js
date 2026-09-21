@@ -3646,11 +3646,6 @@ const players = [
                 tier: "LT1",
                 date: "2026-08-27",
                 retired: false
-            },
-            Mace: {
-                tier: "HT5",
-                date: "2026-09-21",
-                retired: false
             }
         },
         matchHistory: [
