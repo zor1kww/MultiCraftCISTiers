@@ -5040,31 +5040,6 @@ const players = [
         penaltyByKit: {}
     },
     {
-        name: "Yakov",
-        region: "RU",
-        tiers: {
-            Beast: {
-                tier: "HT4",
-                date: "2026-09-21",
-                retired: false
-            }
-        },
-        matchHistory: [
-            {
-                date: "2026-09-21",
-                kit: "Beast",
-                opponent: "DzIla_EDITSmob",
-                tierBefore: "LT3",
-                tierAfter: "HT4",
-                scorePlayer: 0,
-                scoreOpponent: 6,
-                winner: "opponent",
-                comment: null
-            }
-        ],
-        penaltyByKit: {}
-    },
-    {
         name: "JHkyu",
         region: "RU",
         tiers: {
