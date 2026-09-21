@@ -120,6 +120,77 @@
           "message_id": 15927
         }
       ]
+    },
+    "93e1702fe9": {
+      "id": "93e1702fe9",
+      "created_at": "2026-09-21T02:33:14.949505+00:00",
+      "label": "Prosto_oleg100-7 - Emerald: Unranked -> HT2",
+      "status": "active",
+      "changes": [
+        {
+          "name": "Prosto_oleg100-7",
+          "created": false,
+          "kits": {
+            "Emerald": {
+              "tier_before": {
+                "tier": "LT1",
+                "date": "2026-09-20",
+                "retired": false
+              },
+              "tier_after": {
+                "tier": "HT2",
+                "date": "2026-09-21",
+                "retired": false
+              },
+              "pen_before": {
+                "points": 0.8,
+                "firstPenaltyDate": "2026-09-20"
+              },
+              "pen_after": {
+                "points": 1.6,
+                "firstPenaltyDate": "2026-09-20"
+              }
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-09-21",
+              "kit": "Emerald",
+              "opponent": "DzIla_EDITSmob",
+              "tierBefore": "Unranked",
+              "tierAfter": "HT2",
+              "scorePlayer": 3,
+              "scoreOpponent": 6,
+              "winner": "opponent",
+              "comment": null
+            }
+          ]
+        },
+        {
+          "name": "DzIla_EDITSmob",
+          "created": false,
+          "kits": {},
+          "added_history": [
+            {
+              "date": "2026-09-21",
+              "kit": "Emerald",
+              "opponent": "Prosto_oleg100-7",
+              "tierBefore": "LT1",
+              "tierAfter": "LT1",
+              "scorePlayer": 6,
+              "scoreOpponent": 3,
+              "winner": "player",
+              "comment": null
+            }
+          ]
+        }
+      ],
+      "cards": [
+        {
+          "chat_id": -1003257860755,
+          "message_id": 15928
+        }
+      ]
     }
   }
 }
