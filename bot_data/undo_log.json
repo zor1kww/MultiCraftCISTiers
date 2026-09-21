@@ -193,6 +193,71 @@
       ],
       "undone_by": "@wannaexecution",
       "undone_at": "2026-09-21T02:33:43.946604+00:00"
+    },
+    "d0b7b190c4": {
+      "id": "d0b7b190c4",
+      "created_at": "2026-09-21T02:55:53.010493+00:00",
+      "label": "Yakov - Beast: LT3 -> HT4",
+      "status": "active",
+      "changes": [
+        {
+          "name": "DzIla_EDITSmob",
+          "created": false,
+          "kits": {},
+          "added_history": [
+            {
+              "date": "2026-09-21",
+              "kit": "Beast",
+              "opponent": "Yakov",
+              "tierBefore": "HT2",
+              "tierAfter": "HT2",
+              "scorePlayer": 6,
+              "scoreOpponent": 0,
+              "winner": "player",
+              "comment": null
+            }
+          ]
+        },
+        {
+          "name": "Yakov",
+          "created": true,
+          "kits": {
+            "Beast": {
+              "tier_before": null,
+              "tier_after": {
+                "tier": "HT4",
+                "date": "2026-09-21",
+                "retired": false
+              },
+              "pen_before": null,
+              "pen_after": null
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-09-21",
+              "kit": "Beast",
+              "opponent": "DzIla_EDITSmob",
+              "tierBefore": "LT3",
+              "tierAfter": "HT4",
+              "scorePlayer": 0,
+              "scoreOpponent": 6,
+              "winner": "opponent",
+              "comment": null
+            }
+          ],
+          "region": {
+            "before": null,
+            "after": "RU"
+          }
+        }
+      ],
+      "cards": [
+        {
+          "chat_id": -1003257860755,
+          "message_id": 15929
+        }
+      ]
     }
   }
 }
