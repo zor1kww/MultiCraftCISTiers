@@ -91,6 +91,17 @@ bot = telebot.TeleBot(TG_TOKEN)
 
 result_queue = ResultQueue()
 
+# Квалификационные тестеры: штрафные очки им НЕ начисляются (ни в роли
+# оппонента, ни в роли игрока), а значит и автопонижения от штрафов нет.
+# Имена сравниваются без учёта регистра. Чтобы добавить ещё одного
+# квалификационного тестера - допишите ник в список.
+PENALTY_EXEMPT_NAMES = ["-BaCk-"]
+_PENALTY_EXEMPT_LOWER = {name.lower() for name in PENALTY_EXEMPT_NAMES}
+
+
+def is_penalty_exempt(name: str) -> bool:
+    return str(name).lower() in _PENALTY_EXEMPT_LOWER
+
 
 # ==========================================
 # ПРИМЕНЕНИЕ РЕЗУЛЬТАТА К БАЗЕ ИГРОКОВ
@@ -238,6 +249,9 @@ def apply_penalty_and_check_demotion(players_list, parsed, duel):
     demotions = []
 
     for entry in penalty_result.entries:
+        if is_penalty_exempt(entry["player_name"]):
+            continue  # квалификационный тестер - штраф не начисляется
+
         target_name = entry["player_name"]
         kit = entry["kit"]
         added = entry["penalty_added"]
