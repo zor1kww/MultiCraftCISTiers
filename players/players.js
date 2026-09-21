@@ -4985,6 +4985,17 @@ const players = [
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
+            },
+            {
+                date: "2026-09-21",
+                kit: "Mace",
+                opponent: "mrtrollface",
+                tierBefore: "LT5",
+                tierAfter: "LT5",
+                scorePlayer: 2,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
             }
         ],
         penaltyByKit: {}
@@ -5029,7 +5040,7 @@ const players = [
                 retired: false
             },
             Mace: {
-                tier: "LT5",
+                tier: "LT3",
                 date: "2026-09-21",
                 retired: false
             }
@@ -5066,6 +5077,17 @@ const players = [
                 scorePlayer: 1,
                 scoreOpponent: 4,
                 winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-21",
+                kit: "Mace",
+                opponent: "xopechek",
+                tierBefore: "LT5",
+                tierAfter: "LT3",
+                scorePlayer: 4,
+                scoreOpponent: 2,
+                winner: "player",
                 comment: null
             }
         ],
