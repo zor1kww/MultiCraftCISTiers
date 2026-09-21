@@ -1958,6 +1958,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-21",
+                kit: "Mace",
+                opponent: "gg_Yt_tt",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 3,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: "0 ударов братан"
             }
         ],
         penaltyByKit: {
@@ -5106,6 +5117,11 @@ const players = [
                 tier: "HT5",
                 date: "2026-09-20",
                 retired: false
+            },
+            Mace: {
+                tier: "LT5",
+                date: "2026-09-21",
+                retired: false
             }
         },
         matchHistory: [
@@ -5119,6 +5135,17 @@ const players = [
                 scoreOpponent: 3,
                 winner: "opponent",
                 comment: null
+            },
+            {
+                date: "2026-09-21",
+                kit: "Mace",
+                opponent: "-BaCk-",
+                tierBefore: "Unranked",
+                tierAfter: "LT5",
+                scorePlayer: 0,
+                scoreOpponent: 3,
+                winner: "opponent",
+                comment: "0 ударов братан"
             }
         ],
         penaltyByKit: {}
