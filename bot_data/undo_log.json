@@ -125,7 +125,7 @@
       "id": "93e1702fe9",
       "created_at": "2026-09-21T02:33:14.949505+00:00",
       "label": "Prosto_oleg100-7 - Emerald: Unranked -> HT2",
-      "status": "active",
+      "status": "undone",
       "changes": [
         {
           "name": "Prosto_oleg100-7",
@@ -190,7 +190,9 @@
           "chat_id": -1003257860755,
           "message_id": 15928
         }
-      ]
+      ],
+      "undone_by": "@wannaexecution",
+      "undone_at": "2026-09-21T02:33:43.946604+00:00"
     }
   }
 }
