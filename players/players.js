@@ -2687,6 +2687,17 @@ const players = [
                 scoreOpponent: 5,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-21",
+                kit: "Dragonhide",
+                opponent: "DzIla_EDITSmob",
+                tierBefore: "LT1",
+                tierAfter: "LT1",
+                scorePlayer: 6,
+                scoreOpponent: 5,
+                winner: "player",
+                comment: null
             }
         ],
         penaltyByKit: {
@@ -3834,6 +3845,17 @@ const players = [
                 scorePlayer: 6,
                 scoreOpponent: 3,
                 winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-09-21",
+                kit: "Dragonhide",
+                opponent: "Prosto_oleg100-7",
+                tierBefore: "HT2",
+                tierAfter: "LT1",
+                scorePlayer: 5,
+                scoreOpponent: 6,
+                winner: "opponent",
                 comment: null
             },
             {
