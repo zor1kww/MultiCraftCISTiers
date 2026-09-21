@@ -1947,17 +1947,6 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
-            },
-            {
-                date: "2026-09-21",
-                kit: "Mace",
-                opponent: "DzIla_EDITSmob",
-                tierBefore: "LT3",
-                tierAfter: "LT3",
-                scorePlayer: 4,
-                scoreOpponent: 2,
-                winner: "player",
-                comment: null
             }
         ],
         penaltyByKit: {
@@ -3878,17 +3867,6 @@ const players = [
                 scorePlayer: 4,
                 scoreOpponent: 3,
                 winner: "player",
-                comment: null
-            },
-            {
-                date: "2026-09-21",
-                kit: "Mace",
-                opponent: "-BaCk-",
-                tierBefore: "Unranked",
-                tierAfter: "HT5",
-                scorePlayer: 2,
-                scoreOpponent: 4,
-                winner: "opponent",
                 comment: null
             },
             {
