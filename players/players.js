@@ -731,17 +731,6 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
-            },
-            {
-                date: "2026-09-20",
-                kit: "RVM",
-                opponent: "test",
-                tierBefore: "LT2",
-                tierAfter: "LT2",
-                scorePlayer: 4,
-                scoreOpponent: 0,
-                winner: "player",
-                comment: null
             }
         ]
     },
