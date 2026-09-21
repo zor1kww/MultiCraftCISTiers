@@ -742,6 +742,17 @@ const players = [
                 scoreOpponent: 4,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-21",
+                kit: "Mace",
+                opponent: "proo",
+                tierBefore: "LT1",
+                tierAfter: "LT1",
+                scorePlayer: 3,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null
             }
         ]
     },
@@ -5134,6 +5145,31 @@ const players = [
                 tierAfter: "HT5",
                 scorePlayer: 0,
                 scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
+    },
+    {
+        name: "proo",
+        region: "RU",
+        tiers: {
+            Mace: {
+                tier: "HT4",
+                date: "2026-09-21",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-09-21",
+                kit: "Mace",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "HT4",
+                scorePlayer: 0,
+                scoreOpponent: 3,
                 winner: "opponent",
                 comment: null
             }
