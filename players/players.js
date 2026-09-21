@@ -4947,7 +4947,7 @@ const players = [
                 retired: false
             },
             Mace: {
-                tier: "LT5",
+                tier: "HT4",
                 date: "2026-09-21",
                 retired: false
             }
