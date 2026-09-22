@@ -1219,6 +1219,71 @@
           "message_id": 16080
         }
       ]
+    },
+    "1f229e6ff0": {
+      "id": "1f229e6ff0",
+      "created_at": "2026-09-22T17:05:20.229244+00:00",
+      "label": "-BaCk- - Diamond Pot: HT4 -> LT3",
+      "status": "active",
+      "changes": [
+        {
+          "name": "-BaCk-",
+          "created": false,
+          "kits": {
+            "Diamond Pot": {
+              "tier_before": {
+                "tier": "HT4",
+                "date": "2026-08-30",
+                "retired": false
+              },
+              "tier_after": {
+                "tier": "LT3",
+                "date": "2026-09-22",
+                "retired": false
+              },
+              "pen_before": null,
+              "pen_after": null
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-09-22",
+              "kit": "Diamond Pot",
+              "opponent": "Michael_59k_YT",
+              "tierBefore": "HT4",
+              "tierAfter": "LT3",
+              "scorePlayer": 4,
+              "scoreOpponent": 1,
+              "winner": "player",
+              "comment": null
+            }
+          ]
+        },
+        {
+          "name": "Michael_59k_YT",
+          "created": false,
+          "kits": {},
+          "added_history": [
+            {
+              "date": "2026-09-22",
+              "kit": "Diamond Pot",
+              "opponent": "-BaCk-",
+              "tierBefore": "LT3",
+              "tierAfter": "LT3",
+              "scorePlayer": 1,
+              "scoreOpponent": 4,
+              "winner": "opponent",
+              "comment": null
+            }
+          ]
+        }
+      ],
+      "cards": [
+        {
+          "chat_id": -1003257860755,
+          "message_id": 16081
+        }
+      ]
     }
   }
 }
