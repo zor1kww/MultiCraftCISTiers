@@ -1158,6 +1158,67 @@
           "message_id": 16079
         }
       ]
+    },
+    "1eaf1e5028": {
+      "id": "1eaf1e5028",
+      "created_at": "2026-09-22T17:03:10.555168+00:00",
+      "label": "Michael_59k_YT - SMP: Unranked -> HT4",
+      "status": "active",
+      "changes": [
+        {
+          "name": "-BaCk-",
+          "created": false,
+          "kits": {},
+          "added_history": [
+            {
+              "date": "2026-09-22",
+              "kit": "SMP",
+              "opponent": "Michael_59k_YT",
+              "tierBefore": "LT3",
+              "tierAfter": "LT3",
+              "scorePlayer": 2,
+              "scoreOpponent": 0,
+              "winner": "player",
+              "comment": "если честно он отыграл на лт4,буквально я его каждый раз подкидываю он не умеет ставить слизни и получает урон от падения, и еще, я иногда ставил слизни когда подлетал на 7-8 блоков чтоб когда он падал мог засейв как то или намек дать, но он застраивал бля пиздец"
+            }
+          ]
+        },
+        {
+          "name": "Michael_59k_YT",
+          "created": false,
+          "kits": {
+            "SMP": {
+              "tier_before": null,
+              "tier_after": {
+                "tier": "HT4",
+                "date": "2026-09-22",
+                "retired": false
+              },
+              "pen_before": null,
+              "pen_after": null
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-09-22",
+              "kit": "SMP",
+              "opponent": "-BaCk-",
+              "tierBefore": "Unranked",
+              "tierAfter": "HT4",
+              "scorePlayer": 0,
+              "scoreOpponent": 2,
+              "winner": "opponent",
+              "comment": "если честно он отыграл на лт4,буквально я его каждый раз подкидываю он не умеет ставить слизни и получает урон от падения, и еще, я иногда ставил слизни когда подлетал на 7-8 блоков чтоб когда он падал мог засейв как то или намек дать, но он застраивал бля пиздец"
+            }
+          ]
+        }
+      ],
+      "cards": [
+        {
+          "chat_id": -1003257860755,
+          "message_id": 16080
+        }
+      ]
     }
   }
 }
