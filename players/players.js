@@ -1980,6 +1980,17 @@ const players = [
                 scoreOpponent: 2,
                 winner: "opponent",
                 comment: "играл с 250-350 пингом, ощущение что нт4 черканите его на достоверность лт3, но дал лт3 всеже"
+            },
+            {
+                date: "2026-09-22",
+                kit: "SMP",
+                opponent: "Michael_59k_YT",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 2,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: "если честно он отыграл на лт4,буквально я его каждый раз подкидываю он не умеет ставить слизни и получает урон от падения, и еще, я иногда ставил слизни когда подлетал на 7-8 блоков чтоб когда он падал мог засейв как то или намек дать, но он застраивал бля пиздец"
             }
         ],
         penaltyByKit: {
@@ -3484,6 +3495,11 @@ const players = [
                 tier: "LT3",
                 date: "2026-08-25",
                 retired: false
+            },
+            SMP: {
+                tier: "HT4",
+                date: "2026-09-22",
+                retired: false
             }
         },
         matchHistory: [
@@ -3585,6 +3601,17 @@ const players = [
                 scoreOpponent: 6,
                 winner: "opponent",
                 comment: null
+            },
+            {
+                date: "2026-09-22",
+                kit: "SMP",
+                opponent: "-BaCk-",
+                tierBefore: "Unranked",
+                tierAfter: "HT4",
+                scorePlayer: 0,
+                scoreOpponent: 2,
+                winner: "opponent",
+                comment: "если честно он отыграл на лт4,буквально я его каждый раз подкидываю он не умеет ставить слизни и получает урон от падения, и еще, я иногда ставил слизни когда подлетал на 7-8 блоков чтоб когда он падал мог засейв как то или намек дать, но он застраивал бля пиздец"
             }
         ],
         penaltyByKit: {
