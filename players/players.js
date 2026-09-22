@@ -1969,6 +1969,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: "0 ударов братан"
+            },
+            {
+                date: "2026-09-22",
+                kit: "Pickaxe",
+                opponent: "mrtrollface",
+                tierBefore: "HT3",
+                tierAfter: "HT3",
+                scorePlayer: 1,
+                scoreOpponent: 2,
+                winner: "opponent",
+                comment: "играл с 250-350 пингом, ощущение что нт4 черканите его на достоверность лт3, но дал лт3 всеже"
             }
         ],
         penaltyByKit: {
@@ -5054,6 +5065,11 @@ const players = [
                 tier: "LT3",
                 date: "2026-09-21",
                 retired: false
+            },
+            Pickaxe: {
+                tier: "LT3",
+                date: "2026-09-22",
+                retired: false
             }
         },
         matchHistory: [
@@ -5100,6 +5116,17 @@ const players = [
                 scoreOpponent: 2,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-22",
+                kit: "Pickaxe",
+                opponent: "-BaCk-",
+                tierBefore: "Unranked",
+                tierAfter: "LT3",
+                scorePlayer: 2,
+                scoreOpponent: 1,
+                winner: "player",
+                comment: "играл с 250-350 пингом, ощущение что нт4 черканите его на достоверность лт3, но дал лт3 всеже"
             }
         ],
         penaltyByKit: {
