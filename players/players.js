@@ -5235,34 +5235,5 @@ const players = [
             }
         ],
         penaltyByKit: {}
-    },
-    {
-        name: "Grey",
-        tiers: {},
-        matchHistory: [
-            {
-                date: "2026-09-21",
-                kit: "Emerald Pot",
-                opponent: "DzIla_EDITSmob",
-                tierBefore: "Unranked",
-                tierAfter: "HT3",
-                scorePlayer: 0,
-                scoreOpponent: 4,
-                winner: "opponent",
-                comment: "Хз едтте Сами решайте оставить или нед"
-            },
-            {
-                date: "2026-09-21",
-                kit: "Emerald Pot",
-                opponent: "система",
-                tierBefore: "HT3",
-                tierAfter: "LT3",
-                scorePlayer: 0,
-                scoreOpponent: 0,
-                winner: "opponent",
-                comment: "Автопонижение: накоплено 2 штрафных очка"
-            }
-        ],
-        penaltyByKit: {}
     }
 ];
