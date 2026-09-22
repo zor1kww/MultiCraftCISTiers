@@ -1675,8 +1675,8 @@ const players = [
                 retired: false
             },
             "Diamond Pot": {
-                tier: "HT4",
-                date: "2026-08-30",
+                tier: "LT3",
+                date: "2026-09-22",
                 retired: false
             },
             SMP: {
@@ -1991,6 +1991,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: "если честно он отыграл на лт4,буквально я его каждый раз подкидываю он не умеет ставить слизни и получает урон от падения, и еще, я иногда ставил слизни когда подлетал на 7-8 блоков чтоб когда он падал мог засейв как то или намек дать, но он застраивал бля пиздец"
+            },
+            {
+                date: "2026-09-22",
+                kit: "Diamond Pot",
+                opponent: "Michael_59k_YT",
+                tierBefore: "HT4",
+                tierAfter: "LT3",
+                scorePlayer: 4,
+                scoreOpponent: 1,
+                winner: "player",
+                comment: null
             }
         ],
         penaltyByKit: {
@@ -3612,6 +3623,17 @@ const players = [
                 scoreOpponent: 2,
                 winner: "opponent",
                 comment: "если честно он отыграл на лт4,буквально я его каждый раз подкидываю он не умеет ставить слизни и получает урон от падения, и еще, я иногда ставил слизни когда подлетал на 7-8 блоков чтоб когда он падал мог засейв как то или намек дать, но он застраивал бля пиздец"
+            },
+            {
+                date: "2026-09-22",
+                kit: "Diamond Pot",
+                opponent: "-BaCk-",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 1,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
             }
         ],
         penaltyByKit: {
