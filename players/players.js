@@ -3722,6 +3722,17 @@ const players = [
                 scoreOpponent: 2,
                 winner: "opponent",
                 comment: "брат все катки убегал, ладно лт3"
+            },
+            {
+                date: "2026-09-23",
+                kit: "Hardcore",
+                opponent: "aetherelegantius",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 2,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
             }
         ],
         penaltyByKit: {
@@ -3731,6 +3742,10 @@ const players = [
             },
             "Diamond Pot": {
                 points: 1.5,
+                firstPenaltyDate: "2026-09-23"
+            },
+            Hardcore: {
+                points: 1.0,
                 firstPenaltyDate: "2026-09-23"
             }
         }
@@ -4930,7 +4945,7 @@ const players = [
                 retired: false
             },
             Hardcore: {
-                tier: "LT3",
+                tier: "HT3",
                 date: "2026-09-23",
                 retired: false
             }
@@ -4966,6 +4981,17 @@ const players = [
                 tierAfter: "LT3",
                 scorePlayer: 2,
                 scoreOpponent: 1,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-09-23",
+                kit: "Hardcore",
+                opponent: "Michael_59k_YT",
+                tierBefore: "LT3",
+                tierAfter: "HT3",
+                scorePlayer: 4,
+                scoreOpponent: 2,
                 winner: "player",
                 comment: null
             }
