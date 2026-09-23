@@ -2013,17 +2013,6 @@ const players = [
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: "бля я прошу у нево подтвердить что он даед мне нт3 а он говорид сам патверти ну УРОТ"
-            },
-            {
-                date: "2026-09-23",
-                kit: "Hardcore",
-                opponent: "aetherelegantius",
-                tierBefore: "HT3",
-                tierAfter: "HT3",
-                scorePlayer: 1,
-                scoreOpponent: 2,
-                winner: "opponent",
-                comment: "я даун я даун я даун я даун я даун я даун я даун я даун я даун я даун я даун я даун я даун я даун я даун я даун я даун"
             }
         ],
         penaltyByKit: {
@@ -4858,11 +4847,6 @@ const players = [
                 tier: "HT3",
                 date: "2026-09-20",
                 retired: false
-            },
-            Hardcore: {
-                tier: "LT3",
-                date: "2026-09-23",
-                retired: false
             }
         },
         matchHistory: [
@@ -4887,17 +4871,6 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
-            },
-            {
-                date: "2026-09-23",
-                kit: "Hardcore",
-                opponent: "-BaCk-",
-                tierBefore: "Unranked",
-                tierAfter: "LT3",
-                scorePlayer: 2,
-                scoreOpponent: 1,
-                winner: "player",
-                comment: "я даун я даун я даун я даун я даун я даун я даун я даун я даун я даун я даун я даун я даун я даун я даун я даун я даун"
             }
         ],
         penaltyByKit: {}
