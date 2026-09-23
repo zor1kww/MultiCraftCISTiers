@@ -1284,6 +1284,71 @@
           "message_id": 16081
         }
       ]
+    },
+    "d829584c04": {
+      "id": "d829584c04",
+      "created_at": "2026-09-23T11:29:19.703870+00:00",
+      "label": "-BaCk- - SMP: LT3 -> HT3",
+      "status": "active",
+      "changes": [
+        {
+          "name": "-BaCk-",
+          "created": false,
+          "kits": {
+            "SMP": {
+              "tier_before": {
+                "tier": "LT3",
+                "date": "2026-08-18",
+                "retired": false
+              },
+              "tier_after": {
+                "tier": "HT3",
+                "date": "2026-09-23",
+                "retired": false
+              },
+              "pen_before": null,
+              "pen_after": null
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-09-23",
+              "kit": "SMP",
+              "opponent": "DzIla_EDITSmob",
+              "tierBefore": "LT3",
+              "tierAfter": "HT3",
+              "scorePlayer": 0,
+              "scoreOpponent": 4,
+              "winner": "opponent",
+              "comment": "бля я прошу у нево подтвердить что он даед мне нт3 а он говорид сам патверти ну УРОТ"
+            }
+          ]
+        },
+        {
+          "name": "DzIla_EDITSmob",
+          "created": false,
+          "kits": {},
+          "added_history": [
+            {
+              "date": "2026-09-23",
+              "kit": "SMP",
+              "opponent": "-BaCk-",
+              "tierBefore": "LT1",
+              "tierAfter": "LT1",
+              "scorePlayer": 4,
+              "scoreOpponent": 0,
+              "winner": "player",
+              "comment": "бля я прошу у нево подтвердить что он даед мне нт3 а он говорид сам патверти ну УРОТ"
+            }
+          ]
+        }
+      ],
+      "cards": [
+        {
+          "chat_id": -1003257860755,
+          "message_id": 16082
+        }
+      ]
     }
   }
 }
