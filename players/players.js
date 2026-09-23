@@ -1675,8 +1675,8 @@ const players = [
                 retired: false
             },
             "Diamond Pot": {
-                tier: "LT3",
-                date: "2026-09-22",
+                tier: "HT3",
+                date: "2026-09-23",
                 retired: false
             },
             SMP: {
@@ -2023,6 +2023,17 @@ const players = [
                 scorePlayer: 1,
                 scoreOpponent: 2,
                 winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-23",
+                kit: "Diamond Pot",
+                opponent: "Michael_59k_YT",
+                tierBefore: "LT3",
+                tierAfter: "HT3",
+                scorePlayer: 4,
+                scoreOpponent: 1,
+                winner: "player",
                 comment: null
             }
         ],
@@ -3656,12 +3667,27 @@ const players = [
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
+            },
+            {
+                date: "2026-09-23",
+                kit: "Diamond Pot",
+                opponent: "-BaCk-",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 1,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
             }
         ],
         penaltyByKit: {
             Beast: {
                 points: 0.4,
                 firstPenaltyDate: "2026-09-16"
+            },
+            "Diamond Pot": {
+                points: 1.5,
+                firstPenaltyDate: "2026-09-23"
             }
         }
     },
