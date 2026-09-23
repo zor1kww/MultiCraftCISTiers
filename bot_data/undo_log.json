@@ -1473,6 +1473,89 @@
           "message_id": 16149
         }
       ]
+    },
+    "872e8b634d": {
+      "id": "872e8b634d",
+      "created_at": "2026-09-23T13:12:43.390437+00:00",
+      "label": "-BaCk- - Diamond Pot: LT3 -> HT3",
+      "status": "active",
+      "changes": [
+        {
+          "name": "-BaCk-",
+          "created": false,
+          "kits": {
+            "Diamond Pot": {
+              "tier_before": {
+                "tier": "LT3",
+                "date": "2026-09-22",
+                "retired": false
+              },
+              "tier_after": {
+                "tier": "HT3",
+                "date": "2026-09-23",
+                "retired": false
+              },
+              "pen_before": null,
+              "pen_after": null
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-09-23",
+              "kit": "Diamond Pot",
+              "opponent": "Michael_59k_YT",
+              "tierBefore": "LT3",
+              "tierAfter": "HT3",
+              "scorePlayer": 4,
+              "scoreOpponent": 1,
+              "winner": "player",
+              "comment": null
+            }
+          ]
+        },
+        {
+          "name": "Michael_59k_YT",
+          "created": false,
+          "kits": {
+            "Diamond Pot": {
+              "tier_before": {
+                "tier": "LT3",
+                "date": "2026-08-25",
+                "retired": false
+              },
+              "tier_after": {
+                "tier": "LT3",
+                "date": "2026-08-25",
+                "retired": false
+              },
+              "pen_before": null,
+              "pen_after": {
+                "points": 1.5,
+                "firstPenaltyDate": "2026-09-23"
+              }
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-09-23",
+              "kit": "Diamond Pot",
+              "opponent": "-BaCk-",
+              "tierBefore": "LT3",
+              "tierAfter": "LT3",
+              "scorePlayer": 1,
+              "scoreOpponent": 4,
+              "winner": "opponent",
+              "comment": null
+            }
+          ]
+        }
+      ],
+      "cards": [
+        {
+          "chat_id": -1003257860755,
+          "message_id": 16203
+        }
+      ]
     }
   }
 }
