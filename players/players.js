@@ -1680,8 +1680,8 @@ const players = [
                 retired: false
             },
             SMP: {
-                tier: "LT3",
-                date: "2026-08-18",
+                tier: "HT3",
+                date: "2026-09-23",
                 retired: false
             },
             Pickaxe: {
@@ -2002,6 +2002,17 @@ const players = [
                 scoreOpponent: 1,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-23",
+                kit: "SMP",
+                opponent: "DzIla_EDITSmob",
+                tierBefore: "LT3",
+                tierAfter: "HT3",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: "бля я прошу у нево подтвердить что он даед мне нт3 а он говорид сам патверти ну УРОТ"
             }
         ],
         penaltyByKit: {
@@ -3972,6 +3983,17 @@ const players = [
                 scoreOpponent: 1,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-23",
+                kit: "SMP",
+                opponent: "-BaCk-",
+                tierBefore: "LT1",
+                tierAfter: "LT1",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: "бля я прошу у нево подтвердить что он даед мне нт3 а он говорид сам патверти ну УРОТ"
             }
         ],
         penaltyByKit: {
