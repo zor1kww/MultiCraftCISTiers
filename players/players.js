@@ -2035,17 +2035,6 @@ const players = [
                 scoreOpponent: 1,
                 winner: "player",
                 comment: null
-            },
-            {
-                date: "2026-09-23",
-                kit: "Mace",
-                opponent: "Michael_59k_YT",
-                tierBefore: "LT3",
-                tierAfter: "LT3",
-                scorePlayer: 2,
-                scoreOpponent: 1,
-                winner: "player",
-                comment: "брат все катки убегал"
             }
         ],
         penaltyByKit: {
@@ -3527,8 +3516,8 @@ const players = [
                 retired: false
             },
             Mace: {
-                tier: "HT4",
-                date: "2026-09-23",
+                tier: "LT4",
+                date: "2026-08-18",
                 retired: false
             },
             Pickaxe: {
@@ -3689,17 +3678,6 @@ const players = [
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
-            },
-            {
-                date: "2026-09-23",
-                kit: "Mace",
-                opponent: "-BaCk-",
-                tierBefore: "LT4",
-                tierAfter: "HT4",
-                scorePlayer: 1,
-                scoreOpponent: 2,
-                winner: "opponent",
-                comment: "брат все катки убегал"
             }
         ],
         penaltyByKit: {
