@@ -775,6 +775,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-25",
+                kit: "Beast",
+                opponent: "tegy",
+                tierBefore: "HT3",
+                tierAfter: "HT3",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null
             }
         ]
     },
@@ -5493,12 +5504,28 @@ const players = [
                 tier: "LT5",
                 date: "2026-09-25",
                 retired: false
+            },
+            Beast: {
+                tier: "LT5",
+                date: "2026-09-25",
+                retired: false
             }
         },
         matchHistory: [
             {
                 date: "2026-09-25",
                 kit: "Crystal",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "LT5",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-25",
+                kit: "Beast",
                 opponent: "zor1kkqwix",
                 tierBefore: "Unranked",
                 tierAfter: "LT5",
