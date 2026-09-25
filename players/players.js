@@ -2068,6 +2068,17 @@ const players = [
                 scoreOpponent: 6,
                 winner: "opponent",
                 comment: "в каждом раунде ПАЧТИ убивал"
+            },
+            {
+                date: "2026-09-25",
+                kit: "Mace",
+                opponent: "M_E_G_A",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: "стыдно лт5 даже давать, это чото между нт6-лт6 буквально в 3 раундах 0 удара и он откисал за три сам удара"
             }
         ],
         penaltyByKit: {
@@ -3507,6 +3518,11 @@ const players = [
                 tier: "HT5",
                 date: "2026-08-22",
                 retired: false
+            },
+            Mace: {
+                tier: "LT5",
+                date: "2026-09-25",
+                retired: false
             }
         },
         matchHistory: [
@@ -3520,8 +3536,20 @@ const players = [
                 scorePlayer: 0,
                 winner: "tester",
                 comment: null
+            },
+            {
+                date: "2026-09-25",
+                kit: "Mace",
+                opponent: "-BaCk-",
+                tierBefore: "HT5",
+                tierAfter: "LT5",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: "стыдно лт5 даже давать, это чото между нт6-лт6 буквально в 3 раундах 0 удара и он откисал за три сам удара"
             }
-        ]
+        ],
+        penaltyByKit: {}
     },
     {
         name: "JANDELL",
