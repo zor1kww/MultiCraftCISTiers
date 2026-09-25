@@ -1836,6 +1836,67 @@
           "message_id": 16235
         }
       ]
+    },
+    "53afeb1b12": {
+      "id": "53afeb1b12",
+      "created_at": "2026-09-25T02:53:38.679142+00:00",
+      "label": "M_E_G_A - Mace: HT5 -> LT5",
+      "status": "active",
+      "changes": [
+        {
+          "name": "-BaCk-",
+          "created": false,
+          "kits": {},
+          "added_history": [
+            {
+              "date": "2026-09-25",
+              "kit": "Mace",
+              "opponent": "M_E_G_A",
+              "tierBefore": "LT3",
+              "tierAfter": "LT3",
+              "scorePlayer": 4,
+              "scoreOpponent": 0,
+              "winner": "player",
+              "comment": "стыдно лт5 даже давать, это чото между нт6-лт6 буквально в 3 раундах 0 удара и он откисал за три сам удара"
+            }
+          ]
+        },
+        {
+          "name": "M_E_G_A",
+          "created": false,
+          "kits": {
+            "Mace": {
+              "tier_before": null,
+              "tier_after": {
+                "tier": "LT5",
+                "date": "2026-09-25",
+                "retired": false
+              },
+              "pen_before": null,
+              "pen_after": null
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-09-25",
+              "kit": "Mace",
+              "opponent": "-BaCk-",
+              "tierBefore": "HT5",
+              "tierAfter": "LT5",
+              "scorePlayer": 0,
+              "scoreOpponent": 4,
+              "winner": "opponent",
+              "comment": "стыдно лт5 даже давать, это чото между нт6-лт6 буквально в 3 раундах 0 удара и он откисал за три сам удара"
+            }
+          ]
+        }
+      ],
+      "cards": [
+        {
+          "chat_id": -1003257860755,
+          "message_id": 16357
+        }
+      ]
     }
   }
 }
