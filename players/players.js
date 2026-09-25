@@ -764,6 +764,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-25",
+                kit: "Crystal",
+                opponent: "tegy",
+                tierBefore: "HT1",
+                tierAfter: "HT1",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null
             }
         ]
     },
@@ -5468,6 +5479,31 @@ const players = [
                 tierAfter: "HT4",
                 scorePlayer: 0,
                 scoreOpponent: 3,
+                winner: "opponent",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
+    },
+    {
+        name: "tegy",
+        region: "RU",
+        tiers: {
+            Crystal: {
+                tier: "LT5",
+                date: "2026-09-25",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-09-25",
+                kit: "Crystal",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "LT5",
+                scorePlayer: 0,
+                scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
             }
