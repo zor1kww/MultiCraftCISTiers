@@ -786,6 +786,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-25",
+                kit: "Emerald Pot",
+                opponent: "tegy",
+                tierBefore: "HT3",
+                tierAfter: "HT3",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null
             }
         ]
     },
@@ -5509,6 +5520,11 @@ const players = [
                 tier: "LT5",
                 date: "2026-09-25",
                 retired: false
+            },
+            "Emerald Pot": {
+                tier: "HT5",
+                date: "2026-09-25",
+                retired: false
             }
         },
         matchHistory: [
@@ -5529,6 +5545,17 @@ const players = [
                 opponent: "zor1kkqwix",
                 tierBefore: "Unranked",
                 tierAfter: "LT5",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-25",
+                kit: "Emerald Pot",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "HT5",
                 scorePlayer: 0,
                 scoreOpponent: 4,
                 winner: "opponent",
