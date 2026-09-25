@@ -2084,6 +2084,71 @@
           "message_id": 16478
         }
       ]
+    },
+    "0b9551058c": {
+      "id": "0b9551058c",
+      "created_at": "2026-09-25T12:14:11.227806+00:00",
+      "label": "Fare - Emerald Pot: Unranked -> LT4",
+      "status": "active",
+      "changes": [
+        {
+          "name": "zor1kkqwix",
+          "created": false,
+          "kits": {},
+          "added_history": [
+            {
+              "date": "2026-09-25",
+              "kit": "Emerald Pot",
+              "opponent": "Fare",
+              "tierBefore": "HT3",
+              "tierAfter": "HT3",
+              "scorePlayer": 4,
+              "scoreOpponent": 0,
+              "winner": "player",
+              "comment": null
+            }
+          ]
+        },
+        {
+          "name": "Fare",
+          "created": true,
+          "kits": {
+            "Emerald Pot": {
+              "tier_before": null,
+              "tier_after": {
+                "tier": "LT4",
+                "date": "2026-09-25",
+                "retired": false
+              },
+              "pen_before": null,
+              "pen_after": null
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-09-25",
+              "kit": "Emerald Pot",
+              "opponent": "zor1kkqwix",
+              "tierBefore": "Unranked",
+              "tierAfter": "LT4",
+              "scorePlayer": 0,
+              "scoreOpponent": 4,
+              "winner": "opponent",
+              "comment": null
+            }
+          ],
+          "region": {
+            "before": null,
+            "after": "RU"
+          }
+        }
+      ],
+      "cards": [
+        {
+          "chat_id": -1003257860755,
+          "message_id": 16479
+        }
+      ]
     }
   }
 }
