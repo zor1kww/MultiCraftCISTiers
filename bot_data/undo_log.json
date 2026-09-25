@@ -2023,6 +2023,67 @@
           "message_id": 16477
         }
       ]
+    },
+    "1784b65347": {
+      "id": "1784b65347",
+      "created_at": "2026-09-25T12:13:48.800054+00:00",
+      "label": "tegy - Emerald Pot: Unranked -> HT5",
+      "status": "active",
+      "changes": [
+        {
+          "name": "zor1kkqwix",
+          "created": false,
+          "kits": {},
+          "added_history": [
+            {
+              "date": "2026-09-25",
+              "kit": "Emerald Pot",
+              "opponent": "tegy",
+              "tierBefore": "HT3",
+              "tierAfter": "HT3",
+              "scorePlayer": 4,
+              "scoreOpponent": 0,
+              "winner": "player",
+              "comment": null
+            }
+          ]
+        },
+        {
+          "name": "tegy",
+          "created": false,
+          "kits": {
+            "Emerald Pot": {
+              "tier_before": null,
+              "tier_after": {
+                "tier": "HT5",
+                "date": "2026-09-25",
+                "retired": false
+              },
+              "pen_before": null,
+              "pen_after": null
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-09-25",
+              "kit": "Emerald Pot",
+              "opponent": "zor1kkqwix",
+              "tierBefore": "Unranked",
+              "tierAfter": "HT5",
+              "scorePlayer": 0,
+              "scoreOpponent": 4,
+              "winner": "opponent",
+              "comment": null
+            }
+          ]
+        }
+      ],
+      "cards": [
+        {
+          "chat_id": -1003257860755,
+          "message_id": 16478
+        }
+      ]
     }
   }
 }
