@@ -64,8 +64,8 @@ const players = [
                 retired: true
             },
             Dragonhide: {
-                tier: "LT3",
-                date: "2026-09-23",
+                tier: "LT1",
+                date: "2026-09-26",
                 retired: false
             }
         },
@@ -113,9 +113,25 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: "в каждом раунде ПАЧТИ убивал"
+            },
+            {
+                date: "2026-09-26",
+                kit: "Dragonhide",
+                opponent: "-999-",
+                tierBefore: "LT3",
+                tierAfter: "LT1",
+                scorePlayer: 1,
+                scoreOpponent: 6,
+                winner: "opponent",
+                comment: null
             }
         ],
-        penaltyByKit: {}
+        penaltyByKit: {
+            Dragonhide: {
+                points: 1.6,
+                firstPenaltyDate: "2026-09-26"
+            }
+        }
     },
     {
         name: "-999-",
@@ -229,6 +245,17 @@ const players = [
                 tierAfter: "HT1",
                 scorePlayer: 3,
                 scoreOpponent: 0,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-09-26",
+                kit: "Dragonhide",
+                opponent: "Sneger",
+                tierBefore: "HT1",
+                tierAfter: "HT1",
+                scorePlayer: 6,
+                scoreOpponent: 1,
                 winner: "player",
                 comment: null
             }
