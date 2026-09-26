@@ -2149,6 +2149,67 @@
           "message_id": 16479
         }
       ]
+    },
+    "50e6d81c35": {
+      "id": "50e6d81c35",
+      "created_at": "2026-09-26T17:12:05.013361+00:00",
+      "label": "M_E_G_A - Hardcore: Unranked -> HT5",
+      "status": "active",
+      "changes": [
+        {
+          "name": "zor1kkqwix",
+          "created": false,
+          "kits": {},
+          "added_history": [
+            {
+              "date": "2026-09-26",
+              "kit": "Hardcore",
+              "opponent": "M_E_G_A",
+              "tierBefore": "LT1",
+              "tierAfter": "LT1",
+              "scorePlayer": 4,
+              "scoreOpponent": 0,
+              "winner": "player",
+              "comment": null
+            }
+          ]
+        },
+        {
+          "name": "M_E_G_A",
+          "created": false,
+          "kits": {
+            "Hardcore": {
+              "tier_before": null,
+              "tier_after": {
+                "tier": "HT5",
+                "date": "2026-09-26",
+                "retired": false
+              },
+              "pen_before": null,
+              "pen_after": null
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-09-26",
+              "kit": "Hardcore",
+              "opponent": "zor1kkqwix",
+              "tierBefore": "Unranked",
+              "tierAfter": "HT5",
+              "scorePlayer": 0,
+              "scoreOpponent": 4,
+              "winner": "opponent",
+              "comment": null
+            }
+          ]
+        }
+      ],
+      "cards": [
+        {
+          "chat_id": -1003257860755,
+          "message_id": 16680
+        }
+      ]
     }
   }
 }
