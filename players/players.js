@@ -846,6 +846,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-26",
+                kit: "SMP",
+                opponent: "damir26",
+                tierBefore: "HT3",
+                tierAfter: "HT3",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null
             }
         ]
     },
@@ -5646,6 +5657,31 @@ const players = [
                 opponent: "zor1kkqwix",
                 tierBefore: "Unranked",
                 tierAfter: "LT4",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
+    },
+    {
+        name: "damir26",
+        region: "RU",
+        tiers: {
+            SMP: {
+                tier: "HT5",
+                date: "2026-09-26",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-09-26",
+                kit: "SMP",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "HT5",
                 scorePlayer: 0,
                 scoreOpponent: 4,
                 winner: "opponent",
