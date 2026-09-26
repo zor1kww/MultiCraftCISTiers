@@ -808,6 +808,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-26",
+                kit: "Hardcore",
+                opponent: "M_E_G_A",
+                tierBefore: "LT1",
+                tierAfter: "LT1",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null
             }
         ]
     },
@@ -3567,6 +3578,11 @@ const players = [
                 tier: "LT5",
                 date: "2026-09-25",
                 retired: false
+            },
+            Hardcore: {
+                tier: "HT5",
+                date: "2026-09-26",
+                retired: false
             }
         },
         matchHistory: [
@@ -3591,6 +3607,17 @@ const players = [
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: "стыдно лт5 даже давать, это чото между нт6-лт6 буквально в 3 раундах 0 удара и он откисал за три сам удара"
+            },
+            {
+                date: "2026-09-26",
+                kit: "Hardcore",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "HT5",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
             }
         ],
         penaltyByKit: {}
