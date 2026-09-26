@@ -66,7 +66,7 @@ const players = [
             Dragonhide: {
                 tier: "LT1",
                 date: "2026-09-26",
-                retired: false
+                retired: true
             }
         },
         matchHistory: [
