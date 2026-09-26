@@ -2172,6 +2172,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: "стыдно лт5 даже давать, это чото между нт6-лт6 буквально в 3 раундах 0 удара и он откисал за три сам удара"
+            },
+            {
+                date: "2026-09-26",
+                kit: "Mace",
+                opponent: "politik_monster4",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 3,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: "игрок ливнул при счёте 2:0,до 3 округлил. Совет: сначало поиграй на ките хотяюы от силы 10 раундов, потом иди тест. На тесте она буквально ничего не понимала как ставить сено итд но всё же давала криты"
             }
         ],
         penaltyByKit: {
@@ -5686,6 +5697,31 @@ const players = [
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
+            }
+        ],
+        penaltyByKit: {}
+    },
+    {
+        name: "politik_monster4",
+        region: "RU",
+        tiers: {
+            Mace: {
+                tier: "HT5",
+                date: "2026-09-26",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-09-26",
+                kit: "Mace",
+                opponent: "-BaCk-",
+                tierBefore: "Unranked",
+                tierAfter: "HT5",
+                scorePlayer: 0,
+                scoreOpponent: 3,
+                winner: "opponent",
+                comment: "игрок ливнул при счёте 2:0,до 3 округлил. Совет: сначало поиграй на ките хотяюы от силы 10 раундов, потом иди тест. На тесте она буквально ничего не понимала как ставить сено итд но всё же давала криты"
             }
         ],
         penaltyByKit: {}
