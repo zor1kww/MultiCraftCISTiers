@@ -2473,6 +2473,92 @@
           "message_id": 16684
         }
       ]
+    },
+    "324cd77d0d": {
+      "id": "324cd77d0d",
+      "created_at": "2026-09-27T08:38:35.389605+00:00",
+      "label": "Prosto_oleg100-7 - Emerald: HT2 -> LT2",
+      "status": "active",
+      "changes": [
+        {
+          "name": "-999-",
+          "created": false,
+          "kits": {},
+          "added_history": [
+            {
+              "date": "2026-09-27",
+              "kit": "Emerald",
+              "opponent": "Prosto_oleg100-7",
+              "tierBefore": "LT1",
+              "tierAfter": "LT1",
+              "scorePlayer": 6,
+              "scoreOpponent": 2,
+              "winner": "player",
+              "comment": "унизился"
+            }
+          ]
+        },
+        {
+          "name": "Prosto_oleg100-7",
+          "created": false,
+          "kits": {
+            "Emerald": {
+              "tier_before": {
+                "tier": "HT2",
+                "date": "2026-09-21",
+                "retired": false
+              },
+              "tier_after": {
+                "tier": "HT3",
+                "date": "2026-09-27",
+                "retired": false
+              },
+              "pen_before": {
+                "points": 0.8,
+                "firstPenaltyDate": "2026-09-20"
+              },
+              "pen_after": {
+                "points": 0.0,
+                "firstPenaltyDate": "2026-09-27"
+              }
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-09-27",
+              "kit": "Emerald",
+              "opponent": "-999-",
+              "tierBefore": "HT2",
+              "tierAfter": "LT2",
+              "scorePlayer": 2,
+              "scoreOpponent": 6,
+              "winner": "opponent",
+              "comment": "унизился"
+            },
+            {
+              "date": "2026-09-27",
+              "kit": "Emerald",
+              "opponent": "система",
+              "tierBefore": "LT2",
+              "tierAfter": "HT3",
+              "scorePlayer": 0,
+              "scoreOpponent": 0,
+              "winner": "opponent",
+              "comment": "Автопонижение: накоплено 2 штрафных очка"
+            }
+          ]
+        }
+      ],
+      "cards": [
+        {
+          "chat_id": -1003257860755,
+          "message_id": 16685
+        },
+        {
+          "chat_id": -1003257860755,
+          "message_id": 16686
+        }
+      ]
     }
   }
 }
