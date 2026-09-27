@@ -2634,6 +2634,11 @@ const players = [
                 tier: "LT1",
                 date: "2026-09-14",
                 retired: false
+            },
+            Vanilla: {
+                tier: "HT2",
+                date: "2026-09-27",
+                retired: false
             }
         },
         matchHistory: [
