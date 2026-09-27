@@ -5800,5 +5800,49 @@ const players = [
             }
         ],
         penaltyByKit: {}
+    },
+    {
+        name: "Recherche",
+        region: "RU",
+        tiers: {
+            Vanilla: {
+                tier: "LT2",
+                date: "2026-09-27",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-09-27",
+                kit: "Vanilla",
+                opponent: "test",
+                tierBefore: "Unranked",
+                tierAfter: "LT2",
+                scorePlayer: 0,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
+    },
+    {
+        name: "test",
+        region: "",
+        tiers: {},
+        matchHistory: [
+            {
+                date: "2026-09-27",
+                kit: "Vanilla",
+                opponent: "Recherche",
+                tierBefore: null,
+                tierAfter: null,
+                scorePlayer: 0,
+                scoreOpponent: 0,
+                winner: "opponent",
+                comment: null
+            }
+        ],
+        penaltyByKit: {}
     }
 ];
