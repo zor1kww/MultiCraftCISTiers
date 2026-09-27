@@ -5256,8 +5256,8 @@ const players = [
         region: "BY",
         tiers: {
             "Emerald Pot": {
-                tier: "HT4",
-                date: "2026-08-29",
+                tier: "LT3",
+                date: "2026-09-27",
                 retired: false
             },
             SMP: {
@@ -5328,6 +5328,17 @@ const players = [
                 tierBefore: "HT4",
                 tierAfter: "HT4",
                 scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-09-27",
+                kit: "Emerald Pot",
+                opponent: "mrtrollface",
+                tierBefore: "HT4",
+                tierAfter: "LT3",
+                scorePlayer: 5,
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
@@ -5544,6 +5555,17 @@ const players = [
                 scoreOpponent: 1,
                 winner: "player",
                 comment: "играл с 250-350 пингом, ощущение что нт4 черканите его на достоверность лт3, но дал лт3 всеже"
+            },
+            {
+                date: "2026-09-27",
+                kit: "Emerald Pot",
+                opponent: "heliN193",
+                tierBefore: "HT4",
+                tierAfter: "HT4",
+                scorePlayer: 0,
+                scoreOpponent: 5,
+                winner: "opponent",
+                comment: null
             }
         ],
         penaltyByKit: {
