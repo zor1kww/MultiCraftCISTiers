@@ -2559,6 +2559,75 @@
           "message_id": 16686
         }
       ]
+    },
+    "bce86b931d": {
+      "id": "bce86b931d",
+      "created_at": "2026-09-27T14:02:30.928336+00:00",
+      "label": "Recherche - Vanilla: Unranked -> LT2",
+      "status": "active",
+      "changes": [
+        {
+          "name": "Recherche",
+          "created": true,
+          "kits": {
+            "Vanilla": {
+              "tier_before": null,
+              "tier_after": {
+                "tier": "LT2",
+                "date": "2026-09-27",
+                "retired": false
+              },
+              "pen_before": null,
+              "pen_after": null
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-09-27",
+              "kit": "Vanilla",
+              "opponent": "test",
+              "tierBefore": "Unranked",
+              "tierAfter": "LT2",
+              "scorePlayer": 0,
+              "scoreOpponent": 0,
+              "winner": "player",
+              "comment": null
+            }
+          ],
+          "region": {
+            "before": null,
+            "after": "RU"
+          }
+        },
+        {
+          "name": "test",
+          "created": true,
+          "kits": {},
+          "added_history": [
+            {
+              "date": "2026-09-27",
+              "kit": "Vanilla",
+              "opponent": "Recherche",
+              "tierBefore": null,
+              "tierAfter": null,
+              "scorePlayer": 0,
+              "scoreOpponent": 0,
+              "winner": "opponent",
+              "comment": null
+            }
+          ],
+          "region": {
+            "before": null,
+            "after": ""
+          }
+        }
+      ],
+      "cards": [
+        {
+          "chat_id": -1003257860755,
+          "message_id": 16692
+        }
+      ]
     }
   }
 }
