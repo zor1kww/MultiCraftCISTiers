@@ -1804,8 +1804,8 @@ const players = [
                 retired: false
             },
             "Emerald Pot": {
-                tier: "HT4",
-                date: "2026-08-30",
+                tier: "LT3",
+                date: "2026-09-27",
                 retired: false
             }
         },
@@ -2183,6 +2183,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: "игрок ливнул при счёте 2:0,до 3 округлил. Совет: сначало поиграй на ките хотяюы от силы 10 раундов, потом иди тест. На тесте она буквально ничего не понимала как ставить сено итд но всё же давала криты"
+            },
+            {
+                date: "2026-09-27",
+                kit: "Emerald Pot",
+                opponent: "xopechek",
+                tierBefore: "HT4",
+                tierAfter: "LT3",
+                scorePlayer: 4,
+                scoreOpponent: 1,
+                winner: "player",
+                comment: null
             }
         ],
         penaltyByKit: {
@@ -5357,6 +5368,17 @@ const players = [
                 tierBefore: "LT5",
                 tierAfter: "LT5",
                 scorePlayer: 2,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-09-27",
+                kit: "Emerald Pot",
+                opponent: "-BaCk-",
+                tierBefore: "HT4",
+                tierAfter: "HT4",
+                scorePlayer: 1,
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
