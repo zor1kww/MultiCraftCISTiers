@@ -330,7 +330,7 @@ const players = [
             Beast: {
                 tier: "HT3",
                 date: "2026-09-21",
-                retired: false
+                retired: true
             },
             Crystal: {
                 tier: "HT1",
