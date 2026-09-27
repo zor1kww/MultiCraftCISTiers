@@ -258,6 +258,17 @@ const players = [
                 scoreOpponent: 1,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-27",
+                kit: "Emerald",
+                opponent: "Prosto_oleg100-7",
+                tierBefore: "LT1",
+                tierAfter: "LT1",
+                scorePlayer: 6,
+                scoreOpponent: 2,
+                winner: "player",
+                comment: "унизился"
             }
         ],
         penaltyByKit: {}
@@ -2575,8 +2586,8 @@ const players = [
                 retired: false
             },
             Emerald: {
-                tier: "HT2",
-                date: "2026-09-21",
+                tier: "HT3",
+                date: "2026-09-27",
                 retired: false
             },
             Dragonhide: {
@@ -2934,12 +2945,34 @@ const players = [
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
+            },
+            {
+                date: "2026-09-27",
+                kit: "Emerald",
+                opponent: "-999-",
+                tierBefore: "HT2",
+                tierAfter: "LT2",
+                scorePlayer: 2,
+                scoreOpponent: 6,
+                winner: "opponent",
+                comment: "унизился"
+            },
+            {
+                date: "2026-09-27",
+                kit: "Emerald",
+                opponent: "система",
+                tierBefore: "LT2",
+                tierAfter: "HT3",
+                scorePlayer: 0,
+                scoreOpponent: 0,
+                winner: "opponent",
+                comment: "Автопонижение: накоплено 2 штрафных очка"
             }
         ],
         penaltyByKit: {
             Emerald: {
-                points: 0.8,
-                firstPenaltyDate: "2026-09-20"
+                points: 0.0,
+                firstPenaltyDate: "2026-09-27"
             },
             "Diamond Pot": {
                 points: 1,
