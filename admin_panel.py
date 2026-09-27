@@ -139,7 +139,7 @@ ADMIN_IDS = {
 KNOWN_KITS = [
     "Hardcore", "SMP", "Emerald Pot", "Combo", "RVM", "Pickaxe",
     "Emerald", "Diamond Pot", "Dragonhide", "Beast", "Crystal",
-    "Mace", "Gapple",
+    "Mace", "Gapple", "Manhunt", "Vanilla",
 ]
 
 # Тиры, доступные для назначения через панель - используем тот же
