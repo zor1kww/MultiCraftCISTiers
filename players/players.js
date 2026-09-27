@@ -341,6 +341,11 @@ const players = [
                 tier: "LT3",
                 date: "2026-08-18",
                 retired: false
+            },
+            Vanilla: {
+                tier: "LT1",
+                date: "2026-09-27",
+                retired: false
             }
         },
         penaltyByKit: {
