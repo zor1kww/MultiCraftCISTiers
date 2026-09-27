@@ -298,8 +298,8 @@ const players = [
                 retired: true
             },
             Combo: {
-                tier: "HT4",
-                date: "2026-08-18",
+                tier: "LT3",
+                date: "2026-09-27",
                 retired: false
             },
             RVM: {
