@@ -27,12 +27,66 @@ class GithubStorageError(Exception):
     pass
 
 
+# Регулярки ключей ниже раньше применялись прямо к сырому тексту и
+# затрагивали заодно СОДЕРЖИМОЕ строк - например, комментарий тестера
+# "...округлил. Совет: сначало поиграй..." содержит "Совет:", похожее на
+# голый ключ объекта, и регулярка оборачивала его в кавычки прямо внутри
+# строки, что портило JSON (ошибка "Expecting ',' delimiter"). Чтобы
+# конвертер не трогал текст внутри строковых литералов, сначала прячем
+# все строки "..." под плейсхолдеры, применяем регулярку ключей к
+# оставшемуся "скелету" объекта, затем возвращаем строки на место.
+
+_STRING_LITERAL = re.compile(r'"(?:\\.|[^"\\])*"')
+_STRING_PLACEHOLDER = re.compile(r'\x00(\d+)\x00')
+
+
+def _mask_strings(text: str):
+    """Заменяет строковые литералы на плейсхолдеры вида \x00N\x00.
+    Возвращает (текст_с_плейсхолдерами, список_строк)."""
+    strings = []
+
+    def _replace(match):
+        strings.append(match.group(0))
+        return f'\x00{len(strings) - 1}\x00'
+
+    masked = _STRING_LITERAL.sub(_replace, text)
+    return masked, strings
+
+
+def _unmask_strings(text: str, strings: list) -> str:
+    return _STRING_PLACEHOLDER.sub(lambda m: strings[int(m.group(1))], text)
+
+
 def _js_to_json_text(raw_js: str) -> str:
-    return re.sub(r'(?<=[{,\s])(\w+)(\s*):', r'"\1"\2:', raw_js)
+    masked, strings = _mask_strings(raw_js)
+    masked = re.sub(r'(?<=[{,\s])(\w+)(\s*):', r'"\1"\2:', masked)
+    return _unmask_strings(masked, strings)
+
+
+def _mask_value_strings(text: str):
+    """Как _mask_strings, но НЕ трогает строки-ключи (те, за которыми сразу
+    следует ':') - иначе регулярке ниже, которая как раз ищет '"ключ":',
+    будет нечего снимать: сам ключ уже спрятан под плейсхолдер."""
+    strings = []
+    out = []
+    last = 0
+    for match in _STRING_LITERAL.finditer(text):
+        out.append(text[last:match.start()])
+        is_key_position = bool(re.match(r'\s*:', text[match.end():]))
+        if is_key_position:
+            out.append(match.group(0))
+        else:
+            strings.append(match.group(0))
+            out.append(f'\x00{len(strings) - 1}\x00')
+        last = match.end()
+    out.append(text[last:])
+    return ''.join(out), strings
 
 
 def _json_to_js_text(json_text: str) -> str:
-    return re.sub(r'"(\w+)"\s*:', r'\1:', json_text)
+    masked, strings = _mask_value_strings(json_text)
+    masked = re.sub(r'"(\w+)"\s*:', r'\1:', masked)
+    return _unmask_strings(masked, strings)
 
 
 def _get_file(gh_repo: str, gh_token: str):
