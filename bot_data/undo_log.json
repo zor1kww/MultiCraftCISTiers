@@ -1,553 +1,5 @@
 {
   "records": {
-    "d15c23b505": {
-      "id": "d15c23b505",
-      "created_at": "2026-09-21T02:32:51.852923+00:00",
-      "label": "DzIla_EDITSmob - Dragonhide: HT2 -> LT1",
-      "status": "active",
-      "changes": [
-        {
-          "name": "Prosto_oleg100-7",
-          "created": false,
-          "kits": {},
-          "added_history": [
-            {
-              "date": "2026-09-21",
-              "kit": "Dragonhide",
-              "opponent": "DzIla_EDITSmob",
-              "tierBefore": "LT1",
-              "tierAfter": "LT1",
-              "scorePlayer": 6,
-              "scoreOpponent": 5,
-              "winner": "player",
-              "comment": null
-            }
-          ]
-        },
-        {
-          "name": "DzIla_EDITSmob",
-          "created": false,
-          "kits": {
-            "Dragonhide": {
-              "tier_before": {
-                "tier": "HT2",
-                "date": "2026-08-18",
-                "retired": false
-              },
-              "tier_after": {
-                "tier": "LT1",
-                "date": "2026-09-21",
-                "retired": false
-              },
-              "pen_before": {
-                "points": 0.8,
-                "firstPenaltyDate": "2026-09-14"
-              },
-              "pen_after": {
-                "points": 0.8,
-                "firstPenaltyDate": "2026-09-14"
-              }
-            }
-          },
-          "added_history": [
-            {
-              "date": "2026-09-21",
-              "kit": "Dragonhide",
-              "opponent": "Prosto_oleg100-7",
-              "tierBefore": "HT2",
-              "tierAfter": "LT1",
-              "scorePlayer": 5,
-              "scoreOpponent": 6,
-              "winner": "opponent",
-              "comment": null
-            }
-          ]
-        }
-      ],
-      "cards": [
-        {
-          "chat_id": -1003257860755,
-          "message_id": 15926
-        }
-      ]
-    },
-    "31dbb72aba": {
-      "id": "31dbb72aba",
-      "created_at": "2026-09-21T02:33:01.698263+00:00",
-      "label": "DzIla_EDITSmob - Dragonhide: HT2 -> LT1",
-      "status": "active",
-      "changes": [
-        {
-          "name": "Prosto_oleg100-7",
-          "created": false,
-          "kits": {},
-          "added_history": [
-            {
-              "date": "2026-09-21",
-              "kit": "Dragonhide",
-              "opponent": "DzIla_EDITSmob",
-              "tierBefore": "LT1",
-              "tierAfter": "LT1",
-              "scorePlayer": 6,
-              "scoreOpponent": 5,
-              "winner": "player",
-              "comment": null
-            }
-          ]
-        },
-        {
-          "name": "DzIla_EDITSmob",
-          "created": false,
-          "kits": {},
-          "added_history": [
-            {
-              "date": "2026-09-21",
-              "kit": "Dragonhide",
-              "opponent": "Prosto_oleg100-7",
-              "tierBefore": "HT2",
-              "tierAfter": "LT1",
-              "scorePlayer": 5,
-              "scoreOpponent": 6,
-              "winner": "opponent",
-              "comment": null
-            }
-          ]
-        }
-      ],
-      "cards": [
-        {
-          "chat_id": -1003257860755,
-          "message_id": 15927
-        }
-      ]
-    },
-    "93e1702fe9": {
-      "id": "93e1702fe9",
-      "created_at": "2026-09-21T02:33:14.949505+00:00",
-      "label": "Prosto_oleg100-7 - Emerald: Unranked -> HT2",
-      "status": "undone",
-      "changes": [
-        {
-          "name": "Prosto_oleg100-7",
-          "created": false,
-          "kits": {
-            "Emerald": {
-              "tier_before": {
-                "tier": "LT1",
-                "date": "2026-09-20",
-                "retired": false
-              },
-              "tier_after": {
-                "tier": "HT2",
-                "date": "2026-09-21",
-                "retired": false
-              },
-              "pen_before": {
-                "points": 0.8,
-                "firstPenaltyDate": "2026-09-20"
-              },
-              "pen_after": {
-                "points": 1.6,
-                "firstPenaltyDate": "2026-09-20"
-              }
-            }
-          },
-          "added_history": [
-            {
-              "date": "2026-09-21",
-              "kit": "Emerald",
-              "opponent": "DzIla_EDITSmob",
-              "tierBefore": "Unranked",
-              "tierAfter": "HT2",
-              "scorePlayer": 3,
-              "scoreOpponent": 6,
-              "winner": "opponent",
-              "comment": null
-            }
-          ]
-        },
-        {
-          "name": "DzIla_EDITSmob",
-          "created": false,
-          "kits": {},
-          "added_history": [
-            {
-              "date": "2026-09-21",
-              "kit": "Emerald",
-              "opponent": "Prosto_oleg100-7",
-              "tierBefore": "LT1",
-              "tierAfter": "LT1",
-              "scorePlayer": 6,
-              "scoreOpponent": 3,
-              "winner": "player",
-              "comment": null
-            }
-          ]
-        }
-      ],
-      "cards": [
-        {
-          "chat_id": -1003257860755,
-          "message_id": 15928
-        }
-      ],
-      "undone_by": "@wannaexecution",
-      "undone_at": "2026-09-21T02:33:43.946604+00:00"
-    },
-    "d0b7b190c4": {
-      "id": "d0b7b190c4",
-      "created_at": "2026-09-21T02:55:53.010493+00:00",
-      "label": "Yakov - Beast: LT3 -> HT4",
-      "status": "active",
-      "changes": [
-        {
-          "name": "DzIla_EDITSmob",
-          "created": false,
-          "kits": {},
-          "added_history": [
-            {
-              "date": "2026-09-21",
-              "kit": "Beast",
-              "opponent": "Yakov",
-              "tierBefore": "HT2",
-              "tierAfter": "HT2",
-              "scorePlayer": 6,
-              "scoreOpponent": 0,
-              "winner": "player",
-              "comment": null
-            }
-          ]
-        },
-        {
-          "name": "Yakov",
-          "created": true,
-          "kits": {
-            "Beast": {
-              "tier_before": null,
-              "tier_after": {
-                "tier": "HT4",
-                "date": "2026-09-21",
-                "retired": false
-              },
-              "pen_before": null,
-              "pen_after": null
-            }
-          },
-          "added_history": [
-            {
-              "date": "2026-09-21",
-              "kit": "Beast",
-              "opponent": "DzIla_EDITSmob",
-              "tierBefore": "LT3",
-              "tierAfter": "HT4",
-              "scorePlayer": 0,
-              "scoreOpponent": 6,
-              "winner": "opponent",
-              "comment": null
-            }
-          ],
-          "region": {
-            "before": null,
-            "after": "RU"
-          }
-        }
-      ],
-      "cards": [
-        {
-          "chat_id": -1003257860755,
-          "message_id": 15929
-        }
-      ]
-    },
-    "f51b75983a": {
-      "id": "f51b75983a",
-      "created_at": "2026-09-21T02:56:19.932956+00:00",
-      "label": "Prosto_oleg100-7 - Emerald Pot: HT2 -> LT1",
-      "status": "active",
-      "changes": [
-        {
-          "name": "Prosto_oleg100-7",
-          "created": false,
-          "kits": {
-            "Emerald Pot": {
-              "tier_before": {
-                "tier": "HT2",
-                "date": "2026-09-14",
-                "retired": false
-              },
-              "tier_after": {
-                "tier": "LT1",
-                "date": "2026-09-21",
-                "retired": false
-              },
-              "pen_before": {
-                "points": 1,
-                "firstPenaltyDate": "2026-09-14"
-              },
-              "pen_after": {
-                "points": 1,
-                "firstPenaltyDate": "2026-09-14"
-              }
-            }
-          },
-          "added_history": [
-            {
-              "date": "2026-09-21",
-              "kit": "Emerald Pot",
-              "opponent": "DzIla_EDITSmob",
-              "tierBefore": "HT2",
-              "tierAfter": "LT1",
-              "scorePlayer": 3,
-              "scoreOpponent": 4,
-              "winner": "opponent",
-              "comment": null
-            }
-          ]
-        },
-        {
-          "name": "DzIla_EDITSmob",
-          "created": false,
-          "kits": {},
-          "added_history": [
-            {
-              "date": "2026-09-21",
-              "kit": "Emerald Pot",
-              "opponent": "Prosto_oleg100-7",
-              "tierBefore": "LT1",
-              "tierAfter": "LT1",
-              "scorePlayer": 4,
-              "scoreOpponent": 3,
-              "winner": "player",
-              "comment": null
-            }
-          ]
-        }
-      ],
-      "cards": [
-        {
-          "chat_id": -1003257860755,
-          "message_id": 15930
-        }
-      ]
-    },
-    "e3032ec514": {
-      "id": "e3032ec514",
-      "created_at": "2026-09-21T09:15:30.860130+00:00",
-      "label": "JHkyu - Emerald Pot: Unranked -> HT5",
-      "status": "active",
-      "changes": [
-        {
-          "name": "heliN193",
-          "created": false,
-          "kits": {},
-          "added_history": [
-            {
-              "date": "2026-09-21",
-              "kit": "Emerald Pot",
-              "opponent": "JHkyu",
-              "tierBefore": "HT4",
-              "tierAfter": "HT4",
-              "scorePlayer": 4,
-              "scoreOpponent": 0,
-              "winner": "player",
-              "comment": null
-            }
-          ]
-        },
-        {
-          "name": "JHkyu",
-          "created": true,
-          "kits": {
-            "Emerald Pot": {
-              "tier_before": null,
-              "tier_after": {
-                "tier": "HT5",
-                "date": "2026-09-21",
-                "retired": false
-              },
-              "pen_before": null,
-              "pen_after": null
-            }
-          },
-          "added_history": [
-            {
-              "date": "2026-09-21",
-              "kit": "Emerald Pot",
-              "opponent": "heliN193",
-              "tierBefore": "Unranked",
-              "tierAfter": "HT5",
-              "scorePlayer": 0,
-              "scoreOpponent": 4,
-              "winner": "opponent",
-              "comment": null
-            }
-          ],
-          "region": {
-            "before": null,
-            "after": "RU"
-          }
-        }
-      ],
-      "cards": [
-        {
-          "chat_id": -1003257860755,
-          "message_id": 15953
-        }
-      ]
-    },
-    "fdba6fb4b5": {
-      "id": "fdba6fb4b5",
-      "created_at": "2026-09-21T12:51:35.981341+00:00",
-      "label": "DzIla_EDITSmob - Mace: Unranked -> HT5",
-      "status": "active",
-      "changes": [
-        {
-          "name": "-BaCk-",
-          "created": false,
-          "kits": {},
-          "added_history": [
-            {
-              "date": "2026-09-21",
-              "kit": "Mace",
-              "opponent": "DzIla_EDITSmob",
-              "tierBefore": "LT3",
-              "tierAfter": "LT3",
-              "scorePlayer": 4,
-              "scoreOpponent": 2,
-              "winner": "player",
-              "comment": null
-            }
-          ]
-        },
-        {
-          "name": "DzIla_EDITSmob",
-          "created": false,
-          "kits": {
-            "Mace": {
-              "tier_before": null,
-              "tier_after": {
-                "tier": "HT5",
-                "date": "2026-09-21",
-                "retired": false
-              },
-              "pen_before": null,
-              "pen_after": null
-            }
-          },
-          "added_history": [
-            {
-              "date": "2026-09-21",
-              "kit": "Mace",
-              "opponent": "-BaCk-",
-              "tierBefore": "Unranked",
-              "tierAfter": "HT5",
-              "scorePlayer": 2,
-              "scoreOpponent": 4,
-              "winner": "opponent",
-              "comment": null
-            }
-          ]
-        }
-      ],
-      "cards": [
-        {
-          "chat_id": -1003257860755,
-          "message_id": 15971
-        }
-      ]
-    },
-    "6596c4d23b": {
-      "id": "6596c4d23b",
-      "created_at": "2026-09-21T14:54:58.921386+00:00",
-      "label": "zor1kkqwix - Beast: LT3 -> HT3",
-      "status": "active",
-      "changes": [
-        {
-          "name": "zor1kkqwix",
-          "created": false,
-          "kits": {
-            "Beast": {
-              "tier_before": {
-                "tier": "LT3",
-                "date": "2026-08-30",
-                "retired": false
-              },
-              "tier_after": {
-                "tier": "HT3",
-                "date": "2026-09-21",
-                "retired": false
-              },
-              "pen_before": {
-                "points": 0,
-                "firstPenaltyDate": "2026-08-30"
-              },
-              "pen_after": {
-                "points": 0,
-                "firstPenaltyDate": "2026-08-30"
-              }
-            }
-          },
-          "added_history": [
-            {
-              "date": "2026-09-21",
-              "kit": "Beast",
-              "opponent": "Michael_59k_YT",
-              "tierBefore": "LT3",
-              "tierAfter": "HT3",
-              "scorePlayer": 6,
-              "scoreOpponent": 4,
-              "winner": "player",
-              "comment": null
-            }
-          ]
-        },
-        {
-          "name": "Michael_59k_YT",
-          "created": false,
-          "kits": {
-            "Beast": {
-              "tier_before": {
-                "tier": "LT3",
-                "date": "2026-09-16",
-                "retired": false
-              },
-              "tier_after": {
-                "tier": "LT3",
-                "date": "2026-09-16",
-                "retired": false
-              },
-              "pen_before": {
-                "points": 0,
-                "firstPenaltyDate": "2026-09-16"
-              },
-              "pen_after": {
-                "points": 0.4,
-                "firstPenaltyDate": "2026-09-16"
-              }
-            }
-          },
-          "added_history": [
-            {
-              "date": "2026-09-21",
-              "kit": "Beast",
-              "opponent": "zor1kkqwix",
-              "tierBefore": "LT3",
-              "tierAfter": "LT3",
-              "scorePlayer": 4,
-              "scoreOpponent": 6,
-              "winner": "opponent",
-              "comment": null
-            }
-          ]
-        }
-      ],
-      "cards": [
-        {
-          "chat_id": -1003257860755,
-          "message_id": 16038
-        }
-      ]
-    },
     "aee611b861": {
       "id": "aee611b861",
       "created_at": "2026-09-21T15:20:23.456883+00:00",
@@ -2691,6 +2143,67 @@
         {
           "chat_id": -1003257860755,
           "message_id": 16974
+        }
+      ]
+    },
+    "39356efc15": {
+      "id": "39356efc15",
+      "created_at": "2026-09-28T15:17:43.614835+00:00",
+      "label": "Michael_59k_YT - Dragonhide: Unranked -> LT3",
+      "status": "active",
+      "changes": [
+        {
+          "name": "-BaCk-",
+          "created": false,
+          "kits": {},
+          "added_history": [
+            {
+              "date": "2026-09-28",
+              "kit": "Dragonhide",
+              "opponent": "Michael_59k_YT",
+              "tierBefore": "LT3",
+              "tierAfter": "LT3",
+              "scorePlayer": 6,
+              "scoreOpponent": 5,
+              "winner": "player",
+              "comment": "не судьба быть твоей первой победе"
+            }
+          ]
+        },
+        {
+          "name": "Michael_59k_YT",
+          "created": false,
+          "kits": {
+            "Dragonhide": {
+              "tier_before": null,
+              "tier_after": {
+                "tier": "LT3",
+                "date": "2026-09-28",
+                "retired": false
+              },
+              "pen_before": null,
+              "pen_after": null
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-09-28",
+              "kit": "Dragonhide",
+              "opponent": "-BaCk-",
+              "tierBefore": "Unranked",
+              "tierAfter": "LT3",
+              "scorePlayer": 5,
+              "scoreOpponent": 6,
+              "winner": "opponent",
+              "comment": "не судьба быть твоей первой победе"
+            }
+          ]
+        }
+      ],
+      "cards": [
+        {
+          "chat_id": -1003257860755,
+          "message_id": 17755
         }
       ]
     }
