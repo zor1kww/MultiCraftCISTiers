@@ -2220,6 +2220,17 @@ const players = [
                 scoreOpponent: 1,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-09-28",
+                kit: "Dragonhide",
+                opponent: "Michael_59k_YT",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 6,
+                scoreOpponent: 5,
+                winner: "player",
+                comment: "не судьба быть твоей первой победе"
             }
         ],
         penaltyByKit: {
@@ -3789,6 +3800,11 @@ const players = [
                 tier: "HT4",
                 date: "2026-09-22",
                 retired: false
+            },
+            Dragonhide: {
+                tier: "LT3",
+                date: "2026-09-28",
+                retired: false
             }
         },
         matchHistory: [
@@ -3945,6 +3961,17 @@ const players = [
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
+            },
+            {
+                date: "2026-09-28",
+                kit: "Dragonhide",
+                opponent: "-BaCk-",
+                tierBefore: "Unranked",
+                tierAfter: "LT3",
+                scorePlayer: 5,
+                scoreOpponent: 6,
+                winner: "opponent",
+                comment: "не судьба быть твоей первой победе"
             }
         ],
         penaltyByKit: {
