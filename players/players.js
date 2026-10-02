@@ -926,6 +926,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "opponent",
                 comment: "Автопонижение: накоплено 2 штрафных очка"
+            },
+            {
+                date: "2026-10-02",
+                kit: "Dragonhide",
+                opponent: "Michael_59k_YT",
+                tierBefore: "HT3",
+                tierAfter: "HT3",
+                scorePlayer: 6,
+                scoreOpponent: 2,
+                winner: "player",
+                comment: null
             }
         ]
     },
@@ -3812,7 +3823,7 @@ const players = [
     },
     {
         name: "Michael_59k_YT",
-        region: "RU",
+        region: "AM",
         tiers: {
             Beast: {
                 tier: "LT3",
@@ -3851,7 +3862,7 @@ const players = [
             },
             Dragonhide: {
                 tier: "LT3",
-                date: "2026-09-28",
+                date: "2026-10-02",
                 retired: false
             }
         },
@@ -4052,6 +4063,17 @@ const players = [
                 scorePlayer: 6,
                 scoreOpponent: 0,
                 winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-10-02",
+                kit: "Dragonhide",
+                opponent: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 2,
+                scoreOpponent: 6,
+                winner: "opponent",
                 comment: null
             }
         ],
