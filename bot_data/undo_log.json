@@ -751,7 +751,7 @@
       "id": "efaad41412",
       "created_at": "2026-10-02T13:51:42.608496+00:00",
       "label": "Michael_59k_YT - Emerald: LT3 -> HT3",
-      "status": "active",
+      "status": "undone",
       "changes": [
         {
           "name": "zor1kkqwix",
@@ -847,7 +847,9 @@
           "chat_id": -1003257860755,
           "message_id": 18514
         }
-      ]
+      ],
+      "undone_by": "@wannaexecution",
+      "undone_at": "2026-10-02T13:51:58.860163+00:00"
     },
     "5a5966c22e": {
       "id": "5a5966c22e",
