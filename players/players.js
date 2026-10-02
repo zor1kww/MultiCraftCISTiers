@@ -878,6 +878,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-10-02",
+                kit: "Diamond Pot",
+                opponent: "Michael_59k_YT",
+                tierBefore: "HT3",
+                tierAfter: "HT3",
+                scorePlayer: 4,
+                scoreOpponent: 2,
+                winner: "player",
+                comment: null
             }
         ]
     },
@@ -3793,7 +3804,7 @@ const players = [
             },
             "Diamond Pot": {
                 tier: "LT3",
-                date: "2026-08-25",
+                date: "2026-10-02",
                 retired: false
             },
             SMP: {
@@ -3972,6 +3983,17 @@ const players = [
                 scoreOpponent: 6,
                 winner: "opponent",
                 comment: "не судьба быть твоей первой победе"
+            },
+            {
+                date: "2026-10-02",
+                kit: "Diamond Pot",
+                opponent: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 2,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
             }
         ],
         penaltyByKit: {
