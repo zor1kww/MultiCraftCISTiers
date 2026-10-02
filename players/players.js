@@ -313,8 +313,8 @@ const players = [
                 retired: true
             },
             Emerald: {
-                tier: "LT3",
-                date: "2026-08-18",
+                tier: "HT4",
+                date: "2026-10-02",
                 retired: false
             },
             "Diamond Pot": {
@@ -381,6 +381,10 @@ const players = [
             RVM: {
                 points: 1.0,
                 firstPenaltyDate: "2026-09-19"
+            },
+            Emerald: {
+                points: 0.0,
+                firstPenaltyDate: "2026-10-02"
             }
         },
         matchHistory: [
@@ -900,6 +904,28 @@ const players = [
                 scoreOpponent: 2,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-10-02",
+                kit: "Emerald",
+                opponent: "Michael_59k_YT",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 0,
+                scoreOpponent: 6,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-10-02",
+                kit: "Emerald",
+                opponent: "система",
+                tierBefore: "LT3",
+                tierAfter: "HT4",
+                scorePlayer: 0,
+                scoreOpponent: 0,
+                winner: "opponent",
+                comment: "Автопонижение: накоплено 2 штрафных очка"
             }
         ]
     },
@@ -3786,7 +3812,7 @@ const players = [
     },
     {
         name: "Michael_59k_YT",
-        region: "AM",
+        region: "RU",
         tiers: {
             Beast: {
                 tier: "LT3",
@@ -3809,8 +3835,8 @@ const players = [
                 retired: false
             },
             Emerald: {
-                tier: "HT4",
-                date: "2026-08-23",
+                tier: "HT3",
+                date: "2026-10-02",
                 retired: false
             },
             "Diamond Pot": {
@@ -4015,6 +4041,17 @@ const players = [
                 scorePlayer: 2,
                 scoreOpponent: 6,
                 winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-10-02",
+                kit: "Emerald",
+                opponent: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "HT3",
+                scorePlayer: 6,
+                scoreOpponent: 0,
+                winner: "player",
                 comment: null
             }
         ],
