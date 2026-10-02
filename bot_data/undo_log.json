@@ -746,6 +746,108 @@
           "message_id": 18512
         }
       ]
+    },
+    "efaad41412": {
+      "id": "efaad41412",
+      "created_at": "2026-10-02T13:51:42.608496+00:00",
+      "label": "Michael_59k_YT - Emerald: LT3 -> HT3",
+      "status": "active",
+      "changes": [
+        {
+          "name": "zor1kkqwix",
+          "created": false,
+          "kits": {
+            "Emerald": {
+              "tier_before": {
+                "tier": "LT3",
+                "date": "2026-08-18",
+                "retired": false
+              },
+              "tier_after": {
+                "tier": "HT4",
+                "date": "2026-10-02",
+                "retired": false
+              },
+              "pen_before": null,
+              "pen_after": {
+                "points": 0.0,
+                "firstPenaltyDate": "2026-10-02"
+              }
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-10-02",
+              "kit": "Emerald",
+              "opponent": "Michael_59k_YT",
+              "tierBefore": "LT3",
+              "tierAfter": "LT3",
+              "scorePlayer": 0,
+              "scoreOpponent": 6,
+              "winner": "opponent",
+              "comment": null
+            },
+            {
+              "date": "2026-10-02",
+              "kit": "Emerald",
+              "opponent": "система",
+              "tierBefore": "LT3",
+              "tierAfter": "HT4",
+              "scorePlayer": 0,
+              "scoreOpponent": 0,
+              "winner": "opponent",
+              "comment": "Автопонижение: накоплено 2 штрафных очка"
+            }
+          ]
+        },
+        {
+          "name": "Michael_59k_YT",
+          "created": false,
+          "kits": {
+            "Emerald": {
+              "tier_before": {
+                "tier": "HT4",
+                "date": "2026-08-23",
+                "retired": false
+              },
+              "tier_after": {
+                "tier": "HT3",
+                "date": "2026-10-02",
+                "retired": false
+              },
+              "pen_before": null,
+              "pen_after": null
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-10-02",
+              "kit": "Emerald",
+              "opponent": "zor1kkqwix",
+              "tierBefore": "LT3",
+              "tierAfter": "HT3",
+              "scorePlayer": 6,
+              "scoreOpponent": 0,
+              "winner": "player",
+              "comment": null
+            }
+          ],
+          "region": {
+            "before": "AM",
+            "after": "RU"
+          }
+        }
+      ],
+      "cards": [
+        {
+          "chat_id": -1003257860755,
+          "message_id": 18513
+        },
+        {
+          "chat_id": -1003257860755,
+          "message_id": 18514
+        }
+      ]
     }
   }
 }
