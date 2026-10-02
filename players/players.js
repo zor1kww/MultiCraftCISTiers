@@ -955,6 +955,17 @@ const players = [
                 scoreOpponent: 1,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-10-02",
+                kit: "Combo",
+                opponent: "HE_YOUTUBE",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 0,
+                scoreOpponent: 2,
+                winner: "opponent",
+                comment: null
             }
         ]
     },
@@ -6031,6 +6042,11 @@ const players = [
                 tier: "LT3",
                 date: "2026-10-02",
                 retired: false
+            },
+            Combo: {
+                tier: "LT3",
+                date: "2026-10-02",
+                retired: false
             }
         },
         matchHistory: [
@@ -6043,6 +6059,17 @@ const players = [
                 scorePlayer: 1,
                 scoreOpponent: 4,
                 winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-10-02",
+                kit: "Combo",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "LT3",
+                scorePlayer: 2,
+                scoreOpponent: 0,
+                winner: "player",
                 comment: null
             }
         ],
