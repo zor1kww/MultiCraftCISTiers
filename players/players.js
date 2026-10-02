@@ -911,6 +911,17 @@ const players = [
                 scoreOpponent: 2,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-10-02",
+                kit: "RVM",
+                opponent: "Michael_59k_YT",
+                tierBefore: "LT2",
+                tierAfter: "LT2",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null
             }
         ]
     },
@@ -3838,6 +3849,11 @@ const players = [
                 tier: "LT3",
                 date: "2026-10-02",
                 retired: false
+            },
+            RVM: {
+                tier: "HT4",
+                date: "2026-10-02",
+                retired: false
             }
         },
         matchHistory: [
@@ -4036,6 +4052,17 @@ const players = [
                 tierAfter: "LT3",
                 scorePlayer: 2,
                 scoreOpponent: 6,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-10-02",
+                kit: "RVM",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "HT4",
+                scorePlayer: 0,
+                scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
             }
