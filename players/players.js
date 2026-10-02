@@ -977,6 +977,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-10-02",
+                kit: "Emerald",
+                opponent: "Michael_59k_YT",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 6,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: "Михаил незнающий побед"
             }
         ]
     },
@@ -3887,7 +3898,7 @@ const players = [
             },
             Emerald: {
                 tier: "HT4",
-                date: "2026-08-23",
+                date: "2026-10-02",
                 retired: false
             },
             "Diamond Pot": {
@@ -4120,6 +4131,17 @@ const players = [
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
+            },
+            {
+                date: "2026-10-02",
+                kit: "Emerald",
+                opponent: "zor1kkqwix",
+                tierBefore: "HT4",
+                tierAfter: "HT4",
+                scorePlayer: 0,
+                scoreOpponent: 6,
+                winner: "opponent",
+                comment: "Михаил незнающий побед"
             }
         ],
         penaltyByKit: {
