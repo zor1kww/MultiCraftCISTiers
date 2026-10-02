@@ -922,6 +922,17 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-10-02",
+                kit: "Diamond Pot",
+                opponent: "mrtrollface",
+                tierBefore: "HT3",
+                tierAfter: "HT3",
+                scorePlayer: 4,
+                scoreOpponent: 2,
+                winner: "player",
+                comment: null
             }
         ]
     },
@@ -5601,7 +5612,7 @@ const players = [
         tiers: {
             "Diamond Pot": {
                 tier: "LT3",
-                date: "2026-09-17",
+                date: "2026-10-02",
                 retired: false
             },
             "Emerald Pot": {
@@ -5684,6 +5695,17 @@ const players = [
                 tierAfter: "HT4",
                 scorePlayer: 0,
                 scoreOpponent: 5,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-10-02",
+                kit: "Diamond Pot",
+                opponent: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 2,
+                scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
             }
