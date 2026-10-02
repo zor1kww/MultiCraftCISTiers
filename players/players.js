@@ -933,6 +933,17 @@ const players = [
                 scoreOpponent: 2,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-10-02",
+                kit: "Emerald",
+                opponent: "mrtrollface",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 6,
+                scoreOpponent: 4,
+                winner: "player",
+                comment: null
             }
         ]
     },
@@ -5629,6 +5640,11 @@ const players = [
                 tier: "LT3",
                 date: "2026-09-22",
                 retired: false
+            },
+            Emerald: {
+                tier: "LT3",
+                date: "2026-10-02",
+                retired: false
             }
         },
         matchHistory: [
@@ -5706,6 +5722,17 @@ const players = [
                 tierAfter: "LT3",
                 scorePlayer: 2,
                 scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-10-02",
+                kit: "Emerald",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "LT3",
+                scorePlayer: 4,
+                scoreOpponent: 6,
                 winner: "opponent",
                 comment: null
             }
