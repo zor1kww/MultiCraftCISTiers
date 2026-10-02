@@ -1503,7 +1503,7 @@ const players = [
             Mace: {
                 tier: "LT2",
                 date: "2026-08-18",
-                retired: false
+                retired: true
             }
         }
     },
