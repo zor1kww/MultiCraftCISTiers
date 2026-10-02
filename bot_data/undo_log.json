@@ -675,6 +675,77 @@
           "message_id": 18511
         }
       ]
+    },
+    "e58618b3dc": {
+      "id": "e58618b3dc",
+      "created_at": "2026-10-02T13:51:30.830774+00:00",
+      "label": "zor1kkqwix - Beast: HT3 -> LT2",
+      "status": "active",
+      "changes": [
+        {
+          "name": "zor1kkqwix",
+          "created": false,
+          "kits": {
+            "Beast": {
+              "tier_before": {
+                "tier": "HT3",
+                "date": "2026-09-21",
+                "retired": true
+              },
+              "tier_after": {
+                "tier": "LT2",
+                "date": "2026-10-02",
+                "retired": false
+              },
+              "pen_before": {
+                "points": 0,
+                "firstPenaltyDate": "2026-08-30"
+              },
+              "pen_after": {
+                "points": 0,
+                "firstPenaltyDate": "2026-08-30"
+              }
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-10-02",
+              "kit": "Beast",
+              "opponent": "Michael_59k_YT",
+              "tierBefore": "HT3",
+              "tierAfter": "LT2",
+              "scorePlayer": 6,
+              "scoreOpponent": 2,
+              "winner": "player",
+              "comment": null
+            }
+          ]
+        },
+        {
+          "name": "Michael_59k_YT",
+          "created": false,
+          "kits": {},
+          "added_history": [
+            {
+              "date": "2026-10-02",
+              "kit": "Beast",
+              "opponent": "zor1kkqwix",
+              "tierBefore": "LT3",
+              "tierAfter": "LT3",
+              "scorePlayer": 2,
+              "scoreOpponent": 6,
+              "winner": "opponent",
+              "comment": null
+            }
+          ]
+        }
+      ],
+      "cards": [
+        {
+          "chat_id": -1003257860755,
+          "message_id": 18512
+        }
+      ]
     }
   }
 }
