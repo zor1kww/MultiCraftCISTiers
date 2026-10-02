@@ -328,9 +328,9 @@ const players = [
                 retired: true
             },
             Beast: {
-                tier: "HT3",
-                date: "2026-09-21",
-                retired: true
+                tier: "LT2",
+                date: "2026-10-02",
+                retired: false
             },
             Crystal: {
                 tier: "HT1",
@@ -886,6 +886,17 @@ const players = [
                 tierBefore: "HT3",
                 tierAfter: "HT3",
                 scorePlayer: 4,
+                scoreOpponent: 2,
+                winner: "player",
+                comment: null
+            },
+            {
+                date: "2026-10-02",
+                kit: "Beast",
+                opponent: "Michael_59k_YT",
+                tierBefore: "HT3",
+                tierAfter: "LT2",
+                scorePlayer: 6,
                 scoreOpponent: 2,
                 winner: "player",
                 comment: null
@@ -3992,6 +4003,17 @@ const players = [
                 tierAfter: "LT3",
                 scorePlayer: 2,
                 scoreOpponent: 4,
+                winner: "opponent",
+                comment: null
+            },
+            {
+                date: "2026-10-02",
+                kit: "Beast",
+                opponent: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 2,
+                scoreOpponent: 6,
                 winner: "opponent",
                 comment: null
             }
