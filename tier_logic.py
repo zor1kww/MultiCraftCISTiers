@@ -214,7 +214,8 @@ def build_result_card(player_name, kit, tier_before, tier_after, duels,
 
 
 def build_match_history_entry(kit, opponent_name, player_name, tier_before, tier_after,
-                               score_player, score_opponent, winner, comment, test_date=None):
+                               score_player, score_opponent, winner, comment,
+                               is_player_side=True, test_date=None):
     """
     Собирает запись для matchHistory игрока (лог дуэлей на сайте).
     Хранится в самом объекте игрока, каждый обработанный результат
@@ -223,6 +224,17 @@ def build_match_history_entry(kit, opponent_name, player_name, tier_before, tier
     на оппонента - см. main.py).
 
     winner - "player" или "opponent": кто выиграл именно эту дуэль.
+
+    is_player_side - True для записи настоящего "Игрока" из шаблона
+    результата (того, кого тестировали), False для зеркальной записи,
+    которая кладётся в matchHistory оппонента просто для справки у него
+    в профиле. Раньше сайт различал эти две копии по тому, менялся ли
+    тир (tierBefore != tierAfter) - это ломалось на "закреплении"
+    (тест подтвердил тот же тир), когда тир не менялся НИ у кого, и
+    collectGlobalDuels() в main.js показывал случайную из двух копий.
+    Это поле даёт сайту однозначный ответ вместо угадывания. У записей,
+    сделанных до этого поля, его нет - там сайт по-прежнему угадывает
+    по старой эвристике (см. main.js).
     """
     return {
         "date": test_date or today_str(),
@@ -232,8 +244,9 @@ def build_match_history_entry(kit, opponent_name, player_name, tier_before, tier
         "tierAfter": tier_after,
         "scorePlayer": score_player,
         "scoreOpponent": score_opponent,
-        "winner": winner,       # "player" или "opponent"
-        "comment": comment,     # может быть None
+        "winner": winner,               # "player" или "opponent"
+        "comment": comment,             # может быть None
+        "isPlayerSide": is_player_side,
     }
 
 
