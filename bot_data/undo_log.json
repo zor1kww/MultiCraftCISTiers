@@ -1366,6 +1366,91 @@
           "message_id": 18594
         }
       ]
+    },
+    "91e5204777": {
+      "id": "91e5204777",
+      "created_at": "2026-10-05T11:03:07.143251+00:00",
+      "label": "DzIla_EDITSmob - Hardcore: LT2 -> LT1",
+      "status": "active",
+      "changes": [
+        {
+          "name": "D4rK_S1lA",
+          "created": false,
+          "kits": {
+            "Hardcore": {
+              "tier_before": {
+                "tier": "LT1",
+                "date": "2026-09-18",
+                "retired": false
+              },
+              "tier_after": {
+                "tier": "LT1",
+                "date": "2026-09-18",
+                "retired": false
+              },
+              "pen_before": null,
+              "pen_after": {
+                "points": 1.5,
+                "firstPenaltyDate": "2026-10-05"
+              }
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-10-05",
+              "kit": "Hardcore",
+              "opponent": "DzIla_EDITSmob",
+              "tierBefore": "LT1",
+              "tierAfter": "LT1",
+              "scorePlayer": 1,
+              "scoreOpponent": 4,
+              "winner": "opponent",
+              "comment": null,
+              "isPlayerSide": false
+            }
+          ]
+        },
+        {
+          "name": "DzIla_EDITSmob",
+          "created": false,
+          "kits": {
+            "Hardcore": {
+              "tier_before": {
+                "tier": "LT2",
+                "date": "2026-08-18",
+                "retired": false
+              },
+              "tier_after": {
+                "tier": "LT1",
+                "date": "2026-10-05",
+                "retired": false
+              },
+              "pen_before": null,
+              "pen_after": null
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-10-05",
+              "kit": "Hardcore",
+              "opponent": "D4rK_S1lA",
+              "tierBefore": "LT2",
+              "tierAfter": "LT1",
+              "scorePlayer": 4,
+              "scoreOpponent": 1,
+              "winner": "player",
+              "comment": null,
+              "isPlayerSide": true
+            }
+          ]
+        }
+      ],
+      "cards": [
+        {
+          "chat_id": -1003257860755,
+          "message_id": 18595
+        }
+      ]
     }
   }
 }
