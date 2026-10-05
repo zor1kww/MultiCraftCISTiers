@@ -1012,6 +1012,18 @@ const players = [
                 winner: "player",
                 comment: null,
                 isPlayerSide: true
+            },
+            {
+                date: "2026-10-05",
+                kit: "Mace",
+                opponent: "LEGENDA",
+                tierBefore: "LT1",
+                tierAfter: "LT1",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null,
+                isPlayerSide: true
             }
         ]
     },
@@ -6179,6 +6191,32 @@ const players = [
             {
                 date: "2026-10-05",
                 kit: "Beast",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "LT5",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null,
+                isPlayerSide: true
+            }
+        ],
+        penaltyByKit: {}
+    },
+    {
+        name: "LEGENDA",
+        region: "RU",
+        tiers: {
+            Mace: {
+                tier: "LT5",
+                date: "2026-10-05",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-10-05",
+                kit: "Mace",
                 opponent: "zor1kkqwix",
                 tierBefore: "Unranked",
                 tierAfter: "LT5",
