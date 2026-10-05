@@ -1024,6 +1024,18 @@ const players = [
                 winner: "player",
                 comment: null,
                 isPlayerSide: true
+            },
+            {
+                date: "2026-10-05",
+                kit: "Mace",
+                opponent: "Recherche",
+                tierBefore: "LT1",
+                tierAfter: "LT1",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null,
+                isPlayerSide: true
             }
         ]
     },
@@ -6142,6 +6154,11 @@ const players = [
                 tier: "LT3",
                 date: "2026-10-05",
                 retired: false
+            },
+            Mace: {
+                tier: "LT3",
+                date: "2026-10-05",
+                retired: false
             }
         },
         matchHistory: [
@@ -6166,6 +6183,18 @@ const players = [
                 scorePlayer: 2,
                 scoreOpponent: 0,
                 winner: "player",
+                comment: null,
+                isPlayerSide: true
+            },
+            {
+                date: "2026-10-05",
+                kit: "Mace",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "LT3",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
                 comment: null,
                 isPlayerSide: true
             }
