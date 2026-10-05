@@ -888,7 +888,8 @@ const players = [
                 scorePlayer: 4,
                 scoreOpponent: 2,
                 winner: "player",
-                comment: null
+                comment: null,
+                isPlayerSide: false
             },
             {
                 date: "2026-10-02",
@@ -899,7 +900,8 @@ const players = [
                 scorePlayer: 6,
                 scoreOpponent: 2,
                 winner: "player",
-                comment: null
+                comment: null,
+                isPlayerSide: true
             },
             {
                 date: "2026-10-02",
@@ -910,7 +912,8 @@ const players = [
                 scorePlayer: 6,
                 scoreOpponent: 2,
                 winner: "player",
-                comment: null
+                comment: null,
+                isPlayerSide: false
             },
             {
                 date: "2026-10-02",
@@ -921,7 +924,8 @@ const players = [
                 scorePlayer: 4,
                 scoreOpponent: 0,
                 winner: "player",
-                comment: null
+                comment: null,
+                isPlayerSide: false
             },
             {
                 date: "2026-10-02",
@@ -932,7 +936,8 @@ const players = [
                 scorePlayer: 4,
                 scoreOpponent: 2,
                 winner: "player",
-                comment: null
+                comment: null,
+                isPlayerSide: false
             },
             {
                 date: "2026-10-02",
@@ -943,7 +948,8 @@ const players = [
                 scorePlayer: 6,
                 scoreOpponent: 4,
                 winner: "player",
-                comment: null
+                comment: null,
+                isPlayerSide: false
             },
             {
                 date: "2026-10-02",
@@ -954,7 +960,8 @@ const players = [
                 scorePlayer: 4,
                 scoreOpponent: 1,
                 winner: "player",
-                comment: null
+                comment: null,
+                isPlayerSide: false
             },
             {
                 date: "2026-10-02",
@@ -965,7 +972,8 @@ const players = [
                 scorePlayer: 0,
                 scoreOpponent: 2,
                 winner: "opponent",
-                comment: null
+                comment: null,
+                isPlayerSide: false
             },
             {
                 date: "2026-10-02",
@@ -976,7 +984,8 @@ const players = [
                 scorePlayer: 4,
                 scoreOpponent: 0,
                 winner: "player",
-                comment: null
+                comment: null,
+                isPlayerSide: false
             },
             {
                 date: "2026-10-02",
@@ -987,7 +996,8 @@ const players = [
                 scorePlayer: 6,
                 scoreOpponent: 0,
                 winner: "player",
-                comment: "Михаил незнающий побед"
+                comment: "Михаил незнающий побед",
+                isPlayerSide: false
             },
             {
                 date: "2026-10-05",
@@ -999,7 +1009,7 @@ const players = [
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null,
-                isPlayerSide: true
+                isPlayerSide: false
             },
             {
                 date: "2026-10-05",
@@ -1011,7 +1021,7 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null,
-                isPlayerSide: true
+                isPlayerSide: false
             },
             {
                 date: "2026-10-05",
@@ -1023,7 +1033,7 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null,
-                isPlayerSide: true
+                isPlayerSide: false
             },
             {
                 date: "2026-10-05",
@@ -1035,7 +1045,7 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null,
-                isPlayerSide: true
+                isPlayerSide: false
             },
             {
                 date: "2026-10-05",
@@ -1047,7 +1057,7 @@ const players = [
                 scoreOpponent: 6,
                 winner: "opponent",
                 comment: null,
-                isPlayerSide: true
+                isPlayerSide: false
             },
             {
                 date: "2026-10-05",
@@ -1071,7 +1081,7 @@ const players = [
                 scoreOpponent: 1,
                 winner: "player",
                 comment: "luck",
-                isPlayerSide: true
+                isPlayerSide: false
             }
         ]
     },
@@ -2436,7 +2446,7 @@ const players = [
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null,
-                isPlayerSide: true
+                isPlayerSide: false
             },
             {
                 date: "2026-10-05",
@@ -2448,7 +2458,7 @@ const players = [
                 scoreOpponent: 2,
                 winner: "opponent",
                 comment: null,
-                isPlayerSide: true
+                isPlayerSide: false
             }
         ],
         penaltyByKit: {
@@ -4222,7 +4232,8 @@ const players = [
                 scorePlayer: 2,
                 scoreOpponent: 4,
                 winner: "opponent",
-                comment: null
+                comment: null,
+                isPlayerSide: true
             },
             {
                 date: "2026-10-02",
@@ -4233,7 +4244,8 @@ const players = [
                 scorePlayer: 2,
                 scoreOpponent: 6,
                 winner: "opponent",
-                comment: null
+                comment: null,
+                isPlayerSide: false
             },
             {
                 date: "2026-10-02",
@@ -4244,7 +4256,8 @@ const players = [
                 scorePlayer: 2,
                 scoreOpponent: 6,
                 winner: "opponent",
-                comment: null
+                comment: null,
+                isPlayerSide: true
             },
             {
                 date: "2026-10-02",
@@ -4255,7 +4268,8 @@ const players = [
                 scorePlayer: 0,
                 scoreOpponent: 4,
                 winner: "opponent",
-                comment: null
+                comment: null,
+                isPlayerSide: true
             },
             {
                 date: "2026-10-02",
@@ -4266,7 +4280,8 @@ const players = [
                 scorePlayer: 0,
                 scoreOpponent: 6,
                 winner: "opponent",
-                comment: "Михаил незнающий побед"
+                comment: "Михаил незнающий побед",
+                isPlayerSide: true
             }
         ],
         penaltyByKit: {
@@ -5925,7 +5940,8 @@ const players = [
                 scorePlayer: 2,
                 scoreOpponent: 4,
                 winner: "opponent",
-                comment: null
+                comment: null,
+                isPlayerSide: true
             },
             {
                 date: "2026-10-02",
@@ -5936,7 +5952,8 @@ const players = [
                 scorePlayer: 4,
                 scoreOpponent: 6,
                 winner: "opponent",
-                comment: null
+                comment: null,
+                isPlayerSide: true
             }
         ],
         penaltyByKit: {
@@ -6308,7 +6325,8 @@ const players = [
                 scorePlayer: 1,
                 scoreOpponent: 4,
                 winner: "opponent",
-                comment: null
+                comment: null,
+                isPlayerSide: true
             },
             {
                 date: "2026-10-02",
@@ -6319,7 +6337,8 @@ const players = [
                 scorePlayer: 2,
                 scoreOpponent: 0,
                 winner: "player",
-                comment: null
+                comment: null,
+                isPlayerSide: true
             }
         ],
         penaltyByKit: {}
@@ -6349,7 +6368,8 @@ const players = [
                 scorePlayer: 0,
                 scoreOpponent: 4,
                 winner: "opponent",
-                comment: null
+                comment: null,
+                isPlayerSide: true
             },
             {
                 date: "2026-10-05",
