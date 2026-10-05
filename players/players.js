@@ -988,6 +988,18 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: "Михаил незнающий побед"
+            },
+            {
+                date: "2026-10-05",
+                kit: "Emerald Pot",
+                opponent: "_-XKakTakX-_",
+                tierBefore: "HT3",
+                tierAfter: "HT3",
+                scorePlayer: 3,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null,
+                isPlayerSide: true
             }
         ]
     },
@@ -2601,6 +2613,11 @@ const players = [
                 tier: "LT3",
                 date: "2026-09-13",
                 retired: false
+            },
+            "Emerald Pot": {
+                tier: "HT3",
+                date: "2026-10-05",
+                retired: false
             }
         },
         matchHistory: [
@@ -2658,6 +2675,18 @@ const players = [
                 scoreOpponent: 0,
                 winner: "opponent",
                 comment: "Автопонижение: накоплено 2 штрафных очка"
+            },
+            {
+                date: "2026-10-05",
+                kit: "Emerald Pot",
+                opponent: "zor1kkqwix",
+                tierBefore: "LT3",
+                tierAfter: "HT3",
+                scorePlayer: 4,
+                scoreOpponent: 3,
+                winner: "player",
+                comment: null,
+                isPlayerSide: true
             }
         ],
         penaltyByKit: {
