@@ -192,6 +192,7 @@ def apply_result_to_players_list(players_list, parsed):
             score_opponent=duel.score_opponent,
             winner=duel.winner,
             comment=parsed.comment,
+            is_player_side=True,
         ))
 
         # Симметричная запись у оппонента - "" вместо региона: если оппонент
@@ -211,6 +212,7 @@ def apply_result_to_players_list(players_list, parsed):
             score_opponent=duel.score_player,
             winner=("player" if duel.winner == "opponent" else "opponent"),
             comment=parsed.comment,
+            is_player_side=False,
         ))
 
     overall_tier, _ = calculate_overall_tier(player['tiers'])
@@ -275,6 +277,7 @@ def apply_penalty_and_check_demotion(players_list, parsed, duel):
                     tier_before=current_tier, tier_after=new_tier,
                     score_player=0, score_opponent=0, winner="opponent",
                     comment=f"Автопонижение: накоплено {PENALTY_DEMOTION_THRESHOLD:g} штрафных очка",
+                    is_player_side=True,
                 ))
 
                 overall_tier, _ = calculate_overall_tier(target_player['tiers'])
