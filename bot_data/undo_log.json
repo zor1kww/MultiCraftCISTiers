@@ -944,6 +944,73 @@
           "message_id": 18587
         }
       ]
+    },
+    "1b61cdc852": {
+      "id": "1b61cdc852",
+      "created_at": "2026-10-05T08:30:09.236073+00:00",
+      "label": "LEGENDA - Mace: Unranked -> LT5",
+      "status": "active",
+      "changes": [
+        {
+          "name": "zor1kkqwix",
+          "created": false,
+          "kits": {},
+          "added_history": [
+            {
+              "date": "2026-10-05",
+              "kit": "Mace",
+              "opponent": "LEGENDA",
+              "tierBefore": "LT1",
+              "tierAfter": "LT1",
+              "scorePlayer": 4,
+              "scoreOpponent": 0,
+              "winner": "player",
+              "comment": null,
+              "isPlayerSide": true
+            }
+          ]
+        },
+        {
+          "name": "LEGENDA",
+          "created": true,
+          "kits": {
+            "Mace": {
+              "tier_before": null,
+              "tier_after": {
+                "tier": "LT5",
+                "date": "2026-10-05",
+                "retired": false
+              },
+              "pen_before": null,
+              "pen_after": null
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-10-05",
+              "kit": "Mace",
+              "opponent": "zor1kkqwix",
+              "tierBefore": "Unranked",
+              "tierAfter": "LT5",
+              "scorePlayer": 0,
+              "scoreOpponent": 4,
+              "winner": "opponent",
+              "comment": null,
+              "isPlayerSide": true
+            }
+          ],
+          "region": {
+            "before": null,
+            "after": "RU"
+          }
+        }
+      ],
+      "cards": [
+        {
+          "chat_id": -1003257860755,
+          "message_id": 18588
+        }
+      ]
     }
   }
 }
