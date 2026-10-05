@@ -1300,6 +1300,72 @@
           "message_id": 18593
         }
       ]
+    },
+    "c7d10d276c": {
+      "id": "c7d10d276c",
+      "created_at": "2026-10-05T10:12:11.045466+00:00",
+      "label": "heliN193 - Mace: Unranked -> HT3",
+      "status": "active",
+      "changes": [
+        {
+          "name": "zor1kkqwix",
+          "created": false,
+          "kits": {},
+          "added_history": [
+            {
+              "date": "2026-10-05",
+              "kit": "Mace",
+              "opponent": "heliN193",
+              "tierBefore": "LT1",
+              "tierAfter": "LT1",
+              "scorePlayer": 4,
+              "scoreOpponent": 1,
+              "winner": "player",
+              "comment": "luck",
+              "isPlayerSide": true
+            }
+          ]
+        },
+        {
+          "name": "heliN193",
+          "created": false,
+          "kits": {
+            "Mace": {
+              "tier_before": null,
+              "tier_after": {
+                "tier": "HT3",
+                "date": "2026-10-05",
+                "retired": false
+              },
+              "pen_before": null,
+              "pen_after": {
+                "points": 1.5,
+                "firstPenaltyDate": "2026-10-05"
+              }
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-10-05",
+              "kit": "Mace",
+              "opponent": "zor1kkqwix",
+              "tierBefore": "Unranked",
+              "tierAfter": "HT3",
+              "scorePlayer": 1,
+              "scoreOpponent": 4,
+              "winner": "opponent",
+              "comment": "luck",
+              "isPlayerSide": true
+            }
+          ]
+        }
+      ],
+      "cards": [
+        {
+          "chat_id": -1003257860755,
+          "message_id": 18594
+        }
+      ]
     }
   }
 }
