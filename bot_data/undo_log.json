@@ -1371,7 +1371,7 @@
       "id": "91e5204777",
       "created_at": "2026-10-05T11:03:07.143251+00:00",
       "label": "DzIla_EDITSmob - Hardcore: LT2 -> LT1",
-      "status": "active",
+      "status": "undone",
       "changes": [
         {
           "name": "D4rK_S1lA",
@@ -1450,7 +1450,9 @@
           "chat_id": -1003257860755,
           "message_id": 18595
         }
-      ]
+      ],
+      "undone_by": "@wannaexecution",
+      "undone_at": "2026-10-05T11:06:45.956496+00:00"
     }
   }
 }
