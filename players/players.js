@@ -2389,6 +2389,18 @@ const players = [
                 winner: "opponent",
                 comment: null,
                 isPlayerSide: true
+            },
+            {
+                date: "2026-10-05",
+                kit: "Gapple",
+                opponent: "Recherche",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 0,
+                scoreOpponent: 2,
+                winner: "opponent",
+                comment: null,
+                isPlayerSide: true
             }
         ],
         penaltyByKit: {
@@ -6125,6 +6137,11 @@ const players = [
                 tier: "LT3",
                 date: "2026-10-05",
                 retired: false
+            },
+            Gapple: {
+                tier: "LT3",
+                date: "2026-10-05",
+                retired: false
             }
         },
         matchHistory: [
@@ -6135,6 +6152,18 @@ const players = [
                 tierBefore: "Unranked",
                 tierAfter: "LT3",
                 scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null,
+                isPlayerSide: true
+            },
+            {
+                date: "2026-10-05",
+                kit: "Gapple",
+                opponent: "-BaCk-",
+                tierBefore: "Unranked",
+                tierAfter: "LT3",
+                scorePlayer: 2,
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null,
