@@ -1060,6 +1060,18 @@ const players = [
                 winner: "opponent",
                 comment: "Автопонижение: накоплено 2 штрафных очка",
                 isPlayerSide: true
+            },
+            {
+                date: "2026-10-05",
+                kit: "Mace",
+                opponent: "heliN193",
+                tierBefore: "LT1",
+                tierAfter: "LT1",
+                scorePlayer: 4,
+                scoreOpponent: 1,
+                winner: "player",
+                comment: "luck",
+                isPlayerSide: true
             }
         ]
     },
@@ -5584,6 +5596,11 @@ const players = [
                 tier: "LT2",
                 date: "2026-08-30",
                 retired: false
+            },
+            Mace: {
+                tier: "HT3",
+                date: "2026-10-05",
+                retired: false
             }
         },
         matchHistory: [
@@ -5652,9 +5669,26 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null
+            },
+            {
+                date: "2026-10-05",
+                kit: "Mace",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "HT3",
+                scorePlayer: 1,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: "luck",
+                isPlayerSide: true
             }
         ],
-        penaltyByKit: {}
+        penaltyByKit: {
+            Mace: {
+                points: 1.5,
+                firstPenaltyDate: "2026-10-05"
+            }
+        }
     },
     {
         name: "123amd",
