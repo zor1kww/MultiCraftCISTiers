@@ -3524,18 +3524,6 @@ const players = [
                 scoreOpponent: 6,
                 winner: "opponent",
                 comment: null
-            },
-            {
-                date: "2026-10-05",
-                kit: "Hardcore",
-                opponent: "DzIla_EDITSmob",
-                tierBefore: "LT1",
-                tierAfter: "LT1",
-                scorePlayer: 1,
-                scoreOpponent: 4,
-                winner: "opponent",
-                comment: null,
-                isPlayerSide: false
             }
         ],
         penaltyByKit: {
@@ -3546,10 +3534,6 @@ const players = [
             Beast: {
                 points: 1.2,
                 firstPenaltyDate: "2026-09-19"
-            },
-            Hardcore: {
-                points: 1.5,
-                firstPenaltyDate: "2026-10-05"
             }
         }
     },
@@ -4371,8 +4355,8 @@ const players = [
                 retired: false
             },
             Hardcore: {
-                tier: "LT1",
-                date: "2026-10-05",
+                tier: "LT2",
+                date: "2026-08-18",
                 retired: false
             },
             Dragonhide: {
@@ -4655,18 +4639,6 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: "бля я прошу у нево подтвердить что он даед мне нт3 а он говорид сам патверти ну УРОТ"
-            },
-            {
-                date: "2026-10-05",
-                kit: "Hardcore",
-                opponent: "D4rK_S1lA",
-                tierBefore: "LT2",
-                tierAfter: "LT1",
-                scorePlayer: 4,
-                scoreOpponent: 1,
-                winner: "player",
-                comment: null,
-                isPlayerSide: true
             }
         ],
         penaltyByKit: {
