@@ -323,9 +323,9 @@ const players = [
                 retired: true
             },
             Dragonhide: {
-                tier: "HT3",
-                date: "2026-08-23",
-                retired: true
+                tier: "LT3",
+                date: "2026-10-05",
+                retired: false
             },
             Beast: {
                 tier: "LT2",
@@ -355,8 +355,8 @@ const players = [
         },
         penaltyByKit: {
             Dragonhide: {
-                points: 0,
-                firstPenaltyDate: "2026-08-23"
+                points: 0.0,
+                firstPenaltyDate: "2026-10-05"
             },
             "Diamond Pot": {
                 points: 0,
@@ -1035,6 +1035,30 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: null,
+                isPlayerSide: true
+            },
+            {
+                date: "2026-10-05",
+                kit: "Dragonhide",
+                opponent: "Recherche",
+                tierBefore: "HT3",
+                tierAfter: "HT3",
+                scorePlayer: 0,
+                scoreOpponent: 6,
+                winner: "opponent",
+                comment: null,
+                isPlayerSide: true
+            },
+            {
+                date: "2026-10-05",
+                kit: "Dragonhide",
+                opponent: "система",
+                tierBefore: "HT3",
+                tierAfter: "LT3",
+                scorePlayer: 0,
+                scoreOpponent: 0,
+                winner: "opponent",
+                comment: "Автопонижение: накоплено 2 штрафных очка",
                 isPlayerSide: true
             }
         ]
@@ -6159,6 +6183,11 @@ const players = [
                 tier: "LT3",
                 date: "2026-10-05",
                 retired: false
+            },
+            Dragonhide: {
+                tier: "LT2",
+                date: "2026-10-05",
+                retired: false
             }
         },
         matchHistory: [
@@ -6195,6 +6224,18 @@ const players = [
                 scorePlayer: 0,
                 scoreOpponent: 4,
                 winner: "opponent",
+                comment: null,
+                isPlayerSide: true
+            },
+            {
+                date: "2026-10-05",
+                kit: "Dragonhide",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "LT2",
+                scorePlayer: 6,
+                scoreOpponent: 0,
+                winner: "player",
                 comment: null,
                 isPlayerSide: true
             }
