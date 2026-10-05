@@ -2377,6 +2377,18 @@ const players = [
                 scoreOpponent: 5,
                 winner: "player",
                 comment: "не судьба быть твоей первой победе"
+            },
+            {
+                date: "2026-10-05",
+                kit: "Emerald Pot",
+                opponent: "Recherche",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null,
+                isPlayerSide: true
             }
         ],
         penaltyByKit: {
@@ -6108,9 +6120,27 @@ const players = [
                 tier: "LT2",
                 date: "2026-09-27",
                 retired: false
+            },
+            "Emerald Pot": {
+                tier: "LT3",
+                date: "2026-10-05",
+                retired: false
             }
         },
-        matchHistory: [],
+        matchHistory: [
+            {
+                date: "2026-10-05",
+                kit: "Emerald Pot",
+                opponent: "-BaCk-",
+                tierBefore: "Unranked",
+                tierAfter: "LT3",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null,
+                isPlayerSide: true
+            }
+        ],
         penaltyByKit: {}
     },
     {
