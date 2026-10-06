@@ -4675,6 +4675,18 @@ const players = [
                 scoreOpponent: 0,
                 winner: "player",
                 comment: "бля я прошу у нево подтвердить что он даед мне нт3 а он говорид сам патверти ну УРОТ"
+            },
+            {
+                date: "2026-10-06",
+                kit: "Emerald Pot",
+                opponent: "mrtrollface",
+                tierBefore: "LT1",
+                tierAfter: "LT1",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null,
+                isPlayerSide: false
             }
         ],
         penaltyByKit: {
@@ -5880,8 +5892,8 @@ const players = [
                 retired: false
             },
             "Emerald Pot": {
-                tier: "HT4",
-                date: "2026-09-20",
+                tier: "LT3",
+                date: "2026-10-06",
                 retired: false
             },
             Mace: {
@@ -5990,12 +6002,36 @@ const players = [
                 winner: "opponent",
                 comment: null,
                 isPlayerSide: true
+            },
+            {
+                date: "2026-10-06",
+                kit: "Emerald Pot",
+                opponent: "DzIla_EDITSmob",
+                tierBefore: "LT3",
+                tierAfter: "HT3",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null,
+                isPlayerSide: true
+            },
+            {
+                date: "2026-10-06",
+                kit: "Emerald Pot",
+                opponent: "система",
+                tierBefore: "HT3",
+                tierAfter: "LT3",
+                scorePlayer: 0,
+                scoreOpponent: 0,
+                winner: "opponent",
+                comment: "Автопонижение: накоплено 2 штрафных очка",
+                isPlayerSide: true
             }
         ],
         penaltyByKit: {
             "Emerald Pot": {
-                points: 1.5,
-                firstPenaltyDate: "2026-09-20"
+                points: 0.0,
+                firstPenaltyDate: "2026-10-06"
             }
         }
     },
