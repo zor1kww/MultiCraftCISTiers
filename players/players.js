@@ -1106,6 +1106,18 @@ const players = [
                 winner: "player",
                 comment: null,
                 isPlayerSide: false
+            },
+            {
+                date: "2026-10-06",
+                kit: "Diamond Pot",
+                opponent: "fuze_tea",
+                tierBefore: "HT3",
+                tierAfter: "HT3",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null,
+                isPlayerSide: false
             }
         ]
     },
@@ -6449,6 +6461,11 @@ const players = [
                 tier: "HT4",
                 date: "2026-10-06",
                 retired: false
+            },
+            "Diamond Pot": {
+                tier: "LT4",
+                date: "2026-10-06",
+                retired: false
             }
         },
         matchHistory: [
@@ -6470,6 +6487,18 @@ const players = [
                 opponent: "zor1kkqwix",
                 tierBefore: "Unranked",
                 tierAfter: "HT4",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null,
+                isPlayerSide: true
+            },
+            {
+                date: "2026-10-06",
+                kit: "Diamond Pot",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "LT4",
                 scorePlayer: 0,
                 scoreOpponent: 4,
                 winner: "opponent",
