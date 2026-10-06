@@ -1082,6 +1082,18 @@ const players = [
                 winner: "player",
                 comment: "luck",
                 isPlayerSide: false
+            },
+            {
+                date: "2026-10-06",
+                kit: "Emerald",
+                opponent: "fuze_tea",
+                tierBefore: "HT3",
+                tierAfter: "HT3",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null,
+                isPlayerSide: false
             }
         ]
     },
@@ -6403,6 +6415,32 @@ const players = [
                 opponent: "zor1kkqwix",
                 tierBefore: "Unranked",
                 tierAfter: "LT5",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null,
+                isPlayerSide: true
+            }
+        ],
+        penaltyByKit: {}
+    },
+    {
+        name: "fuze_tea",
+        region: "RU",
+        tiers: {
+            Emerald: {
+                tier: "LT4",
+                date: "2026-10-06",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-10-06",
+                kit: "Emerald",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "LT4",
                 scorePlayer: 0,
                 scoreOpponent: 4,
                 winner: "opponent",
