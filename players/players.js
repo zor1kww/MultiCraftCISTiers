@@ -1094,6 +1094,18 @@ const players = [
                 winner: "player",
                 comment: null,
                 isPlayerSide: false
+            },
+            {
+                date: "2026-10-06",
+                kit: "Beast",
+                opponent: "fuze_tea",
+                tierBefore: "LT2",
+                tierAfter: "LT2",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null,
+                isPlayerSide: false
             }
         ]
     },
@@ -6432,6 +6444,11 @@ const players = [
                 tier: "LT4",
                 date: "2026-10-06",
                 retired: false
+            },
+            Beast: {
+                tier: "HT4",
+                date: "2026-10-06",
+                retired: false
             }
         },
         matchHistory: [
@@ -6441,6 +6458,18 @@ const players = [
                 opponent: "zor1kkqwix",
                 tierBefore: "Unranked",
                 tierAfter: "LT4",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null,
+                isPlayerSide: true
+            },
+            {
+                date: "2026-10-06",
+                kit: "Beast",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "HT4",
                 scorePlayer: 0,
                 scoreOpponent: 4,
                 winner: "opponent",
