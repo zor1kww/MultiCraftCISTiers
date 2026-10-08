@@ -308,9 +308,9 @@ const players = [
                 retired: true
             },
             Pickaxe: {
-                tier: "LT2",
-                date: "2026-08-18",
-                retired: true
+                tier: "HT2",
+                date: "2026-10-08",
+                retired: false
             },
             Emerald: {
                 tier: "HT3",
@@ -1118,6 +1118,18 @@ const players = [
                 winner: "player",
                 comment: null,
                 isPlayerSide: false
+            },
+            {
+                date: "2026-10-08",
+                kit: "Pickaxe",
+                opponent: "Michael_59k_YT",
+                tierBefore: "LT2",
+                tierAfter: "HT2",
+                scorePlayer: 4,
+                scoreOpponent: 1,
+                winner: "player",
+                comment: null,
+                isPlayerSide: true
             }
         ]
     },
@@ -4318,6 +4330,18 @@ const players = [
                 winner: "opponent",
                 comment: "Михаил незнающий побед",
                 isPlayerSide: true
+            },
+            {
+                date: "2026-10-08",
+                kit: "Pickaxe",
+                opponent: "zor1kkqwix",
+                tierBefore: "LT2",
+                tierAfter: "LT2",
+                scorePlayer: 1,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null,
+                isPlayerSide: false
             }
         ],
         penaltyByKit: {
@@ -4332,6 +4356,10 @@ const players = [
             Hardcore: {
                 points: 1.0,
                 firstPenaltyDate: "2026-09-23"
+            },
+            Pickaxe: {
+                points: 1.5,
+                firstPenaltyDate: "2026-10-08"
             }
         }
     },
