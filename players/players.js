@@ -381,6 +381,10 @@ const players = [
             RVM: {
                 points: 1.0,
                 firstPenaltyDate: "2026-09-19"
+            },
+            Mace: {
+                points: 1.0,
+                firstPenaltyDate: "2026-10-09"
             }
         },
         matchHistory: [
@@ -1212,6 +1216,18 @@ const players = [
                 scorePlayer: 4,
                 scoreOpponent: 1,
                 winner: "player",
+                comment: null,
+                isPlayerSide: false
+            },
+            {
+                date: "2026-10-09",
+                kit: "Mace",
+                opponent: "Prosto_oleg100-7",
+                tierBefore: "LT1",
+                tierAfter: "LT1",
+                scorePlayer: 2,
+                scoreOpponent: 4,
+                winner: "opponent",
                 comment: null,
                 isPlayerSide: false
             }
@@ -2999,8 +3015,8 @@ const players = [
                 retired: false
             },
             Mace: {
-                tier: "LT2",
-                date: "2026-08-18",
+                tier: "LT1",
+                date: "2026-10-09",
                 retired: false
             },
             "Emerald Pot": {
@@ -3375,6 +3391,18 @@ const players = [
                 scoreOpponent: 0,
                 winner: "opponent",
                 comment: "Автопонижение: накоплено 2 штрафных очка"
+            },
+            {
+                date: "2026-10-09",
+                kit: "Mace",
+                opponent: "zor1kkqwix",
+                tierBefore: "LT2",
+                tierAfter: "LT1",
+                scorePlayer: 4,
+                scoreOpponent: 2,
+                winner: "player",
+                comment: null,
+                isPlayerSide: true
             }
         ],
         penaltyByKit: {
