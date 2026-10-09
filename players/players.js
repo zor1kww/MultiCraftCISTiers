@@ -1130,6 +1130,18 @@ const players = [
                 winner: "player",
                 comment: null,
                 isPlayerSide: true
+            },
+            {
+                date: "2026-10-09",
+                kit: "Beast",
+                opponent: "Kenny13",
+                tierBefore: "LT2",
+                tierAfter: "LT2",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null,
+                isPlayerSide: false
             }
         ]
     },
@@ -3656,8 +3668,8 @@ const players = [
                 retired: false
             },
             Beast: {
-                tier: "LT4",
-                date: "2026-08-18",
+                tier: "HT5",
+                date: "2026-10-09",
                 retired: false
             },
             Mace: {
@@ -3665,7 +3677,22 @@ const players = [
                 date: "2026-08-18",
                 retired: false
             }
-        }
+        },
+        matchHistory: [
+            {
+                date: "2026-10-09",
+                kit: "Beast",
+                opponent: "zor1kkqwix",
+                tierBefore: "LT4",
+                tierAfter: "HT5",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null,
+                isPlayerSide: true
+            }
+        ],
+        penaltyByKit: {}
     },
     {
         name: "Exponat",
