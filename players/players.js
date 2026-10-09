@@ -1190,6 +1190,18 @@ const players = [
                 winner: "player",
                 comment: null,
                 isPlayerSide: false
+            },
+            {
+                date: "2026-10-09",
+                kit: "Emerald Pot",
+                opponent: "-_1986_APREL_26_-",
+                tierBefore: "HT3",
+                tierAfter: "HT3",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null,
+                isPlayerSide: false
             }
         ]
     },
@@ -6707,6 +6719,32 @@ const players = [
             {
                 date: "2026-10-09",
                 kit: "Beast",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "LT5",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null,
+                isPlayerSide: true
+            }
+        ],
+        penaltyByKit: {}
+    },
+    {
+        name: "-_1986_APREL_26_-",
+        region: "RU",
+        tiers: {
+            "Emerald Pot": {
+                tier: "LT5",
+                date: "2026-10-09",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-10-09",
+                kit: "Emerald Pot",
                 opponent: "zor1kkqwix",
                 tierBefore: "Unranked",
                 tierAfter: "LT5",
