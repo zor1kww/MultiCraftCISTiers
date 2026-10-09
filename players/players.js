@@ -1178,6 +1178,18 @@ const players = [
                 winner: "player",
                 comment: null,
                 isPlayerSide: false
+            },
+            {
+                date: "2026-10-09",
+                kit: "Emerald Pot",
+                opponent: "tegy",
+                tierBefore: "HT3",
+                tierAfter: "HT3",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null,
+                isPlayerSide: false
             }
         ]
     },
@@ -6292,7 +6304,7 @@ const players = [
             },
             "Emerald Pot": {
                 tier: "HT5",
-                date: "2026-09-25",
+                date: "2026-10-09",
                 retired: false
             }
         },
@@ -6329,6 +6341,18 @@ const players = [
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null
+            },
+            {
+                date: "2026-10-09",
+                kit: "Emerald Pot",
+                opponent: "zor1kkqwix",
+                tierBefore: "HT5",
+                tierAfter: "HT5",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null,
+                isPlayerSide: true
             }
         ],
         penaltyByKit: {}
