@@ -285,17 +285,17 @@ const players = [
             Hardcore: {
                 tier: "LT1",
                 date: "2026-08-18",
-                retired: true
+                retired: false
             },
             SMP: {
                 tier: "HT3",
                 date: "2026-08-29",
-                retired: true
+                retired: false
             },
             "Emerald Pot": {
                 tier: "HT3",
                 date: "2026-08-29",
-                retired: true
+                retired: false
             },
             Combo: {
                 tier: "LT3",
@@ -305,7 +305,7 @@ const players = [
             RVM: {
                 tier: "LT2",
                 date: "2026-08-18",
-                retired: true
+                retired: false
             },
             Pickaxe: {
                 tier: "HT2",
@@ -320,7 +320,7 @@ const players = [
             "Diamond Pot": {
                 tier: "HT3",
                 date: "2026-08-29",
-                retired: true
+                retired: false
             },
             Dragonhide: {
                 tier: "LT3",
@@ -335,12 +335,12 @@ const players = [
             Crystal: {
                 tier: "HT1",
                 date: "2026-08-18",
-                retired: true
+                retired: false
             },
             Mace: {
                 tier: "LT1",
                 date: "2026-08-18",
-                retired: true
+                retired: false
             },
             Gapple: {
                 tier: "LT3",
