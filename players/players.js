@@ -1166,6 +1166,18 @@ const players = [
                 winner: "player",
                 comment: null,
                 isPlayerSide: false
+            },
+            {
+                date: "2026-10-09",
+                kit: "Dragonhide",
+                opponent: "mrtrollface",
+                tierBefore: "LT3",
+                tierAfter: "LT3",
+                scorePlayer: 6,
+                scoreOpponent: 2,
+                winner: "player",
+                comment: null,
+                isPlayerSide: false
             }
         ]
     },
@@ -5994,6 +6006,11 @@ const players = [
                 tier: "LT3",
                 date: "2026-10-09",
                 retired: false
+            },
+            Dragonhide: {
+                tier: "HT4",
+                date: "2026-10-09",
+                retired: false
             }
         },
         matchHistory: [
@@ -6119,6 +6136,18 @@ const players = [
                 tierAfter: "LT3",
                 scorePlayer: 2,
                 scoreOpponent: 4,
+                winner: "opponent",
+                comment: null,
+                isPlayerSide: true
+            },
+            {
+                date: "2026-10-09",
+                kit: "Dragonhide",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "HT4",
+                scorePlayer: 2,
+                scoreOpponent: 6,
                 winner: "opponent",
                 comment: null,
                 isPlayerSide: true
