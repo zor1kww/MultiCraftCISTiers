@@ -1142,6 +1142,18 @@ const players = [
                 winner: "player",
                 comment: null,
                 isPlayerSide: false
+            },
+            {
+                date: "2026-10-09",
+                kit: "Beast",
+                opponent: "Wemmbu__",
+                tierBefore: "LT2",
+                tierAfter: "LT2",
+                scorePlayer: 4,
+                scoreOpponent: 0,
+                winner: "player",
+                comment: null,
+                isPlayerSide: false
             }
         ]
     },
@@ -6590,6 +6602,32 @@ const players = [
                 opponent: "zor1kkqwix",
                 tierBefore: "Unranked",
                 tierAfter: "LT4",
+                scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null,
+                isPlayerSide: true
+            }
+        ],
+        penaltyByKit: {}
+    },
+    {
+        name: "Wemmbu__",
+        region: "BY",
+        tiers: {
+            Beast: {
+                tier: "LT5",
+                date: "2026-10-09",
+                retired: false
+            }
+        },
+        matchHistory: [
+            {
+                date: "2026-10-09",
+                kit: "Beast",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "LT5",
                 scorePlayer: 0,
                 scoreOpponent: 4,
                 winner: "opponent",
