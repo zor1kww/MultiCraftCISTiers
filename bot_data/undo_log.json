@@ -1464,6 +1464,91 @@
           "message_id": 18739
         }
       ]
+    },
+    "a73d44bfff": {
+      "id": "a73d44bfff",
+      "created_at": "2026-10-09T14:29:36.233799+00:00",
+      "label": "Prosto_oleg100-7 - Mace: LT2 -> LT1",
+      "status": "active",
+      "changes": [
+        {
+          "name": "zor1kkqwix",
+          "created": false,
+          "kits": {
+            "Mace": {
+              "tier_before": {
+                "tier": "LT1",
+                "date": "2026-08-18",
+                "retired": true
+              },
+              "tier_after": {
+                "tier": "LT1",
+                "date": "2026-08-18",
+                "retired": true
+              },
+              "pen_before": null,
+              "pen_after": {
+                "points": 1.0,
+                "firstPenaltyDate": "2026-10-09"
+              }
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-10-09",
+              "kit": "Mace",
+              "opponent": "Prosto_oleg100-7",
+              "tierBefore": "LT1",
+              "tierAfter": "LT1",
+              "scorePlayer": 2,
+              "scoreOpponent": 4,
+              "winner": "opponent",
+              "comment": null,
+              "isPlayerSide": false
+            }
+          ]
+        },
+        {
+          "name": "Prosto_oleg100-7",
+          "created": false,
+          "kits": {
+            "Mace": {
+              "tier_before": {
+                "tier": "LT2",
+                "date": "2026-08-18",
+                "retired": false
+              },
+              "tier_after": {
+                "tier": "LT1",
+                "date": "2026-10-09",
+                "retired": false
+              },
+              "pen_before": null,
+              "pen_after": null
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-10-09",
+              "kit": "Mace",
+              "opponent": "zor1kkqwix",
+              "tierBefore": "LT2",
+              "tierAfter": "LT1",
+              "scorePlayer": 4,
+              "scoreOpponent": 2,
+              "winner": "player",
+              "comment": null,
+              "isPlayerSide": true
+            }
+          ]
+        }
+      ],
+      "cards": [
+        {
+          "chat_id": -1003257860755,
+          "message_id": 18740
+        }
+      ]
     }
   }
 }
