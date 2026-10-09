@@ -1401,6 +1401,69 @@
           "message_id": 18738
         }
       ]
+    },
+    "d3a4ed77b5": {
+      "id": "d3a4ed77b5",
+      "created_at": "2026-10-09T14:29:24.627496+00:00",
+      "label": "tegy - RVM: Unranked -> HT5",
+      "status": "active",
+      "changes": [
+        {
+          "name": "zor1kkqwix",
+          "created": false,
+          "kits": {},
+          "added_history": [
+            {
+              "date": "2026-10-09",
+              "kit": "RVM",
+              "opponent": "tegy",
+              "tierBefore": "LT2",
+              "tierAfter": "LT2",
+              "scorePlayer": 4,
+              "scoreOpponent": 1,
+              "winner": "player",
+              "comment": null,
+              "isPlayerSide": false
+            }
+          ]
+        },
+        {
+          "name": "tegy",
+          "created": false,
+          "kits": {
+            "RVM": {
+              "tier_before": null,
+              "tier_after": {
+                "tier": "HT5",
+                "date": "2026-10-09",
+                "retired": false
+              },
+              "pen_before": null,
+              "pen_after": null
+            }
+          },
+          "added_history": [
+            {
+              "date": "2026-10-09",
+              "kit": "RVM",
+              "opponent": "zor1kkqwix",
+              "tierBefore": "Unranked",
+              "tierAfter": "HT5",
+              "scorePlayer": 1,
+              "scoreOpponent": 4,
+              "winner": "opponent",
+              "comment": null,
+              "isPlayerSide": true
+            }
+          ]
+        }
+      ],
+      "cards": [
+        {
+          "chat_id": -1003257860755,
+          "message_id": 18739
+        }
+      ]
     }
   }
 }
