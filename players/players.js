@@ -1202,6 +1202,18 @@ const players = [
                 winner: "player",
                 comment: null,
                 isPlayerSide: false
+            },
+            {
+                date: "2026-10-09",
+                kit: "RVM",
+                opponent: "tegy",
+                tierBefore: "LT2",
+                tierAfter: "LT2",
+                scorePlayer: 4,
+                scoreOpponent: 1,
+                winner: "player",
+                comment: null,
+                isPlayerSide: false
             }
         ]
     },
@@ -6318,6 +6330,11 @@ const players = [
                 tier: "HT5",
                 date: "2026-10-09",
                 retired: false
+            },
+            RVM: {
+                tier: "HT5",
+                date: "2026-10-09",
+                retired: false
             }
         },
         matchHistory: [
@@ -6361,6 +6378,18 @@ const players = [
                 tierBefore: "HT5",
                 tierAfter: "HT5",
                 scorePlayer: 0,
+                scoreOpponent: 4,
+                winner: "opponent",
+                comment: null,
+                isPlayerSide: true
+            },
+            {
+                date: "2026-10-09",
+                kit: "RVM",
+                opponent: "zor1kkqwix",
+                tierBefore: "Unranked",
+                tierAfter: "HT5",
+                scorePlayer: 1,
                 scoreOpponent: 4,
                 winner: "opponent",
                 comment: null,
