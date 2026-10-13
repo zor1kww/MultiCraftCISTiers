@@ -829,7 +829,7 @@ body, html {
     gap: 6px;
 }
 
-.m-pts-box {
+.m-elo-box {
     display: inline-block;
     width: 65px; 
     text-align: right;
@@ -1721,4 +1721,90 @@ body, html {
         transition-duration: 0.001ms !important;
         scroll-behavior: auto !important;
     }
+}
+
+/* ==========================================================================
+   ELO
+   ========================================================================== */
+
+/* Elo в карточке топа по конкретному киту */
+.bust-elo-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    background: rgba(255, 204, 71, 0.12);
+    white-space: nowrap;
+}
+
+/* Блок "Elo до → после, изменение, ранг" внутри строки дуэли */
+.duel-elo-change {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: monospace;
+}
+
+.duel-elo-values {
+    color: var(--text-main);
+}
+
+.duel-elo-delta.elo-up {
+    color: #4ade80;
+}
+
+.duel-elo-delta.elo-down {
+    color: #ff4747;
+}
+
+.duel-elo-delta.elo-flat {
+    color: var(--text-muted);
+}
+
+.duel-elo-tier {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Общий список дуэлей: две строки (победитель и проигравший) под заголовком */
+.duel-vs {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.duel-elo-lines {
+    margin-top: 2px;
+}
+
+.duel-elo-line .duel-elo-who {
+    display: inline-block;
+    margin-top: 6px;
+    color: var(--text-main);
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.duel-elo-line .duel-elo-who:hover {
+    color: var(--accent);
+}
+
+.duel-elo-line .duel-elo-change {
+    margin-top: 2px;
+}
+
+/* Пояснение к автопоражению */
+.duel-note {
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-style: italic;
 }
