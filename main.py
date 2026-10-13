@@ -34,6 +34,11 @@ Telegram-бот тир-тестера MultiCraftCISTiers (v4 - Оппонент/
   - bot_config.py      - справочники и ID чатов/топиков
   - undo_manager.py    - кнопка отмены результата в группе тестеров
   - reactions.py       - реакции бота на карточки результатов
+  - discord_bot.py     - НОВОЕ: эло-дуэли, слушает Discord #релей (см.
+                          relay_parser.py/db.py/handlers.py/export.py) -
+                          отдельная система поверх ДРУГОЙ БД (Turso), не
+                          трогает players.js напрямую; сайт под её формат
+                          данных пока не переписан (см. export.py)
 
 ВАЖНО: этот файл писался БЕЗ доступа к реальному Telegram API и без
 установленного pyTelegramBotAPI (нет сети в среде разработки) - перед
@@ -66,6 +71,19 @@ import github_storage
 import admin_panel
 import undo_manager
 import reactions
+
+# Discord-слой эло-системы - импортируется ЗАЩИЩЁННО: пока зависимость
+# discord.py не добавлена в requirements.txt (или ещё не установлена
+# на Render), либо файлов discord_bot.py/relay_parser.py/db.py/
+# handlers.py/export.py/schema.sql нет рядом - Telegram-часть бота
+# должна продолжать работать как ни в чём не бывало, а не падать на
+# старте целиком из-за ещё не до конца подключённой новой части.
+try:
+    import discord_bot
+    _DISCORD_IMPORT_ERROR = None
+except Exception as e:
+    discord_bot = None
+    _DISCORD_IMPORT_ERROR = e
 
 
 # ==========================================
@@ -434,6 +452,27 @@ if __name__ == '__main__':
 
     print("Регистрация кнопки отмены результата...")
     undo_manager.register(bot, GH_REPO, GH_TOKEN)
+
+    # Discord-бот эло-системы - третий поток в этом же сервисе (а не
+    # отдельный Render-сервис), чтобы не расходовать общий лимит
+    # бесплатных часов на двоих сразу. Условно: если DISCORD_BOT_TOKEN
+    # не задан (Discord-приложение ещё не зарегистрировано), просто
+    # пропускаем - остальной бот (Telegram) должен продолжать работать
+    # как ни в чём не бывало, а не падать из-за недостающей настройки
+    # новой, ещё не включённой в прод части.
+    if discord_bot is None:
+        print(f"Discord-бот эло-системы не запущен: модуль не импортировался "
+              f"({_DISCORD_IMPORT_ERROR!r}). Если он ещё не настроен - это ожидаемо, "
+              f"не ошибка. Если должен быть настроен - проверьте requirements.txt "
+              f"(discord.py) и наличие файлов discord_bot.py/relay_parser.py/db.py/"
+              f"handlers.py/export.py/schema.sql рядом с main.py.")
+    elif os.environ.get('DISCORD_BOT_TOKEN') and os.environ.get('DISCORD_RELAY_CHANNEL_ID'):
+        print("Запуск Discord-бота эло-системы...")
+        discord_thread = Thread(target=discord_bot.run, daemon=True)
+        discord_thread.start()
+    else:
+        print("DISCORD_BOT_TOKEN/DISCORD_RELAY_CHANNEL_ID не заданы - "
+              "Discord-бот эло-системы не запущен (это не ошибка, если он ещё не настроен).")
 
     print("Бот успешно запущен. Слушаю группу тестеров...")
     bot.infinity_polling()
