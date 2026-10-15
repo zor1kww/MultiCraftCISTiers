@@ -39,6 +39,34 @@ function toggleTheme() {
 
 
 // ==========================================
+// ДАННЫЕ ИГРОКОВ
+// ==========================================
+// Список игроков приходит с сервера бота (GET /api/players), а не из файла.
+// players === undefined, пока данные не загружены. Объявлено здесь, до
+// остального кода: чтение переменной до её объявления вызывает ошибку.
+let players;
+let playersUpdatedAt = null;     // время последнего снимка на сервере (чтобы не перерисовывать зря)
+let playersLoadStarted = false;
+let playersLoading = false;
+let playersLoadError = false;    // первая загрузка не удалась
+let playersSlowHint = false;     // сервер отвечает долго (на бесплатном хостинге он "просыпается")
+let playersLoadedAt = 0;
+
+// Что показывать вместо списка, пока данных нет: загрузка или ошибка с кнопкой
+function loadStatusHTML() {
+    if (playersLoadError) {
+        return `<div class="load-error">
+            <p>Не удалось загрузить данные. Проверьте соединение и попробуйте ещё раз.</p>
+            <button class="load-retry-btn" onclick="retryLoadPlayers()">Повторить</button>
+        </div>`;
+    }
+    const hint = playersSlowHint
+        ? '<div style="font-size:12px; color:#8892b0; margin-top:8px;">Сервер просыпается, это может занять до минуты.</div>'
+        : '';
+    return `<div style="text-align:center;color:#ffcc47;padding:40px;">Загрузка базы данных игроков...${hint}</div>`;
+}
+
+// ==========================================
 // 2. ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ: ELO И РАНГИ
 // ==========================================
 
@@ -77,29 +105,15 @@ function getTierByElo(elo) {
     return ELO_TIERS.length ? ELO_TIERS[ELO_TIERS.length - 1].tier : 'Unranked';
 }
 
-// Нижняя граница Elo ранга (нужна только для данных старого формата без Elo)
-function getTierFloorElo(tier) {
-    const found = ELO_TIERS.find(t => t.tier === tier);
-    return found ? found.min : null;
-}
-
-// Рейтинг игрока на ките: { elo, tier }.
-//  - Новый формат: tiers[kit] = { elo, tier, date } -> ранг считается из elo.
-//  - Старый формат (до перехода на Elo): есть только ранг, elo = null.
-//    Такие данные показываются, пока players.js не заменён экспортом из
-//    Elo-системы, но Elo у них нет.
+// Рейтинг игрока на ките: { elo, tier }. Ранг всегда считается из Elo
+// (tiers[kit] = { elo, ... } в ответе API); если игрок кит не играл или Elo
+// нет - { elo: null, tier: 'Unranked' }.
 function getKitRating(player, kit) {
     const data = (player && player.tiers) ? player.tiers[kit] : null;
-    if (!data) return { elo: null, tier: 'Unranked' };
-
-    if (typeof data === 'object' && typeof data.elo === 'number') {
+    if (data && typeof data.elo === 'number') {
         return { elo: data.elo, tier: getTierByElo(data.elo) };
     }
-
-    const legacyTier = (typeof data === 'string')
-        ? data.replace(/^R(?=[HML]T)/, '')
-        : data.tier;
-    return { elo: null, tier: TIER_ORDER.includes(legacyTier) ? legacyTier : 'Unranked' };
+    return { elo: null, tier: 'Unranked' };
 }
 
 // Хелпер: чистое название ранга игрока на ките ("Unranked", если не играл)
@@ -107,15 +121,12 @@ function getCleanTier(player, kit) {
     return getKitRating(player, kit).tier;
 }
 
-// Elo для сортировки и усреднения: настоящее Elo, а для данных старого
-// формата без Elo - нижняя граница ранга. null - если игрок не играл кит.
+// Elo для сортировки и усреднения; null - если игрок кит не играл
 function getEffectiveElo(rating) {
-    if (!rating || rating.tier === 'Unranked') return null;
-    if (rating.elo !== null) return rating.elo;
-    return getTierFloorElo(rating.tier);
+    return (rating && rating.elo !== null) ? rating.elo : null;
 }
 
-// Elo для показа пользователю ("—", если у старой записи нет Elo)
+// Elo для показа пользователю ("—", если рейтинга нет)
 function formatElo(rating) {
     return (rating && rating.elo !== null) ? String(Math.round(rating.elo)) : '—';
 }
@@ -201,7 +212,7 @@ function openProfileByName(playerName) {
 function buildKitRowHTML(player, kit) {
     const activeKitImages = (typeof kitImages !== 'undefined') ? kitImages : {};
     const rating = getKitRating(player, kit);
-    const eloText = rating.tier === 'Unranked' ? '' : (rating.elo !== null ? `${formatElo(rating)} Elo` : '—');
+    const eloText = rating.elo !== null ? `${formatElo(rating)} Elo` : '';
     return `<div class="modal-row">
         <div class="modal-kit-left">
             <img class="modal-kit-icon" src="${activeKitImages[kit] || ''}" onerror="this.style.opacity='0'" alt="">
@@ -294,7 +305,7 @@ function renderPlayers() {
     const isOverall = (targetKit === 'all' || targetKit === 'sub-all');
 
     if (typeof players === 'undefined' || !Array.isArray(players)) {
-        list.innerHTML = '<div style="text-align:center;color:#ffcc47;padding:40px;">Загрузка базы данных игроков...</div>';
+        list.innerHTML = loadStatusHTML();
         return;
     }
 
@@ -332,7 +343,9 @@ function renderPlayers() {
     list.innerHTML = '';
 
     if (filtered.length === 0) {
-        list.innerHTML = '<div style="text-align:center;color:#8892b0;padding:20px;">Игроки не найдены</div>';
+        list.innerHTML = players.length === 0
+            ? '<div style="text-align:center;color:#8892b0;padding:30px 20px;line-height:1.5;">Elo-система только запущена.<br>Игроки появятся после первых ранговых дуэлей.</div>'
+            : '<div style="text-align:center;color:#8892b0;padding:20px;">Игроки не найдены</div>';
         return;
     }
 
@@ -811,7 +824,7 @@ function buildKitHTML(kit) {
 }
 
 // Собирает уникальный список дуэлей со всех игроков: у каждой дуэли в
-// players.js две записи (по одной у каждого участника) - склеиваем их по id
+// данных две записи (по одной у каждого участника) - склеиваем их по id
 // в одну, где известны обе стороны.
 function collectGlobalDuels() {
     if (typeof players === 'undefined' || !Array.isArray(players)) return [];
@@ -868,6 +881,11 @@ function collectGlobalDuels() {
 function renderGlobalDuels() {
     const container = document.getElementById('globalDuelsList');
     if (!container) return;
+
+    if (typeof players === 'undefined' || !Array.isArray(players)) {
+        container.innerHTML = loadStatusHTML();
+        return;
+    }
 
     const searchInput = document.getElementById('duelsSearchInput');
     const search = (searchInput ? searchInput.value : '').trim().toLowerCase();
@@ -977,13 +995,129 @@ function renderDuelsList(matchHistory, opts = {}) {
     return html;
 }
 
-// Запуск сайта
-function initSite() {
-    renderPlayers();
+// ==========================================
+// ЗАГРУЗКА ДАННЫХ С СЕРВЕРА
+// ==========================================
+
+// Первый запрос может ждать долго: на бесплатном хостинге сервер
+// "просыпается" почти минуту. Фоновые обновления ждут меньше.
+const FIRST_LOAD_TIMEOUT_MS = 60000;
+const REFRESH_TIMEOUT_MS = 20000;
+const SLOW_LOAD_HINT_MS = 8000;
+
+function getPlayersApiUrl() {
+    const base = (typeof API_BASE_URL !== 'undefined') ? String(API_BASE_URL).replace(/\/+$/, '') : '';
+    return `${base}/api/players`;
 }
 
-// Хук: вызывается из index.html, когда players.js загрузился (асинхронно, после этого файла)
-window.onPlayersLoaded = function() {
-    renderPlayers();
-};
+async function fetchPlayersFromApi(timeoutMs) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+        const response = await fetch(getPlayersApiUrl(), { cache: 'no-store', signal: controller.signal });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        if (!data || !Array.isArray(data.players)) throw new Error('неожиданный формат ответа');
+        return data;
+    } finally {
+        clearTimeout(timer);
+    }
+}
 
+function renderAllViews() {
+    renderPlayers();
+    renderGlobalDuels();
+}
+
+// Загружает данные. isInitial - первая загрузка (длинный таймаут, при сбое
+// показывается ошибка). Фоновое обновление при сбое ничего не ломает:
+// на экране остаются последние полученные данные.
+async function loadPlayers(isInitial) {
+    if (playersLoading) return false;
+
+    // Beta Elo пока закрыта (см. BETA_SHOW_PLAYERS в config.js): список пустой,
+    // к API не обращаемся.
+    if (typeof BETA_SHOW_PLAYERS !== 'undefined' && !BETA_SHOW_PLAYERS) {
+        if (typeof players === 'undefined') {
+            players = [];
+            playersLoadedAt = Date.now();
+            renderAllViews();
+        }
+        return true;
+    }
+
+    playersLoading = true;
+
+    let hintTimer = null;
+    if (isInitial) {
+        hintTimer = setTimeout(() => {
+            if (typeof players === 'undefined') {
+                playersSlowHint = true;
+                renderAllViews();
+            }
+        }, SLOW_LOAD_HINT_MS);
+    }
+
+    try {
+        const data = await fetchPlayersFromApi(isInitial ? FIRST_LOAD_TIMEOUT_MS : REFRESH_TIMEOUT_MS);
+        const changed = (data.updatedAt || null) !== playersUpdatedAt;
+        players = data.players;
+        playersUpdatedAt = data.updatedAt || null;
+        playersLoadedAt = Date.now();
+        playersLoadError = false;
+        playersSlowHint = false;
+        if (changed || isInitial) renderAllViews();
+        return true;
+    } catch (e) {
+        console.warn('Не удалось загрузить данные игроков:', e);
+        if (typeof players === 'undefined') {
+            playersLoadError = true;
+            playersSlowHint = false;
+            renderAllViews();
+        }
+        return false;
+    } finally {
+        if (hintTimer) clearTimeout(hintTimer);
+        playersLoading = false;
+    }
+}
+
+// Кнопка "Повторить" после неудачной первой загрузки
+function retryLoadPlayers() {
+    playersLoadError = false;
+    playersSlowHint = false;
+    renderAllViews();
+    loadPlayers(true);
+}
+
+// Пока вкладка открыта, раз в минуту подтягиваем свежие данные (и сразу,
+// когда пользователь возвращается на вкладку). Перерисовка - только если
+// на сервере действительно появился новый снимок.
+function startPlayersAutoRefresh() {
+    const seconds = (typeof PLAYERS_REFRESH_SECONDS !== 'undefined') ? PLAYERS_REFRESH_SECONDS : 60;
+
+    setInterval(() => {
+        if (!document.hidden && typeof players !== 'undefined') loadPlayers(false);
+    }, seconds * 1000);
+
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden && typeof players !== 'undefined' && Date.now() - playersLoadedAt > seconds * 1000) {
+            loadPlayers(false);
+        }
+    });
+}
+
+// Запуск сайта (может вызываться дважды - из DOMContentLoaded и сразу,
+// если DOM уже готов; загрузка стартует один раз)
+function initSite() {
+    renderPlayers();   // покажет "Загрузка..." до прихода данных
+    if (!playersLoadStarted) {
+        playersLoadStarted = true;
+        loadPlayers(true);
+        startPlayersAutoRefresh();
+
+        // Ссылки из Classic PTS ведут сюда сразу на нужную вкладку (?tab=...)
+        const tab = new URLSearchParams(location.search).get('tab');
+        if (['duelsTab', 'testingTab', 'otherInfoTab'].includes(tab)) switchTab(tab);
+    }
+}
