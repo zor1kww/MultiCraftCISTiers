@@ -1808,3 +1808,73 @@ body, html {
     color: var(--text-muted);
     font-style: italic;
 }
+
+/* Состояние загрузки данных: ошибка с кнопкой повтора */
+.load-error {
+    text-align: center;
+    padding: 40px 16px;
+    color: #ff9b9b;
+}
+
+.load-error p {
+    margin-bottom: 14px;
+}
+
+.load-retry-btn {
+    padding: 10px 22px;
+    border-radius: 10px;
+    border: 1px solid var(--accent);
+    background: transparent;
+    color: var(--accent);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.load-retry-btn:hover {
+    background: rgba(255, 204, 71, 0.12);
+}
+
+
+/* ==========================================================================
+   ПЕРЕКЛЮЧАТЕЛЬ РЕЖИМОВ: Beta Elo / Classic PTS
+   ========================================================================== */
+.mode-switch {
+    display: flex;
+    gap: 4px;
+    max-width: 360px;
+    margin: -8px auto 22px;
+    padding: 4px;
+    background: var(--bg-solid);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+}
+
+.mode-switch-btn {
+    flex: 1;
+    text-align: center;
+    padding: 11px 10px;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--text-muted);
+    border: 1px solid transparent;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.mode-switch-btn:hover {
+    color: var(--text-main);
+}
+
+.mode-switch-btn.active {
+    color: var(--accent);
+    background: rgba(255, 204, 71, 0.12);
+    border-color: var(--accent);
+}
+
+/* Очки PTS рядом с рангом в профиле (Classic PTS) */
+.m-pts-box {
+    margin-left: 6px;
+    font-size: 0.85em;
+    color: var(--text-muted);
+}
