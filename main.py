@@ -102,6 +102,11 @@ except Exception as e:
 
 app = Flask('')
 
+# GET /api/players - данные для сайта (bot/api_snapshot.py).
+# Без этой строки маршрут не регистрируется и API отдаёт 404.
+import api_snapshot
+api_snapshot.register_routes(app)
+
 @app.route('/')
 def home():
     return "I am alive!"
