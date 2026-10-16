@@ -48,8 +48,18 @@ Telegram-бот тир-тестера MultiCraftCISTiers (v4 - Оппонент/
 
 import copy
 import os
+import sys
 import traceback
+from pathlib import Path
 from threading import Thread
+
+# ── папки проекта ────────────────────────────────────────────────────────
+_ROOT = Path(__file__).parent
+for _p in (_ROOT / "bot", _ROOT / "telegram_legacy"):
+    _s = str(_p)
+    if _s not in sys.path:
+        sys.path.insert(0, _s)
+# ─────────────────────────────────────────────────────────────────────────
 
 import telebot
 from flask import Flask
