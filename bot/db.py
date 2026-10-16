@@ -216,6 +216,16 @@ def get_or_create_player(conn: Connection, name: str, region: Optional[str] = No
     return new_row["id"]
 
 
+def set_player_region(conn: Connection, player_id: int, region: str) -> Optional[str]:
+    """Ставит игроку регион (перезаписывает прежний). Возвращает прежнее
+    значение (None, если региона не было) - для лога."""
+    row = conn.execute("SELECT region FROM players WHERE id = ?", (player_id,)).fetchone()
+    previous = row["region"] if row is not None else None
+    conn.execute("UPDATE players SET region = ? WHERE id = ?", (region, player_id))
+    conn.commit()
+    return previous
+
+
 def get_elo(conn: Connection, player_id: int, kit: str) -> float:
     """Текущее эло игрока в ките. Если игрок ещё ни разу не играл этот
     кит - НЕ создаёт запись (чистое чтение), просто возвращает
