@@ -16,7 +16,17 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 import db
-from relay_parser import DuelStarted, PlayerConnected, PlayerDied, PlayerDisconnected
+from relay_parser import DuelStarted, PlayerConnected, PlayerDied, PlayerDisconnected, RegionSet
+
+
+# Регионы, доступные для set_region. Должен совпадать со списком в фильтре
+# сайта (index.html, regionFilterPanel).
+ALLOWED_REGIONS = ("RU", "UA", "BY", "KZ", "UZ", "KG", "AM", "AZ", "MD", "TJ")
+
+
+# Кто может ставить регион ДРУГИМ игрокам ("админ: set_region ник KZ").
+# Сравнение без учёта регистра.
+REGION_ADMINS = ("zor1kkqwix", "UHC", "-999-")
 
 
 @dataclass(frozen=True)
@@ -47,6 +57,8 @@ def handle_event(conn, event) -> Outcome:
         return _handle_player_connected(conn, event)
     if isinstance(event, PlayerDisconnected):
         return _handle_player_disconnected(conn, event)
+    if isinstance(event, RegionSet):
+        return _handle_region_set(conn, event)
     raise TypeError(f"неизвестный тип события: {type(event)!r}")
 
 
@@ -119,6 +131,28 @@ def _handle_player_disconnected(conn, event: PlayerDisconnected) -> Outcome:
     db.start_disconnect_timer(conn, match["id"], player_id)
     return Outcome("timer_started", {
         "match_id": match["id"], "player": event.player, "timeout_flag": event.timeout,
+    })
+
+
+def _handle_region_set(conn, event: RegionSet) -> Outcome:
+    region = event.region.upper()
+    target = event.target or event.player
+
+    if event.target is not None and event.player.lower() not in {a.lower() for a in REGION_ADMINS}:
+        # Ставить регион другим могут только админы.
+        return Outcome("region_denied", {"player": event.player, "target": event.target})
+
+    if region not in ALLOWED_REGIONS:
+        # Игроку в игре ответить нельзя, поэтому опечатка просто не
+        # применяется (видно только в логе бота).
+        return Outcome("region_invalid", {"player": event.player, "region": event.region})
+
+    # Игрока создаём, если его ещё нет: регион не должен потеряться, пока
+    # он не сыграл дуэль. Без дуэлей на сайт он не попадает (см. export).
+    player_id = db.get_or_create_player(conn, target)
+    previous = db.set_player_region(conn, player_id, region)
+    return Outcome("region_set", {
+        "player": target, "set_by": event.player, "region": region, "previous": previous,
     })
 
 
