@@ -51,7 +51,8 @@ def _format_elo(value: float):
     return rounded if abs(value - rounded) < 1e-9 else value
 
 
-def build_export_data(conn, skip_players_without_ratings: bool = True) -> list:
+def build_export_data(conn, skip_players_without_ratings: bool = True,
+                       history_limit: int = None) -> list:
     """
     Собирает список игроков из Turso в структуру, готовую к записи в
     players.js (ключи уже такие, какими должны быть в JS-объекте).
@@ -62,6 +63,11 @@ def build_export_data(conn, skip_players_without_ratings: bool = True) -> list:
     не попадает в экспорт, раз показывать по нему нечего (ни одного
     кита с эло). Поставьте False, если нужно видеть и таких игроков
     тоже (с пустыми tiers/matchHistory).
+
+    history_limit - сколько ПОСЛЕДНИХ дуэлей оставить в matchHistory каждого
+    игрока (None - все). Для API сайта берётся 200: сайт показывает в общем
+    списке не больше 200 дуэлей, а любая дуэль из последних 200 по всей
+    системе гарантированно входит в последние 200 у каждого её участника.
     """
     players_rows = conn.execute(
         "SELECT id, name, region FROM players ORDER BY name COLLATE NOCASE"
@@ -121,6 +127,9 @@ def build_export_data(conn, skip_players_without_ratings: bool = True) -> list:
                 "delta": delta,
                 "endReason": m["end_reason"],
             })
+
+        if history_limit is not None and len(match_history) > history_limit:
+            match_history = match_history[-history_limit:]
 
         export.append({
             "name": player["name"],
