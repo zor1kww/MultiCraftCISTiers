@@ -32,6 +32,13 @@
   Обычный чат формата "[тег] ник: текст" (включая тестовое "relay") -
   НЕ событие, должен игнорироваться. Он отличается от коннекта тем, что
   сразу после ника идёт ":", а не русский глагол.
+
+  Единственное исключение из чата - команда игрока:
+      [тег] ник: set_region RU
+  (тег необязателен, регистр команды и региона не важен). Админы могут
+  указать цель: "[тег] админ: set_region ник KZ". Парсер только
+  вытаскивает ники и слово региона; права и допустимость региона
+  проверяет handlers.py.
 """
 
 import re
@@ -73,6 +80,14 @@ _RE_DISCONNECT = re.compile(
     r'отключился от сервера(?P<timeout>\s*\(тайм-аут\))?\s*$'
 )
 
+# Команда игрока в чате: "[тег] ник: set_region RU". Тег необязателен.
+# Строго целое сообщение: "set_region RU пожалуйста" командой не считается.
+_RE_SET_REGION = re.compile(
+    r'^(?:' + _TAGS + r'\s*)?(?P<player>' + _NICK + r')\s*:\s*'
+    r'set_region\s+(?:(?P<target>' + _NICK + r')\s+)?(?P<region>\S+)\s*$',
+    re.IGNORECASE,
+)
+
 
 # ==========================================
 # СОБЫТИЯ (на выходе парсера)
@@ -101,7 +116,14 @@ class PlayerDisconnected:
     timeout: bool
 
 
-Event = Union[DuelStarted, PlayerDied, PlayerConnected, PlayerDisconnected]
+@dataclass(frozen=True)
+class RegionSet:
+    player: str
+    region: str  # как написал игрок; проверка по списку - в handlers.py
+    target: Optional[str] = None  # ник, которому ставят регион (форма для админов)
+
+
+Event = Union[DuelStarted, PlayerDied, PlayerConnected, PlayerDisconnected, RegionSet]
 
 
 # ==========================================
@@ -115,6 +137,13 @@ def _normalize(text: str) -> str:
 def parse_death(text: str) -> Optional[PlayerDied]:
     m = _RE_DEATH.match(_normalize(text))
     return PlayerDied(player=m.group('player')) if m else None
+
+
+def parse_set_region(text: str) -> Optional[RegionSet]:
+    m = _RE_SET_REGION.match(_normalize(text))
+    if not m:
+        return None
+    return RegionSet(player=m.group('player'), region=m.group('region'), target=m.group('target'))
 
 
 def parse_connect(text: str) -> Optional[PlayerConnected]:
@@ -200,6 +229,10 @@ class RelayParser:
             return event
 
         event = parse_disconnect(text)
+        if event is not None:
+            return event
+
+        event = parse_set_region(text)
         if event is not None:
             return event
 
