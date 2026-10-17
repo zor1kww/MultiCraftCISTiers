@@ -198,26 +198,42 @@ class RelayParser:
     ранней ждущей строкой другого вида. Обе очереди одновременно
     непустыми не бывают.
 
-    Ждущая строка живёт не дольше pending_ttl секунд: обе строки одной
-    дуэли приходят практически разом, а "осиротевшая" строка (бот
-    запустился посреди пары, одна строка потерялась) иначе склеилась бы
-    с чужой дуэлью.
+    Ждущая строка живёт не дольше pending_ttl секунд (по умолчанию 2):
+    обе строки одной дуэли приходят практически разом (одним сообщением
+    релея либо подряд), а "осиротевшая" строка (сервер сам сработал
+    командным блоком и телепортировал игрока, бот запустился посреди
+    пары, одна строка потерялась) иначе склеилась бы с чужой дуэлью и
+    сломала следующую настоящую. Протухшие строки не пропадают молча:
+    их забирает pop_dropped() для лога.
 
     ДОПУЩЕНИЕ: если пары двух дуэлей чередуются, сопоставление идёт по
     принципу FIFO (в самих сообщениях ничего, кроме текста, строки одной
     дуэли не связывает). Стоит перепроверить на реальных логах.
     """
 
-    def __init__(self, pending_ttl: float = 15.0, clock=time.monotonic):
+    def __init__(self, pending_ttl: float = 2.0, clock=time.monotonic):
         self._pending_full = []     # [(время, kit, player_a)] - ждут короткую строку
         self._pending_short = []    # [(время, player_b)] - ждут полную строку
         self._ttl = pending_ttl
         self._clock = clock
+        self._dropped = []          # тексты протухших "осиротевших" строк, для лога
 
     def _expire(self) -> None:
         limit = self._clock() - self._ttl
+        for t, kit, player_a in self._pending_full:
+            if t < limit:
+                self._dropped.append(f"У игрока {player_a} началась дуэль на наборе «{kit}»")
+        for t, player_b in self._pending_short:
+            if t < limit:
+                self._dropped.append(f"С игроком {player_b}")
         self._pending_full = [x for x in self._pending_full if x[0] >= limit]
         self._pending_short = [x for x in self._pending_short if x[0] >= limit]
+
+    def pop_dropped(self) -> list:
+        """Забирает (и очищает) список осиротевших строк старта дуэли,
+        которые не дождались пары. Для диагностики в логе."""
+        dropped, self._dropped = self._dropped, []
+        return dropped
 
     def feed(self, text: str) -> Optional[Event]:
         """Скармливает одно сообщение, возвращает событие либо None
