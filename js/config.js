@@ -86,4 +86,4 @@ const PLAYERS_REFRESH_SECONDS = 60;
 // Elo-система только запущена, поэтому в Beta Elo пока никого не показываем
 // (сайт при этом даже не обращается к боту). Когда будете готовы открыть
 // рейтинг - поставьте true, данные пойдут из API как раньше.
-const BETA_SHOW_PLAYERS = false;
+const BETA_SHOW_PLAYERS = true;
