@@ -118,6 +118,10 @@ class RelayClient(discord.Client):
                 if (text.startswith("UHC") and ">>" not in text
                         and "игрока" not in text and "игроком" not in text):
                     print(f"[discord] не разобрано: {text!r}")
+                # Строки, похожие на смерть, но не распознанные парсером:
+                # именно из-за них дуэль может тихо не засчитаться.
+                elif text.startswith("\U0001FAA6") or "погиб" in text.lower():
+                    print(f"[discord] смерть не разобрана: {text!r}")
             else:
                 print(f"[discord] {outcome.action}: {outcome.detail}")
                 if outcome.action in ("match_finished", "region_set"):
