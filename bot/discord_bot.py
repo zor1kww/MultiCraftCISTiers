@@ -112,7 +112,12 @@ class RelayClient(discord.Client):
                 print(f"[discord] Ошибка обработки сообщения {message.id!r}: {e}")
                 continue
 
-            if outcome is not None:
+            if outcome is None:
+                # Диагностика: служебные строки UHC, которые парсер не разобрал
+                # (первые половины старта дуэли и ">>"-объявления - норма, их не шумим).
+                if text.startswith("UHC") and ">>" not in text and "началась дуэль" not in text:
+                    print(f"[discord] не разобрано: {text!r}")
+            else:
                 print(f"[discord] {outcome.action}: {outcome.detail}")
                 if outcome.action in ("match_finished", "region_set"):
                     # Эло/история или регион изменились - снимок для сайта устарел
