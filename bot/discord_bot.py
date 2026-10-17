@@ -114,8 +114,9 @@ class RelayClient(discord.Client):
 
             if outcome is None:
                 # Диагностика: служебные строки UHC, которые парсер не разобрал
-                # (первые половины старта дуэли и ">>"-объявления - норма, их не шумим).
-                if text.startswith("UHC") and ">>" not in text and "началась дуэль" not in text:
+                # (строки старта дуэли и ">>"-объявления - норма, их не шумим).
+                if (text.startswith("UHC") and ">>" not in text
+                        and "игрока" not in text and "игроком" not in text):
                     print(f"[discord] не разобрано: {text!r}")
             else:
                 print(f"[discord] {outcome.action}: {outcome.detail}")
