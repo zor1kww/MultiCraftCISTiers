@@ -33,8 +33,8 @@ def extract_texts(content, embeds=()):
     (на скриншоте канала это строки с цветной полоской слева: коннект/
     дисконнект и "ник погиб"), и у такого сообщения message.content
     ПУСТОЙ - текст лежит в embed.description (или embed.title).
-    Поэтому берём content и текст каждого embed, без пустых строк и
-    дублей (одно и то же событие не должно обработаться дважды, если
+    Поэтому берём content и текст каждого embed, режем многострочные
+    тексты на отдельные строки, без пустых строк и дублей (одно и то же событие не должно обработаться дважды, если
     текст продублирован в title и description).
 
     embeds - любой набор объектов с атрибутами title/description
@@ -43,10 +43,14 @@ def extract_texts(content, embeds=()):
     texts = []
 
     def add(value):
+        # Релей может прислать несколько событий ОДНИМ сообщением, по
+        # строке на событие (например, обе строки старта дуэли). Парсер
+        # рассчитан на одну строку = одно событие, поэтому режем здесь.
         if isinstance(value, str):
-            value = value.strip()
-            if value and value not in texts:
-                texts.append(value)
+            for line in value.splitlines():
+                line = line.strip()
+                if line and line not in texts:
+                    texts.append(line)
 
     add(content)
     for embed in embeds or ():
