@@ -70,7 +70,11 @@ def build_export_data(conn, skip_players_without_ratings: bool = True,
     системе гарантированно входит в последние 200 у каждого её участника.
     """
     players_rows = conn.execute(
-        "SELECT id, name, region FROM players ORDER BY name COLLATE NOCASE"
+        # PC-игроки и скрытые админом (remove_player) в топ не попадают;
+        # их дуэли в matchHistory соперников остаются как есть.
+        "SELECT id, name, region FROM players "
+        "WHERE COALESCE(device, '') != 'PC' AND removed = 0 "
+        "ORDER BY name COLLATE NOCASE"
     ).fetchall()
 
     export = []
