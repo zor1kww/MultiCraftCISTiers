@@ -129,7 +129,8 @@ class RelayClient(discord.Client):
                     print(f"[discord] смерть не разобрана: {text!r}")
             else:
                 print(f"[discord] {outcome.action}: {outcome.detail}")
-                if outcome.action in ("match_finished", "region_set"):
+                if outcome.action in ("match_finished", "region_set", "device_set",
+                                      "player_removed", "player_restored"):
                     # Эло/история или регион изменились - снимок для сайта устарел
                     self.refresher.mark_dirty()
 
