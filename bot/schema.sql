@@ -9,7 +9,12 @@ CREATE TABLE IF NOT EXISTS players (
     id          INTEGER PRIMARY KEY AUTOINCREMENT,
     name        TEXT NOT NULL UNIQUE COLLATE NOCASE,
     region      TEXT,
-    created_at  TEXT NOT NULL
+    created_at  TEXT NOT NULL,
+    -- Устройство, выставляется админами командой set_device: 'PC' или
+    -- 'MOBILE'; NULL = не отмечен (считается мобильным).
+    device      TEXT,
+    -- 1 = скрыт из топа админом (remove_player): твинк, пкшер и т.п.
+    removed     INTEGER NOT NULL DEFAULT 0
 );
 
 -- Эло отдельно по каждому киту (не общее на игрока). Строка создаётся
