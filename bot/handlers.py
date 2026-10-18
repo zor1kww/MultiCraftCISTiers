@@ -16,7 +16,10 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 import db
-from relay_parser import DuelStarted, PlayerConnected, PlayerDied, PlayerDisconnected, RegionSet
+from relay_parser import (
+    DeviceSet, DuelStarted, PlayerConnected, PlayerDied, PlayerDisconnected,
+    PlayerRemoved, PlayerRestored, RegionSet,
+)
 
 
 # Регионы, доступные для set_region. Должен совпадать со списком в фильтре
@@ -24,9 +27,15 @@ from relay_parser import DuelStarted, PlayerConnected, PlayerDied, PlayerDisconn
 ALLOWED_REGIONS = ("RU", "UA", "BY", "KZ", "UZ", "KG", "AM", "AZ", "MD", "TJ")
 
 
-# Кто может ставить регион ДРУГИМ игрокам ("админ: set_region ник KZ").
-# Сравнение без учёта регистра.
-REGION_ADMINS = ("zor1kkqwix", "UHC", "-999-")
+# Админы игрового чата: ставят регион другим игрокам ("админ: set_region
+# ник KZ"), отмечают устройство (set_device), скрывают и возвращают игроков
+# (remove_player / restore_player). Сравнение без учёта регистра.
+ADMINS = ("zor1kkqwix", "UHC", "-999-")
+REGION_ADMINS = ADMINS  # прежнее имя, на случай внешних ссылок
+
+
+def _is_admin(name: str) -> bool:
+    return name.lower() in {a.lower() for a in ADMINS}
 
 
 @dataclass(frozen=True)
@@ -59,6 +68,12 @@ def handle_event(conn, event) -> Outcome:
         return _handle_player_disconnected(conn, event)
     if isinstance(event, RegionSet):
         return _handle_region_set(conn, event)
+    if isinstance(event, DeviceSet):
+        return _handle_device_set(conn, event)
+    if isinstance(event, PlayerRemoved):
+        return _handle_player_removed(conn, event)
+    if isinstance(event, PlayerRestored):
+        return _handle_player_restored(conn, event)
     raise TypeError(f"неизвестный тип события: {type(event)!r}")
 
 
@@ -71,6 +86,14 @@ def _handle_duel_started(conn, event: DuelStarted) -> Outcome:
 
     player_a_id = db.get_or_create_player(conn, event.player_a)
     player_b_id = db.get_or_create_player(conn, event.player_b)
+
+    if db.is_player_excluded(conn, player_a_id) or db.is_player_excluded(conn, player_b_id):
+        # PC-игрок или скрытый админом (твинк и т.п.): дуэль не создаём,
+        # эло не меняется ни у кого. Смерть/дисконнект по ней потом
+        # просто проигнорируются (нет активного матча).
+        return Outcome("ignored_excluded_player", {
+            "kit": event.kit, "player_a": event.player_a, "player_b": event.player_b,
+        })
 
     cancelled_a = _ensure_no_active_match(conn, player_a_id, event.player_a)
     cancelled_b = _ensure_no_active_match(conn, player_b_id, event.player_b)
@@ -94,6 +117,11 @@ def _handle_player_died(conn, event: PlayerDied) -> Outcome:
         # Смерть вне какой-либо отслеживаемой дуэли (упал где-то в
         # обычной игре, не в зоне дуэлей) - не наша забота, игнорируем.
         return Outcome("ignored_no_active_match", {"player": event.player, "event": "death"})
+
+    if db.is_player_excluded(conn, match["player_a_id"]) or db.is_player_excluded(conn, match["player_b_id"]):
+        # Статус одного из игроков поменяли уже во время матча.
+        db.cancel_match(conn, match["id"], reason="superseded")
+        return Outcome("ignored_excluded_player", {"match_id": match["id"], "event": "death"})
 
     result = db.finish_match(conn, match["id"], loser_player_id=player_id, end_reason="death")
     winner_id = db.get_opponent_id(match, player_id)
@@ -138,7 +166,7 @@ def _handle_region_set(conn, event: RegionSet) -> Outcome:
     region = event.region.upper()
     target = event.target or event.player
 
-    if event.target is not None and event.player.lower() not in {a.lower() for a in REGION_ADMINS}:
+    if event.target is not None and not _is_admin(event.player):
         # Ставить регион другим могут только админы.
         return Outcome("region_denied", {"player": event.player, "target": event.target})
 
@@ -153,6 +181,43 @@ def _handle_region_set(conn, event: RegionSet) -> Outcome:
     previous = db.set_player_region(conn, player_id, region)
     return Outcome("region_set", {
         "player": target, "set_by": event.player, "region": region, "previous": previous,
+    })
+
+
+def _handle_device_set(conn, event: DeviceSet) -> Outcome:
+    if not _is_admin(event.player):
+        return Outcome("admin_denied", {"player": event.player, "command": "set_device"})
+    device = event.device.upper()
+    if device not in ("PC", "MOBILE"):
+        return Outcome("device_invalid", {"player": event.player, "device": event.device})
+    player_id = db.get_or_create_player(conn, event.target)
+    previous = db.set_player_device(conn, player_id, device)
+    return Outcome("device_set", {
+        "player": event.target, "set_by": event.player, "device": device, "previous": previous,
+    })
+
+
+def _handle_player_removed(conn, event: PlayerRemoved) -> Outcome:
+    if not _is_admin(event.player):
+        return Outcome("admin_denied", {"player": event.player, "command": "remove_player"})
+    # Игрока создаём, если его ещё нет: твинка можно скрыть заранее, до
+    # его первой дуэли.
+    player_id = db.get_or_create_player(conn, event.target)
+    previous = db.set_player_removed(conn, player_id, True)
+    return Outcome("player_removed", {
+        "player": event.target, "set_by": event.player, "was_removed": previous,
+    })
+
+
+def _handle_player_restored(conn, event: PlayerRestored) -> Outcome:
+    if not _is_admin(event.player):
+        return Outcome("admin_denied", {"player": event.player, "command": "restore_player"})
+    player_id = db.find_player_id(conn, event.target)
+    if player_id is None:
+        return Outcome("target_not_found", {"player": event.target, "command": "restore_player"})
+    previous = db.set_player_removed(conn, player_id, False)
+    return Outcome("player_restored", {
+        "player": event.target, "set_by": event.player, "was_removed": previous,
     })
 
 
@@ -196,6 +261,10 @@ def sweep_expired_timers(conn) -> list:
             # чем до него дошла очередь в свипе - таймер неактуален,
             # просто подчищаем и идём дальше.
             db.cancel_disconnect_timer(conn, timer_row["match_id"], timer_row["player_id"])
+            continue
+
+        if db.is_player_excluded(conn, match["player_a_id"]) or db.is_player_excluded(conn, match["player_b_id"]):
+            db.cancel_match(conn, match["id"], reason="superseded")  # заодно снимает таймер
             continue
 
         loser_id = timer_row["player_id"]
