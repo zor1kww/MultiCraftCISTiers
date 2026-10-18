@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 """
 Слой доступа к БД для эло-системы.
@@ -190,9 +191,26 @@ def _split_sql_statements(script: str) -> list:
     return statements
 
 
+# Колонки, добавленные после первого релиза схемы. CREATE TABLE IF NOT
+# EXISTS не трогает уже существующую таблицу, поэтому в рабочей базе их
+# добавляем ALTER-ом; на свежей базе колонка уже есть и ALTER даёт
+# "duplicate column" - это ожидаемо и игнорируется.
+_PLAYER_MIGRATIONS = (
+    "ALTER TABLE players ADD COLUMN device TEXT",
+    "ALTER TABLE players ADD COLUMN removed INTEGER NOT NULL DEFAULT 0",
+)
+
+
 def init_schema(conn: Connection) -> None:
     for statement in _split_sql_statements(SCHEMA_PATH.read_text(encoding="utf-8")):
         conn.execute(statement)
+    conn.commit()
+    for statement in _PLAYER_MIGRATIONS:
+        try:
+            conn.execute(statement)
+        except Exception as e:
+            if "duplicate column" not in str(e).lower():
+                raise
     conn.commit()
 
 
@@ -224,6 +242,40 @@ def set_player_region(conn: Connection, player_id: int, region: str) -> Optional
     conn.execute("UPDATE players SET region = ? WHERE id = ?", (region, player_id))
     conn.commit()
     return previous
+
+
+def find_player_id(conn: Connection, name: str) -> Optional[int]:
+    """id игрока по нику (без учёта регистра) или None; игрока НЕ создаёт."""
+    row = conn.execute("SELECT id FROM players WHERE name = ? COLLATE NOCASE", (name,)).fetchone()
+    return row["id"] if row is not None else None
+
+
+def set_player_device(conn: Connection, player_id: int, device: str) -> Optional[str]:
+    """Ставит устройство ('PC' / 'MOBILE'). Возвращает прежнее значение."""
+    row = conn.execute("SELECT device FROM players WHERE id = ?", (player_id,)).fetchone()
+    previous = row["device"] if row is not None else None
+    conn.execute("UPDATE players SET device = ? WHERE id = ?", (device, player_id))
+    conn.commit()
+    return previous
+
+
+def set_player_removed(conn: Connection, player_id: int, removed: bool) -> bool:
+    """Скрывает игрока из топа (True) или возвращает (False). Возвращает
+    прежнее состояние."""
+    row = conn.execute("SELECT removed FROM players WHERE id = ?", (player_id,)).fetchone()
+    previous = bool(row["removed"]) if row is not None else False
+    conn.execute("UPDATE players SET removed = ? WHERE id = ?", (1 if removed else 0, player_id))
+    conn.commit()
+    return previous
+
+
+def is_player_excluded(conn: Connection, player_id: int) -> bool:
+    """True, если игрок не участвует в рейтинге: отмечен как PC или скрыт
+    через remove_player. Дуэли с таким игроком эло не меняют."""
+    row = conn.execute("SELECT device, removed FROM players WHERE id = ?", (player_id,)).fetchone()
+    if row is None:
+        return False
+    return row["device"] == "PC" or bool(row["removed"])
 
 
 def get_elo(conn: Connection, player_id: int, kit: str) -> float:
