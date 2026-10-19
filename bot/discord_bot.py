@@ -42,6 +42,19 @@ import handlers
 from relay_bot_core import extract_texts, process_message
 from relay_parser import RelayParser
 
+# Публикация итогов в Telegram необязательна: если модуль не подключился,
+# бот работает как раньше, просто без постов.
+try:
+    import telegram_results
+except Exception as _e:  # noqa: BLE001
+    telegram_results = None
+    print(f"[discord] telegram_results не подключён: {_e}")
+
+
+def _publish_result(conn, match_id) -> None:
+    if telegram_results is not None and match_id is not None:
+        telegram_results.publish_match_result(conn, match_id)
+
 
 DISCORD_TOKEN = os.environ.get("DISCORD_BOT_TOKEN")
 RELAY_CHANNEL_ID_RAW = os.environ.get("DISCORD_RELAY_CHANNEL_ID")
@@ -133,6 +146,8 @@ class RelayClient(discord.Client):
                                       "player_removed", "player_restored"):
                     # Эло/история или регион изменились - снимок для сайта устарел
                     self.refresher.mark_dirty()
+                if outcome.action == "match_finished":
+                    _publish_result(self.conn, outcome.detail.get("match_id"))
 
 
 @tasks.loop(seconds=TIMER_SWEEP_INTERVAL_SECONDS)
@@ -144,6 +159,7 @@ async def timer_sweep_loop(client: RelayClient):
         return
     for outcome in outcomes:
         print(f"[discord] Автопоражение по таймеру: {outcome.detail}")
+        _publish_result(client.conn, outcome.detail.get("match_id"))
     if outcomes:
         client.refresher.mark_dirty()
 
