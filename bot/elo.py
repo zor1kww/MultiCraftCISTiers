@@ -67,6 +67,11 @@ ANTI_ABUSE_BRACKETS = [
 ]
 ANTI_ABUSE_WINDOW_HOURS = 2
 
+# ВРЕМЕННО: множитель эло для ПОБЕДИТЕЛЯ. Проигравший теряет обычную
+# дельту, победитель получает её, умноженную на это число (при 2: +18 / −9).
+# Чтобы вернуть симметричную систему, поставьте 1.
+WIN_BONUS_MULTIPLIER = 2
+
 
 def get_tier(elo: float) -> str:
     """Тир по эло. Эло ниже 0 быть не должно (см. пол ниже), но на
@@ -129,7 +134,7 @@ class MatchResult:
     loser_delta: int           # фактически списано у проигравшего (= delta_actual, положительное число)
 
     k_winner: int
-    k_loser: int
+    k_loser: int          # не используется в расчёте дельты; сохраняется для аудита
     m_factor: float
     expected_winner: float     # ожидание победы победителя ДО матча (для аудита)
     capped: bool                # True, если делта была урезана полом в 0 у проигравшего
@@ -144,43 +149,49 @@ def compute_match(elo_winner: float, elo_loser: float, prior_duels_count: int) -
     prior_duels_count - число дуэлей этой же пары в этом ките за окно
     2 часа ДО этого матча (не считая его самого).
 
-    К победителя и К проигравшего берутся КАЖДЫЙ ПО СВОЕМУ эло до
-    матча и, как следствие, обычно РАЗНЫЕ - так же разные и исходные
-    дельты (delta_winner, delta_loser), сумма эло в системе НЕ обязана
-    сохраняться (как в ФИДЕ). Проверено на контрольном примере
-    (Steve 1400 K=20 проигрывает Alex 1200 K=24, M=0.5):
-    delta_Alex(победитель)=+9, delta_Steve(проигравший)=-2 - две разные
-    величины, не одна общая.
+    Дельта ОДНА на двоих: считается только по победителю
+    (K_победителя × (1 − E_победителя) × M), проигравший теряет
+    ровно столько же. K и E проигравшего на размер дельты не влияют.
+
+    Контрольный пример (Steve 1400 K=20 проигрывает Alex 1200 K=24,
+    M=0.5): E_Alex ≈ 0.24, delta = round(24 × 0.76 × 0.5) = 9.
+    Alex получает +9, Steve теряет −9.
+
+    ВРЕМЕННО (WIN_BONUS_MULTIPLIER): победитель получает дельту,
+    умноженную на множитель (сейчас ×2), проигравший теряет обычную.
+    Для контрольного примера: Alex +18, Steve −9. Антиабуз M=0 даёт 0
+    у обоих при любом множителе.
 
     Исключение - пол по нулю: если у проигравшего не хватает эло,
-    чтобы потерять свою полную дельту, он теряет сколько есть, и в
-    этом (и только в этом) случае победитель получает ровно столько
-    же, сколько проигравший реально потерял, а не свою исходную
-    дельту - чтобы не создавать эло "из воздуха".
+    чтобы потерять полную дельту, он теряет сколько есть, и в этом
+    (и только в этом) случае победитель получает ровно столько же,
+    сколько проигравший реально потерял, - чтобы не создавать эло
+    "из воздуха".
     """
     k_winner = get_k_factor(elo_winner)
-    k_loser = get_k_factor(elo_loser)
     m = anti_abuse_multiplier(prior_duels_count)
 
     e_winner = expected_score(elo_winner, elo_loser)
-    e_loser = expected_score(elo_loser, elo_winner)  # = 1 - e_winner, считаем явно для аудита
 
     delta_winner = _round_half_up(k_winner * (1 - e_winner) * m)
-    delta_loser = _round_half_up(k_loser * (1 - e_loser) * m)
 
     # Пол: проигравший не может потерять больше, чем у него есть.
+    # Дельта одна на двоих - считается по победителю.
     available = math.floor(elo_loser)
-    loser_actual = min(delta_loser, available) if available >= 0 else 0
+    loser_actual = min(delta_winner, available) if available >= 0 else 0
     loser_actual = max(0, loser_actual)
-    capped = loser_actual < delta_loser
+    capped = loser_actual < delta_winner
 
-    # Обычный случай - у каждого своя дельта. Только если пол реально
-    # сработал (проигравшему срезали потерю) - победитель получает
-    # ровно столько же, сколько проигравший фактически потерял.
-    winner_actual = loser_actual if capped else delta_winner
+    # Если пол сработал - базой для победителя служит ровно то, что
+    # проигравший реально потерял, иначе - полная дельта. Дальше -
+    # временный множитель победы.
+    winner_base = loser_actual if capped else delta_winner
+    winner_actual = _round_half_up(winner_base * WIN_BONUS_MULTIPLIER)
 
     winner_after = elo_winner + winner_actual
     loser_after = max(0.0, elo_loser - loser_actual)
+
+    k_loser = get_k_factor(elo_loser)  # только для аудита в MatchResult
 
     return MatchResult(
         winner_elo_before=elo_winner,
