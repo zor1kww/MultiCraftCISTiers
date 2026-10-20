@@ -468,6 +468,14 @@ if __name__ == '__main__':
     print("Регистрация кнопки отмены результата...")
     undo_manager.register(bot, GH_REPO, GH_TOKEN)
 
+    # Админ-панель эло-системы (/elo_admin). Необязательна: сбой подключения
+    # не должен ронять остальной бот.
+    try:
+        import elo_admin_panel
+        elo_admin_panel.register(bot)
+    except Exception as e:
+        print(f"Админ-панель эло не подключена: {e}")
+
     # Discord-бот эло-системы - третий поток в этом же сервисе (а не
     # отдельный Render-сервис), чтобы не расходовать общий лимит
     # бесплатных часов на двоих сразу. Условно: если DISCORD_BOT_TOKEN
