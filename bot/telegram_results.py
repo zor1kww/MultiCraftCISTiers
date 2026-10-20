@@ -161,7 +161,8 @@ class ResultsPublisher:
         self.chat_id = chat_id
         self.topic_results = topic_results
         self.topic_high = topic_high
-        self.enabled = bool(enabled and (token or sender))
+        self.can_send = bool(token or sender)   # есть ли вообще чем отправлять
+        self.enabled = bool(enabled and self.can_send)
         self._send = sender or self._send_via_bot_api   # sender подменяется в тестах
         self._queue = queue.Queue(maxsize=_QUEUE_LIMIT)
         self._thread = None
@@ -176,6 +177,11 @@ class ResultsPublisher:
             topic_high=int(os.environ.get("TG_HIGH_RESULTS_TOPIC_ID", DEFAULT_TOPIC_HIGH)),
             enabled=flag not in ("0", "false", "no", "off"),
         )
+
+    def set_enabled(self, flag: bool) -> None:
+        """Включает/выключает публикацию на лету (из админ-панели). Без
+        токена включить нельзя - останется выключенной."""
+        self.enabled = bool(flag and self.can_send)
 
     def publish(self, conn, match_id: int) -> None:
         """Собирает пост и ставит в очередь. Никогда не бросает исключений."""
