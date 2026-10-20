@@ -6075,6 +6075,11 @@ const players = [
                 tier: "HT4",
                 date: "2026-10-09",
                 retired: false
+            },
+            RVM: {
+                tier: "HT4",
+                date: "2026-10-20",
+                retired: false
             }
         },
         matchHistory: [
