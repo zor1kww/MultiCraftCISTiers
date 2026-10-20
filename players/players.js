@@ -3030,8 +3030,8 @@ const players = [
                 retired: false
             },
             Gapple: {
-                tier: "HT4",
-                date: "2026-08-28",
+                tier: "HT3",
+                date: "2026-10-20",
                 retired: false
             },
             Hardcore: {
