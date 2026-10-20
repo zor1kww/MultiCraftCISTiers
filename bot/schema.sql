@@ -89,3 +89,18 @@ CREATE INDEX IF NOT EXISTS idx_matches_pair_window
 
 -- Для свипа просроченных таймеров (поиск "кого пора автозасчитать").
 CREATE INDEX IF NOT EXISTS idx_disconnect_timers_time ON disconnect_timers(disconnected_at);
+
+-- Настройки, которые админ меняет из Telegram-панели (ключ-значение).
+CREATE TABLE IF NOT EXISTS settings (
+    key   TEXT PRIMARY KEY,
+    value TEXT NOT NULL
+);
+
+-- Журнал ручных действий админов из Telegram-панели.
+CREATE TABLE IF NOT EXISTS admin_log (
+    id       INTEGER PRIMARY KEY AUTOINCREMENT,
+    ts       TEXT NOT NULL,
+    admin_id TEXT NOT NULL,
+    action   TEXT NOT NULL,
+    details  TEXT NOT NULL
+);
