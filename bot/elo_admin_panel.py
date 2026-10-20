@@ -4,9 +4,9 @@ Telegram-панель администратора эло-системы (ком
 db_executor - то есть выполняет действия в потоке Discord, которому
 принадлежит соединение с Turso.
 
-Доступ: Telegram-ID из ADMIN_IDS старой админ-панели (admin_panel.py) и/или
-из переменной окружения ELO_ADMIN_IDS (через запятую). Остальным панель
-не отвечает.
+Доступ: Telegram-ID из DEFAULT_ADMIN_IDS (в этом файле), ADMIN_IDS старой
+админ-панели (admin_panel.py) и/или переменной окружения ELO_ADMIN_IDS
+(через запятую). Остальным панель не отвечает.
 
 Все callback_data начинаются с "ea:" и укладываются в лимит Telegram
 (64 байта): игроки и дуэли передаются по числовому id, киты - по индексу
@@ -23,11 +23,15 @@ import elo_admin_actions as A
 from handlers import ALLOWED_REGIONS
 
 PREFIX = "ea:"
+
+# Telegram-ID админов панели эло. Дополняются ADMIN_IDS из admin_panel.py и
+# переменной окружения ELO_ADMIN_IDS (через запятую).
+DEFAULT_ADMIN_IDS = {6611469305, 7762233951}
 _DEVICE_LABEL = {"PC": "PC", "MOBILE": "мобильный", None: "не отмечено"}
 
 
 def _load_admin_ids() -> set:
-    ids = set()
+    ids = set(DEFAULT_ADMIN_IDS)
     try:
         import admin_panel  # старая панель: ADMIN_IDS захардкожен там
         ids |= {int(x) for x in getattr(admin_panel, "ADMIN_IDS", ()) or ()}
@@ -69,7 +73,21 @@ def card_text(card: dict) -> str:
     return "\n".join(lines)
 
 
+# Функции elo_admin_actions, без которых панель не работает. Если файл на
+# сервере неполный (обрезан при загрузке) или старой версии, это видно в логе
+# при запуске, а не только по ошибкам в чате.
+_REQUIRED_ACTIONS = (
+    "player_card", "resolve_player", "recent_matches", "match_details", "set_player_elo",
+    "reset_player_elo", "set_region", "set_device", "set_removed", "void_match",
+    "set_win_bonus", "set_tg_results", "settings_state", "recent_log",
+)
+
+
 def register(bot, admin_ids: Optional[set] = None):
+    missing = [name for name in _REQUIRED_ACTIONS if not hasattr(A, name)]
+    if missing:
+        print(f"[elo-admin] ВНИМАНИЕ: в {getattr(A, '__file__', 'elo_admin_actions.py')} нет функций "
+              f"{', '.join(missing)} - файл неполный или устарел, перезалейте elo_admin_actions.py")
     ids = set(admin_ids) if admin_ids is not None else _load_admin_ids()
     if not ids:
         print("[elo-admin] админов нет (ADMIN_IDS / ELO_ADMIN_IDS) - панель никому не будет отвечать")
