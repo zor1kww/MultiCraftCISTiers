@@ -6544,6 +6544,11 @@ const players = [
                 tier: "LT3",
                 date: "2026-10-20",
                 retired: false
+            },
+            Beast: {
+                tier: "LT3",
+                date: "2026-10-20",
+                retired: false
             }
         },
         matchHistory: [
