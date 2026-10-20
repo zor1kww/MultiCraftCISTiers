@@ -6529,6 +6529,11 @@ const players = [
                 tier: "LT2",
                 date: "2026-10-05",
                 retired: false
+            },
+            SMP: {
+                tier: "LT3",
+                date: "2026-10-20",
+                retired: false
             }
         },
         matchHistory: [
