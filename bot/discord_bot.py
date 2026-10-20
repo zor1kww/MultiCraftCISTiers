@@ -51,6 +51,16 @@ except Exception as _e:  # noqa: BLE001
     print(f"[discord] telegram_results не подключён: {_e}")
 
 
+# Админ-панель эло (Telegram) ходит в БД через этот поток - см. db_executor.
+try:
+    import db_executor
+    import elo_admin_actions
+except Exception as _e:  # noqa: BLE001
+    db_executor = None
+    elo_admin_actions = None
+    print(f"[discord] админ-панель эло не подключена: {_e}")
+
+
 def _publish_result(conn, match_id) -> None:
     if telegram_results is not None and match_id is not None:
         telegram_results.publish_match_result(conn, match_id)
@@ -93,6 +103,14 @@ class RelayClient(discord.Client):
         for outcome in stale_outcomes:
             print(f"[discord] При старте аннулирован подвисший матч: {outcome.detail}")
 
+        # Настройки, сохранённые из админ-панели (множитель победы,
+        # публикация результатов), - применяем сразу при старте.
+        if elo_admin_actions is not None:
+            try:
+                elo_admin_actions.apply_settings(self.conn)
+            except Exception as e:
+                print(f"[discord] не удалось применить сохранённые настройки: {e}")
+
         # Первый снимок для сайта - сразу при старте, из данных в Turso
         # (после перезапуска Render память пуста, а база - нет).
         if self.refresher.tick():
@@ -104,6 +122,8 @@ class RelayClient(discord.Client):
             timer_sweep_loop.start(self)
         if not snapshot_loop.is_running():
             snapshot_loop.start(self)
+        if db_executor is not None and not admin_exec_loop.is_running():
+            admin_exec_loop.start(self)
 
     async def on_message(self, message: discord.Message):
         if message.channel.id != self.relay_channel_id:
@@ -171,6 +191,16 @@ async def snapshot_loop(client: RelayClient):
             print("[discord] Снимок данных для сайта обновлён")
     except Exception as e:
         print(f"[discord] Ошибка обновления снимка для сайта: {e}")
+
+
+@tasks.loop(seconds=1)
+async def admin_exec_loop(client: RelayClient):
+    """Выполняет запросы Telegram-админки к БД в этом (Discord) потоке."""
+    try:
+        if db_executor.drain(client.conn):
+            client.refresher.mark_dirty()  # админ мог поменять данные - обновить снимок сайта
+    except Exception as e:
+        print(f"[discord] Ошибка выполнения запросов админ-панели: {e}")
 
 
 def run():
