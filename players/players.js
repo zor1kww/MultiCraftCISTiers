@@ -5819,6 +5819,11 @@ const players = [
                 tier: "HT3",
                 date: "2026-10-05",
                 retired: false
+            },
+            Vanilla: {
+                tier: "HT3",
+                date: "2026-10-20",
+                retired: false
             }
         },
         matchHistory: [
