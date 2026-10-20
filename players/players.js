@@ -5296,8 +5296,8 @@ const players = [
                 retired: false
             },
             Emerald: {
-                tier: "LT4",
-                date: "2026-08-18",
+                tier: "HT4",
+                date: "2026-10-20",
                 retired: false
             },
             Crystal: {
