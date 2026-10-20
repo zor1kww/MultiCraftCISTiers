@@ -6539,6 +6539,11 @@ const players = [
                 tier: "LT3",
                 date: "2026-10-20",
                 retired: false
+            },
+            RVM: {
+                tier: "LT3",
+                date: "2026-10-20",
+                retired: false
             }
         },
         matchHistory: [
