@@ -1,355 +1,260 @@
 """
-Telegram-панель администратора эло-системы (команда /elo_admin в личке с
-ботом). Работает в потоке Telegram-бота, а к базе обращается через
-db_executor - то есть выполняет действия в потоке Discord, которому
-принадлежит соединение с Turso.
+Действия админ-панели над базой эло. Все функции принимают conn и
+выполняются в потоке Discord (через db_executor), Telegram здесь не
+участвует - поэтому их можно тестировать отдельно от панели.
 
-Доступ: Telegram-ID из DEFAULT_ADMIN_IDS (в этом файле), ADMIN_IDS старой
-админ-панели (admin_panel.py) и/или переменной окружения ELO_ADMIN_IDS
-(через запятую). Остальным панель не отвечает.
-
-Все callback_data начинаются с "ea:" и укладываются в лимит Telegram
-(64 байта): игроки и дуэли передаются по числовому id, киты - по индексу
-в elo_admin_actions.KITS.
+Ручные правки НЕ создают записей в matches: они пишутся в admin_log.
 """
 
-import os
+from datetime import datetime, timezone
 from typing import Optional
 
-from telebot import types
-
-import db_executor
-import elo_admin_actions as A
+import db
+import elo
 from handlers import ALLOWED_REGIONS
 
-PREFIX = "ea:"
+# Киты, по которым панель предлагает править эло (как maintiers + subtiers
+# в js/config.js).
+KITS = (
+    "Hardcore", "Manhunt", "Diamond Pot", "Beast", "Emerald", "Emerald Pot",
+    "RVM", "Dragonhide", "Pickaxe", "SMP", "Vanilla",
+    "Combo", "Gapple", "Mace", "Crystal",
+)
 
-# Telegram-ID админов панели эло. Дополняются ADMIN_IDS из admin_panel.py и
-# переменной окружения ELO_ADMIN_IDS (через запятую).
-DEFAULT_ADMIN_IDS = {6611469305, 7762233951}
-_DEVICE_LABEL = {"PC": "PC", "MOBILE": "мобильный", None: "не отмечено"}
+MAX_ELO = 5000
+START_ELO = 1000
 
 
-def _load_admin_ids() -> set:
-    ids = set(DEFAULT_ADMIN_IDS)
+def _now() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+# ==========================================
+# ЖУРНАЛ И НАСТРОЙКИ
+# ==========================================
+
+def log_action(conn, admin: str, action: str, details: str) -> None:
+    conn.execute(
+        "INSERT INTO admin_log (ts, admin_id, action, details) VALUES (?, ?, ?, ?)",
+        (_now(), str(admin), action, details),
+    )
+    conn.commit()
+
+
+def recent_log(conn, limit: int = 10) -> list:
+    rows = conn.execute(
+        "SELECT ts, admin_id, action, details FROM admin_log ORDER BY id DESC LIMIT ?", (limit,)
+    ).fetchall()
+    return [dict(ts=r["ts"], admin=r["admin_id"], action=r["action"], details=r["details"]) for r in rows]
+
+
+def get_setting(conn, key: str, default: Optional[str] = None) -> Optional[str]:
+    row = conn.execute("SELECT value FROM settings WHERE key = ?", (key,)).fetchone()
+    return row["value"] if row is not None else default
+
+
+def set_setting(conn, key: str, value: str) -> None:
+    conn.execute(
+        "INSERT INTO settings (key, value) VALUES (?, ?) "
+        "ON CONFLICT (key) DO UPDATE SET value = excluded.value",
+        (key, value),
+    )
+    conn.commit()
+
+
+def _publisher():
     try:
-        import admin_panel  # старая панель: ADMIN_IDS захардкожен там
-        ids |= {int(x) for x in getattr(admin_panel, "ADMIN_IDS", ()) or ()}
-    except Exception as e:
-        print(f"[elo-admin] ADMIN_IDS из admin_panel не получены: {e}")
-    for raw in os.environ.get("ELO_ADMIN_IDS", "").split(","):
-        raw = raw.strip()
-        if raw.isdigit():
-            ids.add(int(raw))
-    return ids
+        import telegram_results
+        return telegram_results.get_publisher()
+    except Exception:  # публикация необязательна
+        return None
 
 
-def _fmt_elo(value: float) -> str:
-    return f"{value:g}"
+def apply_settings(conn) -> None:
+    """Применяет сохранённые настройки к работающему боту. Вызывается при
+    старте и после каждого изменения из панели."""
+    win_bonus = get_setting(conn, "win_bonus")
+    if win_bonus in ("1", "2"):
+        elo.WIN_BONUS_MULTIPLIER = int(win_bonus)
+    tg_results = get_setting(conn, "tg_results")
+    if tg_results is not None:
+        pub = _publisher()
+        if pub is not None:
+            pub.set_enabled(tg_results == "1")
 
 
-def _minus(text: str) -> str:
-    return text.replace("-", "\u2212")
+def settings_state(conn) -> dict:
+    pub = _publisher()
+    return {
+        "win_bonus": elo.WIN_BONUS_MULTIPLIER,
+        "tg_enabled": bool(pub and pub.enabled),
+        "tg_possible": bool(pub and pub.can_send),
+    }
 
 
-def card_text(card: dict) -> str:
-    lines = [
-        f"\U0001F464 {card['name']}",
-        f"Регион: {card['region'] or '?'} \u00b7 Устройство: {_DEVICE_LABEL.get(card['device'], card['device'])}",
-        "Статус: " + ("скрыт из топа" if card["removed"] else "активен")
-        + ("" if card["device"] != "PC" else " (PC - в топе не показывается)"),
-        "",
-        "Эло по китам:",
+def set_win_bonus(conn, admin: str, value: int) -> None:
+    if value not in (1, 2):
+        raise ValueError("множитель победы: 1 или 2")
+    set_setting(conn, "win_bonus", str(value))
+    apply_settings(conn)
+    log_action(conn, admin, "win_bonus", f"множитель победы = ×{value}")
+
+
+def set_tg_results(conn, admin: str, enabled: bool) -> None:
+    set_setting(conn, "tg_results", "1" if enabled else "0")
+    apply_settings(conn)
+    log_action(conn, admin, "tg_results", "публикация результатов " + ("включена" if enabled else "выключена"))
+
+
+# ==========================================
+# ИГРОКИ
+# ==========================================
+
+def resolve_player(conn, query: str) -> Optional[int]:
+    """id игрока по нику (без учёта регистра) или None."""
+    return db.find_player_id(conn, query.strip())
+
+
+def recent_matches(conn, limit: int = 10, player_id: Optional[int] = None) -> list:
+    sql = (
+        "SELECT m.id, m.kit, m.finished_at, m.end_reason, m.winner_delta, m.loser_delta, "
+        "       w.name AS winner, l.name AS loser "
+        "FROM matches m "
+        "JOIN players w ON w.id = m.winner_id "
+        "JOIN players l ON l.id = m.loser_id "
+        "WHERE m.status = 'finished' "
+    )
+    params = []
+    if player_id is not None:
+        sql += "AND (m.player_a_id = ? OR m.player_b_id = ?) "
+        params += [player_id, player_id]
+    sql += "ORDER BY m.finished_at DESC, m.id DESC LIMIT ?"
+    params.append(limit)
+    return [dict(r) for r in conn.execute(sql, tuple(params)).fetchall()]
+
+
+def player_card(conn, player_id: int) -> Optional[dict]:
+    p = conn.execute(
+        "SELECT id, name, region, device, removed FROM players WHERE id = ?", (player_id,)
+    ).fetchone()
+    if p is None:
+        return None
+    ratings = [
+        {"kit": r["kit"], "elo": r["elo"], "tier": elo.get_tier(r["elo"])}
+        for r in conn.execute(
+            "SELECT kit, elo FROM player_ratings WHERE player_id = ? ORDER BY elo DESC", (player_id,)
+        ).fetchall()
     ]
-    if card["ratings"]:
-        lines += [f"{r['kit']} \u2014 {_fmt_elo(r['elo'])} ({r['tier']})" for r in card["ratings"]]
-    else:
-        lines.append("пока нет рейтингов")
-    if card["matches"]:
-        lines += ["", "Последние дуэли:"]
-        for m in card["matches"]:
-            lines.append(f"#{m['id']} {m['kit']}: {m['winner']} победил {m['loser']} "
-                         f"(+{m['winner_delta']}/{_minus('-' + str(m['loser_delta']))})")
-    return "\n".join(lines)
+    return {
+        "id": p["id"], "name": p["name"], "region": p["region"], "device": p["device"],
+        "removed": bool(p["removed"]), "ratings": ratings,
+        "matches": recent_matches(conn, limit=5, player_id=player_id),
+    }
 
 
-def register(bot, admin_ids: Optional[set] = None):
-    ids = set(admin_ids) if admin_ids is not None else _load_admin_ids()
-    if not ids:
-        print("[elo-admin] админов нет (ADMIN_IDS / ELO_ADMIN_IDS) - панель никому не будет отвечать")
+def _name(conn, player_id: int) -> str:
+    row = conn.execute("SELECT name FROM players WHERE id = ?", (player_id,)).fetchone()
+    return row["name"] if row is not None else f"#{player_id}"
 
-    # ---------- вспомогательное ----------
 
-    def is_admin(user) -> bool:
-        return user is not None and user.id in ids
+def set_player_elo(conn, admin: str, player_id: int, kit: str, value: float) -> tuple:
+    """Ставит эло вручную. Возвращает (было, стало)."""
+    if not (0 <= value <= MAX_ELO):
+        raise ValueError(f"эло должно быть от 0 до {MAX_ELO}")
+    previous = db.get_elo(conn, player_id, kit)
+    db.upsert_elo(conn, player_id, kit, float(value))
+    conn.commit()
+    log_action(conn, admin, "set_elo", f"{_name(conn, player_id)} / {kit}: {previous:g} -> {value:g}")
+    return previous, float(value)
 
-    def admin_label(user) -> str:
-        return f"{user.id}" + (f" (@{user.username})" if getattr(user, "username", None) else "")
 
-    def call_db(fn):
-        """(True, результат) или (False, текст ошибки для админа)."""
-        try:
-            return True, db_executor.run_on_db_thread(fn)
-        except TimeoutError:
-            return False, ("Бот эло-системы сейчас не отвечает (Discord-поток не запущен или "
-                           "перегружен). Действие НЕ выполнено, попробуйте позже.")
-        except ValueError as e:
-            return False, str(e)
-        except Exception as e:
-            return False, f"Ошибка: {e}"
+def reset_player_elo(conn, admin: str, player_id: int, kit: str) -> tuple:
+    """Сбрасывает эло на ките до стартовых 1000 (HT5)."""
+    previous = db.get_elo(conn, player_id, kit)
+    db.upsert_elo(conn, player_id, kit, float(START_ELO))
+    conn.commit()
+    log_action(conn, admin, "reset_elo", f"{_name(conn, player_id)} / {kit}: {previous:g} -> {START_ELO}")
+    return previous, float(START_ELO)
 
-    def show(chat_id, text, markup=None, call=None):
-        if call is not None:
-            try:
-                bot.edit_message_text(text, chat_id, call.message.message_id, reply_markup=markup)
-                return
-            except Exception as e:
-                if "not modified" in str(e).lower():
-                    return
-        bot.send_message(chat_id, text, reply_markup=markup)
 
-    def kb(rows):
-        markup = types.InlineKeyboardMarkup()
-        for row in rows:
-            markup.row(*[types.InlineKeyboardButton(text, callback_data=data) for text, data in row])
-        return markup
+def set_region(conn, admin: str, player_id: int, region: Optional[str]) -> Optional[str]:
+    if region is not None and region not in ALLOWED_REGIONS:
+        raise ValueError("неизвестный регион")
+    previous = db.set_player_region(conn, player_id, region)
+    log_action(conn, admin, "set_region", f"{_name(conn, player_id)}: {previous} -> {region}")
+    return previous
 
-    def btn(text, *parts):
-        return (text, PREFIX + ":".join(str(p) for p in parts))
 
-    # ---------- экраны ----------
+def set_device(conn, admin: str, player_id: int, device: str) -> Optional[str]:
+    if device not in ("PC", "MOBILE"):
+        raise ValueError("устройство: PC или MOBILE")
+    previous = db.set_player_device(conn, player_id, device)
+    log_action(conn, admin, "set_device", f"{_name(conn, player_id)}: {previous} -> {device}")
+    return previous
 
-    def menu_screen(chat_id, call=None):
-        show(chat_id, "Админ-панель эло-системы", kb([
-            [btn("\U0001F50E Найти игрока", "find")],
-            [btn("\U0001F558 Последние дуэли", "ml")],
-            [btn("\u2699\uFE0F Настройки", "st")],
-            [btn("\U0001F4DC Журнал действий", "lg")],
-        ]), call)
 
-    def card_screen(chat_id, player_id, call=None, prefix_note: str = ""):
-        ok, card = call_db(lambda conn: A.player_card(conn, player_id))
-        if not ok or card is None:
-            show(chat_id, card if not ok else "Игрок не найден.", kb([[btn("\u2B05 Меню", "menu")]]), call)
-            return
-        pid = card["id"]
-        rows = [
-            [btn("\u270F\uFE0F Изменить эло", "ek", pid), btn("\u267B\uFE0F Сбросить эло", "rk", pid)],
-            [btn("\U0001F30D Регион", "rg", pid)],
-            [btn("\U0001F5A5 PC", "dv", pid, "PC"), btn("\U0001F4F1 Мобильный", "dv", pid, "MOBILE")],
-            [btn("\u2705 Вернуть в топ", "rs", pid) if card["removed"] else btn("\U0001F6AB Скрыть из топа", "rm", pid)],
-            [btn("\u2B05 Меню", "menu")],
-        ]
-        show(chat_id, (prefix_note + "\n\n" if prefix_note else "") + card_text(card), kb(rows), call)
+def set_removed(conn, admin: str, player_id: int, removed: bool) -> bool:
+    previous = db.set_player_removed(conn, player_id, removed)
+    log_action(conn, admin, "remove_player" if removed else "restore_player", _name(conn, player_id))
+    return previous
 
-    def kits_screen(chat_id, call, player_id, action, title):
-        ok, card = call_db(lambda conn: A.player_card(conn, player_id))
-        if not ok or card is None:
-            show(chat_id, card if not ok else "Игрок не найден.", None, call)
-            return
-        rated = {r["kit"]: r["elo"] for r in card["ratings"]}
-        buttons = [btn(f"{kit} ({_fmt_elo(rated[kit])})" if kit in rated else kit, action, player_id, i)
-                   for i, kit in enumerate(A.KITS)]
-        rows = [buttons[i:i + 2] for i in range(0, len(buttons), 2)]
-        rows.append([btn("\u2B05 Назад", "pc", player_id)])
-        show(chat_id, f"{card['name']}: {title}", kb(rows), call)
 
-    def matches_screen(chat_id, call=None):
-        ok, matches = call_db(lambda conn: A.recent_matches(conn, 10))
-        if not ok:
-            show(chat_id, matches, kb([[btn("\u2B05 Меню", "menu")]]), call)
-            return
-        if not matches:
-            show(chat_id, "Завершённых дуэлей пока нет.", kb([[btn("\u2B05 Меню", "menu")]]), call)
-            return
-        rows = [[btn(f"#{m['id']} {m['kit']}: {m['winner']} > {m['loser']}", "md", m["id"])] for m in matches]
-        rows.append([btn("\u2B05 Меню", "menu")])
-        show(chat_id, "Последние дуэли (нажмите, чтобы открыть):", kb(rows), call)
+# ==========================================
+# АННУЛИРОВАНИЕ ДУЭЛИ
+# ==========================================
 
-    def match_screen(chat_id, match_id, call=None):
-        ok, d = call_db(lambda conn: A.match_details(conn, match_id))
-        if not ok or d is None:
-            show(chat_id, d if not ok else "Дуэль не найдена.", kb([[btn("\u2B05 К дуэлям", "ml")]]), call)
-            return
-        if d["status"] != "finished":
-            text = f"Дуэль #{match_id} ({d['kit']}): статус {d['status']}."
-            rows = [[btn("\u2B05 К дуэлям", "ml")]]
-        else:
-            text = (f"Дуэль #{match_id} \u00b7 {d['kit']}\n"
-                    f"{d['winner']} победил {d['loser']}\n"
-                    f"{d['winner']}: {_fmt_elo(d['winner_before'])} \u2192 {_fmt_elo(d['winner_elo_after'])} (+{d['winner_delta']})\n"
-                    f"{d['loser']}: {_fmt_elo(d['loser_before'])} \u2192 {_fmt_elo(d['loser_elo_after'])} ({_minus('-' + str(d['loser_delta']))})\n"
-                    f"Причина: {'смерть' if d['end_reason'] == 'death' else 'не вернулся за 3 минуты' if d['end_reason'] == 'timeout' else d['end_reason']}\n"
-                    f"Окончена: {d['finished_at']}")
-            rows = [[btn("\u274C Аннулировать дуэль", "vq", match_id)], [btn("\u2B05 К дуэлям", "ml")]]
-        show(chat_id, text, kb(rows), call)
+def match_details(conn, match_id: int) -> Optional[dict]:
+    m = conn.execute(
+        """
+        SELECT m.*, pa.name AS a_name, pb.name AS b_name
+        FROM matches m
+        JOIN players pa ON pa.id = m.player_a_id
+        JOIN players pb ON pb.id = m.player_b_id
+        WHERE m.id = ?
+        """,
+        (match_id,),
+    ).fetchone()
+    if m is None:
+        return None
+    d = dict(m)
+    if d["winner_id"] is not None:
+        winner_is_a = d["winner_id"] == d["player_a_id"]
+        d["winner"] = d["a_name"] if winner_is_a else d["b_name"]
+        d["loser"] = d["b_name"] if winner_is_a else d["a_name"]
+        d["winner_before"] = d["player_a_elo_before"] if winner_is_a else d["player_b_elo_before"]
+        d["loser_before"] = d["player_b_elo_before"] if winner_is_a else d["player_a_elo_before"]
+    return d
 
-    def settings_screen(chat_id, call=None):
-        ok, st = call_db(lambda conn: A.settings_state(conn))
-        if not ok:
-            show(chat_id, st, kb([[btn("\u2B05 Меню", "menu")]]), call)
-            return
-        tg = ("включена" if st["tg_enabled"] else "выключена") + ("" if st["tg_possible"] else " (нет TG_TOKEN)")
-        text = (f"Настройки\n\nМножитель эло за победу: \u00d7{st['win_bonus']}\n"
-                f"Публикация результатов в Telegram: {tg}")
-        rows = [
-            [btn("Победа \u00d71", "sb", 1), btn("Победа \u00d72", "sb", 2)],
-            [btn("Публикация: вкл", "sg", 1), btn("Публикация: выкл", "sg", 0)],
-            [btn("\u2B05 Меню", "menu")],
-        ]
-        show(chat_id, text, kb(rows), call)
 
-    def log_screen(chat_id, call=None):
-        ok, entries = call_db(lambda conn: A.recent_log(conn, 10))
-        if not ok:
-            show(chat_id, entries, kb([[btn("\u2B05 Меню", "menu")]]), call)
-            return
-        text = "Журнал действий (последние 10):\n\n" + (
-            "\n".join(f"{e['ts'][:16].replace('T', ' ')} \u00b7 {e['admin']} \u00b7 {e['action']}: {e['details']}"
-                      for e in entries) if entries else "пусто")
-        show(chat_id, text, kb([[btn("\u2B05 Меню", "menu")]]), call)
+def void_match(conn, admin: str, match_id: int) -> str:
+    """
+    Аннулирует завершённую дуэль: возвращает обоим игрокам эло до матча
+    и помечает матч как cancelled (он пропадает из истории и из
+    антиабуз-окна). Откат делается ТОЛЬКО если с тех пор эло обоих на
+    этом ките не менялось (нет более поздних дуэлей и ручных правок):
+    иначе простое возвращение старых чисел затёрло бы чужие изменения.
+    Бросает ValueError с понятным текстом, если откат невозможен.
+    """
+    d = match_details(conn, match_id)
+    if d is None:
+        raise ValueError("дуэль не найдена")
+    if d["status"] != "finished":
+        raise ValueError("аннулировать можно только завершённую дуэль")
 
-    # ---------- ввод текстом ----------
+    winner_id, loser_id, kit = d["winner_id"], d["loser_id"], d["kit"]
+    now_winner = db.get_elo(conn, winner_id, kit)
+    now_loser = db.get_elo(conn, loser_id, kit)
+    if abs(now_winner - d["winner_elo_after"]) > 1e-6 or abs(now_loser - d["loser_elo_after"]) > 1e-6:
+        raise ValueError(
+            "после этой дуэли эло игроков на этом ките уже менялось (другие дуэли или "
+            "ручная правка) - автоматический откат невозможен, поправьте эло вручную"
+        )
 
-    def ask(chat_id, prompt, handler, *args):
-        msg = bot.send_message(chat_id, prompt + "\n(/cancel - отмена)")
-        bot.register_next_step_handler(msg, handler, *args)
-
-    def cancelled(message) -> bool:
-        if message.text and message.text.strip().startswith("/"):
-            bot.send_message(message.chat.id, "Отменено.")
-            return True
-        return False
-
-    def on_nick(message):
-        if not is_admin(message.from_user) or cancelled(message):
-            return
-        query = (message.text or "").strip()
-        ok, pid = call_db(lambda conn: A.resolve_player(conn, query))
-        if not ok:
-            bot.send_message(message.chat.id, pid)
-        elif pid is None:
-            bot.send_message(message.chat.id, f"Игрок «{query}» не найден. Проверьте ник.",
-                             reply_markup=kb([[btn("\U0001F50E Искать снова", "find"), btn("\u2B05 Меню", "menu")]]))
-        else:
-            card_screen(message.chat.id, pid)
-
-    def on_elo_value(message, player_id, kit_index):
-        if not is_admin(message.from_user) or cancelled(message):
-            return
-        kit = A.KITS[kit_index]
-        try:
-            value = float((message.text or "").strip().replace(",", "."))
-        except ValueError:
-            ask(message.chat.id, f"Нужно число от 0 до {A.MAX_ELO}. Новое эло для {kit}:", on_elo_value, player_id, kit_index)
-            return
-        admin = admin_label(message.from_user)
-        ok, res = call_db(lambda conn: A.set_player_elo(conn, admin, player_id, kit, value))
-        if not ok:
-            bot.send_message(message.chat.id, res)
-            return
-        card_screen(message.chat.id, player_id, prefix_note=f"\u2705 {kit}: {_fmt_elo(res[0])} \u2192 {_fmt_elo(res[1])}")
-
-    # ---------- обработчики ----------
-
-    @bot.message_handler(commands=["elo_admin"])
-    def cmd_elo_admin(message):
-        if message.chat.type != "private" or not is_admin(message.from_user):
-            return
-        menu_screen(message.chat.id)
-
-    @bot.callback_query_handler(func=lambda c: c.data and c.data.startswith(PREFIX))
-    def on_callback(call):
-        if not is_admin(call.from_user):
-            bot.answer_callback_query(call.id, "Нет доступа")
-            return
-        bot.answer_callback_query(call.id)
-        chat_id = call.message.chat.id
-        parts = call.data[len(PREFIX):].split(":")
-        action, args = parts[0], parts[1:]
-        admin = admin_label(call.from_user)
-
-        try:
-            if action == "menu":
-                menu_screen(chat_id, call)
-            elif action == "find":
-                ask(chat_id, "Пришлите ник игрока:", on_nick)
-            elif action == "pc":                       # вернуться к карточке
-                card_screen(chat_id, int(args[0]), call)
-            elif action == "ek":                       # выбрать кит для правки эло
-                kits_screen(chat_id, call, int(args[0]), "ep", "выберите кит для изменения эло")
-            elif action == "ep":                       # кит выбран -> спросить значение
-                pid, ki = int(args[0]), int(args[1])
-                ask(chat_id, f"Новое эло для {A.KITS[ki]} (число от 0 до {A.MAX_ELO}):", on_elo_value, pid, ki)
-            elif action == "rk":                       # выбрать кит для сброса
-                kits_screen(chat_id, call, int(args[0]), "rq", "выберите кит для сброса до 1000")
-            elif action == "rq":                       # подтверждение сброса
-                pid, ki = int(args[0]), int(args[1])
-                show(chat_id, f"Сбросить эло на ките {A.KITS[ki]} до {A.START_ELO}?",
-                     kb([[btn("\u2705 Да, сбросить", "ry", pid, ki), btn("Отмена", "pc", pid)]]), call)
-            elif action == "ry":
-                pid, ki = int(args[0]), int(args[1])
-                ok, res = call_db(lambda conn: A.reset_player_elo(conn, admin, pid, A.KITS[ki]))
-                card_screen(chat_id, pid, call, prefix_note=(
-                    f"\u2705 {A.KITS[ki]}: {_fmt_elo(res[0])} \u2192 {_fmt_elo(res[1])}" if ok else res))
-            elif action == "rg":                       # регион
-                pid = int(args[0])
-                rows = [[btn(code, "rgs", pid, code) for code in ALLOWED_REGIONS[i:i + 5]]
-                        for i in range(0, len(ALLOWED_REGIONS), 5)]
-                rows.append([btn("Убрать регион (?)", "rgs", pid, "-")])
-                rows.append([btn("\u2B05 Назад", "pc", pid)])
-                show(chat_id, "Выберите регион:", kb(rows), call)
-            elif action == "rgs":
-                pid, code = int(args[0]), args[1]
-                region = None if code == "-" else code
-                ok, res = call_db(lambda conn: A.set_region(conn, admin, pid, region))
-                card_screen(chat_id, pid, call, prefix_note=(
-                    f"\u2705 Регион: {res or '?'} \u2192 {region or '?'}" if ok else res))
-            elif action == "dv":                       # устройство
-                pid, device = int(args[0]), args[1]
-                ok, res = call_db(lambda conn: A.set_device(conn, admin, pid, device))
-                card_screen(chat_id, pid, call, prefix_note=(
-                    f"\u2705 Устройство: {_DEVICE_LABEL.get(res, res)} \u2192 {_DEVICE_LABEL[device]}" if ok else res))
-            elif action in ("rm", "rs"):               # скрыть / вернуть
-                pid = int(args[0])
-                removed = action == "rm"
-                ok, res = call_db(lambda conn: A.set_removed(conn, admin, pid, removed))
-                card_screen(chat_id, pid, call, prefix_note=(
-                    ("\u2705 Игрок скрыт из топа" if removed else "\u2705 Игрок возвращён в топ") if ok else res))
-            elif action == "ml":
-                matches_screen(chat_id, call)
-            elif action == "md":
-                match_screen(chat_id, int(args[0]), call)
-            elif action == "vq":                       # подтверждение аннулирования
-                mid = int(args[0])
-                show(chat_id, f"Аннулировать дуэль #{mid}? Обоим игрокам вернётся эло до матча, "
-                              f"дуэль исчезнет из истории. Пост в Telegram-топике при этом не удаляется.",
-                     kb([[btn("\u2705 Да, аннулировать", "vy", mid), btn("Отмена", "md", mid)]]), call)
-            elif action == "vy":
-                mid = int(args[0])
-                ok, res = call_db(lambda conn: A.void_match(conn, admin, mid))
-                show(chat_id, ("\u2705 " + res) if ok else ("\u26A0\uFE0F " + res),
-                     kb([[btn("\u2B05 К дуэлям", "ml"), btn("\u2B05 Меню", "menu")]]), call)
-            elif action == "st":
-                settings_screen(chat_id, call)
-            elif action == "sb":
-                value = int(args[0])
-                ok, res = call_db(lambda conn: A.set_win_bonus(conn, admin, value))
-                if ok:
-                    settings_screen(chat_id, call)
-                else:
-                    show(chat_id, res, kb([[btn("\u2B05 Настройки", "st")]]), call)
-            elif action == "sg":
-                flag = args[0] == "1"
-                ok, res = call_db(lambda conn: A.set_tg_results(conn, admin, flag))
-                if ok:
-                    settings_screen(chat_id, call)
-                else:
-                    show(chat_id, res, kb([[btn("\u2B05 Настройки", "st")]]), call)
-            elif action == "lg":
-                log_screen(chat_id, call)
-        except Exception as e:  # одно кривое нажатие не должно ронять панель
-            print(f"[elo-admin] ошибка обработки {call.data!r}: {e}")
-            bot.send_message(chat_id, "Что-то пошло не так, откройте /elo_admin заново.")
-
-    print(f"[elo-admin] панель эло подключена (админов: {len(ids)})")
+    db.upsert_elo(conn, winner_id, kit, d["winner_before"])
+    db.upsert_elo(conn, loser_id, kit, d["loser_before"])
+    conn.execute("UPDATE matches SET status = 'cancelled' WHERE id = ?", (match_id,))
+    conn.commit()
+    msg = (f"дуэль #{match_id} ({kit}) аннулирована: {d['winner']} {now_winner:g} -> {d['winner_before']:g}, "
+           f"{d['loser']} {now_loser:g} -> {d['loser_before']:g}")
+    log_action(conn, admin, "void_match", msg)
+    return msg
