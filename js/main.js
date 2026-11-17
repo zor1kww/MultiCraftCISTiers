@@ -14,14 +14,11 @@ function playInterfaceClick() {
 document.addEventListener('click', (e) => {
     const t = e.target;
     if (!t) return;
-    if (
-        t.tagName === 'BUTTON' || 
-        t.tagName === 'A' || 
-        t.tagName === 'SELECT' || 
-        t.tagName === 'INPUT' ||
-        t.closest('.player-card-row') ||
-        t.closest('.sidebar a')
-    ) {
+    if (t.closest && t.closest('[data-no-sound]')) return;
+    if (t.closest && t.closest(
+        'button, a[href], select, input, label, [onclick], [role="button"], .chip, .ov-card, ' +
+        '.player-card-row, .home-leader-row, .home-result-row, .home-mode-card, .home-search-hit, .sidebar a'
+    )) {
         playInterfaceClick();
     }
 });
@@ -42,9 +39,9 @@ function toggleTheme() {
 // ДАННЫЕ ИГРОКОВ
 // ==========================================
 // Список игроков приходит с сервера бота (GET /api/players), а не из файла.
-// players === undefined, пока данные не загружены. Объявлено здесь, до
+// eloPlayers === undefined, пока данные не загружены. Объявлено здесь, до
 // остального кода: чтение переменной до её объявления вызывает ошибку.
-let players;
+let eloPlayers;
 let playersUpdatedAt = null;     // время последнего снимка на сервере (чтобы не перерисовывать зря)
 let playersLoadStarted = false;
 let playersLoading = false;
@@ -111,9 +108,10 @@ function getTierByElo(elo) {
 function getKitRating(player, kit) {
     const data = (player && player.tiers) ? player.tiers[kit] : null;
     if (data && typeof data.elo === 'number') {
-        return { elo: data.elo, tier: getTierByElo(data.elo) };
+        // retired приходит с бота отдельным флагом (по киту)
+        return { elo: data.elo, tier: getTierByElo(data.elo), retired: !!data.retired };
     }
-    return { elo: null, tier: 'Unranked' };
+    return { elo: null, tier: 'Unranked', retired: false };
 }
 
 // Хелпер: чистое название ранга игрока на ките ("Unranked", если не играл)
@@ -171,15 +169,39 @@ function calcAverageTier(player) {
 }
 
 // Генерация HTML-бейджа ранга
-function getTierBadge(tier) {
+function getTierBadge(tier, appendR = false) {
     const color = tierColorOf(tier, '#fff');
+    if (appendR && tier !== 'Unranked') {
+        return `<span class="tier-badge" style="border: 1px solid ${color}44; background: ${color}11;">
+            <span style="color: #ff4a4a; font-weight: bold;">R</span><span style="color: ${color};">${tier}</span>
+        </span>`;
+    }
     return `<span class="tier-badge" style="color: ${color}; border: 1px solid ${color}44; background: ${color}11;">${tier}</span>`;
 }
 
 // Генерация маленького тега ранга (среднего или конкретного)
-function getMetaTierTag(tier) {
+function getMetaTierTag(tier, isRetired = false) {
     const color = tierColorOf(tier, '#8892b0');
+    if (isRetired && tier !== 'Unranked') {
+        return `
+        <span class="player-meta-tag" style="border-color: ${color}55; background: ${color}11; padding: 2px 6px;">
+            <span style="color: #ff4a4a; font-weight: bold; margin-right: 1px;">R</span><span style="color: ${color}; font-weight: bold;">${tier}</span>
+        </span>`;
+    }
     return `<span class="player-meta-tag" style="color: ${color}; border-color: ${color}55; background: ${color}11; font-weight: bold;">${tier}</span>`;
+}
+
+// Retired-статус кита (флаг приходит с бота отдельно по каждому киту)
+function isKitRetired(player, kit) {
+    const r = getKitRating(player, kit);
+    return r.tier !== 'Unranked' && r.retired === true;
+}
+
+// Есть ли у игрока ХОТЯ БЫ ОДИН main-кит в Retired (в режиме Games - хотя бы
+// одна игра). От этого общий средний ранг тоже считается Retired.
+function hasAnyRetiredKit(player, kitsList) {
+    const list = kitsList || ((typeof maintiers !== 'undefined') ? maintiers : []);
+    return list.some(kit => isKitRetired(player, kit));
 }
 
 // Проверка, является ли игрок тестером
@@ -192,11 +214,11 @@ function isTester(playerName) {
 
 // Открытие профиля игрока по имени (карточки в топе, дуэли, Доска почета)
 function openProfileByName(playerName) {
-    if (typeof players === 'undefined' || !Array.isArray(players)) {
+    if (typeof eloPlayers === 'undefined' || !Array.isArray(eloPlayers)) {
         console.warn('База игроков ещё не загружена.');
         return;
     }
-    const found = players.find(p => p.name && p.name.toLowerCase() === String(playerName).toLowerCase());
+    const found = eloPlayers.find(p => p.name && p.name.toLowerCase() === String(playerName).toLowerCase());
     if (!found) {
         console.warn(`Игрок "${playerName}" не найден в базе.`);
         return;
@@ -210,7 +232,9 @@ function openProfileByName(playerName) {
 
 // Строка кита в профиле: иконка, название, ранг и Elo
 function buildKitRowHTML(player, kit) {
-    const activeKitImages = (typeof kitImages !== 'undefined') ? kitImages : {};
+    const activeKitImages = (typeof miniGames !== 'undefined' && miniGames.includes(kit))
+        ? ((typeof gameImages !== 'undefined') ? gameImages : {})
+        : ((typeof kitImages !== 'undefined') ? kitImages : {});
     const rating = getKitRating(player, kit);
     const eloText = rating.elo !== null ? `${formatElo(rating)} Elo` : '';
     return `<div class="modal-row">
@@ -219,7 +243,7 @@ function buildKitRowHTML(player, kit) {
             <span class="m-kit">${kit}</span>
         </div>
         <div class="m-right-side">
-            ${getTierBadge(rating.tier)}
+            ${getTierBadge(rating.tier, rating.retired)}
             <span class="m-elo-box">${eloText}</span>
         </div>
     </div>`;
@@ -228,22 +252,29 @@ function buildKitRowHTML(player, kit) {
 // Открытие детального профиля игрока в модальном окне
 function showProfile(player) {
     try {
+        const mainBlock = document.getElementById('modalMainBlock');
+        const subBlock = document.getElementById('modalSubBlock');
+        if (mainBlock) mainBlock.style.display = '';
+        if (subBlock) subBlock.style.display = '';
+        const mainTitle = document.getElementById('modalMainTitle');
+        const subTitle = document.getElementById('modalSubTitle');
+        if (mainTitle) mainTitle.textContent = 'Main Tiers';
+        if (subTitle) subTitle.textContent = 'Sub Tiers';
         const modalName = document.getElementById('modalPlayerName');
         if (modalName) modalName.textContent = player.name;
 
         // Теги профиля: регион и ранг (общий средний - в общих топах, иначе
         // ранг по выбранному киту)
-        let metaHTML = '';
-        if (player.region) {
-            metaHTML += `<span class="player-meta-tag">${escapeHTML(player.region)}</span>`;
-        }
+        let metaHTML = `<span class="player-meta-tag">${escapeHTML(player.region || '?')}</span>`;
 
         const targetKit = window.currentKitFilter || 'all';
         const shownTier = (targetKit === 'all' || targetKit === 'sub-all')
             ? calcAverageTier(player)
             : getCleanTier(player, targetKit);
         if (shownTier !== 'Unranked') {
-            metaHTML += getMetaTierTag(shownTier);
+            const isOverallView = (targetKit === 'all' || targetKit === 'sub-all');
+            const profRetired = isOverallView ? hasAnyRetiredKit(player) : isKitRetired(player, targetKit);
+            metaHTML += getMetaTierTag(shownTier, profRetired);
         }
 
         const modalMeta = document.getElementById('modalPlayerMeta');
@@ -284,6 +315,31 @@ function showProfile(player) {
     }
 }
 
+function openGameProfileByName(playerName) {
+    if (!Array.isArray(eloPlayers)) return;
+    const found = eloPlayers.find(p => p.name && p.name.toLowerCase() === String(playerName).toLowerCase());
+    if (!found) return;
+    showGameProfile(found);
+}
+
+function showGameProfile(player) {
+    const view = toGameView(player);
+    const games = (typeof miniGames !== 'undefined') ? miniGames : [];
+    document.getElementById('modalPlayerName').textContent = player.name;
+    const target = window.currentGameFilter || 'all';
+    const tier = target === 'all' ? calcAverageTierOver(view, games) : getCleanTier(view, target);
+    const retired = target === 'all' ? hasAnyRetiredKit(view, games) : isKitRetired(view, target);
+    const meta = `<span class="player-meta-tag">${escapeHTML(player.region || '?')}</span>${tier !== 'Unranked' ? getMetaTierTag(tier, retired) : ''}`;
+    document.getElementById('modalPlayerMeta').innerHTML = `<div class="player-meta-box" style="justify-content:flex-start;margin-top:5px;gap:6px;">${meta}</div>`;
+    document.getElementById('modalRoleContainer').innerHTML = isTester(player.name) ? '<span class="custom-role-badge">Tester</span>' : '';
+    document.getElementById('modalMainTitle').textContent = 'Games';
+    document.getElementById('modalMainRows').innerHTML = games.map(game => buildKitRowHTML(view, game)).join('');
+    document.getElementById('modalMainTotal').textContent = `Всего Elo за Games: ${calcOverallElo(view, games)}`;
+    document.getElementById('modalSubBlock').style.display = 'none';
+    document.getElementById('modalDuelsRows').innerHTML = renderDuelsList(player.matchHistory, { showKit: true });
+    document.getElementById('profileModal').classList.add('active');
+}
+
 // Закрытие модального окна профиля
 function closeModal() {
     const modal = document.getElementById('profileModal');
@@ -294,161 +350,413 @@ function closeModal() {
 // 4. ГЛАВНАЯ ФУНКЦИЯ РЕНДЕРИНГА ТАБЛИЦЫ
 // ==========================================
 
+// Плитка кита для общего топа: квадрат со скруглением, иконка и ранг под ней.
+// Retired - приглушённая плитка с буквой R, нет рейтинга - прочерк.
+function ovTileHTML(kit, rating, kitImagesMap) {
+    const iconSrc = escapeHTML(kitImagesMap[kit] || '');
+    if (rating.tier === 'Unranked') {
+        return `<div class="ov-tile ov-tile-empty" title="${escapeHTML(kit)}">
+            <img class="ov-tile-icon" src="${iconSrc}" onerror="this.style.opacity=0" alt="">
+            <span class="ov-tile-tier">\u2014</span>
+        </div>`;
+    }
+    const clr = tierColorOf(rating.tier, '#444b66');
+    const retiredMark = rating.retired ? '<span class="ov-r">R</span>' : '';
+    return `<div class="ov-tile${rating.retired ? ' ov-tile-retired' : ''}" style="border-color: ${clr}99; background: ${clr}26;" title="${escapeHTML(kit)}: ${formatElo(rating)} Elo${rating.retired ? ' (Retired)' : ''}">
+        <img class="ov-tile-icon" src="${iconSrc}" onerror="this.style.opacity=0" alt="">
+        <span class="ov-tile-tier" style="color: ${clr};">${retiredMark}${rating.tier}</span>
+    </div>`;
+}
+
+// Порядок плиток в карточке: сначала активные ранги от лучшего к худшему,
+// затем Retired от лучшего к худшему, в конце киты без рейтинга (прочерк).
+function sortedKitRatings(player, kits) {
+    const group = (r) => r.tier === 'Unranked' ? 2 : (r.retired ? 1 : 0);
+    return kits
+        .map((kit, order) => ({ kit, rating: getKitRating(player, kit), order }))
+        .sort((a, b) =>
+            (group(a.rating) - group(b.rating)) ||
+            ((b.rating.elo || 0) - (a.rating.elo || 0)) ||
+            (a.order - b.order));
+}
+
+// ==========================================
+// ГЛОБАЛЬНАЯ НАВИГАЦИЯ: Kits = PTS, Games = Elo
+// ==========================================
+
+window.activeRating = 'kits';
+window.currentGameFilter = 'all';
+window.currentGameRegion = 'all';
+window.gameSearch = '';
+window.gameShowRetired = true;
+
+function crownSVG(className = 'chip-crown') {
+    return `<svg class="${className}" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m3 7 4 4 5-7 5 7 4-4-2 11H5L3 7Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M5 21h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+}
+
+function rankHTML(position) {
+    return `<span class="player-rank${position <= 5 ? ' player-rank-premium' : ''} player-rank-${Math.min(position, 6)}"><span>#${position}</span></span>`;
+}
+
+function openRating(system, filter = 'all') {
+    const target = system === 'games' ? 'games' : 'kits';
+    window.activeRating = target;
+    if (target === 'games') window.currentGameFilter = filter;
+    else if (window.PTS) window.PTS.setKitFilter(filter, false);
+    navigate(target);
+}
+
+function setRatingSystem(system) {
+    const target = system === 'games' ? 'games' : 'kits';
+    const filter = target === 'games' ? (window.currentGameFilter || 'all') : (window.PTS ? window.PTS.getKitFilter() : 'all');
+    openRating(target, filter);
+}
+
+function pluralPlayers(n) {
+    const a = n % 10, b = n % 100;
+    if (a === 1 && b !== 11) return '\u0438\u0433\u0440\u043e\u043a';
+    if (a >= 2 && a <= 4 && (b < 12 || b > 14)) return '\u0438\u0433\u0440\u043e\u043a\u0430';
+    return '\u0438\u0433\u0440\u043e\u043a\u043e\u0432';
+}
+
+// ==========================================
+// Лента чипов (киты или игры), поиск, шторка фильтров
+// ==========================================
+
+
+function chipHTML(value, label, iconSrc, active, handler) {
+    const icon = iconSrc === 'crown'
+        ? crownSVG()
+        : (iconSrc ? `<img src="${escapeHTML(iconSrc)}" onerror="this.style.display='none'" alt="">` : '');
+    return `<button type="button" role="tab" aria-selected="${active}" class="chip${active ? ' active' : ''}" data-v="${escapeHTML(value)}" onclick="${handler}">${icon}<span>${escapeHTML(label)}</span></button>`;
+}
+
+// Плитка кита/игры справа в карточке отдельного топа: иконка и ранг
+function ovSingleTileHTML(iconSrc, tier, retired, title) {
+    const clr = tierColorOf(tier, '#8892b0');
+    const retiredMark = retired ? '<span class="ov-r">R</span>' : '';
+    return `<div class="ov-single-tile${retired ? ' ov-tile-retired' : ''}" style="border-color:${clr}99;background:${clr}26;" title="${escapeHTML(title || '')}">
+        <img class="ov-tile-icon" src="${escapeHTML(iconSrc || '')}" alt="" onerror="this.style.visibility='hidden';">
+        <span class="ov-tile-tier" style="color:${clr};">${retiredMark}${tier}</span>
+    </div>`;
+}
+
+// Строка игрока в топе на главной (PTS и мини-игры). unit - подпись под числом
+function homeLeaderRowHTML(player, index, tierHTML, value, unit, onclick) {
+    return `<button type="button" class="home-leader-row home-leader-row-${index + 1}" onclick="${onclick}">
+        <span class="home-leader-position home-leader-position-${index + 1}">${index + 1}</span>
+        <span class="home-leader-avatar">${skinImgHTML(player, 'home-leader-skin')}</span>
+        <span class="home-leader-info"><strong>${escapeHTML(player.name)}</strong><span class="home-region-tag">${escapeHTML(player.region || '?')}</span></span>
+        <span class="home-leader-tier">${tierHTML}</span>
+        <span class="home-leader-score"><strong>${value}</strong><span>${unit}</span></span>
+    </button>`;
+}
+
+// Тег ранга (тот же размер, что у тега региона); Retired - красная R
+function ovTierTagHTML(tier, retired) {
+    if (tier === 'Unranked') return '<span class="ov-tag" style="color:#8892b0;">\u2014</span>';
+    const clr = tierColorOf(tier, '#8892b0');
+    return `<span class="ov-tag" style="color:${clr};border-color:${tierColorOf(tier, '#444b66')}99;">${retired ? '<span class="ov-r">R</span>' : ''}${tier}</span>`;
+}
+
+function renderChips() {
+    const row = document.getElementById('gamesChipsRow');
+    if (!row) return;
+    const games = (typeof miniGames !== 'undefined') ? miniGames : [];
+    const images = (typeof gameImages !== 'undefined') ? gameImages : {};
+    const active = window.currentGameFilter || 'all';
+    row.innerHTML = chipHTML('all', 'All Games', 'crown', active === 'all', 'setBoardFilter(this.dataset.v)') +
+        games.map(g => chipHTML(g, g, images[g], active === g, 'setBoardFilter(this.dataset.v)')).join('');
+    const activeChip = row.querySelector('.chip.active');
+    if (activeChip) row.scrollLeft = Math.max(0, activeChip.offsetLeft - (row.clientWidth - activeChip.offsetWidth) / 2);
+}
+
+function setBoardFilter(value) {
+    window.currentGameFilter = value;
+    renderChips();
+    renderPlayers();
+}
+
+function toggleSearch() {
+    const row = document.getElementById('searchRow');
+    const input = document.getElementById('searchInput');
+    const btn = document.getElementById('searchToggle');
+    if (!row) return;
+    const open = row.hasAttribute('hidden');
+    row.toggleAttribute('hidden', !open);
+    if (open && input) input.focus();
+    if (!open && input) {
+        input.value = '';
+        setActiveSearch('');
+    }
+    if (btn) btn.classList.toggle('active', open);
+}
+
+function setActiveSearch(value) {
+    if (window.activeRating === 'games') {
+        window.gameSearch = value;
+        renderPlayers();
+    } else if (window.PTS) {
+        window.PTS.setSearch(value);
+    }
+}
+
+function currentActiveRegion() {
+    return window.activeRating === 'games'
+        ? (window.currentGameRegion || 'all')
+        : (window.PTS ? window.PTS.getRegion() : 'all');
+}
+
+function updateFilterBadge() {
+    const badge = document.getElementById('filterBadge');
+    const retired = document.getElementById('retiredToggle');
+    const count = (currentActiveRegion() !== 'all' ? 1 : 0) + ((retired && !retired.checked) ? 1 : 0);
+    if (badge) { badge.textContent = String(count); badge.hidden = count === 0; }
+}
+
+function renderRegionChips() {
+    const box = document.getElementById('regionChips');
+    if (!box) return;
+    const active = currentActiveRegion();
+    const codes = window.activeRating === 'games' ? GAME_REGION_CODES : KIT_REGION_CODES;
+    box.innerHTML = chipHTML('all', 'Все', '', active === 'all', 'setRegionFilter(this.dataset.v)') +
+        codes.map(r => chipHTML(r, r, '', active === r, 'setRegionFilter(this.dataset.v)')).join('');
+    const label = document.getElementById('regionSheetLabel');
+    if (label) label.textContent = window.activeRating === 'games' ? 'Регион мира' : 'Регион мира';
+}
+
+function setRegionFilter(value) {
+    if (window.activeRating === 'games') {
+        window.currentGameRegion = value;
+        renderPlayers();
+    } else if (window.PTS) {
+        window.PTS.setRegion(value);
+    }
+    renderRegionChips();
+    updateFilterBadge();
+}
+
+function syncRatingUI() {
+    const games = window.activeRating === 'games';
+    document.querySelectorAll('[data-rating]').forEach(btn => {
+        const active = btn.dataset.rating === window.activeRating;
+        btn.classList.toggle('active', active);
+        btn.setAttribute('aria-pressed', String(active));
+    });
+    const kitsPanel = document.getElementById('kitsPanel');
+    const gamesPanel = document.getElementById('gamesPanel');
+    if (kitsPanel) kitsPanel.hidden = games;
+    if (gamesPanel) gamesPanel.hidden = !games;
+    const input = document.getElementById('searchInput');
+    if (input) input.value = games ? window.gameSearch : (window.PTS ? window.PTS.getSearch() : '');
+    const retired = document.getElementById('retiredToggle');
+    if (retired) retired.checked = games ? window.gameShowRetired : (window.PTS ? window.PTS.getRetired() : true);
+    if (games) { renderChips(); renderPlayers(); }
+    else if (window.PTS) window.PTS.renderAll();
+    renderRegionChips();
+    updateFilterBadge();
+}
+
+function openFilterSheet() {
+    renderRegionChips();
+    const sheet = document.getElementById('filterSheet');
+    const back = document.getElementById('filterBackdrop');
+    if (sheet) sheet.removeAttribute('hidden');
+    if (back) back.removeAttribute('hidden');
+    const done = sheet && sheet.querySelector('.sheet-done');
+    if (done) done.focus();
+}
+
+function closeFilterSheet() {
+    const sheet = document.getElementById('filterSheet');
+    const back = document.getElementById('filterBackdrop');
+    if (sheet) sheet.setAttribute('hidden', '');
+    if (back) back.setAttribute('hidden', '');
+}
+
+// Игрок "в разрезе игр": те же поля, но рейтинги берутся из player.games.
+// Так все расчёты (getKitRating, calcOverallElo...) работают без изменений.
+function toGameView(player) {
+    return { name: player.name, region: player.region, tiers: player.games || {} };
+}
+
+// Средний ранг по заданному списку китов/игр (в режиме Games - по играм)
+function calcAverageTierOver(player, kits) {
+    const values = kits.map(k => getEffectiveElo(getKitRating(player, k))).filter(v => v !== null);
+    if (values.length === 0) return 'Unranked';
+    return getTierByElo(Math.round(values.reduce((a, b) => a + b, 0) / values.length));
+}
+
+// ==========================================
+// СКИНЫ ИГРОКОВ
+// Файл assets/skins/default_bust.png обрезается до самого скина (без прозрачных
+// полей), чтобы он занимал всё место, и подставляется во ВСЕ экраны сразу после
+// готовности. Личные скины игроков (когда появятся): player.skin = "путь или ссылка".
+// ==========================================
+const DEFAULT_SKIN_SRC = 'assets/skins/default_bust.png';
+window.overallSkinSrc = DEFAULT_SKIN_SRC;
+
+function skinSrcFor(player) {
+    return (player && player.skin) ? player.skin : window.overallSkinSrc;
+}
+
+function skinImgHTML(player, cls) {
+    const custom = !!(player && player.skin);
+    return `<img class="skin-img ${cls || ''}" data-skin="${custom ? 'custom' : 'default'}" src="${escapeHTML(skinSrcFor(player))}" alt="" decoding="async" onerror="this.style.visibility='hidden';">`;
+}
+
+// Подменяет скин по умолчанию во всех уже нарисованных карточках
+function refreshDefaultSkins() {
+    document.querySelectorAll('img.skin-img[data-skin="default"]').forEach(img => {
+        if (img.getAttribute('src') !== window.overallSkinSrc) img.src = window.overallSkinSrc;
+    });
+}
+
+function trimTransparentImage(src) {
+    return new Promise(resolve => {
+        const img = new Image();
+        img.onload = () => {
+            try {
+                const w = img.naturalWidth, h = img.naturalHeight;
+                const canvas = document.createElement('canvas');
+                canvas.width = w; canvas.height = h;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                const data = ctx.getImageData(0, 0, w, h).data;
+                let minX = w, minY = h, maxX = -1, maxY = -1;
+                for (let y = 0; y < h; y++) {
+                    for (let x = 0; x < w; x++) {
+                        if (data[(y * w + x) * 4 + 3] > 8) {
+                            if (x < minX) minX = x;
+                            if (x > maxX) maxX = x;
+                            if (y < minY) minY = y;
+                            if (y > maxY) maxY = y;
+                        }
+                    }
+                }
+                if (maxX < 0 || (minX === 0 && minY === 0 && maxX === w - 1 && maxY === h - 1)) { resolve(src); return; }
+                const cw = maxX - minX + 1, ch = maxY - minY + 1;
+                const out = document.createElement('canvas');
+                out.width = cw; out.height = ch;
+                out.getContext('2d').drawImage(img, minX, minY, cw, ch, 0, 0, cw, ch);
+                // Короткая blob-ссылка вместо огромной data:-строки в каждой карточке
+                if (out.toBlob && window.URL && URL.createObjectURL) {
+                    out.toBlob(blob => resolve(blob ? URL.createObjectURL(blob) : out.toDataURL('image/png')), 'image/png');
+                } else {
+                    resolve(out.toDataURL('image/png'));
+                }
+            } catch (e) {
+                resolve(src);   // файл нельзя прочитать - берём как есть
+            }
+        };
+        img.onerror = () => resolve(src);
+        img.src = src;
+    });
+}
+
+
+
+function gameProfileOnClick(name) {
+    const encoded = encodeURIComponent(String(name)).replace(/'/g, '%27');
+    return `onclick="openGameProfileByName(decodeURIComponent('${encoded}'))"`;
+}
+
 function renderPlayers() {
-    const list = document.getElementById('playersList');
+    const list = document.getElementById('gamesPlayersList');
     if (!list) return;
 
-    const searchInput = document.getElementById('searchInput');
-    const search = searchInput ? searchInput.value.toLowerCase() : '';
-    const region = window.currentRegionFilter || 'all';
-    const targetKit = window.currentKitFilter || 'all';
-    const isOverall = (targetKit === 'all' || targetKit === 'sub-all');
+    const search = String(window.gameSearch || '').toLowerCase();
+    const region = window.currentGameRegion || 'all';
+    const showRetiredInPlace = window.gameShowRetired !== false;
+    const targetGame = window.currentGameFilter || 'all';
+    const isOverall = targetGame === 'all';
+    const games = (typeof miniGames !== 'undefined') ? miniGames : [];
+    const images = (typeof gameImages !== 'undefined') ? gameImages : {};
+    const subtitleEl = document.getElementById('gamesTableSubtitle');
+    const countEl = document.querySelector('#gamesPlayerCount strong');
+    const boardLabel = isOverall ? 'Games Overall' : targetGame;
+    if (subtitleEl) subtitleEl.textContent = boardLabel;
 
-    if (typeof players === 'undefined' || !Array.isArray(players)) {
+    if (typeof eloPlayers === 'undefined' || !Array.isArray(eloPlayers)) {
         list.innerHTML = loadStatusHTML();
+        if (countEl) countEl.textContent = '0';
         return;
     }
 
-    const subtitleEl = document.getElementById('tableSubtitle');
-    if (subtitleEl) {
-        if (targetKit === 'all') subtitleEl.innerText = 'MAIN OVERALL LEADERBOARD';
-        else if (targetKit === 'sub-all') subtitleEl.innerText = 'SUB OVERALL LEADERBOARD';
-        else subtitleEl.innerText = `${targetKit.toUpperCase()} LEADERBOARD`;
-    }
-
-    const activeSubtiers = (typeof subtiers !== 'undefined') ? subtiers : [];
-    const activeMaintiers = (typeof maintiers !== 'undefined') ? maintiers : [];
-    const activeKitImages = (typeof kitImages !== 'undefined') ? kitImages : {};
-    const overallKits = (targetKit === 'sub-all') ? activeSubtiers : activeMaintiers;
-
-    // В топ попадают только игроки, у которых есть рейтинг в выбранном ките
-    // (или хотя бы в одном ките выбранной группы Main/Sub).
-    let filtered = players.filter(player => {
+    const sourcePlayers = eloPlayers.map(toGameView);
+    let filtered = sourcePlayers.filter(player => {
         const matchesSearch = (player.name || '').toLowerCase().includes(search);
-        const matchesRegion = (region === 'all' || player.region === region);
+        const matchesRegion = region === 'all' || player.region === region;
         if (!matchesSearch || !matchesRegion) return false;
-
-        if (!isOverall) return getCleanTier(player, targetKit) !== 'Unranked';
-        return overallKits.some(kit => getCleanTier(player, kit) !== 'Unranked');
+        if (!isOverall) {
+            if (!showRetiredInPlace && isKitRetired(player, targetGame)) return false;
+            return getCleanTier(player, targetGame) !== 'Unranked';
+        }
+        if (!showRetiredInPlace && hasAnyRetiredKit(player, games)) return false;
+        return games.some(game => getCleanTier(player, game) !== 'Unranked');
     });
 
     if (isOverall) {
-        filtered.sort((a, b) =>
-            (calcOverallElo(b, overallKits) - calcOverallElo(a, overallKits)) || a.name.localeCompare(b.name));
+        filtered.sort((a, b) => (calcOverallElo(b, games) - calcOverallElo(a, games)) || a.name.localeCompare(b.name));
     } else {
-        const eloOf = (p) => getEffectiveElo(getKitRating(p, targetKit)) || 0;
+        const eloOf = p => getEffectiveElo(getKitRating(p, targetGame)) || 0;
         filtered.sort((a, b) => (eloOf(b) - eloOf(a)) || a.name.localeCompare(b.name));
     }
 
-    list.innerHTML = '';
-
+    if (countEl) countEl.textContent = String(filtered.length);
     if (filtered.length === 0) {
-        list.innerHTML = players.length === 0
-            ? '<div style="text-align:center;color:#8892b0;padding:30px 20px;line-height:1.5;">Elo-система только запущена.<br>Игроки появятся после первых ранговых дуэлей.</div>'
-            : '<div style="text-align:center;color:#8892b0;padding:20px;">Игроки не найдены</div>';
+        const hasAnyGames = eloPlayers.some(p => p.games && Object.keys(p.games).length);
+        list.innerHTML = !hasAnyGames
+            ? '<div class="board-empty">Рейтинг мини-игр появится после первых матчей.</div>'
+            : '<div class="board-empty">Игроки не найдены</div>';
         return;
     }
 
     let htmlFragment = '';
-
     filtered.forEach((player, index) => {
-        const rankPrefix = `#${index + 1}`;
+        const position = index + 1;
         const nameHTML = escapeHTML(player.name);
-        const regionHTML = player.region ? `<span class="player-meta-tag">${escapeHTML(player.region)}</span>` : '';
+        const regionHTML = `<span class="player-meta-tag">${escapeHTML(player.region || '?')}</span>`;
+        let topClass = index < 5 ? `top-rank-${position}` : '';
+        const isRet = isOverall ? hasAnyRetiredKit(player, games) : isKitRetired(player, targetGame);
+        if (isRet) topClass = `${topClass} retired-status`.trim();
 
-        let topClass = '';
-        if (index < 5) topClass = `top-rank-${index + 1}`;
-
-        // Карточка топа по конкретному киту: скин слева, справа ранг в топе,
-        // ник, ниже - регион, ранг на ките и Elo.
         if (!isOverall) {
-            const rating = getKitRating(player, targetKit);
+            const rating = getKitRating(player, targetGame);
             htmlFragment += `
-            <div class="player-container player-container-bust ${topClass}">
-                <div class="player-card-row player-card-row-bust" ${profileOnClick(player.name)}>
-                    <img class="bust-card-skin" src="assets/skins/default_bust.png" alt="" onerror="this.style.display='none';">
-
-                    <div class="bust-card-info">
-                        <div class="bust-card-top">
-                            <span class="player-rank">${rankPrefix}</span>
-                            <span class="player-name">${nameHTML}</span>
-                        </div>
-                        <div class="bust-card-bottom">
-                            ${regionHTML}
-                            ${getTierBadge(rating.tier)}
-                            <span class="bust-elo-badge" title="Elo на этом ките">${formatElo(rating)} Elo</span>
-                        </div>
+                <div class="player-container ov-card ov-card-single premium-game-card ${topClass}" ${gameProfileOnClick(player.name)}>
+                    <div class="ov-skin-wrap">${skinImgHTML(player, 'ov-skin')}</div>
+                    <div class="ov-body">
+                        <div class="ov-title">${rankHTML(position)}<span class="player-name">${nameHTML}</span></div>
+                        <div class="ov-elo"><strong>${formatElo(rating)} Elo</strong></div>
+                        <div class="ov-tags"><span class="ov-tag">${escapeHTML(player.region || '?')}</span></div>
                     </div>
-                </div>
-            </div>`;
+                    ${ovSingleTileHTML(images[targetGame], rating.tier, rating.retired, targetGame)}
+                </div>`;
             return;
         }
 
-        // Общий топ (Main/Sub): ряд китов с рангами + Elo справа
-        const totalElo = calcOverallElo(player, overallKits);
-        const rightColumnContent = `<span style="color: var(--accent); font-size:15px; white-space:nowrap;">${totalElo} Elo</span>`;
-
-        const kitItems = overallKits.map(kit => {
-            const rating = getKitRating(player, kit);
-            const elo = getEffectiveElo(rating);
-            return { kit, tier: rating.tier, sortWeight: elo === null ? -1 : elo };
-        });
-        kitItems.sort((a, b) => b.sortWeight - a.sortWeight);
-
-        let quickTiersHTML = `<div class="player-tiers-row">`;
-        kitItems.forEach(item => {
-            const iconSrc = activeKitImages[item.kit] || "";
-            if (item.tier !== "Unranked") {
-                const clr = tierColorOf(item.tier, '#444b66');
-                quickTiersHTML += `
-                <div class="tier-item-box">
-                    <div class="tier-icon-circle" style="border-color: ${clr}cc; box-shadow: 0 0 6px ${clr}22;">
-                        <img src="${iconSrc}" onerror="this.style.opacity=0" alt="">
-                    </div>
-                    <div class="tier-label-under" style="color: ${clr};">${item.tier}</div>
-                </div>`;
-            } else {
-                quickTiersHTML += `
-                <div class="tier-item-box">
-                    <div class="tier-icon-circle unranked">
-                        <img src="${iconSrc}" onerror="this.style.opacity=0" alt="">
-                    </div>
-                    <div class="tier-label-under" style="color: #444b66;">-</div>
-                </div>`;
-            }
-        });
-        quickTiersHTML += `</div>`;
-
-        let metaTagsHTML = regionHTML;
-        const avgTier = calcAverageTier(player);
-        if (avgTier !== "Unranked") {
-            metaTagsHTML += getMetaTierTag(avgTier);
-        }
-
+        const totalElo = calcOverallElo(player, games);
+        const avgTier = calcAverageTierOver(player, games);
+        const avgClr = tierColorOf(avgTier, '#8892b0');
+        const avgTierHTML = avgTier !== 'Unranked'
+            ? `<span class="ov-tag" style="color:${avgClr};border-color:${tierColorOf(avgTier, '#444b66')}99;">${isRet ? '<span class="ov-r">R</span>' : ''}${avgTier}</span>`
+            : `<span class="ov-tag" style="color:#8892b0;">—</span>`;
+        const tilesHTML = sortedKitRatings(player, games)
+            .map(x => (!showRetiredInPlace && x.rating.retired)
+                ? ovTileHTML(x.kit, { elo: null, tier: 'Unranked', retired: false }, images)
+                : ovTileHTML(x.kit, x.rating, images)).join('');
         htmlFragment += `
-        <div class="player-container ${topClass}">
-            <div class="player-card-row" ${profileOnClick(player.name)}>
-
-                <div class="player-name-block">
-                    <span class="player-rank">${rankPrefix}</span>
-                    <span class="player-name">${nameHTML}</span>
-                </div>
-
-                <div class="player-center-block">
-                    <div class="player-meta-box">
-                        ${metaTagsHTML}
-                    </div>
-                    ${quickTiersHTML}
-                </div>
-
-                <div class="player-right">
-                    ${rightColumnContent}
-                </div>
-
+        <div class="player-container ov-card ${topClass}" ${gameProfileOnClick(player.name)}>
+            <div class="ov-skin-wrap">${skinImgHTML(player, 'ov-skin')}</div>
+            <div class="ov-body">
+                <div class="ov-title">${rankHTML(position)}<span class="player-name">${nameHTML}</span></div>
+                <div class="ov-elo">${totalElo} Elo</div>
+                <div class="ov-tags">${avgTierHTML}<span class="ov-tag">${escapeHTML(player.region || '?')}</span></div>
+                <div class="ov-scroll" aria-label="Ранги по играм">${tilesHTML}</div>
             </div>
         </div>`;
     });
-
     list.innerHTML = htmlFragment;
 }
 
@@ -484,7 +792,7 @@ function buildEloTable() {
 // ==========================================
 
 // Переключение вкладок
-function switchTab(tabId) {
+function showTab(tabId) {
     const sb = document.getElementById('sidebar');
     if (sb) sb.classList.remove('active');
     
@@ -495,9 +803,16 @@ function switchTab(tabId) {
         tab.style.display = 'none';
     });
     
-    if (tabId === 'mainPage') {
+    if (tabId === 'mainPage' || tabId === 'boardTab') {
         if (mp) mp.style.display = 'block';
-        renderPlayers();
+        // Внутри главной страницы два экрана: главная и рейтинг
+        const homeScreen = document.getElementById('homeScreen');
+        const boardScreen = document.getElementById('boardScreen');
+        const isBoard = tabId === 'boardTab';
+        if (homeScreen) homeScreen.hidden = isBoard;
+        if (boardScreen) boardScreen.hidden = !isBoard;
+        if (isBoard) syncRatingUI();
+        renderHome();
     } else {
         const target = document.getElementById(tabId);
         if (target) target.style.display = 'block';
@@ -511,9 +826,64 @@ function switchTab(tabId) {
     window.scrollTo(0, 0);
 }
 
-function backHome() {
-    switchTab('mainPage');
+// ==========================================
+// МАРШРУТЫ: адрес после # -> экран. Работает кнопка "Назад" браузера.
+// "" - главная, #rating - рейтинг, #duels, #start, #info - разделы
+// ==========================================
+const ROUTE_TO_TAB = { '': 'mainPage', kits: 'boardTab', games: 'boardTab', rating: 'boardTab', duels: 'duelsTab', start: 'testingTab', info: 'otherInfoTab' };
+const TAB_TO_ROUTE = { mainPage: '', boardTab: 'kits', duelsTab: 'duels', testingTab: 'start', otherInfoTab: 'info' };
+
+function currentRoute() {
+    return location.hash.replace(/^#\/?/, '');
 }
+
+// Ссылка на профиль игрока (#player/ник), например из постов бота в Telegram.
+// Данные могут ещё грузиться, поэтому ищем игрока в течение нескольких секунд.
+function openPlayerFromRoute(name) {
+    let attempts = 0;
+    const lower = name.toLowerCase();
+    const tryOpen = () => {
+        attempts++;
+        const kitsPlayer = window.PTS ? window.PTS.getPlayers().find(p => String(p.name).toLowerCase() === lower) : null;
+        if (kitsPlayer) { window.PTS.openProfileByName(kitsPlayer.name); return true; }
+        const gamePlayer = Array.isArray(eloPlayers) ? eloPlayers.find(p => String(p.name).toLowerCase() === lower && p.games && Object.keys(p.games).length) : null;
+        if (gamePlayer) { openGameProfileByName(gamePlayer.name); return true; }
+        return false;
+    };
+    if (tryOpen()) return;
+    const timer = setInterval(() => { if (tryOpen() || attempts >= 20) clearInterval(timer); }, 300);
+}
+
+function applyRoute() {
+    const route = currentRoute();
+    if (route.startsWith('player/')) {
+        let name = route.slice('player/'.length);
+        try { name = decodeURIComponent(name); } catch (e) { /* ник как есть */ }
+        showTab('boardTab');
+        if (name) openPlayerFromRoute(name);
+        return;
+    }
+    if (route === 'games') window.activeRating = 'games';
+    if (route === 'kits' || route === 'rating') window.activeRating = 'kits';
+    showTab(ROUTE_TO_TAB.hasOwnProperty(route) ? ROUTE_TO_TAB[route] : 'mainPage');
+}
+
+// Переход на маршрут: меняет адрес (запись в истории браузера) и показывает экран
+function navigate(route) {
+    if (currentRoute() === route) { applyRoute(); return; }
+    location.hash = route;   // пустой маршрут оставляет "#" - это главная
+}
+
+function switchTab(tabId) {
+    navigate(TAB_TO_ROUTE.hasOwnProperty(tabId) ? TAB_TO_ROUTE[tabId] : '');
+}
+
+function backHome() {
+    navigate('');
+}
+
+window.addEventListener('hashchange', applyRoute);
+
 
 // ==========================================
 // ХАБ-КАРТОЧКИ ("Как играть" / "Другая информация")
@@ -640,7 +1010,7 @@ if (menuBtn && sidebar) {
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('searchInput');
 
-    if (searchInput) searchInput.addEventListener('input', renderPlayers);
+    if (searchInput) searchInput.addEventListener('input', () => setActiveSearch(searchInput.value));
 
     // Универсальная инициализация кастомного выпадающего списка.
     // onChangeCallback по умолчанию renderPlayers (главная страница);
@@ -692,6 +1062,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Фильтр китов (Main/Sub Overall)
     initCustomDropdown('kitFilter', 'currentKitFilter', 'all');
+
+    // Тумблер Retired
+    const retiredToggleEl = document.getElementById('retiredToggle');
+    if (retiredToggleEl) retiredToggleEl.addEventListener('change', () => {
+        if (window.activeRating === 'games') { window.gameShowRetired = retiredToggleEl.checked; renderPlayers(); }
+        else if (window.PTS) window.PTS.setRetired(retiredToggleEl.checked);
+        updateFilterBadge();
+    });
+
+    // Фильтры на чипах: состояние по умолчанию и первая отрисовка ленты
+    window.currentKitFilter = 'all';
+    window.currentGameFilter = 'all';
+    window.currentRegionFilter = 'all';
+    renderChips();
+    updateFilterBadge();
 
     // Фильтр региона
     initCustomDropdown('regionFilter', 'currentRegionFilter', 'all');
@@ -816,7 +1201,9 @@ function buildEloChangeHTML(eloBefore, eloAfter, delta) {
 }
 
 function buildKitHTML(kit) {
-    const activeKitImages = (typeof kitImages !== 'undefined') ? kitImages : {};
+    const activeKitImages = (typeof miniGames !== 'undefined' && miniGames.includes(kit))
+        ? ((typeof gameImages !== 'undefined') ? gameImages : {})
+        : ((typeof kitImages !== 'undefined') ? kitImages : {});
     return `<div class="duel-kit">
         <img class="duel-kit-icon" src="${activeKitImages[kit] || ''}" onerror="this.style.display='none';" alt="">
         <span>${escapeHTML(kit)}</span>
@@ -827,11 +1214,11 @@ function buildKitHTML(kit) {
 // данных две записи (по одной у каждого участника) - склеиваем их по id
 // в одну, где известны обе стороны.
 function collectGlobalDuels() {
-    if (typeof players === 'undefined' || !Array.isArray(players)) return [];
+    if (typeof eloPlayers === 'undefined' || !Array.isArray(eloPlayers)) return [];
 
     const byKey = new Map();
 
-    players.forEach(player => {
+    eloPlayers.forEach(player => {
         const history = Array.isArray(player.matchHistory) ? player.matchHistory : [];
         history.forEach(raw => {
             if (!isNewFormatDuel(raw)) return;
@@ -882,7 +1269,7 @@ function renderGlobalDuels() {
     const container = document.getElementById('globalDuelsList');
     if (!container) return;
 
-    if (typeof players === 'undefined' || !Array.isArray(players)) {
+    if (typeof eloPlayers === 'undefined' || !Array.isArray(eloPlayers)) {
         container.innerHTML = loadStatusHTML();
         return;
     }
@@ -1024,9 +1411,170 @@ async function fetchPlayersFromApi(timeoutMs) {
     }
 }
 
+// ==========================================
+// ГЛАВНАЯ СТРАНИЦА: обзор Elo, последние дуэли и переходы к режимам
+// ==========================================
+
+function scrollToLeaderboard() {
+    navigate('rating');
+}
+
+// Поиск на главной: список подсказок под полем; нажатие открывает профиль игрока.
+// Ищем и среди игроков PTS (киты), и среди игроков Elo (мини-игры).
+function findHomePlayers(query) {
+    const q = query.trim().toLowerCase();
+    if (!q) return [];
+    const found = new Map();
+    const add = (player, source) => {
+        const key = String(player.name).toLowerCase();
+        if (!key.includes(q)) return;
+        const entry = found.get(key) || { name: player.name, region: player.region, sources: [] };
+        if (!entry.sources.includes(source)) entry.sources.push(source);
+        if (source === 'kits') entry.region = player.region || entry.region;
+        found.set(key, entry);
+    };
+    (window.PTS ? window.PTS.getPlayers() : []).forEach(p => add(p, 'kits'));
+    (Array.isArray(eloPlayers) ? eloPlayers : []).forEach(p => { if (p.games && Object.keys(p.games).length) add(p, 'games'); });
+    return [...found.values()]
+        .sort((a, b) => (String(b.name).toLowerCase().startsWith(q) - String(a.name).toLowerCase().startsWith(q)) || a.name.localeCompare(b.name))
+        .slice(0, 6);
+}
+
+function openFoundPlayer(name, source) {
+    const results = document.getElementById('homeSearchResults');
+    if (results) results.hidden = true;
+    if (source === 'games' && !(window.PTS && window.PTS.getPlayers().some(p => p.name === name))) openGameProfileByName(name);
+    else if (window.PTS) window.PTS.openProfileByName(name);
+}
+
+function renderHomeSearchResults(query) {
+    const box = document.getElementById('homeSearchResults');
+    if (!box) return;
+    const q = query.trim();
+    if (!q) { box.hidden = true; box.innerHTML = ''; return; }
+    const hits = findHomePlayers(q);
+    box.innerHTML = hits.length ? hits.map(hit => {
+        const encoded = encodeURIComponent(hit.name).replace(/'/g, '%27');
+        const source = hit.sources.includes('kits') ? 'kits' : 'games';
+        const badges = hit.sources.map(s => `<span class="home-search-badge">${s === 'kits' ? 'PTS' : 'Elo'}</span>`).join('');
+        return `<button type="button" class="home-search-hit" onclick="openFoundPlayer(decodeURIComponent('${encoded}'), '${source}')">
+            <span class="home-search-hit-name">${escapeHTML(hit.name)}</span>
+            <span class="home-search-hit-meta">${badges}<span class="home-region-tag">${escapeHTML(hit.region || '?')}</span></span>
+        </button>`;
+    }).join('') : '<div class="home-search-empty">Игрок не найден</div>';
+    box.hidden = false;
+}
+
+function homeSearchTyping(value) {
+    const clear = document.getElementById('homeSearchClear');
+    if (clear) clear.hidden = !value;
+    renderHomeSearchResults(value);
+}
+
+function clearHomeSearch() {
+    const input = document.getElementById('homeSearchInput');
+    if (input) { input.value = ''; input.focus(); }
+    homeSearchTyping('');
+}
+
+function submitHomeSearch(event) {
+    if (event) event.preventDefault();
+    const input = document.getElementById('homeSearchInput');
+    const query = input ? input.value.trim() : '';
+    const hits = findHomePlayers(query);
+    if (!query) return;
+    const exact = hits.find(h => String(h.name).toLowerCase() === query.toLowerCase()) || hits[0];
+    if (exact) openFoundPlayer(exact.name, exact.sources.includes('kits') ? 'kits' : 'games');
+    else renderHomeSearchResults(query);
+}
+
+function openHomeMode(mode, value) {
+    openRating(mode === 'games' ? 'games' : 'kits', value);
+}
+
+function homeModeCardHTML(mode, value, label, iconSrc) {
+    const icon = iconSrc
+        ? `<img src="${escapeHTML(iconSrc)}" alt="" onerror="this.style.display='none';">`
+        : `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M7 6H4v2a4 4 0 0 0 4 4M17 6h3v2a4 4 0 0 1-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    return `<button type="button" class="home-mode-card" onclick="openHomeMode('${mode}', '${escapeHTML(value)}')">${icon}<span>${escapeHTML(label)}</span></button>`;
+}
+
+function renderHomeModeCards() {
+    const kitsGrid = document.getElementById('homeKitsGrid');
+    const gamesGrid = document.getElementById('homeGamesGrid');
+    const images = (typeof kitImages !== 'undefined') ? kitImages : {};
+    const gamesImages = (typeof gameImages !== 'undefined') ? gameImages : {};
+    const kits = [...((typeof maintiers !== 'undefined') ? maintiers : []), ...((typeof subtiers !== 'undefined') ? subtiers : [])];
+    const games = (typeof miniGames !== 'undefined') ? miniGames : [];
+    if (kitsGrid) kitsGrid.innerHTML = homeModeCardHTML('kits', 'all', 'Overall', '') + kits.map(kit => homeModeCardHTML('kits', kit, kit, images[kit])).join('');
+    if (gamesGrid) gamesGrid.innerHTML = homeModeCardHTML('games', 'all', 'All Games', '') + games.map(game => homeModeCardHTML('games', game, game, gamesImages[game])).join('');
+}
+
+function renderHome() {
+    const recentContainer = document.getElementById('homeRecentDuels');
+    const leadersContainer = document.getElementById('homeTopPlayers');
+    const playersCount = document.getElementById('homePlayersCount');
+    const duelsCount = document.getElementById('homeDuelsCount');
+    const ptsPlayers = window.PTS ? window.PTS.getPlayers() : [];
+    if (playersCount) playersCount.textContent = String(ptsPlayers.length);
+
+    if (!Array.isArray(eloPlayers)) {
+        if (recentContainer) recentContainer.innerHTML = '<div class="home-empty">Загрузка Elo-дуэлей…</div>';
+        if (duelsCount) duelsCount.textContent = '0';
+    } else {
+        const duels = collectGlobalDuels().sort((a, b) => duelSortKey(b).localeCompare(duelSortKey(a)));
+        if (duelsCount) duelsCount.textContent = String(duels.length);
+        if (recentContainer) {
+            recentContainer.innerHTML = duels.length ? duels.slice(0, 5).map(duel => {
+                const rating = duel.winnerSide && typeof duel.winnerSide.eloAfter === 'number' ? getTierByElo(duel.winnerSide.eloAfter) : 'Unranked';
+                const color = tierColorOf(rating, '#8892b0');
+                const delta = duel.winnerSide ? formatDelta(duel.winnerSide.delta) : '';
+                const kitIcon = (typeof kitImages !== 'undefined' && kitImages[duel.kit]) || (typeof gameImages !== 'undefined' && gameImages[duel.kit]) || '';
+                return `<article class="home-result-row">
+                    <div class="home-result-kit"><img src="${escapeHTML(kitIcon)}" alt="" onerror="this.style.display='none';"></div>
+                    <div class="home-result-main">
+                        <div class="home-result-names"><button type="button" class="home-player-link" ${profileOnClick(duel.winnerName)}>${escapeHTML(duel.winnerName)}</button><span>→</span><button type="button" class="home-player-link home-player-link-muted" ${profileOnClick(duel.loserName)}>${escapeHTML(duel.loserName)}</button></div>
+                        <div class="home-result-meta">${escapeHTML(duel.kit)} · ${escapeHTML(formatDuelTime(duel))}</div>
+                    </div>
+                    <div class="home-result-rank" style="color:${color};border-color:${color}55;background:${color}11;"><strong>${rating}</strong><span>${delta}</span></div>
+                </article>`;
+            }).join('') : '<div class="home-empty">Пока нет Elo-дуэлей</div>';
+        }
+    }
+
+    const leaders = ptsPlayers
+        .filter(player => KIT_REGION_CODES.includes(player.region) && PTS.calcPoints(player, maintiers) > 0)
+        .sort((a, b) => (PTS.calcPoints(b, maintiers) - PTS.calcPoints(a, maintiers)) || a.name.localeCompare(b.name))
+        .slice(0, 5);
+    if (leadersContainer) {
+        leadersContainer.innerHTML = leaders.length ? leaders.map((player, index) => {
+            const encoded = encodeURIComponent(player.name).replace(/'/g, '%27');
+            return homeLeaderRowHTML(player, index, PTS.getTierBadge(PTS.calcAverageTier(player), PTS.hasAnyRetiredKit(player)),
+                PTS.calcPoints(player, maintiers), 'PTS', `PTS.openProfileByName(decodeURIComponent('${encoded}'))`);
+        }).join('') : '<div class="home-empty">Пока нет игроков</div>';
+    }
+
+    // Топ мини-игр (Elo)
+    const gamesContainer = document.getElementById('homeTopGames');
+    if (gamesContainer) {
+        const gameList = (typeof miniGames !== 'undefined') ? miniGames : [];
+        const gameLeaders = Array.isArray(eloPlayers) ? eloPlayers
+            .map(toGameView)
+            .filter(player => gameList.some(game => getCleanTier(player, game) !== 'Unranked'))
+            .sort((a, b) => (calcOverallElo(b, gameList) - calcOverallElo(a, gameList)) || a.name.localeCompare(b.name))
+            .slice(0, 5) : [];
+        gamesContainer.innerHTML = gameLeaders.length ? gameLeaders.map((player, index) => {
+            const encoded = encodeURIComponent(player.name).replace(/'/g, '%27');
+            return homeLeaderRowHTML(player, index, getTierBadge(calcAverageTierOver(player, gameList), hasAnyRetiredKit(player, gameList)),
+                calcOverallElo(player, gameList), 'Elo', `openGameProfileByName(decodeURIComponent('${encoded}'))`);
+        }).join('') : '<div class="home-empty">Пока нет игроков</div>';
+    }
+}
+
 function renderAllViews() {
     renderPlayers();
     renderGlobalDuels();
+    renderHome();
 }
 
 // Загружает данные. isInitial - первая загрузка (длинный таймаут, при сбое
@@ -1035,11 +1583,20 @@ function renderAllViews() {
 async function loadPlayers(isInitial) {
     if (playersLoading) return false;
 
+    // Демо-режим макета: показываем игроков из js/demo-data.js, к API не обращаемся
+    if (typeof DEMO_MODE !== 'undefined' && DEMO_MODE && typeof demoPlayers !== 'undefined') {
+        eloPlayers = demoPlayers;
+        playersLoadedAt = Date.now();
+        playersLoadError = false;
+        renderAllViews();
+        return true;
+    }
+
     // Beta Elo пока закрыта (см. BETA_SHOW_PLAYERS в config.js): список пустой,
     // к API не обращаемся.
     if (typeof BETA_SHOW_PLAYERS !== 'undefined' && !BETA_SHOW_PLAYERS) {
-        if (typeof players === 'undefined') {
-            players = [];
+        if (typeof eloPlayers === 'undefined') {
+            eloPlayers = [];
             playersLoadedAt = Date.now();
             renderAllViews();
         }
@@ -1051,7 +1608,7 @@ async function loadPlayers(isInitial) {
     let hintTimer = null;
     if (isInitial) {
         hintTimer = setTimeout(() => {
-            if (typeof players === 'undefined') {
+            if (typeof eloPlayers === 'undefined') {
                 playersSlowHint = true;
                 renderAllViews();
             }
@@ -1061,7 +1618,7 @@ async function loadPlayers(isInitial) {
     try {
         const data = await fetchPlayersFromApi(isInitial ? FIRST_LOAD_TIMEOUT_MS : REFRESH_TIMEOUT_MS);
         const changed = (data.updatedAt || null) !== playersUpdatedAt;
-        players = data.players;
+        eloPlayers = data.players;
         playersUpdatedAt = data.updatedAt || null;
         playersLoadedAt = Date.now();
         playersLoadError = false;
@@ -1070,7 +1627,7 @@ async function loadPlayers(isInitial) {
         return true;
     } catch (e) {
         console.warn('Не удалось загрузить данные игроков:', e);
-        if (typeof players === 'undefined') {
+        if (typeof eloPlayers === 'undefined') {
             playersLoadError = true;
             playersSlowHint = false;
             renderAllViews();
@@ -1097,11 +1654,11 @@ function startPlayersAutoRefresh() {
     const seconds = (typeof PLAYERS_REFRESH_SECONDS !== 'undefined') ? PLAYERS_REFRESH_SECONDS : 60;
 
     setInterval(() => {
-        if (!document.hidden && typeof players !== 'undefined') loadPlayers(false);
+        if (!document.hidden && typeof eloPlayers !== 'undefined') loadPlayers(false);
     }, seconds * 1000);
 
     document.addEventListener('visibilitychange', () => {
-        if (!document.hidden && typeof players !== 'undefined' && Date.now() - playersLoadedAt > seconds * 1000) {
+        if (!document.hidden && typeof eloPlayers !== 'undefined' && Date.now() - playersLoadedAt > seconds * 1000) {
             loadPlayers(false);
         }
     });
@@ -1110,6 +1667,17 @@ function startPlayersAutoRefresh() {
 // Запуск сайта (может вызываться дважды - из DOMContentLoaded и сразу,
 // если DOM уже готов; загрузка стартует один раз)
 function initSite() {
+    // Обрезаем прозрачные поля у скина и перерисовываем список
+    // Пока скин обрезается, изображения скрыты (иначе мелькает маленький необрезанный)
+    trimTransparentImage(DEFAULT_SKIN_SRC).then(src => {
+        window.overallSkinSrc = src;
+        refreshDefaultSkins();
+        document.body.classList.add('skin-ready');
+    });
+    setTimeout(() => document.body.classList.add('skin-ready'), 2500);
+    renderHomeModeCards();
+    applyRoute();          // экран по адресу (#rating и т.д.)
+    renderHome();
     renderPlayers();   // покажет "Загрузка..." до прихода данных
     if (!playersLoadStarted) {
         playersLoadStarted = true;
