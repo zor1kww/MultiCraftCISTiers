@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
+r"""
 Разбор сообщений из Discord-ветки #релей (вебхук MultiCraft).
 
 Зафиксированные форматы (из переписки с администратором):
@@ -41,16 +41,17 @@
   сразу после ника идёт ":", а не русский глагол.
 
   Единственное исключение из чата - команда игрока:
-      [тег] ник: set_region RU
+      [тег] ник: \set_region RU
   (тег необязателен, регистр команды и региона не важен). Админы могут
-  указать цель: "[тег] админ: set_region ник KZ". Парсер только
+  указать цель: "[тег] админ: \set_region ник KZ". Парсер только
   вытаскивает ники и слово региона; права и допустимость региона
   проверяет handlers.py.
 
   Остальные админские команды чата (формат тот же, "[тег] админ: ..."):
-      set_device ник PC | MOBILE
-      remove_player ник
-      restore_player ник
+      \set_device ник PC | MOBILE
+      \remove_player ник
+      \restore_player ник
+      \tiertest КИТ   (запуск тиртеста, см. tiertest.py)
 """
 
 import re
@@ -103,11 +104,16 @@ _RE_DISCONNECT = re.compile(
     r'отключился от сервера(?P<timeout>\s*\(тайм-аут\))?\s*$'
 )
 
-# Команда игрока в чате: "[тег] ник: set_region RU". Тег необязателен.
-# Строго целое сообщение: "set_region RU пожалуйста" командой не считается.
+# ВСЕ команды чата начинаются с обратной косой черты: "\set_region RU".
+# Принимаем одну или несколько "\" подряд: если релей/Discord экранирует символ
+# (превращает "\" в "\\"), команда всё равно работает. Без "\" слово - обычный чат.
+_CMD_SLASH = r'\\+'
+
+# Команда игрока в чате: "[тег] ник: \set_region RU". Тег необязателен.
+# Строго целое сообщение: "\set_region RU пожалуйста" командой не считается.
 _RE_SET_REGION = re.compile(
-    r'^' + _DECOR + r'(?:' + _TAGS + r'\s*' + _DECOR + r')?(?P<player>' + _NICK + r')\s*:\s*'
-    r'set_region\s+(?:(?P<target>' + _NICK + r')\s+)?(?P<region>\S+)\s*$',
+    r'^' + _DECOR + r'(?:' + _TAGS + r'\s*' + _DECOR + r')?(?P<player>' + _NICK + r')\s*:\s*' +
+    _CMD_SLASH + r'set_region\s+(?:(?P<target>' + _NICK + r')\s+)?(?P<region>\S+)\s*$',
     re.IGNORECASE,
 )
 
@@ -116,14 +122,18 @@ _CMD_PREFIX = (
     r'^' + _DECOR + r'(?:' + _TAGS + r'\s*' + _DECOR + r')?(?P<player>' + _NICK + r')\s*:\s*'
 )
 _RE_SET_DEVICE = re.compile(
-    _CMD_PREFIX + r'set_device\s+(?P<target>' + _NICK + r')\s+(?P<device>\S+)\s*$',
+    _CMD_PREFIX + _CMD_SLASH + r'set_device\s+(?P<target>' + _NICK + r')\s+(?P<device>\S+)\s*$',
     re.IGNORECASE,
 )
 _RE_REMOVE_PLAYER = re.compile(
-    _CMD_PREFIX + r'remove_player\s+(?P<target>' + _NICK + r')\s*$', re.IGNORECASE,
+    _CMD_PREFIX + _CMD_SLASH + r'remove_player\s+(?P<target>' + _NICK + r')\s*$', re.IGNORECASE,
+)
+# \tiertest КИТ (название кита может состоять из нескольких слов: "Emerald Pot")
+_RE_TIERTEST = re.compile(
+    _CMD_PREFIX + _CMD_SLASH + r'tiertest\s+(?P<kit>\S.*?)\s*$', re.IGNORECASE,
 )
 _RE_RESTORE_PLAYER = re.compile(
-    _CMD_PREFIX + r'restore_player\s+(?P<target>' + _NICK + r')\s*$', re.IGNORECASE,
+    _CMD_PREFIX + _CMD_SLASH + r'restore_player\s+(?P<target>' + _NICK + r')\s*$', re.IGNORECASE,
 )
 
 
@@ -180,8 +190,14 @@ class PlayerRestored:
     target: str
 
 
+@dataclass(frozen=True)
+class TierTestRequested:
+    player: str
+    kit: str      # как написал игрок; кит проверяет tiertest.py
+
+
 Event = Union[DuelStarted, PlayerDied, PlayerConnected, PlayerDisconnected, RegionSet,
-              DeviceSet, PlayerRemoved, PlayerRestored]
+              DeviceSet, PlayerRemoved, PlayerRestored, TierTestRequested]
 
 
 # ==========================================
@@ -217,6 +233,11 @@ def parse_admin_command(text: str):
     if m:
         return PlayerRestored(m.group('player'), m.group('target'))
     return None
+
+
+def parse_tiertest(text: str) -> Optional[TierTestRequested]:
+    m = _RE_TIERTEST.match(_normalize(text))
+    return TierTestRequested(player=m.group('player'), kit=m.group('kit')) if m else None
 
 
 def parse_connect(text: str) -> Optional[PlayerConnected]:
@@ -339,6 +360,10 @@ class RelayParser:
             return event
 
         event = parse_admin_command(text)
+        if event is not None:
+            return event
+
+        event = parse_tiertest(text)
         if event is not None:
             return event
 
