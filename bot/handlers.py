@@ -18,13 +18,14 @@ from typing import Optional
 import db
 from relay_parser import (
     DeviceSet, DuelStarted, PlayerConnected, PlayerDied, PlayerDisconnected,
-    PlayerRemoved, PlayerRestored, RegionSet,
+    PlayerRemoved, PlayerRestored, RegionSet, TierTestRequested,
 )
+import tiertest
 
 
-# Регионы, доступные для set_region. Должен совпадать со списком в фильтре
-# сайта (index.html, regionFilterPanel).
-ALLOWED_REGIONS = ("RU", "UA", "BY", "KZ", "UZ", "KG", "AM", "AZ", "MD", "TJ")
+# Регионы - части света, одинаковые для китов и мини-игр (см. regions.py).
+# Принимаются только части света: старые коды стран (RU, KZ...) больше не работают.
+from regions import WORLD_REGIONS as ALLOWED_REGIONS, normalize_region
 
 
 # Админы игрового чата: ставят регион другим игрокам ("админ: set_region
@@ -74,6 +75,9 @@ def handle_event(conn, event) -> Outcome:
         return _handle_player_removed(conn, event)
     if isinstance(event, PlayerRestored):
         return _handle_player_restored(conn, event)
+    if isinstance(event, TierTestRequested):
+        code, detail = tiertest.start_tiertest(conn, event.player, event.kit)
+        return Outcome(code, detail)
     raise TypeError(f"неизвестный тип события: {type(event)!r}")
 
 
@@ -125,7 +129,7 @@ def _handle_player_died(conn, event: PlayerDied) -> Outcome:
 
     result = db.finish_match(conn, match["id"], loser_player_id=player_id, end_reason="death")
     winner_id = db.get_opponent_id(match, player_id)
-    return Outcome("match_finished", {
+    detail = {
         "match_id": match["id"],
         "kit": match["kit"],
         "loser": event.player,
@@ -133,7 +137,16 @@ def _handle_player_died(conn, event: PlayerDied) -> Outcome:
         "winner_delta": result.winner_delta,
         "loser_delta": result.loser_delta,
         "end_reason": "death",
-    })
+    }
+    # Раунд засчитывается в активные тиртесты (только смерти; тайм-ауты не считаются).
+    # Сбой тиртеста не должен ломать обработку дуэли.
+    try:
+        tt_events = tiertest.on_round(conn, match["kit"], winner_id, player_id)
+        if tt_events:
+            detail["tiertest"] = tt_events
+    except Exception as e:  # noqa: BLE001
+        print(f"[tiertest] ошибка подсчёта раунда: {e}")
+    return Outcome("match_finished", detail)
 
 
 def _handle_player_connected(conn, event: PlayerConnected) -> Outcome:
@@ -163,14 +176,14 @@ def _handle_player_disconnected(conn, event: PlayerDisconnected) -> Outcome:
 
 
 def _handle_region_set(conn, event: RegionSet) -> Outcome:
-    region = event.region.upper()
+    region = normalize_region(event.region)
     target = event.target or event.player
 
     if event.target is not None and not _is_admin(event.player):
         # Ставить регион другим могут только админы.
         return Outcome("region_denied", {"player": event.player, "target": event.target})
 
-    if region not in ALLOWED_REGIONS:
+    if region is None:
         # Игроку в игре ответить нельзя, поэтому опечатка просто не
         # применяется (видно только в логе бота).
         return Outcome("region_invalid", {"player": event.player, "region": event.region})
