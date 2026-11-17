@@ -39,6 +39,13 @@ import api_snapshot
 import db
 import export
 import handlers
+import pts_migration
+
+try:
+    import tiertest
+except Exception as _e:  # noqa: BLE001
+    tiertest = None
+    print(f"[discord] tiertest не подключён: {_e}")
 from relay_bot_core import extract_texts, process_message
 from relay_parser import RelayParser
 
@@ -93,6 +100,11 @@ class RelayClient(discord.Client):
         self.refresher = api_snapshot.SnapshotRefresher(
             lambda: export.build_export_data(self.conn, history_limit=api_snapshot.HISTORY_LIMIT)
         )
+        # Второй, независимый снимок - киты (GET /api/pts, таблицы pts_*).
+        self.pts_refresher = api_snapshot.SnapshotRefresher(
+            lambda: export.build_pts_export(self.conn, history_limit=api_snapshot.HISTORY_LIMIT),
+            name="pts",
+        )
 
     async def on_ready(self):
         print(f"[discord] Бот запущен как {self.user}, слушаю канал {self.relay_channel_id}")
@@ -115,6 +127,8 @@ class RelayClient(discord.Client):
         # (после перезапуска Render память пуста, а база - нет).
         if self.refresher.tick():
             print("[discord] Снимок данных для сайта собран")
+        if self.pts_refresher.tick():
+            print("[discord] Снимок PTS (киты) для сайта собран")
 
         # on_ready может сработать повторно при переподключении -
         # не запускаем вторую копию цикла поверх уже идущей.
@@ -166,8 +180,20 @@ class RelayClient(discord.Client):
                                       "player_removed", "player_restored"):
                     # Эло/история или регион изменились - снимок для сайта устарел
                     self.refresher.mark_dirty()
+                    self.pts_refresher.mark_dirty()  # регион/PC/скрытие влияют и на киты
                 if outcome.action == "match_finished":
                     _publish_result(self.conn, outcome.detail.get("match_id"))
+                # Тиртесты: завершённые тесты (повышение/провал/понижение) -> итоговый
+                # пост в Telegram и обновление снимка PTS для сайта.
+                if tiertest is not None:
+                    finished_tests = tiertest.pop_finished()
+                    if finished_tests:
+                        self.pts_refresher.mark_dirty()
+                        for test_id in finished_tests:
+                            if telegram_results is not None:
+                                telegram_results.publish_tiertest(self.conn, test_id)
+                    elif outcome.action == "tiertest_started" or outcome.detail.get("tiertest"):
+                        self.pts_refresher.mark_dirty()
 
 
 @tasks.loop(seconds=TIMER_SWEEP_INTERVAL_SECONDS)
@@ -182,6 +208,7 @@ async def timer_sweep_loop(client: RelayClient):
         _publish_result(client.conn, outcome.detail.get("match_id"))
     if outcomes:
         client.refresher.mark_dirty()
+        client.pts_refresher.mark_dirty()
 
 
 @tasks.loop(seconds=SNAPSHOT_CHECK_INTERVAL_SECONDS)
@@ -189,6 +216,8 @@ async def snapshot_loop(client: RelayClient):
     try:
         if client.refresher.tick():
             print("[discord] Снимок данных для сайта обновлён")
+        if client.pts_refresher.tick():
+            print("[discord] Снимок PTS (киты) обновлён")
     except Exception as e:
         print(f"[discord] Ошибка обновления снимка для сайта: {e}")
 
@@ -199,6 +228,7 @@ async def admin_exec_loop(client: RelayClient):
     try:
         if db_executor.drain(client.conn):
             client.refresher.mark_dirty()  # админ мог поменять данные - обновить снимок сайта
+            client.pts_refresher.mark_dirty()
     except Exception as e:
         print(f"[discord] Ошибка выполнения запросов админ-панели: {e}")
 
@@ -215,6 +245,8 @@ def run():
     # sqlite3-совместимые драйверы не любят общие соединения между потоками.
     conn = db.connect_from_env()
     db.init_schema(conn)  # CREATE ... IF NOT EXISTS - безопасно повторять
+    # Разовый перенос PTS из players.js: PTS_MIGRATE=report|apply (без переменной - ничего).
+    pts_migration.run_from_env(conn)
 
     client = RelayClient(conn, relay_channel_id)
     client.run(DISCORD_TOKEN)
