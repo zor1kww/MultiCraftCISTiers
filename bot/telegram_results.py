@@ -178,6 +178,19 @@ class ResultsPublisher:
             enabled=flag not in ("0", "false", "no", "off"),
         )
 
+    def publish_html(self, text: str, is_high: bool) -> None:
+        """Ставит в очередь готовый HTML-пост (итог тиртеста). Не бросает исключений."""
+        if not self.enabled:
+            return
+        try:
+            topic = self.topic_high if is_high else self.topic_results
+            self._ensure_thread()
+            self._queue.put_nowait((text, topic, "HTML"))
+        except queue.Full:
+            print("[tg-results] очередь переполнена, пост пропущен")
+        except Exception as e:  # noqa: BLE001
+            print(f"[tg-results] не удалось поставить пост в очередь: {e}")
+
     def set_enabled(self, flag: bool) -> None:
         """Включает/выключает публикацию на лету (из админ-панели). Без
         токена включить нельзя - останется выключенной."""
@@ -194,7 +207,7 @@ class ResultsPublisher:
             text, is_high = built
             topic = self.topic_high if is_high else self.topic_results
             self._ensure_thread()
-            self._queue.put_nowait((text, topic))
+            self._queue.put_nowait((text, topic, None))
         except queue.Full:
             print("[tg-results] очередь переполнена, пост пропущен")
         except Exception as e:  # публикация не должна влиять на эло
@@ -207,11 +220,11 @@ class ResultsPublisher:
 
     def _worker(self) -> None:
         while True:
-            text, topic = self._queue.get()
+            text, topic, parse_mode = self._queue.get()
             delay = 0.0
             for attempt in range(1, _MAX_ATTEMPTS + 1):
                 try:
-                    delay = self._send(self.chat_id, topic, text) or 0.0
+                    delay = self._send(self.chat_id, topic, text, parse_mode) or 0.0
                     break
                 except _RetryAfter as e:
                     print(f"[tg-results] лимит Telegram, ждём {e.seconds} с")
@@ -223,13 +236,16 @@ class ResultsPublisher:
                 print(f"[tg-results] пост в топик {topic} потерян после {_MAX_ATTEMPTS} попыток")
             time.sleep(_SEND_INTERVAL_SECONDS + delay)
 
-    def _send_via_bot_api(self, chat_id: str, topic_id: int, text: str):
-        payload = json.dumps({
+    def _send_via_bot_api(self, chat_id: str, topic_id: int, text: str, parse_mode=None):
+        body = {
             "chat_id": chat_id,
             "message_thread_id": topic_id,
             "text": text,
             "disable_web_page_preview": True,
-        }).encode("utf-8")
+        }
+        if parse_mode:
+            body["parse_mode"] = parse_mode
+        payload = json.dumps(body).encode("utf-8")
         req = urllib.request.Request(
             f"https://api.telegram.org/bot{self.token}/sendMessage",
             data=payload, headers={"Content-Type": "application/json"},
@@ -269,3 +285,14 @@ def get_publisher() -> ResultsPublisher:
 
 def publish_match_result(conn, match_id: int) -> None:
     get_publisher().publish(conn, match_id)
+
+
+def publish_tiertest(conn, tiertest_id: int) -> None:
+    """Итоговый пост о тиртесте (повышение, провал, понижение). Сбой не влияет на тест."""
+    try:
+        import tiertest_posts
+        built = tiertest_posts.build_post(conn, tiertest_id)
+        if built is not None:
+            get_publisher().publish_html(*built)
+    except Exception as e:  # noqa: BLE001
+        print(f"[tg-results] не удалось подготовить пост по тиртесту {tiertest_id}: {e}")
