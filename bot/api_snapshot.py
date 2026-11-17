@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-API для сайта: GET /api/players отдаёт данные игроков из Turso.
+API для сайта: GET /api/players (Elo, мини-игры) и GET /api/pts (киты, PTS) отдают данные из Turso.
 
 Как это устроено (и почему именно так):
   - Соединение с БД живёт ТОЛЬКО в потоке Discord-бота (sqlite3-совместимые
@@ -44,29 +44,29 @@ CORS_ORIGIN = "*"
 
 
 _lock = threading.Lock()
-_snapshot = {"body": None, "updated_at": None}
+# Именованные снимки: "players" - Elo / мини-игры, "pts" - киты (PTS)
+_snapshots = {}
 
 
-def set_snapshot(players_list, now=None) -> str:
+def set_snapshot(players_list, now=None, name: str = "players") -> str:
     """Кладёт в память новый снимок. Возвращает время обновления (ISO, UTC)."""
     updated_at = (now or datetime.now(timezone.utc)).isoformat()
     body = json.dumps({"updatedAt": updated_at, "players": players_list}, ensure_ascii=False)
     with _lock:
-        _snapshot["body"] = body
-        _snapshot["updated_at"] = updated_at
+        _snapshots[name] = {"body": body, "updated_at": updated_at}
     return updated_at
 
 
-def get_snapshot():
+def get_snapshot(name: str = "players"):
     """(тело_JSON, время_обновления) или (None, None), если снимка ещё нет."""
     with _lock:
-        return _snapshot["body"], _snapshot["updated_at"]
+        snap = _snapshots.get(name)
+        return (snap["body"], snap["updated_at"]) if snap else (None, None)
 
 
-def clear_snapshot() -> None:
+def clear_snapshot(name: str = "players") -> None:
     with _lock:
-        _snapshot["body"] = None
-        _snapshot["updated_at"] = None
+        _snapshots.pop(name, None)
 
 
 class SnapshotRefresher:
@@ -78,7 +78,8 @@ class SnapshotRefresher:
     """
 
     def __init__(self, build_fn, clock=time.monotonic,
-                 force_refresh_seconds=FORCE_REFRESH_SECONDS, retry_seconds=RETRY_SECONDS):
+                 force_refresh_seconds=FORCE_REFRESH_SECONDS, retry_seconds=RETRY_SECONDS, name: str = "players"):
+        self._name = name
         self._build = build_fn
         self._clock = clock
         self._force = force_refresh_seconds
@@ -105,20 +106,20 @@ class SnapshotRefresher:
         except Exception as e:
             # Прежний снимок остаётся, повторим не сразу - иначе при
             # недоступной БД лог засыпало бы ошибкой каждые несколько секунд.
-            print(f"[api] Не удалось собрать снимок данных: {e}")
+            print(f"[api] Не удалось собрать снимок данных ({self._name}): {e}")
             self._not_before = now + self._retry
             return False
 
-        set_snapshot(players_list)
+        set_snapshot(players_list, name=self._name)
         self._dirty = False
         self._last_ok = now
         self._not_before = None
         return True
 
 
-def build_response():
-    """(тело, код, заголовки) для GET /api/players. Не зависит от Flask."""
-    body, _updated_at = get_snapshot()
+def build_response(name: str = "players"):
+    """(тело, код, заголовки) для GET /api/players и /api/pts. Не зависит от Flask."""
+    body, _updated_at = get_snapshot(name)
     headers = {
         "Content-Type": "application/json; charset=utf-8",
         "Access-Control-Allow-Origin": CORS_ORIGIN,
@@ -134,8 +135,12 @@ def build_response():
 
 
 def register_routes(app) -> None:
-    """Подключает GET /api/players к Flask-приложению."""
+    """Подключает GET /api/players и GET /api/pts к Flask-приложению."""
 
     @app.route("/api/players")
     def api_players():
-        return build_response()
+        return build_response("players")
+
+    @app.route("/api/pts")
+    def api_pts():
+        return build_response("pts")
