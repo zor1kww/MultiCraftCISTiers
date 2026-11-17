@@ -1878,3 +1878,493 @@ body, html {
     font-size: 0.85em;
     color: var(--text-muted);
 }
+
+
+/* ==========================================
+   Карточка общего топа (Main / Sub Overall)
+   ========================================== */
+.ov-card {
+    display: flex; align-items: stretch; padding: 0; overflow: hidden; cursor: pointer;
+    background: linear-gradient(90deg, rgba(70, 76, 96, .55) 0%, var(--bg-solid) 58%);
+}
+/* Заливка слева по месту (цвета те же, что у рамок .top-rank-N выше):
+   1 - золото, 2 - серебро, 3 - бронза, 4 - серый, 5 - бирюзовый */
+.ov-card.top-rank-1 { background: linear-gradient(90deg, rgba(218, 165, 32, .90) 0%, rgba(218, 165, 32, .42) 28%, var(--bg-solid) 64%); }
+.ov-card.top-rank-2 { background: linear-gradient(90deg, rgba(169, 169, 169, .85) 0%, rgba(169, 169, 169, .38) 28%, var(--bg-solid) 64%); }
+.ov-card.top-rank-3 { background: linear-gradient(90deg, rgba(160, 82, 45, .90) 0%, rgba(160, 82, 45, .42) 28%, var(--bg-solid) 64%); }
+.ov-card.top-rank-4 { background: linear-gradient(90deg, rgba(128, 128, 128, .75) 0%, rgba(128, 128, 128, .32) 28%, var(--bg-solid) 64%); }
+.ov-card.top-rank-5 { background: linear-gradient(90deg, rgba(0, 128, 128, .80) 0%, rgba(0, 128, 128, .36) 28%, var(--bg-solid) 64%); }
+
+/* Скин: занимает левую часть карточки по всей высоте (cover), прижат к низу.
+   Поля вокруг скина обрезаются скриптом (trimTransparentImage), поэтому
+   он крупный независимо от того, как нарисован файл. */
+.ov-skin-wrap { position: relative; flex: 0 0 118px; align-self: stretch; overflow: hidden; }
+.ov-skin { position: absolute; left: 0; bottom: 0; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; image-rendering: pixelated; }
+
+.ov-body { flex: 1; min-width: 0; padding: 10px 0 10px 6px; display: flex; flex-direction: column; gap: 5px; }
+.ov-title { display: flex; align-items: baseline; gap: 6px; min-width: 0; padding-right: 10px; }
+.ov-title .player-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ov-elo { margin-top: -2px; font-size: 13px; color: var(--text-muted); }
+.ov-tags { display: flex; gap: 6px; }
+.ov-tag {
+    box-sizing: border-box; width: 58px; height: 28px; display: inline-flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: bold; color: var(--text-muted);
+    border: 1px solid var(--border-color); border-radius: 9px; background: rgba(0, 0, 0, .28);
+}
+
+/* Горизонтально листаемый ряд плиток */
+.ov-scroll {
+    display: flex; gap: 6px; overflow-x: auto; overflow-y: hidden;
+    padding: 2px 14px 2px 0; margin-top: 1px;
+    scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(90deg, #000 90%, transparent);
+            mask-image: linear-gradient(90deg, #000 90%, transparent);
+}
+.ov-scroll::-webkit-scrollbar { display: none; }
+.ov-tile {
+    flex: 0 0 52px; height: 54px; box-sizing: border-box; scroll-snap-align: start;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+    border: 1.5px solid; border-radius: 12px;
+}
+.ov-tile-icon { width: 24px; height: 24px; object-fit: contain; }
+.ov-tile-tier { font-size: 12px; font-weight: bold; line-height: 1; }
+.ov-tile-empty { border-color: var(--border-color); background: rgba(255, 255, 255, .03); opacity: .6; }
+.ov-tile-empty .ov-tile-tier { color: #6b7490; }
+
+/* Retired на плитке */
+.ov-tile-retired { opacity: .4; }
+.ov-tile-r { margin-left: 2px; font-size: 8px; color: var(--text-muted); vertical-align: super; }
+
+/* Кнопки-переключатели Kits / Games (button, а не ссылка) */
+button.mode-switch-btn { background: transparent; border: 1px solid transparent; font-family: inherit; cursor: pointer; }
+button.mode-switch-btn.active { background: rgba(255, 204, 71, .12); border-color: var(--accent); color: var(--accent); }
+.mode-switch-sub { margin-top: -14px; }
+
+/* Красная буква R у Retired (на плитках, в среднем ранге и в бейджах) */
+.ov-r { color: #ff4a4a; font-weight: bold; margin-right: 1px; }
+
+
+/* ==========================================
+   v5: компактное управление
+   Единые значения: рамка 1px, скругление 14px (карточки), 12px (кнопки)
+   ========================================== */
+
+/* Общая рамка вокруг контента убрана: карточки лежат прямо на фоне */
+.hero { background: none; border: none; box-shadow: none; padding: 10px 12px 24px; border-radius: 0; }
+
+/* Telegram в шапке значком */
+.tg-icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; margin-right: 8px; color: var(--accent); border: 1px solid rgba(255, 204, 71, .3); border-radius: 12px; background: var(--sidebar-item); text-decoration: none; }
+.header-right { display: flex; align-items: center; }
+
+/* Elo | PTS - вкладки с линией под активной */
+.sys-tabs { display: flex; gap: 24px; margin: 0 0 12px; border-bottom: 1px solid var(--border-color); }
+.sys-tab { padding: 8px 2px 10px; font-size: 15px; font-weight: bold; color: var(--text-muted); text-decoration: none; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.sys-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* Строка управления: Kits|Games, поиск, фильтры */
+.ctrl-row { display: flex; align-items: stretch; gap: 8px; }
+.seg { display: flex; flex: 1; padding: 3px; background: var(--bg-solid); border: 1px solid var(--border-color); border-radius: 12px; }
+.seg-btn { flex: 1; padding: 8px 6px; border: 0; border-radius: 9px; background: transparent; color: var(--text-muted); font-family: inherit; font-size: 14px; font-weight: bold; cursor: pointer; }
+.seg-btn.active { background: rgba(255, 204, 71, .14); color: var(--accent); }
+.icon-btn, .filter-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-solid); color: var(--text-main); font-family: inherit; font-size: 14px; font-weight: bold; cursor: pointer; }
+.icon-btn { width: 44px; }
+.icon-btn.active { color: var(--accent); border-color: var(--accent); }
+.filter-btn { padding: 0 12px; }
+.filter-badge { min-width: 18px; padding: 1px 5px; border-radius: 9px; background: var(--accent); color: #0b0f1c; font-size: 11px; line-height: 16px; text-align: center; }
+.filter-badge[hidden] { display: none; }
+.search-row { margin-top: 8px; }
+.search-row[hidden] { display: none; }
+.search-row input { width: 100%; box-sizing: border-box; }
+
+/* Лента чипов */
+.chips { display: flex; gap: 8px; overflow-x: auto; margin: 10px -12px 0; padding: 2px 12px 8px; scrollbar-width: none; }
+.chips::-webkit-scrollbar { display: none; }
+.chip { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; border-radius: 12px; border: 1px solid var(--border-color); background: var(--bg-solid); color: var(--text-muted); font-family: inherit; font-size: 13px; font-weight: bold; white-space: nowrap; cursor: pointer; }
+.chip img { width: 18px; height: 18px; object-fit: contain; }
+.chip.active { color: var(--accent); border-color: var(--accent); background: rgba(255, 204, 71, .10); }
+
+/* Название списка - мелкая строка вместо большого заголовка */
+.section-title { font-size: 13px; font-weight: normal; letter-spacing: .3px; margin: 8px 2px 10px; color: var(--text-muted); text-align: left; text-transform: none; }
+
+/* Свечение только у топ-3, у 4-5 остаётся только цвет рамки */
+.top-rank-4, .top-rank-5 { box-shadow: none; }
+.player-container { border-radius: 14px; }
+
+/* Шторка фильтров */
+.sheet-backdrop { position: fixed; inset: 0; background: rgba(0, 0, 0, .55); z-index: 2000; }
+.sheet-backdrop[hidden], .sheet[hidden] { display: none; }
+.sheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 2001; max-width: 520px; margin: 0 auto; padding: 10px 16px calc(18px + env(safe-area-inset-bottom, 0px)); background: var(--bg-solid); border: 1px solid var(--border-color); border-bottom: 0; border-radius: 18px 18px 0 0; }
+.sheet-handle { width: 40px; height: 4px; margin: 0 auto 12px; border-radius: 2px; background: var(--border-color); }
+.sheet-title { font-size: 17px; font-weight: bold; color: var(--text-main); margin-bottom: 14px; }
+.sheet-label { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; }
+.chips-wrap { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-top: 1px solid var(--border-color); color: var(--text-main); font-size: 15px; cursor: pointer; }
+.toggle-row input { position: absolute; opacity: 0; pointer-events: none; }
+.switch { position: relative; width: 44px; height: 26px; border-radius: 13px; background: var(--border-color); transition: background .15s; }
+.switch::after { content: ''; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; transition: transform .15s; }
+.toggle-row input:checked + .switch { background: var(--accent); }
+.toggle-row input:checked + .switch::after { transform: translateX(18px); }
+.sheet-done { width: 100%; margin-top: 6px; padding: 13px; border: 0; border-radius: 12px; background: var(--accent); color: #0b0f1c; font-family: inherit; font-size: 15px; font-weight: bold; cursor: pointer; }
+@media (prefers-reduced-motion: reduce) { .switch, .switch::after { transition: none; } }
+
+/* Шапка помещается на узких экранах: логотип сжимается, кнопки не вылезают */
+.header { gap: 10px; padding: 12px 14px; }
+.logo { min-width: 0; font-size: 17px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.header-right { flex: 0 0 auto; }
+.tg-icon-btn { width: 38px; height: 38px; margin-right: 6px; }
+.menu-btn { padding: 9px 12px; }
+
+
+/* ==========================================
+   ГЛАВНАЯ СТРАНИЦА
+   ========================================== */
+.main-page {
+    --home-accent: #bffa00;
+    --home-accent-soft: #fbff85;
+    --home-hero-bg: #0c1202;
+    --home-panel: rgba(15, 23, 41, .78);
+    --home-panel-hover: #131d33;
+    --home-line: rgba(255, 255, 255, .09);
+}
+
+#leaderboard { scroll-margin-top: 76px; }
+
+[data-theme="light"] .main-page {
+    --home-panel: rgba(255, 255, 255, .88);
+    --home-panel-hover: #f1f5f9;
+}
+
+@media (max-width: 560px) {
+    .main-page { padding: 14px 12px; }
+    .home-hero { border-radius: 22px; }
+    .home-hero-content { padding: 28px 20px 24px; }
+    .home-kicker { margin-bottom: 18px; font-size: 10px; }
+    .home-hero h1 { font-size: 37px; letter-spacing: -1px; }
+    .home-hero-content > p { margin: 18px 0 22px; font-size: 14px; }
+    .home-search { min-height: 54px; padding-left: 14px; gap: 9px; }
+    .home-search button { min-width: 76px; }
+    .home-search input { font-size: 13px; }
+    .home-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .home-primary-btn, .home-secondary-btn { min-width: 0; padding: 11px 12px; gap: 8px; font-size: 12px; }
+    .home-stats { margin-top: 26px; padding-top: 20px; }
+    .home-stat + .home-stat { padding-left: 14px; }
+    .home-stat strong { font-size: 21px; }
+    .home-section { margin-top: 38px; }
+    .home-section-header { align-items: center; gap: 8px; }
+    .home-section-header h2, .home-start h2 { font-size: 23px; }
+    .home-section-label { font-size: 9px; }
+    .home-text-btn { font-size: 11px; }
+    .home-results-list, .home-leaders-list { border-radius: 16px; }
+    .home-result-row { gap: 11px; min-height: 86px; padding: 13px 12px; }
+    .home-result-kit { width: 40px; height: 40px; flex-basis: 40px; }
+    .home-result-kit img { width: 28px; height: 28px; }
+    .home-result-names { gap: 4px; font-size: 11px; }
+    .home-player-link { max-width: 100%; font-size: 12px; overflow-wrap: anywhere; }
+    .home-result-meta { font-size: 9px; }
+    .home-result-rank { min-width: 50px; padding: 7px 6px; }
+    .home-result-rank strong { font-size: 13px; }
+    .home-leader-row { gap: 9px; min-height: 80px; padding: 10px 12px; }
+    .home-leader-position { width: 20px; flex-basis: 20px; font-size: 16px; }
+    .home-leader-skin { width: 42px; height: 52px; flex-basis: 42px; }
+    .home-leader-info strong { font-size: 13px; }
+    .home-leader-tier .tier-badge { min-width: 45px; padding: 3px 6px; font-size: 12px; }
+    .home-leader-elo { min-width: 54px; flex-direction: column; align-items: flex-end; gap: 2px; }
+    .home-leader-elo strong { font-size: 15px; }
+    .home-leader-elo span { font-size: 10px; }
+    .home-mode-grid { gap: 8px; }
+    .home-mode-card { min-height: 80px; gap: 10px; padding: 14px 12px; border-radius: 14px; }
+    .home-mode-card img { width: 32px; height: 32px; flex-basis: 32px; }
+    .home-mode-card > span:not(.home-mode-arrow) { font-size: 12px; }
+    .home-mode-arrow { display: none; }
+    .home-start { gap: 22px; margin-top: 40px; padding: 24px 20px; }
+    .home-start-actions { width: 100%; }
+    .home-start-actions > * { flex: 1; }
+}
+
+
+/* ==========================================
+   Главная (v6): спокойная, в палитре сайта (золото), без декора
+   ========================================== */
+.home-hero { padding: 26px 16px 10px; }
+.home-hero h1 { margin: 0 0 18px; font-size: 26px; line-height: 1.25; font-weight: bold; color: var(--text-main); }
+.home-hero h1 span { color: var(--accent); }
+.home-search { display: flex; align-items: center; gap: 8px; padding: 6px 6px 6px 14px; margin-bottom: 10px; background: var(--bg-solid); border: 1px solid var(--border-color); border-radius: 14px; color: var(--text-muted); }
+.home-search:focus-within { border-color: var(--accent); }
+.home-search input { flex: 1; min-width: 0; padding: 10px 4px; border: 0; background: transparent; color: var(--text-main); font-family: inherit; font-size: 15px; outline: none; }
+.home-search button { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 40px; border: 0; border-radius: 10px; background: var(--accent); color: #0b0f1c; cursor: pointer; }
+.home-primary-btn { width: 100%; padding: 14px; border: 0; border-radius: 14px; background: var(--accent); color: #0b0f1c; font-family: inherit; font-size: 16px; font-weight: bold; cursor: pointer; }
+.home-stats { display: flex; gap: 18px; margin-top: 14px; font-size: 13px; color: var(--text-muted); }
+.home-stats strong { color: var(--text-main); font-size: 15px; }
+
+.home-section { padding: 22px 16px 0; }
+.home-section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.home-section-header h2 { margin: 0; font-size: 18px; color: var(--text-main); }
+.home-text-btn { border: 0; background: transparent; color: var(--accent); font-family: inherit; font-size: 13px; cursor: pointer; }
+.home-empty { padding: 18px; text-align: center; font-size: 13px; color: var(--text-muted); border: 1px dashed var(--border-color); border-radius: 14px; }
+
+.home-results-list, .home-leaders-list { display: flex; flex-direction: column; gap: 8px; }
+.home-result-row { display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: var(--bg-solid); border: 1px solid var(--border-color); border-radius: 14px; }
+.home-result-kit { flex: 0 0 34px; height: 34px; display: flex; align-items: center; justify-content: center; }
+.home-result-kit img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.home-result-main { flex: 1; min-width: 0; }
+.home-result-names { display: flex; align-items: center; gap: 6px; min-width: 0; font-size: 14px; color: var(--text-muted); }
+.home-player-link { max-width: 100%; padding: 0; border: 0; background: transparent; color: var(--text-main); font-family: inherit; font-size: 14px; font-weight: bold; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; cursor: pointer; }
+.home-player-link-muted { color: var(--text-muted); font-weight: normal; }
+.home-result-meta { margin-top: 2px; font-size: 12px; color: var(--text-muted); }
+.home-result-rank { display: flex; flex-direction: column; align-items: center; min-width: 46px; padding: 4px 8px; border: 1px solid; border-radius: 10px; }
+.home-result-rank strong { font-size: 14px; }
+.home-result-rank span { font-size: 11px; opacity: .85; }
+
+.home-leader-row { display: flex; align-items: center; gap: 10px; width: 100%; padding: 8px 12px; background: var(--bg-solid); border: 1px solid var(--border-color); border-radius: 14px; color: var(--text-main); font-family: inherit; text-align: left; cursor: pointer; }
+.home-leader-position { flex: 0 0 18px; font-weight: bold; color: var(--text-muted); text-align: center; }
+.home-leader-position-1 { color: #daa520; }
+.home-leader-position-2 { color: #a9a9a9; }
+.home-leader-position-3 { color: #cd7f32; }
+.home-leader-skin { flex: 0 0 44px; width: 44px; height: 44px; object-fit: contain; object-position: center bottom; image-rendering: pixelated; }
+.home-leader-info { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.home-leader-info strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.home-leader-info span { font-size: 12px; color: var(--text-muted); }
+.home-leader-elo { font-weight: bold; min-width: 44px; text-align: right; }
+
+.home-group-title { margin: 14px 0 8px; font-size: 13px; font-weight: normal; letter-spacing: .3px; color: var(--text-muted); }
+.home-mode-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.home-mode-card { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: var(--bg-solid); border: 1px solid var(--border-color); border-radius: 12px; color: var(--text-main); font-family: inherit; font-size: 14px; font-weight: bold; text-align: left; cursor: pointer; }
+.home-mode-card:hover { border-color: var(--accent); }
+.home-mode-card img, .home-mode-card svg { flex: 0 0 24px; width: 24px; height: 24px; object-fit: contain; color: var(--accent); }
+.home-mode-card span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.home-footer-actions { display: flex; gap: 8px; padding: 22px 16px 28px; }
+.home-ghost-btn { flex: 1; padding: 13px; border: 1px solid var(--border-color); border-radius: 12px; background: transparent; color: var(--text-main); font-family: inherit; font-size: 14px; font-weight: bold; text-align: center; text-decoration: none; cursor: pointer; }
+
+/* Экран рейтинга: кнопка "назад" рядом с вкладками Elo | PTS */
+.board-top { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.board-top .sys-tabs { flex: 1; margin: 0; }
+.back-btn { flex: 0 0 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-solid); color: var(--text-main); cursor: pointer; }
+#boardScreen[hidden], #homeScreen[hidden] { display: none; }
+
+/* ==========================================================================
+   Единая навигация Kits / Games и рейтинговые панели
+   ========================================================================== */
+.rating-tabs {
+    display: flex;
+    flex: 1;
+    gap: 4px;
+    padding: 4px;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    background: var(--sidebar-item);
+}
+.rating-tab {
+    flex: 1;
+    min-height: 38px;
+    padding: 8px 18px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.rating-tab:hover { color: var(--text-main); background: var(--card-hover); }
+.rating-tab.active { color: #12141f; background: var(--accent); border-color: var(--accent); }
+.rating-context { display: flex; flex: 1; min-width: 0; align-items: center; gap: 9px; padding-left: 4px; }
+.rating-context strong { color: var(--text-main); font-size: 15px; }
+.rating-context span { color: var(--text-muted); font-size: 11px; white-space: nowrap; }
+.rating-panel[hidden] { display: none; }
+.board-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 12px 2px 10px; }
+.board-heading .section-title { margin: 0; color: var(--text-main); font-size: 14px; font-weight: 700; }
+.player-count-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 28px;
+    padding: 4px 9px;
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    color: var(--text-muted);
+    background: var(--sidebar-item);
+    font-size: 12px;
+}
+.player-count-badge strong { color: var(--accent); font-size: 13px; }
+.chip { min-height: 42px; }
+.chip-crown { flex: 0 0 18px; color: var(--accent); }
+.chip.active .chip-crown { color: currentColor; }
+.board-empty { padding: 30px 20px; border: 1px dashed var(--border-color); border-radius: 14px; color: var(--text-muted); text-align: center; line-height: 1.7; font-size: 13px; }
+
+/* Позиция и корона в расширенных карточках */
+.player-rank { display: inline-flex; align-items: center; gap: 4px; flex: 0 0 auto; }
+.player-rank-premium { align-self: center; }
+.rank-crown { width: 19px; height: 19px; color: currentColor; }
+.top-rank-1 .rank-crown { color: #ffd75e; }
+.top-rank-2 .rank-crown { color: #d7deea; }
+.top-rank-3 .rank-crown { color: #d89468; }
+.top-rank-4 .rank-crown, .top-rank-5 .rank-crown { color: var(--text-main); }
+.premium-kit-card, .premium-game-card { min-height: 138px; }
+.premium-kit-card .ov-skin-wrap, .premium-game-card .ov-skin-wrap { flex-basis: 126px; }
+.premium-kit-card .ov-body, .premium-game-card .ov-body { justify-content: center; padding-top: 14px; padding-bottom: 14px; }
+.premium-rating-line { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
+.premium-rating-line > strong { color: var(--accent); font-size: 15px; }
+.ov-tag-wide { width: auto; min-width: 58px; padding: 0 8px; }
+.ov-card.top-rank-4 { box-shadow: 0 0 18px rgba(128,128,128,.16); }
+.ov-card.top-rank-5 { box-shadow: 0 0 18px rgba(0,128,128,.20); }
+.pts-total { color: var(--accent); font-size: 15px; white-space: nowrap; }
+.compact-overall-tiles { max-width: 310px; margin-top: 7px; }
+.compact-overall-tiles .ov-tile { flex-basis: 45px; height: 47px; }
+.compact-overall-tiles .ov-tile-icon { width: 20px; height: 20px; }
+
+button:focus-visible, a:focus-visible, input:focus-visible, [onclick]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+@media (max-width: 560px) {
+    .board-top { gap: 8px; }
+    .rating-tab { padding-inline: 10px; }
+    .rating-context span { display: none; }
+    .filter-btn span:not(.filter-badge) { display: none; }
+    .filter-btn { width: 44px; padding: 0; }
+    .premium-kit-card .ov-skin-wrap, .premium-game-card .ov-skin-wrap { flex-basis: 96px; }
+    .premium-kit-card, .premium-game-card { min-height: 132px; }
+    .ov-skin-wrap { flex-basis: 92px; }
+    .ov-body { padding-left: 4px; }
+    .ov-title { gap: 5px; }
+    .ov-title .player-name { font-size: 14px; }
+    .compact-overall-tiles { max-width: 180px; }
+    .player-right { padding-left: 6px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .rating-tab, .chip, .ov-card { transition: none !important; }
+}
+
+
+/* ==========================================
+   v7: исправления
+   ========================================== */
+/* Верхняя строка: назад | Kits Games | поиск | фильтры (иконки) */
+.board-top { gap: 8px; }
+.board-top .rating-tabs { flex: 1; min-width: 0; }
+.board-top .icon-btn, .board-top .filter-btn { flex: 0 0 44px; width: 44px; height: 44px; padding: 0; position: relative; display: inline-flex; align-items: center; justify-content: center; }
+.filter-btn .filter-label { display: none; }
+.filter-btn .filter-badge { position: absolute; top: -5px; right: -5px; }
+
+/* Счётчик игроков без подписи: значок слева и тонкая линия справа */
+.board-heading { justify-content: flex-start; margin: 14px 2px 12px; }
+.board-heading::after { content: ''; flex: 1; height: 1px; background: var(--border-color); }
+
+
+/* ==========================================
+   v8: подсветка нажатий, скины, поиск, карточки, главная, единые размеры
+   ========================================== */
+:root { --ctl-h: 44px; --ctl-r: 12px; }
+
+/* Без синего прозрачного квадрата при касании и без выделения текста у кнопок */
+* { -webkit-tap-highlight-color: transparent; }
+button, a, label, [onclick], [role="button"], .chip, .ov-card, .home-leader-row, .home-search-hit {
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+    -webkit-user-select: none; user-select: none;
+}
+button:focus:not(:focus-visible), a:focus:not(:focus-visible), [onclick]:focus:not(:focus-visible) { outline: none; }
+
+/* Скины: пока скин обрезается скриптом, картинки скрыты (не мелькают маленькими) */
+.skin-img { transition: opacity .15s; }
+body:not(.skin-ready) .skin-img { opacity: 0; }
+.premium-kit-card .ov-skin-wrap, .premium-game-card .ov-skin-wrap { flex-basis: 132px; }
+.ov-card-single .ov-skin-wrap { flex-basis: 108px; }
+
+/* Цвет номера места = цвет рамки (золото, серебро, бронза, серый, бирюзовый) */
+.player-rank-1 { color: #daa520; }
+.player-rank-2 { color: #a9a9a9; }
+.player-rank-3 { color: #cd7f32; }
+.player-rank-4 { color: #808080; }
+.player-rank-5 { color: #20a0a0; }
+.player-rank-6 { color: var(--text-muted); }
+
+/* Карточка топа отдельного кита / игры: аватар, данные и плитка кита справа */
+.ov-card-single { min-height: 112px; align-items: stretch; }
+.ov-card-single .ov-body { justify-content: center; }
+.ov-single-tile {
+    flex: 0 0 74px; align-self: center; margin: 10px 12px 10px 0; padding: 8px 4px;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    border: 1.5px solid; border-radius: 14px; box-sizing: border-box;
+}
+.ov-single-tile .ov-tile-icon { width: 30px; height: 30px; object-fit: contain; }
+.ov-single-tile .ov-tile-tier { font-size: 14px; font-weight: bold; line-height: 1; }
+
+/* Поиск на главной: без квадратного выделения, подсказки, кнопка очистки */
+.home-search-wrap { position: relative; margin-bottom: 10px; }
+.home-search { display: flex; align-items: center; gap: 8px; min-height: 54px; padding: 0 6px 0 14px; margin-bottom: 0; }
+.home-search-icon { flex: 0 0 auto; }
+.home-search input, .home-search input:focus, .home-search input:focus-visible {
+    flex: 1; min-width: 0; padding: 12px 4px; border: 0 !important; outline: none !important; box-shadow: none !important;
+    background: transparent !important; -webkit-appearance: none; appearance: none;
+    color: var(--text-main); font-family: inherit; font-size: 15px;
+}
+.home-search:focus-within { border-color: var(--accent); }
+.home-search .home-search-clear {
+    flex: 0 0 34px; width: 34px; min-width: 0; height: 34px; padding: 0; border: 0; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: rgba(255, 255, 255, .10); color: var(--text-main); cursor: pointer;
+}
+.home-search .home-search-clear[hidden] { display: none; }
+.home-search .home-search-go { flex: 0 0 46px; width: 46px; min-width: 0; height: 42px; padding: 0; border-radius: 10px; }
+.home-search-results {
+    position: absolute; left: 0; right: 0; top: calc(100% + 6px); z-index: 30; overflow: hidden;
+    background: var(--bg-solid); border: 1px solid var(--border-color); border-radius: 14px; box-shadow: 0 12px 30px rgba(0, 0, 0, .45);
+}
+.home-search-results[hidden] { display: none; }
+.home-search-hit {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; padding: 12px 14px;
+    background: transparent; border: 0; border-bottom: 1px solid var(--border-color); color: var(--text-main);
+    font-family: inherit; font-size: 14px; text-align: left; cursor: pointer;
+}
+.home-search-hit:last-child { border-bottom: 0; }
+.home-search-hit-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: bold; }
+.home-search-hit-meta { display: inline-flex; align-items: center; gap: 6px; flex: 0 0 auto; }
+.home-search-badge { padding: 2px 6px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 10px; font-weight: bold; color: var(--accent); }
+.home-search-empty { padding: 14px; text-align: center; font-size: 13px; color: var(--text-muted); }
+.home-region-tag {
+    display: inline-flex; align-items: center; width: fit-content; padding: 2px 9px; border: 1px solid var(--border-color);
+    border-radius: 8px; background: rgba(0, 0, 0, .25); font-size: 12px; font-weight: bold; color: var(--text-muted);
+}
+
+/* Топ на главной (PTS и мини-игры) */
+.home-leader-row { display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 12px; border-radius: 14px; text-align: left; }
+.home-leader-row-1 { border-color: rgba(218, 165, 32, .6); }
+.home-leader-row-2 { border-color: rgba(169, 169, 169, .55); }
+.home-leader-row-3 { border-color: rgba(205, 127, 50, .6); }
+.home-leader-row-4 { border-color: rgba(128, 128, 128, .5); }
+.home-leader-row-5 { border-color: rgba(0, 150, 150, .55); }
+.home-leader-position { flex: 0 0 22px; font-size: 17px; font-weight: bold; text-align: center; }
+.home-leader-position-1 { color: #daa520; }
+.home-leader-position-2 { color: #a9a9a9; }
+.home-leader-position-3 { color: #cd7f32; }
+.home-leader-position-4 { color: #808080; }
+.home-leader-position-5 { color: #20a0a0; }
+.home-leader-avatar { position: relative; flex: 0 0 56px; width: 56px; height: 56px; border-radius: 14px; overflow: hidden; background: linear-gradient(135deg, #2a2d38, #14161d); }
+.home-leader-row-1 .home-leader-avatar { background: linear-gradient(135deg, rgba(218, 165, 32, .9), rgba(218, 165, 32, .15)); }
+.home-leader-row-2 .home-leader-avatar { background: linear-gradient(135deg, rgba(169, 169, 169, .85), rgba(169, 169, 169, .15)); }
+.home-leader-row-3 .home-leader-avatar { background: linear-gradient(135deg, rgba(160, 82, 45, .9), rgba(160, 82, 45, .15)); }
+.home-leader-row-4 .home-leader-avatar { background: linear-gradient(135deg, rgba(128, 128, 128, .8), rgba(128, 128, 128, .15)); }
+.home-leader-row-5 .home-leader-avatar { background: linear-gradient(135deg, rgba(0, 128, 128, .85), rgba(0, 128, 128, .15)); }
+.home-leader-skin { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 20%; image-rendering: pixelated; }
+.home-leader-info { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+.home-leader-info strong { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 15px; }
+.home-leader-tier { flex: 0 0 auto; }
+.home-leader-score { flex: 0 0 auto; display: flex; flex-direction: column; align-items: flex-end; min-width: 46px; }
+.home-leader-score strong { font-size: 17px; color: var(--text-main); }
+.home-leader-score span { font-size: 10px; letter-spacing: .6px; color: var(--text-muted); }
+
+/* Единые размеры органов управления: 44px высота, скругление 12px */
+.board-top { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; }
+.board-top .back-btn, .board-top .filter-btn {
+    flex: 0 0 var(--ctl-h); width: var(--ctl-h); height: var(--ctl-h); margin: 0; padding: 0;
+    display: inline-flex; align-items: center; justify-content: center; border-radius: var(--ctl-r); box-sizing: border-box;
+}
+.board-top .rating-tabs { flex: 1; min-width: 0; height: var(--ctl-h); padding: 3px; box-sizing: border-box; border-radius: var(--ctl-r); align-items: stretch; }
+.board-top .rating-tab { min-height: 0; height: 100%; padding: 0 10px; border-radius: 9px; }
+.chips .chip { height: 40px; padding: 0 12px; box-sizing: border-box; border-radius: var(--ctl-r); }
+.chips-wrap .chip { height: 40px; }
+.sheet-done { height: 48px; border-radius: var(--ctl-r); padding: 0; }
+.toggle-row { min-height: 48px; }
