@@ -63,11 +63,6 @@ eloTiers.forEach(t => { tierColors[t.tier] = t.color; });
 //           количество китов).
 const overallEloMode = 'sum';
 
-// Регионы (части света). Фильтр регионов на сайте: и для китов (PTS), и для мини-игр.
-// CA - Центральная Америка. Должны совпадать с bot/regions.py.
-const KIT_REGION_CODES = ['NA', 'EU', 'AS', 'OC', 'SA', 'ME', 'AF', 'CA'];
-const GAME_REGION_CODES = ['NA', 'EU', 'AS', 'OC', 'SA', 'ME', 'AF', 'CA'];
-
 // Списки основных и дополнительных режимов
 const maintiers = ["Hardcore", "Manhunt", "Diamond Pot", "Beast", "Emerald", "Emerald Pot", "RVM", "Dragonhide", "Pickaxe", "SMP", "Vanilla"];
 const subtiers = ["Combo", "Gapple", "Mace", "Crystal"];
@@ -92,3 +87,32 @@ const PLAYERS_REFRESH_SECONDS = 60;
 // (сайт при этом даже не обращается к боту). Когда будете готовы открыть
 // рейтинг - поставьте true, данные пойдут из API как раньше.
 const BETA_SHOW_PLAYERS = true;
+
+// Мини-игры имеют собственный Elo и не смешиваются с PTS-китами.
+// Список мини-игр. Новая игра = одна строка здесь и одна строка в gameImages.
+const miniGames = [
+    "BedWars", "SkyWars", "BedrockBox", "Spleef", "Pillars",
+    "Sumo", "Bed Fight", "Fireball Fight", "SkyWars Duel", "The Bridge", "Stick Fight"
+];
+
+// Иконки игр: файлы кладём в assets/games/ (имя: строчными, пробелы -> "_").
+const gameImages = {
+    "BedWars":        "assets/games/bedwars.png",
+    "SkyWars":        "assets/games/skywars.png",
+    "BedrockBox":     "assets/games/bedrockbox.png",
+    "Spleef":         "assets/games/spleef.png",
+    "Pillars":        "assets/games/pillars.png",
+    "Sumo":           "assets/games/sumo.png",
+    "Bed Fight":      "assets/games/bed_fight.png",
+    "Fireball Fight": "assets/games/fireball_fight.png",
+    "SkyWars Duel":   "assets/games/skywars_duel.png",
+    "The Bridge":     "assets/games/the_bridge.png",
+    "Stick Fight":    "assets/games/stick_fight.png"
+};
+
+const GAME_REGION_CODES = ["NA", "EU", "AS", "OC", "SA", "ME", "AF", "CA"];
+const KIT_REGION_CODES = ["NA", "EU", "AS", "OC", "SA", "ME", "AF", "CA"];  // части света, как в bot/regions.py
+
+// ДЕМО-РЕЖИМ (только для тестового репозитория): рейтинг Games берётся из
+// js/demo-data.js, а не с API. В боевой версии поставьте false или удалите.
+const DEMO_MODE = false;
