@@ -63,6 +63,11 @@ eloTiers.forEach(t => { tierColors[t.tier] = t.color; });
 //           количество китов).
 const overallEloMode = 'sum';
 
+// Регионы (части света). Фильтр регионов на сайте: и для китов (PTS), и для мини-игр.
+// CA - Центральная Америка. Должны совпадать с bot/regions.py.
+const KIT_REGION_CODES = ['NA', 'EU', 'AS', 'OC', 'SA', 'ME', 'AF', 'CA'];
+const GAME_REGION_CODES = ['NA', 'EU', 'AS', 'OC', 'SA', 'ME', 'AF', 'CA'];
+
 // Списки основных и дополнительных режимов
 const maintiers = ["Hardcore", "Manhunt", "Diamond Pot", "Beast", "Emerald", "Emerald Pot", "RVM", "Dragonhide", "Pickaxe", "SMP", "Vanilla"];
 const subtiers = ["Combo", "Gapple", "Mace", "Crystal"];
