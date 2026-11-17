@@ -40,7 +40,6 @@ parseTierInfo, collectGlobalDuels, getTierBadge и т.д.) написан под
 """
 
 import elo
-import github_storage
 
 
 def _format_elo(value: float):
@@ -145,21 +144,46 @@ def build_export_data(conn, skip_players_without_ratings: bool = True,
     return export
 
 
-def publish_to_github(conn, gh_repo: str, gh_token: str,
-                       commit_message: str = "elo: автоматический экспорт из Turso",
-                       skip_players_without_ratings: bool = True):
+def build_pts_export(conn, history_limit=None) -> list:
     """
-    Собирает данные из Turso и публикует их в players.js на GitHub,
-    ПОЛНОСТЬЮ заменяя текущее содержимое массива (не домешивая к нему
-    старые записи вручную проведённых тестов). Переиспользует
-    update_players_file из github_storage.py - тот же конвертер
-    JSON<->JS и retry при sha-конфликте, только mutate_fn здесь
-    игнорирует текущее содержимое файла и подставляет свежий снимок
-    из БД целиком.
+    Игроки PTS (киты) в том же виде, что был в players.js, - сайт читает их без изменений:
+      { name, region, tiers: {кит: {tier, date, retired}}, matchHistory: [...], penaltyByKit: {...} }
+    Не попадают: PC-игроки и скрытые админом (как и в Elo), игроки без рангов.
     """
-    export_data = build_export_data(conn, skip_players_without_ratings)
+    players = conn.execute(
+        "SELECT id, name, region FROM players WHERE COALESCE(device, '') != 'PC' AND removed = 0 ORDER BY name COLLATE NOCASE"
+    ).fetchall()
+    ratings, history, penalties = {}, {}, {}
+    for r in conn.execute("SELECT player_id, kit, tier, set_date, retired FROM pts_ratings").fetchall():
+        ratings.setdefault(r["player_id"], {})[r["kit"]] = {"tier": r["tier"], "date": r["set_date"], "retired": bool(r["retired"])}
+    for h in conn.execute(
+        "SELECT player_id, date, kit, tier_before, tier_after, opponent_name, score_player, score_opponent, winner, comment, is_player_side "
+        "FROM pts_history ORDER BY date, id"
+    ).fetchall():
+        item = {
+            "date": h["date"], "kit": h["kit"], "tierBefore": h["tier_before"], "tierAfter": h["tier_after"],
+            "opponent": h["opponent_name"], "scorePlayer": h["score_player"], "scoreOpponent": h["score_opponent"],
+            "winner": h["winner"], "comment": h["comment"],
+        }
+        if h["is_player_side"] is not None:
+            item["isPlayerSide"] = bool(h["is_player_side"])
+        history.setdefault(h["player_id"], []).append(item)
+    for p in conn.execute("SELECT player_id, kit, points, first_penalty_date FROM pts_penalties").fetchall():
+        penalties.setdefault(p["player_id"], {})[p["kit"]] = {"points": p["points"], "firstPenaltyDate": p["first_penalty_date"]}
 
-    def replace_all(_current_players_list):
-        return export_data
-
-    return github_storage.update_players_file(gh_repo, gh_token, replace_all, commit_message)
+    result = []
+    for p in players:
+        tiers = ratings.get(p["id"])
+        if not tiers:
+            continue
+        matches = history.get(p["id"], [])
+        if history_limit:
+            matches = matches[-history_limit:]
+        result.append({
+            "name": p["name"],
+            "region": p["region"] or "",
+            "tiers": tiers,
+            "matchHistory": matches,
+            "penaltyByKit": penalties.get(p["id"], {}),
+        })
+    return result
