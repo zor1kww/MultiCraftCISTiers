@@ -24,6 +24,11 @@ _ROOT = Path(__file__).parent
 _BOT_DIR = str(_ROOT / "bot")
 if _BOT_DIR not in sys.path:
     sys.path.insert(0, _BOT_DIR)
+# Запасной путь: elo_admin_* могут импортировать модули из telegram_legacy/.
+# Ставим В КОНЕЦ, чтобы файлы из bot/ имели приоритет. Сам старый бот не запускается.
+_LEGACY_DIR = str(_ROOT / "telegram_legacy")
+if _LEGACY_DIR not in sys.path:
+    sys.path.append(_LEGACY_DIR)
 
 from flask import Flask
 
