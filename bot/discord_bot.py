@@ -40,7 +40,6 @@ import db
 import export
 import handlers
 import pts_migration
-import pts_import_old_eu
 
 try:
     import tiertest
@@ -247,8 +246,6 @@ def run():
     db.init_schema(conn)  # CREATE ... IF NOT EXISTS - безопасно повторять
     # Разовый перенос PTS из players.js: PTS_MIGRATE=report|apply (без переменной - ничего).
     pts_migration.run_from_env(conn)
-    # Разовый импорт старых EU-игроков: PTS_IMPORT_OLD_EU=report|apply.
-    pts_import_old_eu.run_from_env(conn)
 
     client = RelayClient(conn, relay_channel_id)
     client.run(DISCORD_TOKEN)
