@@ -67,10 +67,6 @@
                 </div>
             </div>
 
-            <div class="modal-block modal-duels-block">
-                <h4>Дуэли</h4>
-                <div id="modalDuelsRows" class="duels-list"></div>
-            </div>
         </div>
     </div>
 </div>
@@ -79,7 +75,7 @@
     <h3>Навигация</h3>
     <a href="#" onclick="switchTab('mainPage'); return false;">Главная</a>
     <a href="#" onclick="switchTab('boardTab'); return false;">Рейтинг</a>
-    <a href="#" onclick="switchTab('duelsTab'); return false;">Дуэли</a>
+    
     <a href="#" onclick="switchTab('testingTab'); return false;">Как играть</a>
     <a href="#" onclick="switchTab('otherInfoTab'); return false;">Другая информация</a>
     <a href="https://t.me/MultiCraftCISTiers" target="_blank">Telegram</a>
@@ -118,16 +114,9 @@
         </div>
 
         <button type="button" class="home-primary-btn" onclick="openRating('kits', 'all')">Смотреть рейтинг</button>
-        <div class="home-stats"><span><strong id="homePlayersCount">0</strong> игроков</span><span><strong id="homeDuelsCount">0</strong> дуэлей</span></div>
+        <div class="home-stats"><span><strong id="homePlayersCount">0</strong> игроков</span></div>
     </section>
 
-    <section class="home-section" id="homeActivity" aria-labelledby="homeActivityTitle">
-        <div class="home-section-header">
-            <h2 id="homeActivityTitle">Последние дуэли</h2>
-            <button type="button" class="home-text-btn" onclick="switchTab('duelsTab')">Все</button>
-        </div>
-        <div class="home-results-list" id="homeRecentDuels"></div>
-    </section>
 
     <section class="home-section" id="homeLeaders" aria-labelledby="homeLeadersTitle">
         <div class="home-section-header">
@@ -205,43 +194,6 @@
 <!-- ============================================================
      ВКЛАДКА "ДУЭЛИ" — глобальный лог всех дуэлей по всем игрокам
      ============================================================ -->
-<div class="tab-content" id="duelsTab" style="display: none;">
-    <h2 class="section-title">Дуэли</h2>
-    <p class="hub-intro" id="duelsHubIntro">Все ранговые дуэли: кто победил и как изменились Elo и ранг у обоих игроков.</p>
-
-    <div class="filters">
-        <input type="text" id="duelsSearchInput" placeholder="Поиск по игроку или оппоненту...">
-
-        <div class="custom-select" id="duelsKitFilterCustom">
-            <button type="button" class="custom-select-trigger" id="duelsKitFilterTrigger">
-                <span id="duelsKitFilterLabel">Все киты</span>
-                <svg class="custom-select-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-            <div class="custom-select-panel" id="duelsKitFilterPanel">
-                <div class="custom-select-option selected" data-value="all">Все киты</div>
-                <div class="custom-select-option custom-select-option-group" data-value="main-all" style="font-weight:700;">Main Kits</div>
-                <div class="custom-select-option" data-value="Hardcore">Hardcore</div>
-                <div class="custom-select-option" data-value="Manhunt">Manhunt</div>
-                <div class="custom-select-option" data-value="Diamond Pot">Diamond Pot</div>
-                <div class="custom-select-option" data-value="Beast">Beast</div>
-                <div class="custom-select-option" data-value="Emerald">Emerald</div>
-                <div class="custom-select-option" data-value="Emerald Pot">Emerald Pot</div>
-                <div class="custom-select-option" data-value="RVM">RVM</div>
-                <div class="custom-select-option" data-value="Dragonhide">Dragonhide</div>
-                <div class="custom-select-option" data-value="Pickaxe">Pickaxe</div>
-                <div class="custom-select-option" data-value="SMP">SMP</div>
-                <div class="custom-select-option" data-value="Vanilla">Vanilla</div>
-                <div class="custom-select-option custom-select-option-group" data-value="sub-all" style="font-weight:700;">Sub Kits</div>
-                <div class="custom-select-option" data-value="Combo">Combo</div>
-                <div class="custom-select-option" data-value="Gapple">Gapple</div>
-                <div class="custom-select-option" data-value="Mace">Mace</div>
-                <div class="custom-select-option" data-value="Crystal">Crystal</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="duels-list duels-list-global" id="globalDuelsList"></div>
-</div>
 
 <!-- ============================================================
      ВКЛАДКА "КАК ИГРАТЬ" — 3 карточки-обложки
