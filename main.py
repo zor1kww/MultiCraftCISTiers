@@ -72,7 +72,10 @@ def start_discord():
 
 
 def start_telegram_admin():
-    """Админка Elo в Telegram (необязательна). Возвращает telebot или None."""
+    """Админка Elo в Telegram (необязательна). Опрос Telegram включается ТОЛЬКО с TG_ADMIN_POLLING=1,
+    иначе при двух копиях сервиса Telegram выдаёт 409 Conflict. Публикация постов от этого не зависит."""
+    if os.environ.get("TG_ADMIN_POLLING") != "1":
+        return None
     token = os.environ.get("TG_TOKEN")
     if not token:
         return None
