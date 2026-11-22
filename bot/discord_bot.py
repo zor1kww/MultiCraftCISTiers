@@ -182,8 +182,7 @@ class RelayClient(discord.Client):
                     # Эло/история или регион изменились - снимок для сайта устарел
                     self.refresher.mark_dirty()
                     self.pts_refresher.mark_dirty()  # регион/PC/скрытие влияют и на киты
-                if outcome.action == "match_finished":
-                    _publish_result(self.conn, outcome.detail.get("match_id"))
+                # Elo-матчи в Telegram больше не публикуются (только итоги тиртестов ниже).
                 # Тиртесты: завершённые тесты (повышение/провал/понижение) -> итоговый
                 # пост в Telegram и обновление снимка PTS для сайта.
                 if tiertest is not None:
