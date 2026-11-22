@@ -81,6 +81,16 @@ def handle_event(conn, event) -> Outcome:
     raise TypeError(f"неизвестный тип события: {type(event)!r}")
 
 
+def _is_tiertest_duel(conn, player_a_id: int, player_b_id: int, kit: str) -> bool:
+    """True, если у одного из двух игроков сейчас идёт тиртест на этот кит."""
+    now = tiertest._iso(tiertest._now())
+    row = conn.execute(
+        "SELECT 1 FROM tiertests WHERE player_id IN (?, ?) AND kit = ? AND status = 'active' AND expires_at > ? LIMIT 1",
+        (player_a_id, player_b_id, kit, now),
+    ).fetchone()
+    return row is not None
+
+
 def _handle_duel_started(conn, event: DuelStarted) -> Outcome:
     if event.player_a.lower() == event.player_b.lower():
         # Защитная проверка на уровне домена, а не только на уровне БД
@@ -98,6 +108,10 @@ def _handle_duel_started(conn, event: DuelStarted) -> Outcome:
         return Outcome("ignored_excluded_player", {
             "kit": event.kit, "player_a": event.player_a, "player_b": event.player_b,
         })
+
+    # Старая Elo-дуэль: матч не создаём. Остаются только дуэли тиртеста (раунды считаются).
+    if not _is_tiertest_duel(conn, player_a_id, player_b_id, event.kit):
+        return Outcome("ignored_elo_duel", {"kit": event.kit, "player_a": event.player_a, "player_b": event.player_b})
 
     cancelled_a = _ensure_no_active_match(conn, player_a_id, event.player_a)
     cancelled_b = _ensure_no_active_match(conn, player_b_id, event.player_b)
