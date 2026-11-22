@@ -830,7 +830,7 @@ function showTab(tabId) {
 // МАРШРУТЫ: адрес после # -> экран. Работает кнопка "Назад" браузера.
 // "" - главная, #rating - рейтинг, #duels, #start, #info - разделы
 // ==========================================
-const ROUTE_TO_TAB = { '': 'mainPage', kits: 'boardTab', games: 'boardTab', rating: 'boardTab', duels: 'duelsTab', start: 'testingTab', info: 'otherInfoTab' };
+const ROUTE_TO_TAB = { '': 'mainPage', kits: 'boardTab', games: 'boardTab', rating: 'boardTab', duels: 'mainPage', start: 'testingTab', info: 'otherInfoTab' };
 const TAB_TO_ROUTE = { mainPage: '', boardTab: 'kits', duelsTab: 'duels', testingTab: 'start', otherInfoTab: 'info' };
 
 function currentRoute() {
@@ -1210,10 +1210,14 @@ function buildKitHTML(kit) {
     </div>`;
 }
 
+// Старые Elo-дуэли на сайте отключены. Включить обратно: true.
+const ELO_DUELS_ENABLED = false;
+
 // Собирает уникальный список дуэлей со всех игроков: у каждой дуэли в
 // данных две записи (по одной у каждого участника) - склеиваем их по id
 // в одну, где известны обе стороны.
 function collectGlobalDuels() {
+    if (!ELO_DUELS_ENABLED) return [];
     if (typeof eloPlayers === 'undefined' || !Array.isArray(eloPlayers)) return [];
 
     const byKey = new Map();
@@ -1366,6 +1370,7 @@ function renderDuelRow(entry, showKit) {
 
 // Список дуэлей игрока (профиль): новые сверху
 function renderDuelsList(matchHistory, opts = {}) {
+    if (!ELO_DUELS_ENABLED) return '';
     const showKit = !!opts.showKit;
     const list = Array.isArray(matchHistory) ? matchHistory.filter(isNewFormatDuel) : [];
 
