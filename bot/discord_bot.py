@@ -182,6 +182,11 @@ class RelayClient(discord.Client):
                     self.refresher.mark_dirty()
                     self.pts_refresher.mark_dirty()  # регион/PC/скрытие влияют и на киты
                 # Elo-матчи в Telegram больше не публикуются (только итоги тиртестов ниже).
+                if telegram_results is not None and outcome.action in ("retired_set", "unretired"):
+                    d = outcome.detail
+                    telegram_results.publish_retire(
+                        d["player"], d["kit"], d["tier"], entering=(outcome.action == "retired_set"),
+                    )
                 # Тиртесты: завершённые тесты (повышение/провал/понижение) -> итоговый
                 # пост в Telegram и обновление снимка PTS для сайта.
                 if tiertest is not None:
