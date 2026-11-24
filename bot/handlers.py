@@ -84,6 +84,25 @@ def handle_event(conn, event) -> Outcome:
     raise TypeError(f"неизвестный тип события: {type(event)!r}")
 
 
+def _canonical_kit(raw: str) -> str:
+    """Название набора из сообщения о дуэли -> канонический кит (RVM, Combo...).
+    Терпит регистр, пробелы и приписки вроде 'unranked'/'ranked'/'(...)'. Не нашли - вернём как есть."""
+    import re
+    exact = tiertest.resolve_kit(raw)
+    if exact:
+        return exact
+    cleaned = re.sub(r"\([^)]*\)|\[[^\]]*\]", " ", str(raw))
+    cleaned = re.sub(r"(?i)\b(un)?ranked\b", " ", cleaned)
+    exact = tiertest.resolve_kit(cleaned)
+    if exact:
+        return exact
+    compact = "".join(cleaned.lower().split())
+    for kit in sorted(tiertest.C.ALL_KITS, key=len, reverse=True):   # длинные первыми: "Emerald Pot" раньше "Emerald"
+        if "".join(kit.lower().split()) in compact:
+            return kit
+    return str(raw)
+
+
 def _is_tiertest_duel(conn, player_a_id: int, player_b_id: int, kit: str) -> bool:
     """True, если у одного из двух игроков сейчас идёт тиртест на этот кит."""
     now = tiertest._iso(tiertest._now())
@@ -113,18 +132,20 @@ def _handle_duel_started(conn, event: DuelStarted) -> Outcome:
         })
 
     # Старая Elo-дуэль: матч не создаём. Остаются только дуэли тиртеста (раунды считаются).
-    if not _is_tiertest_duel(conn, player_a_id, player_b_id, event.kit):
-        return Outcome("ignored_elo_duel", {"kit": event.kit, "player_a": event.player_a, "player_b": event.player_b})
+    kit = _canonical_kit(event.kit)
+    if not _is_tiertest_duel(conn, player_a_id, player_b_id, kit):
+        return Outcome("ignored_elo_duel", {"kit": event.kit, "canonical_kit": kit,
+                                            "player_a": event.player_a, "player_b": event.player_b})
 
     cancelled_a = _ensure_no_active_match(conn, player_a_id, event.player_a)
     cancelled_b = _ensure_no_active_match(conn, player_b_id, event.player_b)
 
-    match_id = db.create_match(conn, kit=event.kit, player_a_name=event.player_a,
+    match_id = db.create_match(conn, kit=kit, player_a_name=event.player_a,
                                 player_b_name=event.player_b)
 
     return Outcome("match_started", {
         "match_id": match_id,
-        "kit": event.kit,
+        "kit": kit,
         "player_a": event.player_a,
         "player_b": event.player_b,
         "cancelled_stale_match_ids": [m for m in (cancelled_a, cancelled_b) if m is not None],
