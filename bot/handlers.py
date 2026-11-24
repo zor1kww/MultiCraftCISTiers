@@ -13,11 +13,12 @@ handle_event(conn, event) - единственная точка входа. Пр
 """
 
 from dataclasses import dataclass, field
+from datetime import timedelta
 from typing import Optional
 
 import db
 from relay_parser import (
-    DeviceSet, DuelStarted, PlayerConnected, PlayerDied, PlayerDisconnected,
+    DeviceSet, DuelStarted, PlayerConnected, RetireChange, PlayerDied, PlayerDisconnected,
     PlayerRemoved, PlayerRestored, RegionSet, TierTestRequested,
 )
 import tiertest
@@ -78,6 +79,8 @@ def handle_event(conn, event) -> Outcome:
     if isinstance(event, TierTestRequested):
         code, detail = tiertest.start_tiertest(conn, event.player, event.kit)
         return Outcome(code, detail)
+    if isinstance(event, RetireChange):
+        return _handle_retire_change(conn, event)
     raise TypeError(f"неизвестный тип события: {type(event)!r}")
 
 
@@ -209,6 +212,53 @@ def _handle_region_set(conn, event: RegionSet) -> Outcome:
     return Outcome("region_set", {
         "player": target, "set_by": event.player, "region": region, "previous": previous,
     })
+
+
+RETIRE_COOLDOWN_DAYS = 30   # повторно уйти в Retired можно через месяц после выхода
+RETIRE_MAX_TIER_SUFFIX = "123"  # Retired только на рангах 1-3 (HT/LT/MT)
+
+
+def _handle_retire_change(conn, event: "RetireChange") -> Outcome:
+    base = {"player": event.player, "kit": event.kit}
+    kit = tiertest.resolve_kit(event.kit)
+    if kit is None:
+        return Outcome("retire_kit_invalid", base)
+    player_id = db.find_player_id(conn, event.player)
+    row = None
+    if player_id is not None:
+        row = conn.execute(
+            "SELECT tier, retired, retired_changed_at FROM pts_ratings WHERE player_id = ? AND kit = ?",
+            (player_id, kit),
+        ).fetchone()
+    if row is None:
+        return Outcome("retire_no_rating", {**base, "kit": kit})
+    tier, retired, changed_at = row["tier"], bool(row["retired"]), row["retired_changed_at"]
+    now = tiertest._now()
+    detail = {**base, "kit": kit, "tier": tier}
+
+    if event.retire:
+        if retired:
+            return Outcome("retire_already", detail)
+        if tier[-1] not in RETIRE_MAX_TIER_SUFFIX:
+            return Outcome("retire_tier_too_high", detail)
+        if changed_at and (now - tiertest._parse(changed_at)).days < RETIRE_COOLDOWN_DAYS:
+            detail["available_at"] = (tiertest._parse(changed_at) + timedelta(days=RETIRE_COOLDOWN_DAYS)).isoformat()
+            return Outcome("retire_cooldown", detail)
+        conn.execute(
+            "UPDATE pts_ratings SET retired = 1, retired_changed_at = ? WHERE player_id = ? AND kit = ?",
+            (tiertest._iso(now), player_id, kit),
+        )
+        conn.commit()
+        return Outcome("retired_set", detail)
+
+    if not retired:
+        return Outcome("unretire_not_retired", detail)
+    conn.execute(
+        "UPDATE pts_ratings SET retired = 0, retired_changed_at = ? WHERE player_id = ? AND kit = ?",
+        (tiertest._iso(now), player_id, kit),
+    )
+    conn.commit()
+    return Outcome("unretired", detail)
 
 
 def _handle_device_set(conn, event: DeviceSet) -> Outcome:
