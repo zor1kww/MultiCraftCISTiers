@@ -296,3 +296,13 @@ def publish_tiertest(conn, tiertest_id: int) -> None:
             get_publisher().publish_html(*built)
     except Exception as e:  # noqa: BLE001
         print(f"[tg-results] не удалось подготовить пост по тиртесту {tiertest_id}: {e}")
+
+
+def publish_retire(player_name: str, kit: str, tier: str, entering: bool) -> None:
+    """Пост о входе/выходе из Retired. Сбой не влияет на смену статуса."""
+    try:
+        import tiertest_posts
+        text, is_high = tiertest_posts.build_retire_post(player_name, kit, tier, entering)
+        get_publisher().publish_html(text, is_high)
+    except Exception as e:  # noqa: BLE001
+        print(f"[tg-results] не удалось подготовить пост о Retired для {player_name}: {e}")
