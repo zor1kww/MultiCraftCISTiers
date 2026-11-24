@@ -237,6 +237,9 @@ def _relation_for(test: dict, opponent_tier: str, opponent_id: int) -> Optional[
     if test["mode"] == "top":
         required = json.loads(test["required_json"] or "[]")
         return "top" if opponent_id in required else None
+    if opponent_tier is None:
+        # Соперник без ранга засчитывается только игроку без ранга, и только как «выше» (первый ранг).
+        return "higher" if test["current_tier"] is None else None
     opp_idx = tier_index(opponent_tier)
     if opp_idx is None:
         return None
@@ -265,7 +268,9 @@ def _count_round(conn, test: dict, opponent_id: int, tester_won: bool, now: date
     tester_id = test["player_id"]
     opp_tier, opp_retired = get_rating(conn, opponent_id, kit)
     base = {"tiertest_id": test["id"], "player": _name(conn, tester_id), "opponent": _name(conn, opponent_id), "kit": kit}
-    if opp_tier is None or opp_retired:
+    # Игрок без ранга может получить первый ранг, выиграв у соперника тоже без ранга.
+    tester_unranked = test["current_tier"] is None
+    if opp_retired or (opp_tier is None and not tester_unranked):
         return {**base, "event": "round_ignored", "reason": "у соперника нет активного ранга на ките"}
 
     relation = _relation_for(test, opp_tier, opponent_id)
