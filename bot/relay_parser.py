@@ -125,6 +125,9 @@ _RE_SET_DEVICE = re.compile(
     _CMD_PREFIX + _CMD_SLASH + r'set_device\s+(?P<target>' + _NICK + r')\s+(?P<device>\S+)\s*$',
     re.IGNORECASE,
 )
+_RE_RETIRE = re.compile(
+    _CMD_PREFIX + _CMD_SLASH + r'(?P<cmd>unretire|retire)\s+(?P<kit>.+?)\s*$', re.IGNORECASE,
+)
 _RE_REMOVE_PLAYER = re.compile(
     _CMD_PREFIX + _CMD_SLASH + r'remove_player\s+(?P<target>' + _NICK + r')\s*$', re.IGNORECASE,
 )
@@ -191,13 +194,20 @@ class PlayerRestored:
 
 
 @dataclass(frozen=True)
+class RetireChange:
+    player: str   # сам игрок (команды без админа)
+    kit: str      # как написал игрок; кит проверяет handlers.py
+    retire: bool  # True - \\retire, False - \\unretire
+
+
+@dataclass(frozen=True)
 class TierTestRequested:
     player: str
     kit: str      # как написал игрок; кит проверяет tiertest.py
 
 
 Event = Union[DuelStarted, PlayerDied, PlayerConnected, PlayerDisconnected, RegionSet,
-              DeviceSet, PlayerRemoved, PlayerRestored, TierTestRequested]
+              DeviceSet, PlayerRemoved, PlayerRestored, TierTestRequested, RetireChange]
 
 
 # ==========================================
@@ -218,6 +228,14 @@ def parse_set_region(text: str) -> Optional[RegionSet]:
     if not m:
         return None
     return RegionSet(player=m.group('player'), region=m.group('region'), target=m.group('target'))
+
+
+def parse_player_command(text: str):
+    """\\retire КИТ / \\unretire КИТ или None."""
+    m = _RE_RETIRE.match(_normalize(text))
+    if not m:
+        return None
+    return RetireChange(m.group('player'), m.group('kit'), m.group('cmd').lower() == 'retire')
 
 
 def parse_admin_command(text: str):
@@ -364,6 +382,10 @@ class RelayParser:
             return event
 
         event = parse_tiertest(text)
+        if event is not None:
+            return event
+
+        event = parse_player_command(text)
         if event is not None:
             return event
 
