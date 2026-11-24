@@ -83,3 +83,13 @@ def build_post(conn, tiertest_id: int):
               T.tier_index(test["result_tier"] or test["target_tier"]) or -1,
               T.tier_index(test["target_tier"]) or -1)
     return "\n".join(lines), top >= high_idx
+
+
+def build_retire_post(player_name: str, kit: str, tier: str, entering: bool):
+    """Пост о входе в Retired (entering=True) или выходе из него. Возвращает (html, is_high).
+    Топик тот же, что у тиртестов: высокий ранг (не ниже HT3) - высокие результаты."""
+    action = "уходит в Retired" if entering else "выходит из Retired"
+    text = f"<b>Игрок {_link(player_name)} {action} {html.escape(kit)}</b>"
+    idx = T.tier_index(tier)
+    is_high = idx is not None and idx >= T.tier_index("HT3")
+    return text, is_high
