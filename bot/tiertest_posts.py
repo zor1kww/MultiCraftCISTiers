@@ -25,7 +25,9 @@ SEPARATOR = "\u2501" * 14
 
 
 def tier_title(tier: str) -> str:
-    """'HT3' -> 'High Tier 3'."""
+    """'HT3' -> 'High Tier 3'. None (соперник без ранга) -> 'Unranked'."""
+    if not tier:
+        return "Unranked"
     return f"{_TIER_WORDS.get(tier[:2], tier[:2])} {tier[2:]}"
 
 
@@ -73,7 +75,8 @@ def build_post(conn, tiertest_id: int):
     player = _link(test["player_name"])
     lines = [f"<b>{player} {html.escape(action)}</b>", "", "<b>Поединки:</b>"]
     for tier in sorted(groups, key=lambda x: T.tier_index(x) if T.tier_index(x) is not None else -1):
-        lines += ["", f"<b>\u25b8 Против {tier_title(tier)}</b>"]
+        heading = "игрока без ранга" if not tier else tier_title(tier)
+        lines += ["", f"<b>\u25b8 Против {heading}</b>"]
         for g in groups[tier]:
             lines.append(f"<b>{player}  {g['wins_player']}:{g['wins_opponent']}  {_link(g['opponent_name'])}</b>")
     lines += ["", f"<b>{SEPARATOR}</b>", f"<b>Текущий средний ранг: {average_tier(conn, test['player_id'])}</b>"]
