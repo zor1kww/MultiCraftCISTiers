@@ -108,6 +108,9 @@ class RelayClient(discord.Client):
 
     async def on_ready(self):
         print(f"[discord] Бот запущен как {self.user}, слушаю канал {self.relay_channel_id}")
+        import relay_parser as _rp
+        print("[discord] команды: retire/unretire=" + ("да" if hasattr(_rp, "parse_player_command") else "НЕТ (старый relay_parser)")
+              + ", tiertest=" + ("да" if tiertest is not None else "НЕТ"))
 
         # Разовая зачистка подвисших с прошлого запуска матчей - см.
         # docstring handlers.sweep_stale_matches про то, зачем это нужно.
@@ -174,10 +177,15 @@ class RelayClient(discord.Client):
                 # именно из-за них дуэль может тихо не засчитаться.
                 elif text.startswith("\U0001FAA6") or "погиб" in text.lower():
                     print(f"[discord] смерть не разобрана: {text!r}")
+                # Команды игроков/админов с обратным слешем, которые парсер не принял:
+                # иначе они пропадают бесследно.
+                elif "\\" in text:
+                    print(f"[discord] команда не разобрана: {text!r}")
             else:
                 print(f"[discord] {outcome.action}: {outcome.detail}")
                 if outcome.action in ("match_finished", "region_set", "device_set",
-                                      "player_removed", "player_restored"):
+                                      "player_removed", "player_restored",
+                                      "retired_set", "unretired"):
                     # Эло/история или регион изменились - снимок для сайта устарел
                     self.refresher.mark_dirty()
                     self.pts_refresher.mark_dirty()  # регион/PC/скрытие влияют и на киты
