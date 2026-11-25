@@ -444,10 +444,11 @@ function ovSingleTileHTML(iconSrc, tier, retired, title) {
 // Строка игрока в топе на главной (PTS и мини-игры). unit - подпись под числом
 function homeLeaderRowHTML(player, index, tierHTML, value, unit, onclick) {
     return `<button type="button" class="home-leader-row home-leader-row-${index + 1}" onclick="${onclick}">
-        <span class="home-leader-position home-leader-position-${index + 1}">${index + 1}</span>
-        <span class="home-leader-avatar">${skinImgHTML(player, 'home-leader-skin')}</span>
-        <span class="home-leader-info"><strong>${escapeHTML(player.name)}</strong><span class="home-region-tag">${escapeHTML(player.region || '?')}</span></span>
-        <span class="home-leader-tier">${tierHTML}</span>
+        <span class="home-leader-avatar">${skinImgHTML(player, 'home-leader-skin')}<span class="home-leader-position home-leader-position-${index + 1}">${index + 1}</span></span>
+        <span class="home-leader-info">
+            <strong>${escapeHTML(player.name)}</strong>
+            <span class="home-leader-meta"><span class="home-leader-tier">${tierHTML}</span><span class="home-region-tag">${escapeHTML(player.region || '?')}</span></span>
+        </span>
         <span class="home-leader-score"><strong>${value}</strong><span>${unit}</span></span>
     </button>`;
 }
