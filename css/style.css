@@ -2368,3 +2368,7 @@ body:not(.skin-ready) .skin-img { opacity: 0; }
 .chips-wrap .chip { height: 40px; }
 .sheet-done { height: 48px; border-radius: var(--ctl-r); padding: 0; }
 .toggle-row { min-height: 48px; }
+
+/* Логотип в шапке: картинка вместо текстовой надписи */
+.logo img { display: block; height: 34px; width: auto; max-width: 100%; }
+@media (max-width: 360px) { .logo img { height: 30px; } }
