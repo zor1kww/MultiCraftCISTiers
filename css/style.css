@@ -2372,3 +2372,17 @@ body:not(.skin-ready) .skin-img { opacity: 0; }
 /* Логотип в шапке: картинка вместо текстовой надписи */
 .logo img { display: block; height: 34px; width: auto; max-width: 100%; }
 @media (max-width: 360px) { .logo img { height: 30px; } }
+
+/* Логотип: занимает всё свободное место слева от кнопок шапки */
+.header { padding-top: 8px; padding-bottom: 8px; }
+.logo { flex: 1 1 auto; min-width: 0; }
+.logo img { height: clamp(46px, 17vw, 72px); width: auto; max-width: 100%; }
+
+/* Карточка игрока на главной: скин прижат влево, ник/ранг/регион в колонке, PTS справа */
+.home-leader-row { padding: 10px 10px 10px 0; gap: 12px; overflow: hidden; }
+.home-leader-avatar { flex: 0 0 64px; width: 64px; height: 64px; border-radius: 0 14px 14px 0; }
+.home-leader-position { position: absolute; top: 4px; left: 6px; z-index: 1; min-width: 20px; padding: 1px 5px; border-radius: 8px; background: rgba(7, 11, 23, .72); font-size: 13px; line-height: 1.3; flex: none; }
+.home-leader-info { gap: 5px; }
+.home-leader-meta { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.home-leader-meta .home-leader-tier { flex: 0 0 auto; }
+@media (max-width: 360px) { .home-leader-avatar { flex-basis: 56px; width: 56px; height: 56px; } }
